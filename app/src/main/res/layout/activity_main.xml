@@ -15,4 +15,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"/>
+    <Button
+        android:id="@+id/dsfgdg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sdsffa"
+        />
 </RelativeLayout>

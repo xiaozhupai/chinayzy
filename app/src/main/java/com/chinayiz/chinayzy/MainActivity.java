@@ -1,17 +1,27 @@
 package com.chinayiz.chinayzy;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
-    private Context mContext;
-    private Button mButton;
+import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.presenter.MainPresenter;
+
+
+public class MainActivity extends BaseActivity<MainPresenter> {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
     }
+
+    @Override
+    protected MainPresenter initPresenter() {
+        return new MainPresenter();
+    }
+
+    @Override
+    protected void onCreateActivity(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_main);
+    }
+
+
 }
