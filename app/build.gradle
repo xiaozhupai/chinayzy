@@ -32,6 +32,13 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.12.0'
     //事件总线Event bus
     compile 'org.greenrobot:eventbus:3.0.0'
+    //首页广告轮播banner
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    //对话框
+    compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
     compile files('libs/okhttp-3.5.0.jar')
     compile files('libs/okhttputils-2_6_2.jar')
+    compile files('libs/lite-orm-1.9.2.jar')
+    compile files('libs/gson-2.8.0.jar')
+    compile files('libs/okio-1.11.0.jar')
 }

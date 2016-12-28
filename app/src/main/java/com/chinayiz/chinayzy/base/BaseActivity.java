@@ -3,13 +3,15 @@ package com.chinayiz.chinayzy.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.chinayiz.chinayzy.utils.SPUtils;
+
 /**
  * author  by  Canrom7 .
  * CreateDate 2016/12/27 9:59
  * Class BaseActivity
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView {
-
+    protected SPUtils mSPUtils;
     protected T mPresenter;
 
     @Override
@@ -23,6 +25,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         onCreateActivity(savedInstanceState);
         //初始化Presenter
         mPresenter.onCreate();
+        //初始化PSUtils
+        mSPUtils=SPUtils.getInsance(this,"UserPreferences");
     }
 
 

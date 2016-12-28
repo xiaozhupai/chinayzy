@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">chinayzy</string>
+    <string name="update_CheckBox_Messgea">不再提醒</string>
+
 </resources>
