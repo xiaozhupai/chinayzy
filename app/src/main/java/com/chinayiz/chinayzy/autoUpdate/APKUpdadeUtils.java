@@ -58,7 +58,7 @@ public class APKUpdadeUtils {
                 WarnUserUpdate(context);
                 return;
             }
-            case Version.NEW_VERSION:{//有新版本
+            case Version.NEW_VERSION:{//有新版本提醒
                if(!isWarnUser){
                    return;
                }
