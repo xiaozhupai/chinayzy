@@ -7,6 +7,7 @@ import android.os.Bundle;
  * CreateDate 2016/12/27 9:56
  * Class BasePresenter
  */
+
 public abstract class BasePresenter<T extends BaseView> {
     protected T mView;
 

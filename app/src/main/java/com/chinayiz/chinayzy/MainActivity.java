@@ -15,7 +15,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -28,7 +27,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         setContentView(R.layout.activity_main);
         initView();
     }
-
 
     private void initView() {
         mDsfgdg = (Button) findViewById(R.id.dsfgdg);
