@@ -5,10 +5,10 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.base.BasePresenter;
 
 /**
- * Created by Administrator on 2017/1/3.
+ * Created by Administrator on 2017/1/4.
  */
 
-public class ForgotPresenter extends BasePresenter {
+public class ResultPresenter extends BasePresenter {
     @Override
     public void onCreate() {
 

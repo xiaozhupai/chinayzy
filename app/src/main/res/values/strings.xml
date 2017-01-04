@@ -5,4 +5,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register_protocol">《用户使用协议》</string>
+    <string name="find_text1">推荐</string>
+    <string name="find_text2">推荐</string>
+    <string name="find_text3">推荐</string>
+    <string name="find_text4">推荐</string>
 </resources>

@@ -8,7 +8,7 @@ import com.chinayiz.chinayzy.base.BasePresenter;
  * Created by Administrator on 2017/1/3.
  */
 
-public class ForgotPresenter extends BasePresenter {
+public class ShopCartPresenter extends BasePresenter {
     @Override
     public void onCreate() {
 

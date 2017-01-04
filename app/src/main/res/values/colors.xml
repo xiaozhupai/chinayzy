@@ -4,4 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="color_line">#f25e73</color>
+    <color name="find_text">#0b1b01</color>
+    <color name="find_green_text">#6db430</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="find_item_content">#7e7e7e</color>
+    <color name="find_item_logo_text">#373737</color>
+    <color name="red">#ff3951</color>
 </resources>
