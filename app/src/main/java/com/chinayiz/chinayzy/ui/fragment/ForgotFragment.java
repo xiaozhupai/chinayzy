@@ -23,6 +23,7 @@ public class ForgotFragment extends BaseFragment<ForgotPresenter> {
     }
 
 
+
     @Override
     protected void lazyLoad() {
 
