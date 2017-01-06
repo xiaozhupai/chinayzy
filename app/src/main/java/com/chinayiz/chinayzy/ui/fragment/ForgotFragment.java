@@ -18,11 +18,10 @@ import com.chinayiz.chinayzy.presenter.ForgotPresenter;
  * A simple {@link Fragment} subclass.
  */
 public class ForgotFragment extends BaseFragment<ForgotPresenter> {
-
     @Override
     protected void onVisible() {
-
     }
+
 
     @Override
     protected void lazyLoad() {
