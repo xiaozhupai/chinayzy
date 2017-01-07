@@ -35,6 +35,7 @@
             android:clickable="true"
             />
         <View
+            android:id="@+id/v_slide"
             android:layout_width="39dp"
             android:layout_height="2dp"
             android:layout_marginTop="14dp"
@@ -96,7 +97,6 @@
                 android:layout_marginTop="14dp"
                 android:clickable="true"
                 />
-
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>

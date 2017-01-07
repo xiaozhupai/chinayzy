@@ -17,8 +17,8 @@
                 android:id="@+id/ivlogo"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_marginTop="82dp"
-                android:layout_marginLeft="143dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
                 android:background="#ffffff"
                 android:clickable="true"
                 />
@@ -334,6 +334,7 @@
                         android:layout_toLeftOf="@+id/tv_register_sendmessage"
                         android:background="@null"
                         android:singleLine="true"
+                        android:inputType="number"
                         />
                     <TextView
                         android:id="@+id/tv_register_sendmessage"
@@ -347,6 +348,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@mipmap/login_bg_frame"
                         android:gravity="center"
+                        android:padding="5dp"
                         />
                     <View
                         android:id="@+id/v_register_line"

@@ -244,7 +244,7 @@ public class Task<T> {
 //        Map<String,String> params=new HashMap<>();
 //        params.put("userid", username);
 //        params.put("password",password);
-//        doPost(Constants._URL + "fragment_login.action", params, type, callBack);
+//        doPost(Constants._URL + "acitivity_login.action", params, type, callBack);
 //    }
 //
 //    public void toDownLoad(Map<String,List<String>> maps,HttpCallBack<T> callBack){

@@ -68,13 +68,13 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
 
     /**
      * @param context
-     * @param type 0 我的分享 1购买成功 2详情分享 3发现分享 4分享APP 5 邀请好友
+
      */
 
-    public ShareDialog(Context context, int type) {
+    public ShareDialog(Context context) {
         super(context, R.style.Dialog);
         this.context = context;
-        this.type = type;
+
     }
 
     /* (non-Javadoc)

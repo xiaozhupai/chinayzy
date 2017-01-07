@@ -37,12 +37,14 @@
                     android:paddingTop="0dp"
                     android:inputType="phone"
                     android:singleLine="true"
+                    android:background="@null"
                     />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="#fe4d68"
+                android:layout_marginTop="13dp"
                 />
 
             <RelativeLayout
@@ -71,6 +73,7 @@
                     android:layout_toLeftOf="@+id/tv_forgot_sendmessage"
                     android:singleLine="true"
                     android:inputType="number"
+                    android:background="@null"
                     />
                 <TextView
                     android:id="@+id/tv_forgot_sendmessage"
@@ -84,6 +87,7 @@
                     android:layout_alignParentRight="true"
                     android:background="@mipmap/login_bg_frame"
                     android:gravity="center"
+                    android:padding="5dp"
                     />
                 <View
                     android:id="@+id/v_register_line"
@@ -117,12 +121,14 @@
                     android:paddingTop="0dp"
                     android:inputType="textPassword"
                     android:singleLine="true"
+                    android:background="@null"
                     />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="#fe4d68"
+                android:layout_marginTop="13dp"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,12 +152,14 @@
                     android:paddingTop="0dp"
                     android:inputType="textPassword"
                     android:singleLine="true"
+                    android:background="@null"
                     />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="#fe4d68"
+                android:layout_marginTop="13dp"
                 />
         </LinearLayout>
 
@@ -171,6 +179,7 @@
                 android:textColor="#B58484"
                 />
             <TextView
+                android:id="@+id/tv_forgot_pact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="《用户使用协议》"
@@ -179,6 +188,7 @@
                 />
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_forgot_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="提交"

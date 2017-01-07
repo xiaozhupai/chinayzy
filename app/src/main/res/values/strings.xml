@@ -9,4 +9,5 @@
     <string name="find_text2">推荐</string>
     <string name="find_text3">推荐</string>
     <string name="find_text4">推荐</string>
+    <string name="title_activity_forgot">ForgotActivity</string>
 </resources>
