@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingRight="12dp"
+    android:paddingLeft="12dp"
+    >
+    <ImageView
+        android:id="@+id/iv_shopkeep_list_image"
+        android:layout_width="73dp"
+        android:layout_height="56dp"
+        android:src="@mipmap/ic_launcher"
+        />
+    <LinearLayout
+        android:id="@+id/lv_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/iv_arrow_right"
+        android:layout_toRightOf="@+id/iv_shopkeep_list_image"
+        >
+        <TextView
+            android:id="@+id/tv_shopkeep_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="XC原创衣家"
+            android:textColor="#252525"
+            android:textSize="13sp"
+            android:layout_marginTop="11dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/tv_shopkeep_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#acacac"
+                android:text="968人收藏"
+                android:layout_marginTop="14dp"
+                />
+            <TextView
+                android:id="@+id/tv_shopkeep_evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#acacac"
+                android:text="综合评价6.1"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="28dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_arrow_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_back_arrow"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+
+
+
+
+</RelativeLayout>

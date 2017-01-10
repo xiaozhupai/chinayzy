@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+      android:layout_marginRight="8dp"
+    >
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="right"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="包邮  总计："
+        android:textSize="13sp"
+        android:textColor="#acacac"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥148.00"
+        android:textColor="#ff3951"
+        android:textSize="18sp"
+        />
+</LinearLayout>
+    <View
+        style="@style/Divider"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_corner_red"
+        android:text="删除订单"
+        android:textColor="@color/white"
+        android:paddingLeft="12dp"
+        android:paddingTop="5dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="5dp"
+        android:gravity="center"
+        android:layout_gravity="right"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        />
+    <View
+
+        style="@style/Divider"/>
+</LinearLayout>

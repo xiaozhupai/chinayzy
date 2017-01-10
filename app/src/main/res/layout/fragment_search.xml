@@ -66,16 +66,16 @@
             f:orientation="horizontal"
             f:verticalSpacing="@dimen/tag_vertical_spacing"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="#e0e4e6"
-        />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="8dp"-->
+        <!--android:background="#e0e4e6"-->
+        <!--/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
+
         android:layout_marginLeft="16dp"
         >
         <RelativeLayout
