@@ -86,8 +86,7 @@
              android:gravity="center"
              />
      </LinearLayout>
-
-   <View
+     <View
        android:id="@+id/v_order_slide"
        android:layout_width="72dp"
        android:layout_height="4px"

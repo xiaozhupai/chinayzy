@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.presenter.ConvertPresenter;
+import com.chinayiz.chinayzy.base.BasePresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConvertFragment extends BaseFragment<ConvertPresenter> {
+public class CardFragment extends BaseFragment{
 
 
     @Override
@@ -32,7 +32,7 @@ public class ConvertFragment extends BaseFragment<ConvertPresenter> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_convert, container, false);
+        return inflater.inflate(R.layout.fragment_card, container, false);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ConvertFragment extends BaseFragment<ConvertPresenter> {
     }
 
     @Override
-    public ConvertPresenter initPresenter() {
+    public BasePresenter initPresenter() {
         return null;
     }
 

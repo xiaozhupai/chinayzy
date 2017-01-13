@@ -15,7 +15,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.FindDetailPresenter;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 
-/**
+/**发现详情
  * A simple {@link Fragment} subclass.
  */
 public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implements View.OnClickListener {

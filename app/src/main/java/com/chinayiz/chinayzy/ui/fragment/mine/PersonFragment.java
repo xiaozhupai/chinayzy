@@ -10,29 +10,26 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.presenter.PersonPresenter;
 
-/**订单列表
+/**个人资料
  * A simple {@link Fragment} subclass.
  */
-public class OrderListFragment extends BaseFragment {
-
+public class PersonFragment extends BaseFragment<PersonPresenter> {
 
     @Override
     protected void onVisible() {
-
     }
 
     @Override
     protected void lazyLoad() {
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_list, container, false);
+        return inflater.inflate(R.layout.fragment_person, container, false);
     }
 
     @Override
@@ -41,8 +38,8 @@ public class OrderListFragment extends BaseFragment {
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public PersonPresenter initPresenter() {
+        return new PersonPresenter();
     }
 
     @Override

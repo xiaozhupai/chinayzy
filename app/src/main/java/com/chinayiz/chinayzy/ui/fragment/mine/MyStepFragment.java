@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.MyStepPresenter;
 
-/**
+/**我的足迹
  * A simple {@link Fragment} subclass.
  */
 

@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.GoodsKeepPresenter;
 
-/**
+/**   宝贝收藏
  * A simple {@link Fragment} subclass.
  */
 public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {

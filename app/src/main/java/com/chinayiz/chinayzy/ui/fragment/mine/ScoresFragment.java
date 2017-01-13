@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.ScoresPresenter;
 
-/**
+/**    我的积分
  * A simple {@link Fragment} subclass.
  */
 public class ScoresFragment extends BaseFragment<ScoresPresenter> {

@@ -15,6 +15,10 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.ForgotPresenter;
 import com.chinayiz.chinayzy.utils.TimeUntils;
 
+/**
+ * 忘记密码
+ */
+
 public class ForgotActivity extends BaseActivity<ForgotPresenter> implements View.OnClickListener,Handler.Callback {
 
     private static final int MSG_NUM=5;

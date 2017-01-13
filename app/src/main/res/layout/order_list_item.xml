@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     >
  <ImageView
+     android:id="@+id/iv_order_image"
      android:layout_width="74dp"
      android:layout_height="84dp"
      android:src="@mipmap/ic_launcher"
@@ -17,6 +18,7 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/tv_order_title"
             android:layout_width="208dp"
             android:layout_height="wrap_content"
             android:text="鲜活波士顿龙虾700g,鲜活波士顿龙虾700g"
@@ -25,6 +27,7 @@
             android:textColor="#050505"
             />
         <TextView
+            android:id="@+id/tv_order_norm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
              android:text="白色"
@@ -41,6 +44,7 @@
         android:gravity="right"
         >
         <TextView
+            android:id="@+id/tv_order_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥148.00"
@@ -49,6 +53,7 @@
             android:textColor="#050505"
             />
         <TextView
+            android:id="@+id/tv_order_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="×1"

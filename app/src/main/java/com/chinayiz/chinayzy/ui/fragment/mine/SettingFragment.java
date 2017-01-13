@@ -94,22 +94,22 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_to_person:
+            case R.id.rl_to_person:   //个人中心
 
                 break;
-            case R.id.rl_to_cache:
+            case R.id.rl_to_cache:   //清楚缓存
 
                 break;
-            case R.id.rl_two_code:
+            case R.id.rl_two_code:   //分享二维码
 
                 break;
-            case R.id.rl_version:
+            case R.id.rl_version:   //版本更新
 
                 break;
-            case R.id.rl_about_us:
+            case R.id.rl_about_us:  //关于我们
 
                 break;
-            case R.id.tv_logout:
+            case R.id.tv_logout:   //退出登录
 
                 break;
         }

@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
 
-/**
+/**购物车
  * A simple {@link Fragment} subclass.
  */
 public class ShopCartFragment extends BaseFragment<ShopCartPresenter> {

@@ -10,6 +10,9 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
 
+/**
+ * 个人中心
+ */
 public class MineActivity extends BaseActivity<MinePresenter> implements View.OnClickListener {
     private ImageView iv_mine_user_logo;
     private ImageView iv_mine_user_sex;

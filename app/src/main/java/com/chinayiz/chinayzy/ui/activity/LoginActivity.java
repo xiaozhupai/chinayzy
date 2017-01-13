@@ -27,6 +27,9 @@ import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 
+/**
+ * 注册登录
+ */
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements View.OnClickListener, PlatformActionListener, Callback{
     private static final int MSG_SMSSDK_CALLBACK = 1;

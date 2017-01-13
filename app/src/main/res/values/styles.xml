@@ -33,4 +33,37 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/icon_back_arrow"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:layout_marginRight="12dp"
+    <style name="Image_arrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@mipmap/icon_back_arrow</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="Person_left_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#505050</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_marginBottom">14dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+    </style>
+    <style name="Person_right_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#b9b9b9</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">6dp</item>
+    </style>
 </resources>

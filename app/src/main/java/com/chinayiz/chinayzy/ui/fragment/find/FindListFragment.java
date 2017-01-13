@@ -14,7 +14,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.BasePresenter;
 
-/**
+/** 发现列表
  * A simple {@link Fragment} subclass.
  */
 public class FindListFragment extends BaseFragment implements AdapterView.OnItemClickListener {

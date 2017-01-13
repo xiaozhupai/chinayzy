@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
 
-/**
+/**结算订单
  * A simple {@link Fragment} subclass.
  */
 public class ResultFragment extends BaseFragment<ResultPresenter> {

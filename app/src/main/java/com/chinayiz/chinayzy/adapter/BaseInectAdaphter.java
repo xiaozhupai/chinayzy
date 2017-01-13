@@ -12,8 +12,13 @@ import java.util.List;
  */
 
 public class BaseInectAdaphter<T> extends BaseAdapter {
-    private List<T> lists;
-    private Context context;
+    public List<T> lists;
+    public Context context;
+
+    public   void  setData(List<T> lists){
+        this.lists=lists;
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return lists==null?0:lists.size();

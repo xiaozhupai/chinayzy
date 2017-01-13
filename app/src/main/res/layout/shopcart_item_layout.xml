@@ -21,6 +21,7 @@
         />
     <!--编辑前的VIEW-->
     <LinearLayout
+        android:id="@+id/lv_before"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -76,11 +77,13 @@
     </LinearLayout>
  <!--编辑后的VIEW-->
     <LinearLayout
+        android:id="@+id/lv_after"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="14dp"
         android:layout_marginRight="13dp"
+        android:visibility="visible"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,6 +91,7 @@
             android:orientation="horizontal"
             >
             <ImageView
+                android:id="@+id/iv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/img_left_remove"
@@ -105,6 +109,7 @@
                 android:gravity="center"
                 />
             <ImageView
+                android:id="@+id/iv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/img_right_add"
@@ -115,34 +120,41 @@
                 android:paddingRight="15dp"
                 />
         </LinearLayout>
-        <RelativeLayout
+        <Spinner
+            android:id="@+id/sp_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@mipmap/img_bg_corner"
             android:layout_marginTop="10dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="颜色;白色"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="9dp"
-                android:layout_centerVertical="true"
-                android:textColor="#828389"
-                android:textSize="12sp"
-                />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@mipmap/icon_arrow_boom"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="11dp"
-                android:layout_marginRight="7dp"
-                />
-        </RelativeLayout>
+            ></Spinner>
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:background="@mipmap/img_bg_corner"-->
+
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="颜色;白色"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginLeft="9dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:textColor="#828389"-->
+                <!--android:textSize="12sp"-->
+                <!--/>-->
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:src="@mipmap/icon_arrow_boom"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginTop="11dp"-->
+                <!--android:layout_marginRight="7dp"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
 
     </LinearLayout>
 </LinearLayout>

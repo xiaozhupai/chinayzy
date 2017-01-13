@@ -23,6 +23,7 @@
         android:layout_toRightOf="@+id/iv_goodskeep_imag"
         >
         <TextView
+            android:id="@+id/tv_goodskeep_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="鲜活波士顿大虾 700g一盒 自鲜水产营活海鲜自鲜水产营活海鲜"
@@ -31,6 +32,7 @@
             android:layout_marginTop="11dp"
             />
         <TextView
+            android:id="@+id/tv_goodskeep_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
