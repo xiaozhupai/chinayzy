@@ -16,6 +16,11 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     }
 
     @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
 
     }

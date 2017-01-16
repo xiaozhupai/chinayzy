@@ -1,9 +1,12 @@
 package com.chinayiz.chinayzy.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
-import com.chinayiz.chinayzy.utils.SPUtils;
+import com.chinayiz.chinayzy.utils.BarUtils;
 
 /**
  * author  by  Canrom7 .
@@ -11,8 +14,8 @@ import com.chinayiz.chinayzy.utils.SPUtils;
  * Class BaseActivity
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView {
-    protected SPUtils mSPUtils;
     protected T mPresenter;
+    protected static Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         onCreateActivity(savedInstanceState);
         //初始化Presenter
         mPresenter.onCreate();
-        //初始化PSUtils
-        mSPUtils=SPUtils.getInsance(this,"UserPreferences");
-    }
 
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -42,12 +43,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mPresenter.onDetach();
         super.onDestroy();
     }
-
-    @Override
-    public BaseActivity getActivity() {
-        return this;
-    }
-
     /**
      * 创建prensenter
      * @return <T extends BasePresenter> 必须是BasePresenter的子类
@@ -62,5 +57,30 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void isNightMode(boolean isNight) {
 
+    }
+
+    /**
+     * 透明/改变通知栏颜色
+     * @param activity 需要改变状态栏颜色的activity
+     * @param RGBColor 必须使用 Colr.rgb 取值才能取到有效值
+     */
+    protected void setStatuBarColor(Activity activity,int RGBColor) {
+        BarUtils.setColor(activity,RGBColor);
+    }
+
+    /**
+     * 显示吐司，解决重复延时展示问题
+     * @param context
+     * @param content
+     */
+    public static void showToast(Context context, String content) {
+        if (toast == null) {
+            toast = Toast.makeText(context,
+                    content,
+                    Toast.LENGTH_SHORT);
+        } else {
+            toast.setText(content);
+        }
+        toast.show();
     }
 }

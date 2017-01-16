@@ -24,6 +24,11 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

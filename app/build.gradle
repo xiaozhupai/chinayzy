@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.chinayiz.chinayzy"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -43,5 +43,8 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:design:25.1.0'
+    compile 'com.hedgehog.ratingbar:app:1.1.2'
+    compile 'com.zzti.fengyongge:imagepicker:1.0'
     testCompile 'junit:junit:4.12'
+
 }

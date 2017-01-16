@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -126,5 +127,10 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
         }
+    }
+
+    @Override
+    public Activity getActivity() {
+        return null;
     }
 }

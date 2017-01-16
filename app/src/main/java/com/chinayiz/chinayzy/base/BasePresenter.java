@@ -5,9 +5,8 @@ import android.os.Bundle;
 /**
  * author  by  Canrom7 .
  * CreateDate 2016/12/27 9:56
- * Class BasePresenter
+ * Class BasePresenter Presenter基类
  */
-
 public abstract class BasePresenter<T extends BaseView> {
     protected T mView;
 
@@ -25,9 +24,7 @@ public abstract class BasePresenter<T extends BaseView> {
     /**
      * 在这里结束异步操作
      */
-    public void onDestroy(){
-
-    }
+    public abstract void onDestroy();
     /**
      * 在View销毁的时候调用,解除绑定
      */
@@ -35,7 +32,8 @@ public abstract class BasePresenter<T extends BaseView> {
         mView = null;
     }
     /**
-     * 容易被回收掉时保存数据
+     * 被回收掉时保存数据
      */
     public abstract void onSaveInstanceState(Bundle outState);
+
 }

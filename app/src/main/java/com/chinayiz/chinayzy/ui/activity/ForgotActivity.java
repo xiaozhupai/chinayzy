@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -119,5 +120,10 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
             }
         }
         return false;
+    }
+
+    @Override
+    public Activity getActivity() {
+        return null;
     }
 }

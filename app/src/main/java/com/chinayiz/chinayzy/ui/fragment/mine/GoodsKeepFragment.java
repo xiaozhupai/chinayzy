@@ -24,6 +24,11 @@ public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

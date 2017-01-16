@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.ScoresPresenter;
@@ -16,16 +15,17 @@ import com.chinayiz.chinayzy.presenter.ScoresPresenter;
  * A simple {@link Fragment} subclass.
  */
 public class ScoresFragment extends BaseFragment<ScoresPresenter> {
-
-
     @Override
     protected void onVisible() {
+    }
+
+    @Override
+    protected void onInvisible() {
 
     }
 
     @Override
     protected void lazyLoad() {
-
     }
 
     @Override

@@ -28,6 +28,11 @@ public class FindListFragment extends BaseFragment implements AdapterView.OnItem
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

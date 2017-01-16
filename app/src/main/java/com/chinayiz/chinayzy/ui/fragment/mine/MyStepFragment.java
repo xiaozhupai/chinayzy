@@ -22,6 +22,11 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
     }
 

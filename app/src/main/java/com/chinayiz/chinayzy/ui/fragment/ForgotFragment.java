@@ -33,6 +33,11 @@ public class ForgotFragment extends BaseFragment<ForgotPresenter> implements Vie
     protected void onVisible() {
     }
 
+    @Override
+    protected void onInvisible() {
+
+    }
+
 
     @Override
     protected void lazyLoad() {

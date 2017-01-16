@@ -1,5 +1,5 @@
 package  com.chinayiz.chinayzy.ui.activity;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,19 +7,20 @@ import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.LoginPresenter;
 import com.chinayiz.chinayzy.utils.TimeUntils;
 
 import java.util.HashMap;
+
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -296,4 +297,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     }
 
 
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
 }

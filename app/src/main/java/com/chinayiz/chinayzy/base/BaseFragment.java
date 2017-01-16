@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
+
 /**
  * author  by  Canrom7 .
  * CreateDate 2016/12/27 10:15
@@ -16,8 +18,10 @@ import android.view.ViewGroup;
  */
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView {
     protected T mPresenter;
-    protected boolean isVisible;//fragment 懒加载标志位
-    protected Context mContext;//activity的上下文对象
+    //fragment 懒加载标志位
+    protected boolean isVisible;
+    //activity的上下文对象
+    protected Context mContext;
     protected Bundle mBundle;
 
     @Override
@@ -26,6 +30,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if (mBundle != null) {
             outState.putBundle("bundle", mBundle);
         }
+        Logger.e("onSaveInstanceState");
     }
     /**
      * 在这里实现Fragment数据的缓加载.
@@ -41,6 +46,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             isVisible = false;
             onInvisible();//当前不可见
         }
+        Logger.e("setUserVisibleHint"+isVisibleToUser);
     }
 
     /**
@@ -52,29 +58,29 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
      * fragment不可见,且视图有肯能为null
      * lazyLoad延迟到子类一并判断
      */
-    protected void onInvisible(){
-        lazyLoad();
-    }
+    protected abstract void onInvisible();
 
     /**
-     * 懒加载填充数据
+     * fragment可见,懒加载填充数据
      */
-    protected  abstract void lazyLoad();
+    protected  void lazyLoad(){
+        lazyLoad();
+        Logger.e("lazyLoad");
+    }
     /**
      * 绑定activity
-     *
      * @param context
      */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+        Logger.e("onAttach");
     }
 
     /**
      * 运行在onAttach之后
      * 可以接受别人传递过来的参数,实例化对象.
-     *
      * @param savedInstanceState
      */
     @Override
@@ -88,6 +94,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
         //创建presenter
         mPresenter = initPresenter();
+        Logger.e("onCreate初始化presenter");
     }
 
     /**
@@ -97,12 +104,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Logger.e("onCreateView初始化Fragment视图");
         return initView(inflater, container, savedInstanceState);
+
     }
 
     /**
-     * 运行在onCreateView之后
-     * 加载数据
+     * 运行在onCreateView之后加载数据
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -161,7 +169,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     /**
      * 创建prensenter
-     *
      * @return <T extends BasePresenter> 必须是BasePresenter的子类
      */
     public abstract T initPresenter();

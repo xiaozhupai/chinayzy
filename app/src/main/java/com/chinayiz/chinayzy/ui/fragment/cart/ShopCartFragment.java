@@ -24,6 +24,11 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

@@ -41,6 +41,11 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
     }
 

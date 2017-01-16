@@ -21,6 +21,11 @@ public class ResultFragment extends BaseFragment<ResultPresenter> {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
     }
 

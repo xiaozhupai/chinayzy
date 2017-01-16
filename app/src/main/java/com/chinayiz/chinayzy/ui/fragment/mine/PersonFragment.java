@@ -22,6 +22,11 @@ public class PersonFragment extends BaseFragment<PersonPresenter> {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
     }
 

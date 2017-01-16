@@ -1,21 +1,24 @@
 package com.chinayiz.chinayzy;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
-import com.chinayiz.chinayzy.autoUpdate.APKUpdadeUtils;
+import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.MainPresenter;
 
-
 public class MainActivity extends BaseActivity<MainPresenter> implements View.OnClickListener {
-    private Button mDsfgdg;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private ConvenientBanner mBannerMainPager;
+    private LinearLayout mBtnNongYe;
+    private LinearLayout mBtnCityWide;
+    private LinearLayout mBtnStore;
+    private LinearLayout mBtnIm;
+    private LinearLayout mBtnLvYou;
+    private LinearLayout mBtnZhongChou;
 
     @Override
     protected MainPresenter initPresenter() {
@@ -24,36 +27,55 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
+//        setStatuBarColor(MainActivity.this, Color.rgb(218, 22, 47));
         setContentView(R.layout.activity_main);
         initView();
-    }
 
-    private void initView() {
-        mDsfgdg = (Button) findViewById(R.id.dsfgdg);
-        mDsfgdg.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.dsfgdg:
-//                //测试数据
-//                Version vs =new Version();
-//                vs.setDownloadUri("www.baidu.com");
-//                vs.setIsNewVersion(1);
-//                vs.setnewVersionNumber(2);
-//                vs.setUpdateTitle("版本更新");
-//                vs.setUpdateMessge("16/09/24 完善AppUtils\n" +
-//                        "16/09/23 整理工具类，新增ActivityUtils、BarUtils、IntentUtils\n" +
-//                        "16/09/22 完善LogUtils中\n" +
-//                        "16/09/21 新增LogUtils\n" +
-//                        "16/09/20 对昨天的进行单元测试\n" +
-//                        "16/09/19 新增CameraUtils，新增获取中文首字母\n" +
-//                        "16/09/18 修复少许代码，发布1.2.1");
-//                String str= new Gson().toJson(vs);
-//                Logger.i(str);
-                APKUpdadeUtils.inspectVersion(this);
+    public Activity getActivity() {
+        return this;
+    }
 
+    private void initView() {
+        mBannerMainPager = (ConvenientBanner) findViewById(R.id.banner_MainPager);
+        mBtnNongYe = (LinearLayout) findViewById(R.id.btn_NongYe);
+        mBtnCityWide = (LinearLayout) findViewById(R.id.btn_CityWide);
+        mBtnStore = (LinearLayout) findViewById(R.id.btn_Store);
+        mBtnIm = (LinearLayout) findViewById(R.id.btn_im);
+        mBtnLvYou = (LinearLayout) findViewById(R.id.btn_LvYou);
+        mBtnZhongChou = (LinearLayout) findViewById(R.id.btn_ZhongChou);
+
+        mBtnNongYe.setOnClickListener(this);
+        mBtnCityWide.setOnClickListener(this);
+        mBtnStore.setOnClickListener(this);
+        mBtnIm.setOnClickListener(this);
+        mBtnLvYou.setOnClickListener(this);
+        mBtnZhongChou.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_NongYe://农业
+                mPresenter.doStart_Nongye();
+                showToast(this, "农业");
+                break;
+            case R.id.btn_CityWide://同城
+                showToast(this, "同城");
+                break;
+            case R.id.btn_Store://商城
+                showToast(this, "商城");
+                break;
+            case R.id.btn_im://个人中心
+                showToast(this, "个人中心");
+                break;
+            case R.id.btn_LvYou://旅游
+                showToast(this, "旅游");
+                break;
+            case R.id.btn_ZhongChou://众筹
+                showToast(this, "众筹");
                 break;
         }
     }

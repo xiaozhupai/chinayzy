@@ -16,6 +16,11 @@ public class LoginPresenter extends BasePresenter<LoginActivity> {
     }
 
     @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
 
     }

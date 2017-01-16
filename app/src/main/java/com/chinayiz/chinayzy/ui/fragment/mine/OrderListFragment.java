@@ -24,6 +24,11 @@ public class OrderListFragment extends BaseFragment {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

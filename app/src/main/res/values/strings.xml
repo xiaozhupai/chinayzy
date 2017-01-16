@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">chinayzy</string>
-    <string name="update_CheckBox_Messgea">不再提醒</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -10,4 +9,11 @@
     <string name="find_text3">推荐</string>
     <string name="find_text4">推荐</string>
     <string name="title_activity_forgot">ForgotActivity</string>
+
+	 <string name="app_name"><b>中国亿众</b></string>
+    <string name="update_CheckBox_Messgea">忽略这个版本</string>
+    <string name="nongye_ActionBarTitle"><b>  生态农业</b></string>
+    <string name="nongye_recommendBar"><b>  精选推荐</b></string>
+    <string name="nongye_featureBar"><b>  特色购</b></string>
+    <string name="nongye_loveEatBar"><b>  爱吃</b></string>
 </resources>

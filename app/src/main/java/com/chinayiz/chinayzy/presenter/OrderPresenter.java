@@ -15,6 +15,11 @@ public class OrderPresenter extends BasePresenter {
     }
 
     @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
 
     }

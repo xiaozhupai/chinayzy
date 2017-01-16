@@ -34,6 +34,11 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

@@ -33,6 +33,11 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

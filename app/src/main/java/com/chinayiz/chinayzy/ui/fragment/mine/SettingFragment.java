@@ -40,6 +40,11 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

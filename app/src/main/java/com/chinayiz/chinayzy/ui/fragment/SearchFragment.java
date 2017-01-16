@@ -24,6 +24,11 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
     }
 
     @Override
+    protected void onInvisible() {
+
+    }
+
+    @Override
     protected void lazyLoad() {
 
     }

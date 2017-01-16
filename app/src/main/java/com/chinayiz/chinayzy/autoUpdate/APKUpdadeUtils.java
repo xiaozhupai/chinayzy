@@ -1,21 +1,21 @@
 package com.chinayiz.chinayzy.autoUpdate;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.entity.response.Version;
-import com.chinayiz.chinayzy.net.Task;
-import com.chinayiz.chinayzy.net.callback.CommonCallBack;
-import com.chinayiz.chinayzy.net.callback.HttpCallBack;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.utils.Exceptions;
 
 import okhttp3.Call;
 
@@ -24,83 +24,130 @@ import okhttp3.Call;
  * CreateDate 2016/12/28 11:34
  * Class APKUpdade 用于检查应用是否有新版本以及控制下载安装
  */
-
 public class APKUpdadeUtils {
-    public static boolean isWarnUser=true;//判断用户是否需要提醒
-    public static Version mVersion;
-    public static void inspectVersion(final Context con){
-        new Task<Version>().toVersion(new HttpCallBack<Version>() {
-            @Override
-            public void success(Version version) {
-                mVersion=version;
-                Activity activity= (Activity) con;
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateNewVersion(con);
-                    }
-                });
+    private Context mContext;
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor mEditer;
+    //是否下载
+    private boolean isDownload=false;
+    //是否提醒
+    private boolean isWarn =true;
+    //检查更新地址
+    private  final String INSPECT_UPDATE_URL="http://rap.taobao.org/mockjsdata/12311/api.chinayzy.updateapp";
+    //新版本信息
+    public  Version mVersion;
+    public APKUpdadeUtils(Context con){
+        mContext=con;
+        mPreferences=mContext.getSharedPreferences("update",Context.MODE_PRIVATE);
+    }
 
-                Logger.i(mVersion.toString());
+//    /**
+//     * 检查是否有更新版本
+//     */
+//    public void inspectVersion(){
+//        isDownload=mPreferences.getBoolean("isDownload",false);
+//        isWarn=mPreferences.getBoolean("isWarn",true);
+//        OkHttpUtils.post()
+//                .url(INSPECT_UPDATE_URL)
+//                .addParams("version", AppInfo.VERSION_NAME)
+//                .tag("inspect")
+//                .build().execute(new VersionCallBack() {
+//            @Override
+//            public void onError(Call call, Exception e, int i) {
+//                Logger.i(e.toString()+"错误码："+i);
+//            }
+//            @Override
+//            public void onResponse(Version version, int i) {
+//                mVersion=version;
+//               switch (mVersion.getIsNewVersion()){
+//                   case Version.COERCE_VERSION:{//强制更新版本
+//                       Logger.i("强制更新版本");
+//                       warnUserUpdate(mContext,isDownload);
+//                       break;
+//                   }
+//                   case Version.NEW_VERSION:{//有更新版本
+//                       if (isWarn){
+//                           Logger.i("有更新版本");
+//                           warnUserUpdate(mContext,isDownload);
+//                       }
+//                       break;
+//                   }
+//                   case Version.NO_VERSION:{//没有更新版本
+//                       Logger.i("没有新版本");
+//                       break;
+//                   }
+//               }
+//            }
+//        });
+//
+//    }
+    /**
+     * dialog提醒用户更新/安装
+     * @param context
+     * @param isDownload 是否已经下载
+     */
+    public void warnUserUpdate(final Context context, final boolean isDownload){
+        final String temp;
+            if (isDownload){
+                temp="安装";
+            }else {
+                temp="更新";
             }
-            @Override
-            public void fail(String msg, Exception e) {
-                Logger.i(e.toString());
-            }
-        });
+            new MaterialDialog.Builder(context)
+                    .iconRes(R.mipmap.ic_launcher)
+                    .limitIconToDefaultSize()
+                    .title(mVersion.getUpdateTitle())
+                    .content(mVersion.getUpdateMessge())
+                    .positiveText(temp)
+                    .negativeText("取消")
+                    .negativeColor(Color.BLACK)
+                    .positiveColor(Color.rgb(255,64,129))
+                    .onAny(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            //更新/下载
+                            if (DialogAction.POSITIVE.toString().equals(which.name())){
+                                Toast.makeText(context, "确认更新，不再提醒："+dialog.isPromptCheckBoxChecked(), Toast.LENGTH_SHORT).show();
+                                if (isDownload){//是否已经下载
+                                    doInstall(context);
+                                }else {
+                                    doDownload(context);
+                                }
+                            //取消更新/安装
+                            }else if (DialogAction.NEGATIVE.toString().equals(which.name())){
+                                Toast.makeText(context, "取消更新，不再提醒："+dialog.isPromptCheckBoxChecked(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+
+                    })
+                    .checkBoxPrompt("不要再提醒", false, new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            mEditer=mPreferences.edit();
+                            mEditer.putBoolean("isWarn",b);
+                            mEditer.commit();
+                        }
+                    })
+                    .build()
+                    .show();
     }
 
     /**
-     * 更新新版本
-     * @param context
+     * 开启服务下载apk
      */
-    private static void updateNewVersion(Context context){
-        if (mVersion==null){
-            return;
-        }
-        switch (mVersion.getIsNewVersion()){
-            case Version.COERCE_VERSION:{//强制更新版
-                WarnUserUpdate(context);
-                return;
-            }
-            case Version.NEW_VERSION:{//有新版本提醒
-               if(!isWarnUser){
-                   return;
-               }
-                WarnUserUpdate(context);
-                return;
-            }
-            case Version.NO_VERSION:{//没有新版本
-                return;
-            }
-        }
+    private void doDownload(Context context) {
+        Intent inten=new Intent(context,UpdateService.class);
+        inten.putExtra("downloadURI",mVersion.getDownloadUri());
+        context.startService(inten);
     }
 
-    private static void WarnUserUpdate(final Context context){
-        new MaterialDialog.Builder(context)
-                .iconRes(R.mipmap.ic_launcher)
-                .limitIconToDefaultSize()
-                .title(mVersion.getUpdateTitle())
-                .content(mVersion.getUpdateMessge())
-                .positiveText("下载更新")
-                .negativeText("取消")
-                .negativeColor(Color.BLACK)
-                .positiveColor(context.getResources().getColor(R.color.colorAccent))
-                .onAny(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Logger.i("选择了"+which.name()+"是否勾选"+dialog.isPromptCheckBoxChecked());
-                        if (dialog.isPromptCheckBoxChecked()){
-                            isWarnUser=false;
-                        }else {
-                            isWarnUser=true;
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .checkBoxPromptRes(R.string.update_CheckBox_Messgea, false, null)
-                .show();
+    /**
+     * 安装apk
+     */
+
+    public  void doInstall(Context context) {
+
     }
-
-
 }
