@@ -17,6 +17,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.PagerAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.FindPresenter;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
     private TextView tv_find_text4;
     private ViewPager vp_find;
     private View v_slide;
-    private static final int SLIDE=59;
+    private static final int SLIDE=123;
 
     @Override
     protected void onVisible() {
@@ -64,7 +65,7 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
         vp_find = (ViewPager) view.findViewById(R.id.vp_find);
         vp_find.setOnClickListener(this);
         List<Fragment> lists=new ArrayList<>();
-        for (int i=0;i>lists.size();i++){
+        for (int i=0;i<4;i++){
             FindListFragment fragment=new FindListFragment();
             lists.add(fragment);
         }
@@ -86,8 +87,8 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment like bottom ... and run LayoutCreator again
-        View view = View.inflate(getActivity(), R.layout.fragment_find, null);
-        initView(inflater,container,savedInstanceState);
+
+      View view=initView(inflater,container,savedInstanceState);
         return view;
     }
 
@@ -95,12 +96,14 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_find_text1:
+                Logger.i("tv_find_text1");
                 setnoSelected();
                 tv_find_text1.setTextColor(getResources().getColor(R.color.find_green_text));
                 vp_find.setCurrentItem(0);
                 doAnimation(0);
                 break;
             case R.id.tv_find_text2:
+                Logger.i("tv_find_text2");
                 setnoSelected();
                 tv_find_text2.setTextColor(getResources().getColor(R.color.find_green_text));
                 vp_find.setCurrentItem(1);
@@ -135,8 +138,8 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
     }
 
     private void doAnimation(int position){
-        int newPosition=vp_find.getCurrentItem();
-        int oldPosition=position;
+        int oldPosition=vp_find.getCurrentItem();
+        int  newPosition=position;
         int traslate;
         if (newPosition>oldPosition){ //向右移动
             traslate=SLIDE*(newPosition-oldPosition);

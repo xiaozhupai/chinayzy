@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,12 +10,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 
+import java.util.List;
+
 
 /**  购物车Adaphter
  * Created by Administrator on 2017/1/12.
  */
 
 public class ShopCartAdaphter extends BaseInectAdaphter  {
+    public ShopCartAdaphter(Context context, List list) {
+        this.context=context;
+        this.lists=list;
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder=null;

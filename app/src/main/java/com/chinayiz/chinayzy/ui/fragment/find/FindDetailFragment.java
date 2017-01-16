@@ -19,14 +19,13 @@ import com.chinayiz.chinayzy.widget.ShareDialog;
  * A simple {@link Fragment} subclass.
  */
 public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implements View.OnClickListener {
-
-
     private ImageView iv_love;
     private LinearLayout lv_love;
     private LinearLayout lv_keep;
     private LinearLayout lv_share;
     private LinearLayout lv_find_detail_bottom;
     private ShareDialog dialog;
+    private boolean isLove;
 
     @Override
     protected void onVisible() {
@@ -73,8 +72,8 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment like bottom ... and run LayoutCreator again
-        View view = View.inflate(getActivity(), R.layout.fragment_find_detail, null);
-        initView(inflater,container,savedInstanceState);
+
+    View view=initView(inflater,container,savedInstanceState);
         return view;
     }
 
@@ -82,9 +81,18 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lv_love:  //点赞
+                if (isLove){
+                    iv_love.setImageResource(R.mipmap.icon_love_normal);
+                    isLove=false;
+                }else {
+                    iv_love.setImageResource(R.mipmap.icon_love_selected);
+                    isLove=true;
+                }
+
 
                 break;
             case R.id.lv_keep:  //收藏
+
 
                 break;
             case R.id.lv_share:   //分享

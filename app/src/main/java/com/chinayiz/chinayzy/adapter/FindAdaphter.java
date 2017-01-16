@@ -1,16 +1,24 @@
 package com.chinayiz.chinayzy.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 
+import java.util.List;
+
 /**发现Adaphter
  * Created by Administrator on 2017/1/12.
  */
 
 public class FindAdaphter extends BaseInectAdaphter {
+    public FindAdaphter(Context context,List lists) {
+        this.context=context;
+        this.lists=lists;
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder=null;

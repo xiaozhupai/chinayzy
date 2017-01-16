@@ -17,6 +17,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.NongYe_MainPager_Adapter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.NongYe_MainPresenter;
+import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.views.MainViewPager;
 import com.orhanobut.logger.Logger;
@@ -38,7 +39,9 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
     private RadioGroup mRgNongyeMenu;
     private NongYe_MainPager_Adapter mPager_adapter;
     private FindFragment mFindFragment;
+    private ShopCartFragment mShopCartFragment;
     private FragmentTransaction transaction;
+    private FragmentManager  fragmentManager;
 
 
     //    private List
@@ -56,10 +59,10 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
     protected void onCreateActivity(Bundle savedInstanceState) {
 //        setStatuBarColor(NongYe_MainActivity.this, Color.rgb(109, 180, 48));
         setContentView(R.layout.nongye_activity_main);
+        fragmentManager=getSupportFragmentManager();
         initView();
-        FragmentManager  fragmentManager=getSupportFragmentManager();
-        transaction = fragmentManager.beginTransaction();
     }
+
     private void initView() {
         mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
         mTvActionBarTitle = (TextView) findViewById(R.id.tv_action_bar_title);
@@ -75,6 +78,7 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
 //        mPager_adapter=new NongYe_MainPager_Adapter(getSupportFragmentManager(),mFragments);
 //        mFragments.add(new NongYe_homeFragment());
 //        mVpgerNongyePager.setAdapter(mPager_adapter);
+
 
     }
 
@@ -100,34 +104,46 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
             transaction.hide(mFindFragment);
             Logger.i("隐藏find");
         }
+        if (mShopCartFragment!=null){
+            transaction.hide(mShopCartFragment);
+        }
     }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        transaction = fragmentManager.beginTransaction();
         hideAllFragment(transaction);
         switch (i) {
             case R.id.rb_nongye_home://首页
+                mTvActionBarTitle.setText("首页");
                 Logger.i("首页");
                 break;
             case R.id.rb_nongye_find://发现
                 Logger.i("发现");
+                mTvActionBarTitle.setText("发现");
                 if (mFindFragment==null){
                     mFindFragment=new FindFragment();
                     transaction.add(R.id.fl_nongye,mFindFragment);
-                    transaction.commit();
                 }else {
                     transaction.show(mFindFragment);
                 }
-
                 break;
             case R.id.rb_nongye_activi://活动
+                mTvActionBarTitle.setText("活动");
                 Logger.i("活动");
                 break;
             case R.id.rb_nongye_cart://购物车
                 Logger.i("购物车");
+                mTvActionBarTitle.setText("购物车");
+                if (mShopCartFragment==null){
+                    mShopCartFragment=new ShopCartFragment();
+                    transaction.add(R.id.fl_nongye,mShopCartFragment);
+                }else {
+                    transaction.show(mShopCartFragment);
+                }
                 break;
         }
-
+      transaction.commitAllowingStateLoss();
     }
 
     @Override

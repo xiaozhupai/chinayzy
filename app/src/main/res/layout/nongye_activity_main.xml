@@ -21,6 +21,7 @@
         android:layout_height="49dp"
         android:orientation="horizontal"
         android:background="@color/Background"
+
         >
         <RadioButton
             android:id="@+id/rb_nongye_home"

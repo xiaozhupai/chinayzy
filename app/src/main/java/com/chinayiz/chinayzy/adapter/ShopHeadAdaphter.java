@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 
+import java.util.List;
+
 /**     购物车头部Adaphter
  * Created by Administrator on 2017/1/12.
  */

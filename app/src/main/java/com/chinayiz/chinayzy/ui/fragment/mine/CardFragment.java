@@ -15,11 +15,17 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class CardFragment extends BaseFragment{
 
 
     @Override
     protected void onVisible() {
+
+    }
+
+    @Override
+    protected void onInvisible() {
 
     }
 

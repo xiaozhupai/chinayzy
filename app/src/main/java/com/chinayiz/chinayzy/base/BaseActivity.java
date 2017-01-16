@@ -3,9 +3,13 @@ package com.chinayiz.chinayzy.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.utils.BarUtils;
 
 /**
@@ -16,6 +20,8 @@ import com.chinayiz.chinayzy.utils.BarUtils;
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView {
     protected T mPresenter;
     protected static Toast toast;
+    public FragmentManager fragmentManager;
+    public String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         onCreateActivity(savedInstanceState);
         //初始化Presenter
         mPresenter.onCreate();
+
+        fragmentManager=getSupportFragmentManager();
+
+        TAG= getClass().getSimpleName();
 
     }
 
@@ -82,5 +92,24 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             toast.setText(content);
         }
         toast.show();
+    }
+
+    /**
+     * fragment 跳转
+     * @param tofragment  目标fragment
+     * @param tag   fragment标记  用于替换或隐藏
+     */
+    public void addFragment(Fragment tofragment, String tag){
+        try {
+            FragmentTransaction transaction=fragmentManager.beginTransaction();
+            transaction.add(R.id.fl_nongye, tofragment)
+                    .addToBackStack(tofragment.getTag())
+                    .commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FragmentTransaction transaction=fragmentManager.beginTransaction();
+            transaction.add(R.id.fl_nongye, tofragment, tofragment.getTag()).addToBackStack(tofragment.getTag()).commitAllowingStateLoss();
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chinayiz.chinayzy.R;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -23,6 +25,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     //activity的上下文对象
     protected Context mContext;
     protected Bundle mBundle;
+    public BaseActivity mActivity;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -75,6 +78,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+        mActivity= (BaseActivity) mContext;
         Logger.e("onAttach");
     }
 
@@ -94,6 +98,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
         //创建presenter
         mPresenter = initPresenter();
+
         Logger.e("onCreate初始化presenter");
     }
 
@@ -146,10 +151,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
      */
     @Override
     public void startFragment(Fragment tofragment, String tag) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.hide(this).add(android.R.id.content, tofragment, tag);
-        fragmentTransaction.addToBackStack(tag);
-        fragmentTransaction.commitAllowingStateLoss();
+        mActivity.addFragment(tofragment,tag);
+
     }
 
     /**
