@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
+import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 
 /**
  * 个人中心
@@ -87,43 +88,43 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_user_all_order:
+            case R.id.rl_user_all_order: //所有 订单
 
                 break;
-            case R.id.lv_wait_pay:
+            case R.id.lv_wait_pay:  //待付款
 
                 break;
-            case R.id.lv_wait_goods:
+            case R.id.lv_wait_goods:   //待发货
 
                 break;
-            case R.id.lv_wait_accept_goods:
+            case R.id.lv_wait_accept_goods:   //待收货
 
                 break;
-            case R.id.lv_after_sale:
+            case R.id.lv_after_sale:   //售后
 
                 break;
-            case R.id.lv_mine_keep:
+            case R.id.lv_mine_keep:   //我的宝贝
 
                 break;
-            case R.id.lv_mine_step:
+            case R.id.lv_mine_step:   //我的足迹
 
                 break;
-            case R.id.lv_mine_shop_car:
+            case R.id.lv_mine_shop_car:  //购物车
 
                 break;
-            case R.id.lv_mine_scores:
+            case R.id.lv_mine_scores:   //我的积分
 
                 break;
-            case R.id.lv_mine_server:
+            case R.id.lv_mine_server:   //消息
 
                 break;
-            case R.id.lv_mine_suggest:
+            case R.id.lv_mine_suggest:  //我的建议
 
                 break;
-            case R.id.lv_mine_setting:
+            case R.id.lv_mine_setting:  //设置
 
                 break;
-            case R.id.lv_mine_content_keep:
+            case R.id.lv_mine_content_keep:  //内容收藏
 
                 break;
         }

@@ -9,16 +9,18 @@ import android.widget.SectionIndexer;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
-
+import com.chinayiz.chinayzy.entity.response.ShopCartModel;
+import com.orhanobut.logger.Logger;
 import java.util.List;
-
 
 /**  购物车Adaphter
  * Created by Administrator on 2017/1/12.
  */
 
-public class ShopCartAdaphter extends BaseInectAdaphter  {
-    public ShopCartAdaphter(Context context, List list) {
+public class ShopCartAdaphter extends BaseInectAdaphter<ShopCartModel> {
+    public static final int HEAD=0;
+    public static final int ITEM=1;
+    public ShopCartAdaphter(Context context, List<ShopCartModel> list) {
         this.context=context;
         this.lists=list;
     }
@@ -26,16 +28,81 @@ public class ShopCartAdaphter extends BaseInectAdaphter  {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder=null;
-        if (view == null) {
-            view = View.inflate(context, R.layout.shopcart_item_layout, null);
+        if (view==null){
+            if (i==0){
+                Logger.i("position=0");
+                view=HeadView(view);
+            }else {
+                if (!lists.get(i).getSname().equals(lists.get(i-1).getSname())){
+                    view=HeadView(view);
+                    Logger.i("头部视图");
+                }else {
+                    view=ItemView(view);
+                    Logger.i("body视图");
+                }
+            }
             viewHolder=new ViewHolder(view);
             view.setTag(viewHolder);
-        } else {
+        }else {
             viewHolder= (ViewHolder) view.getTag();
         }
 
         return view;
     }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position==0){
+            return HEAD;
+        }else {
+            if (!lists.get(position).getSname().equals(lists.get(position-1).getSname())) {
+                return HEAD;
+            }else {
+                return ITEM;
+            }
+        }
+
+    }
+
+    public View ItemView(View view){
+        view = View.inflate(context, R.layout.shopcart_item_layout, null);
+        return view;
+    }
+
+    public View  HeadView(View view){
+        view=View.inflate(context, R.layout.shopcart_head_layout, null);
+        return view;
+    }
+
+
+//
+//    @Override
+//    public Object[] getSections() {
+//        return null;
+//    }
+//
+//    @Override
+//    public int getPositionForSection(int sectionIndex) {
+////        for (int i = 0; i < lists.size(); i++) {
+////            String l = stringArray.get(i);
+////            char firstChar = l.toUpperCase().charAt(0);
+////            if (firstChar == sectionIndex) {
+////                return i;
+////            }
+////        }
+////        return -1;
+//        return 0;
+//    }
+//
+//    @Override
+//    public int getSectionForPosition(int position) {
+//        return 0;
+//    }
 
 
     public static class ViewHolder {
@@ -68,4 +135,5 @@ public class ShopCartAdaphter extends BaseInectAdaphter  {
         }
 
     }
+
 }

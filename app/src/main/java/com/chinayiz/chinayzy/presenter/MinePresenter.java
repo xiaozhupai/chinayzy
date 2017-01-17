@@ -23,4 +23,8 @@ public class MinePresenter extends BasePresenter {
     public void onSaveInstanceState(Bundle outState) {
 
     }
+    public void toSuggest(){
+
+    }
+
 }

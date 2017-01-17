@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.MainActivity;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYe_MainActivity;
 
 /**
@@ -34,6 +35,11 @@ public class MainPresenter extends BasePresenter<MainActivity> {
      */
     public void doStart_Nongye(){
         Intent intent=new Intent(mView, NongYe_MainActivity.class);
+        mView.startActivity(intent);
+    }
+
+    public void doStart_Person(){
+        Intent intent=new Intent(mView, MineActivity.class);
         mView.startActivity(intent);
     }
 }

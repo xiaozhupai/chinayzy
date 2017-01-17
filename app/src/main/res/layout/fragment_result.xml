@@ -7,10 +7,14 @@
     android:id="@+id/result_list"
     >
     <ListView
+        android:id="@+id/lv_result"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_boom"
+        >
     </ListView>
     <RelativeLayout
+        android:id="@+id/rl_boom"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

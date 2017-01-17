@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -70,6 +71,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 break;
             case R.id.btn_im://个人中心
                 showToast(this, "个人中心");
+                mPresenter.doStart_Person();
                 break;
             case R.id.btn_LvYou://旅游
                 showToast(this, "旅游");
