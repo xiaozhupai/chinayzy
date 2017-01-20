@@ -1,15 +1,23 @@
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.chinayiz.chinayzy.views.PullToRefreshLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/refresh_view"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+
+<include layout="@layout/refresh_head" />
+<!-- 支持所有实现Pullable接口的View -->
+
+<com.chinayiz.chinayzy.views.PullableGridView
+    android:id="@+id/gd_find_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chinayiz.chinayzy.ui.fragment.find.FindListFragment"
     android:numColumns="2"
     android:layout_marginLeft="6dp"
     android:layout_marginRight="6dp"
     android:layout_marginTop="2dp"
     android:horizontalSpacing="8dp"
-    android:id="@+id/gd_find_list"
-    >
+    />
 
+<include layout="@layout/load_more"/>
 
-</GridView>
+</com.chinayiz.chinayzy.views.PullToRefreshLayout>

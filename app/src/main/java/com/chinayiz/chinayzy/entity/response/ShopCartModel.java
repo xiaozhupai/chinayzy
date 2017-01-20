@@ -22,6 +22,16 @@ public class ShopCartModel {
     private  int carid;    //购物车唯一id
     private String productarea;   //产地
     private String standardvalue;   //规格值
+    private boolean isChecked;
+
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public String getIcon() {
         return icon;

@@ -46,7 +46,8 @@ dependencies {
     //评价控件
     compile 'com.hedgehog.ratingbar:app:1.1.2'
     compile 'com.zzti.fengyongge:imagepicker:1.0'
- 
+    compile 'com.chanven.lib:cptr:1.1.0'
     testCompile 'junit:junit:4.12'
+    compile "de.halfbit:pinned-section-listview:1.0.0"
 
 }

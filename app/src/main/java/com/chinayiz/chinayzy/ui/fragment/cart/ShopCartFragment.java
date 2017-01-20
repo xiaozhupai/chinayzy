@@ -19,9 +19,14 @@ import com.chinayiz.chinayzy.adapter.ShopHeadAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
+import com.chinayiz.chinayzy.views.PinnedHeaderListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import de.halfbit.pinnedsection.PinnedSectionListView;
 
 
 /**
@@ -60,22 +65,28 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         tv_shopcart_submit = (TextView) view.findViewById(R.id.tv_shopcart_submit);
         lv_boom = (LinearLayout) view.findViewById(R.id.lv_boom);
         tv_shopcart_submit.setOnClickListener(this);
+
         List<ShopCartModel> list=new ArrayList();
            for (int i=0;i<5;i++){
                ShopCartModel model=new ShopCartModel();
                model.setSname("dsds");
+               model.setChecked(false);
                list.add(model);
            }
         for (int i=0;i<5;i++){
             ShopCartModel model=new ShopCartModel();
             model.setSname("bbb");
+            model.setChecked(false);
             list.add(model);
         }
         for (int i=0;i<5;i++){
             ShopCartModel model=new ShopCartModel();
             model.setSname("ccc");
+            model.setChecked(false);
             list.add(model);
         }
+
+
         ShopCartAdaphter adaphter=new ShopCartAdaphter(mContext,list);
         listv_shopcart.setAdapter(adaphter);
         return view;

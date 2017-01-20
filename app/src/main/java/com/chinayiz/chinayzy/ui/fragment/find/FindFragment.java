@@ -124,7 +124,6 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
         }
     }
 
-
     //viewpager切换
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

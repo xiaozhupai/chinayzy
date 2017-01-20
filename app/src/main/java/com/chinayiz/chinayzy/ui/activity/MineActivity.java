@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
+import com.chinayiz.chinayzy.views.PullToRefreshLayout;
 
 /**
  * 个人中心
@@ -33,6 +34,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     private LinearLayout lv_mine_server;
     private LinearLayout lv_mine_suggest;
     private LinearLayout lv_mine_setting;
+    private PullToRefreshLayout pullToRefreshLayout;
 
 
     @Override
@@ -70,6 +72,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_server = (LinearLayout) findViewById(R.id.lv_mine_server);
         lv_mine_suggest = (LinearLayout) findViewById(R.id.lv_mine_suggest);
         lv_mine_setting = (LinearLayout) findViewById(R.id.lv_mine_setting);
+        pullToRefreshLayout= (PullToRefreshLayout) findViewById(R.id.pullrefresh);
         rl_user_all_order.setOnClickListener(this);
         lv_wait_pay.setOnClickListener(this);
         lv_wait_goods.setOnClickListener(this);
@@ -83,6 +86,18 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_suggest.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
+         pullToRefreshLayout.setLoadVisiable(false);
+        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+            }
+
+            @Override
+            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+
+            }
+        });
     }
 
     @Override
