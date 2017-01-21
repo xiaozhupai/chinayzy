@@ -26,7 +26,7 @@
         android:layout_marginTop="13dp"
         android:layout_marginBottom="7dp"
         />
-    <!--编辑前的VIEW-->
+
     <LinearLayout
         android:id="@+id/lv_before"
         android:layout_width="match_parent"

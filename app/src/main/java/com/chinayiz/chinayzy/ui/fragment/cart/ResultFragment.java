@@ -41,6 +41,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     private CheckImageView iv_pay_ali;
     private CheckImageView iv_pay_wechat;
     private LinearLayout lv_payway;
+    private List<ShopCartModel> list;
 
     @Override
     protected void onVisible() {
@@ -75,7 +76,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         lv_payway = (LinearLayout) foot.findViewById(R.id.lv_payway);
         iv_pay_ali.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {  //支付宝支付
                 if (iv_pay_wechat.isCheck){
                     iv_pay_wechat.setCheck(false);
                     iv_pay_ali.setCheck(true);
@@ -84,7 +85,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         });
         iv_pay_wechat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {  //微信支付
                 if (iv_pay_ali.isCheck){
                     iv_pay_ali.setCheck(false);
                     iv_pay_wechat.setCheck(true);
@@ -96,20 +97,29 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         iv_pay_wechat.setCheck(false);
 
         lv_result.addFooterView(foot);
-        List<ShopCartModel> list = new ArrayList();
-        for (int i = 0; i < 5; i++) {
-            ShopCartModel model = new ShopCartModel();
+        list = new ArrayList();
+        for (int i=0;i<5;i++){
+            ShopCartModel model=new ShopCartModel();
             model.setSname("dsds");
+            model.setChecked(false);
+            model.setNum(2);
+            model.setPrice(130.25);
             list.add(model);
         }
-        for (int i = 0; i < 5; i++) {
-            ShopCartModel model = new ShopCartModel();
+        for (int i=0;i<5;i++){
+            ShopCartModel model=new ShopCartModel();
             model.setSname("bbb");
+            model.setChecked(false);
+            model.setNum(1);
+            model.setPrice(120.25);
             list.add(model);
         }
-        for (int i = 0; i < 5; i++) {
-            ShopCartModel model = new ShopCartModel();
+        for (int i=0;i<5;i++){
+            ShopCartModel model=new ShopCartModel();
             model.setSname("ccc");
+            model.setChecked(false);
+            model.setNum(1);
+            model.setPrice(110.25);
             list.add(model);
         }
         for (int i = 0; i < list.size(); i++) {
@@ -127,9 +137,25 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         }
         adaphter = new ResultAdaphter(mContext, list);
         lv_result.setAdapter(adaphter);
+        tv_goods_total.setText("￥"+UpdateTotal());
+        tv_result_price.setText("总计:￥"+UpdateTotal());
         return view;
 
     }
+
+
+    /**
+     * 获得商品总价
+     * @return
+     */
+    public double UpdateTotal(){
+        double total=0.00;
+        for (ShopCartModel bean:list){
+            total+=bean.getPrice()*bean.getNum();
+        }
+        return total;
+    }
+
 
     @Override
     public ResultPresenter initPresenter() {
@@ -149,26 +175,14 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_result_submit:
+            case R.id.tv_result_submit:  //确定支付
 
                 break;
-            case R.id.rl_payway_boom:
+            case R.id.rl_payway_boom:    //底部支付方式
                 if (lv_payway.getVisibility()==View.VISIBLE){
                     lv_payway.setVisibility(View.GONE);
                 }else {
                     lv_payway.setVisibility(View.VISIBLE);
-                }
-                break;
-            case R.id.iv_ali_pay:
-                if (iv_pay_wechat.isCheck){
-                    iv_pay_wechat.setCheck(false);
-                    iv_pay_ali.setCheck(true);
-                }
-                break;
-            case R.id.iv_pay_wechat:
-                if (iv_pay_ali.isCheck){
-                    iv_pay_ali.setCheck(false);
-                    iv_pay_wechat.setCheck(true);
                 }
                 break;
         }

@@ -3,13 +3,13 @@ package com.chinayiz.chinayzy.presenter;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.fragment.mine.CardFragment;
 
-/**  个人中心
- * Created by Administrator on 2017/1/9.
+/**身份证
+ * Created by Administrator on 2017/1/21.
  */
 
-public class MinePresenter extends BasePresenter<MineActivity> {
+public class CardPresenter extends BasePresenter<CardFragment> {
     @Override
     public void onCreate() {
 
@@ -24,8 +24,4 @@ public class MinePresenter extends BasePresenter<MineActivity> {
     public void onSaveInstanceState(Bundle outState) {
 
     }
-    public void toSuggest(){
-
-    }
-
 }

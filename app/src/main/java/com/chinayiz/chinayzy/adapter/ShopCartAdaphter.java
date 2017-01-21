@@ -90,6 +90,9 @@ public class ShopCartAdaphter extends BaseInectAdaphter<ShopCartModel> {
         }
         viewHolder.tv_shopcart_item_num.setText("×"+shopCartModel.getNum());
         viewHolder.tv_shopcart_item_price.setText("￥"+shopCartModel.getPrice());
+        viewHolder.tv_shopcart_item_title.setText(shopCartModel.getGname());
+        viewHolder.tv_shopcart_item_kind.setText(shopCartModel.getStandardname());
+//        viewHolder.iv_shopcart_item_img
         return view;
     }
 

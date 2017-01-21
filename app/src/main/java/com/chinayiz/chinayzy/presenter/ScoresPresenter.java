@@ -3,12 +3,13 @@ package com.chinayiz.chinayzy.presenter;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.ui.fragment.mine.ScoresFragment;
 
-/**
+/** 我的积分
  * Created by Administrator on 2017/1/9.
  */
 
-public class ScoresPresenter extends BasePresenter {
+public class ScoresPresenter extends BasePresenter<ScoresFragment> {
     @Override
     public void onCreate() {
 

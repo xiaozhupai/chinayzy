@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 
-/**
+/**    个人资料
  * Created by Administrator on 2017/1/13.
  */
 

@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.presenter.CardPresenter;
 
-/**
+/**身份证
  * A simple {@link Fragment} subclass.
  */
 
-public class CardFragment extends BaseFragment{
+public class CardFragment extends BaseFragment<CardPresenter>{
 
 
     @Override
@@ -47,8 +48,8 @@ public class CardFragment extends BaseFragment{
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public CardPresenter initPresenter() {
+        return new CardPresenter();
     }
 
     @Override

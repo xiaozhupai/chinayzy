@@ -46,10 +46,15 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel> {
          ShopCartModel shopCartModel=lists.get(i);
         if (shopCartModel.isHead()){
             viewHolder.iv_head_title.setVisibility(View.VISIBLE);
+            viewHolder.iv_head_title.setText(shopCartModel.getSname());
         }else {
             viewHolder.iv_head_title.setVisibility(View.GONE);
         }
-
+        viewHolder.tv_result_item_price.setText("￥"+shopCartModel.getPrice()+"");
+        viewHolder.tv_result_item_num.setText("×"+shopCartModel.getNum());
+        viewHolder.tv_result_item_kind.setText(shopCartModel.getStandardname());
+        viewHolder.tv_result_item_title.setText(shopCartModel.getGname());
+//        viewHolder.iv_result_item_img.
         return view;
     }
 

@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.presenter.EmailPresenter;
 
-/**
+/**邮箱地址
  * A simple {@link Fragment} subclass.
  */
-public class EmailFragment extends BaseFragment {
+public class EmailFragment extends BaseFragment<EmailPresenter> {
 
 
     @Override
@@ -46,8 +47,8 @@ public class EmailFragment extends BaseFragment {
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public EmailPresenter initPresenter() {
+        return new EmailPresenter();
     }
 
     @Override

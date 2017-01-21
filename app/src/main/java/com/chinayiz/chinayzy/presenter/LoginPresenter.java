@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 
-/**
+/**登录
  * Created by Administrator on 2017/1/3.
  */
 

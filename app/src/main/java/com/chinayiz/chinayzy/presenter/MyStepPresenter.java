@@ -3,12 +3,13 @@ package com.chinayiz.chinayzy.presenter;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
 
-/**
+/**我的足迹
  * Created by Administrator on 2017/1/10.
  */
 
-public class MyStepPresenter extends BasePresenter {
+public class MyStepPresenter extends BasePresenter<MyStepFragment> {
     @Override
     public void onCreate() {
 

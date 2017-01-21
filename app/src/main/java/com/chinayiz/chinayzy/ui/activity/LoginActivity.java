@@ -101,20 +101,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
                 authorize(sina);
                 break;
 
-            case R.id.tv_left_login:
+            case R.id.tv_left_login:   //登录UI
                 showLeft();
                 break;
-            case R.id.tv_right_register:
+            case R.id.tv_right_register:    //注册UI
                 showRight();
                 break;
-            case R.id.tv_forgot:
+            case R.id.tv_forgot:   //忘记密码
                 Intent intent=new Intent(this,ForgotActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.tv_login_submit:
+            case R.id.tv_login_submit:    //登录提交
                 login();
                 break;
-            case R.id.tv_register_submit:
+            case R.id.tv_register_submit:   //注册提交
                 register();
                 break;
             case R.id.tv_register_sendmessage:
@@ -167,6 +167,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         }
     }
 
+    /**
+     * 左边视图显示
+     */
     private void showLeft(){
         ivlogo.setVisibility(View.VISIBLE);
         lv_login.setVisibility(View.VISIBLE);
@@ -176,7 +179,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         v_left_line.setVisibility(View.VISIBLE);
         v_right_line.setVisibility(View.GONE);
     }
-
+    /**
+     * 右边视图显示
+     */
     private void showRight(){
         lv_register.setVisibility(View.VISIBLE);
         ivlogo.setVisibility(View.INVISIBLE);
@@ -199,7 +204,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         plat.showUser(null);
     }
 
-
+    /**
+     * 回调完成
+     * @param platform
+     * @param action
+     * @param res
+     */
     public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
         if (action == Platform.ACTION_USER_INFOR) {
             Message msg = new Message();
@@ -209,6 +219,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         }
     }
 
+    /**
+     * 回调错误
+     * @param platform
+     * @param action
+     * @param t
+     */
     public void onError(Platform platform, int action, Throwable t) {
         if (action == Platform.ACTION_USER_INFOR) {
             handler.sendEmptyMessage(MSG_AUTH_ERROR);
@@ -216,6 +232,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         t.printStackTrace();
     }
 
+    /**
+     * 回调取消
+     * @param platform
+     * @param action
+     */
     public void onCancel(Platform platform, int action) {
         if (action == Platform.ACTION_USER_INFOR) {
             handler.sendEmptyMessage(MSG_AUTH_CANCEL);

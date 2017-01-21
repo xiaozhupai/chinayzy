@@ -10,15 +10,12 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.presenter.AddressListPresenter;
+import com.chinayiz.chinayzy.presenter.TradeSuccessPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddressListFragment extends BaseFragment<AddressListPresenter> {
-
-
+public class TradeSuccessFragment extends BaseFragment<TradeSuccessPresenter> {
     @Override
     protected void onVisible() {
 
@@ -30,15 +27,10 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> {
     }
 
     @Override
-    protected void lazyLoad() {
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_address_list, container, false);
+        return inflater.inflate(R.layout.fragment_trade_success, container, false);
     }
 
     @Override
@@ -47,8 +39,8 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> {
     }
 
     @Override
-    public AddressListPresenter initPresenter() {
-        return new AddressListPresenter();
+    public TradeSuccessPresenter initPresenter() {
+        return new TradeSuccessPresenter();
     }
 
     @Override

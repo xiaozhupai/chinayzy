@@ -3,13 +3,13 @@ package com.chinayiz.chinayzy.presenter;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.fragment.mine.TradeSuccessFragment;
 
-/**  个人中心
- * Created by Administrator on 2017/1/9.
+/**
+ * Created by Administrator on 2017/1/21.
  */
 
-public class MinePresenter extends BasePresenter<MineActivity> {
+public class TradeSuccessPresenter extends BasePresenter<TradeSuccessFragment> {
     @Override
     public void onCreate() {
 
@@ -24,8 +24,4 @@ public class MinePresenter extends BasePresenter<MineActivity> {
     public void onSaveInstanceState(Bundle outState) {
 
     }
-    public void toSuggest(){
-
-    }
-
 }

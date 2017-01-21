@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SearchPresenter;
 
-/**
+/**搜索
  * A simple {@link Fragment} subclass.
  */
 public class SearchFragment extends BaseFragment<SearchPresenter> {

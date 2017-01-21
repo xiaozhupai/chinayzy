@@ -95,12 +95,12 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_forgot_pact:
+            case R.id.tv_forgot_pact:  //用户协议
                 break;
-            case R.id.tv_forgot_submit:
+            case R.id.tv_forgot_submit:  //忘记密码提交
                 submit();
                 break;
-            case R.id.tv_forgot_sendmessage:
+            case R.id.tv_forgot_sendmessage:   //发送验证码
                 TimeUntils timeUntils=new TimeUntils(handler);
                  timeUntils.RunTimer();
                 break;
