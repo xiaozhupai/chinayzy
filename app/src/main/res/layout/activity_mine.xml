@@ -492,5 +492,7 @@
             </LinearLayout>
         </LinearLayout>
     </com.chinayiz.chinayzy.views.PullableScrollView>
-    <include layout="@layout/load_more"/>
+    <include
+        android:id="@+id/loadlayout"
+        layout="@layout/load_more"/>
 </com.chinayiz.chinayzy.views.PullToRefreshLayout>

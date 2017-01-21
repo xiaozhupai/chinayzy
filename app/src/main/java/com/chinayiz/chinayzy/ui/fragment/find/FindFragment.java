@@ -52,7 +52,7 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_find, null);
+        View view=inflater.inflate(R.layout.fragment_find,container,false);
         v_slide=view.findViewById(R.id.v_slide);
         tv_find_text1 = (TextView) view.findViewById(R.id.tv_find_text1);
         tv_find_text1.setOnClickListener(this);

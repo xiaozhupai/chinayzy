@@ -306,14 +306,14 @@ public class PullToRefreshLayout extends RelativeLayout
 				pullView.clearAnimation();
 				pullView.setVisibility(View.VISIBLE);
 				// 上拉布局初始状态
-				if (loadmorVisiable){
+
 					loadStateImageView.setVisibility(View.GONE);
 					loadStateTextView.setText(R.string.pullup_to_load);
 					pullUpView.clearAnimation();
 					pullUpView.setVisibility(View.VISIBLE);
-				}else {
-					loadmoreView.setVisibility(GONE);
-				}
+//				}else {
+//					loadmoreView.setVisibility(GONE);
+//				}
 
 				break;
 			case RELEASE_TO_REFRESH:
@@ -331,21 +331,21 @@ public class PullToRefreshLayout extends RelativeLayout
 				break;
 			case RELEASE_TO_LOAD:
 				// 释放加载状态
-				if (loadmorVisiable){
+//				if (loadmorVisiable){
 					loadStateTextView.setText(R.string.release_to_load);
 					pullUpView.startAnimation(rotateAnimation);
-				}
+//				}
 
 				break;
 			case LOADING:
 				// 正在加载状态
-				if (loadmorVisiable){
+//				if (loadmorVisiable){
 					pullUpView.clearAnimation();
 					loadingView.setVisibility(View.VISIBLE);
 					pullUpView.setVisibility(View.INVISIBLE);
 					loadingView.startAnimation(refreshingAnimation);
 					loadStateTextView.setText(R.string.loading);
-				}
+//				}
 				break;
 			case DONE:
 				// 刷新或加载完毕，啥都不做
@@ -495,15 +495,13 @@ public class PullToRefreshLayout extends RelativeLayout
 		refreshingView = refreshView.findViewById(R.id.refreshing_icon);
 		refreshStateImageView = refreshView.findViewById(R.id.state_iv);
 		// 初始化上拉布局
-		if (loadmorVisiable){
+//		if (loadmorVisiable){
 			pullUpView = loadmoreView.findViewById(R.id.pullup_icon);
 			loadStateTextView = (TextView) loadmoreView
 					.findViewById(R.id.loadstate_tv);
 			loadingView = loadmoreView.findViewById(R.id.loading_icon);
 			loadStateImageView = loadmoreView.findViewById(R.id.loadstate_iv);
-		}else {
-			loadmoreView.setVisibility(GONE);
-		}
+
 
 	}
 
@@ -541,7 +539,8 @@ public class PullToRefreshLayout extends RelativeLayout
 	}
 
 	public void setLoadVisiable(boolean b) {
-		this.loadmorVisiable=b;
+//		this.loadmorVisiable=b;
+		loadmoreView.setVisibility(GONE);
 	}
 
 	class MyTimer

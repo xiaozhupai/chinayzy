@@ -26,10 +26,16 @@ import java.util.Map;
 public class ShopCartAdaphter extends BaseInectAdaphter<ShopCartModel> {
     public static final int HEAD=0;
     public static final int ITEM=1;
+    private static  final String TAG="ShopCartAdaphter";
+    private CheckImageView iv_all;
+    private TextView tv_shopcart_all;
     private Map<String,ShopCartModel> map=new HashMap<>();
-    public ShopCartAdaphter(Context context, List<ShopCartModel> list) {
+
+    public ShopCartAdaphter(Context context, List<ShopCartModel> list,CheckImageView iv_all,TextView tv_shopcart_all) {
         this.context=context;
         this.lists=list;
+        this.iv_all=iv_all;
+        this.tv_shopcart_all=tv_shopcart_all;
     }
 
     @Override
@@ -42,28 +48,26 @@ public class ShopCartAdaphter extends BaseInectAdaphter<ShopCartModel> {
         }else {
             viewHolder= (ViewHolder) view.getTag();
         }
-        if (i==0){
-            Logger.i("position=0");
-            viewHolder.lv_shophead.setVisibility(View.VISIBLE);
-        }else {
-            if (!lists.get(i).getSname().equals(lists.get(i - 1).getSname())) {
-                viewHolder.lv_shophead.setVisibility(View.VISIBLE);
-                Logger.i("头部视图");
-            } else {
-                viewHolder.lv_shophead.setVisibility(View.GONE);
-                Logger.i("body视图");
+        final ShopCartModel shopCartModel=lists.get(i);
+        if (shopCartModel.isHead()){  //是否是头部
+            if (shopCartModel.isHeadChecked()){   //头部是否被选择
+                viewHolder.iv_shopcart_head_radio.setImageResource(R.mipmap.radio_selected);
+            }else {
+                viewHolder.iv_shopcart_head_radio.setImageResource(R.mipmap.radio_normal);
             }
+            viewHolder.lv_shophead.setVisibility(View.VISIBLE);
+            viewHolder.iv_shopcart_head_titlel.setText(shopCartModel.getSname());
+        }else {
+            viewHolder.lv_shophead.setVisibility(View.GONE);
         }
-       ShopCartModel model=lists.get(i);
-        final ViewHolder finalViewHolder = viewHolder;
+
+
         viewHolder.iv_shopcart_head_radio.setOnClickListener(new View.OnClickListener() { //头部点击事件
             @Override
-            public void onClick(View v) {
-                  if (finalViewHolder.iv_shopcart_head_radio.isCheck){
-                      finalViewHolder.iv_shopcart_head_radio.setCheck(false);
+            public void onClick(View v) { //头部radio事件
+                  if (shopCartModel.isHeadChecked()){
                       HeadUpdate(i,false);
                   }else {
-                      finalViewHolder.iv_shopcart_head_radio.setCheck(true);
                       HeadUpdate(i,true);
                   }
             }
@@ -71,48 +75,86 @@ public class ShopCartAdaphter extends BaseInectAdaphter<ShopCartModel> {
 
         viewHolder.iv_shopcart_item_radio.setOnClickListener(new View.OnClickListener() {  //ITEM点击事件
             @Override
-            public void onClick(View v) {
-                if (finalViewHolder.iv_shopcart_item_radio.isCheck){
-                    finalViewHolder.iv_shopcart_item_radio.setCheck(false);
-                    ItemUpdate(i,finalViewHolder);
+            public void onClick(View v) {//ITEM radio事件
+                if (shopCartModel.isChecked()){
+                    ItemUpdate(i);
                 }else {
-                    finalViewHolder.iv_shopcart_item_radio.setCheck(true);
-                    ItemUpdate(i,finalViewHolder);
+                    ItemUpdate(i);
                 }
             }
         });
-
-        if (model.isChecked()){
+        if (shopCartModel.isChecked()){  //判断item是否被选择
             viewHolder.iv_shopcart_item_radio.setImageResource(R.mipmap.radio_selected);
         }else {
             viewHolder.iv_shopcart_item_radio.setImageResource(R.mipmap.radio_normal);
         }
+        viewHolder.tv_shopcart_item_num.setText("×"+shopCartModel.getNum());
+        viewHolder.tv_shopcart_item_price.setText("￥"+shopCartModel.getPrice());
         return view;
     }
 
+    //头部更新
+    /**
+     *
+     * @param positon   当前的位置
+     * @param isChecked  这个头部是否被选择
+     */
     public void HeadUpdate(int positon,boolean isChecked){
          ShopCartModel  shopCartModel=lists.get(positon);
+         shopCartModel.setHeadChecked(isChecked);
         for (int i=0;i<lists.size();i++){
             if (lists.get(i).getSname().equals(lists.get(positon).getSname())){
                 lists.get(i).setChecked(isChecked);
             }
         }
         notifyDataSetChanged();
+        AllUpdate(isChecked);
+      double total=UpdateTotal();
+        tv_shopcart_all.setText(total+"");
     }
 
-    public void ItemUpdate(int position,ViewHolder viewHolder){
+    public double UpdateTotal(){
+        double total=0.00;
+        for (ShopCartModel bean:lists){
+            if (bean.isChecked()){
+            total+=bean.getPrice()*bean.getNum();
+            }
+        }
+        return total;
+    }
+
+    //将已经选择的放在一个集合里面
+    private void AllUpdate(boolean isChecked){
+        if (isChecked){
+            List <ShopCartModel> list_isChecked=new ArrayList<>();
+            for (ShopCartModel bean:lists){
+                if (bean.isChecked()){
+                    list_isChecked.add(bean);
+                }
+            }
+            if (list_isChecked.size()==lists.size()){
+                iv_all.setCheck(true);
+                return;
+            }
+        }
+        iv_all.setCheck(false);
+
+    }
+
+    //ITEM更新
+    public void ItemUpdate(int position){
         ShopCartModel  shopCartModel=lists.get(position);
         if (shopCartModel.isChecked()){  //已经选择
             for (int i=0;i<lists.size();i++){
-                if (lists.get(i).getSname().equals(lists.get(position).getSname()) && viewHolder.lv_shophead.getVisibility()==View.VISIBLE){
-                    viewHolder.iv_shopcart_head_radio.setImageResource(R.mipmap.radio_normal);
-                    viewHolder.iv_shopcart_item_radio.setCheck(false);
+                if (lists.get(i).getSname().equals(lists.get(position).getSname()) && lists.get(i).isHead()){
+                    lists.get(i).setHeadChecked(false);
                 }
             }
             lists.get(position).setChecked(false);
+            iv_all.setCheck(false);
         }else {  //没有选择
-            List <ShopCartModel> list=new ArrayList<>();
-            List<ShopCartModel> list_selected=new ArrayList<>();
+            List <ShopCartModel> list=new ArrayList<>();  //将这个子类相同的组放到一个集合
+            List<ShopCartModel> list_selected=new ArrayList<>();     //获得这个组子类所有被选择的对象
             for (int i=0;i<lists.size();i++){
                 if (lists.get(i).getSname().equals(lists.get(position).getSname())){
                      list.add(lists.get(i));
@@ -124,12 +166,18 @@ public class ShopCartAdaphter extends BaseInectAdaphter<ShopCartModel> {
                 }
             }
             if (list.size()==(list_selected.size()+1)){
-                viewHolder.iv_shopcart_head_radio.setImageResource(R.mipmap.radio_selected);
-                viewHolder.iv_shopcart_item_radio.setCheck(true);
+                for (int i=0;i<lists.size();i++){
+                    if (lists.get(i).getSname().equals(lists.get(position).getSname()) && lists.get(i).isHead()){
+                        lists.get(i).setHeadChecked(true);
+                    }
+                }
             }
             lists.get(position).setChecked(true);
         }
          notifyDataSetChanged();
+        AllUpdate(true);
+        double total=UpdateTotal();
+        tv_shopcart_all.setText(total+"");
     }
 
 
@@ -139,17 +187,7 @@ public class ShopCartAdaphter extends BaseInectAdaphter<ShopCartModel> {
         return view;
     }
 
-
     }
-//
-//    public View  HeadView(View view){
-//        view=View.inflate(context, R.layout.shopcart_head_layout, null);
-//        return view;
-//    }
-
-
-
-
 
     class ViewHolder {
         public View rootView;

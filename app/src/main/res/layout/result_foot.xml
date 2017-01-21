@@ -28,6 +28,7 @@
                 android:layout_marginTop="16dp"
                 />
             <TextView
+                android:id="@+id/tv_goods_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥99.0"
@@ -71,6 +72,7 @@
                 android:layout_marginTop="16dp"
                 />
             <TextView
+                android:id="@+id/tv_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="免运费"
@@ -105,6 +107,7 @@
             android:layout_marginTop="16dp"
             />
         <CheckBox
+            android:id="@+id/cb_check"
             android:layout_width="51dp"
             android:layout_height="31dp"
             android:layout_alignParentRight="true"
@@ -137,6 +140,7 @@
 
             <!--支付方式-->
             <RelativeLayout
+                android:id="@+id/rl_payway_boom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
@@ -165,6 +169,12 @@
                 android:layout_marginTop="16dp"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lv_payway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -189,13 +199,15 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 />
-            <ImageView
+            <com.chinayiz.chinayzy.views.CheckImageView
+                android:id="@+id/iv_ali_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/radio_selected"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="13dp"
                 android:layout_marginRight="12dp"
+                android:clickable="true"
                 />
         </RelativeLayout>
         <View
@@ -227,13 +239,15 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 />
-            <ImageView
+            <com.chinayiz.chinayzy.views.CheckImageView
+                android:id="@+id/iv_wechat_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/radio_normal"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="13dp"
                 android:layout_marginRight="12dp"
+                android:clickable="true"
                 />
         </RelativeLayout>
         <View
@@ -241,5 +255,6 @@
             android:layout_height="1px"
             android:background="#dee2e4"
             />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

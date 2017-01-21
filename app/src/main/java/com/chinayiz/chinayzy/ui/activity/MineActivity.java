@@ -13,9 +13,12 @@ import com.chinayiz.chinayzy.presenter.MinePresenter;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 import com.chinayiz.chinayzy.views.PullToRefreshLayout;
 
+
 /**
  * 个人中心
  */
+
+
 public class MineActivity extends BaseActivity<MinePresenter> implements View.OnClickListener {
     private ImageView iv_mine_user_logo;
     private ImageView iv_mine_user_sex;
@@ -42,6 +45,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
         initView();
+        findViewById(R.id.loadlayout).setVisibility(View.GONE);
     }
 
     @Override
@@ -86,7 +90,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_suggest.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
-         pullToRefreshLayout.setLoadVisiable(false);
+
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
@@ -95,7 +99,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
             @Override
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-
+                pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
             }
         });
     }

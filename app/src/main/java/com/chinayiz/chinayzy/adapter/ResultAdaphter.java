@@ -35,55 +35,28 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel> {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ShopCartAdaphter.ViewHolder viewHolder = null;
+      ViewHolder viewHolder = null;
         if (view == null) {
-            if (i == 0) {
-                Logger.i("position=0");
-                view = HeadView(view);
-            } else {
-                if (!lists.get(i).getSname().equals(lists.get(i - 1).getSname())) {
-                    view = HeadView(view);
-                    Logger.i("头部视图");
-                } else {
-                    view = ItemView(view);
-                    Logger.i("body视图");
-                }
-            }
-            viewHolder = new ShopCartAdaphter.ViewHolder(view);
+            view = ItemView(view);
+            viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {
-            viewHolder = (ShopCartAdaphter.ViewHolder) view.getTag();
+            viewHolder = (ViewHolder) view.getTag();
+        }
+         ShopCartModel shopCartModel=lists.get(i);
+        if (shopCartModel.isHead()){
+            viewHolder.iv_head_title.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.iv_head_title.setVisibility(View.GONE);
         }
 
         return view;
     }
 
-    @Override
-    public int getViewTypeCount() {
-        return 2;
-    }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position==0){
-            return HEAD;
-        }else {
-            if (!lists.get(position).getSname().equals(lists.get(position-1).getSname())) {
-                return HEAD;
-            }else {
-                return ITEM;
-            }
-        }
-
-    }
 
     public View ItemView(View view) {
         view = View.inflate(context, R.layout.result_item_layout, null);
-        return view;
-    }
-
-    public View HeadView(View view) {
-        view = View.inflate(context, R.layout.result_head_layout, null);
         return view;
     }
 

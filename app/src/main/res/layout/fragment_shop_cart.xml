@@ -30,16 +30,17 @@
             android:orientation="horizontal"
             android:background="@color/white"
             >
-            <ImageView
+            <com.chinayiz.chinayzy.views.CheckImageView
                 android:id="@+id/iv_shopcart_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/radio_selected"
+                android:src="@mipmap/radio_normal"
                 android:layout_marginLeft="15dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
                 />
             <TextView
+                android:id="@+id/tv_shopcart_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="全选(0)"

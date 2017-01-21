@@ -15,7 +15,7 @@ public class ShopCartModel {
     private String unit;   //单位
     private int  num;    //数量
     private int  shopid;   //店铺id
-    private int price;    //价格
+    private double price;    //价格
     private String shopmessage;   //
     private int grade;    //店铺等级
     private String brand;   //品牌
@@ -23,7 +23,24 @@ public class ShopCartModel {
     private String productarea;   //产地
     private String standardvalue;   //规格值
     private boolean isChecked;
+    private boolean isHead;
+    private boolean isHeadChecked;
 
+    public boolean isHeadChecked() {
+        return isHeadChecked;
+    }
+
+    public void setHeadChecked(boolean headChecked) {
+        isHeadChecked = headChecked;
+    }
+
+    public boolean isHead() {
+        return isHead;
+    }
+
+    public void setHead(boolean head) {
+        isHead = head;
+    }
 
     public boolean isChecked() {
         return isChecked;
@@ -113,11 +130,11 @@ public class ShopCartModel {
         this.shopid = shopid;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

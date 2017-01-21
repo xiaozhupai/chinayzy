@@ -72,6 +72,8 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
                 Toast.makeText(mContext,"refresh",Toast.LENGTH_LONG).show();
                 pullToRefreshLayout.refreshFinish(0);
             }
+
+
             @Override
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 Toast.makeText(mContext,"refresh",Toast.LENGTH_LONG).show();

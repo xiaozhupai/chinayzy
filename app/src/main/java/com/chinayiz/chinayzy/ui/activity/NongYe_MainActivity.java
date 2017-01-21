@@ -19,6 +19,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.NongYe_MainPresenter;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
+import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
 import com.chinayiz.chinayzy.views.MainViewPager;
 import com.orhanobut.logger.Logger;
 
@@ -38,7 +39,7 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
     private ImageView mIvMoreButton;
     private RadioGroup mRgNongyeMenu;
     private NongYe_MainPager_Adapter mPager_adapter;
-    private FindFragment mFindFragment;
+    private FindListFragment mFindFragment;
     private ShopCartFragment mShopCartFragment;
     private FragmentTransaction transaction;
     private FragmentManager  fragmentManager;
@@ -122,7 +123,7 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
                 Logger.i("发现");
                 mTvActionBarTitle.setText("发现");
                 if (mFindFragment==null){
-                    mFindFragment=new FindFragment();
+                    mFindFragment=new FindListFragment();
                     transaction.add(R.id.fl_nongye,mFindFragment);
                 }else {
                     transaction.show(mFindFragment);

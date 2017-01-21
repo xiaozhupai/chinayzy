@@ -19,7 +19,9 @@ import com.chinayiz.chinayzy.adapter.ShopHeadAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
+import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.PinnedHeaderListView;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,17 +37,18 @@ import de.halfbit.pinnedsection.PinnedSectionListView;
  */
 public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements View.OnClickListener {
     private ListView listv_shopcart;
-    private ImageView iv_shopcart_radio;
+    private CheckImageView iv_shopcart_radio;
     private TextView tv_shopcart_price;
     private TextView tv_shopcart_submit;
     private LinearLayout lv_boom;
     private ShopHeadAdaphter headAdaphter;
     private CommonAdaphter commonAdaphter;
     private ShopCartAdaphter adaphter;
+    private List<ShopCartModel> list;
+    private TextView tv_shopcart_all;
 
     @Override
     protected void onVisible() {
-
     }
 
     @Override
@@ -60,34 +63,52 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_shop_cart, null);
         listv_shopcart = (ListView) view.findViewById(R.id.listv_shopcart);
-        iv_shopcart_radio = (ImageView) view.findViewById(R.id.iv_shopcart_radio);
+        iv_shopcart_radio = (CheckImageView) view.findViewById(R.id.iv_shopcart_radio);
         tv_shopcart_price = (TextView) view.findViewById(R.id.tv_shopcart_price);
         tv_shopcart_submit = (TextView) view.findViewById(R.id.tv_shopcart_submit);
         lv_boom = (LinearLayout) view.findViewById(R.id.lv_boom);
+        tv_shopcart_all= (TextView) view.findViewById(R.id.tv_shopcart_all);
         tv_shopcart_submit.setOnClickListener(this);
-
-        List<ShopCartModel> list=new ArrayList();
-           for (int i=0;i<5;i++){
-               ShopCartModel model=new ShopCartModel();
-               model.setSname("dsds");
-               model.setChecked(false);
-               list.add(model);
-           }
+        iv_shopcart_radio.setOnClickListener(this);
+        list=new ArrayList();
+        for (int i=0;i<5;i++){
+            ShopCartModel model=new ShopCartModel();
+            model.setSname("dsds");
+            model.setChecked(false);
+            model.setNum(2);
+            model.setPrice(130.25);
+            list.add(model);
+        }
         for (int i=0;i<5;i++){
             ShopCartModel model=new ShopCartModel();
             model.setSname("bbb");
             model.setChecked(false);
+            model.setNum(1);
+            model.setPrice(120.25);
             list.add(model);
         }
         for (int i=0;i<5;i++){
             ShopCartModel model=new ShopCartModel();
             model.setSname("ccc");
             model.setChecked(false);
+            model.setNum(1);
+            model.setPrice(110.25);
             list.add(model);
         }
-
-
-        ShopCartAdaphter adaphter=new ShopCartAdaphter(mContext,list);
+        for (int i=0;i<list.size();i++){
+            if (i==0){
+                list.get(i).setHead(true);
+            }else {
+                if (!list.get(i).getSname().equals(list.get(i - 1).getSname())) {
+                    list.get(i).setHead(true);
+                    Logger.i("头部视图");
+                } else {
+                    list.get(i).setHead(false);
+                    Logger.i("body视图");
+                }
+            }
+        }
+        adaphter=new ShopCartAdaphter(mContext,list,iv_shopcart_radio,tv_shopcart_price);
         listv_shopcart.setAdapter(adaphter);
         return view;
     }
@@ -103,16 +124,35 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       View view= initView(inflater,container,savedInstanceState);
+        View view= initView(inflater,container,savedInstanceState);
         return view;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_shopcart_submit :
+            case R.id.tv_shopcart_submit:  //结算或者删除
                 startFragment(new ResultFragment());
                 break;
+            case R.id.iv_shopcart_radio:   //是否全选
+                if (iv_shopcart_radio.isCheck){
+                    iv_shopcart_radio.setCheck(false);
+                }else {
+                    iv_shopcart_radio.setCheck(true);
+                }
+                for (int i=0;i<list.size();i++){
+                     if (list.get(i).isHead()){
+                         list.get(i).setHeadChecked(iv_shopcart_radio.isCheck);
+                     }
+                    list.get(i).setChecked(iv_shopcart_radio.isCheck);
+                }
+                adaphter.setData(list);
+            double total=adaphter.UpdateTotal();
+                tv_shopcart_price.setText(total+"");
+                break;
+
         }
     }
+
+
 }
