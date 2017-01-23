@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chinayiz.chinayzy.R;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -19,6 +17,7 @@ import com.orhanobut.logger.Logger;
  * Class BaseFragment
  */
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView {
+    private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     protected T mPresenter;
     //fragment 懒加载标志位
     protected boolean isVisible;
@@ -33,10 +32,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if (mBundle != null) {
             outState.putBundle("bundle", mBundle);
         }
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN,isHidden());
         Logger.e("onSaveInstanceState");
     }
     /**
-     * 在这里实现Fragment数据的缓加载.
+     * 在这里实现Fragment数据的缓加载. ViewPager有效
      * @param isVisibleToUser 通知系统当前fragment是否可见
      */
     @Override
@@ -67,7 +67,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
      * fragment可见,懒加载填充数据
      */
     protected  void lazyLoad(){
-        lazyLoad();
         Logger.e("lazyLoad");
     }
     /**
@@ -79,7 +78,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         super.onAttach(context);
         mContext = context;
         mActivity= (BaseActivity) mContext;
-        Logger.e("onAttach");
     }
 
     /**
@@ -93,13 +91,20 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         //获取bundle,并保存起来
         if (savedInstanceState != null) {
             mBundle = savedInstanceState.getBundle("bundle");
+            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
+
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (isSupportHidden) {
+                ft.hide(this);
+            } else {
+                ft.show(this);
+            }
+            ft.commit();
         } else {
             mBundle = getArguments() == null ? new Bundle() : getArguments();
         }
         //创建presenter
         mPresenter = initPresenter();
-
-        Logger.e("onCreate初始化presenter");
     }
 
     /**
@@ -109,7 +114,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Logger.e("onCreateView初始化Fragment视图");
         return initView(inflater, container, savedInstanceState);
 
     }
@@ -122,12 +126,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         super.onActivityCreated(savedInstanceState);
         //由于fragment生命周期比较复杂,所以Presenter在onCreateView创建视图之后再进行绑定,不然会报空指针异常
         mPresenter.onAttch(this);
-        mPresenter.onCreate();
+        mPresenter.onStart();
     }
 
     @Override
     public void onDestroyView() {
-        mPresenter.onDestroy();
+        mPresenter.onStop();
         super.onDestroyView();
     }
     @Override
@@ -165,7 +169,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     /**
      * 初始化Fragment应有的视图
-     *
      * @return
      */
     public abstract View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);

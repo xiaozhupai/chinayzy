@@ -20,7 +20,7 @@
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/banner_MainPager"
         android:layout_width="match_parent"
-        android:layout_height="264dp"
+        android:layout_height="200dp"
         android:background="@mipmap/banner"
         app:canLoop="true"
         />

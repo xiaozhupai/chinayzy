@@ -5,7 +5,7 @@ package com.chinayiz.chinayzy.entity.response;
  * CreateDate 2016/12/28 14:03
  * Class Version
  */
-public class Version {
+public class VersionModel {
     public static final int NEW_VERSION=1;//有新版本
     public static final int NO_VERSION=-1;//没有新版本
     public static final int COERCE_VERSION=0;//强制更新版本

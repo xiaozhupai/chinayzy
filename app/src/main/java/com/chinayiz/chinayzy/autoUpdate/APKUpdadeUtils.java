@@ -10,14 +10,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.entity.AppInfo;
-import com.chinayiz.chinayzy.entity.response.Version;
-import com.orhanobut.logger.Logger;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import okhttp3.Call;
+import com.chinayiz.chinayzy.entity.response.VersionModel;
 
 /**
  * author  by  Canrom7 .
@@ -35,15 +29,15 @@ public class APKUpdadeUtils {
     //检查更新地址
     private  final String INSPECT_UPDATE_URL="http://rap.taobao.org/mockjsdata/12311/api.chinayzy.updateapp";
     //新版本信息
-    public  Version mVersion;
+    public VersionModel mVersionModel;
     public APKUpdadeUtils(Context con){
         mContext=con;
         mPreferences=mContext.getSharedPreferences("update",Context.MODE_PRIVATE);
     }
 
-//    /**
-//     * 检查是否有更新版本
-//     */
+    /**
+     * 检查是否有更新版本
+     */
 //    public void inspectVersion(){
 //        isDownload=mPreferences.getBoolean("isDownload",false);
 //        isWarn=mPreferences.getBoolean("isWarn",true);
@@ -51,35 +45,36 @@ public class APKUpdadeUtils {
 //                .url(INSPECT_UPDATE_URL)
 //                .addParams("version", AppInfo.VERSION_NAME)
 //                .tag("inspect")
-//                .build().execute(new VersionCallBack() {
-//            @Override
-//            public void onError(Call call, Exception e, int i) {
-//                Logger.i(e.toString()+"错误码："+i);
-//            }
-//            @Override
-//            public void onResponse(Version version, int i) {
-//                mVersion=version;
-//               switch (mVersion.getIsNewVersion()){
-//                   case Version.COERCE_VERSION:{//强制更新版本
-//                       Logger.i("强制更新版本");
-//                       warnUserUpdate(mContext,isDownload);
-//                       break;
-//                   }
-//                   case Version.NEW_VERSION:{//有更新版本
-//                       if (isWarn){
-//                           Logger.i("有更新版本");
-//                           warnUserUpdate(mContext,isDownload);
-//                       }
-//                       break;
-//                   }
-//                   case Version.NO_VERSION:{//没有更新版本
-//                       Logger.i("没有新版本");
-//                       break;
-//                   }
-//               }
-//            }
-//        });
+//                .build().execute();
 //
+//    }
+
+//    ...................................................................
+//    @Override
+//    public void onError(Call call, Exception e, int i) {
+//        Logger.i(e.toString()+"错误码："+i);
+//    }
+//    @Override
+//    public void onResponse(VersionModel versionModel, int i) {
+//        mVersionModel = versionModel;
+//        switch (mVersionModel.getIsNewVersion()){
+//            case VersionModel.COERCE_VERSION:{//强制更新版本
+//                Logger.i("强制更新版本");
+//                warnUserUpdate(mContext,isDownload);
+//                break;
+//            }
+//            case VersionModel.NEW_VERSION:{//有更新版本
+//                if (isWarn){
+//                    Logger.i("有更新版本");
+//                    warnUserUpdate(mContext,isDownload);
+//                }
+//                break;
+//            }
+//            case VersionModel.NO_VERSION:{//没有更新版本
+//                Logger.i("没有新版本");
+//                break;
+//            }
+//        }
 //    }
     /**
      * dialog提醒用户更新/安装
@@ -96,8 +91,8 @@ public class APKUpdadeUtils {
             new MaterialDialog.Builder(context)
                     .iconRes(R.mipmap.ic_launcher)
                     .limitIconToDefaultSize()
-                    .title(mVersion.getUpdateTitle())
-                    .content(mVersion.getUpdateMessge())
+                    .title(mVersionModel.getUpdateTitle())
+                    .content(mVersionModel.getUpdateMessge())
                     .positiveText(temp)
                     .negativeText("取消")
                     .negativeColor(Color.BLACK)
@@ -139,7 +134,7 @@ public class APKUpdadeUtils {
      */
     private void doDownload(Context context) {
         Intent inten=new Intent(context,UpdateService.class);
-        inten.putExtra("downloadURI",mVersion.getDownloadUri());
+        inten.putExtra("downloadURI", mVersionModel.getDownloadUri());
         context.startService(inten);
     }
 

@@ -67,7 +67,7 @@
         <item name="android:windowExitAnimation">@anim/slide_out</item>
     </style>
 
-    <!--生态农业底部导航栏（RadioButton）-->
+   <!--生态农业底部导航栏（RadioButton）-->
     <style name="nav_rb_style" >
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -91,8 +91,17 @@
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_marginTop">16dp</item>
+    </style>
+    <!--生态农业首页类型菜单布局(LinearLayout)-->
+    <style name="NongTe_layout_TypeMenu">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:clickable">true</item>
     </style>
+
     <!--商城首页item菜单布局（LinearLayout）-->
     <style name="Main_itemMenuLayout">
         <item name="android:clickable">true</item>
@@ -122,7 +131,7 @@
     </style>
     <!--生态农业首页精选推荐横向商品宫格布局（LinearLayout）-->
     <style name="NongYe_features">
-        <item name="android:layout_below">@id/iv_featureIcon</item>
+        <item name="android:layout_below">@id/iv_themeIcon</item>
         <item name="android:clickable">true</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_marginTop">2dp</item>
@@ -134,6 +143,8 @@
     <style name="NongYe_Products_iv">
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:scaleType">centerCrop</item>
@@ -141,6 +152,7 @@
     <!--生态农业首页横向商品标题（textView）-->
     <style name="NongYe_Products_tv">
         <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -156,6 +168,26 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/NongYe_home_priceText</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:drawableLeft">@mipmap/icon_rmb</item>
         <item name="android:maxLines">1</item>
+    </style>
+    <!--商品详情页商品提供服务描述（TextView）-->
+    <style name="Goods_serviceTv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/Goods_Postage</item>
+        <item name="android:layout_below">@id/iv_line1</item>
+        <item name="android:layout_marginTop">11dp</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <!--商品详情页商品提供服务图标（ImageView）-->
+    <style name="Goods_serviceIv">
+        <item name="android:layout_width">9dp</item>
+        <item name="android:layout_height">9dp</item>
+        <item name="android:layout_below">@id/iv_line1</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:background">@mipmap/icon_service</item>
     </style>
 </resources>

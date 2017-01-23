@@ -2,15 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/Background"
     >
     <!--生态农业首页推荐版块布局-->
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/NongYe_Line"
+        />
     <TextView
         android:id="@+id/tv_ThemTitle"
+        android:layout_below="@id/view_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/nongye_recommendBar"
         android:textColor="@color/NongYe_tuiJianBar"
         android:textSize="14sp"
@@ -28,15 +36,16 @@
 
         <ImageView
             android:id="@+id/iv_recommend_Item3"
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorAccent"
             />
-
         <ImageView
             android:id="@+id/iv_recommend_Item4"
             android:layout_width="0dp"
+            android:clickable="true"
             android:layout_height="match_parent"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
@@ -46,30 +55,24 @@
         <ImageView
             android:id="@+id/iv_recommend_Item5"
             android:layout_width="0dp"
+            android:clickable="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/color_line"
             />
 
     </LinearLayout>
-
     <ImageView
         android:id="@+id/iv_recommend_Item2"
         android:layout_width="0dp"
         android:layout_height="75dp"
+        android:clickable="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/iv_recommend_Item1"
         android:layout_toEndOf="@+id/iv_recommend_Item1"
         android:layout_toRightOf="@+id/iv_recommend_Item1"
         android:background="@color/colorPrimary"/>
-
-    <ImageView
-        android:id="@+id/iv_recommend_Item1"
-        android:layout_width="139dp"
-        android:layout_height="170dp"
-        android:layout_below="@id/tv_ThemTitle"
-        android:background="@color/NongYe_Tabtext"
-        />
 
     <LinearLayout
         android:id="@+id/lv_comgoods"
@@ -159,7 +162,7 @@
         android:id="@+id/tv_ThemFragmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
+        android:paddingBottom="12dp"
         android:layout_marginTop="12dp"
         android:layout_below="@+id/lv_comgoods"
         android:layout_centerHorizontal="true"
@@ -168,6 +171,15 @@
         android:textColor="@color/NongYe_tuiJianBar"
         android:textSize="14sp"
         />
+    <ImageView
+        android:id="@+id/iv_recommend_Item1"
+        android:clickable="true"
+        android:layout_width="139dp"
+        android:layout_height="170dp"
+        android:background="@color/NongYe_Tabtext"
+        android:layout_below="@+id/tv_ThemTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>
 
 

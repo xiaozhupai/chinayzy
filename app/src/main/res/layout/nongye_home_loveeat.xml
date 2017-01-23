@@ -3,7 +3,8 @@
               android:orientation="vertical"
               android:gravity="center_horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:background="@color/Background"
+              android:layout_height="wrap_content">
     <!--生态农业首页爱吃主题-->
     <TextView
         android:id="@+id/tv_ThemTitle"
@@ -17,9 +18,10 @@
         android:textSize="14sp"
         />
     <ImageView
-        android:id="@+id/iv_featureIcon"
+        android:id="@+id/iv_themeIcon"
         android:layout_width="match_parent"
         android:layout_height="107dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/tese"
         />
 </LinearLayout>

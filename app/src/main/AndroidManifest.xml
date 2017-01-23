@@ -23,7 +23,7 @@
 
 		  <!--生态农业公共activity-->
         <activity
-            android:name=".ui.activity.NongYe_MainActivity"
+            android:name=".NongYe_MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
@@ -53,7 +53,8 @@
 
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".ui.activity.ForgotActivity"
             android:label="@string/title_activity_forgot"
@@ -84,11 +85,11 @@
             android:launchMode="singleTask">
         </activity>
         <activity android:name=".ui.activity.Main2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
 
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"></activity>

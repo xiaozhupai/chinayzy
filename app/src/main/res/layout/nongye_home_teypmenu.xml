@@ -1,92 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="90dp"
-    >
-        <!--生态农业首页商品类型菜单布局-->
-        <ImageView
-            android:id="@+id/iv_greensType_btn"
-            style="@style/NongTe_iv_TypeMenu"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/btn_greens"
-            />
-
-        <ImageView
-            android:id="@+id/iv_fruitType_btn"
-            style="@style/NongTe_iv_TypeMenu"
-            android:layout_marginRight="35dp"
-            android:layout_toLeftOf="@id/iv_greensType_btn"
-            android:src="@mipmap/btn_fruit"
-            />
-
+              android:background="@color/Background"
+              android:layout_height="90dp">
+    <LinearLayout
+        android:id="@+id/ly_type_btn1"
+        style="@style/NongTe_layout_TypeMenu"
+        >
         <ImageView
             android:id="@+id/iv_teaType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:layout_marginRight="35dp"
-            android:layout_toLeftOf="@+id/iv_fruitType_btn"
             android:src="@mipmap/btn_tea"
             />
-
-        <ImageView
-            android:id="@+id/iv_FreshType_btn"
-            style="@style/NongTe_iv_TypeMenu"
-            android:layout_marginLeft="35dp"
-            android:layout_toRightOf="@id/iv_greensType_btn"
-            android:src="@mipmap/btn_fresh"
-            />
-
-        <ImageView
-            android:id="@+id/iv_moreType_btn"
-            style="@style/NongTe_iv_TypeMenu"
-            android:layout_marginLeft="35dp"
-            android:layout_toRightOf="@id/iv_FreshType_btn"
-            android:src="@mipmap/btn_more"
-            />
-
-        <TextView
-            android:id="@+id/tv_fruitType"
-            style="@style/NongYe_tv_TypeMenu"
-            android:layout_alignLeft="@id/iv_fruitType_btn"
-            android:layout_below="@id/iv_fruitType_btn"
-            android:text="新鲜水果"
-            />
-
-        <TextView
-            android:id="@+id/tv_greensType"
-            style="@style/NongYe_tv_TypeMenu"
-            android:layout_below="@id/iv_greensType_btn"
-            android:layout_centerHorizontal="true"
-            android:text="有机蔬菜"
-            />
-
-        <TextView
-            android:id="@+id/tv_freshType"
-            style="@style/NongYe_tv_TypeMenu"
-            android:layout_alignLeft="@id/iv_FreshType_btn"
-            android:layout_below="@id/iv_FreshType_btn"
-            android:text="精选生鲜"
-            />
-
-        <TextView
-            android:id="@+id/tv_moreType"
-            style="@style/NongYe_tv_TypeMenu"
-            android:layout_alignLeft="@id/iv_moreType_btn"
-            android:layout_below="@id/iv_moreType_btn"
-            android:text="更多分类"
-
-            />
-
         <TextView
             android:id="@+id/tv_teaType"
             style="@style/NongYe_tv_TypeMenu"
-            android:layout_alignLeft="@id/iv_teaType_btn"
-            android:layout_below="@id/iv_teaType_btn"
             android:text="自营茶叶"
             />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/NongYe_Line"
-            android:layout_alignParentBottom="true"
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ly_type_btn2"
+        style="@style/NongTe_layout_TypeMenu"
+        >
+        <ImageView
+            android:id="@+id/iv_fruitType_btn"
+            style="@style/NongTe_iv_TypeMenu"
+            android:src="@mipmap/btn_fruit"
             />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_fruitType"
+            style="@style/NongYe_tv_TypeMenu"
+            android:text="新鲜水果"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ly_type_btn3"
+        style="@style/NongTe_layout_TypeMenu"
+        >
+        <ImageView
+            android:id="@+id/iv_greensType_btn"
+            style="@style/NongTe_iv_TypeMenu"
+            android:src="@mipmap/btn_greens"
+            />
+        <TextView
+            android:id="@+id/tv_greensType"
+            style="@style/NongYe_tv_TypeMenu"
+            android:text="有机蔬菜"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_type_btn4"
+        style="@style/NongTe_layout_TypeMenu"
+        >
+        <ImageView
+            android:id="@+id/iv_FreshType_btn"
+            style="@style/NongTe_iv_TypeMenu"
+            android:src="@mipmap/btn_fresh"
+            />
+        <TextView
+            android:id="@+id/tv_freshType"
+            style="@style/NongYe_tv_TypeMenu"
+            android:text="精选生鲜"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_type_btn5"
+       style="@style/NongTe_layout_TypeMenu"
+        >
+        <ImageView
+            android:id="@+id/iv_moreType_btn"
+            style="@style/NongTe_iv_TypeMenu"
+            android:src="@mipmap/btn_type"
+            />
+        <TextView
+            android:id="@+id/tv_moreType"
+            style="@style/NongYe_tv_TypeMenu"
+            android:text="更多分类"
+            />
+    </LinearLayout>
+</LinearLayout>

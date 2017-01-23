@@ -33,7 +33,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         //初始化acitivity,
         onCreateActivity(savedInstanceState);
         //初始化Presenter
-        mPresenter.onCreate();
+        mPresenter.onStart();
 
         fragmentManager=getSupportFragmentManager();
 
@@ -49,7 +49,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     protected void onDestroy() {
-        mPresenter.onDestroy();
+        mPresenter.onStop();
         mPresenter.onDetach();
         super.onDestroy();
     }

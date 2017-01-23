@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,10 @@ import android.widget.LinearLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.presenter.MainPresenter;
+
+import cn.sharesdk.framework.ShareSDK;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements View.OnClickListener {
 
@@ -28,10 +30,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-//        setStatuBarColor(MainActivity.this, Color.rgb(218, 22, 47));
+        setStatuBarColor(MainActivity.this, Color.rgb(218, 22, 47));
         setContentView(R.layout.activity_main);
+        ShareSDK.initSDK(this);
+        AppInfo.init(this);
         initView();
-
     }
 
     @Override
@@ -71,7 +74,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 break;
             case R.id.btn_im://个人中心
                 showToast(this, "个人中心");
-                mPresenter.doStart_Person();
                 break;
             case R.id.btn_LvYou://旅游
                 showToast(this, "旅游");

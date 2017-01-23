@@ -3,7 +3,8 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:background="@color/Background"
+              android:layout_height="171dp">
     <!--生态农业首页搜索和banner图布局-->
     <ImageView
         android:id="@+id/iv_search"
@@ -13,12 +14,12 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/nongye_scerch_bg"
        />
+
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/banner_nongyeHome"
         android:layout_width="match_parent"
         android:layout_height="133dp"
         android:layout_below="@id/iv_search"
-        android:background="@mipmap/banner"
         app:canLoop="true"
         />
 </LinearLayout>

@@ -12,7 +12,7 @@ import cn.sharesdk.framework.ShareSDK;
  * Class APP
  */
 public class APP extends Application {
-
+	public static String sUserid="0";
 
     @Override
     public void onCreate() {

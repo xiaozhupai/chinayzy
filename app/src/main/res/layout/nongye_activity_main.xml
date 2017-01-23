@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/basecolor"
         >
     </FrameLayout>
     <RadioGroup
@@ -21,14 +22,12 @@
         android:layout_height="49dp"
         android:orientation="horizontal"
         android:background="@color/Background"
-
         >
         <RadioButton
             android:id="@+id/rb_nongye_home"
             style="@style/nav_rb_style"
             android:drawableTop="@drawable/nav_home_btn"
             android:text="首页"
-            android:checked="true"
             />
 
         <RadioButton
