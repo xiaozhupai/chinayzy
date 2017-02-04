@@ -20,18 +20,14 @@ import com.chinayiz.chinayzy.utils.TimeUntils;
  * 忘记密码
  */
 
-public class ForgotActivity extends BaseActivity<ForgotPresenter> implements View.OnClickListener,Handler.Callback {
-
-    private static final int MSG_NUM=5;
-    private EditText et_forgot_input_phone;
-    private ImageView iv__register_lock;
-    private EditText et_forgot_input_message;
-    private TextView tv_forgot_sendmessage,tv_forgot_submit,tv_forgot_pact;
-    private View v_register_line;
-    private EditText et_forgot_input_password;
-    private EditText et_forgot_input_newpassword;
-    private Handler handler;
-    private int num;
+public class ForgotActivity extends BaseActivity<ForgotPresenter> implements View.OnClickListener{
+    public EditText et_forgot_input_phone;
+    public ImageView iv__register_lock;
+    public EditText et_forgot_input_message;
+    public TextView tv_forgot_sendmessage,tv_forgot_submit,tv_forgot_pact;
+    public View v_register_line;
+    public EditText et_forgot_input_password;
+    public EditText et_forgot_input_newpassword;
 
     @Override
     protected ForgotPresenter initPresenter() {
@@ -47,7 +43,6 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot);
         initView();
-        handler=new Handler(this);
     }
 
     private void initView() {
@@ -65,32 +60,7 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
         tv_forgot_sendmessage.setOnClickListener(this);
     }
 
-    private void submit() {
-        // validate
-        String phone = et_forgot_input_phone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        String message = et_forgot_input_message.getText().toString().trim();
-        if (TextUtils.isEmpty(message)) {
-            Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String password = et_forgot_input_password.getText().toString().trim();
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请输入6-12位密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String newpassword = et_forgot_input_newpassword.getText().toString().trim();
-        if (TextUtils.isEmpty(newpassword)) {
-            Toast.makeText(this, "再次输入密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-    }
 
     @Override
     public void onClick(View v) {
@@ -98,29 +68,15 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
             case R.id.tv_forgot_pact:  //用户协议
                 break;
             case R.id.tv_forgot_submit:  //忘记密码提交
-                submit();
+                mPresenter.submit();
                 break;
             case R.id.tv_forgot_sendmessage:   //发送验证码
-                TimeUntils timeUntils=new TimeUntils(handler);
-                 timeUntils.RunTimer();
+                mPresenter.sendMessage();
                 break;
         }
     }
 
-    @Override
-    public boolean handleMessage(Message msg) {
-        if (msg.what==MSG_NUM){
-            num=msg.arg1;
-            if (num==0){
-                tv_forgot_sendmessage.setText("发送验证码");
-                tv_forgot_sendmessage.setClickable(true);
-            }else {
-                tv_forgot_sendmessage.setText(num+"后重新获取");
-                tv_forgot_sendmessage.setClickable(false);
-            }
-        }
-        return false;
-    }
+
 
     @Override
     public Activity getActivity() {

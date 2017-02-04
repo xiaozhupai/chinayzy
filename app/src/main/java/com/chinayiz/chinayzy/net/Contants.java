@@ -34,4 +34,16 @@ public class Contants {
      * 生态农业首页爱吃商品
      */
     public static final String NY_EATITEM = "/farm/eat";
+    /**
+     * 注册
+     */
+    public static final String REGISTER="/user/register";
+    /**
+     * 登录
+     */
+    public static final String LOGIN="/user/login";
+    /**
+     * 找回密码
+     */
+    public static final String BACKPWD="/user/backpwd";
 }

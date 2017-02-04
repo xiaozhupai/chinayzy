@@ -32,43 +32,34 @@ import cn.sharesdk.wechat.friends.Wechat;
  * 注册登录
  */
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements View.OnClickListener, PlatformActionListener, Callback{
-    private static final int MSG_SMSSDK_CALLBACK = 1;
-    private static final int MSG_AUTH_CANCEL = 2;
-    private static final int MSG_AUTH_ERROR = 3;
-    private static final int MSG_AUTH_COMPLETE = 4;
-    private static final int MSG_NUM=5;
-    private Handler handler;
-    private ImageView ivlogo;
-    private TextView tv_left_login;
-    private View v_left_line;
-    private TextView tv_right_register;
-    private View v_right_line;
-    private EditText ev_login_input_phone;
-    private ImageView iv_lock;
-    private EditText et_login_input_password;
-    private TextView tv_forgot;
-    private View v_line;
-    private ImageView iv_qq;
-    private ImageView iv_wechat;
-    private ImageView iv_weibo;
-    private EditText et_register_input_phone;
-    private ImageView iv__register_lock;
-    private EditText et_register_input_message;
-    private TextView tv_register_sendmessage;
-    private View v_register_line;
-    private EditText et_register_input_password;
-    private LinearLayout lv_login,lv_register;
-    private TextView tv_login_submit,tv_register_submit;
-    private int num;
-
+public class LoginActivity extends BaseActivity<LoginPresenter> implements View.OnClickListener{
+    public ImageView ivlogo;
+    public TextView tv_left_login;
+    public View v_left_line;
+    public TextView tv_right_register;
+    public View v_right_line;
+    public EditText ev_login_input_phone;
+    public ImageView iv_lock;
+    public EditText et_login_input_password;
+    public TextView tv_forgot;
+    public View v_line;
+    public ImageView iv_qq;
+    public ImageView iv_wechat;
+    public ImageView iv_weibo;
+    public EditText et_register_input_phone;
+    public ImageView iv__register_lock;
+    public EditText et_register_input_message;
+    public TextView tv_register_sendmessage;
+    public View v_register_line;
+    public EditText et_register_input_password;
+    public LinearLayout lv_login,lv_register;
+    public TextView tv_login_submit,tv_register_submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_login);
         initView();
-        handler = new Handler(this);
     }
 
     @Override
@@ -80,203 +71,38 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     protected void onCreateActivity(Bundle savedInstanceState) {
     }
 
-
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_qq:
-                //qq
-                Platform qq = ShareSDK.getPlatform(QQ.NAME);
-                authorize(qq);
+               mPresenter.toQQ();
                 break;
             case R.id.iv_wechat:
-                //微信
-                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
-                authorize(wechat);
+              mPresenter.toWechat();
                 break;
             case R.id.iv_weibo:
-                //新浪微博
-                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
-                authorize(sina);
+                mPresenter.toWeibo();
                 break;
-
             case R.id.tv_left_login:   //登录UI
-                showLeft();
+                mPresenter.showLeft();
                 break;
             case R.id.tv_right_register:    //注册UI
-                showRight();
+                mPresenter.showRight();
                 break;
             case R.id.tv_forgot:   //忘记密码
-                Intent intent=new Intent(this,ForgotActivity.class);
-                startActivity(intent);
+               mPresenter.toForgot();
                 break;
             case R.id.tv_login_submit:    //登录提交
-                login();
+              mPresenter.login();
                 break;
             case R.id.tv_register_submit:   //注册提交
-                register();
+                mPresenter.register();
                 break;
             case R.id.tv_register_sendmessage:
-                TimeUntils timeUntils=new TimeUntils(handler);
-                 timeUntils.RunTimer();
+              mPresenter.sendMessage();
                 break;
 
         }
-    }
-
-    private boolean isPhone(String str){
-        if (str.length()==11){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    private void register() {
-        String phone = et_register_input_phone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)){
-            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String message = et_register_input_message.getText().toString().trim();
-        if (TextUtils.isEmpty(message)) {
-            Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String password = et_register_input_password.getText().toString().trim();
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请输入6-12位密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-    }
-
-    private void login() {
-        String phone = ev_login_input_phone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)  ) {
-            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String password = et_login_input_password.getText().toString().trim();
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-    }
-
-    /**
-     * 左边视图显示
-     */
-    private void showLeft(){
-        ivlogo.setVisibility(View.VISIBLE);
-        lv_login.setVisibility(View.VISIBLE);
-        lv_register.setVisibility(View.GONE);
-        tv_left_login.setTextColor(Color.WHITE);
-        tv_right_register.setTextColor(Color.BLACK);
-        v_left_line.setVisibility(View.VISIBLE);
-        v_right_line.setVisibility(View.GONE);
-    }
-    /**
-     * 右边视图显示
-     */
-    private void showRight(){
-        lv_register.setVisibility(View.VISIBLE);
-        ivlogo.setVisibility(View.INVISIBLE);
-        lv_login.setVisibility(View.GONE);
-        tv_left_login.setTextColor(Color.BLACK);
-        tv_right_register.setTextColor(Color.WHITE);
-        v_left_line.setVisibility(View.GONE);
-        v_right_line.setVisibility(View.VISIBLE);
-    }
-
-    //执行授权,获取用户信息
-    //文档：http://wiki.mob.com/Android_%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E8%B5%84%E6%96%99
-    private void authorize(Platform plat) {
-        if (plat == null) {
-            return;
-        }
-        plat.setPlatformActionListener(this);
-        //关闭SSO授权
-        plat.SSOSetting(true);
-        plat.showUser(null);
-    }
-
-    /**
-     * 回调完成
-     * @param platform
-     * @param action
-     * @param res
-     */
-    public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
-        if (action == Platform.ACTION_USER_INFOR) {
-            Message msg = new Message();
-            msg.what = MSG_AUTH_COMPLETE;
-            msg.obj = new Object[]{platform.getName(), res};
-            handler.sendMessage(msg);
-        }
-    }
-
-    /**
-     * 回调错误
-     * @param platform
-     * @param action
-     * @param t
-     */
-    public void onError(Platform platform, int action, Throwable t) {
-        if (action == Platform.ACTION_USER_INFOR) {
-            handler.sendEmptyMessage(MSG_AUTH_ERROR);
-        }
-        t.printStackTrace();
-    }
-
-    /**
-     * 回调取消
-     * @param platform
-     * @param action
-     */
-    public void onCancel(Platform platform, int action) {
-        if (action == Platform.ACTION_USER_INFOR) {
-            handler.sendEmptyMessage(MSG_AUTH_CANCEL);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public boolean handleMessage(Message msg) {
-        switch (msg.what) {
-            case MSG_AUTH_CANCEL: {
-                //取消授权
-                Toast.makeText(this, "取消授权", Toast.LENGTH_SHORT).show();
-            }
-            break;
-            case MSG_AUTH_ERROR: {
-                //授权失败
-                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
-            }
-            break;
-            case MSG_AUTH_COMPLETE: {
-                //授权成功
-                Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
-                Object[] objs = (Object[]) msg.obj;
-                String platform = (String) objs[0];
-                HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
-            }
-            break;
-            case MSG_NUM:{
-               num=msg.arg1;
-                if (num==0){
-                    tv_register_sendmessage.setText("发送验证码");
-                    tv_register_sendmessage.setClickable(true);
-                }else {
-                    tv_register_sendmessage.setText(num+"后重新获取");
-                    tv_register_sendmessage.setClickable(false);
-                }
-            }
-            break;
-        }
-        return false;
     }
 
 
@@ -304,7 +130,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         lv_register= (LinearLayout) findViewById(R.id.lv_register);
         tv_login_submit= (TextView) findViewById(R.id.tv_login_submit);
         tv_register_submit= (TextView) findViewById(R.id.tv_register_submit);
-
         ivlogo.setOnClickListener(this);
         tv_left_login.setOnClickListener(this);
         tv_right_register.setOnClickListener(this);

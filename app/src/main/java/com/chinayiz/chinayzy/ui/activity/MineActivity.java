@@ -10,14 +10,13 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
+import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 import com.chinayiz.chinayzy.views.PullToRefreshLayout;
-
 
 /**
  * 个人中心
  */
-
 
 public class MineActivity extends BaseActivity<MinePresenter> implements View.OnClickListener {
     private ImageView iv_mine_user_logo;
@@ -37,8 +36,8 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     private LinearLayout lv_mine_server;
     private LinearLayout lv_mine_suggest;
     private LinearLayout lv_mine_setting;
+    public LinearLayout layout_content;
     private PullToRefreshLayout pullToRefreshLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +58,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     }
 
     private void initView() {
+        layout_content= (LinearLayout) findViewById(R.id.layout_content);
         iv_mine_user_logo = (ImageView) findViewById(R.id.iv_mine_user_logo);
         iv_mine_user_sex = (ImageView) findViewById(R.id.iv_mine_user_sex);
         tv_user_username = (TextView) findViewById(R.id.tv_user_username);
@@ -141,7 +141,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_setting:  //设置
-
+                 mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new SettingFragment());
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
 

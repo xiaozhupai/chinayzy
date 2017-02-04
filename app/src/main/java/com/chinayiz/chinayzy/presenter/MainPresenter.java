@@ -1,12 +1,16 @@
 package com.chinayiz.chinayzy.presenter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.MainActivity;
 import com.chinayiz.chinayzy.NongYe_MainActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.ui.activity.LoginActivity;
+import com.chinayiz.chinayzy.ui.activity.MineActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -44,6 +48,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
     public void onCreate() {
 
     }
+
     @Override
     public void onDestroy() {
 
@@ -61,4 +66,23 @@ public class MainPresenter extends BasePresenter<MainActivity> {
         Intent intent=new Intent(mView, NongYe_MainActivity.class);
         mView.startActivity(intent);
     }
+
+    /**
+     * 个人中心
+     */
+    public void doMine(){
+        SharedPreferences sp = mView.getSharedPreferences("login", Context.MODE_PRIVATE);
+       int userid=sp.getInt("userid",0);
+        if (userid==0){  //没有登录
+            Intent intent=new Intent(mView, LoginActivity.class);
+            mView.startActivity(intent);
+        }else {   //已经登录
+            Intent intent=new Intent(mView, MineActivity.class);
+            mView.startActivity(intent);
+        }
+    }
+
+
+
+
 }

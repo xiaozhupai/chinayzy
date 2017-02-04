@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 showToast(this, "商城");
                 break;
             case R.id.btn_im://个人中心
+                mPresenter.doMine();
                 showToast(this, "个人中心");
                 break;
             case R.id.btn_LvYou://旅游
