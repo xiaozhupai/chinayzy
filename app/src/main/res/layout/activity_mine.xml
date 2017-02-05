@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chinayiz.chinayzy.views.PullToRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.chinayiz.chinayzy.ui.activity.MineActivity"
     android:background="#efeff4"
-    android:id="@+id/pullrefresh"
+     android:orientation="vertical"
     >
+
+    <include
+        android:id="@+id/head"
+        layout="@layout/common_action_bar"/>
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <com.chinayiz.chinayzy.views.PullToRefreshLayout
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <include layout="@layout/refresh_head"/>
     <com.chinayiz.chinayzy.views.PullableScrollView
         android:layout_width="match_parent"
@@ -498,3 +513,5 @@
         android:id="@+id/loadlayout"
         layout="@layout/load_more"/>
 </com.chinayiz.chinayzy.views.PullToRefreshLayout>
+    </FrameLayout>
+</LinearLayout>

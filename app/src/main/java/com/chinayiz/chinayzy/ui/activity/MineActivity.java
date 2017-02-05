@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
+import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.GoodsKeepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 import com.chinayiz.chinayzy.views.PullToRefreshLayout;
@@ -38,6 +42,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     private LinearLayout lv_mine_setting;
     public LinearLayout layout_content;
     private PullToRefreshLayout pullToRefreshLayout;
+    public RelativeLayout head;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,8 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         setContentView(R.layout.activity_mine);
         initView();
         findViewById(R.id.loadlayout).setVisibility(View.GONE);
+        head= (RelativeLayout) findViewById(R.id.head);
+        head.setVisibility(View.GONE);
     }
 
     @Override
@@ -122,11 +129,11 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
             case R.id.lv_after_sale:   //售后
 
                 break;
-            case R.id.lv_mine_keep:   //我的宝贝
-
+            case R.id.lv_mine_keep:   //宝贝收藏
+                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new GoodsKeepFragment());
                 break;
             case R.id.lv_mine_step:   //我的足迹
-
+                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new MyStepFragment());
                 break;
             case R.id.lv_mine_shop_car:  //购物车
 
@@ -138,13 +145,15 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_suggest:  //我的建议
-
+                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new SuggestFragment());
                 break;
             case R.id.lv_mine_setting:  //设置
+
                  mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new SettingFragment());
+
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
-
+                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new ContentKeepFragment());
                 break;
         }
     }

@@ -7,15 +7,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.adapter.GoodsKeepAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.ContentKeepPresenter;
+import com.chinayiz.chinayzy.views.PullToRefreshLayout;
+import com.chinayiz.chinayzy.views.PullableListView;
 
-/**     博文收藏
+/**
+ * 博文收藏
  * A simple {@link Fragment} subclass.
  */
 public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
+
+
+
 
 
     @Override
@@ -37,17 +47,22 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_content_keep, container, false);
+        View view=initView(inflater, container, savedInstanceState);
+        return view;
     }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+        View view=inflater.inflate(R.layout.fragment_goods_keep, container, false);
+
+
+        return view;
+
     }
 
     @Override
     public ContentKeepPresenter initPresenter() {
-        return null;
+        return new ContentKeepPresenter();
     }
 
     @Override

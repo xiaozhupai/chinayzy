@@ -3,6 +3,8 @@ package com.chinayiz.chinayzy.presenter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.BasePresenter;
@@ -52,6 +54,8 @@ public class MinePresenter extends BasePresenter<MineActivity> {
 
 
     public void addFragment(FragmentTransaction transaction, Fragment fragment) {
-                transaction.add(R.id.pullrefresh, fragment).commit();
+        transaction.add(R.id.container, fragment).commit();
+        mView.head.setVisibility(View.VISIBLE);
+
     }
 }

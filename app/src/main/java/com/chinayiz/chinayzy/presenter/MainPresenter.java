@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.MainActivity;
 import com.chinayiz.chinayzy.NongYe_MainActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
@@ -71,9 +72,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
      * 个人中心
      */
     public void doMine(){
-        SharedPreferences sp = mView.getSharedPreferences("login", Context.MODE_PRIVATE);
-       int userid=sp.getInt("userid",0);
-        if (userid==0){  //没有登录
+        if (!UserSeeion.isLogin(mView)){  //没有登录
             Intent intent=new Intent(mView, LoginActivity.class);
             mView.startActivity(intent);
         }else {   //已经登录

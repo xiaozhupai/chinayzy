@@ -65,7 +65,7 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
 
     @Override
     public SuggestPresenter initPresenter() {
-        return null;
+        return new SuggestPresenter();
     }
 
     @Override

@@ -41,34 +41,34 @@
             android:text="多效浸透洁肤水,我一般只擦CPB,然后补一点lamber的cc霜"
             android:layout_marginTop="9dp"
             />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            >
-            <ImageView
-                android:id="@+id/iv_articlekeep_love"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_love_selected"
-                />
-            <ImageView
-                android:id="@+id/iv_articlekeep_keep"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_keep"
-                />
-            <ImageView
-                android:id="@+id/iv_articlekeep_share"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_share"
-                />
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--&gt;-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_articlekeep_love"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/icon_love_selected"-->
+                <!--/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_articlekeep_keep"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/icon_keep"-->
+                <!--/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_articlekeep_share"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/icon_share"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
     </LinearLayout>
 
     <ImageView

@@ -39,9 +39,6 @@ public class ArticleAdaphter extends BaseInectAdaphter {
         public ImageView iv_articlekeep_imag;
         public TextView tv_articlekeep_title;
         public TextView tv_articlekeep_content;
-        public ImageView iv_articlekeep_love;
-        public ImageView iv_articlekeep_keep;
-        public ImageView iv_articlekeep_share;
         public LinearLayout lv_center;
         public ImageView iv_arrow_right;
 
@@ -50,9 +47,7 @@ public class ArticleAdaphter extends BaseInectAdaphter {
             this.iv_articlekeep_imag = (ImageView) rootView.findViewById(R.id.iv_articlekeep_imag);
             this.tv_articlekeep_title = (TextView) rootView.findViewById(R.id.tv_articlekeep_title);
             this.tv_articlekeep_content = (TextView) rootView.findViewById(R.id.tv_articlekeep_content);
-            this.iv_articlekeep_love = (ImageView) rootView.findViewById(R.id.iv_articlekeep_love);
-            this.iv_articlekeep_keep = (ImageView) rootView.findViewById(R.id.iv_articlekeep_keep);
-            this.iv_articlekeep_share = (ImageView) rootView.findViewById(R.id.iv_articlekeep_share);
+
             this.lv_center = (LinearLayout) rootView.findViewById(R.id.lv_center);
             this.iv_arrow_right = (ImageView) rootView.findViewById(R.id.iv_arrow_right);
         }

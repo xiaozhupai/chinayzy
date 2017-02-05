@@ -82,7 +82,9 @@
         </activity>
         <activity
             android:name=".ui.activity.MineActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            >
         </activity>
         <activity android:name=".ui.activity.Main2Activity">
             <!--<intent-filter>-->
