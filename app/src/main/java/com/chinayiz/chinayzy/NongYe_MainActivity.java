@@ -14,6 +14,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.NongYe_MainPresenter;
 import com.chinayiz.chinayzy.ui.fragment.NongYe_homeFragment;
+import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -27,6 +28,7 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
     private TextView mTvActionBarTitle;
     private ImageView mIvMoreButton;
     private NongYe_homeFragment mHomeFragment;
+    private FindFragment mFindFragment;
     public BaseFragment mCurrentFragment;
 
     @Override
@@ -105,7 +107,11 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
                 mPresenter.addOrShowFragment(getSupportFragmentManager().beginTransaction(),mHomeFragment);
                 break;
             case 1:
-
+                if (mFindFragment==null){
+                    Logger.i("等于空");
+                    mFindFragment=new FindFragment();
+                }
+                mPresenter.addOrShowFragment(getSupportFragmentManager().beginTransaction(),mFindFragment);
                 break;
             case 2:
 

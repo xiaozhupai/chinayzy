@@ -49,6 +49,10 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
      View view=initView(inflater,container,savedInstanceState);
+        ViewGroup parent= (ViewGroup) view.getParent();
+        if (parent!=null){
+            parent.removeView(view);
+        }
         return view;
     }
 

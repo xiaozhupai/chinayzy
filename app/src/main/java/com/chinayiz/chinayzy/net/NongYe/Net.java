@@ -2,6 +2,8 @@ package com.chinayiz.chinayzy.net.NongYe;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.FindListModel;
+import com.chinayiz.chinayzy.entity.response.FindTypeModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
@@ -182,6 +184,64 @@ public class Net {
                     }
                 });
     }
+
+    /**
+     * 发现类型
+     *
+     */
+    public void getFindType() {
+        OkHttpUtils
+                .post()
+                .url(Contants.API + Contants.FINDTYPE)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.FINDTYPE
+                                    ,mGson.fromJson(s,FindTypeModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 发现列表
+     *
+     */
+    public void getFindBlogByType(String type) {
+        OkHttpUtils
+                .post()
+                .url(Contants.API + Contants.FINDBLOGBYTYPE)
+                .addParams("type",type)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.FINDBLOGBYTYPE
+                                    ,mGson.fromJson(s,FindListModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 取消请求

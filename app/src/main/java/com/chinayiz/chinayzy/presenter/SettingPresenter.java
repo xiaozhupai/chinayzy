@@ -1,8 +1,10 @@
 package com.chinayiz.chinayzy.presenter;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 
@@ -49,5 +51,9 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
     @Override
     public void disposeInfoMsg(EventMessage message) {
 
+    }
+
+    public void logout(){
+        UserSeeion.logout(mView.getActivity());
     }
 }

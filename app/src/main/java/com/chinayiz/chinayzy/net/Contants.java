@@ -29,7 +29,7 @@ public class Contants {
     /**
      * 生态农业首页爱吃主题
      */
-    public static final String NY_EATTHEME="/farm/eattheme";
+    public static final String NY_EATTHEME = "/farm/eattheme";
     /**
      * 生态农业首页爱吃商品
      */
@@ -37,13 +37,22 @@ public class Contants {
     /**
      * 注册
      */
-    public static final String REGISTER="/user/register";
+    public static final String REGISTER = "/user/register";
     /**
      * 登录
      */
-    public static final String LOGIN="/user/login";
+    public static final String LOGIN = "/user/login";
     /**
      * 找回密码
      */
-    public static final String BACKPWD="/user/backpwd";
+    public static final String BACKPWD = "/user/backpwd";
+    /**
+     * 发现类型
+     */
+    public static final String FINDTYPE = "/farm/findType";
+    /**
+     * 发现列表
+     */
+    public static final String FINDBLOGBYTYPE = "/farm/findBlogByType";
+
 }

@@ -60,7 +60,6 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, null);
-
         rl_to_person = (RelativeLayout) inflater.inflate(R.layout.fragment_setting, container, false).findViewById(R.id.rl_to_person);
         rl_to_person.setOnClickListener(this);
         tv_cache = (TextView) inflater.inflate(R.layout.fragment_setting, container, false).findViewById(R.id.tv_cache);
@@ -115,7 +114,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
 
                 break;
             case R.id.tv_logout:   //退出登录
-
+                  mPresenter.logout();
                 break;
         }
     }
