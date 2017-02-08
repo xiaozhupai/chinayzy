@@ -1,6 +1,8 @@
 package com.chinayiz.chinayzy.net.NongYe;
 
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.entity.AppInfo;
+import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
@@ -9,6 +11,9 @@ import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
+import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.entity.response.SearchLabelModel;
+import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.Contants;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
@@ -186,6 +191,127 @@ public class Net {
     }
 
     /**
+     * 搜索所有标签
+     *
+     */
+    public void getSearchFarm(String title,String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Contants.API + Contants.SEARCHFARM)
+                .addParams("userid","5")
+                .addParams("searchkey",title)
+                .addParams("page", page)
+                .addParams("size", size)
+                .addParams("type","1")
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.SEARCHFARM
+                                    ,mGson.fromJson(s,SearchFarmModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 搜索所有标签
+     *
+     */
+    public void getALLTab() {
+        OkHttpUtils
+                .post()
+                .url(Contants.API + Contants.GETSEARCHKEY)
+                .addParams("userid","5")
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.GETSEARCHKEY
+                                    ,mGson.fromJson(s,SearchLabelModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+
+//
+//    /**
+//     * 删除历史搜索记录
+//     *
+//     */
+//    public void getRemoveSearch() {
+//        OkHttpUtils
+//                .post()
+//                .url(Contants.API + Contants.DELSEARCHKEY)
+//                .addParams("userid","5")
+//                .tag("ny")
+//                .build()
+//                .execute(new StrCallback(){
+//                    @Override
+//                    public void onError(Call call, Exception e, int i) {
+//                        Logger.e("错误信息："+e.toString());
+//                    }
+//                    @Override
+//                    public void onResponse(String s, int i) {
+//                        try {
+//                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+//                                    ,Contants.DELSEARCHKEY
+//                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+//                        }catch (Exception e){
+//                            onError(null,e,i);
+//                        }
+//                    }
+//                });
+//    }
+
+
+    /**
+     * 购物车
+     */
+    public void getShopCart(){
+        OkHttpUtils
+                .post()
+                .url(Contants.SHOPCART)
+                .addParams("userid", APP.sUserid)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.SHOPCART
+                                    ,mGson.fromJson(s,ShopCartModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
      * 发现类型
      *
      */
@@ -241,6 +367,8 @@ public class Net {
                     }
                 });
     }
+
+
 
 
     /**

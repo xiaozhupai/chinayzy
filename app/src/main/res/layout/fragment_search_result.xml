@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chinayiz.chinayzy.ui.fragment.SearchResultFragment"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/tv_hot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+             android:text="热卖"
+            android:gravity="center"
+            android:textColor="#0b1b01"
+            android:padding="10dp"
+            />
+        <TextView
+            android:id="@+id/tv_sale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="销量"
+            android:gravity="center"
+            android:textColor="#0b1b01"
+            android:padding="10dp"
+            />
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="价格"
+            android:gravity="center"
+            android:textColor="#0b1b01"
+            android:padding="10dp"
+            />
+    </LinearLayout>
+  <com.chinayiz.chinayzy.views.PullToRefreshLayout
+      android:id="@+id/pullrefresh"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <include layout="@layout/refresh_head"/>
+
+      <com.chinayiz.chinayzy.views.PullableListView
+          android:id="@+id/pulllv"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+
+          />
+      <include layout="@layout/load_more"/>
+  </com.chinayiz.chinayzy.views.PullToRefreshLayout>
+    <com.chinayiz.chinayzy.views.PullToRefreshLayout
+        android:visibility="gone"
+        android:id="@+id/pullrefresh2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/refresh_head"
+
+            />
+        <com.chinayiz.chinayzy.views.PullableGridView
+            android:id="@+id/pullgd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+        <include layout="@layout/load_more"/>
+    </com.chinayiz.chinayzy.views.PullToRefreshLayout>
+</LinearLayout>

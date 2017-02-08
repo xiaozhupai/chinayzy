@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
     <com.chinayiz.chinayzy.views.PullToRefreshLayout
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
@@ -143,8 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="36dp"
+
                 android:paddingBottom="14dp"
                 android:background="@color/white"
                 >

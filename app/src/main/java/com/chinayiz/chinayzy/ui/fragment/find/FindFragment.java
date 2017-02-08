@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment.find;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,12 +10,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.PagerAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.FindPresenter;
-import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +23,8 @@ import java.util.List;
  */
 
 public class FindFragment extends BaseFragment<FindPresenter> implements View.OnClickListener, ViewPager.OnPageChangeListener {
-
-    private ViewPager vp_find;
-    private View v_slide;
+    public ViewPager vp_find;
+    public View v_slide;
     public LinearLayout ll_top;
     private static final int SLIDE=123;
 
@@ -38,7 +34,6 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
 
     @Override
     protected void onInvisible() {
-
     }
 
     @Override
@@ -50,18 +45,10 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
         View view=inflater.inflate(R.layout.fragment_find,container,false);
         v_slide=view.findViewById(R.id.v_slide);
         ll_top= (LinearLayout) view.findViewById(R.id.ll_top);
-
         vp_find = (ViewPager) view.findViewById(R.id.vp_find);
         vp_find.setOnClickListener(this);
-        List<Fragment> lists=new ArrayList<>();
-        for (int i=0;i<4;i++){
-            FindListFragment fragment=new FindListFragment();
-            lists.add(fragment);
-        }
-        vp_find.setAdapter(new PagerAdaphter(getChildFragmentManager(),lists));
         vp_find.setOnPageChangeListener(this);
         return view;
-
     }
 
     @Override
@@ -76,9 +63,7 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment like bottom ... and run LayoutCreator again
-
         View view=initView(inflater,container,savedInstanceState);
-
         return view;
     }
 
@@ -103,15 +88,14 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
         int  newPosition=position;
         int traslate;
         if (newPosition>oldPosition){ //向右移动
-            traslate=SLIDE*(newPosition-oldPosition);
+            traslate=2*mPresenter.Slide*(newPosition-oldPosition);
         }else { //向左移动
-            traslate=-SLIDE*(oldPosition-newPosition);
+            traslate=-2*mPresenter.Slide*(oldPosition-newPosition);
         }
         Animation animation =new TranslateAnimation(position*SLIDE,position*SLIDE+traslate,0,0);
         animation.setFillAfter(true);
         animation.setDuration(100);
         v_slide.startAnimation(animation);
-
     }
 
     @Override

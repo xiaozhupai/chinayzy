@@ -54,5 +54,23 @@ public class Contants {
      * 发现列表
      */
     public static final String FINDBLOGBYTYPE = "/farm/findBlogByType";
+    /**
+     * 购物车
+     */
+    public static final String SHOPCART="/farm/showShoppingCar";
+    /**
+     * 删除历史搜索
+     */
+    public static final String DELSEARCHKEY="/farm/delSearchkey";
+    /**
+     * 获取所有的搜索标签
+     */
+    public static final String GETSEARCHKEY="/farm/getSearchkey";
+    /**
+     * 生态农业首页搜索
+     */
+    public static final String SEARCHFARM="/farm/searchFarm";
+
+
 
 }

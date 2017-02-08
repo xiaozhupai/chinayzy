@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -80,8 +81,7 @@ public class TagListView extends FlowLayout implements OnClickListener {
 		localTagView.setTag(t);
 
 		if (mTagViewTextColorResId <= 0) {
-			int c = getResources().getColor(R.color.blue);
-			localTagView.setTextColor(c);
+			localTagView.setTextColor(Color.rgb(129,131,142));
 
 		}
 

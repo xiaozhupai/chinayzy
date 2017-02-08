@@ -35,6 +35,7 @@ public class MessageDialog extends DialogUtils.XDialog implements View.OnClickLi
 
 	private TextView  vButton1, vButton2;
 	private View vDivider;
+	public TextView message;
 
 
 	/**
@@ -45,6 +46,7 @@ public class MessageDialog extends DialogUtils.XDialog implements View.OnClickLi
 		getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		getWindow().setGravity(Gravity.CENTER);
 		setContentView(R.layout.dialog_message);
+	  message= (TextView) findViewById(R.id.dialog_message);
 		vButton1 = (TextView) findViewById(R.id.dialog_button1);
 		vButton2 = (TextView) findViewById(R.id.dialog_button2);
 		vDivider = findViewById(R.id.dialog_divider);

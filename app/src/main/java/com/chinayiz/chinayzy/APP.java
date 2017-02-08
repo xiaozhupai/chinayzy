@@ -2,6 +2,8 @@ package com.chinayiz.chinayzy;
 
 import android.app.Application;
 
+import com.chinayiz.chinayzy.database.SearchDabase;
+import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -20,6 +22,7 @@ public class APP extends Application {
         initData();
         ShareSDK.initSDK(this);
         AppInfo.init(this);
+        SearchDao.getInstance(this);
     }
 
     /**

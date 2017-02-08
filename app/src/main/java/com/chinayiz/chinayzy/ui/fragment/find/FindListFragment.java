@@ -28,9 +28,10 @@ import java.util.List;
  */
 
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
-    private PullableGridView gd_find_list;
-    private FindAdaphter adaphter;
+    public PullableGridView gd_find_list;
+    public FindAdaphter adaphter;
     private PullToRefreshLayout pullToRefreshLayout;
+    public static final String DATA_TYPE="DATA_TYPE";
 
 
     @Override
@@ -63,11 +64,6 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
         gd_find_list= (PullableGridView) view.findViewById(R.id.gd_find_list);
         gd_find_list.setOnItemClickListener(this);
         List list=new ArrayList();
-
-        for (int i=0;i<10;i++){
-            list.add("dsds");
-        }
-
         adaphter=new FindAdaphter(mContext,list);
         gd_find_list.setAdapter(adaphter);
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
@@ -76,7 +72,6 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
                 Toast.makeText(mContext,"refresh",Toast.LENGTH_LONG).show();
                 pullToRefreshLayout.refreshFinish(0);
             }
-
 
             @Override
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
@@ -94,7 +89,6 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     @Override
     public void isNightMode(boolean isNight) {
-
     }
 
     @Override

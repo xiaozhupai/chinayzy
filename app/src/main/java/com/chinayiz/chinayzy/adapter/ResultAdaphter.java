@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Administrator on 2017/1/12.
  */
 
-public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel> {
+public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel.ShopCartBean> {
     public static final int HEAD = 0;
     public static final int ITEM = 1;
     private ImageView iv_result_item_img;
@@ -28,7 +28,7 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel> {
     private TextView tv_result_item_num;
     private LinearLayout lv_before;
 
-    public ResultAdaphter(Context context, List<ShopCartModel> list) {
+    public ResultAdaphter(Context context, List<ShopCartModel.ShopCartBean> list) {
         this.lists = list;
         this.context = context;
     }
@@ -43,7 +43,7 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel> {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-         ShopCartModel shopCartModel=lists.get(i);
+         ShopCartModel.ShopCartBean shopCartModel=lists.get(i);
         if (shopCartModel.isHead()){
             viewHolder.iv_head_title.setVisibility(View.VISIBLE);
             viewHolder.iv_head_title.setText(shopCartModel.getSname());
@@ -65,9 +65,6 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel> {
         return view;
     }
 
-
-
-
     public static class ViewHolder {
         public View rootView;
         public ImageView iv_result_item_img;
@@ -88,8 +85,5 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel> {
             this.lv_before = (LinearLayout) rootView.findViewById(R.id.lv_before);
             this.iv_head_title = (TextView) rootView.findViewById(R.id.iv_head_title);
         }
-
     }
-
-
 }

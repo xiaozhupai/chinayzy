@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.entity.response.FindListModel;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ import java.util.List;
  * Created by Administrator on 2017/1/12.
  */
 
-public class FindAdaphter extends BaseInectAdaphter {
-    public FindAdaphter(Context context,List lists) {
+public class FindAdaphter extends BaseInectAdaphter<FindListModel.DataBean>{
+    public FindAdaphter(Context context,List<FindListModel.DataBean> lists) {
         this.context=context;
         this.lists=lists;
     }
@@ -29,6 +30,10 @@ public class FindAdaphter extends BaseInectAdaphter {
         } else {
           viewHolder= (ViewHolder) view.getTag();
         }
+       FindListModel.DataBean bean=lists.get(i);
+        viewHolder.tv_find_item_title.setText(bean.getTitle());
+        viewHolder.tv_find_item_content.setText(bean.getContent());
+
         return view;
     }
 

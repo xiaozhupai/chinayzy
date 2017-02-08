@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.entity.response.ShopCartModel;
+import com.chinayiz.chinayzy.entity.response.ShopCartModel.ShopCartBean;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
@@ -41,7 +41,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     private CheckImageView iv_pay_ali;
     private CheckImageView iv_pay_wechat;
     private LinearLayout lv_payway;
-    private List<ShopCartModel> list;
+    private List<ShopCartBean> list;
 
     @Override
     protected void onVisible() {
@@ -99,7 +99,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         lv_result.addFooterView(foot);
         list = new ArrayList();
         for (int i=0;i<5;i++){
-            ShopCartModel model=new ShopCartModel();
+            ShopCartBean model=new ShopCartBean();
             model.setSname("dsds");
             model.setChecked(false);
             model.setNum(2);
@@ -107,7 +107,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
             list.add(model);
         }
         for (int i=0;i<5;i++){
-            ShopCartModel model=new ShopCartModel();
+            ShopCartBean model=new ShopCartBean();
             model.setSname("bbb");
             model.setChecked(false);
             model.setNum(1);
@@ -115,7 +115,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
             list.add(model);
         }
         for (int i=0;i<5;i++){
-            ShopCartModel model=new ShopCartModel();
+            ShopCartBean model=new ShopCartBean();
             model.setSname("ccc");
             model.setChecked(false);
             model.setNum(1);
@@ -150,7 +150,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
      */
     public double UpdateTotal(){
         double total=0.00;
-        for (ShopCartModel bean:list){
+        for (ShopCartBean bean:list){
             total+=bean.getPrice()*bean.getNum();
         }
         return total;

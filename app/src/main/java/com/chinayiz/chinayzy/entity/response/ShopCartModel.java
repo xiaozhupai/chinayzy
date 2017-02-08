@@ -1,188 +1,204 @@
 package com.chinayiz.chinayzy.entity.response;
 
+import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
+
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/1/17.
  */
 
-public class ShopCartModel {
-    private String icon;  //商品小图标
-    private int salesvolume;  //月销量
-    private String standerpic;  //规格图片
-    private String gname;   //商品名称
-    private String pic;   //店铺logo
-    private String sname;   //店铺名称
-    private  String standardname;   //规格名称
-    private String unit;   //单位
-    private int  num;    //数量
-    private int  shopid;   //店铺id
-    private double price;    //价格
-    private String shopmessage;   //
-    private int grade;    //店铺等级
-    private String brand;   //品牌
-    private  int carid;    //购物车唯一id
-    private String productarea;   //产地
-    private String standardvalue;   //规格值
-    private boolean isChecked;
-    private boolean isHead;
-    private boolean isHeadChecked;
+public class ShopCartModel extends BaseResponseModel {
+    private List<ShopCartBean> data;
 
-    public boolean isHeadChecked() {
-        return isHeadChecked;
+    public List<ShopCartBean> getData() {
+        return data;
+    }
+    public void setData(List<ShopCartBean> data) {
+        this.data = data;
     }
 
-    public void setHeadChecked(boolean headChecked) {
-        isHeadChecked = headChecked;
-    }
+    public static  class ShopCartBean{
+        private String icon;  //商品小图标
+        private int salesvolume;  //月销量
+        private String standerpic;  //规格图片
+        private String gname;   //商品名称
+        private String pic;   //店铺logo
+        private String sname;   //店铺名称
+        private  String standardname;   //规格名称
+        private String unit;   //单位
+        private int  num;    //数量
+        private int  shopid;   //店铺id
+        private double price;    //价格
+        private String shopmessage;   //
+        private int grade;    //店铺等级
+        private String brand;   //品牌
+        private  int carid;    //购物车唯一id
+        private String productarea;   //产地
+        private String standardvalue;   //规格值
+        private boolean isChecked;
+        private boolean isHead;
+        private boolean isHeadChecked;
 
-    public boolean isHead() {
-        return isHead;
-    }
 
-    public void setHead(boolean head) {
-        isHead = head;
-    }
+        public boolean isHeadChecked() {
+            return isHeadChecked;
+        }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
+        public void setHeadChecked(boolean headChecked) {
+            isHeadChecked = headChecked;
+        }
 
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
+        public boolean isHead() {
+            return isHead;
+        }
 
-    public String getIcon() {
-        return icon;
-    }
+        public void setHead(boolean head) {
+            isHead = head;
+        }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
+        public boolean isChecked() {
+            return isChecked;
+        }
 
-    public int getSalesvolume() {
-        return salesvolume;
-    }
+        public void setChecked(boolean checked) {
+            isChecked = checked;
+        }
 
-    public void setSalesvolume(int salesvolume) {
-        this.salesvolume = salesvolume;
-    }
+        public String getIcon() {
+            return icon;
+        }
 
-    public String getStanderpic() {
-        return standerpic;
-    }
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
 
-    public void setStanderpic(String standerpic) {
-        this.standerpic = standerpic;
-    }
+        public int getSalesvolume() {
+            return salesvolume;
+        }
 
-    public String getGname() {
-        return gname;
-    }
+        public void setSalesvolume(int salesvolume) {
+            this.salesvolume = salesvolume;
+        }
 
-    public void setGname(String gname) {
-        this.gname = gname;
-    }
+        public String getStanderpic() {
+            return standerpic;
+        }
 
-    public String getPic() {
-        return pic;
-    }
+        public void setStanderpic(String standerpic) {
+            this.standerpic = standerpic;
+        }
 
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
+        public String getGname() {
+            return gname;
+        }
 
-    public String getSname() {
-        return sname;
-    }
+        public void setGname(String gname) {
+            this.gname = gname;
+        }
 
-    public void setSname(String sname) {
-        this.sname = sname;
-    }
+        public String getPic() {
+            return pic;
+        }
 
-    public String getStandardname() {
-        return standardname;
-    }
+        public void setPic(String pic) {
+            this.pic = pic;
+        }
 
-    public void setStandardname(String standardname) {
-        this.standardname = standardname;
-    }
+        public String getSname() {
+            return sname;
+        }
 
-    public String getUnit() {
-        return unit;
-    }
+        public void setSname(String sname) {
+            this.sname = sname;
+        }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+        public String getStandardname() {
+            return standardname;
+        }
 
-    public int getNum() {
-        return num;
-    }
+        public void setStandardname(String standardname) {
+            this.standardname = standardname;
+        }
 
-    public void setNum(int num) {
-        this.num = num;
-    }
+        public String getUnit() {
+            return unit;
+        }
 
-    public int getShopid() {
-        return shopid;
-    }
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
 
-    public void setShopid(int shopid) {
-        this.shopid = shopid;
-    }
+        public int getNum() {
+            return num;
+        }
 
-    public double getPrice() {
-        return price;
-    }
+        public void setNum(int num) {
+            this.num = num;
+        }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+        public int getShopid() {
+            return shopid;
+        }
 
-    public String getShopmessage() {
-        return shopmessage;
-    }
+        public void setShopid(int shopid) {
+            this.shopid = shopid;
+        }
 
-    public void setShopmessage(String shopmessage) {
-        this.shopmessage = shopmessage;
-    }
+        public double getPrice() {
+            return price;
+        }
 
-    public int getGrade() {
-        return grade;
-    }
+        public void setPrice(double price) {
+            this.price = price;
+        }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
-    }
+        public String getShopmessage() {
+            return shopmessage;
+        }
 
-    public String getBrand() {
-        return brand;
-    }
+        public void setShopmessage(String shopmessage) {
+            this.shopmessage = shopmessage;
+        }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+        public int getGrade() {
+            return grade;
+        }
 
-    public int getCarid() {
-        return carid;
-    }
+        public void setGrade(int grade) {
+            this.grade = grade;
+        }
 
-    public void setCarid(int carid) {
-        this.carid = carid;
-    }
+        public String getBrand() {
+            return brand;
+        }
 
-    public String getProductarea() {
-        return productarea;
-    }
+        public void setBrand(String brand) {
+            this.brand = brand;
+        }
 
-    public void setProductarea(String productarea) {
-        this.productarea = productarea;
-    }
+        public int getCarid() {
+            return carid;
+        }
 
-    public String getStandardvalue() {
-        return standardvalue;
-    }
+        public void setCarid(int carid) {
+            this.carid = carid;
+        }
 
-    public void setStandardvalue(String standardvalue) {
-        this.standardvalue = standardvalue;
+        public String getProductarea() {
+            return productarea;
+        }
+
+        public void setProductarea(String productarea) {
+            this.productarea = productarea;
+        }
+
+        public String getStandardvalue() {
+            return standardvalue;
+        }
+
+        public void setStandardvalue(String standardvalue) {
+            this.standardvalue = standardvalue;
+        }
     }
 }

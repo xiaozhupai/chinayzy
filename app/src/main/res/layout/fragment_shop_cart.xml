@@ -6,12 +6,20 @@
     android:orientation="vertical"
     android:background="#f4f8fb"
     >
- <ListView
-     android:id="@+id/listv_shopcart"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:layout_above="@+id/lv_boom"
-     ></ListView>
+    <com.chinayiz.chinayzy.views.PullToRefreshLayout
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lv_boom"
+        >
+        <include layout="@layout/refresh_head"/>
+        <com.chinayiz.chinayzy.views.PullableListView
+            android:id="@+id/listv_shopcart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></com.chinayiz.chinayzy.views.PullableListView>
+        <include layout="@layout/load_more"/>
+    </com.chinayiz.chinayzy.views.PullToRefreshLayout>
     <LinearLayout
         android:id="@+id/lv_boom"
         android:layout_width="match_parent"
