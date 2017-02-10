@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.net.NongYe.Net;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -43,6 +45,13 @@ public class SearchResultAdaphter extends BaseInectAdaphter<SearchFarmModel.Data
       SearchFarmModel.DataBean bean=lists.get(i);
         viewHolder.tv_price.setText(bean.getPrice());
         viewHolder.tv_title.setText(bean.getGname());
+        viewHolder.iv_join_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logger.i("加入购物车");
+
+            }
+        });
         return view;
     }
 

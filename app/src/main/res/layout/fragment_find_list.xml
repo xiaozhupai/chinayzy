@@ -4,22 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <com.chinayiz.chinayzy.views.PullToRefreshLayout
-        android:id="@+id/refresh_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <include layout="@layout/refresh_head" />
-    <!-- 支持所有实现Pullable接口的View -->
-    <com.chinayiz.chinayzy.views.PullableGridView
-        android:id="@+id/gd_find_list"
+    <GridView
+        android:id="@+id/lv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="2dp"
-        android:horizontalSpacing="8dp"
         />
-    <include layout="@layout/load_more"/>
-    </com.chinayiz.chinayzy.views.PullToRefreshLayout>
+    <!--<com.chinayiz.chinayzy.views.PullToRefreshLayout-->
+        <!--android:id="@+id/refresh_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+    <!--<include layout="@layout/refresh_head" />-->
+    <!--&lt;!&ndash; 支持所有实现Pullable接口的View &ndash;&gt;-->
+    <!--<com.chinayiz.chinayzy.views.PullableGridView-->
+        <!--android:id="@+id/gd_find_list"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:numColumns="2"-->
+        <!--android:layout_marginLeft="6dp"-->
+        <!--android:layout_marginRight="6dp"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:horizontalSpacing="8dp"-->
+        <!--/>-->
+    <!--<include layout="@layout/load_more"/>-->
+    <!--</com.chinayiz.chinayzy.views.PullToRefreshLayout>-->
 </LinearLayout>

@@ -2,21 +2,28 @@ package com.chinayiz.chinayzy.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.adapter.PagerAdaphter;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.presenter.SearchResultPresenter;
 import com.chinayiz.chinayzy.views.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.PullableGridView;
 import com.chinayiz.chinayzy.views.PullableListView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,24 +35,22 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     private TextView tv_hot;
     private TextView tv_sale;
     private TextView tv_price;
-    private PullableGridView pullgd;
-    private PullableListView pulllv;
-    private PullToRefreshLayout pullrefresh;
+    public ListView lv_list;
     public SearchResultAdaphter adaphter;
+    public static final String TITLE="TITLE";
+    public List<Fragment> fragments=new ArrayList<>();
+    public String title;
+    public int index=1;
 
-    public SearchResultFragment() {
-
+    public SearchResultFragment(String title) {
+        this.title=title;
     }
-
 
     @Override
     protected void onVisible() {
-
     }
     @Override
     protected void onInvisible() {
-
-
     }
 
     @Nullable
@@ -63,24 +68,11 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         tv_sale.setOnClickListener(this);
         tv_price = (TextView) view.findViewById(R.id.tv_price);
         tv_price.setOnClickListener(this);
-        pullgd = (PullableGridView) view.findViewById(R.id.pullgd);
-        pulllv = (PullableListView) view.findViewById(R.id.pulllv);
-        pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
-        pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                 pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
-            }
-
-            @Override
-            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
-            }
-        });
-        List<SearchFarmModel.DataBean> list=new ArrayList();
-
+        lv_list= (ListView) view.findViewById(R.id.lv_list);
+        List list=new ArrayList();
         adaphter=new SearchResultAdaphter(list,1,mContext);
-        pulllv.setAdapter(adaphter);
+        lv_list.setAdapter(adaphter);
+
         return view;
     }
 
@@ -94,18 +86,30 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
 
     }
 
+    public void setAll(){
+        tv_hot.setTextColor(getResources().getColor(R.color.find_text));
+        tv_sale.setTextColor(getResources().getColor(R.color.find_text));
+        tv_price.setTextColor(getResources().getColor(R.color.find_text));
+    }
+
     @Override
     public void onClick(View v) {
+        setAll();
         switch (v.getId()){
             case R.id.tv_hot:
+                   index=1;
+                tv_hot.setTextColor(getResources().getColor(R.color.find_green_text));
 
                 break;
             case R.id.tv_sale:
-
+                index=2;
+                tv_sale.setTextColor(getResources().getColor(R.color.find_green_text));
                 break;
             case R.id.tv_price:
-
+                index=3;
+                tv_price.setTextColor(getResources().getColor(R.color.find_green_text));
                 break;
         }
+        mPresenter.getData();
     }
 }

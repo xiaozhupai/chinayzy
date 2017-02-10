@@ -1,5 +1,7 @@
 package com.chinayiz.chinayzy.net.NongYe;
 
+import android.util.Log;
+
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
@@ -191,10 +193,9 @@ public class Net {
     }
 
     /**
-     * 搜索所有标签
-     *
+     * 搜索结果
      */
-    public void getSearchFarm(String title,String page,String size) {
+    public void getSearchFarm(String title,String page,String size,String type) {
         OkHttpUtils
                 .post()
                 .url(Contants.API + Contants.SEARCHFARM)
@@ -202,7 +203,7 @@ public class Net {
                 .addParams("searchkey",title)
                 .addParams("page", page)
                 .addParams("size", size)
-                .addParams("type","1")
+                .addParams("type",type)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -212,6 +213,7 @@ public class Net {
                     }
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Contants.SEARCHFARM
@@ -250,6 +252,8 @@ public class Net {
                     }
                 });
     }
+
+
 
 
 //
@@ -312,6 +316,34 @@ public class Net {
     }
 
     /**
+     * 购物车
+     */
+    public void getJoinCart(){
+        OkHttpUtils
+                .post()
+                .url(Contants.ADDSHOPPINGCAR)
+                .addParams("userid", APP.sUserid)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.ADDSHOPPINGCAR
+                                    ,mGson.fromJson(s,ShopCartModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
      * 发现类型
      *
      */
@@ -343,7 +375,7 @@ public class Net {
      * 发现列表
      *
      */
-    public void getFindBlogByType(String type) {
+    public void getFindBlogByType(final String type) {
         OkHttpUtils
                 .post()
                 .url(Contants.API + Contants.FINDBLOGBYTYPE)
@@ -357,9 +389,10 @@ public class Net {
                     }
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.FINDBLOGBYTYPE
+                                    ,type
                                     ,mGson.fromJson(s,FindListModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);

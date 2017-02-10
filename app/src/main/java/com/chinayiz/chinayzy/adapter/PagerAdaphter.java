@@ -25,7 +25,12 @@ public class PagerAdaphter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return lists.size();
+        return lists==null?0:lists.size();
+    }
+
+    public void setData(List<Fragment> lists){
+        this.lists=lists;
+        notifyDataSetChanged();
     }
 
 

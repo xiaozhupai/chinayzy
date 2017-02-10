@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class FindListPresenter extends BasePresenter<FindListFragment> {
     @Override
     public void onCreate() {
-
+        new Net().getFindBlogByType(mView.type);
     }
 
     @Override
@@ -38,33 +38,30 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-         if (message.getDataType()== Contants.FINDBLOGBYTYPE){
-             disposeNetMsg(message);
-         }
+        if (message.getEventType() == EventMessage.NET_EVENT) {
+            if (message.getDataType().equals(mView.type)) {
+                com.orhanobut.logger.Logger.i("FindListPresenter disposeNetMsg");
+                FindListModel model = (FindListModel) message.getData();
+                mView.adaphter.setData(model.getData());
+            }
+        }
     }
 
+
     @Override
-    @Subscribe (threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-         if (message.getDataType()==FindListFragment.DATA_TYPE){
-             disposeInfoMsg(message);
-         }
+
     }
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        if (message.getEventType()==EventMessage.NET_EVENT){
-            FindListModel model= (FindListModel) message.getData();
-            mView.adaphter.setData(model.getData());
-        }
     }
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-           if (message.getEventType()==EventMessage.INFORM_EVENT){
-          String data= (String) message.getData();
-               new Net().getFindBlogByType(data);
-               Log.i("FindListPresenter",data);
-           }
+        if (message.getEventType() == EventMessage.INFORM_EVENT) {
+
+        }
     }
 }

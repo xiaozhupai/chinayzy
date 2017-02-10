@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.chinayiz.chinayzy.ui.fragment.SearchResultFragment"
     android:orientation="vertical"
+    android:background="@color/white"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_weight="1"
              android:text="热卖"
             android:gravity="center"
-            android:textColor="#0b1b01"
+            android:textColor="@color/find_green_text"
             android:padding="10dp"
             />
         <TextView
@@ -41,34 +42,8 @@
             android:padding="10dp"
             />
     </LinearLayout>
-  <com.chinayiz.chinayzy.views.PullToRefreshLayout
-      android:id="@+id/pullrefresh"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-      <include layout="@layout/refresh_head"/>
-
-      <com.chinayiz.chinayzy.views.PullableListView
-          android:id="@+id/pulllv"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-
-          />
-      <include layout="@layout/load_more"/>
-  </com.chinayiz.chinayzy.views.PullToRefreshLayout>
-    <com.chinayiz.chinayzy.views.PullToRefreshLayout
-        android:visibility="gone"
-        android:id="@+id/pullrefresh2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include layout="@layout/refresh_head"
-
-            />
-        <com.chinayiz.chinayzy.views.PullableGridView
-            android:id="@+id/pullgd"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            />
-        <include layout="@layout/load_more"/>
-    </com.chinayiz.chinayzy.views.PullToRefreshLayout>
+ <ListView
+     android:id="@+id/lv_list"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"/>
 </LinearLayout>

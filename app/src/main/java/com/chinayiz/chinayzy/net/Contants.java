@@ -55,6 +55,10 @@ public class Contants {
      */
     public static final String FINDBLOGBYTYPE = "/farm/findBlogByType";
     /**
+     * 加入购物车
+     */
+    public static final String ADDSHOPPINGCAR="farm/addShoppingCar";
+    /**
      * 购物车
      */
     public static final String SHOPCART="/farm/showShoppingCar";

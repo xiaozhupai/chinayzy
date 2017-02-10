@@ -80,8 +80,7 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
                 ll.weight=1;
                 tv.setLayoutParams(ll);
                 mView.ll_top.addView(tv);
-                FindListFragment fragment=new FindListFragment();
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,FindListFragment.DATA_TYPE,bean.getType()));
+                FindListFragment fragment=new FindListFragment(bean.getType());
                 lists.add(fragment);
             }
             int width=mView.ll_top.getWidth()/model.getData().size()/2;
@@ -91,6 +90,7 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
             ll.setMargins(DensityUtil.px2dip(mView.getActivity(),Slide),0,0,0);
             mView.v_slide.setLayoutParams(ll);
             mView.vp_find.setAdapter(new PagerAdaphter(mView.getChildFragmentManager(),lists));
+            mView.vp_find.setOffscreenPageLimit(lists.size());
         }
     }
 

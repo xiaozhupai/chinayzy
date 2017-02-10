@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.SearchDao;
@@ -36,12 +34,13 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
     public MessageDialog dialog;
     public List<Tag> data_hot=new ArrayList<>();
     public List<Tag> data_search=new ArrayList<>();
-    public static final String TITLE="TITLE";
+
 
     @Override
     protected void onVisible() {
 
     }
+    
 
     @Override
     protected void onInvisible() {
@@ -74,20 +73,22 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
                     data_search.add(tag);
                     tagview2.setTags(data_search);
                 }
+
                 mPresenter.toResult(tag.getTitle());
+                Logger.i("热门标签");
             }
         });
         tagview2.setOnTagClickListener(new TagListView.OnTagClickListener() {
             @Override
             public void onTagClick(TagView tagView, Tag tag) {
-
+                Logger.i("历史标签");
                 mPresenter.toResult(tag.getTitle());
             }
         });
         sv_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-               Logger.i(query);
+               Logger.i("搜索");
                 if (!SearchDao.findTitle(query)){
                     SearchDao.add(query);
                     Tag tag=new Tag();
