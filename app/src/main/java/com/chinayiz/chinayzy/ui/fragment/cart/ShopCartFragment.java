@@ -80,7 +80,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
                     mPresenter.UpdateUi(0);
                     mPresenter.UpdateShopCart();
                 }
-
             }
         });
 

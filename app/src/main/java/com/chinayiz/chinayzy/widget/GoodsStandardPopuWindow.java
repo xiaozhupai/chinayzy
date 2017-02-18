@@ -54,7 +54,7 @@ public class GoodsStandardPopuWindow extends PopupWindow implements View.OnClick
         for (GoodStandardModel.DataBean data:lists){
             Tag tag=new Tag();
             tag.setData(data);
-            tag.setTitle(data.getStandardname());
+            tag.setTitle(data.getStandardname()+data.getStandardvalue());
             if (bean.getGoodsstandardid()==data.getGoodsstandardid()){
                 tag.setChecked(true);
             }else {
@@ -94,15 +94,13 @@ public class GoodsStandardPopuWindow extends PopupWindow implements View.OnClick
         //设置SelectPicPopupWindow弹出窗体动画效果
         this.setAnimationStyle(R.style.Animation);
 
-
-
-
         tlv_list.setOnTagClickListener(new TagListView.OnTagClickListener() {
             @Override
             public void onTagClick(TagView tagView, Tag tag) {
                 GoodStandardModel.DataBean data= (GoodStandardModel.DataBean) tag.getData();
                 bean.setGoodsstandardid(data.getGoodsstandardid());
                 bean.setStandardname(data.getStandardname());
+                bean.setStandardvalue(data.getStandardvalue());
                 bean.setPrice(data.getPrice());
                 setData(lists);
                 tv_price.setText(data.getPrice()+"");

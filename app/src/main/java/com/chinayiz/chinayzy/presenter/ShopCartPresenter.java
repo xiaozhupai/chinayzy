@@ -168,6 +168,10 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public void UpdateUi(int type){
         this.type=type;
         mView.adaphter.setData(list,type);
+        if (type==TYPE_NORMAL){
+            double total=mView.adaphter.UpdateTotal();
+            mView.tv_shopcart_price.setText(total+"");
+        }
     }
 
     /**

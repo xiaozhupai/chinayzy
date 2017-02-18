@@ -162,7 +162,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                 if (layout_type == TYPE_EDITER) { //编辑后页面
                     viewHolder.lv_before.setVisibility(View.GONE);
                     viewHolder.lv_after.setVisibility(View.VISIBLE);
-                    viewHolder.tv_standard.setText(bean.getStandardname());
+                    viewHolder.tv_standard.setText(bean.getStandardname()+bean.getStandardvalue());
                     viewHolder.tv_center.setText(bean.getNum()+"");
                     Logger.i("num-----------------------"+bean.getNum());
 
@@ -208,8 +208,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.tv_shopcart_item_num.setText("×" + bean.getNum());
                     viewHolder.tv_shopcart_item_price.setText("￥" + bean.getPrice());
                     viewHolder.tv_shopcart_item_title.setText(bean.getGname());
-                    viewHolder.tv_shopcart_item_kind.setText(bean.getStandardname());
-
+                    viewHolder.tv_shopcart_item_kind.setText(bean.getStandardname()+bean.getStandardvalue());
                 }
                 Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_shopcart_item_img);
                 break;
