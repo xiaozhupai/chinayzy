@@ -15,6 +15,11 @@ import cn.sharesdk.framework.ShareSDK;
  */
 public class APP extends Application {
 	public static String sUserid="0";
+    public static  APP instance;
+
+    public static APP getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {

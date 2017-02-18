@@ -15,6 +15,8 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
+import com.chinayiz.chinayzy.entity.response.StringModel;
+import com.chinayiz.chinayzy.entity.response.ThirdModel;
 import com.chinayiz.chinayzy.net.Contants;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
@@ -29,9 +31,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
@@ -49,6 +54,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     private static final int MSG_NUM=5;
     private Handler handler;
     private int num;
+    public String logintype;
 
     @Override
     public void onCreate() {
@@ -83,30 +89,42 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Contants.LOGIN:
+            case Contants.LOGIN:  //登录
                 LoginModel model= (LoginModel) message.getData();
                 if (model.getCode().equals("100")){
                   int userid=model.getData().getUserid();
-                    SharedPreferences sharedPreferences = mView.getSharedPreferences("login", Context.MODE_PRIVATE); //私有数据
-                    SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
-                    editor.putInt("userid",userid);
-                    editor.commit();//提交修改
-                    mView.finish();
-                    Intent intent=new Intent(mView, MineActivity.class);
-                    mView.startActivity(intent);
+                    SaveData(userid);
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
                 break;
-            case Contants.REGISTER:
+            case Contants.REGISTER:  //注册
                 BaseResponseModel model2= (BaseResponseModel) message.getData();
-                if (model2.getCode().equals("100")){
-
-                }
                 Toast.makeText(mView,model2.getMsg(),Toast.LENGTH_LONG).show();
                 break;
+            case Contants.THIRD:   //第三方登录
+              ThirdModel model3= (ThirdModel) message.getData();
+                 ThirdModel.DataBean dataBean=model3.getData();
+                SaveData(dataBean.getUserid());
+                break;
+            case Contants.SRYCODE:   //发送验证码
 
+                break;
         }
 
+    }
+
+    /**
+     *  本地存储
+     * @param userid   用户登录成功后的ID
+     */
+    private void SaveData(int userid){
+        SharedPreferences sharedPreferences = mView.getSharedPreferences("login", Context.MODE_PRIVATE); //私有数据
+        SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.putInt("userid",userid);
+        editor.commit();//提交修改
+        mView.finish();
+        Intent intent=new Intent(mView, MineActivity.class);
+        mView.startActivity(intent);
     }
 
     @Override
@@ -140,8 +158,17 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     }
 
     public void sendMessage(){
+        String phone = mView.et_register_input_phone.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)){
+            Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!mView.tv_register_sendmessage.isClickable()){
+            return;
+        }
         TimeUntils timeUntils=new TimeUntils(handler);
         timeUntils.RunTimer();
+        new LoginNet().toSendMessage(phone);
     }
 
     /**
@@ -156,18 +183,21 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         //qq
         Platform qq = ShareSDK.getPlatform(QQ.NAME);
         authorize(qq);
+        logintype="1";
     }
 
     public void toWechat(){
         //微信
         Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
         authorize(wechat);
+        logintype="2";
     }
 
     public void toWeibo(){
         //新浪微博
         Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
         authorize(sina);
+        logintype="3";
     }
 
     /**
@@ -235,7 +265,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         if (action == Platform.ACTION_USER_INFOR) {
             Message msg = new Message();
             msg.what = MSG_AUTH_COMPLETE;
-            msg.obj = new Object[]{platform.getName(), res};
+            msg.obj = new Object[]{platform, res};
             handler.sendMessage(msg);
         }
     }
@@ -282,8 +312,20 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 //授权成功
                 Toast.makeText(mView, "授权成功", Toast.LENGTH_SHORT).show();
                 Object[] objs = (Object[]) msg.obj;
-                String platform = (String) objs[0];
+                Platform platform = (Platform) objs[0];
                 HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
+                PlatformDb platDB = platform.getDb();//获取数平台数据DB
+                System.out.print( platDB.getToken());
+                System.out.print( platDB.getUserIcon());
+                System.out.print(   platDB.getUserId());
+                System.out.print(  platDB.getUserName());
+                String sex;
+                if (platDB.getUserGender().equals("m")){
+                    sex="0";
+                }else {
+                    sex="1";
+                }
+                new LoginNet().toThird(platDB.getUserId(),logintype,platDB.getUserIcon(),platDB.getUserName(),sex);
             }
             break;
             case MSG_NUM:{

@@ -35,7 +35,6 @@ public class ShareUtils {
     public static void turnToShare(int type,String dis,String path ,String imageUrl, String url, PlatformActionListener paListener) {
         switch (type){
             case QQPERSON:
-
                 //QQ分享
                 QQ.ShareParams qqsp=new QQ.ShareParams();
                 qqsp.setTitle("中国亿众");

@@ -50,5 +50,6 @@ dependencies {
     compile 'com.zzti.fengyongge:imagepicker:1.0'
     compile 'com.chanven.lib:cptr:1.1.0'
     compile 'de.halfbit:pinned-section-listview:1.0.0'
+    compile project(':magicindicator')
     testCompile 'junit:junit:4.12'
 }

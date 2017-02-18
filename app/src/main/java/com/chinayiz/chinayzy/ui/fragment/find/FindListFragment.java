@@ -38,11 +38,16 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     @Override
     protected void onVisible() {
+        if (isInit){
+            new Net().getFindBlogByType(type);
+        }
+        isInit=false;
 
     }
 
     @Override
     protected void onInvisible() {
+
     }
 
     @Override
@@ -53,7 +58,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-     View view=initView(inflater,container,savedInstanceState);
+        View view=initView(inflater,container,savedInstanceState);
         ViewGroup parent= (ViewGroup) view.getParent();
         if (parent!=null){
             parent.removeView(view);
@@ -65,7 +70,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_find_list,container,false);
-         lv_list= (GridView) view.findViewById(R.id.lv_list);
+        lv_list= (GridView) view.findViewById(R.id.lv_list);
 //        pullToRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
 //        gd_find_list= (PullableGridView) view.findViewById(R.id.gd_find_list);
 //        gd_find_list.setOnItemClickListener(this);

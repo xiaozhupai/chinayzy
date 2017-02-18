@@ -21,6 +21,7 @@ import java.util.Map;
  * CreateDate 2017/1/7 15:19
  * Class NongYe_homeFragment 农业首页
  */
+
 public class NongYe_homeFragment extends BaseFragment<NongYe_homePresenter> {
     public RecyclerView mNongyeHomeRecyclerLayout;
     public NongYe_HomeRecyl_Adapter mRecylAdapter;

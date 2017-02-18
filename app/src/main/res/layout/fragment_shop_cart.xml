@@ -5,6 +5,7 @@
     tools:context="com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment"
     android:orientation="vertical"
     android:background="#f4f8fb"
+    android:id="@+id/rl_shopcart"
     >
     <com.chinayiz.chinayzy.views.PullToRefreshLayout
         android:id="@+id/pullrefresh"

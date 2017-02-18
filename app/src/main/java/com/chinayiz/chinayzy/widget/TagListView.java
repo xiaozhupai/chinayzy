@@ -12,7 +12,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 
 import com.chinayiz.chinayzy.R;
 
@@ -70,7 +72,6 @@ public class TagListView extends FlowLayout implements OnClickListener {
 	}
 
 	private void init() {
-
 	}
 
 	private void inflateTagView(final Tag t, boolean b) {
@@ -80,14 +81,18 @@ public class TagListView extends FlowLayout implements OnClickListener {
 		localTagView.setText(t.getTitle());
 		localTagView.setTag(t);
 
-		if (mTagViewTextColorResId <= 0) {
-			localTagView.setTextColor(Color.rgb(129,131,142));
-
-		}
-
-		if (mTagViewBackgroundResId <= 0) {
-			mTagViewBackgroundResId = R.drawable.tag_bg;
-			localTagView.setBackgroundResource(mTagViewBackgroundResId);
+//		if (mTagViewTextColorResId <= 0) {
+//			localTagView.setTextColor(Color.rgb(129,131,142));
+//
+//		}
+//
+//		if (mTagViewBackgroundResId <= 0) {
+//			mTagViewBackgroundResId = R.drawable.tag_bg;
+//			localTagView.setBackgroundResource(mTagViewBackgroundResId);
+//		}
+		if (t.isChecked()){
+			localTagView.setTextColor(getResources().getColor(R.color.white));
+			localTagView.setBackgroundResource(R.drawable.tag_pressed);
 		}
 
 		localTagView.setChecked(t.isChecked());
@@ -101,9 +106,9 @@ public class TagListView extends FlowLayout implements OnClickListener {
 			localTagView.setCompoundDrawablesWithIntrinsicBounds(0, 0,
 					R.drawable.forum_tag_close, 0);
 		}
-		if (t.getBackgroundResId() > 0) {
-			localTagView.setBackgroundResource(t.getBackgroundResId());
-		}
+//		if (t.getBackgroundResId() > 0) {
+//			localTagView.setBackgroundResource(t.getBackgroundResId());
+//		}
 		if ((t.getLeftDrawableResId() > 0) || (t.getRightDrawableResId() > 0)) {
 			localTagView.setCompoundDrawablesWithIntrinsicBounds(
 					t.getLeftDrawableResId(), 0, t.getRightDrawableResId(), 0);
@@ -123,6 +128,8 @@ public class TagListView extends FlowLayout implements OnClickListener {
 						}
 					}
 				});
+
+
 		addView(localTagView);
 	}
 

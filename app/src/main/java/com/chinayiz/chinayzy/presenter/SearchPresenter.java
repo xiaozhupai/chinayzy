@@ -25,7 +25,7 @@ public class SearchPresenter extends BasePresenter<SearchFragment> {
     public static final String TITLE="TITLE";
     @Override
     public void onCreate() {
-        net.getALLTab();
+        net.getALLTab(mView.getContext());
         List<String> data=SearchDao.findall();
         for (int i=0;i<data.size();i++){
             Tag tag=new Tag();
@@ -93,7 +93,8 @@ public class SearchPresenter extends BasePresenter<SearchFragment> {
      * @param title
      */
     public void toResult(String title){
-        mView.startFragment(new SearchResultFragment(title));
+        SearchResultFragment fragment=new SearchResultFragment(title);
+        mView.startFragment(fragment,fragment.getTag());
 
     }
 

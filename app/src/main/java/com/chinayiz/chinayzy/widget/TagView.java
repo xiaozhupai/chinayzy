@@ -32,7 +32,7 @@ public class TagView extends ToggleButton {
 		setTextOn(null);
 		setTextOff(null);
 		setText("");
-		setBackgroundResource(R.drawable.tag_bg);
+//		setBackgroundResource(R.drawable.tag_bg);
 	}
 
 	public void setCheckEnable(boolean paramBoolean) {

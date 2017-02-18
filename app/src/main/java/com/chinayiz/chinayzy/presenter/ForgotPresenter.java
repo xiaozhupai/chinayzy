@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.net.Contants;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
 import com.chinayiz.chinayzy.utils.TimeUntils;
@@ -57,11 +58,19 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-            BaseResponseModel model= (BaseResponseModel) message.getData();
-          if (model.getCode().equals(100)){
-              mView.finish();
-          }
-        Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
+        switch (message.getDataType()){
+            case Contants.BACKPWD:
+                BaseResponseModel model= (BaseResponseModel) message.getData();
+                if (model.getCode().equals(100)){
+                    mView.finish();
+                }
+                Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
+                break;
+            case Contants.SRYCODE:
+
+                break;
+        }
+
     }
 
     @Override
@@ -88,8 +97,19 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
      * 发送验证码
      */
     public void sendMessage(){
+        String phone =mView.  et_forgot_input_phone.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)) {
+            Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!mView.tv_forgot_sendmessage.isClickable()){
+            return;
+        }
+        new LoginNet().toSendMessage(phone);
         TimeUntils timeUntils=new TimeUntils(handler);
         timeUntils.RunTimer();
+
+
     }
 
     /**

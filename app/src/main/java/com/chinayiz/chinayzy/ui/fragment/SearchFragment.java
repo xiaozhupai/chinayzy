@@ -3,15 +3,19 @@ package com.chinayiz.chinayzy.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import com.chinayiz.chinayzy.NongYe_MainActivity;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.SearchDao;
+import com.chinayiz.chinayzy.presenter.NongYe_MainPresenter;
 import com.chinayiz.chinayzy.presenter.SearchPresenter;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.chinayiz.chinayzy.widget.Tag;
@@ -40,7 +44,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
     protected void onVisible() {
 
     }
-    
+
 
     @Override
     protected void onInvisible() {
@@ -73,11 +77,11 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
                     data_search.add(tag);
                     tagview2.setTags(data_search);
                 }
-
                 mPresenter.toResult(tag.getTitle());
                 Logger.i("热门标签");
             }
         });
+
         tagview2.setOnTagClickListener(new TagListView.OnTagClickListener() {
             @Override
             public void onTagClick(TagView tagView, Tag tag) {
@@ -88,7 +92,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
         sv_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-               Logger.i("搜索");
+                Logger.i("搜索");
                 if (!SearchDao.findTitle(query)){
                     SearchDao.add(query);
                     Tag tag=new Tag();
@@ -97,7 +101,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
                     tagview2.setTags(data_search);
 
                 }
-               mPresenter.toResult(query);
+                mPresenter.toResult(query);
                 return true;
             }
 
@@ -122,7 +126,9 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment like bottom ... and run LayoutCreator again
+        NongYe_MainActivity activity= (NongYe_MainActivity) getActivity();
+        activity.mRlActionBar.setVisibility(View.GONE);
+
         View view = initView(inflater, container, savedInstanceState);
         return view;
     }
@@ -131,7 +137,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_cancel:
-
+                getFragmentManager().popBackStack();
                 break;
             case R.id.iv_delete:
                 if (dialog==null){

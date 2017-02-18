@@ -1,8 +1,12 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.text.TextPaint;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,15 +47,25 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     public LinearLayout layout_content;
     private PullToRefreshLayout pullToRefreshLayout;
     public RelativeLayout head;
+    public RelativeLayout actionbar;
+    public TextView mTvActionBarTitle;
+    public ImageView mIvMoreButton;
+    public RelativeLayout mRlActionBar;
+    public ImageView mIvBackButton;
+    public  TextView mTvActionBarRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
         initView();
-        findViewById(R.id.loadlayout).setVisibility(View.GONE);
-        head= (RelativeLayout) findViewById(R.id.head);
-        head.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mTvActionBarTitle.setText("个人中心");
+        mIvMoreButton.setVisibility(View.GONE);
     }
 
     @Override
@@ -65,6 +79,17 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     }
 
     private void initView() {
+        //actionbar
+        findViewById(R.id.loadlayout).setVisibility(View.GONE);
+        mRlActionBar= (RelativeLayout) findViewById(R.id.head);
+        mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
+        mTvActionBarTitle = (TextView) findViewById(R.id.tv_action_bar_title);
+        mTvActionBarRight= (TextView) findViewById(R.id.tv_action_bar_right);
+        mIvMoreButton = (ImageView) findViewById(R.id.iv_more_button);
+        mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
+        mIvBackButton.setImageResource(R.mipmap.back_arrow);
+        mRlActionBar.setBackgroundColor(Color.parseColor("#ff3951"));
+
         layout_content= (LinearLayout) findViewById(R.id.layout_content);
         iv_mine_user_logo = (ImageView) findViewById(R.id.iv_mine_user_logo);
         iv_mine_user_sex = (ImageView) findViewById(R.id.iv_mine_user_sex);
@@ -97,6 +122,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_suggest.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
+        mIvBackButton.setOnClickListener(this);
 
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
@@ -130,10 +156,10 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_keep:   //宝贝收藏
-                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new GoodsKeepFragment());
+               addFragment(new GoodsKeepFragment());
                 break;
             case R.id.lv_mine_step:   //我的足迹
-                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new MyStepFragment());
+               addFragment(new MyStepFragment());
                 break;
             case R.id.lv_mine_shop_car:  //购物车
 
@@ -145,17 +171,23 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_suggest:  //我的建议
-                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new SuggestFragment());
+               addFragment(new SuggestFragment());
                 break;
             case R.id.lv_mine_setting:  //设置
-
-                 mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new SettingFragment());
-
+                 addFragment(new SettingFragment());
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
-                mPresenter.addFragment(getSupportFragmentManager().beginTransaction(),new ContentKeepFragment());
+                addFragment(new ContentKeepFragment());
+                break;
+            case R.id.iv_back_button:
+                super.onBackPressed();
                 break;
         }
+    }
+
+    public void addFragment( Fragment fragment) {
+
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(fragment.getTag()).commit();
     }
 
     @Override

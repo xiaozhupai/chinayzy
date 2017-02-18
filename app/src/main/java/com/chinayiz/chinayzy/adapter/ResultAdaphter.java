@@ -1,16 +1,12 @@
 package com.chinayiz.chinayzy.adapter;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
-import com.orhanobut.logger.Logger;
-
 import java.util.List;
 
 /**
@@ -18,7 +14,7 @@ import java.util.List;
  * Created by Administrator on 2017/1/12.
  */
 
-public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel.ShopCartBean> {
+public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel.DataBean.ShoplistBean> {
     public static final int HEAD = 0;
     public static final int ITEM = 1;
     private ImageView iv_result_item_img;
@@ -28,7 +24,7 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel.ShopCartBean
     private TextView tv_result_item_num;
     private LinearLayout lv_before;
 
-    public ResultAdaphter(Context context, List<ShopCartModel.ShopCartBean> list) {
+    public ResultAdaphter(Context context, List<ShopCartModel.DataBean.ShoplistBean> list) {
         this.lists = list;
         this.context = context;
     }
@@ -43,7 +39,7 @@ public class ResultAdaphter extends BaseInectAdaphter<ShopCartModel.ShopCartBean
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-         ShopCartModel.ShopCartBean shopCartModel=lists.get(i);
+        ShopCartModel.DataBean.ShoplistBean shopCartModel=lists.get(i);
         if (shopCartModel.isHead()){
             viewHolder.iv_head_title.setVisibility(View.VISIBLE);
             viewHolder.iv_head_title.setText(shopCartModel.getSname());

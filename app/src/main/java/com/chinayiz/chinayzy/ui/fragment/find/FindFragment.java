@@ -1,8 +1,12 @@
 package com.chinayiz.chinayzy.ui.fragment.find;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +14,29 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
+
+import com.chinayiz.chinayzy.NongYe_MainActivity;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.PagerAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.FindPresenter;
+
+import net.lucode.hackware.magicindicator.FragmentContainerHelper;
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
+import net.lucode.hackware.magicindicator.buildins.circlenavigator.CircleNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.BezierPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +45,14 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 
-public class FindFragment extends BaseFragment<FindPresenter> implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class FindFragment extends BaseFragment<FindPresenter>{
     public ViewPager vp_find;
-    public View v_slide;
-    public LinearLayout ll_top;
+
+//    public LinearLayout ll_top;
     private static final int SLIDE=123;
+    public MagicIndicator magic_indicator;
+    private static final String[] CHANNELS = new String[]{"CUPCAKE", "DONUT"};
+
 
     @Override
     protected void onVisible() {
@@ -42,12 +68,14 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+         NongYe_MainActivity activity= (NongYe_MainActivity) getActivity();
+        activity.mIvMoreButton.setVisibility(View.GONE);
+        activity.mTvActionBarTitle.setText("发现");
+
         View view=inflater.inflate(R.layout.fragment_find,container,false);
-        v_slide=view.findViewById(R.id.v_slide);
-        ll_top= (LinearLayout) view.findViewById(R.id.ll_top);
+        magic_indicator= (MagicIndicator) view.findViewById(R.id.magic_indicator);
         vp_find = (ViewPager) view.findViewById(R.id.vp_find);
-        vp_find.setOnClickListener(this);
-        vp_find.setOnPageChangeListener(this);
+
         return view;
     }
 
@@ -67,61 +95,4 @@ public class FindFragment extends BaseFragment<FindPresenter> implements View.On
         return view;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-        }
-    }
-
-    //viewpager切换
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-    private void setnoSelected(){
-
-    }
-
-    private void doAnimation(int position){
-        int oldPosition=vp_find.getCurrentItem();
-        int  newPosition=position;
-        int traslate;
-        if (newPosition>oldPosition){ //向右移动
-            traslate=2*mPresenter.Slide*(newPosition-oldPosition);
-        }else { //向左移动
-            traslate=-2*mPresenter.Slide*(oldPosition-newPosition);
-        }
-        Animation animation =new TranslateAnimation(position*SLIDE,position*SLIDE+traslate,0,0);
-        animation.setFillAfter(true);
-        animation.setDuration(100);
-        v_slide.startAnimation(animation);
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        switch (position){
-            case 0:
-                setnoSelected();
-                doAnimation(0);
-                break;
-            case 1:
-                setnoSelected();
-                doAnimation(1);
-                break;
-            case 2:
-                setnoSelected();
-                doAnimation(2);
-                break;
-            case 3:
-                setnoSelected();
-                doAnimation(3);
-                break;
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
 }

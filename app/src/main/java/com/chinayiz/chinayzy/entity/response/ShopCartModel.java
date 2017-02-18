@@ -9,196 +9,266 @@ import java.util.List;
  */
 
 public class ShopCartModel extends BaseResponseModel {
-    private List<ShopCartBean> data;
+    private List<DataBean> data;
 
-    public List<ShopCartBean> getData() {
+    public List<DataBean> getData() {
         return data;
     }
-    public void setData(List<ShopCartBean> data) {
+
+    public void setData(List<DataBean> data) {
         this.data = data;
     }
 
-    public static  class ShopCartBean{
-        private String icon;  //商品小图标
-        private int salesvolume;  //月销量
-        private String standerpic;  //规格图片
-        private String gname;   //商品名称
-        private String pic;   //店铺logo
-        private String sname;   //店铺名称
-        private  String standardname;   //规格名称
-        private String unit;   //单位
-        private int  num;    //数量
-        private int  shopid;   //店铺id
-        private double price;    //价格
-        private String shopmessage;   //
-        private int grade;    //店铺等级
-        private String brand;   //品牌
-        private  int carid;    //购物车唯一id
-        private String productarea;   //产地
-        private String standardvalue;   //规格值
-        private boolean isChecked;
-        private boolean isHead;
-        private boolean isHeadChecked;
-
-
-        public boolean isHeadChecked() {
-            return isHeadChecked;
+    public static class DataBean {
+        public void addItem(ShoplistBean pItemName) {
+            shoplist.add(pItemName);
         }
 
-        public void setHeadChecked(boolean headChecked) {
-            isHeadChecked = headChecked;
+        /**
+         *  获取Item内容
+         *
+         * @param pPosition
+         * @return
+         */
+        public ShoplistBean getItem(int pPosition) {
+            // Category排在第一位
+            if (pPosition == 0) {
+                return shoplist.get(0);
+            } else {
+                return shoplist.get(pPosition - 1);
+            }
         }
 
-        public boolean isHead() {
-            return isHead;
+        private List<ShoplistBean> shoplist;
+
+        public List<ShoplistBean> getShoplist() {
+            return shoplist;
         }
 
-        public void setHead(boolean head) {
-            isHead = head;
+        public void setShoplist(List<ShoplistBean> shoplist) {
+            this.shoplist = shoplist;
         }
 
-        public boolean isChecked() {
-            return isChecked;
-        }
+        public static class ShoplistBean {
+            /**
+             * icon : https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1484978891802&di=0503356ebe895df517add71013824e36&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F94%2F51%2F89Y58PICVMa_1024.jpg
+             * salesvolume : 500
+             * standerpic : null
+             * gname : 云雾绿茶
+             * goodsstandardid : 1
+             * pic : www.ccc.com
+             * sname : 皇家国际饭店西餐厅
+             * standardname : 2只装
+             * unit : g
+             * num : 3
+             * shopid : 1
+             * price : 100.25
+             * shopmessage : 1,皇家国际饭店西餐厅
+             * brand : 英山云雾
+             * grade : 5
+             * carid : 2
+             * productarea : 湖北
+             * standardvalue : 2只装
+             */
 
-        public void setChecked(boolean checked) {
-            isChecked = checked;
-        }
+            private String icon;
+            private int salesvolume;
+            private Object standerpic;
+            private String gname;
+            private int goodsstandardid;
+            private String pic;
+            private String sname;
+            private String standardname;
+            private String unit;
+            private int num;
+            private int shopid;
+            private double price;
+            private String shopmessage;
+            private String brand;
+            private int grade;
+            private int carid;
+            private String productarea;
+            private String standardvalue;
+            private boolean isChecked;
+            private boolean isHead;
+            private boolean isHeadChecked;
+            private int goodsid;
 
-        public String getIcon() {
-            return icon;
-        }
+            public int getGoodsid() {
+                return goodsid;
+            }
 
-        public void setIcon(String icon) {
-            this.icon = icon;
-        }
+            public void setGoodsid(int goodsid) {
+                this.goodsid = goodsid;
+            }
 
-        public int getSalesvolume() {
-            return salesvolume;
-        }
+            public boolean isChecked() {
+                return isChecked;
+            }
 
-        public void setSalesvolume(int salesvolume) {
-            this.salesvolume = salesvolume;
-        }
+            public void setChecked(boolean checked) {
+                isChecked = checked;
+            }
 
-        public String getStanderpic() {
-            return standerpic;
-        }
+            public boolean isHead() {
+                return isHead;
+            }
 
-        public void setStanderpic(String standerpic) {
-            this.standerpic = standerpic;
-        }
+            public void setHead(boolean head) {
+                isHead = head;
+            }
 
-        public String getGname() {
-            return gname;
-        }
+            public boolean isHeadChecked() {
+                return isHeadChecked;
+            }
 
-        public void setGname(String gname) {
-            this.gname = gname;
-        }
+            public void setHeadChecked(boolean headChecked) {
+                isHeadChecked = headChecked;
+            }
 
-        public String getPic() {
-            return pic;
-        }
+            public String getIcon() {
+                return icon;
+            }
 
-        public void setPic(String pic) {
-            this.pic = pic;
-        }
+            public void setIcon(String icon) {
+                this.icon = icon;
+            }
 
-        public String getSname() {
-            return sname;
-        }
+            public int getSalesvolume() {
+                return salesvolume;
+            }
 
-        public void setSname(String sname) {
-            this.sname = sname;
-        }
+            public void setSalesvolume(int salesvolume) {
+                this.salesvolume = salesvolume;
+            }
 
-        public String getStandardname() {
-            return standardname;
-        }
+            public Object getStanderpic() {
+                return standerpic;
+            }
 
-        public void setStandardname(String standardname) {
-            this.standardname = standardname;
-        }
+            public void setStanderpic(Object standerpic) {
+                this.standerpic = standerpic;
+            }
 
-        public String getUnit() {
-            return unit;
-        }
+            public String getGname() {
+                return gname;
+            }
 
-        public void setUnit(String unit) {
-            this.unit = unit;
-        }
+            public void setGname(String gname) {
+                this.gname = gname;
+            }
 
-        public int getNum() {
-            return num;
-        }
+            public int getGoodsstandardid() {
+                return goodsstandardid;
+            }
 
-        public void setNum(int num) {
-            this.num = num;
-        }
+            public void setGoodsstandardid(int goodsstandardid) {
+                this.goodsstandardid = goodsstandardid;
+            }
 
-        public int getShopid() {
-            return shopid;
-        }
+            public String getPic() {
+                return pic;
+            }
 
-        public void setShopid(int shopid) {
-            this.shopid = shopid;
-        }
+            public void setPic(String pic) {
+                this.pic = pic;
+            }
 
-        public double getPrice() {
-            return price;
-        }
+            public String getSname() {
+                return sname;
+            }
 
-        public void setPrice(double price) {
-            this.price = price;
-        }
+            public void setSname(String sname) {
+                this.sname = sname;
+            }
 
-        public String getShopmessage() {
-            return shopmessage;
-        }
+            public String getStandardname() {
+                return standardname;
+            }
 
-        public void setShopmessage(String shopmessage) {
-            this.shopmessage = shopmessage;
-        }
+            public void setStandardname(String standardname) {
+                this.standardname = standardname;
+            }
 
-        public int getGrade() {
-            return grade;
-        }
+            public String getUnit() {
+                return unit;
+            }
 
-        public void setGrade(int grade) {
-            this.grade = grade;
-        }
+            public void setUnit(String unit) {
+                this.unit = unit;
+            }
 
-        public String getBrand() {
-            return brand;
-        }
+            public int getNum() {
+                return num;
+            }
 
-        public void setBrand(String brand) {
-            this.brand = brand;
-        }
+            public void setNum(int num) {
+                this.num = num;
+            }
 
-        public int getCarid() {
-            return carid;
-        }
+            public int getShopid() {
+                return shopid;
+            }
 
-        public void setCarid(int carid) {
-            this.carid = carid;
-        }
+            public void setShopid(int shopid) {
+                this.shopid = shopid;
+            }
 
-        public String getProductarea() {
-            return productarea;
-        }
+            public double getPrice() {
+                return price;
+            }
 
-        public void setProductarea(String productarea) {
-            this.productarea = productarea;
-        }
+            public void setPrice(double price) {
+                this.price = price;
+            }
 
-        public String getStandardvalue() {
-            return standardvalue;
-        }
+            public String getShopmessage() {
+                return shopmessage;
+            }
 
-        public void setStandardvalue(String standardvalue) {
-            this.standardvalue = standardvalue;
+            public void setShopmessage(String shopmessage) {
+                this.shopmessage = shopmessage;
+            }
+
+            public String getBrand() {
+                return brand;
+            }
+
+            public void setBrand(String brand) {
+                this.brand = brand;
+            }
+
+            public int getGrade() {
+                return grade;
+            }
+
+            public void setGrade(int grade) {
+                this.grade = grade;
+            }
+
+            public int getCarid() {
+                return carid;
+            }
+
+            public void setCarid(int carid) {
+                this.carid = carid;
+            }
+
+            public String getProductarea() {
+                return productarea;
+            }
+
+            public void setProductarea(String productarea) {
+                this.productarea = productarea;
+            }
+
+            public String getStandardvalue() {
+                return standardvalue;
+            }
+
+            public void setStandardvalue(String standardvalue) {
+                this.standardvalue = standardvalue;
+            }
         }
     }
 }

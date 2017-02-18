@@ -13,6 +13,7 @@ import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -20,9 +21,10 @@ import java.util.logging.Logger;
  */
 
 public class FindListPresenter extends BasePresenter<FindListFragment> {
+    public List<FindListModel.DataBean> lists;
     @Override
     public void onCreate() {
-        new Net().getFindBlogByType(mView.type);
+
     }
 
     @Override
@@ -42,6 +44,7 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
             if (message.getDataType().equals(mView.type)) {
                 com.orhanobut.logger.Logger.i("FindListPresenter disposeNetMsg");
                 FindListModel model = (FindListModel) message.getData();
+                lists=model.getData();
                 mView.adaphter.setData(model.getData());
             }
         }
@@ -63,5 +66,9 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
         if (message.getEventType() == EventMessage.INFORM_EVENT) {
 
         }
+    }
+
+    public void getData(){
+        new Net().getFindBlogByType(mView.type);
     }
 }

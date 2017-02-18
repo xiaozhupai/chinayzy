@@ -14,96 +14,11 @@
         android:layout_marginLeft="55dp"
         android:layout_marginRight="55dp"
         >
-    <LinearLayout
-        android:id="@+id/ll_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-    <!--<LinearLayout-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical"-->
-        <!--&gt;-->
-        <!--<TextView-->
-            <!--android:id="@+id/tv_find_text1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/find_green_text"-->
-            <!--android:text="@string/find_text1"-->
-            <!--android:textSize="14sp"-->
-            <!--android:layout_marginTop="14dp"-->
-            <!--android:clickable="true"-->
-            <!--/>-->
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
 
-    <!--</LinearLayout>-->
-        <!--<LinearLayout-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center"-->
-            <!--android:orientation="vertical"-->
-            <!--&gt;-->
-            <!--<TextView-->
-                <!--android:id="@+id/tv_find_text2"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textColor="@color/find_text"-->
-                <!--android:text="@string/find_text1"-->
-                <!--android:textSize="14sp"-->
-                <!--android:layout_marginTop="14dp"-->
-                <!--android:clickable="true"-->
-                <!--/>-->
-
-        <!--</LinearLayout>-->
-        <!--<LinearLayout-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center"-->
-            <!--android:orientation="vertical"-->
-            <!--&gt;-->
-            <!--<TextView-->
-                <!--android:id="@+id/tv_find_text3"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textColor="@color/find_text"-->
-                <!--android:text="@string/find_text1"-->
-                <!--android:textSize="14sp"-->
-                <!--android:layout_marginTop="14dp"-->
-                <!--android:clickable="true"-->
-                <!--/>-->
-
-        <!--</LinearLayout>-->
-        <!--<LinearLayout-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center"-->
-            <!--android:orientation="vertical"-->
-            <!--&gt;-->
-            <!--<TextView-->
-                <!--android:id="@+id/tv_find_text4"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textColor="@color/find_text"-->
-                <!--android:text="@string/find_text1"-->
-                <!--android:textSize="14sp"-->
-                <!--android:layout_marginTop="14dp"-->
-                <!--android:clickable="true"-->
-                <!--/>-->
-        <!--</LinearLayout>-->
-    </LinearLayout>
-        <View
-            android:id="@+id/v_slide"
-            android:layout_width="39dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/find_green_text"
-            />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

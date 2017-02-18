@@ -53,6 +53,7 @@
             android:layout_marginBottom="16dp"
             />
         <TextView
+            android:id="@+id/tv_cache_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"

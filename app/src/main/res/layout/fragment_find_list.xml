@@ -9,23 +9,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="2dp"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="6dp"
+        android:background="@color/basecolor"
         />
     <!--<com.chinayiz.chinayzy.views.PullToRefreshLayout-->
-        <!--android:id="@+id/refresh_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <!--android:id="@+id/refresh_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
     <!--<include layout="@layout/refresh_head" />-->
     <!--&lt;!&ndash; 支持所有实现Pullable接口的View &ndash;&gt;-->
     <!--<com.chinayiz.chinayzy.views.PullableGridView-->
-        <!--android:id="@+id/gd_find_list"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:numColumns="2"-->
-        <!--android:layout_marginLeft="6dp"-->
-        <!--android:layout_marginRight="6dp"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:horizontalSpacing="8dp"-->
-        <!--/>-->
+    <!--android:id="@+id/gd_find_list"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:numColumns="2"-->
+    <!--android:layout_marginLeft="6dp"-->
+    <!--android:layout_marginRight="6dp"-->
+    <!--android:layout_marginTop="2dp"-->
+    <!--android:horizontalSpacing="8dp"-->
+    <!--/>-->
     <!--<include layout="@layout/load_more"/>-->
     <!--</com.chinayiz.chinayzy.views.PullToRefreshLayout>-->
 </LinearLayout>

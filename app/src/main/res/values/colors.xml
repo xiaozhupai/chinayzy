@@ -6,6 +6,7 @@
     <color name="color_line">#f25e73</color>
     <color name="find_text">#0b1b01</color>
     <color name="find_green_text">#6db430</color>
+    <color name="diver">#E8E8E8</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="find_item_content">#7e7e7e</color>
@@ -30,6 +31,7 @@
     <color name="Goods_Comment">#8a8a8a</color>
     <color name="Goods_CommentCount">#ff3951</color>
 
+  <color name="Mine_color">#ff3951</color>
     <color name="gray">#aaaaaa</color>
     <color name="light_blue">#6593cb</color>
 

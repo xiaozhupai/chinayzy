@@ -18,4 +18,8 @@ public class UserSeeion {
          editor.putInt("userid",0);
          editor.commit();
     }
+
+    public static int getUserid(Context context){
+        return context.getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0);
+    }
 }

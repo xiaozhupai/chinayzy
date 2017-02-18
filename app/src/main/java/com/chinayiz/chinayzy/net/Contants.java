@@ -47,6 +47,15 @@ public class Contants {
      */
     public static final String BACKPWD = "/user/backpwd";
     /**
+     * 发送验证码
+     */
+    public static final String SRYCODE = "/user/srycode";
+    /**
+     * 第三方登录
+     */
+    public static final String THIRD = "/user/third";
+
+    /**
      * 发现类型
      */
     public static final String FINDTYPE = "/farm/findType";
@@ -57,15 +66,22 @@ public class Contants {
     /**
      * 加入购物车
      */
-    public static final String ADDSHOPPINGCAR="farm/addShoppingCar";
+    public static final String ADDSHOPPINGCAR="/farm/addShoppingCar";
     /**
      * 购物车
      */
     public static final String SHOPCART="/farm/showShoppingCar";
     /**
-     * 删除历史搜索
+     * 删除购物车商品
      */
-    public static final String DELSEARCHKEY="/farm/delSearchkey";
+    public static final String DELSHOPPINGCAR="/farm/delShoppingCar";
+
+    /**
+     * 编辑购物车完成
+     */
+    public static final String UPDATESHOPPINGCAR="/farm/updateShoppingCar";
+
+
     /**
      * 获取所有的搜索标签
      */
@@ -74,6 +90,12 @@ public class Contants {
      * 生态农业首页搜索
      */
     public static final String SEARCHFARM="/farm/searchFarm";
+
+    /**
+     * 获取商品套餐
+     */
+    public static final String SHOWGOODSSTANDARD="/farm/showGoodsStandard";
+
 
 
 

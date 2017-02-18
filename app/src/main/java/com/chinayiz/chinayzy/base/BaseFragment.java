@@ -25,6 +25,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     protected Context mContext;
     protected Bundle mBundle;
     public BaseActivity mActivity;
+    public boolean isInit=true;   //ui是否初始化
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -45,9 +46,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if(getUserVisibleHint()) {
             isVisible = true;
             onVisible();//当前可见
+            Logger.e("Visible");
         } else {
             isVisible = false;
             onInvisible();//当前不可见
+            Logger.e("InVisible");
         }
         Logger.e("setUserVisibleHint"+isVisibleToUser);
     }
@@ -105,6 +108,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
         //创建presenter
         mPresenter = initPresenter();
+        isInit=true;
     }
 
     /**
@@ -132,10 +136,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onDestroyView() {
         mPresenter.onStop();
+        Logger.i("onDestroyView");
         super.onDestroyView();
     }
     @Override
     public void onDetach() {
+        Logger.i("onDetach");
         mPresenter.onDetach();
         super.onDestroyView();
     }

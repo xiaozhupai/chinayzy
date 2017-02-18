@@ -2,11 +2,15 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
+import com.chinayiz.chinayzy.utils.CaCheUntil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -18,7 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class SettingPresenter extends BasePresenter<SettingFragment> {
     @Override
     public void onCreate() {
-
+        mView.tv_cache_data.setText("(有"+CaCheUntil.getCacheSize()+"M缓存)");
     }
 
     @Override
@@ -53,7 +57,32 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
 
     }
 
+    /**
+     * 退出登录
+     */
     public void logout(){
-        UserSeeion.logout(mView.getActivity());
+        UserSeeion.logout(mView.getContext());
+        mView.getActivity().finish();
+    }
+
+    /**
+     * 清除缓存
+     */
+    public void clearCache(){
+        if (CaCheUntil.clearCacheDiskSelf()){
+            mView.tv_cache_data.setText("(有0M缓存)");
+            Toast.makeText(mView.getContext(),"清除成功",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(mView.getContext(),"清除失败",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    /**
+     * 去个人资料
+     */
+    public void toPerson(){
+        MineActivity activity= (MineActivity) mView.getActivity();
+        activity.addFragment(new PersonFragment());
     }
 }

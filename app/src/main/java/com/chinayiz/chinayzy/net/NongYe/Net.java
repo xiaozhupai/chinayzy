@@ -1,13 +1,16 @@
 package com.chinayiz.chinayzy.net.NongYe;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
+import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
@@ -195,11 +198,11 @@ public class Net {
     /**
      * 搜索结果
      */
-    public void getSearchFarm(String title,String page,String size,String type) {
+    public void getSearchFarm(String title,String page,String size,String type,Context context) {
         OkHttpUtils
                 .post()
                 .url(Contants.API + Contants.SEARCHFARM)
-                .addParams("userid","5")
+                .addParams("userid", UserSeeion.getUserid(context)+"")
                 .addParams("searchkey",title)
                 .addParams("page", page)
                 .addParams("size", size)
@@ -228,11 +231,11 @@ public class Net {
      * 搜索所有标签
      *
      */
-    public void getALLTab() {
+    public void getALLTab(Context context) {
         OkHttpUtils
                 .post()
                 .url(Contants.API + Contants.GETSEARCHKEY)
-                .addParams("userid","5")
+                .addParams("userid", UserSeeion.getUserid(context)+"")
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -253,48 +256,14 @@ public class Net {
                 });
     }
 
-
-
-
-//
-//    /**
-//     * 删除历史搜索记录
-//     *
-//     */
-//    public void getRemoveSearch() {
-//        OkHttpUtils
-//                .post()
-//                .url(Contants.API + Contants.DELSEARCHKEY)
-//                .addParams("userid","5")
-//                .tag("ny")
-//                .build()
-//                .execute(new StrCallback(){
-//                    @Override
-//                    public void onError(Call call, Exception e, int i) {
-//                        Logger.e("错误信息："+e.toString());
-//                    }
-//                    @Override
-//                    public void onResponse(String s, int i) {
-//                        try {
-//                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-//                                    ,Contants.DELSEARCHKEY
-//                                    ,mGson.fromJson(s,BaseResponseModel.class)));
-//                        }catch (Exception e){
-//                            onError(null,e,i);
-//                        }
-//                    }
-//                });
-//    }
-
-
     /**
      * 购物车
      */
-    public void getShopCart(){
+    public void getShopCart(Context context){
         OkHttpUtils
                 .post()
-                .url(Contants.SHOPCART)
-                .addParams("userid", APP.sUserid)
+                .url(Contants.API+Contants.SHOPCART)
+                .addParams("userid",  UserSeeion.getUserid(context)+"")
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -316,13 +285,16 @@ public class Net {
     }
 
     /**
-     * 购物车
+     * 加入购物车
      */
-    public void getJoinCart(){
+    public void getJoinCart(SearchFarmModel.DataBean bean,Context context){
         OkHttpUtils
                 .post()
-                .url(Contants.ADDSHOPPINGCAR)
-                .addParams("userid", APP.sUserid)
+                .url(Contants.API+Contants.ADDSHOPPINGCAR)
+                .addParams("userid",  UserSeeion.getUserid(context)+"")
+               .addParams("shopid",bean.getShopid()+"")
+                .addParams("goodsstandardid",bean.getGoodsstandardid()+"")
+                .addParams("count","1")
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -335,13 +307,73 @@ public class Net {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Contants.ADDSHOPPINGCAR
-                                    ,mGson.fromJson(s,ShopCartModel.class)));
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }
                     }
                 });
     }
+
+    /**
+     * 删除购物车商品
+     */
+
+    public void getDelCart(String  carids, Context context){
+        OkHttpUtils
+                .post()
+                .url(Contants.API+Contants.DELSHOPPINGCAR)
+                .addParams("userid", UserSeeion.getUserid(context)+"")
+                .addParams("carids",carids)  //购物车唯一标识符，用逗号隔开
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.DELSHOPPINGCAR
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 编辑购物车完成
+     */
+    public void getUpdateCart(String  caridandcounts){
+        OkHttpUtils
+                .post()
+                .url(Contants.API+Contants.UPDATESHOPPINGCAR)
+                .addParams("userid", APP.sUserid)
+                .addParams("caridandcounts",caridandcounts)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.UPDATESHOPPINGCAR
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 发现类型
@@ -394,6 +426,36 @@ public class Net {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,type
                                     ,mGson.fromJson(s,FindListModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获取商品套餐
+     * @param goodsid 商品ID
+     */
+    public void getShopGoodStandard(String goodsid) {
+        OkHttpUtils
+                .post()
+                .url(Contants.API + Contants.SHOWGOODSSTANDARD)
+                .addParams("goodsid",goodsid)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Contants.SHOWGOODSSTANDARD
+                                    ,mGson.fromJson(s,GoodStandardModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }

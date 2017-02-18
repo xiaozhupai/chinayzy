@@ -16,6 +16,16 @@ public class Tag implements Serializable {
 	private int rightDrawableResId;
 	private String title;
 
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
+	private Object data;
+
 	public Tag() {
 		
 	}

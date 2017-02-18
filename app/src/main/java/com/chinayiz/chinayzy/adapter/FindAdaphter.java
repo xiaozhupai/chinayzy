@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 
@@ -31,9 +33,10 @@ public class FindAdaphter extends BaseInectAdaphter<FindListModel.DataBean>{
           viewHolder= (ViewHolder) view.getTag();
         }
        FindListModel.DataBean bean=lists.get(i);
+        Glide.with(context).load(bean.getPicpath()).into(viewHolder.iv_find_item_image);
+        Glide.with(context).load(bean.getPic()).into(viewHolder.iv_find_item_logo);
         viewHolder.tv_find_item_title.setText(bean.getTitle());
         viewHolder.tv_find_item_content.setText(bean.getContent());
-
         return view;
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -25,12 +26,16 @@ import com.orhanobut.logger.Logger;
 
 public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> implements
         View.OnClickListener, RadioGroup.OnCheckedChangeListener {
-    private TextView mTvActionBarTitle;
-    private ImageView mIvMoreButton;
+    public TextView mTvActionBarTitle;
+    public ImageView mIvMoreButton;
+    public RelativeLayout mRlActionBar;
+    public ImageView mIvBackButton;
+    public  TextView mTvActionBarRight;
     private NongYe_homeFragment mHomeFragment;
     private FindFragment mFindFragment;
     public BaseFragment mCurrentFragment;
     private ShopCartFragment mShopCartFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,10 @@ public class NongYe_MainActivity extends BaseActivity<NongYe_MainPresenter> impl
     }
 
     private void initView() {
-        ImageView mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
+        mRlActionBar= (RelativeLayout) findViewById(R.id.rl_action_bar);
+         mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
         mTvActionBarTitle = (TextView) findViewById(R.id.tv_action_bar_title);
+        mTvActionBarRight= (TextView) findViewById(R.id.tv_action_bar_right);
         TextPaint paint = mTvActionBarTitle.getPaint();
         paint.setFakeBoldText(true);
         mTvActionBarTitle.setText("生态农业");

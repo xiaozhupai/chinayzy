@@ -53,9 +53,5 @@ public class MinePresenter extends BasePresenter<MineActivity> {
     }
 
 
-    public void addFragment(FragmentTransaction transaction, Fragment fragment) {
-        transaction.add(R.id.container, fragment).commit();
-        mView.head.setVisibility(View.VISIBLE);
 
-    }
 }

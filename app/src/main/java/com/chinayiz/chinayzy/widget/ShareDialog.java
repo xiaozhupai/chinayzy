@@ -47,34 +47,25 @@ import cn.sharesdk.framework.PlatformActionListener;
 /**
  * @author Luki
  */
+
 public class ShareDialog extends DialogUtils.XDialog implements View.OnClickListener, OnItemClickListener {
-
-    /**
-     *
-     */
-
     private static final String DEFAULT_URL = "";
     private GridView vShare;
     private TextView vCancel;
     private Adapter mAdapter;
     private Context context;
-
     private int type;//
-
     private String mId;
-
     private String dis;
     private String shareImageUrl;
 
     /**
      * @param context
-
      */
 
     public ShareDialog(Context context) {
         super(context, R.style.Dialog);
         this.context = context;
-
     }
 
     /* (non-Javadoc)

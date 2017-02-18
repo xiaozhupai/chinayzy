@@ -58,7 +58,8 @@ public class NongYe_homePresenter extends BasePresenter<NongYe_homeFragment> {
                 getData(message.getData().toString());
                 break;
             case NY_HomeBanner.CLICK_SEARCH:
-                mView.startFragment(new SearchFragment());
+                SearchFragment fragment=new SearchFragment();
+                mView.startFragment(fragment,fragment.getTag());
                 break;
         }
     }
