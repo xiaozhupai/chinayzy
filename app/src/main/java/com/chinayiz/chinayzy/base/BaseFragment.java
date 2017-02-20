@@ -25,7 +25,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     protected Context mContext;
     protected Bundle mBundle;
     public BaseActivity mActivity;
-    public boolean isInit=true;   //ui是否初始化
+    //ui是否初始化
+    public boolean isInit=true;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -136,13 +137,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onDestroyView() {
         mPresenter.onStop();
+        mPresenter.onDestroy();
         Logger.i("onDestroyView");
-        super.onDestroyView();
-    }
-    @Override
-    public void onDetach() {
-        Logger.i("onDetach");
-        mPresenter.onDetach();
         super.onDestroyView();
     }
 

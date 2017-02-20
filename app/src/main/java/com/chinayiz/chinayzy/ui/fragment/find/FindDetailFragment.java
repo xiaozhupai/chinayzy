@@ -19,6 +19,9 @@ import com.chinayiz.chinayzy.widget.ShareDialog;
  * A simple {@link Fragment} subclass.
  */
 public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implements View.OnClickListener {
+    /**
+     * 点赞
+     */
     private ImageView iv_love;
     private LinearLayout lv_love;
     private LinearLayout lv_keep;
