@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
+import com.orhanobut.logger.Logger;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -29,7 +30,7 @@ public class APP extends Application {
         SearchDao.getInstance(this);
         AppInfo.init(this);
         initData();
-
+        Logger.i("hehe");
     }
 
     /**
