@@ -1,0 +1,32 @@
+<resources>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_protocol">《用户使用协议》</string>
+    <string name="find_text1">推荐</string>
+    <string name="find_text2">推荐</string>
+    <string name="find_text3">推荐</string>
+    <string name="find_text4">推荐</string>
+    <string name="title_activity_forgot">ForgotActivity</string>
+
+    <string name="app_name"><b>1</b></string>
+    <string name="update_CheckBox_Messgea">忽略这个版本</string>
+    <string name="nongye_ActionBarTitle"><b>  生态农业</b></string>
+    <string name="nongye_recommendBar"><b>  精选推荐</b></string>
+    <string name="nongye_featureBar"><b>  特色购</b></string>
+    <string name="nongye_loveEatBar"><b>  爱吃</b></string>
+
+
+    <string name="head">这里是HeadView</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="pullup_to_load">上拉加载更多</string>
+    <string name="release_to_load">释放立即加载</string>
+    <string name="loading">正在加载...</string>
+    <string name="load_succeed">加载成功</string>
+    <string name="load_fail">加载失败</string>
+</resources>

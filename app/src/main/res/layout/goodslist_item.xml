@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/view_Goods"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/Background"
+                android:clickable="true"
+    >
+
+    <ImageView
+        android:id="@+id/iv_goodsPic"
+        android:layout_width="match_parent"
+        android:layout_height="169dp"
+        android:padding="1dp"
+        android:src="@mipmap/img_evalue_result"
+        />
+
+    <TextView
+        android:id="@+id/tv_goodsName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_goodsPic"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="12dp"
+        android:maxLines="2"
+        android:minLines="2"
+        android:text="中闽弘泰铁观音 安溪铁观音 茶叶 乌龙茶 铁观音茶叶 礼盒装250克"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_goodsPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goodsName"
+        android:layout_marginLeft="18dp"
+        android:text="168"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/NongYe_home_priceText"
+        android:textSize="18sp"
+        />
+
+    <ImageView
+        android:id="@+id/iv_goodsRMB"
+        android:layout_width="7dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@id/tv_goodsPrice"
+        android:layout_marginLeft="9dp"
+        android:src="@mipmap/icon_rmb"
+        />
+    <ImageView
+        android:id="@+id/iv_addCart"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@mipmap/pic_cart"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="9dp"
+      android:layout_alignBottom="@id/tv_goodsPrice"
+        android:clickable="true"
+        android:visibility="visible"
+        />
+</RelativeLayout>

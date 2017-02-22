@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment">
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:padding="14dp"
+       android:background="#ff3951"
+       android:textColor="@color/white"
+       android:textSize="15sp"
+       android:text="添加新地址"
+       android:gravity="center"
+       android:clickable="true"
+     />
+
+</RelativeLayout>

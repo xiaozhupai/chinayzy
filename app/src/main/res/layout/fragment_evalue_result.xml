@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment"
+    android:orientation="vertical"
+    android:background="@color/basecolor"
+    >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:gravity="center_horizontal"
+      android:background="@color/white"
+      >
+      <!-- TODO: Update blank fragment layout -->
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@mipmap/img_evalue_result"
+          android:layout_marginTop="31dp"
+          />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="感谢您高贵的评价"
+          android:layout_marginTop="18dp"
+          android:textSize="14sp"
+          android:textColor="#505050"
+          />
+      <TextView
+          android:id="@+id/tv_to_others"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="再去逛逛"
+          android:textColor="#ff3952"
+          android:textSize="14sp"
+          android:layout_marginTop="37dp"
+          android:background="@drawable/shape_corner_red_solid"
+          android:layout_marginBottom="129dp"
+          android:paddingTop="8dp"
+          android:paddingBottom="8dp"
+          android:paddingLeft="20dp"
+          android:paddingRight="20dp"
+          android:clickable="true"
+          />
+  </LinearLayout>
+
+
+</LinearLayout>

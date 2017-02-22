@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_width="match_parent"
+              android:background="@color/Background"
+              android:layout_height="wrap_content">
+    <!--生态农业首页爱吃主题-->
+    <TextView
+        android:id="@+id/tv_ThemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:layout_marginTop="11dp"
+        android:drawableLeft="@mipmap/pic_feature"
+        android:text="@string/nongye_loveEatBar"
+        android:textColor="@color/NongYe_tuiJianBar"
+        android:textSize="14sp"
+        />
+    <ImageView
+        android:id="@+id/iv_themeIcon"
+        android:layout_width="match_parent"
+        android:layout_height="107dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/tese"
+        />
+</LinearLayout>

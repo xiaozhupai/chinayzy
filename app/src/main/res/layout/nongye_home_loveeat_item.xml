@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+                android:background="@color/Background"
+    >
+
+    <ImageView
+        android:id="@+id/iv_goodItemIcon"
+        android:layout_width="139dp"
+        android:layout_height="122dp"
+        android:src="@color/colorPrimary"
+        android:padding="5dp"
+        android:clickable="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <TextView
+            android:id="@+id/tv_goodItemTitle"
+            android:layout_toRightOf="@id/iv_goodItemIcon"
+            android:padding="10dp"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:textSize="12sp"
+            android:maxLength="30"
+            android:lineSpacingMultiplier="1.2"
+            android:text="螺蛳粉广西正宗柳州 嘻螺会螺狮粉特产袋装螺丝粉5包"
+            android:textColor="@color/NongYe_home_goodsText"
+            />
+    <TextView
+        android:id="@+id/tv_goodItemPrice"
+        android:layout_toRightOf="@id/iv_goodItemIcon"
+        android:layout_alignBottom="@id/iv_goodItemIcon"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:maxLength="9"
+        android:text="99"
+        android:drawableLeft="@mipmap/icon_rmb"
+        android:textColor="@color/NongYe_home_priceText"
+        />
+
+    <ImageView
+        android:id="@+id/iv_addCart"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:clickable="true"
+        android:src="@mipmap/pic_cart"
+        android:layout_margin="15dp"
+        android:layout_alignBottom="@+id/tv_goodItemPrice"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>
