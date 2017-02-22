@@ -23,7 +23,7 @@ import com.chinayiz.chinayzy.utils.BarUtils;
  * Class BaseActivity
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    protected View mActionBar;
+    public View mActionBar;
     /**
      * 商品详情Fragment（通用）；
      */
@@ -31,17 +31,16 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     /**
      * ActionBar标题
      */
-    protected TextView mTvActionBarTitle;
+    public TextView mTvActionBarTitle;
     /**
      * 返回按钮；购物车按钮；更多按钮
      */
-    protected ImageView mIvBackButton,mIvActionBarCart,mIvActionBarMore;
+    public ImageView mIvBackButton,mIvActionBarCart,mIvActionBarMore;
     /**
      * 编辑，或完成（供购物车或个人资料修改使用）
      */
-    protected CheckBox mCbActionBarEdit;
-
-    protected FragmentManager mFragmentManager;
+    public CheckBox mCbActionBarEdit;
+    public FragmentManager mFragmentManager;
     protected T mPresenter;
     protected static Toast toast;
     public String TAG;

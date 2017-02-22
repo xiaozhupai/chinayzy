@@ -17,13 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.chinayiz.chinayzy.views.PullToRefreshLayout
+    <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
     <include layout="@layout/refresh_head"/>
-    <com.chinayiz.chinayzy.views.PullableScrollView
+    <com.chinayiz.chinayzy.views.pullable.PullableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -506,10 +506,10 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </com.chinayiz.chinayzy.views.PullableScrollView>
+    </com.chinayiz.chinayzy.views.pullable.PullableScrollView>
     <include
         android:id="@+id/loadlayout"
         layout="@layout/load_more"/>
-</com.chinayiz.chinayzy.views.PullToRefreshLayout>
+</com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
     </FrameLayout>
 </LinearLayout>
