@@ -1,8 +1,10 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SuggestPresenter;
 
@@ -29,7 +32,8 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
 
     @Override
     protected void onVisible() {
-
+        BaseActivity activity= (BaseActivity) getActivity();
+        activity.mTvActionBarTitle.setText("意见反馈");
     }
 
     @Override
@@ -47,17 +51,17 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_suggest, container, false);
+        return initView(inflater,container,savedInstanceState);
     }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      View view=inflater.inflate(R.layout.fragment_suggest, container);
-        et_suggest_title = (EditText) inflater.inflate(R.layout.fragment_suggest, container, false).findViewById(R.id.et_suggest_title);
+      View view=inflater.inflate(R.layout.fragment_suggest, null);
+        et_suggest_title = (EditText) view.findViewById(R.id.et_suggest_title);
         et_suggest_title.setOnClickListener(this);
-        et_suggest_content = (EditText) inflater.inflate(R.layout.fragment_suggest, container, false).findViewById(R.id.et_suggest_content);
+        et_suggest_content = (EditText) view.findViewById(R.id.et_suggest_content);
         et_suggest_content.setOnClickListener(this);
-        tv_suggest_submit = (TextView) inflater.inflate(R.layout.fragment_suggest, container, false).findViewById(R.id.tv_suggest_submit);
+        tv_suggest_submit = (TextView) view.findViewById(R.id.tv_suggest_submit);
         tv_suggest_submit.setOnClickListener(this);
         return view;
 
@@ -82,17 +86,18 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
         }
     }
 
+
     private void submit() {
         // validate
         String title = et_suggest_title.getText().toString().trim();
         if (TextUtils.isEmpty(title)) {
-            Toast.makeText(getContext(), "输入主要问题模块,如收藏模块", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "输入主要问题模块,如收藏模块", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String content = et_suggest_content.getText().toString().trim();
         if (TextUtils.isEmpty(content)) {
-            Toast.makeText(getContext(), "问题详细描述", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "问题详细描述", Toast.LENGTH_SHORT).show();
             return;
         }
 

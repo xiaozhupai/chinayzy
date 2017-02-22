@@ -151,4 +151,40 @@ public class Contants {
      * 获取商品套餐
      */
     public static final String SHOWGOODSSTANDARD="/farm/showGoodsStandard";
+    /**
+     * 获取个人中心个人信息
+     */
+    public static final String GETPERSONALCENTER="/centre/getPersonalCenter";
+    /**
+     * 获取个人信息
+     */
+    public static final String GETUSERINFO="/centre/getUserinfo";
+
+    /**
+     * 编辑用户信息
+     */
+    public static final String EDITUSER="/centre/editUser";
+    /**
+     * 发表评论
+     */
+    public static final String COMMENTORDER="/centre/commentOrder";
+    /**
+     * 意见反馈
+     */
+    public static final String ADDIDEA="/centre/addIdea";
+
+    /**
+     * 获取个性标签
+     */
+    public static final String GETTAGS="/centre/getTags";
+
+    /**
+     * 添加自定义个性标签
+     */
+    public static final String ADDTAGS="/centre/addTags";
+    /**
+     * 修改完成个性标签
+     */
+    public static final String FINISHTAGS="/centre/finishTags";
+
 }

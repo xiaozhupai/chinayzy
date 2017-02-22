@@ -1,7 +1,9 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
@@ -60,20 +62,22 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
     /**
      * 退出登录
      */
+
     public void logout(){
-        UserSeeion.logout(mView.getContext());
+        UserSeeion.logout(mView.getActivity());
         mView.getActivity().finish();
     }
 
     /**
      * 清除缓存
      */
+
     public void clearCache(){
         if (CaCheUntil.clearCacheDiskSelf()){
             mView.tv_cache_data.setText("(有0M缓存)");
-            Toast.makeText(mView.getContext(),"清除成功",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mView.getActivity(),"清除成功",Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(mView.getContext(),"清除失败",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mView.getActivity(),"清除失败",Toast.LENGTH_SHORT).show();
         }
 
     }

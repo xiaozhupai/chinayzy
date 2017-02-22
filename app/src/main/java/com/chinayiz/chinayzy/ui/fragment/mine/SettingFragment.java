@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SettingPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
@@ -39,7 +40,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
 
     @Override
     protected void onVisible() {
-        MineActivity activity= (MineActivity) getActivity();
+        BaseActivity activity= (BaseActivity) getActivity();
         activity.mTvActionBarTitle.setText("设置");
     }
 

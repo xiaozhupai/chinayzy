@@ -89,7 +89,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         mRlActionBar= (RelativeLayout) findViewById(R.id.head);
         mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
 
-//        mTvActionBarTitle = (TextView) findViewById(R.id.tv_action_bar_title);
+        mTvActionBarTitle = (TextView) findViewById(R.id.tv_actionbar_title);
 //        mTvActionBarRight= (TextView) findViewById(R.id.tv_action_bar_right);
 
         mIvMoreButton = (ImageView) findViewById(R.id.iv_more_button);
@@ -193,7 +193,6 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     }
 
     public void addFragment( Fragment fragment) {
-
         getFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(fragment.getTag()).commit();
     }
 

@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -122,6 +123,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
         editor.putInt("userid",userid);
         editor.commit();//提交修改
+        APP.sUserid=userid+"";
         mView.finish();
         Intent intent=new Intent(mView, MineActivity.class);
         mView.startActivity(intent);

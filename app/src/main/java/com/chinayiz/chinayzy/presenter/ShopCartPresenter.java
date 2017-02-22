@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
@@ -13,15 +14,14 @@ import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.Contants;
 import com.chinayiz.chinayzy.net.ContentRequestUtils;
+import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.utils.WindowMagerUntil;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 import com.orhanobut.logger.Logger;
-
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,16 +112,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
             case ShopCartAdaphter.POPUWINDOW:  //弹出商品规格页面
                 ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
                 popuWindow=new GoodsStandardPopuWindow(mView.getActivity(),bean);
-                popuWindow.showAtLocation(mView.rl_shopcart,Gravity.BOTTOM,0,0);
-                popuWindow.setTouchable(true);
-                popuWindow.setOutsideTouchable(true);
-                WindowMagerUntil.backgroundAlpha(0.5f,mView.getActivity());
-                popuWindow.setOnDismissListener(new PopupWindow.OnDismissListener(){
-                    @Override
-                    public void onDismiss() {
-                        WindowMagerUntil.backgroundAlpha(1.0f,mView.getActivity());
-                    }
-                });
+                popuWindow.show();
                 break;
             case  GoodsStandardPopuWindow.GoodStands:  //商品规格回调给当前页面的数据
                 ShopCartModel.DataBean.ShoplistBean goods_bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
@@ -131,6 +122,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                              data_bean.setGoodsstandardid(goods_bean.getGoodsstandardid());
                              data_bean.setStandardname(goods_bean.getStandardname());
                              data_bean.setPrice(goods_bean.getPrice());
+                             data_bean.setIcon(goods_bean.getIcon());
                          }
                     }
                 }

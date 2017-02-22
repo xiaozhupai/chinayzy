@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.MainActivity;
+import com.chinayiz.chinayzy.database.UserSeeion;
+import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
@@ -69,8 +71,14 @@ public class MainPresenter extends BasePresenter<MainActivity> {
      * 启动个人中心
      */
     public void doStartMine() {
-        intent = new Intent(mView, MineActivity.class);
-        mView.startActivity(intent);
+        if (UserSeeion.isLogin(mView.getActivity())){
+            intent = new Intent(mView, MineActivity.class);
+            mView.startActivity(intent);
+        }else {
+            intent = new Intent(mView, LoginActivity.class);
+            mView.startActivity(intent);
+        }
+
     }
 
 }

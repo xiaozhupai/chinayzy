@@ -1,6 +1,8 @@
 package com.chinayiz.chinayzy;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
@@ -17,7 +19,7 @@ public class APP extends Application {
     /**
      * 全局用户ID
      */
-	public static String sUserid="3";
+	public static String sUserid="0";
     public static  APP instance;
 
     public static APP getInstance() {
@@ -31,6 +33,8 @@ public class APP extends Application {
         AppInfo.init(this);
         initData();
         Logger.i("hehe");
+
+        sUserid=getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0)+"";
     }
 
     /**

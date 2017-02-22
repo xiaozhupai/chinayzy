@@ -1,31 +1,30 @@
 package com.chinayiz.chinayzy.widget;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.ContentRequestUtils;
+import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.orhanobut.logger.Logger;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/2/16.
+ * Created by Administrator on 2017/2/16.商品规格弹出框
  */
 
-public class GoodsStandardPopuWindow extends PopupWindow implements View.OnClickListener {
+public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements View.OnClickListener {
     private ShopCartModel.DataBean.ShoplistBean bean;
     private Context context;
     public ImageView iv_goodstandard;
@@ -36,10 +35,10 @@ public class GoodsStandardPopuWindow extends PopupWindow implements View.OnClick
     public static final String GoodStands="GoodStands";
     private  List<Tag> tagList=new ArrayList<>();
     private List<GoodStandardModel.DataBean> lists;
-
+      private ContentRequestUtils net=ContentRequestUtils.getRequestUtils();
 
     public GoodsStandardPopuWindow(Context context, ShopCartModel.DataBean.ShoplistBean bean) {
-        super(context);
+        super(context, R.style.Dialog);
         this.bean = bean;
         this.context = context;
         initView();
@@ -67,30 +66,26 @@ public class GoodsStandardPopuWindow extends PopupWindow implements View.OnClick
     private void getData() {
         Glide.with(context).load(bean.getIcon()).into(iv_goodstandard);
         tv_price.setText(bean.getPrice()+"");
-       ContentRequestUtils.getRequestUtils().getShopGoodStandard(bean.getGoodsid()+"");
+        net.getShopGoodStandard(bean.getGoodsid()+"");
     }
 
     //布局初始化
     private void initView() {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.goodstandard_layout, null);
-        iv_goodstandard= (ImageView) view.findViewById(R.id.iv_goodstandard);
-        tv_price= (TextView) view.findViewById(R.id.tv_price);
-        iv_close= (ImageView) view.findViewById(R.id.iv_close);
-        tlv_list= (TagListView) view.findViewById(R.id.tlv_list);
-        tv_submit= (TextView) view.findViewById(R.id.tv_submit);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getWindow().setGravity(Gravity.BOTTOM);
+        setContentView(R.layout.goodstandard_layout);
+
+        iv_goodstandard= (ImageView)findViewById(R.id.iv_goodstandard);
+        tv_price= (TextView) findViewById(R.id.tv_price);
+        iv_close= (ImageView) findViewById(R.id.iv_close);
+        tlv_list= (TagListView) findViewById(R.id.tlv_list);
+        tv_submit= (TextView)findViewById(R.id.tv_submit);
         tv_submit.setOnClickListener(this);
         iv_close.setOnClickListener(this);
-        //设置PopupWindow的View
-        this.setContentView(view);
-        //设置PopupWindow弹出窗体的宽
-        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        //设置PopupWindow弹出窗体的高
-        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        //设置PopupWindow弹出窗体可点击
-        this.setFocusable(true);
-        //设置SelectPicPopupWindow弹出窗体动画效果
-        this.setAnimationStyle(R.style.Animation);
+        setCanceledOnTouchOutside(true);
+
+//        //设置SelectPicPopupWindow弹出窗体动画效果
+//        this.setAnimationStyle(R.style.Animation);
 
         tlv_list.setOnTagClickListener(new TagListView.OnTagClickListener() {
             @Override
@@ -100,8 +95,10 @@ public class GoodsStandardPopuWindow extends PopupWindow implements View.OnClick
                 bean.setStandardname(data.getStandardname());
                 bean.setStandardvalue(data.getStandardvalue());
                 bean.setPrice(data.getPrice());
+                bean.setIcon(data.getStanderpic());
                 setData(lists);
                 tv_price.setText(data.getPrice()+"");
+                Glide.with(context).load(bean.getIcon()).into(iv_goodstandard);
             }
         });
     }

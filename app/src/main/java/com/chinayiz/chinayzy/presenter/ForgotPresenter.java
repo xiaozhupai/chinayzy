@@ -61,7 +61,7 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
         switch (message.getDataType()){
             case Contants.BACKPWD:
                 BaseResponseModel model= (BaseResponseModel) message.getData();
-                if (model.getCode().equals(100)){
+                if (model.getCode().equals("100")){
                     mView.finish();
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
