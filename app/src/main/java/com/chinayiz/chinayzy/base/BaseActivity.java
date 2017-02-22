@@ -40,6 +40,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 编辑，或完成（供购物车或个人资料修改使用）
      */
     protected CheckBox mCbActionBarEdit;
+
     protected FragmentManager mFragmentManager;
     protected T mPresenter;
     protected static Toast toast;

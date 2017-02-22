@@ -46,13 +46,22 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
      */
     public final static int HIDE_ALL = 1;
     /**
+     * 隐藏Navigtion
+     */
+    public final static int HIDE_NAVIGTION=3;
+
+    /**
      * 显示ActionBar
      */
-    public final static int SHOW_ACTIONBAR = 3;
+    public final static int SHOW_ACTIONBAR = 4;
     /**
      * 显示ActionBar和Navigtion
      */
-    public final static int SHOW_ALL = 4;
+    public final static int SHOW_ALL = 5;
+    /**
+     * 显示Navigtion
+     */
+    public final static int SHOW_NAVIGTION = 6;
 
     public BaseFragment mCurrentFragment;
     public HomeFragment mHomeFragment = null;
@@ -111,6 +120,9 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
             mActionBar.setVisibility(View.GONE);
             mRgNongyeMenu.setVisibility(View.GONE);
         }
+        if (HIDE_NAVIGTION==code){
+            mRgNongyeMenu.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -122,6 +134,9 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
         }
         if (SHOW_ALL == code) {
             mActionBar.setVisibility(View.VISIBLE);
+            mRgNongyeMenu.setVisibility(View.VISIBLE);
+        }
+        if (SHOW_NAVIGTION==code){
             mRgNongyeMenu.setVisibility(View.VISIBLE);
         }
     }

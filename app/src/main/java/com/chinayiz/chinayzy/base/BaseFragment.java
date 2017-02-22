@@ -153,11 +153,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         super.onDestroyView();
     }
 
-
     /**
      * @param tofragment 跳转的fragment
      * @param tag        fragment的标签
      */
+
     @Override
     public void startFragment(Fragment tofragment, String tag) {
        addFragment(tofragment,tag);
