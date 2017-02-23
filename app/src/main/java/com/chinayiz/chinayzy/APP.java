@@ -2,11 +2,9 @@ package com.chinayiz.chinayzy;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
-import com.orhanobut.logger.Logger;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -32,8 +30,6 @@ public class APP extends Application {
         SearchDao.getInstance(this);
         AppInfo.init(this);
         initData();
-        Logger.i("hehe");
-
         sUserid=getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0)+"";
     }
 
