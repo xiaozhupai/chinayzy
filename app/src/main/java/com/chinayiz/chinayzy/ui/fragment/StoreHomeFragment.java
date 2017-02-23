@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -191,7 +190,6 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
             mPopupWindow.dismiss();
         }
         mTvGoodsType.setText(textView.getText());
-        mTvGoodsType.setTextColor(Color.rgb(121, 202, 52));
         mAdapter.getHomeHead().setType(textView.getText().toString());
         mPresenter.doFilterGoodsList(position);
     }

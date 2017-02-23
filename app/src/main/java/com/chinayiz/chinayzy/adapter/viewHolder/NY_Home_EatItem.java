@@ -8,8 +8,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * author  by  Canrom7 .
@@ -22,6 +26,7 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
     public TextView mTvGoodItemPrice;
 
     private NY_EatItemModel.DataBean data;
+
     public NY_Home_EatItem(View itemView) {
         super(itemView);
         mIvGoodItemIcon = (ImageView) itemView.findViewById(R.id.iv_goodItemIcon);
@@ -35,20 +40,31 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
     }
 
     public void setData(NY_EatItemModel ny_eatItemModel, Fragment fragment,int position) {
-        data=ny_eatItemModel.getData().get(position%6);
-        Glide.with(fragment).load(data.getIcon()).into(mIvGoodItemIcon);
-        mTvGoodItemTitle.setText(data.getGname());
-        mTvGoodItemPrice.setText(data.getPrice());
+        if (ny_eatItemModel.getData().size()>position){
+            Logger.i("数据位置="+position);
+            data=ny_eatItemModel.getData().get(position);
+            Glide.with(fragment).load(data.getIcon()).into(mIvGoodItemIcon);
+            mIvGoodItemIcon.setTag(data.getGoodsid());
+            mTvGoodItemTitle.setText(data.getGname());
+            mTvGoodItemTitle.setTag(data.getGoodsid());
+            mTvGoodItemPrice.setText(data.getPrice());
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_goodItemIcon://查看商品
-                Logger.i("头像查看商品");
+            case R.id.iv_goodItemIcon:
+                if (v.getTag()!=null){
+                    EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
+                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
+                }
                 break;
-            case R.id.tv_goodItemTitle://查看商品
-                Logger.i("标题查看商品");
+            case R.id.tv_goodItemTitle:
+                if (v.getTag()!=null){
+                    EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
+                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
+                }
                 break;
             case R.id.iv_addCart://加入购物车
                 Logger.i("加入购物车");

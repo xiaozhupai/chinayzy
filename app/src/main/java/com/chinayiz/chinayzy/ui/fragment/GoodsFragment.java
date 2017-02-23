@@ -287,6 +287,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
         getFragmentManager().popBackStack("GoodsListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         getFragmentManager().popBackStack("StoreHomeFragment",FragmentManager.POP_BACK_STACK_INCLUSIVE);
         mStoreHomeFragment=null;
+        mListFragment=null;
     }
 
     @Override

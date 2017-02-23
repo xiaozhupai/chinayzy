@@ -21,6 +21,7 @@ import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
 import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
 import com.chinayiz.chinayzy.net.Contants;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -36,7 +37,11 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     /**
      * 点击商品flag
      */
-    public static final String CLICK_GOODS = "NongYeHomeRecylAdapter";
+    public static final String CLICK_GOODS = "HomeRecylAdapter_CLICK";
+    /**
+     * 点击主题flag
+     */
+    public static final String CLICK_THEME = "HomeRecylAdapter_THEME";
     /**
      * 动态获取数据flag
      */
@@ -129,7 +134,8 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             default://爱吃item
                 if (mDates.containsKey(6)) {
                     mEatItem = (NY_Home_EatItem) holder;
-                    mEatItem.setData((NY_EatItemModel) mDates.get(6), mFragment, position);
+                    Logger.i("爱吃主题位置="+position);
+                    mEatItem.setData((NY_EatItemModel) mDates.get(6), mFragment, position-6);
                 }
                 break;
         }

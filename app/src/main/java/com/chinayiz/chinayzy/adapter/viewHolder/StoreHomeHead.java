@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy.adapter.viewHolder;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,7 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/6 10:32
- * Class StoreHomeHead
+ * Class StoreHomeHead 店铺首页头视图
  */
 public class StoreHomeHead extends RecyclerView.ViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     public static final String CLICK = "StoreHomeHead_CLICK";
@@ -53,10 +52,11 @@ public class StoreHomeHead extends RecyclerView.ViewHolder implements View.OnCli
         mTvSort.setOnClickListener(this);
         mTvGoodsType.setOnClickListener(this);
     }
+
     public void setType(String name){
         mTvGoodsType.setText(name);
-        mTvGoodsType.setTextColor(Color.rgb(121, 202, 52));
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

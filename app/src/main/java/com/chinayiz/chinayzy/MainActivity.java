@@ -66,7 +66,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         switch (view.getId()) {
             case R.id.btn_NongYe://农业
                 mPresenter.doStartNongye();
-                finish();
                 showToast(this, "农业板块");
                 break;
             case R.id.btn_CityWide://同城

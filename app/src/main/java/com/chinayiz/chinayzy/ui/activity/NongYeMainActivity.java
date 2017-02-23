@@ -32,6 +32,7 @@ import com.orhanobut.logger.Logger;
 public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implements
         View.OnClickListener, RadioGroup.OnCheckedChangeListener,
         FragmentAlternate, FragmentManager.OnBackStackChangedListener {
+
     /**
      * 生态农业底部导航
      */
@@ -246,7 +247,16 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 transaction.hide(mCurrentFragment).show(fragment).commit();
         }
         mCurrentFragment = (BaseFragment) fragment;
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mFragmentManager.getBackStackEntryCount()==0&&mGoodsFragment.isAdded()){
+            mFragmentManager.beginTransaction().remove(mGoodsFragment).commit();
+
+            return;
+        }
     }
 
     @Override

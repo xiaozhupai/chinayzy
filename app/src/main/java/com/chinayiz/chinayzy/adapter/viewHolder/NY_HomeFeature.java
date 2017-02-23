@@ -8,8 +8,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +66,7 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                     holder.Title.setText(dataBean.getGname());
                     holder.Price.setText(dataBean.getPrice());
                     Glide.with(fragment).load(dataBean.getIcon()).into(holder.Icon);
+                    holder.view.setTag(dataBean.getGoodsid());
                 }
             }
         }else {
@@ -71,15 +76,14 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                 holder = mGoods.get(i%4);
                 if (dataBean.getType().equals("1")) {//主题类型
                     Glide.with(fragment).load(dataBean.getThemepic()).into(mGoods.get(0).Icon);
-                } else if (i!=0){//商品类型
+                }else{//商品类型
                     holder.Title.setText(dataBean.getGname());
                     holder.Price.setText(dataBean.getPrice());
                     Glide.with(fragment).load(dataBean.getIcon()).into(holder.Icon);
+                    holder.view.setTag(dataBean.getGoodsid());
                 }
             }
         }
-
-
     }
 
     @Override
@@ -89,13 +93,13 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                 Logger.i("特色购主题宣传图");
                 break;
             case R.id.lv_comgoods1://商品1
-                Logger.i("商品1");
+                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods2://商品2
-                Logger.i("商品2");
+                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods3://商品3
-                Logger.i("商品3");
+                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
                 break;
         }
     }

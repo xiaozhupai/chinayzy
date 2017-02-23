@@ -41,13 +41,18 @@ public class GoodsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goodslist, container, false);
         initView(view);
         EventBus.getDefault().register(this);
-        mReques.getRelatedGoods(mTypeCode, "1", "16");
         return view;
     }
 
     private void initView(View view) {
         mGoodsList = (MyGridView) view.findViewById(R.id.gv_goodsList);
         mAdapter = new GoodsDetailGridAdpter(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mReques.getRelatedGoods(mTypeCode, "1", "14");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -61,6 +66,10 @@ public class GoodsListFragment extends Fragment {
         }
     }
 
+    /**
+     * 动态计算GridView滑动的位置
+     * @return
+     */
     public int getScrllY() {
         View c = mGoodsList.getChildAt(0);
         if (c == null) {

@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 
+import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -43,7 +44,11 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 mView.mDateList.put(6,message.getData());
                 mView.mRecylAdapter.notifyDataSetChanged();
                 break;
-            case NongYeHomeRecylAdapter.CLICK_GOODS://商品点击事件
+            case NongYeHomeRecylAdapter.CLICK_GOODS://首页商品点击事件
+                mView.openGoodesDetail(message.getData().toString());
+                break;
+            case GoodsDetailGridAdpter.CLICK_GOODS://商品详情页相关商品点击
+                mView.onBack();
                 mView.openGoodesDetail(message.getData().toString());
                 break;
         }
