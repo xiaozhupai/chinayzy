@@ -44,7 +44,7 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
             Logger.i("数据位置="+position);
             data=ny_eatItemModel.getData().get(position);
             Glide.with(fragment).load(data.getIcon()).into(mIvGoodItemIcon);
-            mIvGoodItemIcon.setTag(data.getGoodsid());
+            mIvGoodItemIcon.setTag(R.id.tag_click,data.getGoodsid());
             mTvGoodItemTitle.setText(data.getGname());
             mTvGoodItemTitle.setTag(data.getGoodsid());
             mTvGoodItemPrice.setText(data.getPrice());
@@ -57,13 +57,13 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
             case R.id.iv_goodItemIcon:
                 if (v.getTag()!=null){
                     EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
-                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
+                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
                 }
                 break;
             case R.id.tv_goodItemTitle:
                 if (v.getTag()!=null){
                     EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
-                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
+                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
                 }
                 break;
             case R.id.iv_addCart://加入购物车

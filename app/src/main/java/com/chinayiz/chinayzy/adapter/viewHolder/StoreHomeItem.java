@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
+import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 
 /**
  * author  by  Canrom7 .
@@ -21,7 +21,7 @@ public class StoreHomeItem extends RecyclerView.ViewHolder{
     private TextView mTvGoodsName;
     private TextView mTvGoodsPrice;
     private View mViewGoods;
-    private StoreInfoModel.DataBean.GoodsBean mBean;
+    private StoreGoodsListModel.DataBean mBean;
 
     public StoreHomeItem(View itemView) {
         super(itemView);
@@ -36,7 +36,7 @@ public class StoreHomeItem extends RecyclerView.ViewHolder{
         mViewGoods =itemView;
 
     }
-    public void setData(Context context, StoreInfoModel.DataBean.GoodsBean goodsBean) {
+    public void setData(Context context, StoreGoodsListModel.DataBean goodsBean) {
         mBean=goodsBean;
         mViewGoods.setTag(mBean.getGoodsid());
         Glide.with(context).load(mBean.getIcon()).into(mIvGoodsPic);

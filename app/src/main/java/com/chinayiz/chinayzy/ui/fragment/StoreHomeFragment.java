@@ -138,6 +138,7 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
         if (mDialogBuilder==null&&mDialogView==null){
             mDialogBuilder = new AlertDialog.Builder(getActivity());
             mDialogView = View.inflate(getActivity(), R.layout.dialog_storeinfo, null);
+
             name = (TextView) mDialogView.findViewById(R.id.tv_stareName);
             name.setText(mPresenter.mStoreInfoModel.getData().getSname());
             info = (TextView) mDialogView.findViewById(R.id.tv_storeInfo);
@@ -152,6 +153,7 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
             mDialog = mDialogBuilder.setView(mDialogView)
                     .setCancelable(true)
                     .create();
+
         }
         mDialog.show();
     }
@@ -177,8 +179,8 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
             });
             //要为popWindow设置一个背景才有效
             mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-            //设置popupWindow显示的位置，参数依次是参照View，x轴的偏移量，y轴的偏移量
         }
+        //设置popupWindow显示的位置，参数依次是参照View，x轴的偏移量，y轴的偏移量
         mPopupWindow.showAsDropDown(view, 0, 3);
     }
 
@@ -190,6 +192,7 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
             mPopupWindow.dismiss();
         }
         mTvGoodsType.setText(textView.getText());
+        //设置适配器中的悬浮头指示
         mAdapter.getHomeHead().setType(textView.getText().toString());
         mPresenter.doFilterGoodsList(position);
     }

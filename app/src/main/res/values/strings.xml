@@ -10,7 +10,7 @@
     <string name="find_text4">推荐</string>
     <string name="title_activity_forgot">ForgotActivity</string>
 
-    <string name="app_name"><b>1</b></string>
+    <string name="app_name"><b>亿众</b></string>
     <string name="update_CheckBox_Messgea">忽略这个版本</string>
     <string name="nongye_ActionBarTitle"><b>  生态农业</b></string>
     <string name="nongye_recommendBar"><b>  精选推荐</b></string>
@@ -29,4 +29,8 @@
     <string name="loading">正在加载...</string>
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
+    <!--商品详情相关商品点击View TAGKEY-->
+    <item type="id" name="tag_view"></item>
+    <item type="id" name="tag_click"></item>
+
 </resources>

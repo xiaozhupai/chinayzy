@@ -66,16 +66,16 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
             view = View.inflate(mContext, R.layout.goodslist_item, null);
             mHoder = new ViewHoder();
             mHoder.mIocn = (ImageView) view.findViewById(R.id.iv_goodsPic);
-            mHoder.mView=view.findViewById(R.id.view_Goods);
             view.findViewById(R.id.iv_addCart).setVisibility(View.GONE);
             mHoder.mName = (TextView) view.findViewById(R.id.tv_goodsName);
             mHoder.mPrice = (TextView) view.findViewById(R.id.tv_goodsPrice);
-            view.setTag(mHoder);
+            mHoder.mView=view.findViewById(R.id.view_Goods);
+            view.setTag(R.id.tag_view,mHoder);
         } else {
             view = convertView;
-            mHoder = (ViewHoder) view.getTag();
+            mHoder = (ViewHoder) view.getTag(R.id.tag_view);
         }
-        mHoder.mView.setTag(mModel.getData().get(position).getGoodsid());
+        mHoder.mView.setTag(R.id.tag_click,mModel.getData().get(position).getGoodsid());
         mHoder.mView.setOnClickListener(this);
         Glide.with(mContext)
                 .load(mModel.getData().get(position).getIcon())
@@ -87,7 +87,7 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag()));
+        EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag(R.id.tag_click)));
     }
 
     class ViewHoder {

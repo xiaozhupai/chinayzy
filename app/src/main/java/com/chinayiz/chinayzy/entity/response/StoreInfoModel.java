@@ -53,7 +53,7 @@ public class StoreInfoModel extends BaseResponseModel {
         private int goodsnum;
         private String introduction;
         private List<TypecodeBean> typecodelist;
-        private List<GoodsBean> goodslist;
+
 
         public String getIsself() {
             return isself;
@@ -159,12 +159,23 @@ public class StoreInfoModel extends BaseResponseModel {
             this.typecodelist = typecodelist;
         }
 
-        public List<GoodsBean> getGoodslist() {
-            return goodslist;
-        }
-
-        public void setGoodslist(List<GoodsBean> goodslist) {
-            this.goodslist = goodslist;
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "bigicon='" + bigicon + '\'' +
+                    ", isself='" + isself + '\'' +
+                    ", isattention='" + isattention + '\'' +
+                    ", pic='" + pic + '\'' +
+                    ", sname='" + sname + '\'' +
+                    ", grade=" + grade +
+                    ", servicepoint=" + servicepoint +
+                    ", shopid=" + shopid +
+                    ", logisticspoint=" + logisticspoint +
+                    ", goodsavgpoint=" + goodsavgpoint +
+                    ", goodsnum=" + goodsnum +
+                    ", introduction='" + introduction + '\'' +
+                    ", typecodelist=" + typecodelist +
+                    '}';
         }
 
         public  class TypecodeBean {
@@ -191,73 +202,15 @@ public class StoreInfoModel extends BaseResponseModel {
             public void setTypename(String typename) {
                 this.tname = typename;
             }
-        }
-
-        public static class GoodsBean {
-            /**
-             * detaildesc : 好吃
-             * goodsid : 1
-             * price : 50-100
-             * icon : https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1484978891802&di=0503356ebe895df517add71013824e36&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F94%2F51%2F89Y58PICVMa_1024.jpg
-             * gname : 云雾绿茶
-             */
-
-            private String detaildesc;
-            private int goodsid;
-            private String price;
-            private String icon;
-            private String gname;
-
-            public String getDetaildesc() {
-                return detaildesc;
-            }
-
-            public void setDetaildesc(String detaildesc) {
-                this.detaildesc = detaildesc;
-            }
-
-            public int getGoodsid() {
-                return goodsid;
-            }
-
-            public void setGoodsid(int goodsid) {
-                this.goodsid = goodsid;
-            }
-
-            public String getPrice() {
-                return price;
-            }
-
-            public void setPrice(String price) {
-                this.price = price;
-            }
-
-            public String getIcon() {
-                return icon;
-            }
-
-            public void setIcon(String icon) {
-                this.icon = icon;
-            }
-
-            public String getGname() {
-                return gname;
-            }
-
-            public void setGname(String gname) {
-                this.gname = gname;
-            }
 
             @Override
             public String toString() {
-                return "GoodsBean{" +
-                        "detaildesc='" + detaildesc + '\'' +
-                        ", goodsid=" + goodsid +
-                        ", price='" + price + '\'' +
-                        ", icon='" + icon + '\'' +
-                        ", gname='" + gname + '\'' +
+                return "TypecodeBean{" +
+                        "tname='" + tname + '\'' +
+                        ", typecode='" + typecode + '\'' +
                         '}';
             }
         }
+
     }
 }

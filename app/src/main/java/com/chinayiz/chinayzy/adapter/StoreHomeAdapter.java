@@ -10,7 +10,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.viewHolder.StoreHomeHead;
 import com.chinayiz.chinayzy.adapter.viewHolder.StoreHomeItem;
 import com.chinayiz.chinayzy.entity.model.StoreInfo;
-import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
+import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,17 +24,17 @@ public class StoreHomeAdapter extends RecyclerView.Adapter implements View.OnCli
     public static final int HEAD_VIEW = 0;
     public static final int ITEM_VIEW = 1;
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
-    private List<StoreInfoModel.DataBean.GoodsBean> mDataList;
+    private List<StoreGoodsListModel.DataBean> mDataList;
     private StoreInfo mStoreInfo;
     private Context mContext;
     private StoreHomeHead mHomeHead;
     private StoreHomeItem mHomeItem;
-    public void setData(List<StoreInfoModel.DataBean.GoodsBean> beanList, StoreInfo storeInfo) {
+    public void setData(List<StoreGoodsListModel.DataBean> beanList, StoreInfo storeInfo) {
         this.mDataList = beanList;
         this.mStoreInfo = storeInfo;
     }
 
-    public void setData(List<StoreInfoModel.DataBean.GoodsBean> beanList) {
+    public void setData(List<StoreGoodsListModel.DataBean> beanList) {
         this.mDataList = beanList;
     }
 

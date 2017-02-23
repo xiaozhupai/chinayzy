@@ -15,12 +15,14 @@ import com.chinayiz.chinayzy.net.Contants;
 import com.chinayiz.chinayzy.net.ContentRequestUtils;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ import java.util.List;
 public class StoreHomePresenter extends BasePresenter<StoreHomeFragment> implements EventBusCallback {
     public StoreInfoModel mStoreInfoModel;
     private ContentRequestUtils mRequestUtils = ContentRequestUtils.getRequestUtils();
-    private List<StoreInfoModel.DataBean.GoodsBean> mDataList = new ArrayList<>();
+    private List<StoreGoodsListModel.DataBean> mDataList = new ArrayList<>();
     private StoreInfo mStoreInfo;
 
     @Override
@@ -74,9 +76,14 @@ public class StoreHomePresenter extends BasePresenter<StoreHomeFragment> impleme
             case Contants.STORE_HOME: {
                 mStoreInfoModel = (StoreInfoModel) message.getData();
                 mView.mGoodsTypeMeunAdapter = new GoodsTypeMeunAdapter(mView.getActivity());
+                //逆向排序分类数据
+                Collections.reverse(mStoreInfoModel.getData().getTypecodelist());
                 mView.mGoodsTypeMeunAdapter.setTypecodeList(mStoreInfoModel.getData().getTypecodelist());
                 mView.mGoodsTypeMeunAdapter.notifyDataSetChanged();
-                mDataList = mStoreInfoModel.getData().getGoodslist();
+                if (!mStoreInfoModel.getData().getTypecodelist().isEmpty()){
+                    Logger.i("类型列表为空");
+                    doFilterGoodsList(0);
+                }
                 mStoreInfo = new StoreInfo(mStoreInfoModel.getData().getIsself()
                         , mStoreInfoModel.getData().getIsattention()
                         , mStoreInfoModel.getData().getPic()
