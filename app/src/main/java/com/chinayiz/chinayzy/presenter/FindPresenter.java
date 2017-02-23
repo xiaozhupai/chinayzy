@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.adapter.PagerAdaphter;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
@@ -59,7 +59,7 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-        if (message.getDataType() == Contants.FINDTYPE) {//网络请求回调消息
+        if (message.getDataType() == Commons.FINDTYPE) {//网络请求回调消息
             Logger.i("网络请求回调消息" + message.toString());
             disposeNetMsg(message);
         }

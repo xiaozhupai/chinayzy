@@ -8,7 +8,7 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.orhanobut.logger.Logger;
@@ -70,7 +70,7 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Contants.SEARCHFARM:   //搜索结果
+            case Commons.SEARCHFARM:   //搜索结果
                 SearchFarmModel model= (SearchFarmModel) message.getData();
                 mView.adaphter.setData(model.getData(),1);
                 mView.adaphter2.setData(model.getData(),2);
@@ -86,7 +86,7 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                         break;
                 }
                 break;
-            case Contants.ADDSHOPPINGCAR:   //加入购物车
+            case Commons.ADDSHOPPINGCAR:   //加入购物车
                 BaseResponseModel model1= (BaseResponseModel) message.getData();
                 Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
                 break;

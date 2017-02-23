@@ -6,7 +6,7 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchLabelModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
@@ -51,7 +51,7 @@ public class SearchPresenter extends BasePresenter<SearchFragment> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
         switch (message.getDataType()){
-            case  Contants.GETSEARCHKEY:   //获得所有标签
+            case  Commons.GETSEARCHKEY:   //获得所有标签
                 SearchLabelModel model2= (SearchLabelModel) message.getData();
                 mView.data_hot.clear();
                 for (String title: model2.getData().getHotlist()) {

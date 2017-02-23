@@ -11,8 +11,8 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.StoreInfo;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
-import com.chinayiz.chinayzy.net.Contants;
-import com.chinayiz.chinayzy.net.ContentRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
 import com.orhanobut.logger.Logger;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class StoreHomePresenter extends BasePresenter<StoreHomeFragment> implements EventBusCallback {
     public StoreInfoModel mStoreInfoModel;
-    private ContentRequestUtils mRequestUtils = ContentRequestUtils.getRequestUtils();
+    private CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     private List<StoreGoodsListModel.DataBean> mDataList = new ArrayList<>();
     private StoreInfo mStoreInfo;
 
@@ -73,7 +73,7 @@ public class StoreHomePresenter extends BasePresenter<StoreHomeFragment> impleme
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
-            case Contants.STORE_HOME: {
+            case Commons.STORE_HOME: {
                 mStoreInfoModel = (StoreInfoModel) message.getData();
                 mView.mGoodsTypeMeunAdapter = new GoodsTypeMeunAdapter(mView.getActivity());
                 //逆向排序分类数据
@@ -95,7 +95,7 @@ public class StoreHomePresenter extends BasePresenter<StoreHomeFragment> impleme
                 mView.mRvStoreHome.setAdapter(mView.mAdapter);
                 break;
             }
-            case Contants.FORTYPEBY_GOODSS: {
+            case Commons.FORTYPEBY_GOODSS: {
                 StoreGoodsListModel model = (StoreGoodsListModel) message.getData();
                 mDataList = model.getData();
                 mView.mAdapter.setData(mDataList);

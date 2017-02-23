@@ -16,9 +16,8 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
-import com.chinayiz.chinayzy.entity.response.StringModel;
 import com.chinayiz.chinayzy.entity.response.ThirdModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
@@ -28,12 +27,8 @@ import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -90,7 +85,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Contants.LOGIN:  //登录
+            case Commons.LOGIN:  //登录
                 LoginModel model= (LoginModel) message.getData();
                 if (model.getCode().equals("100")){
                   int userid=model.getData().getUserid();
@@ -98,16 +93,16 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
                 break;
-            case Contants.REGISTER:  //注册
+            case Commons.REGISTER:  //注册
                 BaseResponseModel model2= (BaseResponseModel) message.getData();
                 Toast.makeText(mView,model2.getMsg(),Toast.LENGTH_LONG).show();
                 break;
-            case Contants.THIRD:   //第三方登录
+            case Commons.THIRD:   //第三方登录
               ThirdModel model3= (ThirdModel) message.getData();
                  ThirdModel.DataBean dataBean=model3.getData();
                 SaveData(dataBean.getUserid());
                 break;
-            case Contants.SRYCODE:   //发送验证码
+            case Commons.SRYCODE:   //发送验证码
 
                 break;
         }

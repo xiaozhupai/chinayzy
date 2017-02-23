@@ -11,8 +11,8 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
-import com.chinayiz.chinayzy.net.Contants;
-import com.chinayiz.chinayzy.net.ContentRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.views.MyGridView;
 import com.orhanobut.logger.Logger;
 
@@ -29,7 +29,7 @@ public class GoodsListFragment extends Fragment {
     private MyGridView mGoodsList;
     private String mTypeCode;
     private GoodsDetailGridAdpter mAdapter;
-    private ContentRequestUtils mReques = ContentRequestUtils.getRequestUtils();
+    private CommonRequestUtils mReques = CommonRequestUtils.getRequestUtils();
 
     public GoodsListFragment(String typeCode) {
         mTypeCode = typeCode;
@@ -57,7 +57,7 @@ public class GoodsListFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setData(EventMessage message) {
-        if (EventMessage.NET_EVENT == message.getEventType() && Contants.GOODS_RELATED.equals(message.getDataType())) {
+        if (EventMessage.NET_EVENT == message.getEventType() && Commons.GOODS_RELATED.equals(message.getDataType())) {
             RelatedGoodsModel model = (RelatedGoodsModel) message.getData();
             Logger.i("相关商品数据返回=" + model.getData().size());
             mAdapter.setData(model);

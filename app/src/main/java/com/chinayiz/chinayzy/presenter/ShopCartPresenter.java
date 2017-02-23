@@ -1,23 +1,18 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
-import android.view.Gravity;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
-import com.chinayiz.chinayzy.net.Contants;
-import com.chinayiz.chinayzy.net.ContentRequestUtils;
-import com.chinayiz.chinayzy.net.NongYe.Net;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
-import com.chinayiz.chinayzy.utils.WindowMagerUntil;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,7 +26,7 @@ import java.util.List;
  */
 
 public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
-    private ContentRequestUtils net=ContentRequestUtils.getRequestUtils();
+    private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
     private List<ShopCartModel.DataBean> list;
     private int type;
     public static final int TYPE_NORMAL = 0;
@@ -73,12 +68,12 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Contants.SHOPCART:  //购物车商品列表
+            case Commons.SHOPCART:  //购物车商品列表
                 ShopCartModel model= (ShopCartModel) message.getData();
                 list=model.getData();
                 mView.adaphter.setData(model.getData(),0);
                 break;
-            case Contants.DELSHOPPINGCAR:   //删除购物车商品
+            case Commons.DELSHOPPINGCAR:   //删除购物车商品
                 BaseResponseModel model2= (BaseResponseModel) message.getData();
                 if (model2.getCode().equals("100")){  //服务器数据库删除成功
                     for (ShopCartModel.DataBean data:list){
@@ -93,12 +88,12 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 }
                 Toast.makeText(mView.getActivity(),model2.getMsg(),Toast.LENGTH_SHORT).show();
                 break;
-            case Contants.UPDATESHOPPINGCAR:   //编辑完成
+            case Commons.UPDATESHOPPINGCAR:   //编辑完成
                 BaseResponseModel model3= (BaseResponseModel) message.getData();
                 Toast.makeText(mView.getActivity(),model3.getMsg(),Toast.LENGTH_SHORT).show();
                 break;
-            case Contants.SHOWGOODSSTANDARD:   //购物车商品套餐
-                Logger.i(Contants.SHOWGOODSSTANDARD);
+            case Commons.SHOWGOODSSTANDARD:   //购物车商品套餐
+                Logger.i(Commons.SHOWGOODSSTANDARD);
                 GoodStandardModel model4= (GoodStandardModel) message.getData();
                 List<GoodStandardModel.DataBean>  lists=model4.getData();
                 popuWindow.setData(lists);

@@ -5,9 +5,7 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
-import com.chinayiz.chinayzy.entity.response.TypeListModel;
-import com.chinayiz.chinayzy.net.Contants;
-import com.chinayiz.chinayzy.net.NongYe.Net;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -41,7 +39,7 @@ public class UserNet {
     public void getPersonalCenter() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GETPERSONALCENTER)
+                .url(Commons.API + Commons.GETPERSONALCENTER)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -57,7 +55,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.GETPERSONALCENTER
+                                    , Commons.GETPERSONALCENTER
                                     ,mGson.fromJson(s,PersonalModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -72,7 +70,7 @@ public class UserNet {
     public void getUserInfo() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GETUSERINFO)
+                .url(Commons.API + Commons.GETUSERINFO)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -88,7 +86,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.GETPERSONALCENTER
+                                    , Commons.GETPERSONALCENTER
                                     ,mGson.fromJson(s,PersonalModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -111,7 +109,7 @@ public class UserNet {
     public void getEditerUser(int index,String param) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.EDITUSER)
+                .url(Commons.API + Commons.EDITUSER)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -127,7 +125,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.EDITUSER
+                                    , Commons.EDITUSER
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -148,7 +146,7 @@ public class UserNet {
     public void getCommentOrder(Long orderid,String pic,String isanonymity,double descpoInteger,String commentscontent) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.COMMENTORDER)
+                .url(Commons.API + Commons.COMMENTORDER)
                 .addParams("orderid", orderid+"")
                 .addParams("pic", pic)
                 .addParams("isanonymity", isanonymity)
@@ -166,7 +164,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.COMMENTORDER
+                                    , Commons.COMMENTORDER
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -184,7 +182,7 @@ public class UserNet {
     public void getAddIdea(String theme,String idea) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.ADDIDEA)
+                .url(Commons.API + Commons.ADDIDEA)
                 .addParams("theme", theme)
                 .addParams("idea", idea)
                 .tag("ny")
@@ -199,7 +197,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.ADDIDEA
+                                    , Commons.ADDIDEA
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -215,7 +213,7 @@ public class UserNet {
     public void getTags() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GETTAGS)
+                .url(Commons.API + Commons.GETTAGS)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -228,7 +226,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.GETTAGS
+                                    , Commons.GETTAGS
                                     ,mGson.fromJson(s,TagsModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -244,7 +242,7 @@ public class UserNet {
     public void getAddTags(String tag) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.ADDTAGS)
+                .url(Commons.API + Commons.ADDTAGS)
                 .tag("ny")
                 .addParams("tag",tag)
                 .build()
@@ -258,7 +256,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.ADDTAGS
+                                    , Commons.ADDTAGS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -276,7 +274,7 @@ public class UserNet {
     public void getFinishTags(String tag,String tagid) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.FINISHTAGS)
+                .url(Commons.API + Commons.FINISHTAGS)
                 .tag("ny")
                 .addParams("tag",tag)
                 .addParams("tagid",tagid)
@@ -291,7 +289,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.FINISHTAGS
+                                    , Commons.FINISHTAGS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);

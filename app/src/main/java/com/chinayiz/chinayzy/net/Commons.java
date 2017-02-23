@@ -5,7 +5,7 @@ package com.chinayiz.chinayzy.net;
  *  公有的API
  */
 
-public class Contants {
+public class Commons {
     /**
      * 主机地址
      */

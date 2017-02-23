@@ -6,7 +6,7 @@ import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.orhanobut.logger.Logger;
@@ -24,23 +24,23 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Contants.NY_BANNER:
+            case Commons.NY_BANNER:
                 mView.mDateList.put(2,message.getData());
                 mView.mRecylAdapter.notifyDataSetChanged();
                 break;
-            case Contants.NY_RECOMMENT:
+            case Commons.NY_RECOMMENT:
                 mView.mDateList.put(3,message.getData());
                 mView.mRecylAdapter.notifyDataSetChanged();
                 break;
-            case Contants.NY_FEATURE:
+            case Commons.NY_FEATURE:
                 mView.mDateList.put(4,message.getData());
                 mView.mRecylAdapter.notifyDataSetChanged();
                 break;
-            case Contants.NY_EATTHEME:
+            case Commons.NY_EATTHEME:
                 mView.mDateList.put(5,message.getData());
                 mView.mRecylAdapter.notifyDataSetChanged();
                 break;
-            case Contants.NY_EATITEM:
+            case Commons.NY_EATITEM:
                 mView.mDateList.put(6,message.getData());
                 mView.mRecylAdapter.notifyDataSetChanged();
                 break;
@@ -84,21 +84,21 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
      */
     public void getData(String api) {
         switch (api) {
-            case Contants.NY_BANNER://请求banner图
-                mNet.getBanner(Contants.NY_BANNER);
+            case Commons.NY_BANNER://请求banner图
+                mNet.getBanner(Commons.NY_BANNER);
                 break;
-            case Contants.NY_RECOMMENT://请求精选推荐版块
+            case Commons.NY_RECOMMENT://请求精选推荐版块
                 mNet.getRecomment();
                 break;
-            case Contants.NY_FEATURE://请求特色购版块
+            case Commons.NY_FEATURE://请求特色购版块
                 mNet.getFeature();
                 Logger.i("请求特色购版块");
                 break;
-            case Contants.NY_EATTHEME://请求爱吃主题
+            case Commons.NY_EATTHEME://请求爱吃主题
                 mNet.getEatTheme();
                 Logger.i("请求爱吃主题板块");
                 break;
-            case Contants.NY_EATITEM://请求爱吃商品
+            case Commons.NY_EATITEM://请求爱吃商品
                 mNet.getEatItem("1", "10");
                 Logger.i("请求爱吃商品");
                 break;

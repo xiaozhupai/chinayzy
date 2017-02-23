@@ -15,7 +15,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.entity.response.TeaListModel;
 import com.chinayiz.chinayzy.entity.response.TypeListModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SelfTeaFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
@@ -48,14 +48,14 @@ public class SelfTeaPresenter extends BasePresenter<SelfTeaFragment> implements
     @Override
     protected void onCreate() {
         mPagerAdapter=new SelfTeaPagerAdapter();
-        mNet.getBanner(Contants.TEA_BANNER);
+        mNet.getBanner(Commons.TEA_BANNER);
         mNet.getTeaCode();
     }
 
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
-            case Contants.TEA_BANNER: {
+            case Commons.TEA_BANNER: {
                 NY_BannerModel model = (NY_BannerModel) message.getData();
                 List<String> mUrls = new ArrayList<>();
                 List<NY_BannerModel.Data> mBanner = model.getData();
@@ -66,7 +66,7 @@ public class SelfTeaPresenter extends BasePresenter<SelfTeaFragment> implements
                 mView.mBannerSelfTea.startTurning(1500);
                 break;
             }
-            case Contants.TEA_TYPELIST: {
+            case Commons.TEA_TYPELIST: {
                 mView.mVpTeaList.addOnPageChangeListener(mView);
                 mTypeListModel = (TypeListModel) message.getData();
                 mView.mNavigator.setAdjustMode(true);
@@ -77,7 +77,7 @@ public class SelfTeaPresenter extends BasePresenter<SelfTeaFragment> implements
                 loaderPager(mTypeListModel.getData());
                 break;
             }
-            case Contants.TEA_TEALIST: {
+            case Commons.TEA_TEALIST: {
                 mTeaListModel = (TeaListModel) message.getData();
                 if (mSum<mCurrentType){
                     Logger.i("设置适配器：="+mSum);

@@ -8,8 +8,8 @@ import com.chinayiz.chinayzy.adapter.viewHolder.CreateBannerHolder;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
-import com.chinayiz.chinayzy.net.Contants;
-import com.chinayiz.chinayzy.net.ContentRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
 import com.chinayiz.chinayzy.views.GlideCircleTransform;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
@@ -27,7 +27,7 @@ import java.util.List;
  * Class Goods_One
  */
 public class Goods_Presenter extends BasePresenter<GoodsFragment> implements PullToRefreshLayout.OnRefreshListener {
-    public ContentRequestUtils mRequestUtils = ContentRequestUtils.getRequestUtils();
+    public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     private PullToRefreshLayout mRefreshLayout;
 
     @Override
@@ -37,7 +37,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
             disposeNetMsg(message);
         }else if (EventMessage.REQUEST_ERROR==message.getEventType()){//请求失败
             switch (message.getDataType()){
-                case Contants.GOODS_DETAIL:{
+                case Commons.GOODS_DETAIL:{
                     Logger.i("请求失败");
                     if (mRefreshLayout != null) {
                         mRefreshLayout.loadmoreFinish(PullToRefreshLayout.FAIL);
@@ -59,7 +59,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
-            case Contants.GOODS_DETAIL: {
+            case Commons.GOODS_DETAIL: {
                 GoodsDetailModel model = (GoodsDetailModel) message.getData();
                 showGoodsInfo(model);
                 if (mRefreshLayout != null) {
@@ -67,15 +67,15 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
                 }
                 break;
             }
-            case Contants.GOODS_GROUP: {
+            case Commons.GOODS_GROUP: {
 
                 break;
             }
-            case Contants.GOODS_PICDETAIL: {
+            case Commons.GOODS_PICDETAIL: {
 
                 break;
             }
-            case Contants.GOODS_RELATED: {
+            case Commons.GOODS_RELATED: {
 
                 break;
             }

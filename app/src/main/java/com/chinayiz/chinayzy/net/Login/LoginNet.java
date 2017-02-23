@@ -6,16 +6,15 @@ import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
-import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
 import com.chinayiz.chinayzy.entity.response.StringModel;
 import com.chinayiz.chinayzy.entity.response.ThirdModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
 import org.greenrobot.eventbus.EventBus;
-import java.util.Date;
+
 import okhttp3.Call;
 
 /**
@@ -32,7 +31,7 @@ public class LoginNet {
     public  void toRegister(String username,String password,String sendMessage) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.REGISTER)
+                .url(Commons.API + Commons.REGISTER)
                 .addParams("imei", AppInfo.IMEI)
                 .addParams("userid", APP.sUserid)
                 .addParams("phone", username)
@@ -50,7 +49,7 @@ public class LoginNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.REGISTER
+                                    , Commons.REGISTER
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -66,7 +65,7 @@ public class LoginNet {
     public void toLogin(String username,String password) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.LOGIN)
+                .url(Commons.API + Commons.LOGIN)
                 .addParams("phone", username)
                 .addParams("password",password)
                 .tag("login")
@@ -81,7 +80,7 @@ public class LoginNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.LOGIN
+                                    , Commons.LOGIN
                                     ,mGson.fromJson(s,LoginModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -97,7 +96,7 @@ public class LoginNet {
     public void toBackpwd(String username,String newpassword,String sendMessage) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.BACKPWD)
+                .url(Commons.API + Commons.BACKPWD)
                 .addParams("phone", username)
                 .addParams("newpwd",newpassword)
                 .addParams("yzm",sendMessage)
@@ -113,7 +112,7 @@ public class LoginNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.BACKPWD
+                                    , Commons.BACKPWD
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -128,7 +127,7 @@ public class LoginNet {
     public void toSendMessage(String  phone) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.SRYCODE)
+                .url(Commons.API + Commons.SRYCODE)
                 .addParams("phone", phone)
                 .tag("login")
                 .build()
@@ -142,7 +141,7 @@ public class LoginNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.SRYCODE
+                                    , Commons.SRYCODE
                                     ,mGson.fromJson(s,StringModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -165,7 +164,7 @@ public class LoginNet {
     public void toThird(String thirdid,String logintype,String pic,String nickname,String sex) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.THIRD)
+                .url(Commons.API + Commons.THIRD)
                 .addParams("imei", AppInfo.IMEI)
                 .addParams("thirdid",thirdid)
                 .addParams("logintype",logintype)
@@ -184,7 +183,7 @@ public class LoginNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.THIRD
+                                    , Commons.THIRD
                                     ,mGson.fromJson(s,ThirdModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);

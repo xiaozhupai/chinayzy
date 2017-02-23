@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
 import com.chinayiz.chinayzy.utils.TimeUntils;
@@ -59,14 +59,14 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Contants.BACKPWD:
+            case Commons.BACKPWD:
                 BaseResponseModel model= (BaseResponseModel) message.getData();
                 if (model.getCode().equals("100")){
                     mView.finish();
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
                 break;
-            case Contants.SRYCODE:
+            case Commons.SRYCODE:
 
                 break;
         }

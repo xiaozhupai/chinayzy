@@ -13,7 +13,7 @@ import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.entity.response.SearchLabelModel;
 import com.chinayiz.chinayzy.entity.response.TeaListModel;
 import com.chinayiz.chinayzy.entity.response.TypeListModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -52,7 +52,7 @@ public class Net {
     public void getBanner(final String url) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + url)
+                .url(Commons.API + url)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -83,7 +83,7 @@ public class Net {
     public void getRecomment() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.NY_RECOMMENT)
+                .url(Commons.API + Commons.NY_RECOMMENT)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -99,7 +99,7 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.NY_RECOMMENT
+                                    , Commons.NY_RECOMMENT
                                     , mGson.fromJson(s, NY_RecommentModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -114,7 +114,7 @@ public class Net {
     public void getFeature() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.NY_FEATURE)
+                .url(Commons.API + Commons.NY_FEATURE)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -130,7 +130,7 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.NY_FEATURE
+                                    , Commons.NY_FEATURE
                                     , mGson.fromJson(s, NY_FeatureModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -145,7 +145,7 @@ public class Net {
     public void getEatTheme() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.NY_EATTHEME)
+                .url(Commons.API + Commons.NY_EATTHEME)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -161,7 +161,7 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.NY_EATTHEME
+                                    , Commons.NY_EATTHEME
                                     , mGson.fromJson(s, NY_EatThemeModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -179,7 +179,7 @@ public class Net {
     public void getEatItem(String page, String size) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.NY_EATITEM)
+                .url(Commons.API + Commons.NY_EATITEM)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("page", page)
@@ -197,7 +197,7 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.NY_EATITEM
+                                    , Commons.NY_EATITEM
                                     , mGson.fromJson(s, NY_EatItemModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -212,7 +212,7 @@ public class Net {
     public void getTeaCode() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.TEA_TYPELIST)
+                .url(Commons.API + Commons.TEA_TYPELIST)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", "")
@@ -228,10 +228,10 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.TEA_TYPELIST
+                                    , Commons.TEA_TYPELIST
                                     ,mGson.fromJson(s,TypeListModel.class)));
                             EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
-                                    ,Contants.TEA_TYPELIST
+                                    , Commons.TEA_TYPELIST
                                     ,mGson.fromJson(s,TypeListModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -245,7 +245,7 @@ public class Net {
     public void getTeaList(String page,String size,String itemCod) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.TEA_TEALIST)
+                .url(Commons.API + Commons.TEA_TEALIST)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
@@ -264,7 +264,7 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.TEA_TEALIST
+                                    , Commons.TEA_TEALIST
                                     ,mGson.fromJson(s,TeaListModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -283,7 +283,7 @@ public class Net {
     public void getSearchFarm(String title,String page,String size,String type) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.SEARCHFARM)
+                .url(Commons.API + Commons.SEARCHFARM)
                 .addParams("userid", APP.sUserid)
                 .addParams("searchkey",title)
                 .addParams("page", page)
@@ -301,7 +301,7 @@ public class Net {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.SEARCHFARM
+                                    , Commons.SEARCHFARM
                                     ,mGson.fromJson(s,SearchFarmModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -315,7 +315,7 @@ public class Net {
     public void getALLTab() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GETSEARCHKEY)
+                .url(Commons.API + Commons.GETSEARCHKEY)
                 .addParams("userid", APP.sUserid)
                 .tag("ny")
                 .build()
@@ -328,7 +328,7 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.GETSEARCHKEY
+                                    , Commons.GETSEARCHKEY
                                     ,mGson.fromJson(s,SearchLabelModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -343,7 +343,7 @@ public class Net {
     public void getFindType() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.FINDTYPE)
+                .url(Commons.API + Commons.FINDTYPE)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -355,7 +355,7 @@ public class Net {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Contants.FINDTYPE
+                                    , Commons.FINDTYPE
                                     ,mGson.fromJson(s,FindTypeModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -371,7 +371,7 @@ public class Net {
     public void getFindBlogByType(final String type) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.FINDBLOGBYTYPE)
+                .url(Commons.API + Commons.FINDBLOGBYTYPE)
                 .addParams("type",type)
                 .tag("ny")
                 .build()

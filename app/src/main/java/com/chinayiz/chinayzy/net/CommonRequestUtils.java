@@ -29,16 +29,16 @@ import okhttp3.Call;
  * CreateDate 2017/2/5 10:33
  * Class ContentRequestUtils 公共请求
  */
-public class ContentRequestUtils {
-    private static ContentRequestUtils sRequestUtils;
+public class CommonRequestUtils {
+    private static CommonRequestUtils sRequestUtils;
     private static Gson mGson = new Gson();
 
-    private ContentRequestUtils() {
+    private CommonRequestUtils() {
     }
 
-    public static ContentRequestUtils getRequestUtils() {
+    public static CommonRequestUtils getRequestUtils() {
         if (sRequestUtils == null) {
-            sRequestUtils = new ContentRequestUtils();
+            sRequestUtils = new CommonRequestUtils();
             return sRequestUtils;
         }
         return sRequestUtils;
@@ -53,12 +53,12 @@ public class ContentRequestUtils {
         Logger.i("执行请求");
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.STORE_HOME)
+                .url(Commons.API + Commons.STORE_HOME)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", shopID)
                 .addParams("sign", "")
-                .tag(Contants.STORE_HOME)
+                .tag(Commons.STORE_HOME)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -70,7 +70,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.STORE_HOME
+                                    , Commons.STORE_HOME
                                     , mGson.fromJson(s, StoreInfoModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -87,7 +87,7 @@ public class ContentRequestUtils {
     public void doAttentionStore(String storeID) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.ATTENTION_STORE)
+                .url(Commons.API + Commons.ATTENTION_STORE)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
@@ -119,7 +119,7 @@ public class ContentRequestUtils {
     public void doUnAttentionStore(String storeID) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.UNATTENTION_STORE)
+                .url(Commons.API + Commons.UNATTENTION_STORE)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
@@ -152,7 +152,7 @@ public class ContentRequestUtils {
     public void getGoodsListByPosition(String storeID, String typecode,String page,String size) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.FORTYPEBY_GOODSS)
+                .url(Commons.API + Commons.FORTYPEBY_GOODSS)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
@@ -172,7 +172,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.FORTYPEBY_GOODSS
+                                    , Commons.FORTYPEBY_GOODSS
                                     , mGson.fromJson(s, StoreGoodsListModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -189,7 +189,7 @@ public class ContentRequestUtils {
     public void getGoodsDetail(String goodsId) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GOODS_DETAIL)
+                .url(Commons.API + Commons.GOODS_DETAIL)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsId)
@@ -201,7 +201,7 @@ public class ContentRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
                         EventBus.getDefault().post(new EventMessage(EventMessage.REQUEST_ERROR
-                                , Contants.GOODS_DETAIL
+                                , Commons.GOODS_DETAIL
                                 , null));
                     }
 
@@ -209,7 +209,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.GOODS_DETAIL
+                                    , Commons.GOODS_DETAIL
                                     , mGson.fromJson(s, GoodsDetailModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -226,7 +226,7 @@ public class ContentRequestUtils {
     public void getGoodsGroup(String goodsId) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GOODS_GROUP)
+                .url(Commons.API + Commons.GOODS_GROUP)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsId)
@@ -243,7 +243,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.GOODS_GROUP
+                                    , Commons.GOODS_GROUP
                                     , mGson.fromJson(s, GoodsGroupModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -260,7 +260,7 @@ public class ContentRequestUtils {
     public void getGoodsPicDetail(String goodsId) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GOODS_PICDETAIL)
+                .url(Commons.API + Commons.GOODS_PICDETAIL)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsId)
@@ -277,7 +277,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.GOODS_PICDETAIL
+                                    , Commons.GOODS_PICDETAIL
                                     , mGson.fromJson(s, GoodsPicDetailModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -296,14 +296,14 @@ public class ContentRequestUtils {
     public void getRelatedGoods(String itemcode, String page, String size) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GOODS_RELATED)
+                .url(Commons.API + Commons.GOODS_RELATED)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("itemcode", itemcode)
                 .addParams("page", page)
                 .addParams("size", size)
                 .addParams("sign", "")
-                .tag(Contants.GOODS_RELATED)
+                .tag(Commons.GOODS_RELATED)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -315,7 +315,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.GOODS_RELATED
+                                    , Commons.GOODS_RELATED
                                     , mGson.fromJson(s, RelatedGoodsModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -332,7 +332,7 @@ public class ContentRequestUtils {
     public void doCollectGoods(String goodsID) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GOODS_COLLECT)
+                .url(Commons.API + Commons.GOODS_COLLECT)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsID)
@@ -364,7 +364,7 @@ public class ContentRequestUtils {
     public void doUnCollectGoods(String goodsID) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.GOODS_UNCOLLECT)
+                .url(Commons.API + Commons.GOODS_UNCOLLECT)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsID)
@@ -398,14 +398,14 @@ public class ContentRequestUtils {
     public void getCommentList(String goodsid, String page, String size) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.COMMENT_LIST)
+                .url(Commons.API + Commons.COMMENT_LIST)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsid)
                 .addParams("page", page)
                 .addParams("size", size)
                 .addParams("sign", "")
-                .tag(Contants.COMMENT_LIST)
+                .tag(Commons.COMMENT_LIST)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -417,7 +417,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.COMMENT_LIST
+                                    , Commons.COMMENT_LIST
                                     , mGson.fromJson(s, CommentListModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -432,7 +432,7 @@ public class ContentRequestUtils {
     public void getShopCart() {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.SHOPCART)
+                .url(Commons.API + Commons.SHOPCART)
                 .addParams("userid", APP.sUserid)
                 .tag("ny")
                 .build()
@@ -446,7 +446,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.SHOPCART
+                                    , Commons.SHOPCART
                                     , mGson.fromJson(s, ShopCartModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -465,7 +465,7 @@ public class ContentRequestUtils {
     public void getJoinCart(String shopid, String goodsstandardid, String count) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.ADDSHOPPINGCAR)
+                .url(Commons.API + Commons.ADDSHOPPINGCAR)
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", shopid)
                 .addParams("goodsstandardid", goodsstandardid)
@@ -482,7 +482,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.ADDSHOPPINGCAR
+                                    , Commons.ADDSHOPPINGCAR
                                     , mGson.fromJson(s, BaseResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -499,7 +499,7 @@ public class ContentRequestUtils {
     public void getDelCart(String carids) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.DELSHOPPINGCAR)
+                .url(Commons.API + Commons.DELSHOPPINGCAR)
                 .addParams("userid", APP.sUserid)
                 .addParams("carids", carids)
                 .tag("ny")
@@ -514,7 +514,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.DELSHOPPINGCAR
+                                    , Commons.DELSHOPPINGCAR
                                     , mGson.fromJson(s, BaseResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -531,7 +531,7 @@ public class ContentRequestUtils {
     public void getUpdateCart(String caridandcounts) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.UPDATESHOPPINGCAR)
+                .url(Commons.API + Commons.UPDATESHOPPINGCAR)
                 .addParams("userid", APP.sUserid)
                 .addParams("caridandcounts", caridandcounts)
                 .tag("ny")
@@ -546,7 +546,7 @@ public class ContentRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.UPDATESHOPPINGCAR
+                                    , Commons.UPDATESHOPPINGCAR
                                     , mGson.fromJson(s, BaseResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -564,7 +564,7 @@ public class ContentRequestUtils {
     public void getShopGoodStandard(String goodsid) {
         OkHttpUtils
                 .post()
-                .url(Contants.API + Contants.SHOWGOODSSTANDARD)
+                .url(Commons.API + Commons.SHOWGOODSSTANDARD)
                 .addParams("goodsid", goodsid)
                 .tag("ny")
                 .build()
@@ -579,7 +579,7 @@ public class ContentRequestUtils {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Contants.SHOWGOODSSTANDARD
+                                    , Commons.SHOWGOODSSTANDARD
                                     , mGson.fromJson(s, GoodStandardModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);

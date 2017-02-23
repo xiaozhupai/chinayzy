@@ -20,7 +20,7 @@ import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
 import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
-import com.chinayiz.chinayzy.net.Contants;
+import com.chinayiz.chinayzy.net.Commons;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -145,37 +145,37 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemViewType(int position) {
         switch (position) {
             case 0://返回banner图
-                if (!isLoad.contains(Contants.NY_BANNER)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Contants.NY_BANNER));
-                    isLoad.add(Contants.NY_BANNER);
+                if (!isLoad.contains(Commons.NY_BANNER)) {
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_BANNER));
+                    isLoad.add(Commons.NY_BANNER);
                 }
                 return BANNER_TYPE;
             case 1://返回类型菜单
                 return MENU_TYPE;
             case 2://返回精选推荐
-                if (!isLoad.contains(Contants.NY_RECOMMENT)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Contants.NY_RECOMMENT));
-                    isLoad.add(Contants.NY_RECOMMENT);
+                if (!isLoad.contains(Commons.NY_RECOMMENT)) {
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_RECOMMENT));
+                    isLoad.add(Commons.NY_RECOMMENT);
                 }
                 return RECOMMEND_TYPE;
             case 3://返回特色购
-                if (!isLoad.contains(Contants.NY_FEATURE)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Contants.NY_FEATURE));
-                    isLoad.add(Contants.NY_FEATURE);
+                if (!isLoad.contains(Commons.NY_FEATURE)) {
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_FEATURE));
+                    isLoad.add(Commons.NY_FEATURE);
                 }
                 return FEATURE_TYPE;
             case 4://返回特色购
                 return FEATURE_TYPE;
             case 5://返回爱吃主题
-                if (!isLoad.contains(Contants.NY_EATTHEME)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Contants.NY_EATTHEME));
-                    isLoad.add(Contants.NY_EATTHEME);
+                if (!isLoad.contains(Commons.NY_EATTHEME)) {
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_EATTHEME));
+                    isLoad.add(Commons.NY_EATTHEME);
                 }
                 return LOVE_ATE_TYPE;
         }
-        if (!isLoad.contains(Contants.NY_EATITEM)) {
-            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Contants.NY_EATITEM));
-            isLoad.add(Contants.NY_EATITEM);
+        if (!isLoad.contains(Commons.NY_EATITEM)) {
+            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_EATITEM));
+            isLoad.add(Commons.NY_EATITEM);
         }
         return LOVE_ITEM_TYPE;//返回爱吃item
     }

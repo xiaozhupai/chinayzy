@@ -2,19 +2,16 @@ package com.chinayiz.chinayzy.widget;
 
 import android.content.Context;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
-import com.chinayiz.chinayzy.net.ContentRequestUtils;
-import com.chinayiz.chinayzy.net.NongYe.Net;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
     public static final String GoodStands="GoodStands";
     private  List<Tag> tagList=new ArrayList<>();
     private List<GoodStandardModel.DataBean> lists;
-      private ContentRequestUtils net=ContentRequestUtils.getRequestUtils();
+      private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
 
     public GoodsStandardPopuWindow(Context context, ShopCartModel.DataBean.ShoplistBean bean) {
         super(context, R.style.Dialog);
