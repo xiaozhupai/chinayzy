@@ -5,7 +5,11 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
+import com.chinayiz.chinayzy.entity.response.TypeListModel;
+import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
+
+import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -22,8 +26,17 @@ import okhttp3.Call;
  */
 
 public class UserNet {
+
     private static UserNet mNet;
     private static Gson mGson = new Gson();
+    public static final String  EMAIL="EMAIL";
+    public static final String SEX="SEX";
+    public static final String HEIGHT="HEIGHT";
+    public static final String WEIGHT="WEIGHT";
+    public static final String TRUENAME="TRUENAME";
+    public static final String IDCARD="IDCARD";
+    public static final String TAGS="TAGS";
+    public static final String NICKNAME ="NICKNAME";
 
 
     public static UserNet getNet() {
@@ -55,7 +68,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.GETPERSONALCENTER
+                                    ,Commons.GETPERSONALCENTER
                                     ,mGson.fromJson(s,PersonalModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -86,8 +99,8 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.GETPERSONALCENTER
-                                    ,mGson.fromJson(s,PersonalModel.class)));
+                                    ,Commons.GETUSERINFO
+                                    ,mGson.fromJson(s,UserModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }
@@ -106,13 +119,37 @@ public class UserNet {
      truename
      idcard
      */
-    public void getEditerUser(int index,String param) {
+    public void getEditerUser(final String index, String param) {
+        String key = null;
+
+        switch (index){
+            case EMAIL:
+                key="email";
+                break;
+            case SEX:
+                key="sex";
+                break;
+            case HEIGHT:
+                key="height";
+                break;
+            case WEIGHT:
+                key="weight";
+                break;
+            case TRUENAME:
+                key="truename";
+                break;
+            case IDCARD:
+                key="idcard";
+                break;
+            case NICKNAME:
+                key="nickname";
+                break;
+        }
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.EDITUSER)
-                .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("sign", "")
+                .addParams(key,param)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -125,7 +162,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.EDITUSER
+                                    ,index
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -164,7 +201,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.COMMENTORDER
+                                    ,Commons.COMMENTORDER
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -197,7 +234,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.ADDIDEA
+                                    ,Commons.ADDIDEA
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -226,7 +263,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.GETTAGS
+                                    ,Commons.GETTAGS
                                     ,mGson.fromJson(s,TagsModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -256,7 +293,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.ADDTAGS
+                                    ,Commons.ADDTAGS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -289,7 +326,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.FINISHTAGS
+                                    ,Commons.FINISHTAGS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);

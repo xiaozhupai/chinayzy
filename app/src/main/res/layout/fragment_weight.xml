@@ -22,6 +22,8 @@
             android:textColor="#505050"
             android:textSize="14sp"
             android:layout_toLeftOf="@+id/tv_right"
+            android:background="@null"
+            android:inputType="number"
             />
         <TextView
             android:id="@+id/tv_right"

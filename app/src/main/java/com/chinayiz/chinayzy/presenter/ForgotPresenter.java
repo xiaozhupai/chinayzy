@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -17,6 +18,9 @@ import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2017/1/3.
@@ -138,6 +142,13 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
         String newpassword =mView.  et_forgot_input_newpassword.getText().toString().trim();
         if (TextUtils.isEmpty(newpassword)) {
             Toast.makeText(mView, "再次输入密码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$");
+        Matcher matcher=pattern.matcher(phone);
+        if (!matcher.find()){
+            BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
             return;
         }
         new LoginNet().toBackpwd(phone,newpassword,message);

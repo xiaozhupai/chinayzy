@@ -4,19 +4,36 @@ package com.chinayiz.chinayzy.ui.fragment.mine;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.presenter.SexPresenter;
+import com.chinayiz.chinayzy.ui.activity.MineActivity;
 
-/**
+/**  性别
  * A simple {@link Fragment} subclass.
  */
-public class SexFragment extends BaseFragment {
+public class SexFragment extends BaseFragment<SexPresenter> implements View.OnClickListener {
+    public String param;
+    public TextView tv_sex_man;
+    public ImageView iv_sex_man;
+    public RelativeLayout rl_sex_man;
+    public TextView tv_sex_woman;
+    public ImageView iv_sex_woman;
+    public RelativeLayout rl_sex_woman;
+    public MineActivity activity;
 
+
+    public SexFragment(String param) {
+        this.param = param;
+    }
 
     @Override
     protected void onVisible() {
@@ -37,21 +54,72 @@ public class SexFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sex, container, false);
+
+        return  initView(inflater,container,savedInstanceState);
     }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+      View view=inflater.inflate(R.layout.fragment_sex, null);
+        tv_sex_man = (TextView) view.findViewById(R.id.tv_sex_man);
+        tv_sex_man.setOnClickListener(this);
+        iv_sex_man = (ImageView) view.findViewById(R.id.iv_sex_man);
+        iv_sex_man.setOnClickListener(this);
+        rl_sex_man = (RelativeLayout) view.findViewById(R.id.rl_sex_man);
+        rl_sex_man.setOnClickListener(this);
+        tv_sex_woman = (TextView) view.findViewById(R.id.tv_sex_woman);
+        tv_sex_woman.setOnClickListener(this);
+        iv_sex_woman = (ImageView) view.findViewById(R.id.iv_sex_woman);
+        iv_sex_woman.setOnClickListener(this);
+        rl_sex_woman = (RelativeLayout)view.findViewById(R.id.rl_sex_woman);
+        rl_sex_woman.setOnClickListener(this);
+        if (TextUtils.isEmpty(param)){
+            iv_sex_man.setVisibility(View.GONE);
+            iv_sex_woman.setVisibility(View.GONE);
+        }else {
+            if (param.equals("男")){
+                iv_sex_man.setVisibility(View.VISIBLE);
+                iv_sex_woman.setVisibility(View.GONE);
+            }else {
+                iv_sex_man.setVisibility(View.GONE);
+                iv_sex_woman.setVisibility(View.VISIBLE);
+            }
+        }
+
+        activity= (MineActivity) getActivity();
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("完成");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.submit();
+            }
+        });
+        return view;
+
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public SexPresenter initPresenter() {
+        return new SexPresenter();
     }
 
     @Override
     public void isNightMode(boolean isNight) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rl_sex_man:
+                iv_sex_man.setVisibility(View.VISIBLE);
+                iv_sex_woman.setVisibility(View.GONE);
+                break;
+            case R.id.rl_sex_woman:
+                iv_sex_man.setVisibility(View.GONE);
+                iv_sex_woman.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }

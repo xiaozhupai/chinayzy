@@ -138,7 +138,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         int type = getItemViewType(i);
         final ShopCartModel.DataBean.ShoplistBean bean = getItem(i);
         switch (type) {
-            case TYPE_ITEM:
+            case TYPE_ITEM:   //条目视图
                 ViewHolder viewHolder = null;
                 if (view == null) {
                     view = ItemView(view);
@@ -167,19 +167,28 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     Logger.i("num-----------------------"+bean.getNum());
 
                     final ViewHolder finalViewHolder = viewHolder;
+                    if (bean.getNum()==1){
+                        finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left);
+                    }
                     viewHolder.iv_left.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (bean.getNum()==2){
-                                finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left);
-                                finalViewHolder.iv_left.setClickable(false);
-                            }
+                             if (finalViewHolder.iv_left.isClickable()){
+                                 if (bean.getNum()==2){
+                                     finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left);
+                                     finalViewHolder.iv_left.setClickable(false);
+                                 }
+                                 if (bean.getNum()==1){
+                                     return;
+                                 }
 
-                            Logger.i("数量减少");
-                            bean.setNum(bean.getNum()-1);
-                            finalViewHolder.tv_center.setText(bean.getNum()+"");
-                            Logger.i("num-----------------------"+bean.getNum());
-                        }
+                                 Logger.i("数量减少");
+                                 bean.setNum(bean.getNum()-1);
+                                 finalViewHolder.tv_center.setText(bean.getNum()+"");
+                                 Logger.i("num-----------------------"+bean.getNum());
+                             }
+                             }
+
                     });
                     viewHolder.iv_right.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -212,7 +221,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                 }
                 Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_shopcart_item_img);
                 break;
-            case TYPE_CATEGORY_ITEM:
+            case TYPE_CATEGORY_ITEM: //头部视图
                 ViewHolderHead viewHolderHead = null;
                 if (null == view) {
                     view = View.inflate(context, R.layout.shopcart_head_layout, null);

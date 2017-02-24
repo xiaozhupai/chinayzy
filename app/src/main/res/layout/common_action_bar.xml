@@ -48,6 +48,7 @@
         android:src="@mipmap/more"
         android:text="编辑"
         android:visibility="gone"
+        android:textColor="@color/Actionbar_edit"
         />
     <ImageView
         android:id="@+id/iv_shopcart"

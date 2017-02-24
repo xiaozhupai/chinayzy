@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,9 +19,11 @@ import com.chinayiz.chinayzy.presenter.MinePresenter;
 import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.chinayiz.chinayzy.widget.CircleImageView;
 
 
 /**
@@ -28,38 +31,41 @@ import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
  */
 
 public class MineActivity extends BaseActivity<MinePresenter> implements View.OnClickListener {
-    private ImageView iv_mine_user_logo;
-    private ImageView iv_mine_user_sex;
-    private TextView tv_user_username;
-    private ImageView iv_arrow_right;
-    private RelativeLayout rl_user_all_order;
-    private LinearLayout lv_wait_pay;
-    private LinearLayout lv_wait_goods;
-    private LinearLayout lv_wait_accept_goods;
-    private LinearLayout lv_after_sale;
-    private LinearLayout lv_mine_keep;
-    private LinearLayout lv_mine_content_keep;
-    private LinearLayout lv_mine_step;
-    private LinearLayout lv_mine_shop_car;
-    private LinearLayout lv_mine_scores;
-    private LinearLayout lv_mine_server;
-    private LinearLayout lv_mine_suggest;
-    private LinearLayout lv_mine_setting;
+    public CircleImageView iv_mine_user_logo;
+    public ImageView iv_mine_user_sex;
+    public TextView tv_user_username;
+    public ImageView iv_arrow_right;
+    public RelativeLayout rl_user_all_order;
+    public RelativeLayout lv_wait_pay;
+    public RelativeLayout lv_wait_goods;
+    public RelativeLayout lv_wait_accept_goods;
+    public RelativeLayout lv_after_sale;
+    public LinearLayout lv_mine_keep;
+    public LinearLayout lv_mine_content_keep;
+    public LinearLayout lv_mine_step;
+    public LinearLayout lv_mine_shop_car;
+    public LinearLayout lv_mine_scores;
+    public LinearLayout lv_mine_server;
+    public LinearLayout lv_mine_suggest;
+    public LinearLayout lv_mine_setting;
     public LinearLayout layout_content;
-    private PullToRefreshLayout pullToRefreshLayout;
+    public PullToRefreshLayout pullToRefreshLayout;
     public RelativeLayout actionbar;
     public TextView mTvActionBarTitle;
-    public ImageView mIvMoreButton;
+    public ImageView mIvMoreButton,iv_username_right;
     public RelativeLayout mRlActionBar;
     public ImageView mIvBackButton;
     public  TextView mTvActionBarRight;
+    public LinearLayout lv_user;
+    public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mine);
-        initView();
+
     }
+
+
 
     @Override
     protected FragmentManager initFragmentManager() {
@@ -69,8 +75,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     @Override
     protected void onStart() {
         super.onStart();
-        mTvActionBarTitle.setText("个人中心");
-        mIvMoreButton.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -80,33 +85,38 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-
+        setContentView(R.layout.activity_mine);
+        setStatuBarColor(MineActivity.this, Color.rgb(255, 255, 255));
+        initView();
     }
 
-    private void initView() {
-        //actionbar
+    public void initView() {
+
         findViewById(R.id.loadlayout).setVisibility(View.GONE);
-        mRlActionBar= (RelativeLayout) findViewById(R.id.head);
+        //actionbar
+        mActionBar=findViewById(R.id.rl_ActionBar);
         mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
-
         mTvActionBarTitle = (TextView) findViewById(R.id.tv_actionbar_title);
-//        mTvActionBarRight= (TextView) findViewById(R.id.tv_action_bar_right);
-
-        mIvMoreButton = (ImageView) findViewById(R.id.iv_more_button);
+        mIvActionBarMore = (ImageView) findViewById(R.id.iv_more_button);
+        mIvActionBarCart= (ImageView) findViewById(R.id.iv_shopcart);
+        mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
+        mTvActionBarTitle.setText("个人中心");
+        mIvActionBarMore.setVisibility(View.GONE);
         mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
         mIvBackButton.setImageResource(R.mipmap.back_arrow);
-        mRlActionBar.setBackgroundColor(Color.parseColor("#ff3951"));
+        mActionBar.setBackgroundColor(Color.parseColor("#ff3951"));
+        mIvBackButton.setOnClickListener(this);
 
         layout_content= (LinearLayout) findViewById(R.id.layout_content);
-        iv_mine_user_logo = (ImageView) findViewById(R.id.iv_mine_user_logo);
+        iv_mine_user_logo = (CircleImageView) findViewById(R.id.iv_mine_user_logo);
         iv_mine_user_sex = (ImageView) findViewById(R.id.iv_mine_user_sex);
         tv_user_username = (TextView) findViewById(R.id.tv_user_username);
         iv_arrow_right = (ImageView) findViewById(R.id.iv_arrow_right);
         rl_user_all_order = (RelativeLayout) findViewById(R.id.rl_user_all_order);
-        lv_wait_pay = (LinearLayout) findViewById(R.id.lv_wait_pay);
-        lv_wait_goods = (LinearLayout) findViewById(R.id.lv_wait_goods);
-        lv_wait_accept_goods = (LinearLayout) findViewById(R.id.lv_wait_accept_goods);
-        lv_after_sale = (LinearLayout) findViewById(R.id.lv_after_sale);
+        lv_wait_pay = (RelativeLayout) findViewById(R.id.lv_wait_pay);
+        lv_wait_goods = (RelativeLayout) findViewById(R.id.lv_wait_goods);
+        lv_wait_accept_goods = (RelativeLayout) findViewById(R.id.lv_wait_accept_goods);
+        lv_after_sale = (RelativeLayout) findViewById(R.id.lv_after_sale);
         lv_mine_keep = (LinearLayout) findViewById(R.id.lv_mine_keep);
         lv_mine_content_keep = (LinearLayout) findViewById(R.id.lv_mine_content_keep);
         lv_mine_step = (LinearLayout) findViewById(R.id.lv_mine_step);
@@ -115,6 +125,13 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_server = (LinearLayout) findViewById(R.id.lv_mine_server);
         lv_mine_suggest = (LinearLayout) findViewById(R.id.lv_mine_suggest);
         lv_mine_setting = (LinearLayout) findViewById(R.id.lv_mine_setting);
+        iv_username_right= (ImageView) findViewById(R.id.iv_username_right);
+        tv_wait_pay_count= (TextView) findViewById(R.id.tv_wait_pay_count);
+        tv_wait_goods_count= (TextView) findViewById(R.id.tv_wait_goods_count);
+        tv_wait_accept_goods_count= (TextView) findViewById(R.id.tv_wait_accept_goods_count);
+        tv_after_sale_count= (TextView) findViewById(R.id.tv_after_sale_count);
+        lv_user = (LinearLayout) findViewById(R.id.lv_user);
+        lv_user.setOnClickListener(this);
         pullToRefreshLayout= (PullToRefreshLayout) findViewById(R.id.pullrefresh);
         rl_user_all_order.setOnClickListener(this);
         lv_wait_pay.setOnClickListener(this);
@@ -129,7 +146,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_suggest.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
-        mIvBackButton.setOnClickListener(this);
+
 
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
@@ -163,10 +180,10 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_keep:   //宝贝收藏
-               addFragment(new GoodsKeepFragment());
+                addFragment(new GoodsKeepFragment());
                 break;
             case R.id.lv_mine_step:   //我的足迹
-               addFragment(new MyStepFragment());
+                addFragment(new MyStepFragment());
                 break;
             case R.id.lv_mine_shop_car:  //购物车
 
@@ -178,17 +195,20 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_suggest:  //我的建议
-               addFragment(new SuggestFragment());
+                addFragment(new SuggestFragment());
                 break;
             case R.id.lv_mine_setting:  //设置
-                 addFragment(new SettingFragment());
+                addFragment(new SettingFragment());
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
                 addFragment(new ContentKeepFragment());
                 break;
             case R.id.iv_back_button:
-                super.onBackPressed();
+                onBackPressed();
                 break;
+            case R.id.lv_user:
+               addFragment( new PersonFragment());
+            break;
         }
     }
 
@@ -204,5 +224,9 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+    }
+
+    public void OnBackPressed(){
+        super.onBackPressed();
     }
 }

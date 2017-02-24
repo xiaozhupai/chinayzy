@@ -4,11 +4,14 @@ import android.os.Bundle;
 
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
+import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeBanner;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
+import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
+import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -58,6 +61,9 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
         switch (message.getDataType()){
             case NongYeHomeRecylAdapter.GTE_DATA:
                 getData(message.getData().toString());
+                break;
+            case NY_HomeBanner.SEARCH:
+         mView.startFragment(new SearchFragment(),"SearchFragment");
                 break;
 
         }

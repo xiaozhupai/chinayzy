@@ -107,8 +107,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         });
         adaphter=new ShopCartAdaphter(getActivity(),list,iv_shopcart_radio,tv_shopcart_price,tv_shopcart_all,0);
         listv_shopcart.setAdapter(adaphter);
-
-
         return view;
     }
 

@@ -11,20 +11,18 @@ import android.widget.EditText;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.presenter.CardPresenter;
+import com.chinayiz.chinayzy.presenter.TrueNamePresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 
 /**
- * 身份证
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass. 真实姓名
  */
-
-public class CardFragment extends BaseFragment<CardPresenter> {
+public class TrueNameFragment extends BaseFragment<TrueNamePresenter> {
     public String param;
-    public EditText et_card;
+    public EditText et_username;
     public MineActivity activity;
 
-    public CardFragment(String param) {
+    public TrueNameFragment(String param) {
         this.param = param;
     }
 
@@ -53,9 +51,9 @@ public class CardFragment extends BaseFragment<CardPresenter> {
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_card,null);
-        et_card = (EditText) view.findViewById(R.id.et_card);
-        et_card.setText(param);
+        View view=inflater.inflate(R.layout.fragment_user_name,null);
+        et_username = (EditText) view.findViewById(R.id.et_username);
+        et_username.setText(param);
         activity= (MineActivity) getActivity();
         activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
         activity.mCbActionBarEdit.setText("完成");
@@ -66,12 +64,11 @@ public class CardFragment extends BaseFragment<CardPresenter> {
             }
         });
         return view;
-
     }
 
     @Override
-    public CardPresenter initPresenter() {
-        return new CardPresenter();
+    public TrueNamePresenter initPresenter() {
+        return new TrueNamePresenter();
     }
 
     @Override

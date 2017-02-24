@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment"
+    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment"
     android:orientation="vertical"
+    android:background="@color/basecolor"
     >
 
     <TextView

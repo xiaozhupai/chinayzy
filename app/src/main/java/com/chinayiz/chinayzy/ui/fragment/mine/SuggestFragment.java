@@ -26,9 +26,9 @@ import com.chinayiz.chinayzy.presenter.SuggestPresenter;
 public class SuggestFragment extends BaseFragment<SuggestPresenter> implements View.OnClickListener {
 
 
-    private EditText et_suggest_title;
-    private EditText et_suggest_content;
-    private TextView tv_suggest_submit;
+    public EditText et_suggest_title;
+    public EditText et_suggest_content;
+    public TextView tv_suggest_submit;
 
     @Override
     protected void onVisible() {
@@ -56,7 +56,7 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      View view=inflater.inflate(R.layout.fragment_suggest, null);
+        View view=inflater.inflate(R.layout.fragment_suggest, null);
         et_suggest_title = (EditText) view.findViewById(R.id.et_suggest_title);
         et_suggest_title.setOnClickListener(this);
         et_suggest_content = (EditText) view.findViewById(R.id.et_suggest_content);
@@ -81,28 +81,12 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_suggest_submit:  //提交意见反馈
+                mPresenter.submit();
 
                 break;
         }
     }
 
 
-    private void submit() {
-        // validate
-        String title = et_suggest_title.getText().toString().trim();
-        if (TextUtils.isEmpty(title)) {
-            Toast.makeText(getActivity(), "输入主要问题模块,如收藏模块", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        String content = et_suggest_content.getText().toString().trim();
-        if (TextUtils.isEmpty(content)) {
-            Toast.makeText(getActivity(), "问题详细描述", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // TODO validate success, do something
-
-
-    }
 }

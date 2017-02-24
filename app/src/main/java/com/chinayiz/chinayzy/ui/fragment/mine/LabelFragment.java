@@ -9,12 +9,21 @@ import android.view.ViewGroup;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.LabelPresenter;
+import com.chinayiz.chinayzy.widget.Tag;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/18. 个性标签
  */
 
 public class LabelFragment extends BaseFragment<LabelPresenter> {
+    public List<Tag> param;
+
+    public LabelFragment(List<Tag> param) {
+        this.param = param;
+    }
+
     @Override
     protected void onVisible() {
 

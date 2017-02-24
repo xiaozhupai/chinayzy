@@ -74,25 +74,24 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         gd_list.setAdapter(adaphter2);
 
         activity= (NongYeMainActivity) getActivity();
-//        activity.mRlActionBar.setVisibility(View.VISIBLE);
-//        activity.mTvActionBarTitle.setText(title);
-//        activity.mIvMoreButton.setImageResource(R.mipmap.icon_listview);
-//        activity.mIvMoreButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isList){
-//                    activity.mIvMoreButton.setImageResource(R.mipmap.icon_gridview);
-//                    isList=false;
-//                    lv_list.setVisibility(View.GONE);
-//                    gd_list.setVisibility(View.VISIBLE);
-//                }else {
-//                    activity.mIvMoreButton.setImageResource(R.mipmap.icon_listview);
-//                    isList=true;
-//                    lv_list.setVisibility(View.VISIBLE);
-//                    gd_list.setVisibility(View.GONE);
-//                }
-//            }
-//        });
+        activity.mTvActionBarTitle.setText(title);
+        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
+        activity.mIvActionBarMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isList){
+                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
+                    isList=false;
+                    lv_list.setVisibility(View.GONE);
+                    gd_list.setVisibility(View.VISIBLE);
+                }else {
+                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
+                    isList=true;
+                    lv_list.setVisibility(View.VISIBLE);
+                    gd_list.setVisibility(View.GONE);
+                }
+            }
+        });
 
         return view;
     }

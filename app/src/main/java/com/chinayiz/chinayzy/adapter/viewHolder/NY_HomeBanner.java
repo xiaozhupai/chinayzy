@@ -7,8 +7,11 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class NY_HomeBanner extends RecyclerView.ViewHolder implements View.OnCli
     public ImageView mIvSearch;
     public ConvenientBanner mBannerNongyeHome;
     public List<String> mUrls = new ArrayList<>();
+    public static final String SEARCH="SEARCH";
 
     public NY_HomeBanner(View itemView) {
         super(itemView);
@@ -47,6 +51,7 @@ public class NY_HomeBanner extends RecyclerView.ViewHolder implements View.OnCli
         switch (v.getId()) {
             case R.id.iv_search:
                 Logger.i("搜索");
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,SEARCH,""));
                 break;
         }
     }

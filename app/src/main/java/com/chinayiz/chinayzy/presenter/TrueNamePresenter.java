@@ -8,30 +8,30 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.User.UserNet;
-import com.chinayiz.chinayzy.ui.fragment.mine.CardFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import static java.security.AccessController.getContext;
 
-/**身份证
- * Created by Administrator on 2017/1/21.
+/**
+ * Created by Administrator on 2017/2/23.
  */
 
-public class CardPresenter extends BasePresenter<CardFragment> {
+public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
     public UserNet net=UserNet.getNet();
-    public String card;
+    public       String username;
     @Override
-    public void onCreate() {
+    protected void onCreate() {
 
     }
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
 
     }
 
@@ -57,12 +57,12 @@ public class CardPresenter extends BasePresenter<CardFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        if (message.getDataType()==UserNet.IDCARD){
+        if (message.getDataType()==UserNet.TRUENAME){
             BaseResponseModel model= (BaseResponseModel) message.getData();
             BaseActivity.showToast(mView.getActivity(),model.getMsg());
             if (model.getCode().equals("100")){
-                mView.activity.OnBackPressed();
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.IDCARD,card));
+                mView.activity.onBackPressed();
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.TRUENAME,username));
             }
         }
     }
@@ -74,22 +74,12 @@ public class CardPresenter extends BasePresenter<CardFragment> {
 
     public void submit() {
         // validate
-        card = mView.et_card.getText().toString().trim();
-        if (TextUtils.isEmpty(card)) {
-            Toast.makeText(mView.getActivity(), "身份证不能为空", Toast.LENGTH_SHORT).show();
+        username =mView. et_username.getText().toString().trim();
+        if (TextUtils.isEmpty(username)) {
+            Toast.makeText(mView.getActivity(), "真实姓名不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-
-     Pattern pattern=Pattern.compile("^\\d{15}|\\d{18}$");
-       Matcher matcher=pattern.matcher(card);
-        if (!matcher.find()){
-            BaseActivity.showToast(mView.getActivity(),"请输入正确的身份证");
-            return;
-        }
-
-        net.getEditerUser(UserNet.IDCARD,card);
+        net.getEditerUser(UserNet.TRUENAME,username);
         // TODO validate success, do something
-
-
     }
 }
