@@ -1,4 +1,4 @@
-package com.chinayiz.chinayzy.widget;
+package com.chinayiz.chinayzy.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;

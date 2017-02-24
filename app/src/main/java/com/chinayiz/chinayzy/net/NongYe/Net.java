@@ -278,7 +278,7 @@ public class Net {
      * @param title 关键字
      * @param page 页标
      * @param size 分页数量
-     * @param type 类型
+     * @param type 类型 1热卖降序2热卖升序3销量降序4销量升序5价格降序6价格升序
      */
     public void getSearchFarm(String title,String page,String size,String type) {
         OkHttpUtils

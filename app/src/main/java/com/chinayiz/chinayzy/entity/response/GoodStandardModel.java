@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy.entity.response;
 
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
-
 import java.util.List;
 
 /**

@@ -8,6 +8,7 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
@@ -24,12 +25,13 @@ import java.util.List;
 
 public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     public String title;
-    private List <SearchFarmModel.DataBean> data_hot;
-    private List<SearchFarmModel.DataBean> data_sale;
-    private List<SearchFarmModel.DataBean> data_price;
-    private static final int HOT=1;
-    private static final int SALE=2;
-    private static final int PRICE=3;
+    public List <SearchFarmModel.DataBean> data;
+
+    private static final int HOT=2;
+    private static final int SALE_DOWN=3;
+    private static final int SALE_UP=4;
+    private static final int PRICE_DOWN=5;
+    private static final int PRICE_UP=6;
 
     @Override
     protected void onCreate() {
@@ -38,12 +40,10 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
 
     @Override
     protected void onDestroy() {
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
     }
 
     @Override
@@ -52,8 +52,6 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
         Logger.i("SearchResultPresenter");
         if (message.getEventType()==EventMessage.NET_EVENT){
             disposeNetMsg(message);
-
-
         }
     }
 
@@ -62,8 +60,6 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     public void runBgThread(EventMessage message) {
         if (message.getEventType()== EventMessage.INFORM_EVENT){
             disposeInfoMsg(message);
-
-
         }
     }
 
@@ -72,19 +68,14 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
         switch (message.getDataType()){
             case Commons.SEARCHFARM:   //搜索结果
                 SearchFarmModel model= (SearchFarmModel) message.getData();
-                mView.adaphter.setData(model.getData(),1);
-                mView.adaphter2.setData(model.getData(),2);
-                switch (mView.index){
-                    case HOT:
-                        data_hot=model.getData();
-                        break;
-                    case SALE:
-                        data_sale=model.getData();
-                        break;
-                    case PRICE:
-                        data_price=model.getData();
-                        break;
+                if (mView.type==1){
+                    mView.adaphter.setData(model.getData(),mView.type);
+                    mView.gd_list.setAdapter(mView.adaphter);
+                }else {
+                    mView.adaphter2.setData(model.getData(),mView.type);
+                    mView.gd_list.setAdapter(mView.adaphter2);
                 }
+               data=model.getData();
                 break;
             case Commons.ADDSHOPPINGCAR:   //加入购物车
                 BaseResponseModel model1= (BaseResponseModel) message.getData();
@@ -97,29 +88,38 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     public void disposeInfoMsg(EventMessage message) {
         if (message.getDataType()== SearchResultAdaphter.JOINCART){
             SearchFarmModel.DataBean bean= (SearchFarmModel.DataBean) message.getData();
+            CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
 
-//           Net.getNet().getJoinCart();
         }
     }
 
     public void getData(){
         switch (mView.index){
             case HOT: //热卖
-                if (data_hot==null){
+
                      Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-                }
+
                 break;
-            case SALE:   //销量
-                if (data_sale==null){
+            case SALE_DOWN:   //销量下降
                     Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-                }
+
                 break;
-            case PRICE: //价格
-                if (data_price==null){
+            case SALE_UP:   //销量上升
+
                     Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-                }
+
+                break;
+            case PRICE_DOWN: //价格
+
+                    Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
+
+                break;
+            case PRICE_UP: //价格
+
+                    Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
+
                 break;
         }
-
     }
+
 }

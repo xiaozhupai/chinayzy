@@ -50,7 +50,7 @@
                                 android:layout_height="wrap_content"
 
                                 >
-                                <com.chinayiz.chinayzy.widget.CircleImageView
+                                <com.chinayiz.chinayzy.views.CircleImageView
                                     android:id="@+id/iv_mine_user_logo"
                                     android:layout_centerInParent="true"
                                     android:layout_width="100dp"

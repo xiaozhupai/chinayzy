@@ -32,17 +32,20 @@ public class SearchResultAdaphter extends BaseInectAdaphter<SearchFarmModel.Data
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder=null;
-        if (view==null){
-            if (type == SIMPLE1) {
-                view = View.inflate(context, R.layout.searchresult_item1, null);
-            } else {
-                view = View.inflate(context, R.layout.searchresult_item2, null);
+            if (view==null){
+                if (type==SIMPLE1){
+                    view = View.inflate(context, R.layout.searchresult_item1, null);
+                }else {
+                    view = View.inflate(context, R.layout.searchresult_item2, null);
+                }
+
+                viewHolder=new ViewHolder(view);
+                view.setTag(viewHolder);
+            }else {
+                viewHolder= (ViewHolder) view.getTag();
             }
-            viewHolder=new ViewHolder(view);
-            view.setTag(viewHolder);
-        }else {
-         viewHolder= (ViewHolder) view.getTag();
-        }
+
+
       final SearchFarmModel.DataBean bean=lists.get(i);
         Logger.i(bean.getIcon());
         Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_image);

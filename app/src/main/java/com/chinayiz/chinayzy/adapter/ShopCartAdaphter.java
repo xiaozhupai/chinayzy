@@ -168,6 +168,8 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
 
                     final ViewHolder finalViewHolder = viewHolder;
                     if (bean.getNum()==1){
+                        finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left_unclickable);
+                    }else {
                         finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left);
                     }
                     viewHolder.iv_left.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +177,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                         public void onClick(View v) {
                              if (finalViewHolder.iv_left.isClickable()){
                                  if (bean.getNum()==2){
-                                     finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left);
+                                     finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left_unclickable);
                                      finalViewHolder.iv_left.setClickable(false);
                                  }
                                  if (bean.getNum()==1){

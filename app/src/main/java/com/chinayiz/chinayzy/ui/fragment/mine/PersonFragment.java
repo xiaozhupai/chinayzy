@@ -15,7 +15,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
-import com.chinayiz.chinayzy.widget.CircleImageView;
+import com.chinayiz.chinayzy.views.CircleImageView;
 import com.chinayiz.chinayzy.widget.TagListView;
 import com.orhanobut.logger.Logger;
 

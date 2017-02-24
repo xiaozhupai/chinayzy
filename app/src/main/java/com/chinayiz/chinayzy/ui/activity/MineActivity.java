@@ -23,7 +23,7 @@ import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
-import com.chinayiz.chinayzy.widget.CircleImageView;
+import com.chinayiz.chinayzy.views.CircleImageView;
 
 
 /**
