@@ -81,15 +81,6 @@ public class TagListView extends FlowLayout implements OnClickListener {
 		localTagView.setText(t.getTitle());
 		localTagView.setTag(t);
 
-//		if (mTagViewTextColorResId <= 0) {
-//			localTagView.setTextColor(Color.rgb(129,131,142));
-//
-//		}
-//
-//		if (mTagViewBackgroundResId <= 0) {
-//			mTagViewBackgroundResId = R.drawable.tag_bg;
-//			localTagView.setBackgroundResource(mTagViewBackgroundResId);
-//		}
 		if (t.isChecked()){
 			localTagView.setTextColor(getResources().getColor(R.color.white));
 			localTagView.setBackgroundResource(R.drawable.tag_pressed);
@@ -100,19 +91,19 @@ public class TagListView extends FlowLayout implements OnClickListener {
 		if (mIsDeleteMode) {
 			int k = (int) TypedValue.applyDimension(1, 5.0F, getContext()
 					.getResources().getDisplayMetrics());
-			localTagView.setPadding(localTagView.getPaddingLeft(),
-					localTagView.getPaddingTop(), k,
-					localTagView.getPaddingBottom());
-			localTagView.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-					R.drawable.forum_tag_close, 0);
+			localTagView.setPadding(5,
+					5, 5,
+				5);
+//			localTagView.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+//					R.drawable.forum_tag_close, 0);
 		}
 //		if (t.getBackgroundResId() > 0) {
 //			localTagView.setBackgroundResource(t.getBackgroundResId());
 //		}
-		if ((t.getLeftDrawableResId() > 0) || (t.getRightDrawableResId() > 0)) {
-			localTagView.setCompoundDrawablesWithIntrinsicBounds(
-					t.getLeftDrawableResId(), 0, t.getRightDrawableResId(), 0);
-		}
+//		if ((t.getLeftDrawableResId() > 0) || (t.getRightDrawableResId() > 0)) {
+//			localTagView.setCompoundDrawablesWithIntrinsicBounds(
+//					t.getLeftDrawableResId(), 0, t.getRightDrawableResId(), 0);
+//		}
 		localTagView.setOnClickListener(this);
 		localTagView
 				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

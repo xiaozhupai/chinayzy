@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,14 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.presenter.SearchPresenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
+import com.chinayiz.chinayzy.views.SearchEditText;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.chinayiz.chinayzy.widget.Tag;
 import com.chinayiz.chinayzy.widget.TagListView;
 import com.chinayiz.chinayzy.widget.TagView;
 import com.orhanobut.logger.Logger;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class SearchFragment extends BaseFragment<SearchPresenter> implements View.OnClickListener {
-    private SearchView sv_search;
+    private SearchEditText sv_search;
     private TextView tv_cancel;
     public TagListView tagview;
     private ImageView iv_delete;
@@ -58,7 +61,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, null);
-        sv_search = (SearchView) view.findViewById(R.id.sv_search);
+        sv_search = (SearchEditText) view.findViewById(R.id.sv_search);
         tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
         tv_cancel.setOnClickListener(this);
         tagview = (TagListView) view.findViewById(R.id.tagview);
@@ -67,6 +70,8 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
         iv_delete.setOnClickListener(this);
         tagview2 = (TagListView) view.findViewById(R.id.tagview2);
         tagview2.setOnClickListener(this);
+
+
 
         tagview.setOnTagClickListener(new TagListView.OnTagClickListener() {
             @Override
@@ -88,9 +93,10 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
                 mPresenter.toResult(tag.getTitle());
             }
         });
-        sv_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        sv_search.setOnSearchClickListener(new SearchEditText.OnSearchClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public void onSearchClick(View view) {
+                String query=sv_search.getText().toString().trim();
                 Logger.i("搜索");
                 if (!SearchDao.findTitle(query)){
                     SearchDao.add(query);
@@ -101,14 +107,9 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
 
                 }
                 mPresenter.toResult(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
             }
         });
+
         return view;
     }
 
@@ -126,7 +127,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         NongYeMainActivity activity= (NongYeMainActivity) getActivity();
-//        activity.mRlActionBar.setVisibility(View.GONE);
+        activity.mActionBar.setVisibility(View.GONE);
 
         View view = initView(inflater, container, savedInstanceState);
         return view;
