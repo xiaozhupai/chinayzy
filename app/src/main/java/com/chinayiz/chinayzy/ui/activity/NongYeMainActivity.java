@@ -16,8 +16,8 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.FragmentAlternate;
 import com.chinayiz.chinayzy.presenter.NongYeMainPresenter;
+import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
-import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.orhanobut.logger.Logger;
@@ -67,7 +67,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     public BaseFragment mCurrentFragment;
     public HomeFragment mHomeFragment = null;
     public FindFragment mFindFragment = null;
-    public StoreHomeFragment mStoreHomeFragment = null;
+    public ActivityFragment mActivityFragment = null;
     public ShopCartFragment mCartFragment = null;
     private int count=0;
 
@@ -201,11 +201,11 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 Logger.i("启动发现");
                 break;
             case 2://显示活动
-                if (mStoreHomeFragment == null) {
-                    mStoreHomeFragment = new StoreHomeFragment("1");
+                if (mActivityFragment == null) {
+                    mActivityFragment = new ActivityFragment();
                 }
-                addOrShowFragment(getFragmentManager().beginTransaction(), mStoreHomeFragment);
-                Logger.i("启动店铺");
+                addOrShowFragment(getFragmentManager().beginTransaction(), mActivityFragment);
+                Logger.i("启动活动");
                 break;
             case 3://显示购物车
                 if (mCartFragment == null) {
