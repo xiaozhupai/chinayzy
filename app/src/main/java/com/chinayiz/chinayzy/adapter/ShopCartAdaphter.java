@@ -175,30 +175,40 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.iv_left.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                             if (finalViewHolder.iv_left.isClickable()){
-                                 if (bean.getNum()==2){
-                                     finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left_unclickable);
-                                     finalViewHolder.iv_left.setClickable(false);
-                                 }
-                                 if (bean.getNum()==1){
-                                     return;
-                                 }
-
-                                 Logger.i("数量减少");
-                                 bean.setNum(bean.getNum()-1);
-                                 finalViewHolder.tv_center.setText(bean.getNum()+"");
-                                 Logger.i("num-----------------------"+bean.getNum());
-                             }
-                             }
+                            if (finalViewHolder.iv_left.isClickable()){
+                                if (bean.getNum()==1){
+                                    return;
+                                }
+                                if (bean.getNum()==2){
+                                    finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left_unclickable);
+                                    finalViewHolder.iv_left.setClickable(false);
+                                }
+                                if (bean.getNum()==bean.getRepertory()){
+                                    finalViewHolder.iv_right.setBackgroundResource(R.mipmap.img_bg_right);
+                                }
+                                Logger.i("数量减少");
+                                bean.setNum(bean.getNum()-1);
+                                finalViewHolder.tv_center.setText(bean.getNum()+"");
+                                Logger.i("num-----------------------"+bean.getNum());
+                            }
+                        }
 
                     });
                     viewHolder.iv_right.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (bean.getNum()==bean.getRepertory()){
+                                return;
+                            }
                             if (bean.getNum()==1){
                                 finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left);
                                 finalViewHolder.iv_left.setClickable(true);
                             }
+                            if (bean.getNum()==(bean.getRepertory()-1)){
+                                finalViewHolder.iv_right.setBackgroundResource(R.mipmap.img_bg_right_unclickable);
+//                                finalViewHolder.iv_left.setClickable(false);
+                            }
+
                             Logger.i("数量增加");
                             bean.setNum(bean.getNum()+1);
                             finalViewHolder.tv_center.setText(bean.getNum()+"");

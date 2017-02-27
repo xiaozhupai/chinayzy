@@ -93,6 +93,17 @@ public class ShopCartModel extends BaseResponseModel {
             private boolean isHead;
             private boolean isHeadChecked;
             private int goodsid;
+            private int repertory;
+
+            public int getRepertory() {
+                return repertory;
+            }
+
+            public void setRepertory(int repertory) {
+                this.repertory = repertory;
+            }
+
+
 
             public int getGoodsid() {
                 return goodsid;

@@ -4,6 +4,7 @@ package com.chinayiz.chinayzy.ui.fragment.mine;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,6 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public ImageView iv_head_right;
     public CircleImageView iv_person_head;
     public RelativeLayout rl_person_head;
-    public TextView tv_person_username;
     public TextView tv_person_email;
     public ImageView iv_email_arrow;
     public RelativeLayout rl_person_email;
@@ -53,6 +53,8 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public RelativeLayout rl_person_label;
     public TagListView tlv_list;
     public  MineActivity activity;
+    public TextView tv_person_username;
+    public RelativeLayout rl_person_username;
 
     @Override
     public void onStart() {
@@ -84,7 +86,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         activity= (MineActivity) getActivity();
+        activity= (MineActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_person, null);
         iv_head_right = (ImageView) view.findViewById(R.id.iv_head_right);
         iv_head_right.setOnClickListener(this);
@@ -138,6 +140,9 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         iv_label_arrow.setOnClickListener(this);
         rl_person_label = (RelativeLayout) view.findViewById(R.id.rl_person_label);
         rl_person_label.setOnClickListener(this);
+        tv_person_username= (TextView) view.findViewById(R.id.tv_person_username);
+        rl_person_username= (RelativeLayout) view.findViewById(R.id.rl_person_username);
+        rl_person_username.setOnClickListener(this);
         tlv_list= (TagListView) view.findViewById(R.id.tlv_list);
         return view;
     }
@@ -154,42 +159,45 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
 
     @Override
     public void onClick(View v) {
-       switch (v.getId()){
-           case  R.id.rl_person_email:
-               Logger.i("email");
-               activity.addFragment(new EmailFragment(tv_person_email.getText().toString()));
-           break;
-           case R.id.rl_person_sex:
-               Logger.i("性别");
-               activity.addFragment(new SexFragment(tv_person_sex.getText().toString()));
-               break;
-           case R.id.rl_person_factname:
-               Logger.i("真实姓名");
-               activity.addFragment(new TrueNameFragment(tv_person_factname.getText().toString()));
-               break;
-           case R.id.rl_person_height:
-               activity.addFragment(new HeightFragment(tv_person_height.getText().toString()));
-               Logger.i("身高");
-               break;
-           case R.id.rl_person_weight:
-               activity.addFragment(new WeightFragment(tv_person_weight.getText().toString()));
-               Logger.i("体重");
-               break;
-           case R.id.rl_person_card:
-               activity.addFragment(new CardFragment(tv_person_card.getText().toString()));
-               Logger.i("身份证");
-               break;
-           case R.id.rl_person_label:
-               activity.addFragment(new LabelFragment(mPresenter.tags_list));
-               Logger.i("标签");
-               break;
-           case R.id.rl_person_address:
-               Logger.i("收货地址");
-               break;
-           case R.id.rl_person_head:
-               Logger.i("头像");
-
-               break;
-       }
+        switch (v.getId()){
+            case  R.id.rl_person_email:
+                Logger.i("email");
+                mPresenter.toEmail();
+                break;
+            case R.id.rl_person_sex:
+                Logger.i("性别");
+                mPresenter.toSex();
+                break;
+            case R.id.rl_person_factname:
+                Logger.i("真实姓名");
+                mPresenter.tofactName();
+                break;
+            case R.id.rl_person_height:
+                mPresenter.toHeight();
+                Logger.i("身高");
+                break;
+            case R.id.rl_person_weight:
+                mPresenter.toWeight();
+                Logger.i("体重");
+                break;
+            case R.id.rl_person_card:
+              mPresenter.toCard();
+                Logger.i("身份证");
+                break;
+            case R.id.rl_person_label:
+                mPresenter.toLabel();
+                Logger.i("标签");
+                break;
+            case R.id.rl_person_address:
+                Logger.i("收货地址");
+                break;
+            case R.id.rl_person_head:
+                Logger.i("头像");
+                break;
+            case R.id.rl_person_username:
+                Logger.i("用户名");
+                mPresenter.toUsername();
+                break;
+        }
     }
 }

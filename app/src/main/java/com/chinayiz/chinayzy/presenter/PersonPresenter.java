@@ -9,8 +9,17 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
+import com.chinayiz.chinayzy.ui.fragment.mine.CardFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.HeightFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.LabelFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.SexFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.WeightFragment;
 import com.chinayiz.chinayzy.widget.Tag;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -25,6 +34,7 @@ import java.util.List;
 public class PersonPresenter extends BasePresenter<PersonFragment> {
     private UserNet net=UserNet.getNet();
     public List<Tag> tags_list=new ArrayList<>();
+    public UserModel.DataBean bean;
     @Override
     public void onCreate() {
         net.getUserInfo();
@@ -62,7 +72,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
         switch (message.getDataType()){
             case Commons.GETUSERINFO:
                 UserModel model= (UserModel) message.getData();
-                UserModel.DataBean bean=model.getData();
+                 bean=model.getData();
                 if (!TextUtils.isEmpty(bean.getPic())){
                     Glide.with(mView.getActivity()).load(bean.getPic()).into(mView.iv_person_head);
                 }
@@ -126,6 +136,8 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                   mView.tv_person_card.setText(first+"****"+last);
                   break;
               case UserNet.SEX:
+                  Logger.i("sex返回值");
+                  Logger.i(message.getData().toString());
                   mView.tv_person_sex.setText(message.getData().toString());
                   break;
               case UserNet.TRUENAME:
@@ -136,5 +148,35 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                   mView.tlv_list.setTags(tags_list);
                   break;
           }
+    }
+
+    public void toEmail(){
+      mView.activity.addFragment(new EmailFragment(bean!=null?bean.getEmail():""));
+    }
+    public void toSex(){
+        mView.activity.addFragment(new SexFragment(bean!=null?(bean.getSex()!="0"?"男":"女"):""));
+    }
+    public void tofactName(){
+       mView.activity.addFragment(new TrueNameFragment(bean!=null?bean.getTruename():""));
+    }
+
+    public void toHeight(){
+
+     mView.activity.addFragment(new HeightFragment(bean!=null?bean.getHeight():""));
+    }
+
+    public void toWeight(){
+       mView.activity.addFragment(new WeightFragment(bean!=null?bean.getWeight():""));
+    }
+    public void toCard(){
+       mView. activity.addFragment(new CardFragment(bean!=null?bean.getIdcard():""));
+    }
+
+    public void toLabel(){
+      mView.activity.addFragment(new LabelFragment(bean!=null?bean.getTag():""));
+    }
+
+    public void toUsername(){
+        mView.activity.addFragment(new UserNameFragment(bean!=null?bean.getNickname():""));
     }
 }

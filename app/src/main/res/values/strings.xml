@@ -30,7 +30,7 @@
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
     <!--商品详情相关商品点击View TAGKEY-->
-    <item type="id" name="tag_view"></item>
-    <item type="id" name="tag_click"></item>
+    <item name="tag_view" type="id"></item>
+    <item name="tag_click" type="id"></item>
 
 </resources>

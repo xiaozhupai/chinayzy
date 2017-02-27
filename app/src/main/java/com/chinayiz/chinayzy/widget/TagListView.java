@@ -88,15 +88,15 @@ public class TagListView extends FlowLayout implements OnClickListener {
 
 		localTagView.setChecked(t.isChecked());
 		localTagView.setCheckEnable(b);
-		if (mIsDeleteMode) {
-			int k = (int) TypedValue.applyDimension(1, 5.0F, getContext()
-					.getResources().getDisplayMetrics());
-			localTagView.setPadding(5,
-					5, 5,
-				5);
-//			localTagView.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-//					R.drawable.forum_tag_close, 0);
-		}
+//		if (mIsDeleteMode) {
+//			int k = (int) TypedValue.applyDimension(1, 5.0F, getContext()
+//					.getResources().getDisplayMetrics());
+//			localTagView.setPadding(5,
+//					5, 5,
+//				5);
+////			localTagView.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+////					R.drawable.forum_tag_close, 0);
+//		}
 //		if (t.getBackgroundResId() > 0) {
 //			localTagView.setBackgroundResource(t.getBackgroundResId());
 //		}

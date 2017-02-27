@@ -37,13 +37,13 @@ dependencies {
     compile files('libs/MobCommons-2016.1107.1809.jar')
     //评价控件
     compile 'com.jude:utils:1.2.1'
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.orhanobut:logger:1.15'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
-    compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.android.support:design:25.2.0'
     compile 'com.hedgehog.ratingbar:app:1.1.2'
     compile 'com.zzti.fengyongge:imagepicker:1.0'
     compile 'com.chanven.lib:cptr:1.1.0'

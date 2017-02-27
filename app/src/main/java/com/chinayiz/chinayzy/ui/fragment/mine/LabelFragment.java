@@ -18,9 +18,9 @@ import java.util.List;
  */
 
 public class LabelFragment extends BaseFragment<LabelPresenter> {
-    public List<Tag> param;
+    public String param;
 
-    public LabelFragment(List<Tag> param) {
+    public LabelFragment(String  param) {
         this.param = param;
     }
 

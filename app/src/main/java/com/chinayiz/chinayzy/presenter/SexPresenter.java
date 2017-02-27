@@ -55,7 +55,6 @@ public class SexPresenter extends BasePresenter<SexFragment> {
           BaseResponseModel model= (BaseResponseModel) message.getData();
             BaseActivity.showToast(mView.getActivity(),model.getMsg());
             if (model.getCode().equals("100")){
-                mView.activity.onBackPressed();
                 String param;
                 if (mView.iv_sex_man.getVisibility()==View.VISIBLE){
                     param="男";
@@ -63,6 +62,7 @@ public class SexPresenter extends BasePresenter<SexFragment> {
                     param="女";
                 }
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.SEX,param));
+                mView.activity.onBackPressed();
             }
         }
 

@@ -27,11 +27,11 @@ import java.util.List;
 
 public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
-    private List<ShopCartModel.DataBean> list;
+    private List<ShopCartModel.DataBean> list;  //购物车数据
     private int type;
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_EDITER = 1;
-    private List<ShopCartModel.DataBean.ShoplistBean> list_checked;
+    private List<ShopCartModel.DataBean.ShoplistBean> list_checked;  //被选中的商品
     private GoodsStandardPopuWindow    popuWindow;
 
     @Override
@@ -78,13 +78,13 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 if (model2.getCode().equals("100")){  //服务器数据库删除成功
                     for (ShopCartModel.DataBean data:list){
                         data.getShoplist().removeAll(list_checked);
-                        if (data.getShoplist().size()==0){
+                        if (data.getShoplist().size()==0){   //删除头部视图
                             list.remove(data);
                         }
                     }
                     Logger.i(list.size()+"list size");
                     mView.adaphter.setData(list,type);
-                    UpdateAll();
+                    UpdateBoom();
                 }
                 Toast.makeText(mView.getActivity(),model2.getMsg(),Toast.LENGTH_SHORT).show();
                 break;
@@ -124,6 +124,11 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 mView.adaphter.setData(list,type);
                 break;
         }
+    }
+
+    public void UpdateBoom(){
+        mView.tv_shopcart_all.setText("全选(0)");
+        mView.iv_shopcart_radio.setCheck(false);
     }
 
     //更新底部布局

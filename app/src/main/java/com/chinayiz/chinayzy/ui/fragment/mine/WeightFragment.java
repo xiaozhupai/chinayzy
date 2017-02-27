@@ -65,6 +65,7 @@ public class WeightFragment extends BaseFragment<WeightPresenter> {
                 mPresenter.submit();
             }
         });
+        et_weight.setText(param);
         return view;
 
     }

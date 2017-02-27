@@ -96,6 +96,13 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
                 setData(lists);
                 tv_price.setText(data.getPrice()+"");
                 Glide.with(context).load(bean.getIcon()).into(iv_goodstandard);
+                if (bean.getNum()>data.getRepertory()){  //超出库存
+                    tv_submit.setText("库存不足");
+                    tv_submit.setEnabled(false);
+                }else {
+                    tv_submit.setText("确定");
+                    tv_submit.setEnabled(true);
+                }
             }
         });
     }
