@@ -5,11 +5,13 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeBanner;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.orhanobut.logger.Logger;
@@ -24,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class NongYehomePresenter extends BasePresenter<HomeFragment> {
     private Net mNet =Net.getNet();
+    private CommonRequestUtils mRequestUtils=CommonRequestUtils.getRequestUtils();
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
@@ -54,18 +57,26 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 mView.onBack();
                 mView.openGoodesDetail(message.getData().toString());
                 break;
+            case Commons.ADDSHOPPINGCAR://添加购物车成功
+                BaseActivity.showToast(mView.getActivity(),"添加购物超成功");
+                break;
         }
     }
     @Override
     public void disposeInfoMsg(EventMessage message) {
+        NY_EatItemModel.DataBean data;
         switch (message.getDataType()){
-            case NongYeHomeRecylAdapter.GTE_DATA:
+            case NongYeHomeRecylAdapter.GTE_DATA://动态获取数据
                 getData(message.getData().toString());
                 break;
-            case NY_HomeBanner.SEARCH:
-         mView.startFragment(new SearchFragment(),"SearchFragment");
+            case NY_HomeBanner.SEARCH://搜索
+            mView.startFragment(new SearchFragment(),"SearchFragment");
                 break;
-
+            case Commons.ADD_CAR ://添加购物车
+                data= (NY_EatItemModel.DataBean) message.getData();
+                mRequestUtils.getJoinCart(String.valueOf(data.getShopid()),
+                        String.valueOf(data.getGoodsstandardid()),"1");
+                break;
         }
     }
     @Override

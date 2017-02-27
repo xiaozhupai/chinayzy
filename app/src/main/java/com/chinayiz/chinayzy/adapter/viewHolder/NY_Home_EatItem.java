@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
+import com.chinayiz.chinayzy.net.Commons;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -21,10 +22,10 @@ import org.greenrobot.eventbus.EventBus;
  * Class NongYe_Home_EatItem 生态农业首页爱吃列表item
  */
 public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public ImageView mIvGoodItemIcon;
-    public TextView mTvGoodItemTitle;
-    public TextView mTvGoodItemPrice;
-
+    private ImageView mIvGoodItemIcon;
+    private TextView mTvGoodItemTitle;
+    private TextView mTvGoodItemPrice;
+    private ImageView mIvAddCart;
     private NY_EatItemModel.DataBean data;
 
     public NY_Home_EatItem(View itemView) {
@@ -32,7 +33,7 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
         mIvGoodItemIcon = (ImageView) itemView.findViewById(R.id.iv_goodItemIcon);
         mTvGoodItemTitle = (TextView) itemView.findViewById(R.id.tv_goodItemTitle);
         mTvGoodItemPrice = (TextView) itemView.findViewById(R.id.tv_goodItemPrice);
-        ImageView mIvAddCart = (ImageView) itemView.findViewById(R.id.iv_addCart);
+        mIvAddCart = (ImageView) itemView.findViewById(R.id.iv_addCart);
 
         mIvGoodItemIcon.setOnClickListener(this);
         mTvGoodItemTitle.setOnClickListener(this);
@@ -46,8 +47,9 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
             Glide.with(fragment).load(data.getIcon()).into(mIvGoodItemIcon);
             mIvGoodItemIcon.setTag(R.id.tag_click,data.getGoodsid());
             mTvGoodItemTitle.setText(data.getGname());
-            mTvGoodItemTitle.setTag(data.getGoodsid());
+            mTvGoodItemTitle.setTag(R.id.tag_click,data.getGoodsid());
             mTvGoodItemPrice.setText(data.getPrice());
+            mIvAddCart.setTag(R.id.tag_click,data);
         }
     }
 
@@ -67,7 +69,9 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
                 }
                 break;
             case R.id.iv_addCart://加入购物车
-                Logger.i("加入购物车");
+                Logger.i("加入购物超车");
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,
+                        Commons.ADD_CAR,v.getTag(R.id.tag_click)));
                 break;
         }
     }

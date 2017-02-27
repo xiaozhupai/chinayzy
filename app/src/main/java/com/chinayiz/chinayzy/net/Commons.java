@@ -15,6 +15,10 @@ public class Commons {
      */
     public static final String UPDATE = "http://rap.taobao.org/mockjs/12395/";
     /**
+     * 添加购物车
+     */
+    public static final String ADD_CAR = "ClickAddCar";
+    /**
      * 生态农业首页banner图
      */
     public static final String NY_BANNER = "/farm/showAdvPic";

@@ -254,7 +254,6 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
         super.onBackPressed();
         if (mFragmentManager.getBackStackEntryCount()==0&&mGoodsFragment.isAdded()){
             mFragmentManager.beginTransaction().remove(mGoodsFragment).commit();
-
             return;
         }
     }

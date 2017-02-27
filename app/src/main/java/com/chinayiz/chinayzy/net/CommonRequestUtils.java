@@ -477,7 +477,6 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
-
                     @Override
                     public void onResponse(String s, int i) {
                         try {

@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/16 10:39
- * Class GlideRoundTransform Glide圆角图片
+ * Class GlideRoundTransform Glide 圆角图片
  */
 public class GlideRoundTransform extends BitmapTransformation {
 
