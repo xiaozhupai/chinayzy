@@ -48,7 +48,13 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
             mIvGoodItemIcon.setTag(R.id.tag_click,data.getGoodsid());
             mTvGoodItemTitle.setText(data.getGname());
             mTvGoodItemTitle.setTag(R.id.tag_click,data.getGoodsid());
-            mTvGoodItemPrice.setText(data.getPrice());
+            String price=data.getPrice();
+            if (price.contains("-")) {
+                String [] strings=price.split("-");
+                mTvGoodItemPrice.setText(strings[0]);
+            }else {
+                mTvGoodItemPrice.setText(price);
+            }
             mIvAddCart.setTag(R.id.tag_click,data);
         }
     }
@@ -69,7 +75,6 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
                 }
                 break;
             case R.id.iv_addCart://加入购物车
-                Logger.i("加入购物超车");
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,
                         Commons.ADD_CAR,v.getTag(R.id.tag_click)));
                 break;

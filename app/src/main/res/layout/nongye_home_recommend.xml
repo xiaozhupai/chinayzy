@@ -104,7 +104,7 @@
             <TextView
                 android:id="@+id/tv_comgoods1_price"
                 style="@style/NongYe_Products_pricetv"
-                android:text="￥1252"
+                android:text="1252"
                 />
         </LinearLayout>
 
@@ -129,7 +129,7 @@
             <TextView
                 android:id="@+id/tv_comgoods2_price"
                 style="@style/NongYe_Products_pricetv"
-                android:text="￥1252"
+                android:text="1252"
                 />
         </LinearLayout>
 
@@ -154,7 +154,7 @@
             <TextView
                 android:id="@+id/tv_comgoods3_price"
                 style="@style/NongYe_Products_pricetv"
-                android:text="￥1252"
+                android:text="1252"
                 />
         </LinearLayout>
     </LinearLayout>

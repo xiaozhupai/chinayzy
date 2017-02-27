@@ -58,6 +58,7 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 mView.openGoodesDetail(message.getData().toString());
                 break;
             case Commons.ADDSHOPPINGCAR://添加购物车成功
+                Logger.i("加入购物车成功了");
                 BaseActivity.showToast(mView.getActivity(),"添加购物超成功");
                 break;
         }
@@ -73,6 +74,7 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
             mView.startFragment(new SearchFragment(),"SearchFragment");
                 break;
             case Commons.ADD_CAR ://添加购物车
+                Logger.i("添加购物车");
                 data= (NY_EatItemModel.DataBean) message.getData();
                 mRequestUtils.getJoinCart(String.valueOf(data.getShopid()),
                         String.valueOf(data.getGoodsstandardid()),"1");

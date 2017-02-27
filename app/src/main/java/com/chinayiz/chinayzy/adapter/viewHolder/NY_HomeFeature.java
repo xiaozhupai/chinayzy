@@ -56,7 +56,7 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
         NY_FeatureModel.DataBean dataBean;
         Holder holder;
         if (isLoad){
-            Logger.i("第一次加载AAAAAAAAAAAA");
+            Logger.i("第一次加载爱吃");
             for (int i = 0; i < 4 ; i++) {
                 holder = mGoods.get(i);
                 dataBean = datas.get(i);
@@ -64,13 +64,19 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                     Glide.with(fragment).load(dataBean.getThemepic()).into(mGoods.get(0).Icon);
                 } else if (i!=0){//商品类型
                     holder.Title.setText(dataBean.getGname());
-                    holder.Price.setText(dataBean.getPrice());
+                    String price=dataBean.getPrice();
+                    if (price.contains("-")) {
+                        String [] strings=price.split("-");
+                        holder.Price.setText(strings[0]);
+                    }else {
+                        holder.Price.setText(price);
+                    }
                     Glide.with(fragment).load(dataBean.getIcon()).into(holder.Icon);
                     holder.view.setTag(dataBean.getGoodsid());
                 }
             }
         }else {
-            Logger.i("第二次加载BBBBBBBBBBBBB");
+            Logger.i("第二次加载爱吃");
             for (int i = 4; i<datas.size() ; i++) {
                 dataBean = datas.get(i);
                 holder = mGoods.get(i%4);
@@ -78,7 +84,13 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                     Glide.with(fragment).load(dataBean.getThemepic()).into(mGoods.get(0).Icon);
                 }else{//商品类型
                     holder.Title.setText(dataBean.getGname());
-                    holder.Price.setText(dataBean.getPrice());
+                    String price=dataBean.getPrice();
+                    if (price.contains("-")) {
+                        String [] strings=price.split("-");
+                        holder.Price.setText(strings[0]);
+                    }else {
+                        holder.Price.setText(price);
+                    }
                     Glide.with(fragment).load(dataBean.getIcon()).into(holder.Icon);
                     holder.view.setTag(dataBean.getGoodsid());
                 }

@@ -185,6 +185,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/NongYe_home_priceText</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:paddingLeft">2dp</item>
         <item name="android:drawableLeft">@mipmap/icon_rmb</item>
         <item name="android:maxLines">1</item>
     </style>

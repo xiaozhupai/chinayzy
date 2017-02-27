@@ -469,7 +469,7 @@ public class CommonRequestUtils {
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", shopid)
                 .addParams("goodsstandardid", goodsstandardid)
-                .addParams("count", "1")
+                .addParams("count", count)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
