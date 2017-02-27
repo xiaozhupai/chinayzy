@@ -29,7 +29,7 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
     private ImageView iv_close;
     public TagListView tlv_list;
     public TextView tv_submit;
-    public static final String GoodStands="GoodStands";
+    public static final String GOODSTANDS="GoodStands";
     private  List<Tag> tagList=new ArrayList<>();
     private List<GoodStandardModel.DataBean> lists;
       private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
@@ -109,7 +109,7 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
                 break;
             case R.id.tv_submit:
                 Logger.i("确定");
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,GoodStands,bean));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,GOODSTANDS,bean));
                 dismiss();
                 break;
         }
