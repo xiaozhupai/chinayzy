@@ -79,6 +79,10 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
 
                 break;
             }
+            case Commons.COMMENT_LIST: {
+                mView.mCommentFragment.setCommentData(message);
+                break;
+            }
         }
     }
 
@@ -104,7 +108,8 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
         }
         mView.mGoodsHolder.mTvCommentCount.setText("（"+String.valueOf(model.getData().getCommentnum())+"条评论）");
         int sum=0;
-        if (model.getData().getCommentnum()!=0){//判断商品是否有评论
+        mView.sumComment=model.getData().getCommentlist().size();
+        if (mView.sumComment!=0){//判断商品是否有评论
             sum=model.getData().getCommentlist().get(0).getDescpoint()+
                     model.getData().getCommentlist().get(0).getDeliverypoint()+
                     model.getData().getCommentlist().get(0).getServicepoint();

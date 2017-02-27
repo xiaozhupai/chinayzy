@@ -17,8 +17,10 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.viewHolder.GoodsHolder;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.Goods_Presenter;
+import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.goodsParticular.BotContentPage;
 import com.chinayiz.chinayzy.views.goodsParticular.McoyScrollView;
 import com.chinayiz.chinayzy.views.goodsParticular.McoySnapPageLayout;
@@ -34,12 +36,16 @@ import com.orhanobut.logger.Logger;
  */
 public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View.OnClickListener
         , McoySnapPageLayout.PageSnapedListener, CompoundButton.OnCheckedChangeListener
-        , RadioGroup.OnCheckedChangeListener, BotContentPage.ScrollListener {
+        , RadioGroup.OnCheckedChangeListener, BotContentPage.ScrollListener, FragmentManager.OnBackStackChangedListener {
     public String goodsID;
     public String storeID;
     public String goodsCode;
+    public boolean isShowComments=false;
+    public int sumComment=0;
+    public int commitID=0;
     public CheckBox mRbFavorite;
     private GoodsListFragment mListFragment;
+    public CommentsFragment mCommentFragment;
     private McoySnapPageLayout mMlMcoySnapPageLayout=null;
     public PullToRefreshLayout mRefreshLayout;
     private TopDetailInfoPage mTopPage = null;
@@ -162,7 +168,13 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
                 break;
             case R.id.iv_back_btn:
                 Logger.i("返回");
-                getFragmentManager().beginTransaction().remove(this).commit();
+                if (isShowComments){
+                    onBack();
+                    mMlMcoySnapPageLayout.setVisibility(View.VISIBLE);
+                }else {
+                    ((NongYeMainActivity)getActivity()).showActionbarOrNavigtionBar(NongYeMainActivity.SHOW_ALL);
+                    getFragmentManager().beginTransaction().remove(this).commit();
+                }
                 break;
             case R.id.iv_more_btn:
                 Logger.i("更多消息");
@@ -179,12 +191,45 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
                 Logger.i("选择套餐");
                 break;
             case R.id.tv_moreComment:
-                Logger.i("更多评论");
+                startComments();
                 break;
             case R.id.iv_InStore:
                 startStoreHome();
                 break;
         }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        if (mCommentFragment!=null){
+            if (mCommentFragment.isAdded()){
+                isShowComments=true;
+            }
+        }
+        if (!mCommentFragment.isAdded()||getFragmentManager().getBackStackEntryCount()==1){
+                mMlMcoySnapPageLayout.setVisibility(View.VISIBLE);
+                isShowComments=false;
+        }
+    }
+
+    /**
+     * 启动评论列表
+     */
+    private void startComments() {
+        if (goodsID==null||sumComment==0){
+            BaseActivity.showToast(getActivity(),"没有更多评论");
+            return;
+        }
+        mPresenter.mRequestUtils.getCommentList(goodsID,"1","10");
+        getFragmentManager().addOnBackStackChangedListener(this);
+        if (mCommentFragment==null){
+            mCommentFragment=new CommentsFragment();
+        }
+        mMlMcoySnapPageLayout.setVisibility(View.GONE);
+        commitID=getFragmentManager().beginTransaction()
+                .addToBackStack("GoodsFragment")
+                .add(R.id.fl_commentList,mCommentFragment,"CommentsFragment")
+                .commit();
     }
 
     /**
@@ -286,6 +331,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
         super.onDetach();
         getFragmentManager().popBackStack("GoodsListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         getFragmentManager().popBackStack("StoreHomeFragment",FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getFragmentManager().removeOnBackStackChangedListener(this);
         mStoreHomeFragment=null;
         mListFragment=null;
     }

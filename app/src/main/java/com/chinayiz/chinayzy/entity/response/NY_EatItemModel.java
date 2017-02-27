@@ -22,31 +22,28 @@ public class NY_EatItemModel extends BaseResponseModel {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "NY_EatItemModel{" +
-                "data=" + data +
-                '}';
-    }
-
-    public  class DataBean {
+    public static class DataBean {
         /**
-         * icon : http://img4.imgtn.bdimg.com/it/u=2595096625,1878289837&fm=23&gp=0.jpg
-         * price : 50-100
-         * goodsid : 1
+         * icon : http://chinayiz.cn/m1/2017/0222/e1e63f48-8025-467e-aa42-e8ead41cd685.jpg
+         * shopid : 3
+         * price : 209.00-226.00
+         * goodsid : 2
          * salesvolume : 500
-         * gname : 云雾绿茶
-         * brand : 英山云雾
-         * repertorytotal : 100
-         * productarea : 湖北
+         * gname : 润虎 茶叶 红茶 武夷山金骏眉 大师茶陶瓷罐礼盒装
+         * brand : 润虎
+         * goodsstandardid : 15
+         * repertorytotal : 99
+         * productarea : 福建省泉州市
          */
 
         private String icon;
+        private int shopid;
         private String price;
         private int goodsid;
         private int salesvolume;
         private String gname;
         private String brand;
+        private int goodsstandardid;
         private int repertorytotal;
         private String productarea;
 
@@ -56,6 +53,14 @@ public class NY_EatItemModel extends BaseResponseModel {
 
         public void setIcon(String icon) {
             this.icon = icon;
+        }
+
+        public int getShopid() {
+            return shopid;
+        }
+
+        public void setShopid(int shopid) {
+            this.shopid = shopid;
         }
 
         public String getPrice() {
@@ -98,6 +103,14 @@ public class NY_EatItemModel extends BaseResponseModel {
             this.brand = brand;
         }
 
+        public int getGoodsstandardid() {
+            return goodsstandardid;
+        }
+
+        public void setGoodsstandardid(int goodsstandardid) {
+            this.goodsstandardid = goodsstandardid;
+        }
+
         public int getRepertorytotal() {
             return repertorytotal;
         }
@@ -117,12 +130,14 @@ public class NY_EatItemModel extends BaseResponseModel {
         @Override
         public String toString() {
             return "DataBean{" +
-                    "icon='" + icon + '\'' +
+                    "brand='" + brand + '\'' +
+                    ", icon='" + icon + '\'' +
+                    ", shopid=" + shopid +
                     ", price='" + price + '\'' +
                     ", goodsid=" + goodsid +
                     ", salesvolume=" + salesvolume +
                     ", gname='" + gname + '\'' +
-                    ", brand='" + brand + '\'' +
+                    ", goodsstandardid=" + goodsstandardid +
                     ", repertorytotal=" + repertorytotal +
                     ", productarea='" + productarea + '\'' +
                     '}';
