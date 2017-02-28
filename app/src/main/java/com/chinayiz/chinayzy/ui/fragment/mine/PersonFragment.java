@@ -144,6 +144,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         rl_person_username= (RelativeLayout) view.findViewById(R.id.rl_person_username);
         rl_person_username.setOnClickListener(this);
         tlv_list= (TagListView) view.findViewById(R.id.tlv_list);
+
         return view;
     }
 
