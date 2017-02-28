@@ -8,23 +8,20 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.User.UserNet;
-import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static java.security.AccessController.getContext;
-
 /**
- * Created by Administrator on 2017/2/23.
+ * Created by Administrator on 2017/2/27.
  */
 
-public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
+public class UserNamePresenter extends BasePresenter<UserNameFragment> {
+    public String username;
     public UserNet net=UserNet.getNet();
-    public       String truename;
     @Override
     protected void onCreate() {
 
@@ -46,7 +43,6 @@ public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
         if (message.getEventType()==EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }
-
     }
 
     @Override
@@ -57,12 +53,12 @@ public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        if (message.getDataType()==UserNet.TRUENAME){
+        if (message.getDataType()== UserNet.NICKNAME){
             BaseResponseModel model= (BaseResponseModel) message.getData();
             BaseActivity.showToast(mView.getActivity(),model.getMsg());
             if (model.getCode().equals("100")){
                 mView.activity.onBackPressed();
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.TRUENAME,truename));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.NICKNAME,username));
             }
         }
     }
@@ -74,12 +70,11 @@ public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
 
     public void submit() {
         // validate
-        truename =mView. et_username.getText().toString().trim();
-        if (TextUtils.isEmpty(truename)) {
-            Toast.makeText(mView.getActivity(), "真实姓名不能为空", Toast.LENGTH_SHORT).show();
+         username = mView.et_username.getText().toString().trim();
+        if (TextUtils.isEmpty(username)) {
+            Toast.makeText(mView.getActivity(), "username不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        net.getEditerUser(UserNet.TRUENAME,truename);
-        // TODO validate success, do something
+           net.getEditerUser(UserNet.NICKNAME,username);
     }
 }

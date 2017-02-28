@@ -2,10 +2,14 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.TagsModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
@@ -18,6 +22,7 @@ import com.chinayiz.chinayzy.ui.fragment.mine.SexFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.WeightFragment;
+import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.chinayiz.chinayzy.widget.Tag;
 import com.orhanobut.logger.Logger;
 
@@ -34,6 +39,10 @@ import java.util.List;
 public class PersonPresenter extends BasePresenter<PersonFragment> {
     private UserNet net=UserNet.getNet();
     public List<Tag> tags_list=new ArrayList<>();
+    private ArrayAlertDialog dialog;
+    private static final int CAMERA=1;
+    private static final int PHOTO=0;
+
     public UserModel.DataBean bean;
     @Override
     public void onCreate() {
@@ -70,6 +79,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
+
             case Commons.GETUSERINFO:
                 UserModel model= (UserModel) message.getData();
                  bean=model.getData();
@@ -105,11 +115,14 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                     mView.tv_person_card.setText(first+"****"+last);
                 }
                 if (!TextUtils.isEmpty(bean.getTag())){
+
                   String [] tags=bean.getTag().split(",");
                     for (int i = 0; i <tags.length ; i++) {
-                        Tag tag=new Tag();
-                        tag.setTitle(tags[i]);
-                        tags_list.add(tag);
+                        if (!TextUtils.isEmpty(tags[i])){
+                            Tag tag=new Tag();
+                            tag.setTitle(tags[i]);
+                            tags_list.add(tag);
+                        }
                     }
                     mView.tlv_list.setTags(tags_list);
                 }
@@ -147,7 +160,35 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 tags_list= (List<Tag>) message.getData();
                   mView.tlv_list.setTags(tags_list);
                   break;
+              case UserNet.NICKNAME:
+                  mView.tv_person_username.setText(message.getData().toString());
+                  break;
+              case LabelPresenter.LABEL:
+                 tags_list= (List<Tag>) message.getData();
+                  mView.tlv_list.setTags(tags_list);
+                  break;
+
           }
+    }
+
+    public void toHead(){
+            if (dialog==null){
+                dialog=new ArrayAlertDialog(mView.getActivity(), Gravity.BOTTOM,new String[]{"相册","相机"});
+            }
+        dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                 switch (i){
+                     case CAMERA:
+                         Logger.i("拍照");
+                         break;
+                     case PHOTO:
+                         Logger.i("相册");
+                         break;
+                 }
+            }
+        });
+        dialog.show();
     }
 
     public void toEmail(){
@@ -173,10 +214,13 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     }
 
     public void toLabel(){
-      mView.activity.addFragment(new LabelFragment(bean!=null?bean.getTag():""));
+
+      mView.activity.addFragment(new LabelFragment(bean!=null?tags_list:new ArrayList<Tag>()));
     }
 
     public void toUsername(){
         mView.activity.addFragment(new UserNameFragment(bean!=null?bean.getNickname():""));
     }
+
+
 }

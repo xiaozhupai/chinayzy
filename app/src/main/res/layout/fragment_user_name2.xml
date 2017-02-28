@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment">
+    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment"
+    android:background="@color/basecolor"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="6-18个字符,可由中英文、数字、"
+        android:text="6-18个字符，可由中英文、数字、“_”、“-” 组成、只能修改一次"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="12dp"

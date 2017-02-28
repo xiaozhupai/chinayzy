@@ -193,6 +193,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
                 break;
             case R.id.rl_person_head:
                 Logger.i("头像");
+                mPresenter.toHead();
                 break;
             case R.id.rl_person_username:
                 Logger.i("用户名");

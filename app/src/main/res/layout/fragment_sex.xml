@@ -29,7 +29,7 @@
             android:id="@+id/iv_sex_man"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back_arrow"
+            android:src="@mipmap/icon_checked"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
@@ -46,6 +46,7 @@
         android:paddingBottom="15dp"
         android:paddingLeft="12dp"
         android:clickable="true"
+        android:layout_marginTop="3dp"
         >
         <TextView
             android:id="@+id/tv_sex_woman"
@@ -60,7 +61,7 @@
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back_arrow"
+            android:src="@mipmap/icon_checked"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"

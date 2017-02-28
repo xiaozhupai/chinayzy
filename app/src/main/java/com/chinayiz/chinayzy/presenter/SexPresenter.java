@@ -66,6 +66,7 @@ public class SexPresenter extends BasePresenter<SexFragment> {
             }
         }
 
+
     }
 
     @Override
