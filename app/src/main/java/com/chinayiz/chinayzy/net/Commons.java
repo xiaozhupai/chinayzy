@@ -59,13 +59,13 @@ public class Commons {
      */
     public static final String TEA_BANNER = "/farm/showTeaAdv";
     /**
-     *自营茶叶首页子页分类字段
+     *获取生态农业二级分类code
      */
-    public static final String TEA_TYPELIST = "/farm/showTeaCode";
+    public static final String TYPE_CODES = "/farm/showInitFarmType";
     /**
-     *自营茶叶首页子页分类字段查询农产品
+     *获取生态农业（二级子类）三级分类code
      */
-    public static final String TEA_TEALIST = "/farm/showTeaCodeDetail";
+    public static final String CLASS_CODES = "/farm/showTeaCode";
     /**
      * 获取商品相关简要信息
      */

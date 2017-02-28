@@ -43,6 +43,10 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
      */
     public static final String CLICK_THEME = "HomeRecylAdapter_THEME";
     /**
+     * 点击分类菜单flag
+     */
+    public static final String CLICK_MENU = "HomeRecylAdapter_MENU";
+    /**
      * 动态获取数据flag
      */
     public static final String GTE_DATA = "GETDATA";

@@ -79,8 +79,15 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 mRequestUtils.getJoinCart(String.valueOf(data.getShopid()),
                         String.valueOf(data.getGoodsstandardid()),"1");
                 break;
+            case NongYeHomeRecylAdapter.CLICK_MENU:{//分类菜单点击事件
+
+                break;
+            }
         }
     }
+
+
+
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {

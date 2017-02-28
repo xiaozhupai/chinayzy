@@ -2,6 +2,8 @@ package com.chinayiz.chinayzy.net.NongYe;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.ClassifyCodesModel;
+import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
@@ -11,8 +13,6 @@ import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
 import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.entity.response.SearchLabelModel;
-import com.chinayiz.chinayzy.entity.response.TeaListModel;
-import com.chinayiz.chinayzy.entity.response.TypeListModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
@@ -207,14 +207,16 @@ public class Net {
     }
 
     /**
-     * 获取农产品自营茶叶首页的子分类字段
+     * 获取农产品自营茶叶首页的二级分类code
+     * @param type  类型代码：  1.有机农业 2.野生农业 3.地区特产 4.食品保健组合 5.期货 6.其他
      */
-    public void getTeaCode() {
+    public void getTypeCodes(String type) {
         OkHttpUtils
                 .post()
-                .url(Commons.API + Commons.TEA_TYPELIST)
+                .url(Commons.API + Commons.TYPE_CODES)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
+                .addParams("type",type)
                 .addParams("sign", "")
                 .tag("ny")
                 .build()
@@ -223,16 +225,12 @@ public class Net {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息："+e.toString()+"错误码："+i);
                     }
-
                     @Override
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.TEA_TYPELIST
-                                    ,mGson.fromJson(s,TypeListModel.class)));
-                            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
-                                    , Commons.TEA_TYPELIST
-                                    ,mGson.fromJson(s,TypeListModel.class)));
+                                    , Commons.TYPE_CODES
+                                    ,mGson.fromJson(s,ClassifyTypesModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }
@@ -240,17 +238,15 @@ public class Net {
                 });
     }
     /**
-     * 获取农产品自营茶叶首页不同分类茶叶
+     * 获取农产品自营茶叶首页的三级级分类code
      */
-    public void getTeaList(String page,String size,String itemCod) {
+    public void getClassCodes(String typecode) {
         OkHttpUtils
                 .post()
-                .url(Commons.API + Commons.TEA_TEALIST)
+                .url(Commons.API + Commons.CLASS_CODES)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("page",page)
-                .addParams("size",size)
-                .addParams("itemcode",itemCod)
+                .addParams("typecode",typecode)
                 .addParams("sign", "")
                 .tag("ny")
                 .build()
@@ -259,13 +255,12 @@ public class Net {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息："+e.toString()+"错误码："+i);
                     }
-
                     @Override
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.TEA_TEALIST
-                                    ,mGson.fromJson(s,TeaListModel.class)));
+                                    , Commons.CLASS_CODES
+                                    ,mGson.fromJson(s,ClassifyCodesModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/27 18:44
- * Class ClassifyCodesModel 生态农业二级分类菜单code
+ * Class ClassifyCodesModel 生态农业三级分类菜单code
  */
 public class ClassifyCodesModel extends BaseResponseModel{
 

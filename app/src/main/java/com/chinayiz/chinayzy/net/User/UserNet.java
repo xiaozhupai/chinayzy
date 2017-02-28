@@ -5,11 +5,9 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
-import com.chinayiz.chinayzy.entity.response.TypeListModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
 
-import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
