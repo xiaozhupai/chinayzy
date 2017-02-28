@@ -15,7 +15,7 @@ import com.chinayiz.chinayzy.presenter.ClassifyPresenter;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/27 15:54
- * Class ClassifyFragment 生态农业首页二级分类菜单
+ * Class ClassifyFragment  生态农业首页二级分类菜单
  */
 public class ClassifyFragment extends BaseFragment<ClassifyPresenter> {
     public RecyclerView mRecyclerView;
