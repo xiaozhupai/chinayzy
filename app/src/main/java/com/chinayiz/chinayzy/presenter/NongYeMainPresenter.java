@@ -50,7 +50,7 @@ public class NongYeMainPresenter extends BasePresenter<NongYeMainActivity> {
         mView.getFragmentManager().removeOnBackStackChangedListener(mView);
         mView.mHomeFragment = null;
         mView.mFindFragment = null;
-        mView.mStoreHomeFragment = null;
+        mView.mActivityFragment = null;
         mView.mCartFragment = null;
     }
 

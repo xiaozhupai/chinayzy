@@ -34,20 +34,20 @@ public class NY_HomeTypeMenu extends RecyclerView.ViewHolder implements View.OnC
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.ly_type_btn1://自营茶叶
-                Logger.i("自营茶叶");
+            case R.id.ly_type_btn1://野生农业
+                Logger.i("野生农业");
                 break;
-            case R.id.ly_type_btn2://新鲜水果
-                Logger.i("新鲜水果");
+            case R.id.ly_type_btn2://有机农业
+                Logger.i("有机农业");
                 break;
-            case R.id.ly_type_btn3://有机蔬菜
-                Logger.i("有机蔬菜");
+            case R.id.ly_type_btn3://地区特产
+                Logger.i("地区特产");
                 break;
-            case R.id.ly_type_btn4://精选生鲜
-                Logger.i("精选生鲜");
+            case R.id.ly_type_btn4://食品组合
+                Logger.i("食品组合");
                 break;
-            case R.id.ly_type_btn5://更多类型
-                Logger.i("更多类型");
+            case R.id.ly_type_btn5://期货产品
+                Logger.i("期货产品");
                 break;
         }
     }

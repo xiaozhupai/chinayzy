@@ -16,6 +16,9 @@
     <color name="basecolor">#efeff4</color>
     <color name="mineBG">#f52a44</color>
 	  <color name="Background">#ffffff</color>
+    <color name="classifyText">#282b2b</color>
+    <color name="classifItem">#7a7a87</color>
+    <color name="classifyText_pre">#ff3951</color>
     <color name="nongye_ActionBarTitle">#6db430</color>
     <color name="NongYe_Tabtext">#b0b0b0</color>
     <color name="NongYe_TabtextSelected">#b0db5a</color>

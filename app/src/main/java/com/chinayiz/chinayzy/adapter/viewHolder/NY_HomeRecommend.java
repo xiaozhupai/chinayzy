@@ -71,7 +71,7 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
                    .load(themelistBeen.get(i).getPic())
                    .into(mRecommendViews.get(i));
             if ("1".equals(themelistBeen.get(i).getType())){// 1为主题
-
+                Logger.i(" 1为商品");
             }else if ("2".equals(themelistBeen.get(i).getType())){// 2为商品
                 Logger.i(" 2为商品");
             }
@@ -82,7 +82,13 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
                     .load(recommentlistBeen.get(i).getIcon())
                     .into(holder.icon);
             holder.name.setText(recommentlistBeen.get(i).getGname());
-            holder.price.setText(recommentlistBeen.get(i).getPrice());
+            String price=recommentlistBeen.get(i).getPrice();
+            if (price.contains("-")) {
+                String [] strings=price.split("-");
+                holder.price.setText(strings[0]);
+            }else {
+                holder.price.setText(price);
+            }
             //设置商品ID
             holder.view.setTag(recommentlistBeen.get(i).getGoodsid());
         }

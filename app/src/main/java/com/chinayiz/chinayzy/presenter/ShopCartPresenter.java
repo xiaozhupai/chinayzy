@@ -109,7 +109,8 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 popuWindow=new GoodsStandardPopuWindow(mView.getActivity(),bean);
                 popuWindow.show();
                 break;
-            case  GoodsStandardPopuWindow.GoodStands:  //商品规格回调给当前页面的数据
+            case  GoodsStandardPopuWindow.GOODSTANDS:  //商品规格回调给当前页面的数据
+                Logger.i("确定套餐选择");
                 ShopCartModel.DataBean.ShoplistBean goods_bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
                 for (ShopCartModel.DataBean data:list){
                     for (ShopCartModel.DataBean.ShoplistBean data_bean:data.getShoplist()) {

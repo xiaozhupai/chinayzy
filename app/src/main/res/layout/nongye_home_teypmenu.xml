@@ -11,12 +11,12 @@
         <ImageView
             android:id="@+id/iv_teaType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/btn_tea"
+            android:src="@mipmap/tabbar_compose"
             />
         <TextView
             android:id="@+id/tv_teaType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="自营茶叶"
+            android:text="野生农业"
             />
     </LinearLayout>
     <LinearLayout
@@ -26,12 +26,12 @@
         <ImageView
             android:id="@+id/iv_fruitType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/btn_fruit"
+            android:src="@mipmap/tabbar_tea"
             />
         <TextView
             android:id="@+id/tv_fruitType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="新鲜水果"
+            android:text="有机农业"
             />
     </LinearLayout>
     <LinearLayout
@@ -41,12 +41,12 @@
         <ImageView
             android:id="@+id/iv_greensType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/btn_greens"
+            android:src="@mipmap/tabbar_specialty"
             />
         <TextView
             android:id="@+id/tv_greensType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="有机蔬菜"
+            android:text="地区特产"
             />
     </LinearLayout>
 
@@ -57,12 +57,12 @@
         <ImageView
             android:id="@+id/iv_FreshType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/btn_fresh"
+            android:src="@mipmap/tabbar_group"
             />
         <TextView
             android:id="@+id/tv_freshType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="精选生鲜"
+            android:text="食品组合"
             />
     </LinearLayout>
 
@@ -73,12 +73,12 @@
         <ImageView
             android:id="@+id/iv_moreType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/btn_type"
+            android:src="@mipmap/tabbar_future"
             />
         <TextView
             android:id="@+id/tv_moreType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="更多分类"
+            android:text="期货产品"
             />
     </LinearLayout>
 </LinearLayout>
