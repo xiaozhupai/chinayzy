@@ -18,31 +18,35 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class NongYeMainPresenter extends BasePresenter<NongYeMainActivity> {
     @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void runUiThread(EventMessage message) {
-
-    }
-
-    @Override
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void runBgThread(EventMessage message) {
-
-    }
-
-    @Override
     public void disposeNetMsg(EventMessage message) {
+        switch (message.getDataType()){
 
+        }
     }
-
     @Override
     public void disposeInfoMsg(EventMessage message) {
 
     }
 
     @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void runUiThread(EventMessage message) {
+        if (message.getEventType()==EventMessage.NET_EVENT){
+            disposeNetMsg(message);
+        }
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void runBgThread(EventMessage message) {
+        if (message.getEventType()==EventMessage.INFORM_EVENT){
+            disposeInfoMsg(message);
+        }
+    }
+
+    @Override
     public void onCreate() {
         mView.getActivity();
-
     }
 
     @Override

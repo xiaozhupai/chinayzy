@@ -54,12 +54,15 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 mView.openGoodesDetail(message.getData().toString());
                 break;
             case GoodsDetailGridAdpter.CLICK_GOODS://商品详情页相关商品点击
-                mView.onBack();
-                mView.openGoodesDetail(message.getData().toString());
+//                mView.onBack();
+//                mView.openGoodesDetail(message.getData().toString());
                 break;
             case Commons.ADDSHOPPINGCAR://添加购物车成功
                 Logger.i("加入购物车成功了");
                 BaseActivity.showToast(mView.getActivity(),"添加购物超成功");
+                break;
+            case NongYeHomeRecylAdapter.CLICK_MENU://首页菜单点击事件
+               mView.openClassify(message.getData().toString());
                 break;
         }
     }
@@ -79,10 +82,6 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 mRequestUtils.getJoinCart(String.valueOf(data.getShopid()),
                         String.valueOf(data.getGoodsstandardid()),"1");
                 break;
-            case NongYeHomeRecylAdapter.CLICK_MENU:{//分类菜单点击事件
-
-                break;
-            }
         }
     }
 

@@ -71,9 +71,9 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
                    .load(themelistBeen.get(i).getPic())
                    .into(mRecommendViews.get(i));
             if ("1".equals(themelistBeen.get(i).getType())){// 1为主题
-                Logger.i(" 1为商品");
+
             }else if ("2".equals(themelistBeen.get(i).getType())){// 2为商品
-                Logger.i(" 2为商品");
+
             }
        }
         for (int i=0;i< recommentlistBeen.size();i++ ){

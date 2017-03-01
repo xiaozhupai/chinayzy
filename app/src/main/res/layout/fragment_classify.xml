@@ -9,6 +9,8 @@
         android:id="@+id/lv_typeList"
         android:layout_width="95dp"
         android:layout_height="match_parent"
+        android:divider="@color/NongYe_Line"
+        android:dividerHeight="0.5dp"
         android:layout_marginTop="1dp"
         android:background="@color/Background"
         >
@@ -20,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="1dp"
         android:background="@color/Background"
-        android:layout_marginLeft="1dp"
+        android:layout_marginLeft="0.5dp"
         >
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

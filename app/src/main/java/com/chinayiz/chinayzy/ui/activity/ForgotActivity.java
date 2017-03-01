@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -42,10 +41,6 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
         initView();
     }
 
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     private void initView() {
         et_forgot_input_phone = (EditText) findViewById(R.id.et_forgot_input_phone);

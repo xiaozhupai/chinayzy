@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -21,11 +20,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private LinearLayout mBtnIm;
     private LinearLayout mBtnLvYou;
     private LinearLayout mBtnZhongChou;
-
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     @Override
     protected MainPresenter initPresenter() {

@@ -1,6 +1,5 @@
 package  com.chinayiz.chinayzy.ui.activity;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -47,10 +46,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         initView();
     }
 
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     @Override
     protected LoginPresenter initPresenter() {

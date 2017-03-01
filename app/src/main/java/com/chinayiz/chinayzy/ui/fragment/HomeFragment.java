@@ -30,7 +30,7 @@ public class HomeFragment extends BaseFragment<NongYehomePresenter> {
     public NongYeHomeRecylAdapter mRecylAdapter;
     public Map<Integer,Object> mDateList=new HashMap<>();
     public List<String> isLoad=new ArrayList<>();
-
+    public ClassifyFragment mClassifyFragment = null;
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.nongye_fragment_home, container,false);
@@ -55,21 +55,27 @@ public class HomeFragment extends BaseFragment<NongYehomePresenter> {
        mActivity.mGoodsFragment.setGoodsID(goodsId);
         startFragment(mGoodsFragment,goodsId);
     }
+    public void openClassify(String code) {
+        if (mClassifyFragment==null) {
+            mClassifyFragment=new ClassifyFragment();
+        }
+        mClassifyFragment.setTypeCode(code);
+        startFragment(mClassifyFragment,"ClassifyFragment");
+    }
 
     @Override
     public NongYehomePresenter initPresenter() {
         return new NongYehomePresenter();
     }
-
     @Override
     public void isNightMode(boolean isNight) {
 
     }
+
     @Override
     protected void onInvisible() {
     }
-
-    @Override
     protected void onVisible() {
+
     }
 }

@@ -1,10 +1,9 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
-import android.app.FragmentManager;
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -22,8 +21,8 @@ import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
-import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.CircleImageView;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 
 
 /**
@@ -65,12 +64,6 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
     }
 
-
-
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     @Override
     protected void onStart() {

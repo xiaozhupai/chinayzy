@@ -40,9 +40,6 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
         , StoreHomeAdapter.OnRecyclerViewItemClickListener, AdapterView.OnItemClickListener {
     public StoreHomeAdapter mAdapter;
     public String mStoreID;
-    private View mDialogView;
-    private AlertDialog mDialog;
-    private AlertDialog.Builder mDialogBuilder;
     public List<StoreInfoModel.DataBean.TypecodeBean> mTypecodeList = new ArrayList<>();
     public GoodsTypeMeunAdapter mGoodsTypeMeunAdapter;
     public RecyclerView mRvStoreHome;
@@ -132,29 +129,30 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
     }
 
     private void showBrandInfo() {
+        View mDialogView;
+        AlertDialog mDialog;
+        AlertDialog.Builder mDialogBuilder;
         TextView name;
         TextView info;
         ImageView logo;
-        if (mDialogBuilder==null&&mDialogView==null){
-            mDialogBuilder = new AlertDialog.Builder(getActivity());
-            mDialogView = View.inflate(getActivity(), R.layout.dialog_storeinfo, null);
+        mDialogBuilder = new AlertDialog.Builder(getActivity());
+        mDialogView = View.inflate(getActivity(), R.layout.dialog_storeinfo, null);
 
-            name = (TextView) mDialogView.findViewById(R.id.tv_stareName);
-            name.setText(mPresenter.mStoreInfoModel.getData().getSname());
-            info = (TextView) mDialogView.findViewById(R.id.tv_storeInfo);
-            info.setText(mPresenter.mStoreInfoModel.getData().getIntroduction());
-            logo = (ImageView) mDialogView.findViewById(R.id.iv_storeLogo);
+        name = (TextView) mDialogView.findViewById(R.id.tv_stareName);
+        name.setText(mPresenter.mStoreInfoModel.getData().getSname());
+        info = (TextView) mDialogView.findViewById(R.id.tv_storeInfo);
+        info.setText(mPresenter.mStoreInfoModel.getData().getIntroduction());
+        logo = (ImageView) mDialogView.findViewById(R.id.iv_storeLogo);
 
-            Glide.with(getFragment())
-                    .load(mPresenter.mStoreInfoModel.getData().getPic())
-                    //设置logo圆角
-                    .transform(new GlideRoundTransform(getActivity(),8))
-                    .into(logo);
-            mDialog = mDialogBuilder.setView(mDialogView)
-                    .setCancelable(true)
-                    .create();
+        Glide.with(getFragment())
+                .load(mPresenter.mStoreInfoModel.getData().getPic())
+                //设置logo圆角
+                .transform(new GlideRoundTransform(getActivity(), 8))
+                .into(logo);
+        mDialog = mDialogBuilder.setView(mDialogView)
+                .setCancelable(true)
+                .create();
 
-        }
         mDialog.show();
     }
 
@@ -166,7 +164,7 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
     public void showTypeMeun(View view) {
         mTypeListView.setAdapter(mGoodsTypeMeunAdapter);
         mTypeListView.setOnItemClickListener(this);
-        if (mPopupWindow==null){
+        if (mPopupWindow == null) {
             mPopupWindow = new PopupWindow(popupWindowview, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             mPopupWindow.setTouchable(true);
             mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
@@ -201,10 +199,12 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
     protected void onVisible() {
 
     }
+
     @Override
     protected void onInvisible() {
 
     }
+
     @Override
     public StoreHomePresenter initPresenter() {
         return new StoreHomePresenter();

@@ -3,7 +3,6 @@ package com.chinayiz.chinayzy.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
 import android.view.View;
@@ -40,7 +39,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 编辑，或完成（供购物车或个人资料修改使用）
      */
     public CheckBox mCbActionBarEdit;
-    public FragmentManager mFragmentManager;
     protected T mPresenter;
     protected static Toast toast;
     public String TAG;
@@ -56,13 +54,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         onCreateActivity(savedInstanceState);
         //初始化Presenter
         mPresenter.onStart();
-        mFragmentManager=initFragmentManager();
         mGoodsFragment=new GoodsFragment();
         TAG= getClass().getSimpleName();
 
     }
-
-    protected abstract FragmentManager initFragmentManager();
 
     protected void initActionBar(){
         mActionBar=findViewById(R.id.rl_ActionBar);

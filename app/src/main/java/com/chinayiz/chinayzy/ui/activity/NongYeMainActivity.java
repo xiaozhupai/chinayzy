@@ -17,6 +17,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.FragmentAlternate;
 import com.chinayiz.chinayzy.presenter.NongYeMainPresenter;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
+import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
@@ -32,7 +33,6 @@ import com.orhanobut.logger.Logger;
 public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implements
         View.OnClickListener, RadioGroup.OnCheckedChangeListener,
         FragmentAlternate, FragmentManager.OnBackStackChangedListener {
-
     /**
      * 生态农业底部导航
      */
@@ -49,7 +49,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     /**
      * 隐藏Navigtion
      */
-    public final static int HIDE_NAVIGTION=3;
+    public final static int HIDE_NAVIGTION = 3;
 
     /**
      * 显示ActionBar
@@ -63,23 +63,18 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
      * 显示Navigtion
      */
     public final static int SHOW_NAVIGTION = 6;
-
-    public BaseFragment mCurrentFragment;
+    public BaseFragment mCurrentFragment = null;
     public HomeFragment mHomeFragment = null;
     public FindFragment mFindFragment = null;
     public ActivityFragment mActivityFragment = null;
     public ShopCartFragment mCartFragment = null;
-    private int count=0;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     @Override
     protected NongYeMainPresenter initPresenter() {
@@ -90,7 +85,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     protected void onCreateActivity(Bundle savedInstanceState) {
         setStatuBarColor(NongYeMainActivity.this, Color.rgb(255, 255, 255));
         setContentView(R.layout.nongye_activity_main);
-        initFragmentManager().addOnBackStackChangedListener(this);
+        getFragmentManager().addOnBackStackChangedListener(this);
         initView();
     }
 
@@ -99,17 +94,32 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
         mRgNongyeMenu = (RadioGroup) findViewById(R.id.rg_nongye_menu);
         RadioButton radioButton = (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nongye_home);
         mRgNongyeMenu.setOnCheckedChangeListener(this);
+        mGoodsFragment = new GoodsFragment();
         //默认选中农业首页
         radioButton.setChecked(true);
     }
+
     @Override
     public void onBackStackChanged() {
-        if (mGoodsFragment.isAdded()){
+
+        if (mGoodsFragment.isAdded()) {
             hideActionbarOrNavigtionBar(HIDE_ALL);
-        }else {
+        } else {
             showActionbarOrNavigtionBar(SHOW_ALL);
         }
+        if (getFragmentManager().getBackStackEntryCount() == 1) {
+            mTvActionBarTitle.setText("分类");
+            mIvActionBarCart.setVisibility(View.VISIBLE);
+            hideActionbarOrNavigtionBar(HIDE_NAVIGTION);
+        }else {
+            mTvActionBarTitle.setText("首页");
+            mIvActionBarCart.setVisibility(View.GONE);
+            showActionbarOrNavigtionBar(SHOW_ALL);
+        }
+
+        Logger.i("NongYeMainActivity栈变化=" + getFragmentManager().getBackStackEntryCount());
     }
+
     /**
      * 隐藏actionbar和底部导航栏
      */
@@ -121,7 +131,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
             mActionBar.setVisibility(View.GONE);
             mRgNongyeMenu.setVisibility(View.GONE);
         }
-        if (HIDE_NAVIGTION==code){
+        if (HIDE_NAVIGTION == code) {
             mRgNongyeMenu.setVisibility(View.GONE);
         }
     }
@@ -137,7 +147,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
             mActionBar.setVisibility(View.VISIBLE);
             mRgNongyeMenu.setVisibility(View.VISIBLE);
         }
-        if (SHOW_NAVIGTION==code){
+        if (SHOW_NAVIGTION == code) {
             mRgNongyeMenu.setVisibility(View.VISIBLE);
         }
     }
@@ -146,15 +156,18 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back_button://返回首页
-                if (getFragmentManager().getBackStackEntryCount()==0){
+                if (getFragmentManager().getBackStackEntryCount() == 0) {
                     finish();
                     mPresenter.doStart_MainPager();
-                }else {
+                } else {
                     onBackPressed();
                 }
                 break;
             case R.id.iv_more_button://更多
                 showToast(this, "更多");
+                break;
+            case R.id.iv_shopcart://购物车
+                showToast(this, "购物车");
                 break;
         }
     }
@@ -192,12 +205,14 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 }
                 Logger.i("启动首页");
                 addOrShowFragment(getFragmentManager().beginTransaction(), mHomeFragment);
+                meunShow("首页");
                 break;
             case 1://显示发现
                 if (mFindFragment == null) {
                     mFindFragment = new FindFragment();
                 }
                 addOrShowFragment(getFragmentManager().beginTransaction(), mFindFragment);
+                meunShow("发现");
                 Logger.i("启动发现");
                 break;
             case 2://显示活动
@@ -205,6 +220,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                     mActivityFragment = new ActivityFragment();
                 }
                 addOrShowFragment(getFragmentManager().beginTransaction(), mActivityFragment);
+                meunShow("活动");
                 Logger.i("启动活动");
                 break;
             case 3://显示购物车
@@ -212,9 +228,17 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                     mCartFragment = new ShopCartFragment();
                 }
                 addOrShowFragment(getFragmentManager().beginTransaction(), mCartFragment);
+                meunShow("购物车");
                 Logger.i("启动活动");
                 break;
         }
+    }
+
+    private void meunShow(String titel) {
+        showActionbarOrNavigtionBar(SHOW_ALL);
+        mCbActionBarEdit.setVisibility(View.GONE);
+        mIvActionBarCart.setVisibility(View.GONE);
+        mTvActionBarTitle.setText(titel);
     }
 
     @Override
@@ -224,12 +248,11 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
 
     @Override
     public void addOrShowFragment(FragmentTransaction transaction, Fragment fragment) {
-        boolean isTask=false;
         if (mCurrentFragment == fragment) {//判断是否与当前显示的为同一个fragment
-            Logger.i("是同一个="+fragment.isHidden());
+            Logger.i("是同一个=" + fragment.isHidden());
             return;
         }
-        Logger.i("不是同一个="+fragment.isHidden());
+        Logger.i("不是同一个=" + fragment.isHidden());
         if (!fragment.isAdded()) {//判断是否已添加到FragmentManager
             Logger.i("未添加");
             if (mCurrentFragment == null) {
@@ -238,13 +261,13 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 transaction.hide(mCurrentFragment).add(R.id.fl_nongye, fragment).commit();
             }
         } else {
-            if (mFragmentManager.getBackStackEntryCount()!=0){
+            if (getFragmentManager().getBackStackEntryCount() != 0) {
                 showActionbarOrNavigtionBar(SHOW_ALL);
-                for (int i=0;i<mFragmentManager.getBackStackEntryCount();i++){
-                    mFragmentManager.popBackStack();
+                for (int i = 0; i < getFragmentManager().getBackStackEntryCount(); i++) {
+                    getFragmentManager().popBackStack();
                 }
             }
-                transaction.hide(mCurrentFragment).show(fragment).commit();
+            transaction.hide(mCurrentFragment).show(fragment).commit();
         }
         mCurrentFragment = (BaseFragment) fragment;
     }
@@ -252,8 +275,8 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (mFragmentManager.getBackStackEntryCount()==0&&mGoodsFragment.isAdded()){
-            mFragmentManager.beginTransaction().remove(mGoodsFragment).commit();
+        if (getFragmentManager().getBackStackEntryCount() == 0 && mGoodsFragment.isAdded()) {
+            getFragmentManager().beginTransaction().remove(mGoodsFragment).commit();
             return;
         }
     }
