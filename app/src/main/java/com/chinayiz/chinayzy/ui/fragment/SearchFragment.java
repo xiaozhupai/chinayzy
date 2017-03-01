@@ -70,8 +70,10 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
         iv_delete.setOnClickListener(this);
         tagview2 = (TagListView) view.findViewById(R.id.tagview2);
         tagview2.setOnClickListener(this);
-
-
+        tagview.setTagViewBackgroundRes(R.drawable.tag_normal);
+        tagview2.setTagViewBackgroundRes(R.drawable.tag_normal);
+        tagview.setTagViewTextColorRes(Color.BLACK);
+        tagview2.setTagViewTextColorRes(Color.BLACK);
 
         tagview.setOnTagClickListener(new TagListView.OnTagClickListener() {
             @Override

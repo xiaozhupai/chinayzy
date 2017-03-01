@@ -61,12 +61,7 @@ public class UserNameFragment extends BaseFragment<UserNamePresenter> {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return initView(inflater,container,savedInstanceState);
-    }
+
 
     @Override
     public void isNightMode(boolean isNight) {

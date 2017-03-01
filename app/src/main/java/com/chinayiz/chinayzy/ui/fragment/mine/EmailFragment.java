@@ -46,12 +46,6 @@ public class EmailFragment extends BaseFragment<EmailPresenter> {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        return initView(inflater, container, savedInstanceState);
-    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

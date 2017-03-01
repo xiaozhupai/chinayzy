@@ -49,4 +49,5 @@ dependencies {
     compile 'com.chanven.lib:cptr:1.1.0'
     compile 'de.halfbit:pinned-section-listview:1.0.0'
     testCompile 'junit:junit:4.12'
+    compile files('libs/aliyun-oss-sdk-android-2.3.0.jar')
 }

@@ -1,9 +1,11 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -11,6 +13,7 @@ import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
@@ -72,6 +75,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 ShopCartModel model= (ShopCartModel) message.getData();
                 list=model.getData();
                 mView.adaphter.setData(model.getData(),0);
+                if (list.size()==0){
+                  mView.lv_boom.setVisibility(View.GONE);
+                }
                 break;
             case Commons.DELSHOPPINGCAR:   //删除购物车商品
                 BaseResponseModel model2= (BaseResponseModel) message.getData();
@@ -174,29 +180,52 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public void submit(){
         switch (type){
             case TYPE_NORMAL:
-                mView.startFragment(new ResultFragment(),"ResultFragment");
-                break;
-            case TYPE_EDITER:
-                List <ShopCartModel.DataBean.ShoplistBean> list_selected=new ArrayList<>();  //被选中的ITEM
-                for (ShopCartModel.DataBean data:list){
-                    for (ShopCartModel.DataBean.ShoplistBean bean:data.getShoplist()){
-                        if (bean.isChecked()){
-                            list_selected.add(bean);
-                        }
+                itemChecked();
+                if (list_checked.size()==0){
+                    BaseActivity.showToast(mView.getActivity(),"请选择要结算的商品");
+                    return;
+                }
+                StringBuilder params=new StringBuilder();
+                for (int i = 0; i <list_checked.size() ; i++) {
+                    ShopCartModel.DataBean.ShoplistBean bean=list_checked.get(i);
+                    params.append(bean.getCarid());
+                    if (i!=(list_checked.size()-1)){
+                        params.append(",");
                     }
                 }
-                list_checked=list_selected;
+              if (mView.index==1){
+              MineActivity activity= (MineActivity) mView.getActivity();
+                  activity.addFragment(new ResultFragment(params.toString()));
+              }else {
+                  mView.startFragment(new ResultFragment(params.toString()),"ResultFragment");
+
+              }
+                break;
+            case TYPE_EDITER:
+                itemChecked();
                 StringBuilder sb=new StringBuilder();
-                for (int i=0;i<list_selected.size();i++){
-                    ShopCartModel.DataBean.ShoplistBean bean=list_selected.get(i);
+                for (int i=0;i<list_checked.size();i++){
+                    ShopCartModel.DataBean.ShoplistBean bean=list_checked.get(i);
                     sb.append(bean.getCarid());
-                    if (i!=list_selected.size()-1){
+                    if (i!=list_checked.size()-1){
                         sb.append(",");
                     }
                 }
                 net.getDelCart(sb.toString());
                 break;
         }
+    }
+
+    private void itemChecked(){
+        List <ShopCartModel.DataBean.ShoplistBean> list_selected=new ArrayList<>();  //被选中的ITEM
+        for (ShopCartModel.DataBean data:list){
+            for (ShopCartModel.DataBean.ShoplistBean bean:data.getShoplist()){
+                if (bean.isChecked()){
+                    list_selected.add(bean);
+                }
+            }
+        }
+        list_checked=list_selected;
     }
 
     public void UpdateShopCart(){

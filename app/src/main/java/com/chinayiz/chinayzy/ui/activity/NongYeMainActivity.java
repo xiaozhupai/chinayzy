@@ -209,7 +209,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 break;
             case 3://显示购物车
                 if (mCartFragment == null) {
-                    mCartFragment = new ShopCartFragment();
+                    mCartFragment = new ShopCartFragment(0);
                 }
                 addOrShowFragment(getFragmentManager().beginTransaction(), mCartFragment);
                 Logger.i("启动活动");

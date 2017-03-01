@@ -42,7 +42,7 @@ public class HeadAdaphter extends BaseInjectHeadAdaphter {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.iv_head_title = (TextView) rootView.findViewById(R.id.iv_head_title);
+//            this.iv_head_title = (TextView) rootView.findViewById(R.id.iv_head_title);
         }
 
     }

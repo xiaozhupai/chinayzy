@@ -88,6 +88,11 @@ public class TagListView extends FlowLayout implements OnClickListener {
 
 		localTagView.setChecked(t.isChecked());
 		localTagView.setCheckEnable(b);
+
+			localTagView.setBackgroundResource(mTagViewBackgroundResId);
+
+
+		localTagView.setTextColor(mTagViewTextColorResId);
 //		if (mIsDeleteMode) {
 //			int k = (int) TypedValue.applyDimension(1, 5.0F, getContext()
 //					.getResources().getDisplayMetrics());

@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
+import com.chinayiz.chinayzy.utils.SDCardUtil;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -26,6 +27,7 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        SDCardUtil.getInstance(this);
         ShareSDK.initSDK(this);
         SearchDao.getInstance(this);
         AppInfo.init(this);

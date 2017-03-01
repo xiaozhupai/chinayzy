@@ -33,6 +33,7 @@
          android:textColor="@color/find_text"
          android:background="@drawable/bg_search"
          android:textColorHint="@color/find_text"
+         android:singleLine="true"
          />
      <TextView
           android:id="@+id/tv_cancel"

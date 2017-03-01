@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -53,11 +54,6 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
 
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initView(inflater, container, savedInstanceState);
-    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,7 +64,10 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
         tlv_mystyle = (TagListView)view.findViewById(R.id.tlv_mystyle);
         tlv_staple = (TagListView) view.findViewById(R.id.tlv_staple);
         tv_add.setOnClickListener(this);
-
+        tlv_mystyle.setTagViewBackgroundRes(R.drawable.label_red);
+        tlv_staple.setTagViewBackgroundRes(R.drawable.label_black);
+        tlv_mystyle.setTagViewTextColorRes(Color.WHITE);
+        tlv_staple.setTagViewTextColorRes(Color.BLACK);
         activity=(MineActivity) getActivity();
         activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
         activity.mCbActionBarEdit.setText("保存");
@@ -121,6 +120,12 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
 
         mPresenter.tags_mystle=param;
         tlv_mystyle.setTags(mPresenter.tags_mystle);
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
         return view;
 
     }
