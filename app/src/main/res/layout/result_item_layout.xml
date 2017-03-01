@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/iv_head_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="XC原创衣家"
-        android:textSize="14sp"
-        android:textColor="#1c1c1c"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="15dp"
-        />
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +17,8 @@
         android:src="@mipmap/ic_launcher"
         android:layout_marginTop="13dp"
         android:layout_marginBottom="7dp"
+        android:layout_marginLeft="5dp"
+        android:scaleType="centerCrop"
         />
 
     <LinearLayout
@@ -34,6 +28,7 @@
         android:orientation="vertical"
         android:layout_marginTop="14dp"
         android:layout_marginRight="13dp"
+        android:layout_marginLeft="5dp"
         android:visibility="visible"
         >
         <TextView
@@ -43,6 +38,7 @@
             android:text="鲜活波士顿大虾500G 1只 盒自营海鲜水产dsdsdsdsdsdsds"
             android:textColor="#252525"
             android:textSize="12sp"
+            android:lines="2"
             />
         <TextView
             android:id="@+id/tv_result_item_kind"
@@ -76,6 +72,7 @@
                 android:textSize="11sp"
                 android:textColor="#acacac"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_gravity="center_vertical"
                 />
         </LinearLayout>

@@ -4,11 +4,13 @@ package com.chinayiz.chinayzy.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.chinayiz.chinayzy.R;
 
-public class TagView extends ToggleButton {
+public class TagView extends CheckBox {
 	
 	private boolean mCheckEnable = true;
 
@@ -29,9 +31,9 @@ public class TagView extends ToggleButton {
 	}
 
 	private void init() {
-		setTextOn(null);
-		setTextOff(null);
-		setText("");
+//		setTextOn(null);
+//		setTextOff(null);
+//		setText("");
 //		setBackgroundResource(R.drawable.tag_bg);
 	}
 

@@ -4,15 +4,18 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
+import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.GoodsPicDetailModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
+import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
+import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -586,4 +589,113 @@ public class CommonRequestUtils {
                     }
                 });
     }
+
+    /**
+     * 结算购物车选中的订单，预览订单
+     *
+     * @param carids 购物车id数组
+     */
+    public void getPreviewOrder(String carids) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.PREVIEWORDER)
+                .addParams("carids", carids)
+                .addParams("userid",APP.sUserid)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.PREVIEWORDER
+                                    , mGson.fromJson(s, ResultModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 支付宝支付
+     * @param type  类型 1充值2购物
+     * @param total 支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getAliPayOrder(String type,String total,String orderbill) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.ALIPAYORDER)
+                .addParams("type", type)
+                .addParams("userid",APP.sUserid)
+                .addParams("total",total)
+                .addParams("orderbill",orderbill)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ALIPAYORDER
+                                    , mGson.fromJson(s, AlipayModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 微信支付
+     * @param type  类型 1充值2购物
+     * @param total 支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getWxPayOrder(String type,String total,String orderbill) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.WXPAYORDER)
+                .addParams("type", type)
+                .addParams("userid",APP.sUserid)
+                .addParams("total",total)
+                .addParams("orderbill",orderbill)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.WXPAYORDER
+                                    , mGson.fromJson(s, WxpayModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+
+
+
+
 }

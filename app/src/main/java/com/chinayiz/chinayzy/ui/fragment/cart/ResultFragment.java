@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
 import com.chinayiz.chinayzy.views.CheckImageView;
@@ -29,19 +30,26 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener {
-    private ListView lv_result;
-    private TextView tv_result_price;
-    private TextView tv_result_submit;
-    private RelativeLayout result_list;
-    private ResultAdaphter adaphter;
-    private TextView tv_goods_total;
-    private TextView tv_cost;
-    private CheckBox cb_check;
-    private RelativeLayout rl_payway_boom;
-    private CheckImageView iv_pay_ali;
-    private CheckImageView iv_pay_wechat;
-    private LinearLayout lv_payway;
-    private List<ShopCartModel.DataBean.ShoplistBean> list;
+    public ListView lv_result;
+    public TextView tv_result_price;
+    public TextView tv_result_submit;
+    public RelativeLayout result_list;
+    public ResultAdaphter adaphter;
+    public TextView tv_goods_total;
+    public TextView tv_cost;
+    public CheckBox cb_check;
+    public RelativeLayout rl_payway_boom;
+    public CheckImageView iv_pay_ali;
+    public CheckImageView iv_pay_wechat;
+    public LinearLayout lv_payway;
+    public List<ResultModel.DataBean.GoodmessageBean> list;
+    public String params;
+    public TextView tv_address_name,tv_address_phone,tv_address_text;
+
+    public ResultFragment(String params){
+        this.params=params;
+        Logger.i("resultFragment"+params);
+    }
 
     @Override
     protected void onVisible() {
@@ -63,7 +71,11 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         tv_result_submit = (TextView) view.findViewById(R.id.tv_result_submit);
         tv_result_submit.setOnClickListener(this);
         result_list = (RelativeLayout) view.findViewById(R.id.result_list);
+
         View head = View.inflate(getActivity(), R.layout.result_head, null);
+        tv_address_name= (TextView) head.findViewById(R.id.tv_address_name);
+        tv_address_phone= (TextView) head.findViewById(R.id.tv_address_phone);
+        tv_address_text= (TextView) head.findViewById(R.id.tv_address_text);
         lv_result.addHeaderView(head);
 
         View foot = View.inflate(getActivity(), R.layout.result_foot, null);
@@ -98,63 +110,27 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
 
         lv_result.addFooterView(foot);
         list = new ArrayList();
-        for (int i=0;i<5;i++){
-            ShopCartModel.DataBean.ShoplistBean model=new ShopCartModel.DataBean.ShoplistBean();
-            model.setSname("dsds");
-            model.setChecked(false);
-            model.setNum(2);
-            model.setPrice(130.25);
-            list.add(model);
-        }
-        for (int i=0;i<5;i++){
-            ShopCartModel.DataBean.ShoplistBean model=new ShopCartModel.DataBean.ShoplistBean();
-            model.setSname("bbb");
-            model.setChecked(false);
-            model.setNum(1);
-            model.setPrice(120.25);
-            list.add(model);
-        }
-        for (int i=0;i<5;i++){
-            ShopCartModel.DataBean.ShoplistBean model=new ShopCartModel.DataBean.ShoplistBean();
-            model.setSname("ccc");
-            model.setChecked(false);
-            model.setNum(1);
-            model.setPrice(110.25);
-            list.add(model);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            if (i == 0) {
-                list.get(i).setHead(true);
-            } else {
-                if (!list.get(i).getSname().equals(list.get(i - 1).getSname())) {
-                    list.get(i).setHead(true);
-                    Logger.i("头部视图");
-                } else {
-                    list.get(i).setHead(false);
-                    Logger.i("body视图");
-                }
-            }
-        }
+
         adaphter = new ResultAdaphter(getActivity(), list);
         lv_result.setAdapter(adaphter);
-        tv_goods_total.setText("￥"+UpdateTotal());
-        tv_result_price.setText("总计:￥"+UpdateTotal());
+//        tv_goods_total.setText("￥"+UpdateTotal());
+//        tv_result_price.setText("总计:￥"+UpdateTotal());
         return view;
 
     }
 
 
-    /**
-     * 获得商品总价
-     * @return
-     */
-    public double UpdateTotal(){
-        double total=0.00;
-        for (ShopCartModel.DataBean.ShoplistBean bean:list){
-            total+=bean.getPrice()*bean.getNum();
-        }
-        return total;
-    }
+//    /**
+//     * 获得商品总价
+//     * @return
+//     */
+//    public double UpdateTotal(){
+//        double total=0.00;
+//        for (ShopCartModel.DataBean.ShoplistBean bean:list){
+//            total+=bean.getPrice()*bean.getNum();
+//        }
+//        return total;
+//    }
 
 
     @Override
@@ -176,7 +152,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_result_submit:  //确定支付
-
+             mPresenter.submit();
                 break;
             case R.id.rl_payway_boom:    //底部支付方式
                 if (lv_payway.getVisibility()==View.VISIBLE){

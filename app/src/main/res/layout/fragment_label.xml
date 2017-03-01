@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:f="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +69,15 @@
     <com.chinayiz.chinayzy.widget.TagListView
         android:id="@+id/tlv_mystyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_margin"
+        android:paddingLeft="@dimen/common_margin"
+        android:paddingRight="@dimen/common_margin"
+        android:paddingTop="16.0dip"
+        f:horizontalSpacing="@dimen/tag_horizontal_spacing"
+        f:orientation="horizontal"
+        f:verticalSpacing="@dimen/tag_vertical_spacing"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,6 +90,14 @@
     <com.chinayiz.chinayzy.widget.TagListView
         android:id="@+id/tlv_staple"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_margin"
+        android:paddingLeft="@dimen/common_margin"
+        android:paddingRight="@dimen/common_margin"
+        android:paddingTop="16.0dip"
+        f:horizontalSpacing="@dimen/tag_horizontal_spacing"
+        f:orientation="horizontal"
+        f:verticalSpacing="@dimen/tag_vertical_spacing"
+        />
 
 </LinearLayout>

@@ -47,14 +47,6 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        return initView(inflater,container,savedInstanceState);
-    }
-
-    @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_suggest, null);
         et_suggest_title = (EditText) view.findViewById(R.id.et_suggest_title);

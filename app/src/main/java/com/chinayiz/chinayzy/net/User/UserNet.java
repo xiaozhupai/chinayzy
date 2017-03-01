@@ -35,6 +35,7 @@ public class UserNet {
     public static final String IDCARD="IDCARD";
     public static final String TAGS="TAGS";
     public static final String NICKNAME ="NICKNAME";
+    public static final String PIC ="PIC";
 
 
     public static UserNet getNet() {
@@ -141,6 +142,9 @@ public class UserNet {
                 break;
             case NICKNAME:
                 key="nickname";
+                break;
+            case PIC:
+                key="pic";
                 break;
         }
         OkHttpUtils

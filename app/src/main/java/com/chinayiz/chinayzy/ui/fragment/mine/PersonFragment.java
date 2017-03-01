@@ -1,11 +1,14 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -78,16 +81,13 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     protected void lazyLoad() {
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return initView(inflater, container, savedInstanceState);
-    }
+
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity= (MineActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_person, null);
+
         iv_head_right = (ImageView) view.findViewById(R.id.iv_head_right);
         iv_head_right.setOnClickListener(this);
         iv_person_head = (CircleImageView)view.findViewById(R.id.iv_person_head);
@@ -145,8 +145,12 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         rl_person_username.setOnClickListener(this);
         tlv_list= (TagListView) view.findViewById(R.id.tlv_list);
 
+        tlv_list.setTagViewBackgroundRes(R.drawable.label_black);
+        tlv_list.setTagViewTextColorRes(Color.BLACK);
         return view;
     }
+
+
 
     @Override
     public PersonPresenter initPresenter() {
@@ -157,6 +161,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public void isNightMode(boolean isNight) {
 
     }
+
 
     @Override
     public void onClick(View v) {

@@ -6,6 +6,8 @@ package com.chinayiz.chinayzy.net;
  */
 
 public class Commons {
+
+    public static final String HOST="http://chinayiz.cn";
     /**
      * 主机地址
      */
@@ -190,5 +192,19 @@ public class Commons {
      * 修改完成个性标签
      */
     public static final String FINISHTAGS="/centre/finishTags";
+
+    /**
+     * 结算购物车选中的订单，预览订单
+     */
+    public static final String PREVIEWORDER="/centre/previewOrder";
+
+    /**
+     * 支付宝支付
+     */
+    public static final String ALIPAYORDER="/pay/aliPayOrder";
+    /**
+     * 微信支付支付
+     */
+    public static final String WXPAYORDER="/pay/wxPayOrder";
 
 }

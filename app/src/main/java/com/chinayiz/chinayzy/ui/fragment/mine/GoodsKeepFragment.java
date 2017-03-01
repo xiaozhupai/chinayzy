@@ -42,13 +42,7 @@ public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-     View view=   initView(inflater,container,savedInstanceState);
-        return view;
-    }
+
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
