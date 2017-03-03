@@ -6,6 +6,7 @@ package com.chinayiz.chinayzy.net;
  */
 
 public class Commons {
+    public static final String PAY="http://192.168.200.132:8081/yzyProduct/v1/api";
 
     public static final String HOST="http://chinayiz.cn";
     /**

@@ -13,12 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.LabelPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.widget.Tag;
 import com.chinayiz.chinayzy.widget.TagListView;
 import com.chinayiz.chinayzy.widget.TagView;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
     public TextView tv_add;
     public TagListView tlv_mystyle;
     public TagListView tlv_staple;
-    public MineActivity activity;
+    public MineActivity mineActivity;
     private int editStart;//光标开始位置
     private int editEnd;//光标结束位置
     private CharSequence temp;//监听前的文本
@@ -53,6 +55,22 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
 
     }
 
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("个性标签");
+        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        mineActivity.mCbActionBarEdit.setText("保存");
+        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logger.i("完成");
+                mPresenter.submit();
+            }
+        });
+
+    }
+
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,15 +85,7 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
         tlv_staple.setTagViewBackgroundRes(R.drawable.label_black);
         tlv_mystyle.setTagViewTextColorRes(Color.WHITE);
         tlv_staple.setTagViewTextColorRes(Color.BLACK);
-        activity=(MineActivity) getActivity();
-        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        activity.mCbActionBarEdit.setText("保存");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              mPresenter.submit();
-            }
-        });
+
 
         tlv_staple.setOnTagClickListener(new TagListView.OnTagClickListener() {
             @Override

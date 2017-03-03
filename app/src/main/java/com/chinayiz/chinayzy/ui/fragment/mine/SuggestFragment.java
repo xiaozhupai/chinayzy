@@ -14,6 +14,8 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SuggestPresenter;
+import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.orhanobut.logger.Logger;
 
 /**
  * 意见反馈
@@ -25,11 +27,11 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
     public EditText et_suggest_title;
     public EditText et_suggest_content;
     public TextView tv_suggest_submit;
+    public MineActivity mineActivity;
 
     @Override
     protected void onVisible() {
-        BaseActivity activity= (BaseActivity) getActivity();
-        activity.mTvActionBarTitle.setText("意见反馈");
+
     }
 
 
@@ -40,6 +42,17 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
 
     @Override
     protected void lazyLoad() {
+
+    }
+
+
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+
+        mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("意见反馈");
+        mineActivity.mCbActionBarEdit.setVisibility(View.GONE);
+
 
     }
 

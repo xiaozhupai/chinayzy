@@ -9,16 +9,16 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 public class AlipayModel extends BaseResponseModel {
 
     /**
-     * linkString : “dsadsadsaaddsa”
+     * data : “dsadsadsaaddsa”
      */
 
-    private String linkString;
+    private String data;
 
-    public String getLinkString() {
-        return linkString;
+    public String getData() {
+        return data;
     }
 
-    public void setLinkString(String linkString) {
-        this.linkString = linkString;
+    public void setData(String data) {
+        this.data = data;
     }
 }

@@ -2,109 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="7dp"
-        android:background="@color/white"
-        >
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#dee2e4"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商品总额"
-                android:textColor="#252525"
-                android:textSize="13sp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="16dp"
-                />
-            <TextView
-                android:id="@+id/tv_goods_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="￥99.0"
-                android:textColor="@color/red"
-                android:textSize="13sp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="16dp"
-                android:layout_alignParentRight="true"
-                />
-        </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#dee2e4"
-            android:layout_marginTop="16dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
 
-        android:background="@color/white"
-        >
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#dee2e4"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="运费"
-                android:textColor="#252525"
-                android:textSize="13sp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="16dp"
-                />
-            <TextView
-                android:id="@+id/tv_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="免运费"
-                android:textColor="#252525"
-                android:textSize="13sp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="16dp"
-                android:layout_alignParentRight="true"
-                />
-        </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#dee2e4"
-            android:layout_marginTop="16dp"
-            />
-    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+
+        android:layout_marginBottom="5dp"
         android:background="@color/white"
         >
         <TextView
+            android:id="@+id/tv_deducpoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="可用10积分抵 ￥10"
             android:textColor="#161616"
             android:textSize="13sp"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
         <CheckBox
             android:id="@+id/cb_check"
@@ -129,14 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="7dp"
             android:background="@color/white"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#dee2e4"
-                />
+
 
             <!--支付方式-->
             <RelativeLayout
@@ -254,6 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#dee2e4"
+            android:layout_marginBottom="20dp"
             />
         </LinearLayout>
     </LinearLayout>

@@ -1,9 +1,14 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.os.Looper;
+import android.os.ParcelUuid;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -14,15 +19,22 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
+import com.chinayiz.chinayzy.presenter.PersonPresenter;
+import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
-import com.chinayiz.chinayzy.views.CircleImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.chinayiz.chinayzy.views.CircleImageView;
+import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -58,12 +70,38 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     public LinearLayout lv_user;
     public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFragmentManager=getFragmentManager();
+        mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                Logger.i("qijian", "backstack changed");
+                int backStackEntryCount=mFragmentManager.getBackStackEntryCount();
+                if (backStackEntryCount==0){
+                    mTvActionBarTitle.setText("个人中心");
+                  return;
+                }
+                if (backStackEntryCount>0){
+                    FragmentManager.BackStackEntry backStack=mFragmentManager.getBackStackEntryAt(backStackEntryCount-1);
+                    String name=backStack.getName();
+                 BaseFragment fragment= (BaseFragment) mFragmentManager.findFragmentByTag(name);
+                    fragment.onInitActionBar(MineActivity.this);
+                    Logger.i("OnBackPressed---------------------------------------------------"+name);
+                }
 
+            }
+        });
     }
 
+
+
+    @Override
+    protected FragmentManager initFragmentManager() {
+        return getFragmentManager();
+    }
 
     @Override
     protected void onStart() {
@@ -173,13 +211,13 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_keep:   //宝贝收藏
-                addFragment(new GoodsKeepFragment());
+
                 break;
             case R.id.lv_mine_step:   //我的足迹
-                addFragment(new MyStepFragment());
+
                 break;
             case R.id.lv_mine_shop_car:  //购物车
-
+            addFragment(new ShopCartFragment(1));
                 break;
             case R.id.lv_mine_scores:   //我的积分
 
@@ -194,7 +232,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
                 addFragment(new SettingFragment());
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
-                addFragment(new ContentKeepFragment());
+
                 break;
             case R.id.iv_back_button:
                 onBackPressed();
@@ -206,7 +244,8 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     }
 
     public void addFragment( Fragment fragment) {
-        getFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(fragment.getTag()).commit();
+      Class <?> tag=fragment.getClass();
+        mFragmentManager.beginTransaction().add(R.id.container, fragment,tag.getName()).addToBackStack(fragment.getTag()).commit();
     }
 
     @Override
@@ -219,7 +258,30 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Logger.i("onActivityResult---mine");
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,requestCode+"",data));
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            int backStackEntryCount=mFragmentManager.getBackStackEntryCount();
+            if (backStackEntryCount>1){
+                FragmentManager.BackStackEntry backStack=mFragmentManager.getBackStackEntryAt(backStackEntryCount-1);
+                String name=backStack.getName();
+                int id= backStack.getId();
+                Logger.i("OnBackPressed---------------------------------------------------"+name+"id-------------"+id);
+
+            }
+        }
+        return true;
+    }
+
     public void OnBackPressed(){
         super.onBackPressed();
+
     }
 }

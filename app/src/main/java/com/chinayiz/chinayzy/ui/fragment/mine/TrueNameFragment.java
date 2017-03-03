@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.TrueNamePresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.orhanobut.logger.Logger;
 
 /**
  * A simple {@link Fragment} subclass. 真实姓名
@@ -20,7 +22,7 @@ import com.chinayiz.chinayzy.ui.activity.MineActivity;
 public class TrueNameFragment extends BaseFragment<TrueNamePresenter> {
     public String param;
     public EditText et_username;
-    public MineActivity activity;
+    public MineActivity mineActivity;
 
     public TrueNameFragment(String param) {
         this.param = param;
@@ -41,22 +43,27 @@ public class TrueNameFragment extends BaseFragment<TrueNamePresenter> {
     protected void lazyLoad() {
 
     }
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("真实姓名");
+        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        mineActivity.mCbActionBarEdit.setText("完成");
+        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logger.i("完成");
+                mPresenter.submit();
+            }
+        });
 
+    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_user_name,null);
         et_username = (EditText) view.findViewById(R.id.et_username);
         et_username.setText(param);
-        activity= (MineActivity) getActivity();
-        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        activity.mCbActionBarEdit.setText("完成");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.submit();
-            }
-        });
         return view;
     }
 

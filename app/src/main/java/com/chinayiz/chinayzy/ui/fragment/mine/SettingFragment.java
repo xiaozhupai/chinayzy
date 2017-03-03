@@ -34,14 +34,14 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
     public RelativeLayout rl_about_us;
     public TextView tv_logout;
     public TextView tv_cache_data;
+    public MineActivity mineActivity;
 
 
 
 
     @Override
     protected void onVisible() {
-        BaseActivity activity= (BaseActivity) getActivity();
-        activity.mTvActionBarTitle.setText("设置");
+
     }
 
     @Override
@@ -54,7 +54,12 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
 
     }
 
-
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("设置");
+        mineActivity.mCbActionBarEdit.setVisibility(View.GONE);
+    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

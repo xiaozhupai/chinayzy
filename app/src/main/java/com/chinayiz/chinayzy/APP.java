@@ -6,6 +6,7 @@ import android.content.Context;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
+import com.orhanobut.logger.Logger;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -33,6 +34,7 @@ public class APP extends Application {
         AppInfo.init(this);
         initData();
         sUserid=getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0)+"";
+        Logger.i(sUserid);
     }
 
     /**

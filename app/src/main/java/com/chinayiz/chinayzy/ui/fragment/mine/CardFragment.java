@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.CardPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.orhanobut.logger.Logger;
 
 /**
  * 身份证
@@ -20,15 +22,14 @@ import com.chinayiz.chinayzy.ui.activity.MineActivity;
  */
 
 public class CardFragment extends BaseFragment<CardPresenter> {
-    public String para;
+    public String param;
     public EditText et_card;
-    public MineActivity activity;
+    public MineActivity mineActivity;
 
-    public CardFragment(String para) {
-        this.para = para;
+    public CardFragment(String param) {
+        this.param = param;
     }
-    public CardFragment() {
-    }
+
     @Override
     protected void onVisible() {
 
@@ -45,19 +46,26 @@ public class CardFragment extends BaseFragment<CardPresenter> {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_card,null);
-        et_card = (EditText) view.findViewById(R.id.et_card);
-        et_card.setText(para);
-        activity= (MineActivity) getActivity();
-        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        activity.mCbActionBarEdit.setText("完成");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+    public void onInitActionBar(BaseActivity activity) {
+         mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("身份证号码");
+        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        mineActivity.mCbActionBarEdit.setText("完成");
+        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Logger.i("完成");
                 mPresenter.submit();
             }
         });
+
+    }
+
+    @Override
+    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_card,null);
+        et_card = (EditText) view.findViewById(R.id.et_card);
+        et_card.setText(param);
         return view;
 
     }

@@ -38,7 +38,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginRight="13dp"
             android:layout_marginLeft="5dp"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <TextView
                 android:id="@+id/tv_shopcart_item_title"
@@ -71,7 +71,7 @@
                     android:text="￥148.01"
                     android:textColor="@color/red"
                     android:textSize="14sp"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="11dp"
                     />
                 <TextView
                     android:id="@+id/tv_shopcart_item_num"
@@ -82,7 +82,7 @@
                     android:text="×1"
                     android:textSize="11sp"
                     android:textColor="#acacac"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="11dp"
                     />
             </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginRight="13dp"
             android:layout_marginLeft="5dp"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -173,4 +173,5 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

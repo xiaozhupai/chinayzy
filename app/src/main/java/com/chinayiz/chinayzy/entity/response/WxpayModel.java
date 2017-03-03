@@ -9,16 +9,16 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 public class WxpayModel extends BaseResponseModel {
 
     /**
-     * json : “dsadsadsaaddsa”
+     * data : “dsadsadsaaddsa”
      */
 
-    private String json;
+    private String data;
 
-    public String getJson() {
-        return json;
+    public String getData() {
+        return data;
     }
 
-    public void setJson(String json) {
-        this.json = json;
+    public void setData(String data) {
+        this.data = data;
     }
 }

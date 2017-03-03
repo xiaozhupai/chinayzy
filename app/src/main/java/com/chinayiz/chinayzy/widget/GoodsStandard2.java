@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -14,15 +15,17 @@ import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.orhanobut.logger.Logger;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/2/16.商品规格弹出框
+ * Created by Administrator on 2017/3/2.
  */
 
-public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements View.OnClickListener {
+public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickListener {
     private ShopCartModel.DataBean.ShoplistBean bean;
     private Context context;
     public ImageView iv_goodstandard;
@@ -31,11 +34,11 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
     public TagListView tlv_list;
     public TextView tv_submit;
     public static final String GOODSTANDS="GoodStands";
-    private  List<Tag> tagList=new ArrayList<>();
+    private List<Tag> tagList=new ArrayList<>();
     private List<GoodStandardModel.DataBean> lists;
     private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
 
-    public GoodsStandardPopuWindow(Context context, ShopCartModel.DataBean.ShoplistBean bean) {
+    public GoodsStandard2(Context context, ShopCartModel.DataBean.ShoplistBean bean) {
         super(context, R.style.Dialog);
         this.bean = bean;
         this.context = context;
@@ -72,7 +75,6 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         getWindow().setGravity(Gravity.BOTTOM);
         setContentView(R.layout.goodstandard_layout);
-
         iv_goodstandard= (ImageView)findViewById(R.id.iv_goodstandard);
         tv_price= (TextView) findViewById(R.id.tv_price);
         iv_close= (ImageView) findViewById(R.id.iv_close);
@@ -81,14 +83,13 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
         tv_submit.setOnClickListener(this);
         iv_close.setOnClickListener(this);
         setCanceledOnTouchOutside(true);
-        findViewById(R.id.rl_num).setVisibility(View.GONE);
 
+        tv_submit.setText("加入购物车");
         tlv_list.setTagViewTextColorRes(Color.BLACK);
         tlv_list.setTagViewBackgroundRes(R.drawable.tag_normal);
         tlv_list.setmTagViewSelectedBackgroundResid(R.drawable.tag_pressed);
         tlv_list.setmTagViewSelectedTextColorResId(Color.WHITE);
-
-        tlv_list.setOnTagClickListener(new TagListView.OnTagClickListener() {
+        tlv_list.setOnTagClickListener(new TagListView.OnTagClickListener() {  //标签点击事件
             @Override
             public void onTagClick(TagView tagView, Tag tag) {
                 GoodStandardModel.DataBean data= (GoodStandardModel.DataBean) tag.getData();
@@ -105,7 +106,7 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
                     tv_submit.setBackgroundColor(Color.parseColor("#d9d6d6"));
                     tv_submit.setEnabled(false);
                 }else {
-                    tv_submit.setText("确定");
+                    tv_submit.setText("加入购物车");
                     tv_submit.setBackgroundColor(Color.parseColor("#ff3951"));
                     tv_submit.setEnabled(true);
                 }
@@ -122,7 +123,7 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
                 break;
             case R.id.tv_submit:
                 Logger.i("确定");
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,GOODSTANDS,bean));
+
                 dismiss();
                 break;
         }

@@ -242,6 +242,11 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                 } else {
                     viewHolderHead = (ViewHolderHead) view.getTag();
                 }
+                 if (i!=0){
+                     viewHolderHead.v_diver.setVisibility(View.VISIBLE);
+                 }else {
+                     viewHolderHead.v_diver.setVisibility(View.GONE);
+                 }
                 if (bean.isHeadChecked()) {
                     viewHolderHead.iv_shopcart_head_radio.setImageResource(R.mipmap.radio_selected);
                 } else {
@@ -396,11 +401,13 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         public View rootView;
         public CheckImageView iv_shopcart_head_radio;
         public TextView iv_shopcart_head_title;
+        public View v_diver;
 
         public ViewHolderHead(View rootView) {
             this.rootView = rootView;
             this.iv_shopcart_head_radio = (CheckImageView) rootView.findViewById(R.id.iv_shopcart_head_radio);
             this.iv_shopcart_head_title = (TextView) rootView.findViewById(R.id.iv_shopcart_head_title);
+            this.v_diver=rootView.findViewById(R.id.v_diver);
         }
 
     }
@@ -421,6 +428,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         public RelativeLayout rl_standard;
         public LinearLayout lv_after;
 
+
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.iv_shopcart_item_radio = (CheckImageView) rootView.findViewById(R.id.iv_shopcart_item_radio);
@@ -436,6 +444,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
             this.tv_standard = (TextView) rootView.findViewById(R.id.tv_standard);
             this.rl_standard = (RelativeLayout) rootView.findViewById(R.id.rl_standard);
             this.lv_after = (LinearLayout) rootView.findViewById(R.id.lv_after);
+
         }
 
     }

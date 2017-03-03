@@ -1,11 +1,15 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
@@ -56,14 +61,17 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public TextView tv_person_username;
     public RelativeLayout rl_person_username;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Logger.i("start ----PersonFragment");
 
+    }
 
     @Override
     protected void onVisible() {
-        MineActivity activity= (MineActivity) getActivity();
-        activity.mTvActionBarTitle.setText("个人资料");
-    }
 
+    }
 
     @Override
     protected void onInvisible() {
@@ -74,7 +82,13 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     protected void lazyLoad() {
     }
 
-
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        MineActivity activity1 = (MineActivity) activity;
+        activity1.mTvActionBarTitle.setText("个人资料");
+        activity1.mCbActionBarEdit.setVisibility(View.GONE);
+        Logger.i("onInitActionBar------------PersonFragment");
+    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
