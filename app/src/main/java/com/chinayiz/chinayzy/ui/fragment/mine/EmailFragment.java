@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.orhanobut.logger.Logger;
  * 邮箱地址
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class EmailFragment extends BaseFragment<EmailPresenter> {
     public EditText et_email;
     public MineActivity mineActivity;

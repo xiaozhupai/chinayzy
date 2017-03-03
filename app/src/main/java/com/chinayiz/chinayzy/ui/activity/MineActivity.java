@@ -66,7 +66,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     public ImageView mIvMoreButton,iv_username_right;
     public RelativeLayout mRlActionBar;
     public ImageView mIvBackButton;
-    public  TextView mTvActionBarRight;
+
     public LinearLayout lv_user;
     public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count;
 
@@ -156,7 +156,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_server = (LinearLayout) findViewById(R.id.lv_mine_server);
         lv_mine_suggest = (LinearLayout) findViewById(R.id.lv_mine_suggest);
         lv_mine_setting = (LinearLayout) findViewById(R.id.lv_mine_setting);
-        iv_username_right= (ImageView) findViewById(R.id.iv_username_right);
+
         tv_wait_pay_count= (TextView) findViewById(R.id.tv_wait_pay_count);
         tv_wait_goods_count= (TextView) findViewById(R.id.tv_wait_goods_count);
         tv_wait_accept_goods_count= (TextView) findViewById(R.id.tv_wait_accept_goods_count);
@@ -182,7 +182,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+               mPresenter.getData();
             }
 
             @Override

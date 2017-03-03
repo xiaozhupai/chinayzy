@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ import java.util.List;
  * 结算订单
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener, IWXAPIEventHandler {
     public ListView lv_result;
     public TextView tv_result_price;

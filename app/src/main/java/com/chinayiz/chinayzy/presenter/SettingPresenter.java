@@ -4,15 +4,19 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.view.View;
 import android.widget.Toast;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
-import com.chinayiz.chinayzy.utils.CaCheUntil;
+
+import com.chinayiz.chinayzy.utils.GlideCacheUtil;
+import com.chinayiz.chinayzy.widget.MessageDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -22,9 +26,10 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class SettingPresenter extends BasePresenter<SettingFragment> {
+    private MessageDialog dialog;
     @Override
     public void onCreate() {
-        mView.tv_cache_data.setText("(有"+CaCheUntil.getCacheSize()+"M缓存)");
+        mView.tv_cache_data.setText("(有"+ APP.cacheUtil.getCacheSize(mView.getActivity())+"缓存)");
     }
 
     @Override
@@ -64,8 +69,26 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
      */
 
     public void logout(){
-        UserSeeion.logout(mView.getActivity());
-        mView.getActivity().finish();
+        if (dialog==null){
+            dialog=new MessageDialog(mView.getActivity());
+            dialog.setMessage("你确定要退出吗?");
+            dialog.setButton1("取消", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.setButton2("确定", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    UserSeeion.logout(mView.getActivity());
+                    mView.getActivity().finish();
+                }
+            });
+        }
+        dialog.show();
+
     }
 
     /**
@@ -73,13 +96,9 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
      */
 
     public void clearCache(){
-        if (CaCheUntil.clearCacheDiskSelf()){
-            mView.tv_cache_data.setText("(有0M缓存)");
-            Toast.makeText(mView.getActivity(),"清除成功",Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(mView.getActivity(),"清除失败",Toast.LENGTH_SHORT).show();
-        }
-
+        APP.cacheUtil.clearImageAllCache(mView.getActivity());
+        mView.tv_cache_data.setText("(有"+APP.cacheUtil.getCacheSize(mView.getActivity())+"缓存)");
+        Toast.makeText(mView.getActivity(),"清除成功",Toast.LENGTH_SHORT).show();
     }
 
     /**

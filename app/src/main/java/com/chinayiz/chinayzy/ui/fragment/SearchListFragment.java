@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.搜索结果列表
  */
+@SuppressLint("ValidFragment")
 public class SearchListFragment extends BaseFragment<SearchListPresenter> {
     private ListView lv_list;
     public SearchResultAdaphter adaphter;

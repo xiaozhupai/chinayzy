@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import com.orhanobut.logger.Logger;
 /**    用户名
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class UserNameFragment extends BaseFragment<UserNamePresenter> {
     public String params;
     public EditText et_username;

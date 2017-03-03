@@ -47,6 +47,7 @@ import com.mob.tools.gui.MobViewPager;
 import com.mob.tools.gui.PullToRequestBaseAdapter;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -92,6 +93,13 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     @Override
     public void onCreate() {
         net.getUserInfo();
+         initoss();
+    }
+
+    /**
+     * OSS配置
+     */
+    private void initoss(){
         OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(accessKeyId, accessKeySecret);
 
         ClientConfiguration conf = new ClientConfiguration();
@@ -103,6 +111,10 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
         oss = new OSSClient(mView.getActivity(), endpoint, credentialProvider, conf);
     }
 
+    /**
+     * 上传头像
+     * @param data
+     */
     private void uploadImage(Intent data) {
         Bundle extras = data.getExtras();
         if (extras != null) {
@@ -165,7 +177,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
 
-            case Commons.GETUSERINFO:
+            case Commons.GETUSERINFO: //个人中心接口
                 UserModel model= (UserModel) message.getData();
                 bean=model.getData();
                 if (!TextUtils.isEmpty(bean.getPic())){
@@ -212,10 +224,11 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                     mView.tlv_list.setTags(tags_list);
                 }
                 break;
-            case UserNet.PIC:
+            case UserNet.PIC:  //上传图片回调
                 BaseResponseModel model1= (BaseResponseModel) message.getData();
                 if (model1.getCode().equals("100")){
                     Glide.with(mView).load(newurl).into(mView.iv_person_head);
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,MinePresenter.UPDATEMINE,""));
                 }
                 BaseActivity.showToast(mView.getActivity(),model1.getMsg());
                 break;
@@ -244,6 +257,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 Logger.i("sex返回值");
                 Logger.i(message.getData().toString());
                 mView.tv_person_sex.setText(message.getData().toString());
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,MinePresenter.UPDATEMINE,""));
                 break;
             case UserNet.TRUENAME:
                 mView.tv_person_factname.setText(message.getData().toString());
@@ -254,6 +268,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 break;
             case UserNet.NICKNAME:
                 mView.tv_person_username.setText(message.getData().toString());
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,MinePresenter.UPDATEMINE,""));
                 break;
             case LabelPresenter.LABEL:
                 tags_list= (List<Tag>) message.getData();
@@ -322,11 +337,6 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     }
 
 
-
-
-
-
-
     /**
      * 裁剪图片
      *
@@ -350,7 +360,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
         mView.activity.addFragment(new EmailFragment(bean!=null?bean.getEmail():""));
     }
     public void toSex(){
-        mView.activity.addFragment(new SexFragment(bean!=null?(bean.getSex()!="0"?"男":"女"):""));
+        mView.activity.addFragment(new SexFragment(bean!=null?(bean.getSex()):""));
     }
     public void tofactName(){
         mView.activity.addFragment(new TrueNameFragment(bean!=null?bean.getTruename():""));

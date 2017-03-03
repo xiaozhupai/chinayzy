@@ -28,6 +28,8 @@ public class FindListModel extends BaseResponseModel {
          * nickname : bbb
          * pic : kkk
          * bid : 1
+         * iscollect : 1
+         * ispraise : 1
          */
 
         private String content;
@@ -36,6 +38,8 @@ public class FindListModel extends BaseResponseModel {
         private String nickname;
         private String pic;
         private int bid;
+        private String iscollect;
+        private String ispraise;
 
         public String getContent() {
             return content;
@@ -83,6 +87,22 @@ public class FindListModel extends BaseResponseModel {
 
         public void setBid(int bid) {
             this.bid = bid;
+        }
+
+        public String getIscollect() {
+            return iscollect;
+        }
+
+        public void setIscollect(String iscollect) {
+            this.iscollect = iscollect;
+        }
+
+        public String getIspraise() {
+            return ispraise;
+        }
+
+        public void setIspraise(String ispraise) {
+            this.ispraise = ispraise;
         }
     }
 }

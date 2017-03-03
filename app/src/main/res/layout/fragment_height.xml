@@ -25,6 +25,7 @@
             android:layout_toLeftOf="@+id/tv_right"
             android:singleLine="true"
             android:background="@null"
+            android:maxLength="3"
             />
         <TextView
             android:id="@+id/tv_right"

@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ import java.util.List;
  * CreateDate 2017/2/4 10:30
  * Class StoreHomeFragment   商铺首页
  */
+@SuppressLint("ValidFragment")
 public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implements View.OnClickListener
         , StoreHomeAdapter.OnRecyclerViewItemClickListener, AdapterView.OnItemClickListener {
     public StoreHomeAdapter mAdapter;

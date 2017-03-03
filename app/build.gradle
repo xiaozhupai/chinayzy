@@ -11,13 +11,31 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("chinayzy.jks")
+            storePassword "1020304050z0"
+            keyAlias "chinayzy"
+            keyPassword "1020304050z0"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.releaseConfig
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            minifyEnabled false
+            signingConfig signingConfigs.releaseConfig
+        }
     }
+
+
 }
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')

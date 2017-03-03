@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
+import com.chinayiz.chinayzy.utils.GlideCacheUtil;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
 import com.orhanobut.logger.Logger;
 
@@ -21,6 +22,7 @@ public class APP extends Application {
      */
 	public static String sUserid="0";
     public static  APP instance;
+    public static GlideCacheUtil cacheUtil;
 
     public static APP getInstance() {
         return instance;
@@ -28,6 +30,7 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        cacheUtil=GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);
         ShareSDK.initSDK(this);
         SearchDao.getInstance(this);

@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/2/18. 个性标签
  */
-
+@SuppressLint("ValidFragment")
 public class LabelFragment extends BaseFragment<LabelPresenter> implements View.OnClickListener {
     public List <Tag> param;
     public EditText et_label;

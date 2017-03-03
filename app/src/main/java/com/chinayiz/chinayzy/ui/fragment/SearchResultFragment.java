@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * 搜索结果
  */
-
+@SuppressLint("ValidFragment")
 public class SearchResultFragment extends BaseFragment<SearchResultPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
     private TextView tv_hot;
     private TextView tv_sale;

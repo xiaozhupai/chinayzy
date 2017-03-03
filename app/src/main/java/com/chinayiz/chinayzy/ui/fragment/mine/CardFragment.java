@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,11 +21,13 @@ import com.orhanobut.logger.Logger;
  * 身份证
  * A simple {@link Fragment} subclass.
  */
-
+@SuppressLint("ValidFragment")
 public class CardFragment extends BaseFragment<CardPresenter> {
     public String param;
     public EditText et_card;
     public MineActivity mineActivity;
+
+
 
     public CardFragment(String param) {
         this.param = param;

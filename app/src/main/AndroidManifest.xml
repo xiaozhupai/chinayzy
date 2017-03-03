@@ -58,6 +58,7 @@
             android:label="@string/title_activity_forgot"
             android:theme="@style/AppTheme.NoActionBar"/>
         <!-- MobUIshell -->
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

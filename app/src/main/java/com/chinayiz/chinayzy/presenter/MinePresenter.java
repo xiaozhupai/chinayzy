@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.presenter;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +17,8 @@ import com.chinayiz.chinayzy.entity.response.PersonalModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -25,9 +28,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class MinePresenter extends BasePresenter<MineActivity> {
     private UserNet net=UserNet.getNet();
+    public static final String UPDATEMINE="UPDATEMINE";
     @Override
     public void onCreate() {
-        net.getPersonalCenter();
+       getData();
     }
 
     @Override
@@ -52,12 +56,16 @@ public class MinePresenter extends BasePresenter<MineActivity> {
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
+        if (message.getEventType()==EventMessage.INFORM_EVENT){
+            disposeInfoMsg(message);
+        }
     }
 
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
             case Commons.GETPERSONALCENTER:   //个人中心接口
+                mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 PersonalModel model= (PersonalModel) message.getData();
                 PersonalModel.DataBean dataBean=model.getData();
                 mView.tv_user_username.setText(dataBean.getNickname());
@@ -70,10 +78,12 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                     }
                 }
 
+                Drawable nav_up=mView.getResources().getDrawable(R.mipmap.back_arrow_white);
+                nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
                 if (TextUtils.isEmpty(dataBean.getNickname())){
-                    mView.iv_username_right.setVisibility(View.GONE);
+                    mView.tv_user_username.setCompoundDrawables(null, null, null, null);
                 }else {
-                    mView.iv_username_right.setVisibility(View.VISIBLE);
+                    mView.tv_user_username.setCompoundDrawables(null, null, nav_up, null);
                 }
                 if (dataBean.getWaittakecount()>0){
                     mView.tv_wait_pay_count.setVisibility(View.VISIBLE);
@@ -95,8 +105,17 @@ public class MinePresenter extends BasePresenter<MineActivity> {
         }
     }
 
-    @Override
+
     public void disposeInfoMsg(EventMessage message) {
+        switch (message.getDataType()){
+            case UPDATEMINE:
+                getData();
+                break;
+        }
+    }
+
+    public void getData(){
+        net.getPersonalCenter();
     }
 
 

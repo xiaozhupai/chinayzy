@@ -54,6 +54,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     private Handler handler;
     private int num;
     public String logintype;
+    private String registerphone;
 
     @Override
     public void onCreate() {
@@ -98,6 +99,11 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 break;
             case Commons.REGISTER:  //注册
                 BaseResponseModel model2= (BaseResponseModel) message.getData();
+                if (model2.getCode().equals("100")){  //注册成功
+                    showLeft();
+                    mView.ev_login_input_phone.setText(registerphone);
+                    mView.ev_login_input_phone.setSelection(registerphone.length());
+                }
                 Toast.makeText(mView,model2.getMsg(),Toast.LENGTH_LONG).show();
                 break;
             case Commons.THIRD:   //第三方登录
@@ -163,6 +169,14 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
             Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$");
+        Matcher matcher=pattern.matcher(phone);
+        if (!matcher.find()){
+            BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
+            return;
+        }
+
         if (!mView.tv_register_sendmessage.isClickable()){
             return;
         }
@@ -228,8 +242,8 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
      * 注册
      */
     public void register() {
-        String phone =mView. et_register_input_phone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)){
+         registerphone =mView. et_register_input_phone.getText().toString().trim();
+        if (TextUtils.isEmpty(registerphone)){
             Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -246,12 +260,12 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
             return;
         }
         Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$");
-        Matcher matcher=pattern.matcher(phone);
+        Matcher matcher=pattern.matcher(registerphone);
         if (!matcher.find()){
             BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
             return;
         }
-       new LoginNet().toRegister(phone,password,message);
+       new LoginNet().toRegister(registerphone,password,message);
     }
 
     //执行授权,获取用户信息

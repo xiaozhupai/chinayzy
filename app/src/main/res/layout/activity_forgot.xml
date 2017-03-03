@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <!--注册-->
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+    <include layout="@layout/common_action_bar"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +59,7 @@
                     android:id="@+id/iv__register_lock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/login_logo_lock"
+                    android:src="@mipmap/icon_srycode"
                     android:singleLine="true"
                     />
                 <EditText
@@ -122,6 +124,7 @@
                     android:inputType="textPassword"
                     android:singleLine="true"
                     android:background="@null"
+                    android:maxLength="12"
                     />
             </LinearLayout>
             <View
@@ -153,6 +156,7 @@
                     android:inputType="textPassword"
                     android:singleLine="true"
                     android:background="@null"
+                    android:maxLength="12"
                     />
             </LinearLayout>
             <View

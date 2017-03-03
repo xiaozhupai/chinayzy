@@ -1,8 +1,10 @@
 package  com.chinayiz.chinayzy.ui.activity;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +46,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_login);
+        setStatuBarColor(LoginActivity.this, Color.parseColor("#eb5c70"));
         initView();
     }
 
@@ -91,12 +94,35 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
             case R.id.tv_register_sendmessage:
               mPresenter.sendMessage();
                 break;
+            case R.id.iv_back_button:
+                onBackPressed();
+                break;
 
         }
     }
 
+    /**
+     * 导航栏
+     */
+    @Override
+    protected void initActionBar() {
+        //actionbar
+        mActionBar=findViewById(R.id.rl_ActionBar);
+        mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
+        mTvActionBarTitle = (TextView) findViewById(R.id.tv_actionbar_title);
+        mIvActionBarMore = (ImageView) findViewById(R.id.iv_more_button);
+        mIvActionBarCart= (ImageView) findViewById(R.id.iv_shopcart);
+        mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
+        mTvActionBarTitle.setText("");
+        mIvActionBarMore.setVisibility(View.GONE);
+        mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
+        mIvBackButton.setImageResource(R.mipmap.back_arrow);
+        mActionBar.setBackgroundColor(Color.parseColor("#eb5c70"));
+        mIvBackButton.setOnClickListener(this);
+    }
 
     private void initView() {
+       initActionBar();
         ivlogo = (ImageView) findViewById(R.id.ivlogo);
         tv_left_login = (TextView) findViewById(R.id.tv_left_login);
         v_left_line = (View) findViewById(R.id.v_left_line);

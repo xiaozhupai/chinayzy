@@ -106,6 +106,13 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
             Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
+        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$");
+        Matcher matcher=pattern.matcher(phone);
+        if (!matcher.find()){
+            BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
+            return;
+        }
+
         if (!mView.tv_forgot_sendmessage.isClickable()){
             return;
         }
@@ -123,25 +130,34 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
         // validate
         String phone =mView.  et_forgot_input_phone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mView, "手机号不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String message =mView.  et_forgot_input_message.getText().toString().trim();
         if (TextUtils.isEmpty(message)) {
-            Toast.makeText(mView, "请输入验证码", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mView, "验证码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String password = mView. et_forgot_input_password.getText().toString().trim();
         if (TextUtils.isEmpty(password)) {
+            Toast.makeText(mView, "密码不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (password.length()<6){
             Toast.makeText(mView, "请输入6-12位密码", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String newpassword =mView.  et_forgot_input_newpassword.getText().toString().trim();
         if (TextUtils.isEmpty(newpassword)) {
-            Toast.makeText(mView, "再次输入密码", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mView, "确认密码不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!password.equals(newpassword)){
+            Toast.makeText(mView, "两次输入密码不一致", Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -227,30 +227,31 @@ public class PullToRefreshLayout extends RelativeLayout
 		{
 			case SUCCEED:
 				// 刷新成功
-				refreshStateImageView.setVisibility(View.VISIBLE);
-				refreshStateTextView.setText(R.string.refresh_succeed);
-				refreshStateImageView
-						.setBackgroundResource(R.drawable.refresh_succeed);
+////				refreshStateImageView.setVisibility(View.VISIBLE);
+//				refreshStateTextView.setText(R.string.pull_to_refresh);
+////				refreshStateImageView
+////						.setBackgroundResource(R.drawable.refresh_succeed);
+				changeState(INIT);
 				break;
 			case FAIL:
 			default:
 				// 刷新失败
-				refreshStateImageView.setVisibility(View.VISIBLE);
+//				refreshStateImageView.setVisibility(View.VISIBLE);
 				refreshStateTextView.setText(R.string.refresh_fail);
 				refreshStateImageView
 						.setBackgroundResource(R.drawable.refresh_failed);
 				break;
 		}
-		// 刷新结果停留1秒
-		new Handler()
-		{
-			@Override
-			public void handleMessage(Message msg)
-			{
-				changeState(DONE);
-				hide();
-			}
-		}.sendEmptyMessageDelayed(0, 600);
+//		// 刷新结果停留1秒
+//		new Handler()
+//		{
+//			@Override
+//			public void handleMessage(Message msg)
+//			{
+//				changeState(DONE);
+//				hide();
+//			}
+//		}.sendEmptyMessageDelayed(0, 600);
 	}
 
 	/**
@@ -267,9 +268,9 @@ public class PullToRefreshLayout extends RelativeLayout
 		{
 			case SUCCEED:
 				// 加载成功
-				loadStateImageView.setVisibility(View.VISIBLE);
+//				loadStateImageView.setVisibility(View.VISIBLE);
 				loadStateTextView.setText(R.string.load_succeed);
-				loadStateImageView.setBackgroundResource(R.drawable.load_succeed);
+//				loadStateImageView.setBackgroundResource(R.drawable.load_succeed);
 				break;
 			case FAIL:
 			default:
@@ -457,6 +458,7 @@ public class PullToRefreshLayout extends RelativeLayout
 				}
 				break;
 			case MotionEvent.ACTION_UP:
+			float lasty=ev.getY();
 				if (pullDownY > refreshDist || -pullUpY > loadmoreDist)
 					// 正在刷新时往下拉（正在加载时往上拉），释放后下拉头（上拉头）不隐藏
 					isTouch = false;

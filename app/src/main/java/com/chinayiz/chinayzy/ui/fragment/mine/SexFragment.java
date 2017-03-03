@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.orhanobut.logger.Logger;
 /**  性别
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class SexFragment extends BaseFragment<SexPresenter> implements View.OnClickListener {
     public String param;
     public TextView tv_sex_man;
@@ -88,7 +90,7 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
             iv_sex_man.setVisibility(View.GONE);
             iv_sex_woman.setVisibility(View.GONE);
         }else {
-            if (param.equals("男")){
+            if (param.equals("0")){ //男
                 iv_sex_man.setVisibility(View.VISIBLE);
                 iv_sex_woman.setVisibility(View.GONE);
             }else {

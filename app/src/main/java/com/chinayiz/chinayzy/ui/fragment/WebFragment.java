@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.chinayiz.chinayzy.presenter.WebPresenter;
 /**
  * A simple {@link Fragment} subclass. 公共的fragment
  */
+@SuppressLint("ValidFragment")
 public class WebFragment extends BaseFragment<WebPresenter> {
     public WebView wv_view;
     private String title;

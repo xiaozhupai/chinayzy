@@ -9,6 +9,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
+import com.chinayiz.chinayzy.R;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -153,8 +154,8 @@ public class McoySnapPageLayout extends ViewGroup {
 
 	private void addPagesAndRefresh() {
 		// 设置页面id
-		mPageTop.getRootView().setId(0);
-		mPageBottom.getRootView().setId(1);
+		mPageTop.getRootView().setId(R.id.tag_mPageTop);
+		mPageBottom.getRootView().setId(R.id.tag_mPageBottom);
 		addView(mPageTop.getRootView());
 		addView(mPageBottom.getRootView());
 		postInvalidate();
