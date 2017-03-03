@@ -16,7 +16,7 @@ import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.homePresenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
-import com.squareup.leakcanary.LeakCanary;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,7 +43,6 @@ public class HomeFragment extends BaseFragment<homePresenter> {
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.nongye_fragment_home, container,false);
         initWidget(view);
-        LeakCanary.refWatcher(getActivity());
         return view;
     }
     private void initWidget(View view) {

@@ -46,7 +46,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     /**
      * web Fragment（通用）；
      */
-    public WebFragment mWebFragment=new WebFragment();
+    public WebFragment mWebFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

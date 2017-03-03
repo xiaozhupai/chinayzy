@@ -22,6 +22,8 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.Goods_Presenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.goodsParticular.BotContentPage;
@@ -47,7 +49,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     public String goodsCode;
     public boolean isShowComments=false;
     public int sumComment=0;
-    public int commitID=0;
+    public int comitsID=0;
     public CheckBox mRbFavorite;
     private GoodsListFragment mListFragment;
     public CommentsFragment mCommentFragment;
@@ -103,8 +105,10 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     public void onResume() {
         mPresenter.mRequestUtils.getGoodsDetail(goodsID);
         super.onResume();
-        mGoodsHolder.mRbDetail.setChecked(true);
         mMcoyScrollView.scrollTo(0,0);
+        if (mListFragment==null){
+            mListFragment=new GoodsListFragment(goodsCode);
+        }
         EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
                 NongYeMainActivity.NYMAIN_ACTIONBAR,new ActionBarControlModel(NongYeMainActivity.HIDE_ALL)));
     }
@@ -162,7 +166,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
         mGoodsHolder.mGoodsMeun= (RadioGroup) bottomView.findViewById(R.id.rg_goodsMeun);
         mGoodsHolder.mRbDetail= (RadioButton) mGoodsHolder.mGoodsMeun.findViewById(R.id.rb_goodsDetail);
         mGoodsHolder.mGoodsMeun.setOnCheckedChangeListener(this);
-        mGoodsHolder.mRbDetail.setChecked(true);
+
     }
     @Override
     public void onClick(View v) {
@@ -235,7 +239,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
             mCommentFragment=new CommentsFragment();
         }
         mMlMcoySnapPageLayout.setVisibility(View.GONE);
-        commitID=getFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .addToBackStack("GoodsFragment")
                 .add(R.id.fl_commentList,mCommentFragment,"CommentsFragment")
                 .commit();
@@ -254,9 +258,27 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     @Override
     public boolean isAtTop() {
         //判断相关商品视图是否滑到顶部
-        if (mListFragment!=null&&mListFragment.getScrllY()==0){
-            return true;
-        }
+       switch (comitsID){
+           case 1:{
+
+           }
+           case 2:{
+               if (mActivity.mWebFragment.getScrollY()==0) {
+                   return true;
+               }else {
+                   return false;
+               }
+           }
+           case  3:{
+               if (mListFragment!=null&&mListFragment.getScrllY()==0){
+                   return true;
+               }
+               break;
+           }
+           default:{
+               return false;
+           }
+       }
         return false;
     }
 
@@ -279,26 +301,72 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (mListFragment==null){
+            mListFragment=new GoodsListFragment(goodsCode);
+        }
         switch (checkedId){
             case R.id.rb_goodsDetail:{
+                comitsID=1;
                 Logger.i("图文详情");
+                if (goodsID==null){
+                    return;
+                }
+                if (mActivity.mWebFragment.isAdded()){
+
+                    if (mListFragment.isAdded()){
+                        getFragmentManager().beginTransaction().hide(mListFragment).show(mActivity.mWebFragment).commit();
+                    }else {
+                        getFragmentManager().beginTransaction().show(mActivity.mWebFragment).commit();
+                    }
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_PICDETAIL,goodsID);
+                }else {
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_PICDETAIL,goodsID);
+                    getFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.fl_goodsDetail,mActivity.mWebFragment,"WebFragments")
+                            .commit();
+                }
                 break;
             }
             case R.id.rb_goodsNorms:{
+                comitsID=2;
                 Logger.i("参数信息");
+                if (mActivity.mWebFragment.isAdded()){
+                    if (mListFragment.isAdded()){
+                        getFragmentManager().beginTransaction().hide(mListFragment).show(mActivity.mWebFragment).commit();
+                    }else {
+                        getFragmentManager().beginTransaction().show(mActivity.mWebFragment).commit();
+                    }
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_CPGG,goodsID);
+                }else {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.fl_goodsDetail,mActivity.mWebFragment,"WebFragments")
+                            .commit();
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_CPGG,goodsID);
+                }
                 break;
             }
             case R.id.rb_goodsRelated:{
+                Logger.i("相关商品");
+                comitsID=3;
                 if (goodsCode==null){
                     return;
                 }
-                if (mListFragment==null){
-                    mListFragment=new GoodsListFragment(goodsCode);
+                CommonRequestUtils.getRequestUtils().getRelatedGoods(goodsCode, "1", "12");
+                if (mListFragment.isAdded()){
+                    if (mActivity.mWebFragment.isAdded()) {
+                        getFragmentManager().beginTransaction().hide(mActivity.mWebFragment).show(mListFragment).commit();
+                    }else {
+                        getFragmentManager().beginTransaction().show(mListFragment).commit();
+                    }
+
+                }else {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.fl_goodsDetail,mListFragment,"ListFragment")
+                            .commit();
                 }
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fl_goodsDetail,mListFragment,"GoodsListFragment")
-                        .commit();
                 break;
             }
         }
@@ -313,6 +381,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     public void onSnapedCompleted(int derection) {
         if (derection==1){
             mGoodsHolder.mPullLoadMore.setText("继续下拉，返回上一页");
+            mGoodsHolder.mRbDetail.setChecked(true);
         }else {
             mGoodsHolder.mPullLoadMore.setText("继续上拉，查看图文详情");
         }
@@ -332,6 +401,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     public void onDetach() {
         super.onDetach();
         getFragmentManager().removeOnBackStackChangedListener(this);
+        getFragmentManager().popBackStack();
         mListFragment=null;
     }
 

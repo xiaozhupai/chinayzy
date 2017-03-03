@@ -8,8 +8,8 @@ import com.chinayiz.chinayzy.adapter.viewHolder.CreateBannerHolder;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
 import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
 import com.chinayiz.chinayzy.views.GlideCircleTransform;
@@ -30,7 +30,6 @@ import java.util.List;
 public class Goods_Presenter extends BasePresenter<GoodsFragment> implements PullToRefreshLayout.OnRefreshListener {
     public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     private PullToRefreshLayout mRefreshLayout;
-
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
@@ -77,7 +76,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
 
                 break;
             }
-            case Commons.GOODS_RELATED: {
+            case Commons.GOODS_CPGG: {
 
                 break;
             }

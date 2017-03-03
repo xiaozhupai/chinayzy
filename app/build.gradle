@@ -22,7 +22,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //dbug版内存泄漏检测
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

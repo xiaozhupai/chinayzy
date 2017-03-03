@@ -20,14 +20,15 @@ import com.chinayiz.chinayzy.ui.activity.MineActivity;
  */
 
 public class CardFragment extends BaseFragment<CardPresenter> {
-    public String param;
+    public String para;
     public EditText et_card;
     public MineActivity activity;
 
-    public CardFragment(String param) {
-        this.param = param;
+    public CardFragment(String para) {
+        this.para = para;
     }
-
+    public CardFragment() {
+    }
     @Override
     protected void onVisible() {
 
@@ -47,7 +48,7 @@ public class CardFragment extends BaseFragment<CardPresenter> {
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_card,null);
         et_card = (EditText) view.findViewById(R.id.et_card);
-        et_card.setText(param);
+        et_card.setText(para);
         activity= (MineActivity) getActivity();
         activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
         activity.mCbActionBarEdit.setText("完成");

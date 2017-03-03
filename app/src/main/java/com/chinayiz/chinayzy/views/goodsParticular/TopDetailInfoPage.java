@@ -14,8 +14,7 @@ public class TopDetailInfoPage implements McoySnapPageLayout.McoySnapPage{
 	public TopDetailInfoPage(Context context, View rootView ,int resID) {
 		this.context = context;
 		this.rootView = rootView;
-		mcoyScrollView = (McoyScrollView) this.rootView
-				.findViewById(resID);
+		mcoyScrollView = (McoyScrollView) this.rootView.findViewById(resID);
 	}
 
 	public McoyScrollView getMcoyScrollView() {

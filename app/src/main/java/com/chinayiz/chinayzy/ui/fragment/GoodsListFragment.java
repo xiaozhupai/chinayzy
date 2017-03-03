@@ -11,7 +11,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
-import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.views.MyGridView;
 
@@ -28,7 +27,6 @@ public class GoodsListFragment extends Fragment {
     private MyGridView mGoodsList;
     private String mTypeCode="1";
     private GoodsDetailGridAdpter mAdapter;
-    private CommonRequestUtils mReques = CommonRequestUtils.getRequestUtils();
 
     public GoodsListFragment(String typeCode) {
         mTypeCode = typeCode;
@@ -48,11 +46,6 @@ public class GoodsListFragment extends Fragment {
         mAdapter = new GoodsDetailGridAdpter(getActivity());
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mReques.getRelatedGoods(mTypeCode, "1", "14");
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setData(EventMessage message) {
@@ -76,20 +69,22 @@ public class GoodsListFragment extends Fragment {
      * @return
      */
     public int getScrllY() {
-        View c = mGoodsList.getChildAt(0);
-        if (c == null) {
-            return 0;
+        if (mGoodsList!=null){
+            View c = mGoodsList.getChildAt(0);
+            if (c == null) {
+                return 0;
+            }
+            int firstVisiblePosition = mGoodsList.getFirstVisiblePosition();
+            int top = c.getTop();
+            return -top + firstVisiblePosition * c.getHeight();
         }
-        int firstVisiblePosition = mGoodsList.getFirstVisiblePosition();
-        int top = c.getTop();
-        return -top + firstVisiblePosition * c.getHeight();
+        return  0;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        mReques = null;
         mGoodsList = null;
         mTypeCode = null;
 

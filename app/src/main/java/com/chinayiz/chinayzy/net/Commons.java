@@ -75,7 +75,11 @@ public class Commons {
     /**
      * 获取商品图文详情
      */
-    public static final String GOODS_PICDETAIL = "/farm/showPicDetail";
+    public static final String GOODS_PICDETAIL = "/h5/spxqjs";
+    /**
+     * 获取商品规格详情
+     */
+    public static final String GOODS_CPGG = "/h5/cpgg";
     /**
      * 获取商品套餐(组合)信息
      */

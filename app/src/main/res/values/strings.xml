@@ -32,5 +32,6 @@
     <!--商品详情相关商品点击View TAGKEY-->
     <item name="tag_view" type="id"></item>
     <item name="tag_click" type="id"></item>
-
+    <item name="tag_mPageBottom" type="id">0</item>
+    <item name="tag_mPageTop" type="id">1</item>
 </resources>
