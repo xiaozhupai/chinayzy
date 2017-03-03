@@ -37,6 +37,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
 
     }
 
+
     @Override
     protected void lazyLoad() {
 

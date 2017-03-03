@@ -4,18 +4,16 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.chinayiz.chinayzy.adapter.GoodsTypeMeunAdapter;
-import com.chinayiz.chinayzy.adapter.StoreHomeAdapter;
 import com.chinayiz.chinayzy.adapter.viewHolder.StoreHomeHead;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.StoreInfo;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,15 +30,13 @@ import java.util.List;
  */
 public class StoreHomePresenter extends BasePresenter<StoreHomeFragment> implements EventBusCallback {
     public StoreInfoModel mStoreInfoModel;
-    private CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
+    public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     private List<StoreGoodsListModel.DataBean> mDataList = new ArrayList<>();
     private StoreInfo mStoreInfo;
 
     @Override
     protected void onCreate() {
-        mRequestUtils.getStoerInfo(mView.mStoreID);
-        mView.mAdapter = new StoreHomeAdapter();
-        mView.mAdapter.setOnItemClickListener(mView);
+
     }
     @Override
     protected void onDestroy() {
@@ -81,7 +77,6 @@ public class StoreHomePresenter extends BasePresenter<StoreHomeFragment> impleme
                 mView.mGoodsTypeMeunAdapter.setTypecodeList(mStoreInfoModel.getData().getTypecodelist());
                 mView.mGoodsTypeMeunAdapter.notifyDataSetChanged();
                 if (!mStoreInfoModel.getData().getTypecodelist().isEmpty()){
-                    Logger.i("类型列表为空");
                     doFilterGoodsList(0);
                 }
                 mStoreInfo = new StoreInfo(mStoreInfoModel.getData().getIsself()

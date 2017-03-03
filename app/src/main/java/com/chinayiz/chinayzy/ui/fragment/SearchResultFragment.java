@@ -47,6 +47,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     protected void onVisible() {
     }
 
+
     @Override
     protected void onInvisible() {
     }

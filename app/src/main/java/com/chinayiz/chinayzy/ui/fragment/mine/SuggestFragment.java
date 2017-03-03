@@ -1,18 +1,14 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -35,6 +31,7 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
         BaseActivity activity= (BaseActivity) getActivity();
         activity.mTvActionBarTitle.setText("意见反馈");
     }
+
 
     @Override
     protected void onInvisible() {

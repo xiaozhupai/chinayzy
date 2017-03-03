@@ -10,9 +10,14 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.FindPresenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.utils.magicindicator.MagicIndicator;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 发现
@@ -36,6 +41,7 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     protected void onInvisible() {
     }
 
+
     @Override
     protected void lazyLoad() {
     }
@@ -51,7 +57,12 @@ public class FindFragment extends BaseFragment<FindPresenter> {
 
         return view;
     }
-
+    @Override
+    public void onResume() {
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
+                NongYeMainActivity.NYMAIN_ACTIONBAR,new ActionBarControlModel(NongYeMainActivity.SHOW_ALL,"发现",1,0,0,1)));
+        super.onResume();
+    }
     @Override
     public FindPresenter initPresenter() {
         return new FindPresenter();

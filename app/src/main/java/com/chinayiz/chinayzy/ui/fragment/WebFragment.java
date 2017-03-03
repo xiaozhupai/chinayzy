@@ -3,7 +3,6 @@ package com.chinayiz.chinayzy.ui.fragment;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,46 +14,32 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.presenter.WebPresenter;
 
 /**
  * A simple {@link Fragment} subclass. 公共的fragment
  */
-public class WebFragment extends BaseFragment<WebPresenter> {
+public class WebFragment extends Fragment {
     public WebView wv_view;
     private String title;
     private String  url;
     public ProgressBar progressbar;
 
-    public WebFragment(String title,String url){
+    public void setWebView(String title,String url){
         this.title=title;
         this.url=url;
     }
-
-
-    @Override
-    protected void onVisible() {
-
-    }
-
-    @Override
-    protected void onInvisible() {
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return initView(inflater,container,savedInstanceState);
-    }
-
-    @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_web,null);
         progressbar= (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view= (WebView) view.findViewById(R.id.wv_view);
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         wv_view.loadUrl(url);
         wv_view.   setScrollbarFadingEnabled(true);
         wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
@@ -106,19 +91,6 @@ public class WebFragment extends BaseFragment<WebPresenter> {
                     progressbar.setVisibility(View.VISIBLE);
                 }
             }
-
         });
-
-        return view;
-    }
-
-    @Override
-    public WebPresenter initPresenter() {
-        return new WebPresenter();
-    }
-
-    @Override
-    public void isNightMode(boolean isNight) {
-
     }
 }

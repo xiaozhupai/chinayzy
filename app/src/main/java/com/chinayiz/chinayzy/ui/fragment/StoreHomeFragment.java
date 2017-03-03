@@ -20,13 +20,20 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.GoodsTypeMeunAdapter;
+import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.adapter.StoreHomeAdapter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.presenter.StoreHomePresenter;
+import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
 import com.chinayiz.chinayzy.views.MyDecoration;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +59,13 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
     private ListView mTypeListView;
     private View mView;
 
+
     /**
      * @param storeId 店铺ID
      */
-    public StoreHomeFragment(String storeId) {
+    public void setStoreID(String storeId){
         this.mStoreID = storeId;
     }
-
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_storehome, container, false);
@@ -158,7 +165,9 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
 
     @Override
     public void onItemClick(View view, String data) {
-        Logger.i("商品ID=" + data);
+        getFragmentManager().beginTransaction().remove(mActivity.mGoodsFragment).commit();
+        EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
+                NongYeHomeRecylAdapter.CLICK_GOODS,data));
     }
 
     public void showTypeMeun(View view) {
@@ -193,6 +202,16 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
         //设置适配器中的悬浮头指示
         mAdapter.getHomeHead().setType(textView.getText().toString());
         mPresenter.doFilterGoodsList(position);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.mRequestUtils.getStoerInfo(mStoreID);
+        mAdapter = new StoreHomeAdapter();
+        mAdapter.setOnItemClickListener(this);
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
+                NongYeMainActivity.NYMAIN_ACTIONBAR, new ActionBarControlModel(NongYeMainActivity.HIDE_ALL)));
     }
 
     @Override

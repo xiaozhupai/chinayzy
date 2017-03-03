@@ -98,34 +98,22 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_recommend_Item1:
-                Logger.i("点击了item1商品ID="+v.getTag());
-
                 break;
             case R.id.iv_recommend_Item2:
-                Logger.i("点击了item2商品ID="+v.getTag());
-
                 break;
             case R.id.iv_recommend_Item3:
-                Logger.i("点击了item3商品ID="+v.getTag());
-
                 break;
             case R.id.iv_recommend_Item4:
-                Logger.i("点击了item4商品ID="+v.getTag());
                 break;
             case R.id.iv_recommend_Item5:
-                Logger.i("点击了item5商品ID="+v.getTag());
-
                 break;
             case R.id.lv_comgoods1:
-                Logger.i("点击了item6商品ID="+v.getTag());
                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods2:
-                Logger.i("点击了item7商品ID="+v.getTag());
                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods3:
-                Logger.i("点击了item8商品ID="+v.getTag());
                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag()));
                 break;
         }

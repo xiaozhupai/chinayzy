@@ -1,14 +1,11 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -59,18 +56,14 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public TextView tv_person_username;
     public RelativeLayout rl_person_username;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Logger.i("start ----PersonFragment");
 
-    }
 
     @Override
     protected void onVisible() {
         MineActivity activity= (MineActivity) getActivity();
         activity.mTvActionBarTitle.setText("个人资料");
     }
+
 
     @Override
     protected void onInvisible() {

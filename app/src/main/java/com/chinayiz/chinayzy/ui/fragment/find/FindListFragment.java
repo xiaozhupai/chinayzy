@@ -51,6 +51,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     }
 
+
     @Override
     protected void lazyLoad() {
 

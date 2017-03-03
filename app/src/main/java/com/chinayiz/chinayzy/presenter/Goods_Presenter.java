@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
+import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
 import com.chinayiz.chinayzy.views.GlideCircleTransform;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
@@ -35,7 +36,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
     public void runUiThread(EventMessage message) {
         if (EventMessage.NET_EVENT == message.getEventType()) {//请求成功
             disposeNetMsg(message);
-        }else if (EventMessage.REQUEST_ERROR==message.getEventType()){//请求失败
+        }else if (EventMessage.ERROR_EVENT==message.getEventType()){//请求失败
             switch (message.getDataType()){
                 case Commons.GOODS_DETAIL:{
                     Logger.i("请求失败");
@@ -61,8 +62,9 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
         switch (message.getDataType()) {
             case Commons.GOODS_DETAIL: {
                 GoodsDetailModel model = (GoodsDetailModel) message.getData();
+                mView.mStoreHomeFragment = new StoreHomeFragment();
                 showGoodsInfo(model);
-                if (mRefreshLayout != null) {
+                if (mRefreshLayout!=null){
                     mRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
                 }
                 break;
@@ -93,7 +95,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
             urls.add(str);
         }
         mView.goodsCode=model.getData().getItemcode();
-        mView.storeID=String.valueOf(model.getData().getShopid());
+        mView.mStoreHomeFragment.setStoreID(String.valueOf(model.getData().getShopid()));
         mView.mGoodsHolder.mVpagerBanner.setPages(new CreateBannerHolder(), urls);
         mView.mGoodsHolder.mTvGoodsTitle.setText(model.getData().getGname());
         mView.mGoodsHolder.mTvGoodsPrice.setText(model.getData().getPrice());
@@ -108,7 +110,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
         }
         mView.mGoodsHolder.mTvCommentCount.setText("（"+String.valueOf(model.getData().getCommentnum())+"条评论）");
         int sum=0;
-        mView.sumComment=model.getData().getCommentlist().size();
+        mView.sumComment = model.getData().getCommentlist().size();
         if (mView.sumComment!=0){//判断商品是否有评论
             sum=model.getData().getCommentlist().get(0).getDescpoint()+
                     model.getData().getCommentlist().get(0).getDeliverypoint()+
@@ -128,6 +130,10 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
             }
             mView.mGoodsHolder.mTvCommentContent.setText(model.getData().getCommentlist().get(0).getCommentscontent());
 
+        }else {
+            mView.mGoodsHolder.mRbGoodsGrade.setVisibility(View.GONE);
+            mView.mGoodsHolder.mTvCommentContent.setVisibility(View.GONE);
+            mView.mGoodsHolder.mTvUserName.setVisibility(View.GONE);
         }
         Glide.with(mView).load(model.getData().getSpic())
                 .transform(new GlideCircleTransform(mView.getActivity()))

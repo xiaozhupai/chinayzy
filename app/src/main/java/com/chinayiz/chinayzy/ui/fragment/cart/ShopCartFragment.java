@@ -1,8 +1,8 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +12,10 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
-import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
@@ -54,6 +52,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     protected void onVisible() {
     }
 
+
     @Override
     protected void onInvisible() {
     }
@@ -64,24 +63,22 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         if (index==0){
-            final BaseActivity activity= (BaseActivity) getActivity();
-            activity.mTvActionBarTitle.setText("购物车");
-            activity.mIvActionBarMore.setVisibility(View.GONE);
-            activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-            activity.mCbActionBarEdit.setText("编辑");
-            activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            mActivity.mTvActionBarTitle.setText("购物车");
+            mActivity.mIvActionBarMore.setVisibility(View.GONE);
+            mActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+            mActivity.mCbActionBarEdit.setText("编辑");
+            mActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (isClick){  //编辑后
-                        activity.mCbActionBarEdit.setText("完成");
+                        mActivity.mCbActionBarEdit.setText("完成");
                         tv_shopcart_submit.setText("删除");
                         tv_shopcart_price.setVisibility(View.GONE);
                         isClick=false;
                         mPresenter.UpdateUi(1);
                     }else {   //编辑前
-                        activity.mCbActionBarEdit.setText("编辑");
+                        mActivity.mCbActionBarEdit.setText("编辑");
                         tv_shopcart_submit.setText("结算");
                         tv_shopcart_price.setVisibility(View.VISIBLE);
                         isClick=true;
@@ -116,8 +113,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
                 }
             });
         }
-
-
         View view = View.inflate(getActivity(), R.layout.fragment_shop_cart, null);
         rl_shopcart= (RelativeLayout) view.findViewById(R.id.rl_shopcart);
         pullToRefreshLayout=(PullToRefreshLayout) view.findViewById(R.id.pullrefresh);

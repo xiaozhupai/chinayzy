@@ -28,6 +28,7 @@ public class OrderDetailFragment extends BaseFragment<OrderPresenter> {
 
     }
 
+
     @Override
     protected void lazyLoad() {
 

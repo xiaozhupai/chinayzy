@@ -4,15 +4,12 @@ package com.chinayiz.chinayzy.ui.fragment.mine;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.EmailPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
@@ -35,6 +32,7 @@ public class EmailFragment extends BaseFragment<EmailPresenter> {
     protected void onVisible() {
 
     }
+
 
     @Override
     protected void onInvisible() {

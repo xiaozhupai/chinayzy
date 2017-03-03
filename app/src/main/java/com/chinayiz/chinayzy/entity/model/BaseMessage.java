@@ -15,9 +15,10 @@ public class BaseMessage {
      */
     public static final int INFORM_EVENT=2;
     /**
-     *  请求失败消息
+     *  网络请求失败消息
      */
-    public static final int REQUEST_ERROR=3;
+    public static final int ERROR_EVENT=3;
+
     /**
      * 事件类型
      * 类型1：NET_EVENT  网络请求接口回调消息

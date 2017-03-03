@@ -11,10 +11,9 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.views.MyGridView;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class GoodsListFragment extends Fragment {
     private MyGridView mGoodsList;
-    private String mTypeCode;
+    private String mTypeCode="1";
     private GoodsDetailGridAdpter mAdapter;
     private CommonRequestUtils mReques = CommonRequestUtils.getRequestUtils();
 
@@ -57,12 +56,18 @@ public class GoodsListFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setData(EventMessage message) {
-        if (EventMessage.NET_EVENT == message.getEventType() && Commons.GOODS_RELATED.equals(message.getDataType())) {
-            RelatedGoodsModel model = (RelatedGoodsModel) message.getData();
-            Logger.i("相关商品数据返回=" + model.getData().size());
-            mAdapter.setData(model);
-            mGoodsList.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
+        if (EventMessage.NET_EVENT == message.getEventType()) {
+            switch (message.getDataType()){
+                case Commons.GOODS_RELATED:{
+                    RelatedGoodsModel model = (RelatedGoodsModel) message.getData();
+                    mAdapter.setData(model);
+                    mGoodsList.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                }
+
+            }
+
         }
     }
 

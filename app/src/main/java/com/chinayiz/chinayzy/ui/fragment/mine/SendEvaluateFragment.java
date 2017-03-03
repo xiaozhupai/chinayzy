@@ -48,6 +48,7 @@ public class SendEvaluateFragment extends BaseFragment<SendEvaluatePresenter> im
 
     }
 
+
     @Override
     protected void lazyLoad() {
 

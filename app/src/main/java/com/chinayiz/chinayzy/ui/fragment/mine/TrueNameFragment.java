@@ -31,6 +31,7 @@ public class TrueNameFragment extends BaseFragment<TrueNamePresenter> {
 
     }
 
+
     @Override
     protected void onInvisible() {
 

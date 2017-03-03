@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -26,39 +27,56 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     //fragment 懒加载标志位
     protected boolean isVisible;
     protected Bundle mBundle;
+    public String TAG;
     public BaseActivity mActivity;
     //ui是否初始化
-    public boolean isInit=true;
+    public StoreHomeFragment mStoreHomeFragment;
+    public boolean isInit = true;
 
     /**
      * 初始化Fragment应有的视图
+     *
      * @return
      */
     public abstract View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
     /**
      * 创建prensenter
+     *
      * @return <T extends BasePresenter> 必须是BasePresenter的子类
      */
     public abstract T initPresenter();
+
+    /**
+     * 绑定activity
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (BaseActivity) context;
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mBundle != null) {
             outState.putBundle("bundle", mBundle);
         }
-        outState.putBoolean(STATE_SAVE_IS_HIDDEN,isHidden());
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
         Logger.e("onSaveInstanceState");
     }
 
     /**
      * 在这里实现Fragment数据的缓加载. ViewPager有效
+     *
      * @param isVisibleToUser 通知系统当前fragment是否可见
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()) {
+        if (getUserVisibleHint()) {
             isVisible = true;
             onVisible();//当前可见
         } else {
@@ -77,26 +95,18 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
      * lazyLoad延迟到子类一并判断
      */
     protected abstract void onInvisible();
+
     /**
      * fragment可见,懒加载填充数据
      */
-    protected  void lazyLoad(){
+    protected void lazyLoad() {
         Logger.e("lazyLoad");
-    }
-
-    /**
-     * 绑定activity
-     * @param context
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mActivity= (BaseActivity) context;
     }
 
     /**
      * 运行在onAttach之后
      * 可以接受别人传递过来的参数,实例化对象.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -127,7 +137,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=initView(inflater, container, savedInstanceState);
+        View view = initView(inflater, container, savedInstanceState);
+        TAG = getClass().getSimpleName();
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -168,29 +179,32 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     @Override
     public void startFragment(Fragment tofragment, String tag) {
-       addFragment(tofragment,tag);
+        addFragment(tofragment, tag);
     }
+
     /**
      * fragment 跳转
-     * @param tofragment  目标fragment
-     * @param tag   fragment标记  用于替换或隐藏
+     *
+     * @param tofragment 目标fragment
+     * @param tag        fragment标记  用于替换或隐藏
      */
-    public void addFragment(Fragment tofragment, String tag){
-        mFragmentManager=getFragmentManager();
+    public void addFragment(Fragment tofragment, String tag) {
+        mFragmentManager = getFragmentManager();
         try {
-            FragmentTransaction transaction=mFragmentManager.beginTransaction();
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.add(R.id.fl_nongye, tofragment)
                     .addToBackStack(tofragment.getTag())
                     .commit();
         } catch (Exception e) {
             e.printStackTrace();
-            FragmentTransaction transaction=mFragmentManager.beginTransaction();
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.add(R.id.fl_nongye,
                     tofragment, tofragment.getTag())
                     .addToBackStack(tofragment.getTag())
                     .commitAllowingStateLoss();
         }
     }
+
     /**
      * 类似Activity的OnBackgress
      * fragment进行回退

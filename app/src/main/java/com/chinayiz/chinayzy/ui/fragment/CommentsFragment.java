@@ -16,7 +16,7 @@ import com.chinayiz.chinayzy.entity.response.CommentListModel;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/27 9:47
- * Class CommentsFragment
+ * Class CommentsFragment 评论列表
  */
 public class CommentsFragment extends Fragment{
     private ListView mCommentList;
@@ -33,6 +33,7 @@ public class CommentsFragment extends Fragment{
         mCommentList= (ListView) view.findViewById(R.id.lv_comments);
         mCommentList.setAdapter(mAdapter);
     }
+
     public void setCommentData(EventMessage message){
         CommentListModel model= (CommentListModel) message.getData();
         mAdapter.setCommentDatas(model.getData().getCommentlist());

@@ -27,6 +27,7 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

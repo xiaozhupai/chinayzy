@@ -53,7 +53,6 @@ public class CommonRequestUtils {
      * @param shopID 商品ID
      */
     public void getStoerInfo(String shopID) {
-        Logger.i("执行请求");
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.STORE_HOME)
@@ -203,7 +202,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
-                        EventBus.getDefault().post(new EventMessage(EventMessage.REQUEST_ERROR
+                        EventBus.getDefault().post(new EventMessage(EventMessage.ERROR_EVENT
                                 , Commons.GOODS_DETAIL
                                 , null));
                     }
