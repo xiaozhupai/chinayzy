@@ -50,10 +50,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         initView();
     }
 
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     @Override
     protected LoginPresenter initPresenter() {

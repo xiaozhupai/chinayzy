@@ -69,6 +69,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
     public LinearLayout lv_user;
     public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count;
+    private FragmentManager mFragmentManager;
 
 
     @Override
@@ -96,12 +97,6 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         });
     }
 
-
-
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     @Override
     protected void onStart() {

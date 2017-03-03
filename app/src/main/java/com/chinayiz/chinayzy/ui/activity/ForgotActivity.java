@@ -45,11 +45,6 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
         initView();
     }
 
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
-
 
     /**
      * 导航栏
