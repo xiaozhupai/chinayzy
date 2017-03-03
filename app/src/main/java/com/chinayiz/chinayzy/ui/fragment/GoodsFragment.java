@@ -353,7 +353,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
                 if (goodsCode==null){
                     return;
                 }
-                CommonRequestUtils.getRequestUtils().getRelatedGoods(goodsCode, "1", "12");
+                CommonRequestUtils.getRequestUtils().getRelatedGoods(goodsCode, "1", "14");
                 if (mListFragment.isAdded()){
                     if (mActivity.mWebFragment.isAdded()) {
                         getFragmentManager().beginTransaction().hide(mActivity.mWebFragment).show(mListFragment).commit();
