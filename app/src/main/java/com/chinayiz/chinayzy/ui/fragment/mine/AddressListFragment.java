@@ -8,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.presenter.AddressListPresenter;
 
 /**
@@ -23,6 +21,7 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> {
     protected void onVisible() {
 
     }
+
 
     @Override
     protected void onInvisible() {

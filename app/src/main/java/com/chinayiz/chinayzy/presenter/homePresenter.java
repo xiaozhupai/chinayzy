@@ -7,6 +7,7 @@ import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeBanner;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
@@ -16,6 +17,7 @@ import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -24,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/1/7 15:21
  * Class NongYe_homePresenter  生态农业首页presenter
  */
-public class NongYehomePresenter extends BasePresenter<HomeFragment> {
+public class homePresenter extends BasePresenter<HomeFragment> {
     private Net mNet =Net.getNet();
     private CommonRequestUtils mRequestUtils=CommonRequestUtils.getRequestUtils();
     @Override
@@ -54,12 +56,18 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 mView.openGoodesDetail(message.getData().toString());
                 break;
             case GoodsDetailGridAdpter.CLICK_GOODS://商品详情页相关商品点击
-                mView.onBack();
-                mView.openGoodesDetail(message.getData().toString());
+                Logger.i("相关商品：="+message.getData());
+                mView.getFragmentManager().beginTransaction().remove(mView.mActivity.mGoodsFragment).commit();
+
+                EventBus.getDefault().post(new EventMessage(BaseMessage.
+                        INFORM_EVENT,"StoreHomeFragment",message.getData().toString()));
+
                 break;
             case Commons.ADDSHOPPINGCAR://添加购物车成功
-                Logger.i("加入购物车成功了");
                 BaseActivity.showToast(mView.getActivity(),"添加购物超成功");
+                break;
+            case NongYeHomeRecylAdapter.CLICK_MENU://首页菜单点击事件
+               mView.openClassify(message.getData().toString());
                 break;
         }
     }
@@ -74,15 +82,10 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
             mView.startFragment(new SearchFragment(),"SearchFragment");
                 break;
             case Commons.ADD_CAR ://添加购物车
-                Logger.i("添加购物车");
                 data= (NY_EatItemModel.DataBean) message.getData();
                 mRequestUtils.getJoinCart(String.valueOf(data.getShopid()),
                         String.valueOf(data.getGoodsstandardid()),"1");
                 break;
-            case NongYeHomeRecylAdapter.CLICK_MENU:{//分类菜单点击事件
-
-                break;
-            }
         }
     }
 
@@ -94,14 +97,12 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
         if (message.getEventType() == EventMessage.NET_EVENT) {//网络请求回调消息
             disposeNetMsg(message);
         }
-
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
         if (message.getEventType() == EventMessage.INFORM_EVENT) {//组件通讯消息
-            Logger.i("组件通讯消息:" + message.toString());
             disposeInfoMsg(message);
         }
     }
@@ -118,15 +119,12 @@ public class NongYehomePresenter extends BasePresenter<HomeFragment> {
                 break;
             case Commons.NY_FEATURE://请求特色购版块
                 mNet.getFeature();
-                Logger.i("请求特色购版块");
                 break;
             case Commons.NY_EATTHEME://请求爱吃主题
                 mNet.getEatTheme();
-                Logger.i("请求爱吃主题板块");
                 break;
             case Commons.NY_EATITEM://请求爱吃商品
                 mNet.getEatItem("1", "10");
-                Logger.i("请求爱吃商品");
                 break;
         }
     }

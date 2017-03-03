@@ -36,6 +36,7 @@ public class WeightFragment extends BaseFragment<WeightPresenter> {
 
     }
 
+
     @Override
     protected void onInvisible() {
 

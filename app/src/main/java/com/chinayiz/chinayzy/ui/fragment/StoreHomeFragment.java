@@ -21,13 +21,20 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.GoodsTypeMeunAdapter;
+import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.adapter.StoreHomeAdapter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.presenter.StoreHomePresenter;
+import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
 import com.chinayiz.chinayzy.views.MyDecoration;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +49,6 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
         , StoreHomeAdapter.OnRecyclerViewItemClickListener, AdapterView.OnItemClickListener {
     public StoreHomeAdapter mAdapter;
     public String mStoreID;
-    private View mDialogView;
-    private AlertDialog mDialog;
-    private AlertDialog.Builder mDialogBuilder;
     public List<StoreInfoModel.DataBean.TypecodeBean> mTypecodeList = new ArrayList<>();
     public GoodsTypeMeunAdapter mGoodsTypeMeunAdapter;
     public RecyclerView mRvStoreHome;
@@ -57,13 +61,13 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
     private ListView mTypeListView;
     private View mView;
 
+
     /**
      * @param storeId 店铺ID
      */
-    public StoreHomeFragment(String storeId) {
+    public void setStoreID(String storeId){
         this.mStoreID = storeId;
     }
-
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_storehome, container, false);
@@ -134,41 +138,44 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
     }
 
     private void showBrandInfo() {
+        View mDialogView;
+        AlertDialog mDialog;
+        AlertDialog.Builder mDialogBuilder;
         TextView name;
         TextView info;
         ImageView logo;
-        if (mDialogBuilder==null&&mDialogView==null){
-            mDialogBuilder = new AlertDialog.Builder(getActivity());
-            mDialogView = View.inflate(getActivity(), R.layout.dialog_storeinfo, null);
+        mDialogBuilder = new AlertDialog.Builder(getActivity());
+        mDialogView = View.inflate(getActivity(), R.layout.dialog_storeinfo, null);
 
-            name = (TextView) mDialogView.findViewById(R.id.tv_stareName);
-            name.setText(mPresenter.mStoreInfoModel.getData().getSname());
-            info = (TextView) mDialogView.findViewById(R.id.tv_storeInfo);
-            info.setText(mPresenter.mStoreInfoModel.getData().getIntroduction());
-            logo = (ImageView) mDialogView.findViewById(R.id.iv_storeLogo);
+        name = (TextView) mDialogView.findViewById(R.id.tv_stareName);
+        name.setText(mPresenter.mStoreInfoModel.getData().getSname());
+        info = (TextView) mDialogView.findViewById(R.id.tv_storeInfo);
+        info.setText(mPresenter.mStoreInfoModel.getData().getIntroduction());
+        logo = (ImageView) mDialogView.findViewById(R.id.iv_storeLogo);
 
-            Glide.with(getFragment())
-                    .load(mPresenter.mStoreInfoModel.getData().getPic())
-                    //设置logo圆角
-                    .transform(new GlideRoundTransform(getActivity(),8))
-                    .into(logo);
-            mDialog = mDialogBuilder.setView(mDialogView)
-                    .setCancelable(true)
-                    .create();
+        Glide.with(getFragment())
+                .load(mPresenter.mStoreInfoModel.getData().getPic())
+                //设置logo圆角
+                .transform(new GlideRoundTransform(getActivity(), 8))
+                .into(logo);
+        mDialog = mDialogBuilder.setView(mDialogView)
+                .setCancelable(true)
+                .create();
 
-        }
         mDialog.show();
     }
 
     @Override
     public void onItemClick(View view, String data) {
-        Logger.i("商品ID=" + data);
+        getFragmentManager().beginTransaction().remove(mActivity.mGoodsFragment).commit();
+        EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
+                NongYeHomeRecylAdapter.CLICK_GOODS,data));
     }
 
     public void showTypeMeun(View view) {
         mTypeListView.setAdapter(mGoodsTypeMeunAdapter);
         mTypeListView.setOnItemClickListener(this);
-        if (mPopupWindow==null){
+        if (mPopupWindow == null) {
             mPopupWindow = new PopupWindow(popupWindowview, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             mPopupWindow.setTouchable(true);
             mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
@@ -200,13 +207,25 @@ public class StoreHomeFragment extends BaseFragment<StoreHomePresenter> implemen
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.mRequestUtils.getStoerInfo(mStoreID);
+        mAdapter = new StoreHomeAdapter();
+        mAdapter.setOnItemClickListener(this);
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
+                NongYeMainActivity.NYMAIN_ACTIONBAR, new ActionBarControlModel(NongYeMainActivity.HIDE_ALL)));
+    }
+
+    @Override
     protected void onVisible() {
 
     }
+
     @Override
     protected void onInvisible() {
 
     }
+
     @Override
     public StoreHomePresenter initPresenter() {
         return new StoreHomePresenter();

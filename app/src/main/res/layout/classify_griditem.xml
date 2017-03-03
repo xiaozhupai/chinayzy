@@ -4,14 +4,16 @@
               android:layout_height="95dp"
               android:background="@color/Background"
               android:orientation="vertical"
+              android:clickable="true"
     >
 
     <ImageView
         android:id="@+id/iv_classifyPic"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/icon_moments"
+        android:scaleType="centerCrop"
+        android:background="@color/Background"
+        android:src="@color/Background"
         />
     <TextView
         android:id="@+id/tv_classifyName"
@@ -22,7 +24,6 @@
         android:textColor="@color/classifItem"
         android:text="牛肉制品"
         />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="9dp"

@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -22,10 +21,6 @@ public class TestActivity extends BaseActivity {
         setContentView(R.layout.activity_test);
     }
 
-    @Override
-    protected FragmentManager initFragmentManager() {
-        return getFragmentManager();
-    }
 
     @Override
     protected BasePresenter initPresenter() {

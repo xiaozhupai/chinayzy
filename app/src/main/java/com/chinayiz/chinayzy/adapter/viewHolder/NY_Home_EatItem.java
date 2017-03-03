@@ -12,7 +12,6 @@ import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.net.Commons;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,12 +41,12 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
 
     public void setData(NY_EatItemModel ny_eatItemModel, Fragment fragment,int position) {
         if (ny_eatItemModel.getData().size()>position){
-            Logger.i("数据位置="+position);
             data=ny_eatItemModel.getData().get(position);
             Glide.with(fragment).load(data.getIcon()).into(mIvGoodItemIcon);
             mIvGoodItemIcon.setTag(R.id.tag_click,data.getGoodsid());
             mTvGoodItemTitle.setText(data.getGname());
             mTvGoodItemTitle.setTag(R.id.tag_click,data.getGoodsid());
+
             String price=data.getPrice();
             if (price.contains("-")) {
                 String [] strings=price.split("-");
@@ -63,13 +62,13 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_goodItemIcon:
-                if (v.getTag()!=null){
+                if (v.getTag(R.id.tag_click)!=null){
                     EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
                             NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
                 }
                 break;
             case R.id.tv_goodItemTitle:
-                if (v.getTag()!=null){
+                if (v.getTag(R.id.tag_click)!=null){
                     EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
                             NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
                 }

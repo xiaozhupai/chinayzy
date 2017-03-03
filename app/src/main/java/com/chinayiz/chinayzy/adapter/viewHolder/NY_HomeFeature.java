@@ -52,11 +52,9 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
 
     public void setData(NY_FeatureModel ny_featureModel, Fragment fragment ,boolean isLoad) {
         List<NY_FeatureModel.DataBean> datas = ny_featureModel.getData();
-        Logger.i("特色商品有："+datas.size());
         NY_FeatureModel.DataBean dataBean;
         Holder holder;
         if (isLoad){
-            Logger.i("第一次加载爱吃");
             for (int i = 0; i < 4 ; i++) {
                 holder = mGoods.get(i);
                 dataBean = datas.get(i);
@@ -76,7 +74,6 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                 }
             }
         }else {
-            Logger.i("第二次加载爱吃");
             for (int i = 4; i<datas.size() ; i++) {
                 dataBean = datas.get(i);
                 holder = mGoods.get(i%4);

@@ -21,6 +21,13 @@ public class ClassifyCodesModel extends BaseResponseModel{
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "ClassifyCodesModel{" +
+                "data=" + data +
+                '}';
+    }
+
     public static class DataBean {
         /**
          * itemname : 热卖茶叶

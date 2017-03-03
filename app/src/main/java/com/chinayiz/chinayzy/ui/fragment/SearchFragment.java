@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
@@ -23,7 +22,6 @@ import com.chinayiz.chinayzy.widget.TagListView;
 import com.chinayiz.chinayzy.widget.TagView;
 import com.orhanobut.logger.Logger;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +44,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
     protected void onVisible() {
 
     }
+
 
 
     @Override

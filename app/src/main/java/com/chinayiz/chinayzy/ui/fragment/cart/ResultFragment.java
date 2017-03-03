@@ -21,7 +21,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
-import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
@@ -71,6 +70,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     @Override
     protected void lazyLoad() {
     }
+
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

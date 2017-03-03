@@ -35,6 +35,7 @@ public class SearchListFragment extends BaseFragment<SearchListPresenter> {
         this.index=index;
     }
 
+
     @Override
     protected void onVisible() {
 

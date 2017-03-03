@@ -23,6 +23,7 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> {
 
     }
 
+
     @Override
     protected void onInvisible() {
 

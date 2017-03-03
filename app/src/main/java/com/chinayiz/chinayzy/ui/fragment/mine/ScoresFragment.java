@@ -24,6 +24,7 @@ public class ScoresFragment extends BaseFragment<ScoresPresenter> {
 
     }
 
+
     @Override
     protected void lazyLoad() {
     }

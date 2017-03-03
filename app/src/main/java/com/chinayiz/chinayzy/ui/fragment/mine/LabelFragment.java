@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -51,6 +49,7 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
     protected void onVisible() {
 
     }
+
 
     @Override
     protected void onInvisible() {

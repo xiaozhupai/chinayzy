@@ -26,6 +26,7 @@ public class TradeSuccessFragment extends BaseFragment<TradeSuccessPresenter> {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

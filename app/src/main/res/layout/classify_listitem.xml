@@ -3,10 +3,12 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="44dp">
-    <Button
+    <CheckBox
+        android:id="@+id/btn_listItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="蜂蜜"
+        android:button="@null"
         android:textSize="14sp"
         android:textColor="@color/classifyText"
         android:gravity="center"

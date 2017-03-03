@@ -21,7 +21,6 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="亿众商城"
         android:textColor="@color/nongye_ActionBarTitle"
         android:textSize="18sp"
         />

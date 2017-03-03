@@ -38,6 +38,7 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements View.
 
     }
 
+
     @Override
     protected void lazyLoad() {
 

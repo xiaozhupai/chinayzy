@@ -9,7 +9,6 @@ import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
-import com.chinayiz.chinayzy.entity.response.GoodsPicDetailModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
@@ -53,7 +52,6 @@ public class CommonRequestUtils {
      * @param shopID 商品ID
      */
     public void getStoerInfo(String shopID) {
-        Logger.i("执行请求");
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.STORE_HOME)
@@ -203,7 +201,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
-                        EventBus.getDefault().post(new EventMessage(EventMessage.REQUEST_ERROR
+                        EventBus.getDefault().post(new EventMessage(EventMessage.ERROR_EVENT
                                 , Commons.GOODS_DETAIL
                                 , null));
                     }
@@ -281,14 +279,45 @@ public class CommonRequestUtils {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_PICDETAIL
-                                    , mGson.fromJson(s, GoodsPicDetailModel.class)));
+                                    , s));
+                        } catch (Exception e) {
+                           onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 请求商规格详情信息（HTML5）
+     * @param goodsId
+     */
+    public void getGoodCpgg(String goodsId) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.GOODS_CPGG)
+                .addParams("time", new Date().toString())
+                .addParams("userid", APP.sUserid)
+                .addParams("goodsid", goodsId)
+                .addParams("sign", "")
+                .tag("content")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.GOODS_CPGG
+                                    , s));
+                            Logger.i("参数详情：="+s);
                         } catch (Exception e) {
                             onError(null, e, i);
                         }
                     }
                 });
     }
-
     /**
      * 获取商品详情相关商品
      *

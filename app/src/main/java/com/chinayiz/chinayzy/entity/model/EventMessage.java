@@ -14,6 +14,9 @@ public class EventMessage extends BaseMessage{
      * 数据体
      */
     private Object data;
+    /**
+     * 数据类型 暂定以URL来匹配
+     */
 
     /**
      *

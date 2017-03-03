@@ -19,6 +19,11 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.viewHolder.GoodsHolder;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.Goods_Presenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.goodsParticular.BotContentPage;
@@ -28,6 +33,8 @@ import com.chinayiz.chinayzy.views.goodsParticular.TopDetailInfoPage;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * author  by  Canrom7 .
@@ -42,7 +49,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     public String goodsCode;
     public boolean isShowComments=false;
     public int sumComment=0;
-    public int commitID=0;
+    public int comitsID=0;
     public CheckBox mRbFavorite;
     private GoodsListFragment mListFragment;
     public CommentsFragment mCommentFragment;
@@ -51,7 +58,6 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     private TopDetailInfoPage mTopPage = null;
     private BotContentPage mBottomPage = null;
     public GoodsHolder mGoodsHolder=null;
-    private StoreHomeFragment mStoreHomeFragment;
     private McoyScrollView mMcoyScrollView;
     public void setGoodsID(String goodsID) {
         this.goodsID = goodsID;
@@ -100,8 +106,18 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
         mPresenter.mRequestUtils.getGoodsDetail(goodsID);
         super.onResume();
         mMcoyScrollView.scrollTo(0,0);
+        if (mListFragment==null){
+            mListFragment=new GoodsListFragment(goodsCode);
+        }
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
+                NongYeMainActivity.NYMAIN_ACTIONBAR,new ActionBarControlModel(NongYeMainActivity.HIDE_ALL)));
     }
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
+                NongYeMainActivity.NYMAIN_ACTIONBAR,new ActionBarControlModel(NongYeMainActivity.SHOW_ALL,"首页",1,0,0,1)));
+    }
     private void initTopPage(View topView) {
         mGoodsHolder=new GoodsHolder();
         mRefreshLayout= (PullToRefreshLayout) topView.findViewById(R.id.pull_goodsRefresh);
@@ -146,14 +162,12 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
         mGoodsHolder.mTvMoreComment.setOnClickListener(this);
         mGoodsHolder.mIvInStore.setOnClickListener(this);
     }
-
     private void initBottomPage(View bottomView) {
         mGoodsHolder.mGoodsMeun= (RadioGroup) bottomView.findViewById(R.id.rg_goodsMeun);
         mGoodsHolder.mRbDetail= (RadioButton) mGoodsHolder.mGoodsMeun.findViewById(R.id.rb_goodsDetail);
         mGoodsHolder.mGoodsMeun.setOnCheckedChangeListener(this);
-        mGoodsHolder.mRbDetail.setChecked(true);
-    }
 
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -164,7 +178,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
                 startStoreHome();
                 break;
             case R.id.tv_addCart:
-                Logger.i("添加购物车");
+                Logger.i("加入购物车");
                 break;
             case R.id.iv_back_btn:
                 Logger.i("返回");
@@ -172,7 +186,6 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
                     onBack();
                     mMlMcoySnapPageLayout.setVisibility(View.VISIBLE);
                 }else {
-                    ((NongYeMainActivity)getActivity()).showActionbarOrNavigtionBar(NongYeMainActivity.SHOW_ALL);
                     getFragmentManager().beginTransaction().remove(this).commit();
                 }
                 break;
@@ -216,7 +229,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
      * 启动评论列表
      */
     private void startComments() {
-        if (goodsID==null||sumComment==0){
+        if (sumComment==0){
             BaseActivity.showToast(getActivity(),"没有更多评论");
             return;
         }
@@ -226,7 +239,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
             mCommentFragment=new CommentsFragment();
         }
         mMlMcoySnapPageLayout.setVisibility(View.GONE);
-        commitID=getFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .addToBackStack("GoodsFragment")
                 .add(R.id.fl_commentList,mCommentFragment,"CommentsFragment")
                 .commit();
@@ -236,12 +249,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
      * 启动店铺首页
      */
     private void startStoreHome() {
-        if (storeID==null){
-           return;
-        }
-        mStoreHomeFragment=new StoreHomeFragment(storeID);
-       getFragmentManager()
-                .beginTransaction()
+        getFragmentManager().beginTransaction()
                 .addToBackStack("GoodsFragment")
                 .add(R.id.fl_nongye,mStoreHomeFragment,"StoreHomeFragment")
                 .commit();
@@ -250,9 +258,27 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     @Override
     public boolean isAtTop() {
         //判断相关商品视图是否滑到顶部
-        if (mListFragment!=null&&mListFragment.getScrllY()==0){
-            return true;
-        }
+       switch (comitsID){
+           case 1:{
+
+           }
+           case 2:{
+               if (mActivity.mWebFragment.getScrollY()==0) {
+                   return true;
+               }else {
+                   return false;
+               }
+           }
+           case  3:{
+               if (mListFragment!=null&&mListFragment.getScrllY()==0){
+                   return true;
+               }
+               break;
+           }
+           default:{
+               return false;
+           }
+       }
         return false;
     }
 
@@ -275,27 +301,72 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (mListFragment==null){
+            mListFragment=new GoodsListFragment(goodsCode);
+        }
         switch (checkedId){
             case R.id.rb_goodsDetail:{
+                comitsID=1;
                 Logger.i("图文详情");
+                if (goodsID==null){
+                    return;
+                }
+                if (mActivity.mWebFragment.isAdded()){
+
+                    if (mListFragment.isAdded()){
+                        getFragmentManager().beginTransaction().hide(mListFragment).show(mActivity.mWebFragment).commit();
+                    }else {
+                        getFragmentManager().beginTransaction().show(mActivity.mWebFragment).commit();
+                    }
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_PICDETAIL,goodsID);
+                }else {
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_PICDETAIL,goodsID);
+                    getFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.fl_goodsDetail,mActivity.mWebFragment,"WebFragments")
+                            .commit();
+                }
                 break;
             }
             case R.id.rb_goodsNorms:{
-                Logger.i("产品规格");
+                comitsID=2;
+                Logger.i("参数信息");
+                if (mActivity.mWebFragment.isAdded()){
+                    if (mListFragment.isAdded()){
+                        getFragmentManager().beginTransaction().hide(mListFragment).show(mActivity.mWebFragment).commit();
+                    }else {
+                        getFragmentManager().beginTransaction().show(mActivity.mWebFragment).commit();
+                    }
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_CPGG,goodsID);
+                }else {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.fl_goodsDetail,mActivity.mWebFragment,"WebFragments")
+                            .commit();
+                    mActivity.mWebFragment.setWebView(Commons.API+Commons.GOODS_CPGG,goodsID);
+                }
                 break;
             }
             case R.id.rb_goodsRelated:{
                 Logger.i("相关商品");
+                comitsID=3;
                 if (goodsCode==null){
                     return;
                 }
-                if (mListFragment==null){
-                    mListFragment=new GoodsListFragment("001001");
+                CommonRequestUtils.getRequestUtils().getRelatedGoods(goodsCode, "1", "14");
+                if (mListFragment.isAdded()){
+                    if (mActivity.mWebFragment.isAdded()) {
+                        getFragmentManager().beginTransaction().hide(mActivity.mWebFragment).show(mListFragment).commit();
+                    }else {
+                        getFragmentManager().beginTransaction().show(mListFragment).commit();
+                    }
+
+                }else {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.fl_goodsDetail,mListFragment,"ListFragment")
+                            .commit();
                 }
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fl_goodsDetail,mListFragment,"GoodsListFragment")
-                        .commit();
                 break;
             }
         }
@@ -310,10 +381,10 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     public void onSnapedCompleted(int derection) {
         if (derection==1){
             mGoodsHolder.mPullLoadMore.setText("继续下拉，返回上一页");
+            mGoodsHolder.mRbDetail.setChecked(true);
         }else {
             mGoodsHolder.mPullLoadMore.setText("继续上拉，查看图文详情");
         }
-        Logger.i("翻页成功="+derection);
     }
 
     @Override
@@ -329,10 +400,8 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     @Override
     public void onDetach() {
         super.onDetach();
-        getFragmentManager().popBackStack("GoodsListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        getFragmentManager().popBackStack("StoreHomeFragment",FragmentManager.POP_BACK_STACK_INCLUSIVE);
         getFragmentManager().removeOnBackStackChangedListener(this);
-        mStoreHomeFragment=null;
+        getFragmentManager().popBackStack();
         mListFragment=null;
     }
 

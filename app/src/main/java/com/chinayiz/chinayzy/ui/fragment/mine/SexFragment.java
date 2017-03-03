@@ -49,6 +49,7 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
 
     }
 
+
     @Override
     protected void lazyLoad() {
 

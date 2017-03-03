@@ -3,7 +3,6 @@ package com.chinayiz.chinayzy.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
+import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
 
 /**
@@ -24,10 +24,6 @@ import com.chinayiz.chinayzy.utils.BarUtils;
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     public View mActionBar;
-    /**
-     * 商品详情Fragment（通用）；
-     */
-    public static GoodsFragment mGoodsFragment=null;
     /**
      * ActionBar标题
      */
@@ -40,11 +36,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 编辑，或完成（供购物车或个人资料修改使用）
      */
     public CheckBox mCbActionBarEdit;
-    public FragmentManager mFragmentManager;
     protected T mPresenter;
     protected static Toast toast;
     public String TAG;
-
+    /**
+     * 商品详情Fragment（通用）；
+     */
+    public static GoodsFragment mGoodsFragment=null;
+    /**
+     * web Fragment（通用）；
+     */
+    public WebFragment mWebFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +58,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         onCreateActivity(savedInstanceState);
         //初始化Presenter
         mPresenter.onStart();
-        mFragmentManager=initFragmentManager();
-        mGoodsFragment=new GoodsFragment();
-        TAG= getClass().getSimpleName();
-
     }
-
-    protected abstract FragmentManager initFragmentManager();
 
     protected void initActionBar(){
         mActionBar=findViewById(R.id.rl_ActionBar);
