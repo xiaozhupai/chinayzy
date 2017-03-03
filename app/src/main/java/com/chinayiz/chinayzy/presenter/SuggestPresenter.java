@@ -56,8 +56,8 @@ public class SuggestPresenter extends BasePresenter<SuggestFragment> {
                BaseResponseModel model= (BaseResponseModel) message.getData();
                 Toast.makeText(mView.getActivity(),model.getMsg(),Toast.LENGTH_SHORT).show();
                 if (model.getCode().equals("100")){
-                 MineActivity activity= (MineActivity) mView.getActivity();
-                    activity.onBackPressed();
+
+                mView.mineActivity.onBackPressed();
                 }
             }
     }

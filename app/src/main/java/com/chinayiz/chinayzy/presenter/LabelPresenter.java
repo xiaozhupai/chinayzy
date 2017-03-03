@@ -92,7 +92,7 @@ public class LabelPresenter extends BasePresenter<LabelFragment> {
                       BaseActivity.showToast(mView.getActivity(),model2.getMsg());
                       if (model2.getCode().equals("100")){
                           EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,LABEL,tags_mystle));
-                          mView.activity.OnBackPressed();
+                          mView.mineActivity.OnBackPressed();
                       }
 
                       break;

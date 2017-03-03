@@ -18,6 +18,7 @@
             android:id="@+id/listv_shopcart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/basecolor"
             ></com.chinayiz.chinayzy.views.pullable.PullableListView>
         <include layout="@layout/load_more"/>
     </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>

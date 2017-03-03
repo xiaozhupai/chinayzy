@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.HeightPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.orhanobut.logger.Logger;
 
 /**
  * 身高
@@ -26,7 +28,7 @@ public class HeightFragment extends BaseFragment<HeightPresenter> {
     public String param;
     public EditText et_height;
     public TextView tv_right;
-    public MineActivity activity;
+    public MineActivity mineActivity;
 
     public HeightFragment(String param) {
         this.param = param;
@@ -45,6 +47,21 @@ public class HeightFragment extends BaseFragment<HeightPresenter> {
     protected void lazyLoad() {
     }
 
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("身高");
+        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        mineActivity.mCbActionBarEdit.setText("完成");
+        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logger.i("完成");
+                mPresenter.submit();
+            }
+        });
+
+    }
 
 
     @Override
@@ -53,15 +70,7 @@ public class HeightFragment extends BaseFragment<HeightPresenter> {
         et_height = (EditText) view.findViewById(R.id.et_height);
         tv_right = (TextView) view.findViewById(R.id.tv_right);
         et_height.setText(param);
-        activity= (MineActivity) getActivity();
-        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        activity.mCbActionBarEdit.setText("完成");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.submit();
-            }
-        });
+
         return view;
     }
 

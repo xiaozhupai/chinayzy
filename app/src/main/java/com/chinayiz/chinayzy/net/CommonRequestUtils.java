@@ -632,7 +632,7 @@ public class CommonRequestUtils {
     public void getAliPayOrder(String type,String total,String orderbill) {
         OkHttpUtils
                 .post()
-                .url(Commons.API + Commons.ALIPAYORDER)
+                .url(Commons.PAY + Commons.ALIPAYORDER)
                 .addParams("type", type)
                 .addParams("userid",APP.sUserid)
                 .addParams("total",total)
@@ -668,7 +668,7 @@ public class CommonRequestUtils {
     public void getWxPayOrder(String type,String total,String orderbill) {
         OkHttpUtils
                 .post()
-                .url(Commons.API + Commons.WXPAYORDER)
+                .url(Commons.PAY + Commons.WXPAYORDER)
                 .addParams("type", type)
                 .addParams("userid",APP.sUserid)
                 .addParams("total",total)

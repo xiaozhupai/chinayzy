@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Looper;
 import android.os.ParcelUuid;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
@@ -67,10 +70,30 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     public LinearLayout lv_user;
     public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFragmentManager=getFragmentManager();
+        mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                Logger.i("qijian", "backstack changed");
+                int backStackEntryCount=mFragmentManager.getBackStackEntryCount();
+                if (backStackEntryCount==0){
+                    mTvActionBarTitle.setText("个人中心");
+                  return;
+                }
+                if (backStackEntryCount>0){
+                    FragmentManager.BackStackEntry backStack=mFragmentManager.getBackStackEntryAt(backStackEntryCount-1);
+                    String name=backStack.getName();
+                 BaseFragment fragment= (BaseFragment) mFragmentManager.findFragmentByTag(name);
+                    fragment.onInitActionBar(MineActivity.this);
+                    Logger.i("OnBackPressed---------------------------------------------------"+name);
+                }
 
+            }
+        });
     }
 
 
@@ -221,7 +244,8 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     }
 
     public void addFragment( Fragment fragment) {
-        getFragmentManager().beginTransaction().add(R.id.container, fragment,fragment.getTag()).addToBackStack(fragment.getTag()).commit();
+      Class <?> tag=fragment.getClass();
+        mFragmentManager.beginTransaction().add(R.id.container, fragment,tag.getName()).addToBackStack(fragment.getTag()).commit();
     }
 
     @Override
@@ -241,7 +265,23 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            int backStackEntryCount=mFragmentManager.getBackStackEntryCount();
+            if (backStackEntryCount>1){
+                FragmentManager.BackStackEntry backStack=mFragmentManager.getBackStackEntryAt(backStackEntryCount-1);
+                String name=backStack.getName();
+                int id= backStack.getId();
+                Logger.i("OnBackPressed---------------------------------------------------"+name+"id-------------"+id);
+
+            }
+        }
+        return true;
+    }
+
     public void OnBackPressed(){
         super.onBackPressed();
+
     }
 }

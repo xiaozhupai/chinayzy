@@ -61,7 +61,7 @@ public class CardPresenter extends BasePresenter<CardFragment> {
             BaseResponseModel model= (BaseResponseModel) message.getData();
             BaseActivity.showToast(mView.getActivity(),model.getMsg());
             if (model.getCode().equals("100")){
-                mView.activity.OnBackPressed();
+                mView.mineActivity.OnBackPressed();
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.IDCARD,card));
             }
         }

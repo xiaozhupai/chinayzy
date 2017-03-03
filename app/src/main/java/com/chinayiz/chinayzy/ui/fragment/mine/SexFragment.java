@@ -13,9 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SexPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.orhanobut.logger.Logger;
 
 /**  性别
  * A simple {@link Fragment} subclass.
@@ -28,7 +30,7 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
     public TextView tv_sex_woman;
     public ImageView iv_sex_woman;
     public RelativeLayout rl_sex_woman;
-    public MineActivity activity;
+    public MineActivity mineActivity;
 
 
     public SexFragment(String param) {
@@ -47,6 +49,22 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
 
     @Override
     protected void lazyLoad() {
+
+    }
+
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("性别");
+        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        mineActivity.mCbActionBarEdit.setText("完成");
+        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logger.i("完成");
+                mPresenter.submit();
+            }
+        });
 
     }
 
@@ -79,15 +97,7 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
             }
         }
 
-        activity= (MineActivity) getActivity();
-        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        activity.mCbActionBarEdit.setText("完成");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.submit();
-            }
-        });
+
         return view;
 
     }

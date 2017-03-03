@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/icon_rmb"
                     android:layout_gravity="bottom"
+                    android:layout_marginBottom="3dp"
                     />
                 <TextView
                     android:id="@+id/tv_price"
@@ -54,36 +55,78 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icon_close"
                 android:layout_alignParentRight="true"
-                android:layout_margin="12dp"
+                android:padding="12dp"
                 />
         </RelativeLayout>
         <View
             style="@style/Divider"
             android:layout_marginTop="5dp"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11dp"
-            android:layout_marginTop="16dp"
-            android:text="规格"
-            android:textSize="13sp"
-            android:textColor="#777777"
-            />
-        <com.chinayiz.chinayzy.widget.TagListView
-            android:id="@+id/tlv_list"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginLeft="11dp"
-            android:layout_marginRight="11dp"
-            android:padding="5dp"
-            f:horizontalSpacing="@dimen/tag_horizontal_spacing"
-            f:orientation="horizontal"
-            f:verticalSpacing="@dimen/tag_vertical_spacing"
-            >
+            android:layout_height="220dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="16dp"
+                    android:text="规格"
+                    android:textSize="13sp"
+                    android:textColor="#777777"
+                    />
+                <com.chinayiz.chinayzy.widget.TagListView
+                    android:id="@+id/tlv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:padding="5dp"
+                    f:horizontalSpacing="@dimen/tag_horizontal_spacing"
+                    f:orientation="horizontal"
+                    f:verticalSpacing="@dimen/tag_vertical_spacing"
+                    >
 
-        </com.chinayiz.chinayzy.widget.TagListView>
+                </com.chinayiz.chinayzy.widget.TagListView>
+                <RelativeLayout
+                    android:id="@+id/rl_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="38dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="数量"
+                        android:layout_centerVertical="true"
+                        />
+                      <LinearLayout
+                          android:layout_width="104dp"
+                          android:layout_height="26dp"
+                          android:layout_alignParentRight="true"
+                          android:background="@mipmap/img_bg_corner"
+                          android:orientation="horizontal"
+                          >
+                       <ImageView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:src="@mipmap/img_left_remove"
+                            android:layout_gravity="center_vertical"
+                           android:layout_marginLeft="10dp"
+                           />
+                      </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
         <TextView
             android:id="@+id/tv_submit"
             android:layout_width="match_parent"

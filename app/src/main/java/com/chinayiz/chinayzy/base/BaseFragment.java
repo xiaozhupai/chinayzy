@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.base;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -118,6 +119,14 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
         //创建presenter
         mPresenter = initPresenter();
+    }
+
+    /**
+     * actionbar导航
+     * @param activity
+     */
+    public  void onInitActionBar(BaseActivity activity){
+        Logger.i("onInitActionBar");
     }
 
     /**

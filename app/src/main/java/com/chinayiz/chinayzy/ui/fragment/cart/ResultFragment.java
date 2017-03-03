@@ -4,10 +4,13 @@ package com.chinayiz.chinayzy.ui.fragment.cart;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -21,6 +24,10 @@ import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +36,7 @@ import java.util.List;
  * 结算订单
  * A simple {@link Fragment} subclass.
  */
-public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener {
+public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener, IWXAPIEventHandler {
     public ListView lv_result;
     public TextView tv_result_price;
     public TextView tv_result_submit;
@@ -44,7 +51,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public LinearLayout lv_payway;
     public List<ResultModel.DataBean.GoodmessageBean> list;
     public String params;
-    public TextView tv_address_name,tv_address_phone,tv_address_text;
+    public TextView tv_address_name,tv_address_phone,tv_address_text,tv_deducpoint;
 
     public ResultFragment(String params){
         this.params=params;
@@ -80,6 +87,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
 
         View foot = View.inflate(getActivity(), R.layout.result_foot, null);
         tv_goods_total = (TextView) foot.findViewById(R.id.tv_goods_total);
+        tv_deducpoint= (TextView) foot.findViewById(R.id.tv_deducpoint);
         tv_cost = (TextView) foot.findViewById(R.id.tv_cost);
         cb_check = (CheckBox) foot.findViewById(R.id.cb_check);
         rl_payway_boom = (RelativeLayout) foot.findViewById(R.id.rl_payway_boom);
@@ -104,34 +112,22 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
                 }
             }
         });
+
+        cb_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mPresenter.ChangeDeducpoint(b);
+            }
+        });
         rl_payway_boom.setOnClickListener(this);
         iv_pay_ali.setCheck(true);
         iv_pay_wechat.setCheck(false);
-
         lv_result.addFooterView(foot);
-        list = new ArrayList();
-
-        adaphter = new ResultAdaphter(getActivity(), list);
+        adaphter = new ResultAdaphter(getActivity(), null,null);
         lv_result.setAdapter(adaphter);
-//        tv_goods_total.setText("￥"+UpdateTotal());
-//        tv_result_price.setText("总计:￥"+UpdateTotal());
         return view;
 
     }
-
-
-//    /**
-//     * 获得商品总价
-//     * @return
-//     */
-//    public double UpdateTotal(){
-//        double total=0.00;
-//        for (ShopCartModel.DataBean.ShoplistBean bean:list){
-//            total+=bean.getPrice()*bean.getNum();
-//        }
-//        return total;
-//    }
-
 
     @Override
     public ResultPresenter initPresenter() {
@@ -165,4 +161,20 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     }
 
 
+    @Override
+    public void onReq(BaseReq baseReq) {
+
+    }
+
+    @Override
+    public void onResp(BaseResp baseResp) {
+        Log.i("ResultFragment", "onPayFinish, errCode = " + baseResp.errCode);
+
+//        if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//            builder.setTitle(R.string.app_tip);
+//            builder.setMessage(getString(R.string.pay_result_callback_msg, String.valueOf(baseResp.errCode)));
+//            builder.show();
+//        }
+    }
 }

@@ -24,8 +24,9 @@ import com.orhanobut.logger.Logger;
  */
 public class EmailFragment extends BaseFragment<EmailPresenter> {
     public EditText et_email;
-    public MineActivity activity;
+    public MineActivity mineActivity;
     public String param;
+
 
     public EmailFragment(String param){
         this.param=param;
@@ -46,6 +47,21 @@ public class EmailFragment extends BaseFragment<EmailPresenter> {
 
     }
 
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+      mineActivity= (MineActivity) activity;
+        mineActivity.mTvActionBarTitle.setText("邮箱地址");
+        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        mineActivity.mCbActionBarEdit.setText("完成");
+        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logger.i("完成");
+                mPresenter.submit();
+            }
+        });
+
+    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,16 +70,7 @@ public class EmailFragment extends BaseFragment<EmailPresenter> {
         et_email = (EditText)view.findViewById(R.id.et_email);
         et_email.setText(param);
 
-        activity= (MineActivity) getActivity();
-        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        activity.mCbActionBarEdit.setText("完成");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Logger.i("完成");
-                mPresenter.submit();
-            }
-        });
+
         return view;
 
     }

@@ -64,7 +64,7 @@ public class EmailPresenter extends BasePresenter<EmailFragment> {
              BaseResponseModel model= (BaseResponseModel) message.getData();
             Toast.makeText(mView.getActivity(),model.getMsg(),Toast.LENGTH_SHORT).show();
             if (model.getCode().equals("100")){
-                mView.activity.onBackPressed();
+                mView.mineActivity.onBackPressed();
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.EMAIL,email));
             }
 

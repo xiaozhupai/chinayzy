@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
@@ -68,8 +70,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
 
     @Override
     protected void onVisible() {
-        MineActivity activity= (MineActivity) getActivity();
-        activity.mTvActionBarTitle.setText("个人资料");
+
     }
 
     @Override
@@ -81,7 +82,13 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     protected void lazyLoad() {
     }
 
-
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        MineActivity activity1 = (MineActivity) activity;
+        activity1.mTvActionBarTitle.setText("个人资料");
+        activity1.mCbActionBarEdit.setVisibility(View.GONE);
+        Logger.i("onInitActionBar------------PersonFragment");
+    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

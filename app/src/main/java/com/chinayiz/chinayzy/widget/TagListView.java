@@ -31,6 +31,25 @@ public class TagListView extends FlowLayout implements OnClickListener {
 	private int mTagViewTextColorResId;
 	private final List<Tag> mTags = new ArrayList<Tag>();
 
+	public int getmTagViewSelectedBackgroundResid() {
+		return mTagViewSelectedBackgroundResid;
+	}
+
+	public void setmTagViewSelectedBackgroundResid(int mTagViewSelectedBackgroundResid) {
+		this.mTagViewSelectedBackgroundResid = mTagViewSelectedBackgroundResid;
+	}
+
+	public int getmTagViewSelectedTextColorResId() {
+		return mTagViewSelectedTextColorResId;
+	}
+
+	public void setmTagViewSelectedTextColorResId(int mTagViewSelectedTextColorResId) {
+		this.mTagViewSelectedTextColorResId = mTagViewSelectedTextColorResId;
+	}
+
+	private int mTagViewSelectedBackgroundResid;
+	private int mTagViewSelectedTextColorResId;
+
 	/**
 	 * @param context
 	 */
@@ -81,18 +100,17 @@ public class TagListView extends FlowLayout implements OnClickListener {
 		localTagView.setText(t.getTitle());
 		localTagView.setTag(t);
 
+		localTagView.setBackgroundResource(mTagViewBackgroundResId);
+		localTagView.setTextColor(mTagViewTextColorResId);
 		if (t.isChecked()){
-			localTagView.setTextColor(getResources().getColor(R.color.white));
-			localTagView.setBackgroundResource(R.drawable.tag_pressed);
+			localTagView.setTextColor(mTagViewSelectedTextColorResId);
+			localTagView.setBackgroundResource(mTagViewSelectedBackgroundResid);
 		}
 
-		localTagView.setChecked(t.isChecked());
-		localTagView.setCheckEnable(b);
-
-			localTagView.setBackgroundResource(mTagViewBackgroundResId);
+//		localTagView.setChecked(t.isChecked());
+//		localTagView.setCheckEnable(b);
 
 
-		localTagView.setTextColor(mTagViewTextColorResId);
 //		if (mIsDeleteMode) {
 //			int k = (int) TypedValue.applyDimension(1, 5.0F, getContext()
 //					.getResources().getDisplayMetrics());
