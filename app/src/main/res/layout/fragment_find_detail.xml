@@ -3,10 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment">
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:max="100"
+        android:visibility="gone"
+        android:background="@drawable/progressbar"
+        />
 <WebView
+    android:id="@+id/wv_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_above="@+id/lv_find_detail_bottom"/>
+    android:layout_above="@+id/lv_find_detail_bottom"
+
+    />
     <LinearLayout
         android:id="@+id/lv_find_detail_bottom"
         android:layout_width="match_parent"

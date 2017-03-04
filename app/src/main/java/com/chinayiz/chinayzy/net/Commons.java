@@ -217,6 +217,11 @@ public class Commons {
      */
     public static final String ABOUTUS="/h5/aboutus";
 
+    /**
+     * 发现详情
+     */
+    public static final String FXXQ="/h5/fxxq";
+
 
 
 }

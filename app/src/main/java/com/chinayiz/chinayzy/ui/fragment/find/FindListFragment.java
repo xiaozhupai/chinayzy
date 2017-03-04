@@ -112,6 +112,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
       List <FindListModel.DataBean> lists=mPresenter.lists;
       FindListModel.DataBean dataBean=lists.get(position);
-        startFragment(new FindDetailFragment(dataBean.getBid()+""),"FindDetailFragment");
+        FindDetailFragment findDetailFragment=new FindDetailFragment(dataBean.getBid()+"");
+        startFragment(findDetailFragment,findDetailFragment.getTag());
     }
 }
