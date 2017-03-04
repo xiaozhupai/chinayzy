@@ -16,6 +16,7 @@ public class Commons {
     /**
      * 检查更新地址
      */
+
     public static final String UPDATE = "http://rap.taobao.org/mockjs/12395/";
     /**
      * 添加购物车
@@ -211,5 +212,11 @@ public class Commons {
      * 微信支付支付
      */
     public static final String WXPAYORDER="/pay/wxPayOrder";
+    /**
+     * 关于我们
+     */
+    public static final String ABOUTUS="/h5/aboutus";
+
+
 
 }

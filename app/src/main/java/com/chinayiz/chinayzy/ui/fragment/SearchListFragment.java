@@ -22,7 +22,6 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.搜索结果列表
  */
-@SuppressLint("ValidFragment")
 public class SearchListFragment extends BaseFragment<SearchListPresenter> {
     private ListView lv_list;
     public SearchResultAdaphter adaphter;

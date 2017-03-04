@@ -24,7 +24,6 @@ import java.util.List;
 /**
  * 搜索结果
  */
-@SuppressLint("ValidFragment")
 public class SearchResultFragment extends BaseFragment<SearchResultPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
     private TextView tv_hot;
     private TextView tv_sale;

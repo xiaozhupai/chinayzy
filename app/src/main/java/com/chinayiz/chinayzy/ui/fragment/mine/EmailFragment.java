@@ -21,7 +21,6 @@ import com.orhanobut.logger.Logger;
  * 邮箱地址
  * A simple {@link Fragment} subclass.
  */
-@SuppressLint("ValidFragment")
 public class EmailFragment extends BaseFragment<EmailPresenter> {
     public EditText et_email;
     public MineActivity mineActivity;

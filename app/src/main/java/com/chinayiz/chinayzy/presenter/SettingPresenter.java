@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Toast;
-
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.fragment.WebFragment;
+import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
-
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
 import com.chinayiz.chinayzy.widget.MessageDialog;
-
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -107,5 +107,13 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
     public void toPerson(){
         MineActivity activity= (MineActivity) mView.getActivity();
         activity.addFragment(new PersonFragment());
+    }
+
+    /**
+     * 关于我们
+     */
+    public void toAboutUs() {
+        MineActivity activity= (MineActivity) mView.getActivity();
+        activity.addFragment(new WebPowerFragment("关于我们", Commons.API+Commons.ABOUTUS));
     }
 }

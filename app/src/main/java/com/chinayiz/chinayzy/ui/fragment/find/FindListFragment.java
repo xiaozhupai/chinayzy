@@ -13,6 +13,7 @@ import android.widget.GridView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.FindAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.presenter.FindListPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
@@ -25,7 +26,6 @@ import java.util.List;
 /** 发现列表
  * A simple {@link Fragment} subclass.
  */
-@SuppressLint("ValidFragment")
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
     public PullableGridView gd_find_list;
     public FindAdaphter adaphter;
@@ -62,6 +62,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=initView(inflater,container,savedInstanceState);
+
         ViewGroup parent= (ViewGroup) view.getParent();
         if (parent!=null){
             parent.removeView(view);
@@ -80,6 +81,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
         List list=new ArrayList();
         adaphter=new FindAdaphter(getActivity(),list);
         lv_list.setAdapter(adaphter);
+        lv_list.setOnItemClickListener(this);
 //        gd_find_list.setAdapter(adaphter);
 //        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -108,6 +110,8 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startFragment(new FindDetailFragment(),"FindDetailFragment");
+      List <FindListModel.DataBean> lists=mPresenter.lists;
+      FindListModel.DataBean dataBean=lists.get(position);
+        startFragment(new FindDetailFragment(dataBean.getBid()+""),"FindDetailFragment");
     }
 }

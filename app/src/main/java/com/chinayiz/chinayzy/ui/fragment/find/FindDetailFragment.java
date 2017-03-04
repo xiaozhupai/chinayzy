@@ -26,6 +26,11 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     private LinearLayout lv_find_detail_bottom;
     private ShareDialog dialog;
     private boolean isLove;
+    private String bid;
+
+    public FindDetailFragment(String bid) {
+        this.bid = bid;
+    }
 
     @Override
     protected void onVisible() {

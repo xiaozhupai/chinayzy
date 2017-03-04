@@ -23,7 +23,6 @@ import com.orhanobut.logger.Logger;
 /**  性别
  * A simple {@link Fragment} subclass.
  */
-@SuppressLint("ValidFragment")
 public class SexFragment extends BaseFragment<SexPresenter> implements View.OnClickListener {
     public String param;
     public TextView tv_sex_man;

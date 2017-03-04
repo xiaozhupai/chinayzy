@@ -24,7 +24,6 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/2/16 16:42
  * Class GoodsListFragment
  */
-@SuppressLint("ValidFragment")
 public class GoodsListFragment extends Fragment {
     private MyGridView mGoodsList;
     private String mTypeCode="1";
