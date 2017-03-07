@@ -9,7 +9,6 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-import com.chinayiz.chinayzy.R;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -380,7 +379,6 @@ public class McoySnapPageLayout extends ViewGroup {
         }
         snapToScreen(whichScreen);
 	}
-
 	private void snapToScreen(int dataIndex) {
         if (!mScroller.isFinished())
             return;

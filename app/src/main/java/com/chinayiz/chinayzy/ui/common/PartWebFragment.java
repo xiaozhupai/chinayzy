@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.chinayiz.chinayzy.R;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -20,14 +21,25 @@ public class PartWebFragment extends Fragment{
     private WebView wv_view;
     private String  goodsid="-1";
     private String url="-1";
-    public PartWebFragment( String url) {
-        this.url = url;
-    }
+
     public void setUrl(String goodsid, String url){
         this.goodsid = goodsid;
         this.url = url;
-        if (wv_view!=null){
+        try {
+            Logger.i("访问新页面ID="+goodsid+"WBE等于="+(wv_view==null));
             wv_view.loadUrl(url+"?goodsid="+goodsid);
+        }catch (Exception e){
+            if (wv_view!=null){
+                wv_view.loadUrl(url+"?goodsid="+goodsid);
+            }else {
+                Logger.e("WEB还是等于空=catch");
+            }
+        }finally {
+            if (wv_view!=null){
+                wv_view.loadUrl(url+"?goodsid="+goodsid);
+            }else {
+                Logger.e("WEB还是等于空=finally");
+            }
         }
     }
     @Override

@@ -249,10 +249,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
      * 启动店铺首页
      */
     private void startStoreHome() {
-        getFragmentManager().beginTransaction()
-                .addToBackStack("GoodsFragment")
-                .add(R.id.fl_nongye,mStoreHomeFragment,"StoreHomeFragment")
-                .commit();
+
     }
 
     @Override

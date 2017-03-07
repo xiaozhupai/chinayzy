@@ -11,7 +11,6 @@ import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
-import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
 import com.chinayiz.chinayzy.views.GlideCircleTransform;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
@@ -61,7 +60,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
         switch (message.getDataType()) {
             case Commons.GOODS_DETAIL: {
                 GoodsDetailModel model = (GoodsDetailModel) message.getData();
-                mView.mStoreHomeFragment = new StoreHomeFragment();
+
                 showGoodsInfo(model);
                 if (mRefreshLayout!=null){
                     mRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
@@ -94,7 +93,7 @@ public class Goods_Presenter extends BasePresenter<GoodsFragment> implements Pul
             urls.add(str);
         }
         mView.goodsCode=model.getData().getItemcode();
-        mView.mStoreHomeFragment.setStoreID(String.valueOf(model.getData().getShopid()));
+
         mView.mGoodsHolder.mVpagerBanner.setPages(new CreateBannerHolder(), urls);
         mView.mGoodsHolder.mTvGoodsTitle.setText(model.getData().getGname());
         mView.mGoodsHolder.mTvGoodsPrice.setText(model.getData().getPrice());

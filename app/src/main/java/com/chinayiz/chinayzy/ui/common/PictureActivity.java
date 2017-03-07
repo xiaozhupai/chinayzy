@@ -41,7 +41,6 @@ public class PictureActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
                         super.onResourceReady(drawable, anim);
-                        Logger.i("加载完成");
                         progress.setVisibility(View.GONE);
                     }
                     });

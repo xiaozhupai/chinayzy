@@ -14,10 +14,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.CreatePhotosHolder;
+import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.adapter.viewHolder.GoodsHolder;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -41,10 +41,16 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * author  by  Canrom7 .
+ * CreateDate 2017/3/4 15:32
+ * StoreActivity  商品详情
+ */
 public class GoodsActivity extends AppCompatActivity implements BotContentPage.ScrollListener
         , McoySnapPageLayout.PageSnapedListener, View.OnClickListener,
         CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener
-        , EventBusCallback, CommentsFragment.StateListener, OnItemClickListener {
+        , EventBusCallback, CommentsFragment.StateListener {
+    public final static String REFRESH = "GoodsActivity_refresh";
     private GoodsListFragment mGoodssFragment;
     private CommentsFragment mCommentFragment;
     private PartWebFragment mPartWebFragment;
@@ -54,38 +60,43 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
     private TopDetailInfoPage mTopPage = null;
     private BotContentPage mBottomPage = null;
     private GoodsHolder mGoodsHolder = null;
-    private  List<String> urls = new ArrayList<>();
-    private boolean isFirst=true;
+    private List<String> urls = new ArrayList<>();
+    private boolean isFirst = true;
     private boolean isShowComments;
+    private boolean isRefresh=false;
     private CheckBox mRbFavorite;
     private GoodsDetailModel model = null;
     private ImageView mIvBackBtn;
     private int sumComment = 0;
     private View mPregress;
-    private String goodsID;
+    private String goodsID, storeID;
     private int comitsID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_goods);
         initView();
-        EventBus.getDefault().register(this);
+        Logger.w("onCreate");
         mFragmentManager = getFragmentManager();
         mRequestUtils = CommonRequestUtils.getRequestUtils();
-        mPartWebFragment = new PartWebFragment(Commons.API + Commons.GOODS_PICDETAIL);
+        mPartWebFragment = new PartWebFragment();
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         Intent intent = getIntent();
         goodsID = intent.getStringExtra("goodsID");
-        if (goodsID == null) {
-            throw new RuntimeException("商品ID为空");
-        }
         if (isFirst) {
             mRequestUtils.getGoodsDetail(goodsID);
+        }
+        if (isRefresh) {
+            refreshView();
+            isRefresh=false;
+            Logger.d("重新刷新99999999999999999");
         }
     }
 
@@ -93,15 +104,12 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
             case Commons.GOODS_DETAIL: {//商品详情简要信息
+                Logger.i("商品详情简要信息");
                 mMlMcoySnapPageLayout.setVisibility(View.VISIBLE);
-                mPregress.setVisibility(View.GONE);
-                isFirst=false;
+                isFirst = false;
                 model = (GoodsDetailModel) message.getData();
+                storeID = String.valueOf(model.getData().getShopid());
                 setGoodsInfo(model);
-                break;
-            }
-            case Commons.GOODS_GROUP: {//相关商品
-
                 break;
             }
             case Commons.COMMENT_LIST: {//评论列表
@@ -109,7 +117,30 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                 mCommentFragment.setCommentData(message);
                 break;
             }
+            case REFRESH: {//再次请求数据
+                goodsID=message.getData().toString();
+                isRefresh=true;
+                break;
+            }
+            case GoodsDetailGridAdpter.CLICK_GOODS:{
+                goodsID=message.getData().toString();
+                refreshView();
+
+                break;
+            }
         }
+    }
+
+    private void refreshView() {
+        setContentView(R.layout.activity_goods);
+        initView();
+        urls=new ArrayList<>();
+        mPregress.setVisibility(View.VISIBLE);
+        mRequestUtils.getGoodsDetail(goodsID);
+        mFragmentManager.beginTransaction()
+                .remove(mPartWebFragment).commit();
+        mFragmentManager.beginTransaction()
+                .remove(mGoodssFragment).commit();
     }
 
     @Override
@@ -134,7 +165,9 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                 Logger.i("客服");
                 break;
             case R.id.tv_store:
-                Logger.i("启动店铺主页");
+                Intent intent = new Intent(this, StoreActivity.class);
+                intent.putExtra("storeID", storeID);
+                startActivity(intent);
                 break;
             case R.id.tv_addCart:
                 Logger.i("加入购物车");
@@ -176,6 +209,9 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                 break;
             case R.id.iv_InStore:
                 Logger.i("启动店铺主页");
+                Intent intent2 = new Intent(this, StoreActivity.class);
+                intent2.putExtra("storeID", storeID);
+                startActivity(intent2);
                 break;
         }
     }
@@ -209,11 +245,36 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                     mFragmentManager
                             .beginTransaction()
                             .add(R.id.fl_goodsDetail, mGoodssFragment, "mGoodssFragment")
-                            .commit();
+                            .commitAllowingStateLoss();
                 }
-                CommonRequestUtils.getRequestUtils().getRelatedGoods(model.getData().getItemcode(), "1", "14");
+               mRequestUtils.getRelatedGoods(model.getData().getItemcode(), "1", "14");
                 break;
             }
+        }
+    }
+
+    /**
+     * 商品图文详情/规格
+     *
+     * @param url
+     */
+    private void startWebView(String url) {
+        mPregress.setVisibility(View.GONE);
+        if (mPartWebFragment.isAdded()) {
+            if (mGoodssFragment != null) {
+                if (mGoodssFragment.isAdded()) {
+                    mFragmentManager.beginTransaction().hide(mGoodssFragment).show(mPartWebFragment).commit();
+                } else {
+                    mFragmentManager.beginTransaction().show(mPartWebFragment).commit();
+                }
+            }
+            mPartWebFragment.setUrl(goodsID, url);
+        } else {
+            mFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fl_goodsDetail, mPartWebFragment, "mPartWebFragment")
+                    .commitAllowingStateLoss();
+            mPartWebFragment.setUrl(goodsID, url);
         }
     }
 
@@ -223,6 +284,7 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
         for (String str : model.getData().getGpic().split(",")) {
             urls.add(str);
         }
+        mPregress.setVisibility(View.GONE);
         mGoodsHolder.mVpagerBanner.setPages(new CreatePhotosHolder(), urls);
         mGoodsHolder.mTvGoodsTitle.setText(model.getData().getGname());
         mGoodsHolder.mTvGoodsPrice.setText(model.getData().getPrice());
@@ -276,30 +338,6 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
     }
 
     /**
-     * 商品图文详情/规格
-     *
-     * @param url
-     */
-    private void startWebView(String url) {
-        if (mPartWebFragment.isAdded()) {
-            if (mGoodssFragment != null) {
-                if (mGoodssFragment.isAdded()) {
-                    mFragmentManager.beginTransaction().hide(mGoodssFragment).show(mPartWebFragment).commit();
-                } else {
-                    mFragmentManager.beginTransaction().show(mPartWebFragment).commit();
-                }
-            }
-            mPartWebFragment.setUrl(goodsID, url);
-        } else {
-            mFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fl_goodsDetail, mPartWebFragment, "mPartWebFragment")
-                    .commit();
-            mPartWebFragment.setUrl(goodsID, url);
-        }
-    }
-
-    /**
      * @return 子视图是否滑动到顶部
      */
     @Override
@@ -311,14 +349,14 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
 
             }
             case 2: {
-                if (mPartWebFragment.getScrollY()<=1) {
+                if (mPartWebFragment.getScrollY() <= 1) {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
             }
             case 3: {
-                if (mGoodssFragment != null && mGoodssFragment.getScrllY() <=1) {
+                if (mGoodssFragment != null && mGoodssFragment.getScrllY() <= 1) {
                     return true;
                 }
                 break;
@@ -381,34 +419,11 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
         mTvAddCart.setOnClickListener(this);
     }
 
-    /**
-     * banner图点击监听
-     * @param position
-     */
-    @Override
-    public void onItemClick(int position) {
-        Logger.i("点击细节图="+position);
-            if (urls.size()>0){
-                Intent intent = new Intent(this, PictureActivity.class);
-                intent.putExtra("images", (ArrayList<String>) urls);//非必须
-                intent.putExtra("position", position);
-                int[] location = new int[2];
-                mIvBackBtn.getLocationOnScreen(location);
-                intent.putExtra("locationX", location[0]);//必须
-                intent.putExtra("locationY", location[1]);//必须
-
-                intent.putExtra("width", mIvBackBtn.getWidth());//必须
-                intent.putExtra("height", mIvBackBtn.getHeight());//必须
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-    }
-
     private void initTopPage(View topView) {
         mGoodsHolder = new GoodsHolder();
         mGoodsHolder.mVpagerBanner = (ConvenientBanner) topView.findViewById(R.id.vpager_Banner);
         mGoodsHolder.mVpagerBanner.setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused});
-//        mGoodsHolder.mVpagerBanner.setOnItemClickListener(this);
+
 
         mGoodsHolder.mTvShareBtn = (TextView) topView.findViewById(R.id.tv_share_btn);
         mGoodsHolder.mTvGoodsTitle = (TextView) topView.findViewById(R.id.tv_goodsTitle);
@@ -469,7 +484,7 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                 break;
             }
             case EventMessage.ERROR_EVENT: {
-                Logger.e("商品详情请求错误");
+                BaseActivity.showToast(this,"发生未知错误");
                 break;
             }
         }
@@ -486,20 +501,20 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (isShowComments){
+        if (isShowComments) {
             mMlMcoySnapPageLayout.setVisibility(View.VISIBLE);
             mFragmentManager.beginTransaction().remove(mCommentFragment).commit();
-        }else {
+        } else {
             finish();
         }
     }
 
     @Override
     public void stateChange(int stateCode) {
-        if (stateCode==CommentsFragment.START){
-            isShowComments=false;
-        }else {
-            isShowComments=true;
+        if (stateCode == CommentsFragment.START) {
+            isShowComments = false;
+        } else {
+            isShowComments = true;
         }
     }
 }

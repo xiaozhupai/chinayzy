@@ -126,9 +126,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-        <activity android:name=".ui.common.PictureActivity"
-                  android:launchMode="singleTask"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".ui.common.PictureActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity android:name=".ui.common.StoreActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:launchMode="standard"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
         </activity>
     </application>
 
