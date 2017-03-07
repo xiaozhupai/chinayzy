@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/1/17 14:30
- * Class BannerHolder banner图适配器
+ * Class BannerHolder banner 图适配器
  */
 public class BannerHolder implements Holder<String> {
     private ImageView imageView;
