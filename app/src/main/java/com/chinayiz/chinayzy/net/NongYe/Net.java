@@ -368,6 +368,7 @@ public class Net {
                 .post()
                 .url(Commons.API + Commons.FINDBLOGBYTYPE)
                 .addParams("type",type)
+                .addParams("userid",APP.sUserid)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){

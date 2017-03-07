@@ -340,5 +340,74 @@ public class UserNet {
                 });
     }
 
+    /**
+     * 博文点赞
+     * @param bid 博文ID
+     * @param isdianzan  是否点赞
+     */
+    public void getDiZan(String bid,String isdianzan) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.DIZAN)
+                .tag("ny")
+                .addParams("userid",APP.sUserid)
+                .addParams("blogid",bid)
+                .addParams("isdianzan",isdianzan)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.DIZAN
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     *  博文收藏
+     * @param bid 博文ID
+     * @param iscollect  是否收藏
+     */
+    public void getCollection(String bid,String iscollect) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.CANCELCOLLECT)
+                .tag("ny")
+                .addParams("userid",APP.sUserid)
+                .addParams("blogid",bid)
+                .addParams("iscollect",iscollect)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.CANCELCOLLECT
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+
 
 }

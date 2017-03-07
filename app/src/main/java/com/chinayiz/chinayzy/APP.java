@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy;
 import android.app.Application;
 import android.content.Context;
 
+
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
@@ -30,6 +31,7 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         cacheUtil=GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);
         ShareSDK.initSDK(this);
@@ -46,4 +48,6 @@ public class APP extends Application {
     private void initData() {
 
     }
+
+
 }

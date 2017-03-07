@@ -9,11 +9,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.chinayiz.chinayzy.adapter.PagerAdaphter;
+import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
+import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
 import com.chinayiz.chinayzy.utils.magicindicator.ViewPagerHelper;
@@ -68,7 +71,9 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-
+           if (message.getEventType()==EventMessage.INFORM_EVENT){
+               disposeInfoMsg(message);
+           }
     }
 
     @Override
@@ -76,7 +81,8 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
         if (message.getEventType()==EventMessage.NET_EVENT){
             FindTypeModel model= (FindTypeModel) message.getData();
               titles.clear();
-            List <Fragment> lists=new ArrayList<>();
+            //发现指示器
+            List <BaseFragment> lists=new ArrayList<>();
             for (FindTypeModel.DataBean bean: model.getData()){
                 FindListFragment fragment=new FindListFragment(bean.getType());
                 lists.add(fragment);
@@ -128,7 +134,7 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
                 }
             });
             ViewPagerHelper.bind(mView.magic_indicator,mView.vp_find);
-
+           //发现viewpager
             mView.vp_find.setAdapter(new PagerAdaphter(mView.getChildFragmentManager(),lists));
             mView.vp_find.setOffscreenPageLimit(lists.size());
         }
@@ -136,6 +142,12 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-
+            switch (message.getDataType()){
+                case FindListFragment.TO_FINDDETAIL:
+                    FindListModel.DataBean dataBean= (FindListModel.DataBean) message.getData();
+                    FindDetailFragment findDetailFragment=new FindDetailFragment(dataBean);
+                    mView.startFragment(findDetailFragment,"FindDetailFragment");
+                    break;
+            }
     }
 }

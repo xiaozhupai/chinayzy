@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SettingPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.orhanobut.logger.Logger;
 
 /**  设置
@@ -119,6 +120,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
                 break;
             case R.id.rl_about_us:  //关于我们
                 Logger.i("关于我们");
+                mPresenter.toAboutUs();
                 break;
             case R.id.tv_logout:   //退出登录
                 Logger.i("退出登录");

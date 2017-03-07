@@ -30,7 +30,6 @@ import java.util.List;
  * 购物车
  * A simple {@link Fragment} subclass.
  */
-@SuppressLint("ValidFragment")
 public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements View.OnClickListener {
     public RelativeLayout rl_shopcart;
     private PullableListView listv_shopcart;

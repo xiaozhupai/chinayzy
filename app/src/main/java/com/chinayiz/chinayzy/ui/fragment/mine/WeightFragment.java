@@ -20,7 +20,6 @@ import com.orhanobut.logger.Logger;
 /**
  * A simple {@link Fragment} subclass.  体重
  */
-@SuppressLint("ValidFragment")
 public class WeightFragment extends BaseFragment<WeightPresenter> {
     public String param;
     public EditText et_weight;

@@ -20,7 +20,6 @@ import com.orhanobut.logger.Logger;
 /**    用户名
  * A simple {@link Fragment} subclass.
  */
-@SuppressLint("ValidFragment")
 public class UserNameFragment extends BaseFragment<UserNamePresenter> {
     public String params;
     public EditText et_username;

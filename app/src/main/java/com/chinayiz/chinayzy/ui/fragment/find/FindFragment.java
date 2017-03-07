@@ -49,12 +49,9 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         NongYeMainActivity activity= (NongYeMainActivity) getActivity();
-
-
         View view=inflater.inflate(R.layout.fragment_find,container,false);
         magic_indicator= (MagicIndicator) view.findViewById(R.id.magic_indicator);
         vp_find = (ViewPager) view.findViewById(R.id.vp_find);
-
         return view;
     }
     @Override
@@ -72,11 +69,6 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     public void isNightMode(boolean isNight) {
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment like bottom ... and run LayoutCreator again
-        View view=initView(inflater,container,savedInstanceState);
-        return view;
-    }
+
 
 }

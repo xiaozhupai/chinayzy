@@ -22,7 +22,6 @@ import com.orhanobut.logger.Logger;
  * 身高
  * A simple {@link Fragment} subclass.
  */
-@SuppressLint("ValidFragment")
 public class HeightFragment extends BaseFragment<HeightPresenter> {
     public String param;
     public EditText et_height;

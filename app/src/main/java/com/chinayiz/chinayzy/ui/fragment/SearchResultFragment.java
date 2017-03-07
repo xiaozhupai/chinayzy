@@ -17,6 +17,8 @@ import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SearchResultPresenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
+import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,6 @@ import java.util.List;
 /**
  * 搜索结果
  */
-@SuppressLint("ValidFragment")
 public class SearchResultFragment extends BaseFragment<SearchResultPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
     private TextView tv_hot;
     private TextView tv_sale;
@@ -176,5 +177,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Logger.i("点击每一个商品");
+//       startFragment(new FindDetailFragment("1"),"FindDetailFragment");
     }
 }

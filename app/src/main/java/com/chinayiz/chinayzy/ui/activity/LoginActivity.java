@@ -1,6 +1,7 @@
 package  com.chinayiz.chinayzy.ui.activity;
 import android.app.Activity;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -40,6 +41,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     public EditText et_register_input_password;
     public LinearLayout lv_login,lv_register;
     public TextView tv_login_submit,tv_register_submit;
+    public ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,35 +91,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
             case R.id.tv_register_sendmessage:
               mPresenter.sendMessage();
                 break;
-            case R.id.iv_back_button:
+            case R.id.iv_back:
                 onBackPressed();
                 break;
 
         }
     }
 
-    /**
-     * 导航栏
-     */
-    @Override
-    protected void initActionBar() {
-        //actionbar
-        mActionBar=findViewById(R.id.rl_ActionBar);
-        mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
-        mTvActionBarTitle = (TextView) findViewById(R.id.tv_actionbar_title);
-        mIvActionBarMore = (ImageView) findViewById(R.id.iv_more_button);
-        mIvActionBarCart= (ImageView) findViewById(R.id.iv_shopcart);
-        mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
-        mTvActionBarTitle.setText("");
-        mIvActionBarMore.setVisibility(View.GONE);
-        mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
-        mIvBackButton.setImageResource(R.mipmap.back_arrow);
-        mActionBar.setBackgroundColor(Color.parseColor("#eb5c70"));
-        mIvBackButton.setOnClickListener(this);
-    }
+
 
     private void initView() {
-       initActionBar();
+        iv_back= (ImageView) findViewById(R.id.iv_back);
         ivlogo = (ImageView) findViewById(R.id.ivlogo);
         tv_left_login = (TextView) findViewById(R.id.tv_left_login);
         v_left_line = (View) findViewById(R.id.v_left_line);
@@ -151,6 +135,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         tv_login_submit.setOnClickListener(this);
         tv_register_submit.setOnClickListener(this);
         tv_register_sendmessage.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
     }
 
 
