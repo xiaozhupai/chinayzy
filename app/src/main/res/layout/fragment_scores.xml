@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.ScoresFragment"
+    tools:context=".ui.fragment.mine.ScoresFragment"
     android:background="#eeeeee"
     android:orientation="vertical"
     >

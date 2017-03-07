@@ -8,15 +8,12 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Administrator on 2017/2/23.

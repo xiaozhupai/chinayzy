@@ -2,7 +2,6 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;

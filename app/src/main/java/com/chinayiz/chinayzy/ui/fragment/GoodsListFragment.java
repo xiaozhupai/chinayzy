@@ -27,11 +27,10 @@ import org.greenrobot.eventbus.ThreadMode;
 @SuppressLint("ValidFragment")
 public class GoodsListFragment extends Fragment {
     private MyGridView mGoodsList;
-    private String mTypeCode="1";
     private GoodsDetailGridAdpter mAdapter;
 
-    public GoodsListFragment(String typeCode) {
-        mTypeCode = typeCode;
+    public GoodsListFragment() {
+
     }
 
     @Nullable
@@ -47,7 +46,6 @@ public class GoodsListFragment extends Fragment {
         mGoodsList = (MyGridView) view.findViewById(R.id.gv_goodsList);
         mAdapter = new GoodsDetailGridAdpter(getActivity());
     }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setData(EventMessage message) {
@@ -65,7 +63,6 @@ public class GoodsListFragment extends Fragment {
 
         }
     }
-
     /**
      * 动态计算GridView滑动的位置
      * @return
@@ -88,7 +85,5 @@ public class GoodsListFragment extends Fragment {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         mGoodsList = null;
-        mTypeCode = null;
-
     }
 }

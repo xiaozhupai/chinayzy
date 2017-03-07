@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.homePresenter;
+import com.chinayiz.chinayzy.ui.common.GoodsActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 
 
@@ -59,8 +61,9 @@ public class HomeFragment extends BaseFragment<homePresenter> {
      * @param goodsId 商品ID
      */
     public void openGoodesDetail(String goodsId) {
-       mActivity.mGoodsFragment.setGoodsID(goodsId);
-        startFragment(mActivity.mGoodsFragment,"GoodsFragment");
+        Intent intent=new Intent(getActivity(), GoodsActivity.class);
+        intent.putExtra("goodsID",goodsId);
+        startActivity(intent);
     }
 
     /**

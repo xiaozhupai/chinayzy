@@ -1,6 +1,5 @@
 package  com.chinayiz.chinayzy.ui.activity;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;

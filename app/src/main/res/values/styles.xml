@@ -145,6 +145,13 @@
         <item name="android:background">@drawable/nongyr_home_item</item>
         <item name="android:orientation">vertical</item>
     </style>
+    <!--图片查看器activity主题-->
+    <style name="IMTheme"  parent="Animation.AppCompat.Dialog">
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    </style>
     <!--生态农业首页精选推荐横向商品宫格布局（LinearLayout）-->
     <style name="NongYe_features">
         <item name="android:layout_below">@id/iv_themeIcon</item>

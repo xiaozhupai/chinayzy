@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:f="http://schemas.android.com/apk/res-auto"
-    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment"
+    tools:context=".ui.fragment.mine.PersonFragment"
     android:background="@color/basecolor">
     <LinearLayout
         android:layout_width="match_parent"

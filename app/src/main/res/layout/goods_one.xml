@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                          android:id="@+id/pull_goodsRefresh"
-                                                          android:layout_width="match_parent"
-                                                          android:layout_height="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pull_goodsRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
     <!--下拉刷新-->
-    <include layout="@layout/refresh_head"/>
     <com.chinayiz.chinayzy.views.goodsParticular.McoyScrollView
         android:id="@+id/scolv_goods"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadeScrollbars="true"
         android:background="@color/Background"
+        android:fadeScrollbars="true"
         >
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.bigkoo.convenientbanner.ConvenientBanner
                 android:id="@+id/vpager_Banner"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-                android:background="@color/color_line"
+                android:background="@color/Background"
                 >
             </com.bigkoo.convenientbanner.ConvenientBanner>
+
             <TextView
                 android:id="@+id/tv_share_btn"
                 android:layout_width="35dp"
@@ -33,9 +36,9 @@
                 android:layout_marginTop="15dp"
                 android:clickable="true"
                 android:drawableTop="@mipmap/btn_share"
-                android:textColor="@color/Goods_Postage"
                 android:gravity="center_horizontal"
                 android:text="分享"
+                android:textColor="@color/Goods_Postage"
                 android:textSize="11sp"
                 />
 
@@ -184,13 +187,14 @@
 
             <ImageView
                 android:id="@+id/iv_boot"
-                android:layout_below="@id/iv_line2"
                 android:layout_width="6dp"
                 android:layout_height="43dp"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/icon_boot"
+                android:layout_below="@id/iv_line2"
                 android:layout_marginRight="12dp"
+                android:src="@mipmap/icon_boot"
                 />
+
             <TextView
                 android:id="@+id/tv_goodstype"
                 android:layout_width="match_parent"
@@ -198,12 +202,13 @@
                 android:layout_below="@id/iv_line2"
                 android:layout_toLeftOf="@id/iv_boot"
                 android:clickable="true"
-                android:text="规格/分类"
-                android:textSize="12sp"
-                android:textColor="@color/Goods_Postage"
                 android:gravity="center_vertical"
                 android:paddingLeft="11dp"
+                android:text="规格/分类"
+                android:textColor="@color/Goods_Postage"
+                android:textSize="12sp"
                 />
+
             <View
                 android:id="@+id/iv_line3"
                 android:layout_width="match_parent"
@@ -361,60 +366,60 @@
                 android:id="@+id/iv_InStore"
                 android:layout_width="91dp"
                 android:layout_height="34dp"
-                android:clickable="true"
                 android:layout_alignRight="@id/vpager_Banner"
                 android:layout_alignTop="@id/tv_storeName"
                 android:layout_marginRight="12dp"
                 android:background="@mipmap/btn_instore"
+                android:clickable="true"
                 />
 
             <TextView
                 android:id="@+id/tv_goodsCount"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_storeLogo"
                 android:layout_marginTop="19.5dp"
                 android:layout_toLeftOf="@id/tv_goodsSales"
+                android:gravity="center_horizontal"
                 android:textColor="@color/GoodsUserName"
                 android:textSize="13sp"
                 />
 
             <TextView
                 android:id="@+id/tv_fansCount"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_storeLogo"
                 android:layout_marginTop="19.5dp"
                 android:layout_toRightOf="@id/tv_goodsSales"
+                android:gravity="center_horizontal"
                 android:textColor="@color/GoodsUserName"
                 android:textSize="13sp"
                 />
 
             <TextView
                 android:id="@+id/tv_StoreGoodss"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tv_goodsCount"
                 android:layout_marginTop="16dp"
+                android:layout_toLeftOf="@id/tv_goodsSales"
+                android:gravity="center_horizontal"
                 android:text="全部商品"
                 android:textColor="@color/Goods_Comment"
-                android:layout_below="@id/tv_goodsCount"
-                android:layout_toLeftOf="@id/tv_goodsSales"
                 android:textSize="10sp"
                 />
 
             <TextView
                 android:id="@+id/tv_StoreFans"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tv_fansCount"
                 android:layout_marginTop="16dp"
+                android:layout_toRightOf="@id/tv_goodsSales"
+                android:gravity="center_horizontal"
                 android:text="关注人数"
                 android:textColor="@color/Goods_Comment"
-                android:layout_below="@id/tv_fansCount"
-                android:layout_toRightOf="@id/tv_goodsSales"
                 android:textSize="10sp"
                 />
 
@@ -423,20 +428,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_below="@id/tv_StoreGoodss"
-                android:background="@color/basecolor"
                 android:layout_marginTop="14dp"
+                android:background="@color/basecolor"
                 />
+
             <TextView
                 android:id="@+id/tv_warn"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_below="@id/iv_line7"
-                android:textSize="10sp"
                 android:gravity="center"
                 android:text="继续上拉，查看图文详情"
                 android:textColor="@color/Goods_Postage"
+                android:textSize="10sp"
                 />
         </RelativeLayout>
     </com.chinayiz.chinayzy.views.goodsParticular.McoyScrollView>
-    <include layout="@layout/load_more"/>
-</com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
+
+</RelativeLayout>

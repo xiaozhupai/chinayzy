@@ -47,9 +47,9 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     public String goodsID;
     public String storeID;
     public String goodsCode;
-    public boolean isShowComments=false;
     public int sumComment=0;
     public int comitsID=0;
+    public boolean isShowComments=false;
     public CheckBox mRbFavorite;
     private GoodsListFragment mListFragment;
     public CommentsFragment mCommentFragment;
@@ -107,7 +107,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
         super.onResume();
         mMcoyScrollView.scrollTo(0,0);
         if (mListFragment==null){
-            mListFragment=new GoodsListFragment(goodsCode);
+            mListFragment=new GoodsListFragment();
         }
         EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
                 NongYeMainActivity.NYMAIN_ACTIONBAR,new ActionBarControlModel(NongYeMainActivity.HIDE_ALL)));
@@ -298,11 +298,10 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
             mPresenter.doUnCollect();
         }
     }
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (mListFragment==null){
-            mListFragment=new GoodsListFragment(goodsCode);
+            mListFragment=new GoodsListFragment();
         }
         switch (checkedId){
             case R.id.rb_goodsDetail:{

@@ -1,9 +1,9 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +15,6 @@ import android.widget.ProgressBar;
 
 import com.chinayiz.chinayzy.R;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * A simple {@link Fragment} subclass. 公共的fragment
  */
@@ -27,8 +24,6 @@ public class WebFragment extends Fragment {
     private String  goodsid;
     private String url;
     public ProgressBar progressbar;
-    private Map<String,String> extraHeaders;
-
     public void setWebView(String title,String url,String goodsid){
         this.title=title;
         this.url=url;
@@ -74,9 +69,8 @@ public class WebFragment extends Fragment {
             }
             settings.setUseWideViewPort(true);
             settings.setJavaScriptCanOpenWindowsAutomatically(true);
-            extraHeaders = new HashMap<String, String>();
-            extraHeaders.put("goodsid", goodsid);
-            wv_view.loadUrl(goodsid,extraHeaders);
+
+            wv_view.loadUrl(goodsid);
             wv_view.   setScrollbarFadingEnabled(true);
             wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
             final WebSettings msettings = wv_view.getSettings();
@@ -147,9 +141,8 @@ public class WebFragment extends Fragment {
             }
             settings.setUseWideViewPort(true);
             settings.setJavaScriptCanOpenWindowsAutomatically(true);
-            extraHeaders = new HashMap<String, String>();
-            extraHeaders.put("goodsid", goodsid);
-            wv_view.loadUrl(goodsid,extraHeaders);
+
+            wv_view.loadUrl(goodsid);
             wv_view.   setScrollbarFadingEnabled(true);
             wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
             final WebSettings msettings = wv_view.getSettings();

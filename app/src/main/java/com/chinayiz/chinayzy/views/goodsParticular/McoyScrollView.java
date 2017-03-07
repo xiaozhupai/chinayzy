@@ -5,10 +5,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-import com.chinayiz.chinayzy.views.pullable.Pullable;
 
-
-public class McoyScrollView extends ScrollView implements Pullable {
+public class McoyScrollView extends ScrollView {
 
     // 滑动距离及坐标
     private float xDistance, yDistance, xLast, yLast;
@@ -64,18 +62,6 @@ public class McoyScrollView extends ScrollView implements Pullable {
 
     public void setOnJDScrollListener(OnJDScrollListener onScrollListener) {
         this.onScrollListener = onScrollListener;
-    }
-
-    @Override
-    public boolean canPullDown() {
-        if (getScrollY() ==0){
-            return true;
-        } else return false;
-    }
-
-    @Override
-    public boolean canPullUp() {
-        return false;
     }
 
     public interface OnJDScrollListener {

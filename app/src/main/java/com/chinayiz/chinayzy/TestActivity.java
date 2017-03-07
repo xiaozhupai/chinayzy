@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -9,12 +10,14 @@ import android.widget.Toast;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.ui.common.GoodsActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 public class TestActivity extends BaseActivity {
     private Toast mToast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +89,22 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_action1: {
+                Intent intent=new Intent(this, GoodsActivity.class);
+                intent.putExtra("goodsID","8");
+                startActivity(intent);
+                break;
+            }
+            case R.id.btn_action2: {
 
+                break;
+            }
+            case R.id.btn_action3: {
+
+                break;
+            }
+        }
     }
 
     @Override

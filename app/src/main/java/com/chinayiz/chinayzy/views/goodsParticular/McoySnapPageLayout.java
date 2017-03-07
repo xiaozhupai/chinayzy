@@ -154,8 +154,8 @@ public class McoySnapPageLayout extends ViewGroup {
 
 	private void addPagesAndRefresh() {
 		// 设置页面id
-		mPageTop.getRootView().setId(R.id.tag_mPageTop);
-		mPageBottom.getRootView().setId(R.id.tag_mPageBottom);
+		mPageTop.getRootView().setId(0);
+		mPageBottom.getRootView().setId(1);
 		addView(mPageTop.getRootView());
 		addView(mPageBottom.getRootView());
 		postInvalidate();
@@ -384,7 +384,6 @@ public class McoySnapPageLayout extends ViewGroup {
 	private void snapToScreen(int dataIndex) {
         if (!mScroller.isFinished())
             return;
-       
         final int direction = dataIndex - mDataIndex;
         mNextDataIndex = dataIndex;
         boolean changingScreens = dataIndex != mDataIndex;

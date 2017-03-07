@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment"
+    tools:context=".ui.fragment.mine.EvalueResultFragment"
     android:orientation="vertical"
     android:background="@color/basecolor"
     >

@@ -1,9 +1,6 @@
 package com.chinayiz.chinayzy.presenter;
 
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,7 +12,6 @@ import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 
-import com.chinayiz.chinayzy.utils.GlideCacheUtil;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 
 import org.greenrobot.eventbus.Subscribe;

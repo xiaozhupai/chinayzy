@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.User.UserNet;
@@ -15,7 +14,6 @@ import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.w3c.dom.ProcessingInstruction;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

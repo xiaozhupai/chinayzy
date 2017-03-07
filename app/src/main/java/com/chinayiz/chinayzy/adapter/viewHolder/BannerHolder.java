@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.adapter.viewHolder;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -14,9 +15,11 @@ import com.bumptech.glide.Glide;
  */
 public class BannerHolder implements Holder<String> {
     private ImageView imageView;
+
     @Override
     public View createView(Context context) {
         imageView = new ImageView(context);
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return imageView;
     }
@@ -25,5 +28,6 @@ public class BannerHolder implements Holder<String> {
         Glide.with(context)
                 .load(data)
                 .into(imageView);
+
     }
 }

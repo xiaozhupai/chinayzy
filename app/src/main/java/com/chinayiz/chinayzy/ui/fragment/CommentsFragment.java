@@ -19,8 +19,18 @@ import com.chinayiz.chinayzy.entity.response.CommentListModel;
  * Class CommentsFragment 评论列表
  */
 public class CommentsFragment extends Fragment{
+    /**
+     * 评论列表启动
+     */
+    public static final int START=1;
+
     private ListView mCommentList;
     private CommentListAdapter mAdapter;
+    private StateListener mStateListener;
+
+    public void setStateListener(StateListener listener){
+        mStateListener=listener;
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +38,19 @@ public class CommentsFragment extends Fragment{
         initView(view);
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mStateListener.stateChange(START);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mStateListener.stateChange(-1);
+    }
+
     private void initView(View view) {
         mAdapter=new CommentListAdapter(this);
         mCommentList= (ListView) view.findViewById(R.id.lv_comments);
@@ -38,5 +61,12 @@ public class CommentsFragment extends Fragment{
         CommentListModel model= (CommentListModel) message.getData();
         mAdapter.setCommentDatas(model.getData().getCommentlist());
         mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 监听评论列表状态
+     */
+    public interface StateListener{
+        void stateChange(int stateCode);
     }
 }
