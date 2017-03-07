@@ -13,12 +13,18 @@ import android.widget.GridView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.FindAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.presenter.FindListPresenter;
+import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.SexFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableGridView;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     public FindAdaphter adaphter;
     private PullToRefreshLayout pullToRefreshLayout;
     public static final String DATA_TYPE="DATA_TYPE";
+    public static final String TO_FINDDETAIL="TO_FINDDETAIL";
     public String type;
     public GridView lv_list;
     public FindListFragment(String type){
@@ -44,7 +51,6 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
            Net.getNet().getFindBlogByType(type);
         }
         isInit=false;
-
     }
 
     @Override
@@ -112,7 +118,9 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
       List <FindListModel.DataBean> lists=mPresenter.lists;
       FindListModel.DataBean dataBean=lists.get(position);
-        FindDetailFragment findDetailFragment=new FindDetailFragment(dataBean.getBid()+"");
-        startFragment(findDetailFragment,findDetailFragment.getTag());
+//        FindDetailFragment findDetailFragment=new FindDetailFragment(dataBean.getBid()+"");
+//        startFragment(findDetailFragment,"dsdsds");
+//        startFragment(new SearchFragment(),"SearchFragment");
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,TO_FINDDETAIL,dataBean));
     }
 }

@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.find;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.FindDetailPresenter;
 import com.chinayiz.chinayzy.widget.ShareDialog;
@@ -27,21 +30,23 @@ import com.chinayiz.chinayzy.widget.ShareDialog;
  * A simple {@link Fragment} subclass.
  */
 public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implements View.OnClickListener {
-    private ImageView iv_love;
-    private LinearLayout lv_love;
-    private LinearLayout lv_keep;
-    private LinearLayout lv_share;
-    private LinearLayout lv_find_detail_bottom;
-    private ShareDialog dialog;
-    private boolean isLove;
-    private String bid;
+    public ImageView iv_love,iv_keep;
+    public LinearLayout lv_love;
+    public LinearLayout lv_keep;
+    public LinearLayout lv_share;
+    public ShareDialog dialog;
+    public boolean isLove;
+    public String bid;
     public WebView wv_view;
     public String url;
     public ProgressBar progressbar;
+    public boolean isKeep;
+    public FindListModel.DataBean bean;
 
-    public FindDetailFragment(String bid) {
-        this.bid = bid;
-        url= Commons.API+Commons.FXXQ+"?bid="+bid;
+    public FindDetailFragment(FindListModel.DataBean bean) {
+        this.bean = bean;
+        bid=bean.getBid()+"";
+        url= Commons.API+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid;
     }
 
     @Override
@@ -64,7 +69,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_find_detail, null);
+        View view=inflater.inflate(R.layout.fragment_find_detail,null);
         progressbar= (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view= (WebView) view.findViewById(R.id.wv_view);
         iv_love = (ImageView) view.findViewById(R.id.iv_love);
@@ -73,13 +78,25 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
         lv_love.setOnClickListener(this);
         lv_keep = (LinearLayout) view.findViewById(R.id.lv_keep);
         lv_keep.setOnClickListener(this);
+        iv_keep= (ImageView) view.findViewById(R.id. iv_keep);
         lv_share = (LinearLayout) view.findViewById(R.id.lv_share);
         lv_share.setOnClickListener(this);
-        lv_find_detail_bottom = (LinearLayout) view.findViewById(R.id.lv_find_detail_bottom);
-        lv_find_detail_bottom.setOnClickListener(this);
         initWebview();
+        if (bean.getIscollect().equals("0")){
+            iv_keep.setImageResource(R.mipmap.icon_keep);
+            isKeep=false;
+        }else {
+            iv_keep.setImageResource(R.mipmap.icon_keep_selected);
+            isKeep=true;
+        }
+        if (bean.getIspraise().equals("0")){
+            iv_love.setImageResource(R.mipmap.icon_love_normal);
+            isLove=false;
+        }else {
+            iv_love.setImageResource(R.mipmap.icon_love_selected);
+            isLove=true;
+        }
         return view;
-
     }
 
     @Override
@@ -94,24 +111,6 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
 
     public void initWebview(){
         wv_view.loadUrl(url);
-        wv_view.   setScrollbarFadingEnabled(true);
-        wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
-        WebSettings settings = wv_view.getSettings();
-        settings.setAllowFileAccess(true);
-        settings.setBuiltInZoomControls(false);
-        //JS交互
-        settings.setJavaScriptEnabled(true);
-        //设置缓存
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        // 设置是否支持变焦
-        settings.setSupportZoom(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 让网页自适应屏幕宽度
-            settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        }
-        settings.setUseWideViewPort(true);
-        settings.setJavaScriptCanOpenWindowsAutomatically(true);
-
         wv_view.   setScrollbarFadingEnabled(true);
         wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
         final WebSettings msettings = wv_view.getSettings();
@@ -171,18 +170,11 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lv_love:  //点赞
-                if (isLove){
-                    iv_love.setImageResource(R.mipmap.icon_love_normal);
-                    isLove=false;
-                }else {
-                    iv_love.setImageResource(R.mipmap.icon_love_selected);
-                    isLove=true;
-                }
-
-
+                mPresenter.toLove(isLove);
                 break;
             case R.id.lv_keep:  //收藏
 
+                mPresenter.toKeep(isKeep);
 
                 break;
             case R.id.lv_share:   //分享

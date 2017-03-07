@@ -145,10 +145,10 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         mView.ivlogo.setVisibility(View.VISIBLE);
         mView. lv_login.setVisibility(View.VISIBLE);
         mView.  lv_register.setVisibility(View.GONE);
-        mView. tv_left_login.setTextColor(Color.WHITE);
-        mView.   tv_right_register.setTextColor(Color.BLACK);
         mView.  v_left_line.setVisibility(View.VISIBLE);
         mView.  v_right_line.setVisibility(View.GONE);
+        mView.tv_left_login.setAlpha(1);
+        mView.tv_right_register.setAlpha(0.6f);
     }
     /**
      * 右边视图显示
@@ -157,10 +157,10 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         mView.   lv_register.setVisibility(View.VISIBLE);
         mView.   ivlogo.setVisibility(View.INVISIBLE);
         mView. lv_login.setVisibility(View.GONE);
-        mView. tv_left_login.setTextColor(Color.BLACK);
-        mView. tv_right_register.setTextColor(Color.WHITE);
         mView. v_left_line.setVisibility(View.GONE);
         mView.  v_right_line.setVisibility(View.VISIBLE);
+        mView.tv_left_login.setAlpha(0.6f);
+        mView.tv_right_register.setAlpha(1);
     }
 
     public void sendMessage(){

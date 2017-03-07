@@ -72,7 +72,11 @@ public class UserNamePresenter extends BasePresenter<UserNameFragment> {
         // validate
          username = mView.et_username.getText().toString().trim();
         if (TextUtils.isEmpty(username)) {
-            Toast.makeText(mView.getActivity(), "username不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mView.getActivity(), "用户名不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (username.length()<6){
+            Toast.makeText(mView.getActivity(), "用户名6-18位数", Toast.LENGTH_SHORT).show();
             return;
         }
            net.getEditerUser(UserNet.NICKNAME,username);

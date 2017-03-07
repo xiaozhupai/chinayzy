@@ -40,6 +40,15 @@ public class FindListModel extends BaseResponseModel {
         private int bid;
         private String iscollect;
         private String ispraise;
+        private String synopsis;
+
+        public String getSynopsis() {
+            return synopsis;
+        }
+
+        public void setSynopsis(String synopsis) {
+            this.synopsis = synopsis;
+        }
 
         public String getContent() {
             return content;

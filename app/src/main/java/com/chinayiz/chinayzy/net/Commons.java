@@ -212,6 +212,15 @@ public class Commons {
      * 微信支付支付
      */
     public static final String WXPAYORDER="/pay/wxPayOrder";
+
+    /**
+     * 博文点赞
+     */
+    public static final String DIZAN="/centre/dizan";
+    /**
+     * 博文收藏
+     */
+    public static final String CANCELCOLLECT="/centre/cancelCollect";
     /**
      * 关于我们
      */
