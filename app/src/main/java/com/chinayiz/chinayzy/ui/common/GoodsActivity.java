@@ -31,6 +31,7 @@ import com.chinayiz.chinayzy.views.GlideCircleTransform;
 import com.chinayiz.chinayzy.views.goodsParticular.BotContentPage;
 import com.chinayiz.chinayzy.views.goodsParticular.McoySnapPageLayout;
 import com.chinayiz.chinayzy.views.goodsParticular.TopDetailInfoPage;
+import com.chinayiz.chinayzy.widget.GoodsStandard2;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 import com.orhanobut.logger.Logger;
 
@@ -138,6 +139,7 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                 break;
             case R.id.tv_addCart:
                 Logger.i("加入购物车");
+
                 break;
             case R.id.iv_back_btn:
                 Logger.i("返回");
@@ -156,6 +158,10 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                 break;
             case R.id.tv_goodstype:
                 Logger.i("选择套餐");
+                if (model!=null){
+                    GoodsStandard2 goodsStandard2=new GoodsStandard2(this,model.getData());
+                    goodsStandard2.show();
+                }
                 break;
             case R.id.tv_moreComment://更多评论
                 Logger.i("更多评论");

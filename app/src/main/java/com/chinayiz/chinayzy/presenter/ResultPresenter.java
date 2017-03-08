@@ -7,9 +7,11 @@ import android.os.Message;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.request.PayModel;
@@ -19,6 +21,7 @@ import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.utils.PayResult;
 import com.google.gson.Gson;
 
@@ -42,7 +45,7 @@ import java.util.Map;
  */
 
 public class ResultPresenter extends BasePresenter <ResultFragment>{
-    private CommonRequestUtils net =CommonRequestUtils.getRequestUtils();
+
     private ResultModel resultModel;
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
@@ -77,7 +80,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
     };
     @Override
     public void onCreate() {
-        net.getPreviewOrder(mView.params);
+      getData();
     }
 
     @Override
@@ -101,7 +104,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-
+           if (message.getEventType()==EventMessage.INFORM_EVENT){
+               disposeInfoMsg(message);
+           }
     }
 
     @Override
@@ -119,6 +124,15 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
                     mView.tv_address_name.setText(addressBean.getConsignee());
                     mView.tv_address_phone.setText(addressBean.getPhone());
                     mView.tv_address_text.setText(addressBean.getArea()+addressBean.getAddress());
+                    mView.tv_no_address.setVisibility(View.INVISIBLE);
+                    mView.tv_address_name.setVisibility(View.VISIBLE);
+                    mView.tv_address_phone.setVisibility(View.VISIBLE);
+                    mView.tv_address_text.setVisibility(View.VISIBLE);
+                }else {
+                    mView.tv_address_name.setVisibility(View.INVISIBLE);
+                    mView.tv_address_phone.setVisibility(View.INVISIBLE);
+                    mView.tv_address_text.setVisibility(View.INVISIBLE);
+                    mView.tv_no_address.setVisibility(View.VISIBLE);
                 }
                 mView.adaphter.setData(resultModel.getData().getGoodmessage(),resultModel.getData().getCarriages());
                 break;
@@ -181,7 +195,16 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
+        switch (message.getDataType()){
+            case AddressListFragment.ADDRESS_BACK:
+                 getData();
+                break;
+        }
 
+    }
+
+    private void getData(){
+        CommonRequestUtils.getRequestUtils().getPreviewOrder(mView.params);
     }
 
     //计算总运费
@@ -248,10 +271,14 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
             total=resultModel.getData().getTotalmoney()+"";
         }
 
+        if (resultModel.getData().getAddressRecord() == null) {
+            BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
+            return;
+        }
         if (mView.iv_pay_ali.isCheck){  //支付宝支付
-            net.getAliPayOrder(type,total,orderbill);
+            CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total,orderbill);
         }else {  //微信支付
-            net.getWxPayOrder(type,total,orderbill);
+            CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total,orderbill);
         }
     }
 }

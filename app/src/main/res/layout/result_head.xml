@@ -37,15 +37,16 @@
                     android:id="@+id/tv_address_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="张三"
+                   android:ellipsize="end"
                     android:textSize="13sp"
                     android:textColor="#252525"
+                    android:maxLength="4"
                     />
                 <TextView
                     android:id="@+id/tv_address_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="13246891234"
+
                     android:textSize="13sp"
                     android:textColor="#252525"
                     android:gravity="right"
@@ -54,9 +55,10 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_no_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="请填写收货地址"
+                android:text="请选择一个收货地址"
                 android:textSize="13sp"
                 android:textColor="#252525"
                 android:visibility="invisible"
@@ -65,7 +67,7 @@
                 android:id="@+id/tv_address_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="收货地址:  湖北省武汉市高家台6号"
+
                 android:textSize="13sp"
                 android:textColor="#252525"
                 />

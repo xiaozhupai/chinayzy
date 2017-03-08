@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.net.User;
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.AddressListModel;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
@@ -407,6 +408,190 @@ public class UserNet {
                     }
                 });
     }
+
+    /**
+     *  获得收货地址列表
+     */
+    public void getshowAddress() {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWADDRESS)
+                .tag("ny")
+                .addParams("userid",APP.sUserid)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.SHOWADDRESS
+                                    ,mGson.fromJson(s,AddressListModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+
+    /**
+     *编辑收货地址
+     * @param addressid 地址id
+     * @param consignee  收货人
+     * @param phone  手机号  11位
+     * @param area  所在地区
+     * @param address  地址信息
+     * @param lng  经度
+     * @param lat  纬度
+     */
+    public void geteditAddress(String addressid,String consignee,String phone,String area,String address,String lng,String lat) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.EDITADDRESS)
+                .tag("ny")
+                .addParams("userid",APP.sUserid)
+                .addParams("addressid",addressid)
+                .addParams("consignee",consignee)
+                .addParams("phone",phone)
+                .addParams("area",area)
+                .addParams("address",address)
+                .addParams("lng",lng)
+                .addParams("lat",lat)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.EDITADDRESS
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+
+    /**
+     * 将收货地址设置成默认
+     * @param addressid   地址ID
+     */
+    public void getdefaultAddress(String addressid) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API+Commons.DEFAULTADDRESS)
+                .tag("ny")
+                .addParams("userid",APP.sUserid)
+                .addParams("addressid",addressid)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.DEFAULTADDRESS
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 删除收货地址
+     * @param addressid   地址ID
+     */
+    public void getdeleteAddress(String addressid) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.DELETEADDRESS)
+                .tag("ny")
+                .addParams("userid",APP.sUserid)
+                .addParams("addressid",addressid)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.DELETEADDRESS
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 新增收货地址
+     * @param consignee  收货人
+     * @param phone  手机号  11位
+     * @param area  所在地区
+     * @param address  地址信息
+     * @param lng  经度
+     * @param lat  纬度
+     */
+    public void getaddAddress(String consignee,String phone,String area,String address,String lng,String lat) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.ADDADDRESS)
+                .tag("ny")
+                .addParams("userid",APP.sUserid)
+                .addParams("consignee",consignee)
+                .addParams("phone",phone)
+                .addParams("area",area)
+                .addParams("address",address)
+                .addParams("lng",lng)
+                .addParams("lat",lat)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.ADDADDRESS
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+
 
 
 

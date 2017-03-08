@@ -199,6 +199,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
                 break;
             case R.id.rl_person_address:
                 Logger.i("收货地址");
+                mPresenter.toAddress();
                 break;
             case R.id.rl_person_head:
                 Logger.i("头像");

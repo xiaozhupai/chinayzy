@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -55,12 +56,6 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     public LinearLayout lv_mine_setting;
     public LinearLayout layout_content;
     public PullToRefreshLayout pullToRefreshLayout;
-    public RelativeLayout actionbar;
-    public TextView mTvActionBarTitle;
-    public ImageView mIvMoreButton,iv_username_right;
-    public RelativeLayout mRlActionBar;
-    public ImageView mIvBackButton;
-
     public LinearLayout lv_user;
     public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count;
     private FragmentManager mFragmentManager;
@@ -73,7 +68,6 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                Logger.i("qijian", "backstack changed");
                 int backStackEntryCount=mFragmentManager.getBackStackEntryCount();
                 if (backStackEntryCount==0){
                     mTvActionBarTitle.setText("个人中心");
@@ -232,9 +226,20 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         }
     }
 
+    //个人中心fragment跳转
     public void addFragment( Fragment fragment) {
       Class <?> tag=fragment.getClass();
-        mFragmentManager.beginTransaction().add(R.id.container, fragment,tag.getName()).addToBackStack(fragment.getTag()).commit();
+
+        try {
+            mFragmentManager.beginTransaction().add(R.id.container, fragment,tag.getSimpleName()).addToBackStack(fragment.getTag()).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.add(R.id.container,
+                    fragment, tag.getSimpleName())
+                    .addToBackStack(tag.getSimpleName())
+                    .commitAllowingStateLoss();
+        }
     }
 
     @Override
@@ -254,20 +259,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            int backStackEntryCount=mFragmentManager.getBackStackEntryCount();
-            if (backStackEntryCount>1){
-                FragmentManager.BackStackEntry backStack=mFragmentManager.getBackStackEntryAt(backStackEntryCount-1);
-                String name=backStack.getName();
-                int id= backStack.getId();
-                Logger.i("OnBackPressed---------------------------------------------------"+name+"id-------------"+id);
 
-            }
-        }
-        return true;
-    }
 
     public void OnBackPressed(){
         super.onBackPressed();

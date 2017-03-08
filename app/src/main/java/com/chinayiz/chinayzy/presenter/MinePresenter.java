@@ -84,19 +84,19 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                 }
                 if (dataBean.getWaittakecount()>0){
                     mView.tv_wait_pay_count.setVisibility(View.VISIBLE);
-                    mView.tv_wait_pay_count.setText(dataBean.getWaittakecount());
+                    mView.tv_wait_pay_count.setText(dataBean.getWaittakecount()+"");
                 }
                 if (dataBean.getWaitpaycount()>0){
                     mView.tv_wait_goods_count.setVisibility(View.VISIBLE);
-                    mView.tv_wait_goods_count.setText(dataBean.getWaitpaycount());
+                    mView.tv_wait_goods_count.setText(dataBean.getWaitpaycount()+"");
                 }
                 if (dataBean.getWaitdelivercount()>0){
                     mView.tv_wait_accept_goods_count.setVisibility(View.VISIBLE);
-                    mView.tv_wait_accept_goods_count.setText(dataBean.getWaitdelivercount());
+                    mView.tv_wait_accept_goods_count.setText(dataBean.getWaitdelivercount()+"");
                 }
                 if (dataBean.getAftercount()>0){
                     mView.tv_after_sale_count.setVisibility(View.VISIBLE);
-                    mView.tv_after_sale_count.setText(dataBean.getAftercount());
+                    mView.tv_after_sale_count.setText(dataBean.getAftercount()+"");
                 }
                 break;
         }

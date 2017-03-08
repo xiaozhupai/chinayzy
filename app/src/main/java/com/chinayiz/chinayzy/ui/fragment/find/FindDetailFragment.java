@@ -25,6 +25,7 @@ import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.FindDetailPresenter;
 import com.chinayiz.chinayzy.widget.ShareDialog;
+import com.orhanobut.logger.Logger;
 
 /**发现详情
  * A simple {@link Fragment} subclass.
@@ -42,16 +43,17 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     public ProgressBar progressbar;
     public boolean isKeep;
     public FindListModel.DataBean bean;
+    public static final String FIND_DETAIL="FIND_DETAIL";
 
     public FindDetailFragment(FindListModel.DataBean bean) {
         this.bean = bean;
         bid=bean.getBid()+"";
-        url= Commons.API+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid;
+        url= Commons.API+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid+"&type=app";
     }
 
     @Override
     protected void onVisible() {
-
+        Logger.i("onVisible");
     }
 
     @Override
@@ -82,20 +84,6 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
         lv_share = (LinearLayout) view.findViewById(R.id.lv_share);
         lv_share.setOnClickListener(this);
         initWebview();
-        if (bean.getIscollect().equals("0")){
-            iv_keep.setImageResource(R.mipmap.icon_keep);
-            isKeep=false;
-        }else {
-            iv_keep.setImageResource(R.mipmap.icon_keep_selected);
-            isKeep=true;
-        }
-        if (bean.getIspraise().equals("0")){
-            iv_love.setImageResource(R.mipmap.icon_love_normal);
-            isLove=false;
-        }else {
-            iv_love.setImageResource(R.mipmap.icon_love_selected);
-            isLove=true;
-        }
         return view;
     }
 
@@ -170,6 +158,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lv_love:  //点赞
+
                 mPresenter.toLove(isLove);
                 break;
             case R.id.lv_keep:  //收藏

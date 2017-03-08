@@ -82,6 +82,7 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
                 @Override
                 public void onClick(View view) {
                     dialog.dismiss();
+                    APP.sUserid="0";
                     UserSeeion.logout(mView.getActivity());
                     mView.getActivity().finish();
                 }

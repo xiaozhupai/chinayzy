@@ -2,9 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.mine.AddressListFragment">
-
+    tools:context=".ui.fragment.mine.AddressListFragment"
+    android:background="@color/white"
+    >
+<ListView
+    android:id="@+id/lv_addreddlist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/tv_submit"
+    android:divider="@color/basecolor"
+    android:dividerHeight="10dp"
+    />
    <TextView
+       android:id="@+id/tv_submit"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_alignParentBottom="true"

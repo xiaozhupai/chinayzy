@@ -128,8 +128,13 @@ public class Commons {
      */
     public static final String FINDTYPE = "/farm/findType";
     /**
+     * 是否点赞 是否收藏
+     */
+    public static final String ISCOLLECTORPRAISE = "/farm/isCollectOrPraise";
+    /**
      * 发现列表
      */
+
     public static final String FINDBLOGBYTYPE = "/farm/findBlogByType";
     /**
      * 加入购物车
@@ -221,6 +226,29 @@ public class Commons {
      * 博文收藏
      */
     public static final String CANCELCOLLECT="/centre/cancelCollect";
+
+    /**
+     * 获取收货地址
+     */
+    public static final String SHOWADDRESS="/centre/showAddress";
+    /**
+     * 编辑收货地址
+     */
+    public static final String EDITADDRESS="/centre/editAddress";
+
+    /**
+     * 将收货地址设置为默认
+     */
+    public static final String DEFAULTADDRESS="/centre/defaultAddress";
+    /**
+     *删除收货地址
+     */
+    public static final String DELETEADDRESS="/centre/deleteAddress";
+    /**
+     *新增收货地址
+     */
+    public static final String ADDADDRESS="/centre/addAddress";
+
     /**
      * 关于我们
      */

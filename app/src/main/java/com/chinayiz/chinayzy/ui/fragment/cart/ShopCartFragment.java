@@ -1,12 +1,14 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.common.GoodsActivity;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
@@ -30,7 +33,7 @@ import java.util.List;
  * 购物车
  * A simple {@link Fragment} subclass.
  */
-public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements View.OnClickListener {
+public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
     public RelativeLayout rl_shopcart;
     private PullableListView listv_shopcart;
     public CheckImageView iv_shopcart_radio;
@@ -62,35 +65,37 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onInitActionBar(final BaseActivity  activity) {
 
+        activity.mTvActionBarTitle.setText("购物车");
+        activity.mIvActionBarMore.setVisibility(View.GONE);
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("编辑");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isClick){  //编辑后
+                    activity.mCbActionBarEdit.setText("完成");
+                    tv_shopcart_submit.setText("删除");
+                    tv_shopcart_price.setVisibility(View.GONE);
+                    isClick=false;
+                    mPresenter.UpdateUi(1);
+                }else {   //编辑前
+                    activity.mCbActionBarEdit.setText("编辑");
+                    tv_shopcart_submit.setText("结算");
+                    tv_shopcart_price.setVisibility(View.VISIBLE);
+                    isClick=true;
+                    mPresenter.UpdateUi(0);
+                    mPresenter.UpdateShopCart();
+                }
+            }
+        });
+    }
+
+    @Override
+    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (index==0){
             final BaseActivity activity= (BaseActivity) getActivity();
-            activity.mTvActionBarTitle.setText("购物车");
-            activity.mIvActionBarMore.setVisibility(View.GONE);
-            activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-            activity.mCbActionBarEdit.setText("编辑");
-            activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isClick){  //编辑后
-                        activity.mCbActionBarEdit.setText("完成");
-                        tv_shopcart_submit.setText("删除");
-                        tv_shopcart_price.setVisibility(View.GONE);
-                        isClick=false;
-                        mPresenter.UpdateUi(1);
-                    }else {   //编辑前
-                        activity.mCbActionBarEdit.setText("编辑");
-                        tv_shopcart_submit.setText("结算");
-                        tv_shopcart_price.setVisibility(View.VISIBLE);
-                        isClick=true;
-                        mPresenter.UpdateUi(0);
-                        mPresenter.UpdateShopCart();
-                    }
-                }
-            });
-        }else {
-            final MineActivity activity= (MineActivity) getActivity();
             activity.mTvActionBarTitle.setText("购物车");
             activity.mIvActionBarMore.setVisibility(View.GONE);
             activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
@@ -128,6 +133,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         tv_shopcart_all= (TextView) view.findViewById(R.id.tv_shopcart_all);
         tv_shopcart_submit.setOnClickListener(this);
         iv_shopcart_radio.setOnClickListener(this);
+        listv_shopcart.setOnItemClickListener(this);
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
@@ -173,4 +179,12 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//        goodsID
+        ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) adapterView.getItemAtPosition(i);
+        Intent intent=new Intent(getActivity(), GoodsActivity.class);
+        intent.putExtra("goodsID",bean.getGoodsid()+"");
+        startActivity(intent);
+    }
 }

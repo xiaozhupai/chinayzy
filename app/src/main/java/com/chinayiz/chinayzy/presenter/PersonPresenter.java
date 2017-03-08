@@ -26,6 +26,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
+import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.CardFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.HeightFragment;
@@ -379,4 +380,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     }
 
 
+    public void toAddress() {
+        mView.activity.addFragment(new AddressListFragment(1));
+    }
 }

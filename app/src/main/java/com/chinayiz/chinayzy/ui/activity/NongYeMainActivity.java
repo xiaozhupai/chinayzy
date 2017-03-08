@@ -3,6 +3,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -17,12 +18,14 @@ import com.chinayiz.chinayzy.base.FragmentAlternate;
 import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.presenter.LoginPresenter;
 import com.chinayiz.chinayzy.presenter.NongYeMainPresenter;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
+import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.orhanobut.logger.Logger;
 
@@ -296,4 +299,6 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
             Logger.i("编辑");
         }
     }
+
+
 }

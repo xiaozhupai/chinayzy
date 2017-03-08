@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.widget;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.Image;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
+import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +33,8 @@ import java.util.List;
  * Created by Administrator on 2017/3/2.
  */
 
-public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickListener {
-    private ShopCartModel.DataBean.ShoplistBean bean;
+public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickListener,EventBusCallback {
+    private GoodsDetailModel.DataBean bean;
     private Context context;
     public ImageView iv_goodstandard;
     public TextView tv_price;
@@ -37,11 +45,15 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     private List<Tag> tagList=new ArrayList<>();
     private List<GoodStandardModel.DataBean> lists;
     private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
+    private ImageView iv_add,iv_decrease;
+    private TextView tv_num;
+    private int num;
 
-    public GoodsStandard2(Context context, ShopCartModel.DataBean.ShoplistBean bean) {
+    public GoodsStandard2(Context context, GoodsDetailModel.DataBean bean) {
         super(context, R.style.Dialog);
         this.bean = bean;
         this.context = context;
+        EventBus.getDefault().register(this);
         initView();
         getData();
     }
@@ -55,18 +67,26 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
             tag.setTitle(data.getStandardname()+data.getStandardvalue());
             if (bean.getGoodsstandardid()==data.getGoodsstandardid()){
                 tag.setChecked(true);
+                 bean.setRepertorytotal(data.getRepertory());
+                bean.setIcon(data.getStanderpic());
+                bean.setPrice(data.getPrice()+"");
             }else {
                 tag.setChecked(false);
             }
             tagList.add(tag);
         }
         tlv_list.setTags(tagList);
-    }
-
-    //请求数据
-    private void getData() {
         Glide.with(context).load(bean.getIcon()).into(iv_goodstandard);
         tv_price.setText(bean.getPrice()+"");
+        if (bean.getRepertorytotal()<1 ||bean.getRepertorytotal()==1){
+            iv_add.setImageResource(R.mipmap.icon_right_add);
+        }else {
+            iv_add.setImageResource(R.mipmap.icon_right_add_clickable);
+        }
+    }
+
+    //设置数据
+    private void getData() {
         net.getShopGoodStandard(bean.getGoodsid()+"");
     }
 
@@ -80,10 +100,15 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
         iv_close= (ImageView) findViewById(R.id.iv_close);
         tlv_list= (TagListView) findViewById(R.id.tlv_list);
         tv_submit= (TextView)findViewById(R.id.tv_submit);
+        iv_add = (ImageView) findViewById(R.id.iv_add);
+        iv_decrease  = (ImageView) findViewById(R.id.iv_decrease);
+        tv_num= (TextView) findViewById(R.id.tv_num);
         tv_submit.setOnClickListener(this);
         iv_close.setOnClickListener(this);
+        iv_add.setOnClickListener(this);
+        iv_decrease.setOnClickListener(this);
         setCanceledOnTouchOutside(true);
-
+        num=Integer.parseInt(tv_num.getText().toString().trim());
         tv_submit.setText("加入购物车");
         tlv_list.setTagViewTextColorRes(Color.BLACK);
         tlv_list.setTagViewBackgroundRes(R.drawable.tag_normal);
@@ -95,20 +120,24 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 GoodStandardModel.DataBean data= (GoodStandardModel.DataBean) tag.getData();
                 bean.setGoodsstandardid(data.getGoodsstandardid());
                 bean.setStandardname(data.getStandardname());
-                bean.setStandardvalue(data.getStandardvalue());
-                bean.setPrice(data.getPrice());
                 bean.setIcon(data.getStanderpic());
+                bean.setRepertorytotal(data.getRepertory());
                 setData(lists);
                 tv_price.setText(data.getPrice()+"");
                 Glide.with(context).load(bean.getIcon()).into(iv_goodstandard);
-                if (bean.getNum()>data.getRepertory()){  //超出库存
+
+                if (num>data.getRepertory()){  //超出库存
                     tv_submit.setText("暂无库存");
                     tv_submit.setBackgroundColor(Color.parseColor("#d9d6d6"));
                     tv_submit.setEnabled(false);
+                    iv_add.setImageResource(R.mipmap.icon_right_add);
+                    iv_decrease.setImageResource(R.mipmap.icon_left_decrease_clickable);
                 }else {
                     tv_submit.setText("加入购物车");
                     tv_submit.setBackgroundColor(Color.parseColor("#ff3951"));
                     tv_submit.setEnabled(true);
+                    iv_add.setImageResource(R.mipmap.icon_right_add_clickable);
+                    iv_decrease.setImageResource(R.mipmap.icon_left_decrease);
                 }
             }
         });
@@ -117,15 +146,92 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_close:
+            case R.id.iv_close:  //关闭
                 Logger.i("关闭");
-                dismiss();
+                todismiss();
                 break;
-            case R.id.tv_submit:
+            case R.id.tv_submit:  //加入购物车
                 Logger.i("确定");
+                CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"",num+"");
+                todismiss();
+                break;
+            case R.id.iv_add:   //数量添加
+                if (num==bean.getRepertorytotal() || num>bean.getRepertorytotal()){
+                    return;
+                }
+                if (num==1){
+                    iv_decrease.setImageResource(R.mipmap.icon_left_decrease_clickable);
+                }
+                if (num==(bean.getRepertorytotal()-1)){
+                    iv_add.setImageResource(R.mipmap.icon_right_add);
+                }
 
-                dismiss();
+                num++;
+                tv_num.setText(num+"");
+                break;
+            case R.id.iv_decrease: //数量减少
+                if (num==1){
+                    return;
+                }
+                if (num==2){
+                    iv_decrease.setImageResource(R.mipmap.icon_left_decrease);
+
+                }
+                if (num==bean.getRepertorytotal()){
+                    iv_add.setImageResource(R.mipmap.icon_right_add_clickable);
+                }
+                num--;
+                tv_num.setText(num+"");
+                if (num<bean.getRepertorytotal() || num==bean.getRepertorytotal()){
+                    tv_submit.setText("加入购物车");
+                    tv_submit.setBackgroundColor(Color.parseColor("#ff3951"));
+                    tv_submit.setEnabled(true);
+                }
+
                 break;
         }
+    }
+
+    private void todismiss(){
+        EventBus.getDefault().unregister(this);
+        dismiss();
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+
+    public void runUiThread(EventMessage message) {
+        Logger.i("GoodsStandard2   MAIN");
+        switch (message.getDataType()){
+            case Commons.SHOWGOODSSTANDARD:
+                GoodStandardModel model4= (GoodStandardModel) message.getData();
+                List<GoodStandardModel.DataBean>  lists=model4.getData();
+                setData(lists);
+                break;
+            case  Commons.ADDSHOPPINGCAR:
+                BaseResponseModel model= (BaseResponseModel) message.getData();
+                BaseActivity.showToast(context,model.getMsg());
+                if (model.getCode().equals("100")){
+                    todismiss();
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void runBgThread(EventMessage message) {
+
+    }
+
+    @Override
+    public void disposeNetMsg(EventMessage message) {
+
+    }
+
+    @Override
+    public void disposeInfoMsg(EventMessage message) {
+
     }
 }
