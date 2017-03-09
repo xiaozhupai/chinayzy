@@ -2,12 +2,10 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 
-import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeBanner;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
@@ -15,9 +13,7 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
-import com.orhanobut.logger.Logger;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -54,14 +50,6 @@ public class homePresenter extends BasePresenter<HomeFragment> {
                 break;
             case NongYeHomeRecylAdapter.CLICK_GOODS://首页商品点击事件
                 mView.openGoodesDetail(message.getData().toString());
-                break;
-            case GoodsDetailGridAdpter.CLICK_GOODS://商品详情页相关商品点击
-                Logger.i("相关商品：="+message.getData());
-                mView.getFragmentManager().beginTransaction().remove(mView.mActivity.mGoodsFragment).commit();
-
-                EventBus.getDefault().post(new EventMessage(BaseMessage.
-                        INFORM_EVENT,"StoreHomeFragment",message.getData().toString()));
-
                 break;
             case Commons.ADDSHOPPINGCAR://添加购物车成功
                 BaseActivity.showToast(mView.getActivity(),"添加购物超成功");

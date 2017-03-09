@@ -6,9 +6,11 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
 import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
+import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
+import com.chinayiz.chinayzy.entity.response.ImGoldModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
@@ -56,7 +58,7 @@ public class CommonRequestUtils {
                 .post()
                 .url(Commons.API + Commons.STORE_HOME)
                 .addParams("time", new Date().toString())
-                .addParams("userid", "8")
+                .addParams("userid", APP.sUserid)
                 .addParams("shopid", shopID)
                 .addParams("sign", "")
                 .tag(Commons.STORE_HOME)
@@ -192,7 +194,7 @@ public class CommonRequestUtils {
                 .post()
                 .url(Commons.API + Commons.GOODS_DETAIL)
                 .addParams("time", new Date().toString())
-                .addParams("userid", "16")
+                .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsId)
                 .addParams("sign", "")
                 .tag("content")
@@ -254,17 +256,14 @@ public class CommonRequestUtils {
     }
 
     /**
-     * 请求商品图文详情信息（HTML5）
-     *
-     * @param goodsId
+     * 请求我的积分信息
      */
-    public void getGoodsPicDetail(String goodsId) {
+    public void getImGodl() {
         OkHttpUtils
                 .post()
-                .url(Commons.API + Commons.GOODS_PICDETAIL)
+                .url(Commons.API + Commons.IM_GOLD)
                 .addParams("time", new Date().toString())
-                .addParams("userid", APP.sUserid)
-                .addParams("goodsid", goodsId)
+                .addParams("userid", "14")
                 .addParams("sign", "")
                 .tag("content")
                 .build()
@@ -273,13 +272,12 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
                     }
-
                     @Override
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.GOODS_PICDETAIL
-                                    , s));
+                                    , Commons.IM_GOLD
+                                    , mGson.fromJson(s,ImGoldModel.class)));
                         } catch (Exception e) {
                            onError(null, e, i);
                         }
@@ -287,16 +285,16 @@ public class CommonRequestUtils {
                 });
     }
     /**
-     * 请求商规格详情信息（HTML5）
-     * @param goodsId
+     * 请求积分列表
+     * @param tradetype  交易类型
      */
-    public void getGoodCpgg(String goodsId) {
+    public void getDealList(String tradetype) {
         OkHttpUtils
                 .post()
-                .url(Commons.API + Commons.GOODS_CPGG)
+                .url(Commons.API + Commons.DEAL_LIST)
                 .addParams("time", new Date().toString())
-                .addParams("userid", APP.sUserid)
-                .addParams("goodsid", goodsId)
+                .addParams("userid", "14")
+                .addParams("tradetype", tradetype)
                 .addParams("sign", "")
                 .tag("content")
                 .build()
@@ -309,9 +307,8 @@ public class CommonRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.GOODS_CPGG
-                                    , s));
-                            Logger.i("参数详情：="+s);
+                                    , Commons.DEAL_LIST
+                                    , mGson.fromJson(s, DealListModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
                         }

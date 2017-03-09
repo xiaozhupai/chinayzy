@@ -26,12 +26,14 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
+             <!--<intent-filter>-->
+             <!--<action android:name="android.intent.action.MAIN"/>-->
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- </intent-filter> -->
+             <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+             <!--</intent-filter>-->
+
+
         </activity>
 
         <!-- 应用首页activity -->
@@ -39,11 +41,15 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+
         </activity>
         <!-- 生态农业公共activity -->
         <activity
@@ -94,12 +100,6 @@
         </activity>
         <activity android:name=".ui.activity.Main2Activity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"/>
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"/>
@@ -126,9 +126,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-        <activity android:name=".ui.common.PictureActivity"
+        <activity
+            android:name=".ui.common.PictureActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ui.common.StoreActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity android:name=".ui.activity.GoldActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
                   android:launchMode="singleTask"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+                  android:screenOrientation="portrait"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
         </activity>
     </application>
 

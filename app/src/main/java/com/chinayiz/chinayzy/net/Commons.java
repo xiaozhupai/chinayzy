@@ -208,7 +208,6 @@ public class Commons {
      * 结算购物车选中的订单，预览订单
      */
     public static final String PREVIEWORDER="/centre/previewOrder";
-
     /**
      * 支付宝支付
      */
@@ -258,7 +257,28 @@ public class Commons {
      * 发现详情
      */
     public static final String FXXQ="/h5/fxxq";
-
-
-
+    /**
+     * 我的积分
+     */
+    public static final String IM_GOLD="/centre/showPointEarnings";
+    /**
+     *积分交易列表
+     */
+    public static final String DEAL_LIST="/centre/showPointDealDetail";
+    /**
+     * 申请积分提现
+     */
+    public static final String GET_GOLD="/centre/withdraw";
+    /**
+     * 获取积分
+     */
+    public static final String GET_GOLD_MODE="/h5/zqjf";
+    /**
+     * 提现规则
+     */
+    public static final String GET_GOLD_RULE="/h5/txgz";
+    /**
+     * 积分规则
+     */
+    public static final String GOLD_RULE="/h5/jfgz";
 }

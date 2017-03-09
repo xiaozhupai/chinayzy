@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/view_notEarnings"
+              android:background="@color/Background"
+              android:gravity="center"
+    >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="100dp"
+    android:gravity="center_horizontal|bottom"
+    android:textSize="14sp"
+    android:text="暂无收益，快来加入吧"
+    android:textColor="@color/gray"
+    android:layout_marginBottom="20dp"
+    android:drawableTop="@mipmap/pic_earnings_log"
+    />
+</LinearLayout>

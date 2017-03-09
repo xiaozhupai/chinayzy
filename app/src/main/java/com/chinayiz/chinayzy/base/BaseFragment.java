@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.ui.fragment.StoreHomeFragment;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -30,7 +29,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public String TAG;
     public BaseActivity mActivity;
     //ui是否初始化
-    public StoreHomeFragment mStoreHomeFragment;
+
     public boolean isInit = true;
 
     /**
@@ -213,10 +212,10 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
     }
 
-    /**
-     * 类似Activity的OnBackgress
-     * fragment进行回退
-     */
+        /**
+         * 类似Activity的OnBackgress
+         * fragment进行回退
+         */
     public void onBack() {
         getFragmentManager().popBackStack();
     }

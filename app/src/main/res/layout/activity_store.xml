@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+    <include layout="@layout/common_action_bar"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_StoreHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/NongYe_Line"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+        <RelativeLayout
+            android:id="@+id/nv_goodsMenu2"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/Background"
+            android:visibility="invisible"
+            >
+
+            <View
+                android:id="@+id/low_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/NongYe_Line"
+                />
+
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/low_line"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:background="@color/NongYe_Line"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/low_line"
+                android:layout_toLeftOf="@id/line"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="智能排序"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_goodsType"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/low_line"
+                android:layout_toRightOf="@id/line"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="全部商品"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                />
+
+            <ImageView
+                android:id="@+id/iv_indicate"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/low_line"
+                android:layout_marginRight="50dp"
+                android:src="@mipmap/pull_low"
+                />
+
+            <View
+                android:id="@+id/low_line1"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_below="@id/tv_goodsType"
+                android:background="@color/NongYe_Line"
+                />
+
+        </RelativeLayout>
+        <include layout="@layout/view_progress"/>
+    </FrameLayout>
+</LinearLayout>

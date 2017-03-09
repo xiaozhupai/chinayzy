@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,10 +26,6 @@ import org.greenrobot.eventbus.ThreadMode;
 public class GoodsListFragment extends Fragment {
     private MyGridView mGoodsList;
     private GoodsDetailGridAdpter mAdapter;
-
-    public GoodsListFragment() {
-
-    }
 
     @Nullable
     @Override

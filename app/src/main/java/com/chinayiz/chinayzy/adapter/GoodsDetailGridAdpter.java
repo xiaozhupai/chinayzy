@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickListener {
     /**
-     * 商品详情页
+     * 商品详情页相关商品点击
      */
     public final static String CLICK_GOODS="GoodsDetailGridAdpter_goods";
 

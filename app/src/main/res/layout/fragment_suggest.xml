@@ -32,7 +32,7 @@
              android:id="@+id/et_suggest_title"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:hint="输入主要问题模块,如收藏模块"
+             android:hint="输入主要问题模块,如收藏模块,订单"
              android:textColorHint="#bababa"
              android:textSize="13sp"
              android:textColor="#252525"

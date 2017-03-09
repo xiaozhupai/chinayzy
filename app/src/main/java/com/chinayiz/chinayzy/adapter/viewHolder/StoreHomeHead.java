@@ -79,8 +79,11 @@ public class StoreHomeHead extends RecyclerView.ViewHolder implements View.OnCli
                 .transform(new GlideRoundTransform(context,8))
                 .into(mIvStoreLogo);
         mTvStareName.setText(storeInfo.getSname());
+
         if ("1".equals(storeInfo.getIsattention())) {
             mIvSign.setChecked(true);
+        }else {
+            mIvSign.setChecked(false);
         }
         mIvSign.setOnCheckedChangeListener(this);
     }

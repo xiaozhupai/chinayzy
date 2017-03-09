@@ -205,7 +205,8 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
             addFragment(new ShopCartFragment(1));
                 break;
             case R.id.lv_mine_scores:   //我的积分
-
+                Intent intent =new Intent(this,GoldActivity.class);
+                startActivity(intent);
                 break;
             case R.id.lv_mine_server:   //消息
 
