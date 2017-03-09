@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/Background"
+    android:gravity="center_horizontal"
+    >
+<include layout="@layout/common_action_bar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/NongYe_Line"
+        />
+   <CheckBox
+       android:id="@+id/cb_dealType"
+       android:layout_width="60dp"
+       android:layout_height="34dp"
+       android:gravity="center"
+       android:text="全部"
+       android:textColor="@color/Actionbar_edit"
+       android:button="@null"
+       android:drawableRight="@drawable/deal_menu"
+       />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/goldBg"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_dealList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/goldBg"
+            android:dividerHeight="0.5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            >
+        </ListView>
+        <include layout="@layout/view_null_earnings"/>
+        <include layout="@layout/view_progress"/>
+    </FrameLayout>
+</LinearLayout>

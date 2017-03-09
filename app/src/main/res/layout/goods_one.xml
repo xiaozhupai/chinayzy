@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pull_goodsRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -248,8 +249,7 @@
                 android:layout_below="@id/tv_goodsComment"
                 android:background="@color/basecolor"
                 />
-
-            <RatingBar
+            <com.hedgehog.ratingbar.RatingBar
                 android:id="@+id/rb_goodsGrade"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
@@ -257,8 +257,16 @@
                 android:layout_below="@id/tv_goodsComment"
                 android:layout_marginLeft="@dimen/goodsLeftPanding"
                 android:layout_marginTop="13dp"
-                android:numStars="5"
-                android:rating="4"/>
+                android:clickable="false"
+                app:halfstart="false"
+                app:starCount="5"
+                app:starEmpty="@mipmap/icon_grade"
+                app:starFill="@mipmap/icon_grade_pre"
+                app:starImageHeight="11dp"
+                app:starImagePadding="0dp"
+                app:starImageWidth="11dp"
+                >
+            </com.hedgehog.ratingbar.RatingBar>
 
             <ImageView
                 android:id="@+id/iv_UserIcon"

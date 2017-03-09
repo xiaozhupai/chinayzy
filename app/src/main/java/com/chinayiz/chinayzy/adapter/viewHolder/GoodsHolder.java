@@ -3,10 +3,10 @@ package com.chinayiz.chinayzy.adapter.viewHolder;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.hedgehog.ratingbar.RatingBar;
 
 import java.util.ArrayList;
 import java.util.List;

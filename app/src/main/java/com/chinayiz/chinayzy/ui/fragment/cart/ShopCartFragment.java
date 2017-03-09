@@ -1,9 +1,9 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +69,8 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
             activity.mTvActionBarTitle.setText("购物车");
             activity.mIvActionBarMore.setVisibility(View.GONE);
             activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+            activity.mCbActionBarEdit.setTextSize(15);
+            activity.mCbActionBarEdit.setTextColor(Color.rgb(90,91,95));
             activity.mCbActionBarEdit.setText("编辑");
             activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -163,7 +165,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_shopcart_submit:  //结算或者删除
-
                 mPresenter.submit();
                 break;
             case R.id.iv_shopcart_radio:   //是否全选

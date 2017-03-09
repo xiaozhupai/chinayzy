@@ -19,11 +19,11 @@ import com.chinayiz.chinayzy.R;
  * A simple {@link Fragment} subclass. 公共的fragment
  */
 public class WebFragment extends Fragment {
+    public ProgressBar progressbar;
     public WebView wv_view;
+    private String url;
     private String title;
     private String  goodsid;
-    private String url;
-    public ProgressBar progressbar;
     public void setWebView(String title,String url,String goodsid){
         this.title=title;
         this.url=url;

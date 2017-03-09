@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="130dp"
+              android:layout_height="180dp"
+              android:background="@mipmap/pic_meun_bg"
+
+    >
+<RadioGroup
+    android:id="@+id/rg_dealType"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="6dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    >
+    <RadioButton
+        android:id="@+id/rb_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:text="全部"
+        android:textColor="@drawable/deal_text"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/pic_line"
+        />
+    <RadioButton
+        android:id="@+id/rb_chongzhi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:textColor="@drawable/deal_text"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/pic_line"
+        android:text="充值"
+        />
+    <RadioButton
+        android:id="@+id/rb_getdeal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:textColor="@drawable/deal_text"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/pic_line"
+        android:text="提现"
+        />
+    <RadioButton
+        android:id="@+id/rb_qita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:textColor="@drawable/deal_text"
+        android:layout_weight="1"
+        android:text="其他"
+        />
+</RadioGroup>
+
+</LinearLayout>

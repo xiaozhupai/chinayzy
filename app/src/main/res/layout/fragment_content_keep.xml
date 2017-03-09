@@ -17,7 +17,6 @@
             android:dividerHeight="1px"
             android:divider="#acacac"
             >
-
         </com.chinayiz.chinayzy.views.PullableListView>
         <include layout="@layout/load_more"/>
     </com.chinayiz.chinayzy.views.PullToRefreshLayout>

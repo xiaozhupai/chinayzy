@@ -19,7 +19,6 @@ import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.NongYeMainPresenter;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
-import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
@@ -79,7 +78,6 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGoodsFragment = new GoodsFragment();
     }
 
 
@@ -90,7 +88,6 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
-        mGoodsFragment=new GoodsFragment();
         mWebFragment=new WebFragment();
         setStatuBarColor(NongYeMainActivity.this, Color.rgb(255, 255, 255));
         setContentView(R.layout.nongye_activity_main);

@@ -212,10 +212,10 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
     }
 
-    /**
-     * 类似Activity的OnBackgress
-     * fragment进行回退
-     */
+        /**
+         * 类似Activity的OnBackgress
+         * fragment进行回退
+         */
     public void onBack() {
         getFragmentManager().popBackStack();
     }

@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.ui.common.GoodsActivity;
+import com.chinayiz.chinayzy.ui.activity.GoldActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -91,8 +91,7 @@ public class TestActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_action1: {
-                Intent intent=new Intent(this, GoodsActivity.class);
-                intent.putExtra("goodsID","8");
+                Intent intent=new Intent(this, GoldActivity.class);
                 startActivity(intent);
                 break;
             }

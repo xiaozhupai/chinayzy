@@ -10,7 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -32,6 +31,7 @@ import com.chinayiz.chinayzy.views.goodsParticular.BotContentPage;
 import com.chinayiz.chinayzy.views.goodsParticular.McoySnapPageLayout;
 import com.chinayiz.chinayzy.views.goodsParticular.TopDetailInfoPage;
 import com.chinayiz.chinayzy.widget.ShareDialog;
+import com.hedgehog.ratingbar.RatingBar;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -304,7 +304,7 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                     model.getData().getCommentlist().get(0).getDeliverypoint() +
                     model.getData().getCommentlist().get(0).getServicepoint();
             Logger.i("评分总分：=" + sum);
-            mGoodsHolder.mRbGoodsGrade.setRating(sum / 3);//设置综合分数
+            mGoodsHolder.mRbGoodsGrade.setStar(sum/3);//设置综合分数
             Glide.with(this).load(model.getData().getCommentlist().get(0).getPic())
                     .transform(new GlideCircleTransform(this))
                     .into(mGoodsHolder.mIvUserIcon);

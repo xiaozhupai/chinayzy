@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.ui.fragment.GoodsFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
 
@@ -39,10 +38,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected T mPresenter;
     protected static Toast toast;
     public String TAG;
-    /**
-     * 商品详情Fragment（通用）；
-     */
-    public static GoodsFragment mGoodsFragment=null;
     /**
      * web Fragment（通用）；
      */
