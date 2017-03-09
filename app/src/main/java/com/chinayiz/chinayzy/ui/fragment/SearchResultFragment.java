@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,8 +16,10 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.presenter.SearchResultPresenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
+import com.chinayiz.chinayzy.ui.common.GoodsActivity;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.orhanobut.logger.Logger;
@@ -177,6 +180,9 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Logger.i("点击每一个商品");
-//       startFragment(new FindDetailFragment("1"),"FindDetailFragment");
+        SearchFarmModel.DataBean bean=mPresenter.data.get(i);
+        Intent intent=new Intent(getActivity(), GoodsActivity.class);
+        intent.putExtra("goodsID",bean.getGoodsid()+"");
+        startActivity(intent);
     }
 }

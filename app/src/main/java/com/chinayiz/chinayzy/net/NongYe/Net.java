@@ -6,6 +6,7 @@ import com.chinayiz.chinayzy.entity.response.ClassifyCodesModel;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
+import com.chinayiz.chinayzy.entity.response.KeeporZanModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
@@ -389,5 +390,39 @@ public class Net {
                     }
                 });
     }
+
+
+    /**
+     * 是否点赞 是否收藏
+     * @param bid  博文id
+     */
+    public void getCollectOrPraise( String bid) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.ISCOLLECTORPRAISE)
+                .addParams("bid",bid)
+                .addParams("userid",APP.sUserid)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.ISCOLLECTORPRAISE
+                                    ,mGson.fromJson(s,KeeporZanModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+
 
 }

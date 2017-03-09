@@ -112,16 +112,34 @@
                           android:layout_width="104dp"
                           android:layout_height="26dp"
                           android:layout_alignParentRight="true"
-                          android:background="@mipmap/img_bg_corner"
+
                           android:orientation="horizontal"
+                          android:gravity="center_vertical"
                           >
                        <ImageView
-                           android:layout_width="wrap_content"
+                           android:id="@+id/iv_decrease"
+                           android:layout_weight="1"
+                           android:layout_width="0dp"
                            android:layout_height="wrap_content"
                            android:src="@mipmap/img_left_remove"
-                            android:layout_gravity="center_vertical"
                            android:layout_marginLeft="10dp"
                            />
+                          <TextView
+                              android:id="@+id/tv_num"
+                              android:layout_weight="1"
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:text="1"
+                              android:layout_marginLeft="10dp"
+                              />
+                          <ImageView
+                              android:id="@+id/iv_add"
+                              android:layout_weight="1"
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:src="@mipmap/icon_right_add_clickable"
+                              android:layout_marginLeft="10dp"
+                              />
                       </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>

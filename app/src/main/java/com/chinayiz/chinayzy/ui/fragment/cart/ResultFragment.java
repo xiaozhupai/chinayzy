@@ -18,9 +18,12 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ResultAdaphter;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
+import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -36,7 +39,7 @@ import java.util.List;
 
 public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener, IWXAPIEventHandler {
     public ListView lv_result;
-    public TextView tv_result_price;
+    public TextView tv_result_price,tv_no_address;
     public TextView tv_result_submit;
     public RelativeLayout result_list;
     public ResultAdaphter adaphter;
@@ -50,8 +53,10 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public List<ResultModel.DataBean.GoodmessageBean> list;
     public String params;
     public TextView tv_address_name,tv_address_phone,tv_address_text,tv_deducpoint;
+    public int index;
 
-    public ResultFragment(String params){
+    public ResultFragment(int index,String params){
+        this.index=index;
         this.params=params;
         Logger.i("resultFragment"+params);
     }
@@ -68,6 +73,11 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     protected void lazyLoad() {
     }
 
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        activity.mTvActionBarTitle.setText("结算订单");
+        activity.mCbActionBarEdit.setVisibility(View.GONE);
+    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,7 +92,20 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         tv_address_name= (TextView) head.findViewById(R.id.tv_address_name);
         tv_address_phone= (TextView) head.findViewById(R.id.tv_address_phone);
         tv_address_text= (TextView) head.findViewById(R.id.tv_address_text);
+        tv_no_address= (TextView) head.findViewById(R.id.tv_no_address);
         lv_result.addHeaderView(head);
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (index==0){ //生态农业
+                    startFragment(new AddressListFragment(index),"AddressListFragment");
+                }else {  //个人中心
+                 MineActivity activity= (MineActivity) getActivity();
+                    activity.addFragment(new AddressListFragment(index));
+                }
+
+            }
+        });
 
         View foot = View.inflate(getActivity(), R.layout.result_foot, null);
         tv_goods_total = (TextView) foot.findViewById(R.id.tv_goods_total);

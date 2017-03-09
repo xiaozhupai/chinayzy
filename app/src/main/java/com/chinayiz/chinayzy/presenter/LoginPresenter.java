@@ -23,9 +23,11 @@ import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
 import com.chinayiz.chinayzy.utils.TimeUntils;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -55,6 +57,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     private int num;
     public String logintype;
     private String registerphone;
+    public static final int RESULT_DETAIL=1;
 
     @Override
     public void onCreate() {
@@ -129,8 +132,14 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         editor.commit();//提交修改
         APP.sUserid=userid+"";
         mView.finish();
-        Intent intent=new Intent(mView, MineActivity.class);
-        mView.startActivity(intent);
+       Intent intent_data=mView.getIntent();
+        if (intent_data.getStringExtra("FindDetailFragment")!=null){
+            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, FindDetailFragment.FIND_DETAIL,""));
+        }else {
+            Intent intent=new Intent(mView, MineActivity.class);
+            mView.startActivity(intent);
+        }
+
     }
 
     @Override

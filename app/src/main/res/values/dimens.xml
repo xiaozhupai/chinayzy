@@ -11,7 +11,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="goodsLeftPanding">11dp</dimen>
 
-
+    <dimen name="text_size_20sp">20sp</dimen>
     <dimen name="toolbar_elevation">8dp</dimen>
     <dimen name="hero_avatar_size">120dp</dimen>
     <dimen name="hero_avatar_border">3dp</dimen>

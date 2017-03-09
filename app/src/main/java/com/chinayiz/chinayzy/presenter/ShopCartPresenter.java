@@ -75,6 +75,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 ShopCartModel model= (ShopCartModel) message.getData();
                 list=model.getData();
                 mView.adaphter.setData(model.getData(),0);
+                if (list==null){
+                    mView.lv_boom.setVisibility(View.GONE);
+                }
                 if (list.size()==0){
                   mView.lv_boom.setVisibility(View.GONE);
                 }
@@ -106,6 +109,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 break;
         }
     }
+
     @Override
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
@@ -131,6 +135,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 break;
         }
     }
+
     public void UpdateBoom(){
         mView.tv_shopcart_all.setText("全选(0)");
         mView.iv_shopcart_radio.setCheck(false);
@@ -193,9 +198,10 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 }
               if (mView.index==1){
               MineActivity activity= (MineActivity) mView.getActivity();
-                  activity.addFragment(new ResultFragment(params.toString()));
+                  activity.addFragment(new ResultFragment(1,params.toString()));
               }else {
-                  mView.startFragment(new ResultFragment(params.toString()),"ResultFragment");
+                  mView.startFragment(new ResultFragment(0,params.toString()),"ResultFragment");
+
               }
                 break;
             case TYPE_EDITER:
