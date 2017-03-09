@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.ui.fragment.cart;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,9 +26,12 @@ import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 购物车
@@ -40,7 +44,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public TextView tv_shopcart_price;
     private TextView tv_shopcart_submit;
     public LinearLayout lv_boom;
-    private PullToRefreshLayout pullToRefreshLayout;
+    public PullToRefreshLayout pullToRefreshLayout;
     public ShopCartAdaphter adaphter;
     public List<ShopCartModel.DataBean> list=new ArrayList<>();
     public TextView tv_shopcart_all;
@@ -137,7 +141,8 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+//                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                             mPresenter.getData();
             }
 
             @Override

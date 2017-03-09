@@ -165,7 +165,9 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-               mPresenter.getData();
+                mPresenter.getData();
+
+
             }
 
             @Override

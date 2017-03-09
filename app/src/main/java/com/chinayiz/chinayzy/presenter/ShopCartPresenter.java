@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,6 +40,10 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
     @Override
     public void onCreate() {
+        getData();
+    }
+
+    public void getData(){
         net.getShopCart();
     }
 
@@ -72,6 +77,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
             case Commons.SHOPCART:  //购物车商品列表
+
                 ShopCartModel model= (ShopCartModel) message.getData();
                 list=model.getData();
                 mView.adaphter.setData(model.getData(),0);
@@ -81,6 +87,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 if (list.size()==0){
                   mView.lv_boom.setVisibility(View.GONE);
                 }
+                mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 break;
             case Commons.DELSHOPPINGCAR:   //删除购物车商品
                 BaseResponseModel model2= (BaseResponseModel) message.getData();

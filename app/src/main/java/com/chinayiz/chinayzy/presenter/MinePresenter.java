@@ -98,6 +98,7 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                     mView.tv_after_sale_count.setVisibility(View.VISIBLE);
                     mView.tv_after_sale_count.setText(dataBean.getAftercount()+"");
                 }
+              mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 break;
         }
     }

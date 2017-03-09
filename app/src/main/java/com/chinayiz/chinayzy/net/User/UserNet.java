@@ -226,6 +226,7 @@ public class UserNet {
                 .url(Commons.API + Commons.ADDIDEA)
                 .addParams("theme", theme)
                 .addParams("idea", idea)
+                .addParams("userid",APP.sUserid)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {

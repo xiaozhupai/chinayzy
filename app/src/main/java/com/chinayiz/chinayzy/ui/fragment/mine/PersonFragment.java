@@ -18,6 +18,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.views.CircleImageView;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.TagListView;
 import com.orhanobut.logger.Logger;
 
@@ -56,6 +57,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public  MineActivity activity;
     public TextView tv_person_username;
     public RelativeLayout rl_person_username;
+    public PullToRefreshLayout refresh_view;
 
     @Override
     public void onStart() {
@@ -90,7 +92,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity= (MineActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_person, null);
-
+        refresh_view= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
         iv_head_right = (ImageView) view.findViewById(R.id.iv_head_right);
         iv_head_right.setOnClickListener(this);
         iv_person_head = (CircleImageView)view.findViewById(R.id.iv_person_head);
@@ -147,6 +149,18 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         rl_person_username= (RelativeLayout) view.findViewById(R.id.rl_person_username);
         rl_person_username.setOnClickListener(this);
         tlv_list= (TagListView) view.findViewById(R.id.tlv_list);
+        refresh_view.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+                mPresenter.getData();
+
+            }
+
+            @Override
+            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+                refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+            }
+        });
 
         tlv_list.setTagViewBackgroundRes(R.drawable.label_black);
         tlv_list.setTagViewTextColorRes(Color.BLACK);

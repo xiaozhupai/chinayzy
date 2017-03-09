@@ -120,7 +120,7 @@ public class GoodsFragment extends BaseFragment<Goods_Presenter> implements View
     }
     private void initTopPage(View topView) {
         mGoodsHolder=new GoodsHolder();
-        mRefreshLayout= (PullToRefreshLayout) topView.findViewById(R.id.pull_goodsRefresh);
+//        mRefreshLayout= (PullToRefreshLayout) topView.findViewById(R.id.pull_goodsRefresh);
         //设置刷新加载监听器
         mRefreshLayout.setOnRefreshListener(mPresenter);
 

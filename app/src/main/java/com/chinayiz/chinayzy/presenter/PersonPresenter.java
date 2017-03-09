@@ -38,6 +38,7 @@ import com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.WeightFragment;
 import com.chinayiz.chinayzy.utils.PutObjectSamples;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.chinayiz.chinayzy.widget.Tag;
 import com.orhanobut.logger.Logger;
@@ -84,7 +85,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     public UserModel.DataBean bean;
     @Override
     public void onCreate() {
-        net.getUserInfo();
+        getData();
          initoss();
     }
 
@@ -215,6 +216,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                     }
                     mView.tlv_list.setTags(tags_list);
                 }
+              mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
                 break;
             case UserNet.PIC:  //上传图片回调
                 BaseResponseModel model1= (BaseResponseModel) message.getData();
@@ -382,5 +384,9 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
 
     public void toAddress() {
         mView.activity.addFragment(new AddressListFragment(1));
+    }
+
+    public void getData() {
+        net.getUserInfo();
     }
 }
