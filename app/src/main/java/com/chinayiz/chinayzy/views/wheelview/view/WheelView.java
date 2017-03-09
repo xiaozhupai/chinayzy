@@ -19,19 +19,10 @@
 
 package com.chinayiz.chinayzy.views.wheelview.view;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.views.wheelview.view.adapters.ArrayWheelAdapter;
-import com.chinayiz.chinayzy.views.wheelview.view.adapters.WheelViewAdapter;
-
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
@@ -41,6 +32,13 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
+
+import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.views.wheelview.view.adapters.ArrayWheelAdapter;
+import com.chinayiz.chinayzy.views.wheelview.view.adapters.WheelViewAdapter;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Numeric wheel view.
@@ -664,12 +662,7 @@ public class WheelView extends View {
 	private void drawCenterRect(Canvas canvas) {
 		int center = getHeight() / 2;
 		int offset = (int) (getItemHeight() / 2 * 1.2);
-		/*/ Remarked by wulianghuan 2014-11-27  使用自己的画线，而不是描边
-		Rect rect = new Rect(left, top, right, bottom)
-		centerDrawable.setBounds(bounds)
-		centerDrawable.setBounds(0, center - offset, getWidth(), center + offset);
-		centerDrawable.draw(canvas);
-		//*/
+
 		Paint paint = new Paint();
 		paint.setColor(getResources().getColor(R.color.province_line_border));
 		// 设置线宽
