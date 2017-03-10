@@ -204,6 +204,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                     String last=idcard.substring(idcard.length()-4,idcard.length());
                     mView.tv_person_card.setText(first+"****"+last);
                 }
+                tags_list.clear();
                 if (!TextUtils.isEmpty(bean.getTag())){
 
                     String [] tags=bean.getTag().split(",");

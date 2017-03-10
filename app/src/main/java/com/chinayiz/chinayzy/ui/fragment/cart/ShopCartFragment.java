@@ -138,6 +138,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         tv_shopcart_submit.setOnClickListener(this);
         iv_shopcart_radio.setOnClickListener(this);
         listv_shopcart.setOnItemClickListener(this);
+        view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {

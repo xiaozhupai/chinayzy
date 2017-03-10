@@ -279,6 +279,8 @@
         <!--<View-->
             <!--style="@style/Divider"/>-->
     </LinearLayout>
-        <include layout="@layout/load_more"/>
     </com.chinayiz.chinayzy.views.pullable.PullableScrollView>
+    <include layout="@layout/load_more"
+        android:id="@+id/loadlayout"
+        />
 </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>

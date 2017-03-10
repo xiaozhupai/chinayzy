@@ -161,7 +161,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
                 refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
             }
         });
-
+          view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
         tlv_list.setTagViewBackgroundRes(R.drawable.label_black);
         tlv_list.setTagViewTextColorRes(Color.BLACK);
         return view;
