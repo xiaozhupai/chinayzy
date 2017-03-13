@@ -52,8 +52,8 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-      MineActivity mineactivity= (MineActivity) activity;
-        mineactivity.mTvActionBarTitle.setText(title);
+        activity.mTvActionBarTitle.setText(title);
+        activity.mCbActionBarEdit.setVisibility(View.GONE);
     }
 
     @Override

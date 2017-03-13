@@ -7,6 +7,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -42,6 +43,7 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
                 FindListModel model = (FindListModel) message.getData();
                 lists=model.getData();
                 mView.adaphter.setData(model.getData());
+              mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
             }
         }
     }

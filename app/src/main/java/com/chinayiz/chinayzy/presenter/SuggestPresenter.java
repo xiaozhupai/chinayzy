@@ -56,7 +56,7 @@ public class SuggestPresenter extends BasePresenter<SuggestFragment> {
                 Toast.makeText(mView.getActivity(),model.getMsg(),Toast.LENGTH_SHORT).show();
                 if (model.getCode().equals("100")){
 
-                mView.mineActivity.onBackPressed();
+                mView.mActivity.onBackPressed();
                 }
             }
     }

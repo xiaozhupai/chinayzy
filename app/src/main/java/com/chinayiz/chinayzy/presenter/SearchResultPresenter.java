@@ -12,6 +12,8 @@ import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
+import com.chinayiz.chinayzy.views.MainViewPager;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -68,14 +70,25 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
         switch (message.getDataType()){
             case Commons.SEARCHFARM:   //搜索结果
                 SearchFarmModel model= (SearchFarmModel) message.getData();
+
+                if (mView.page==1){
+                    data=model.getData();
+                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+                }else {
+                    data.addAll(model.getData());
+                    mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                }
                 if (mView.type==1){
-                    mView.adaphter.setData(model.getData(),mView.type);
+                    mView.gd_list.setSelection(mView.mPostion);
+                    mView.adaphter.setData(data,mView.type);
                     mView.gd_list.setAdapter(mView.adaphter);
                 }else {
-                    mView.adaphter2.setData(model.getData(),mView.type);
+                    mView.gd_list.setSelection(mView.mPostion);
+                    mView.adaphter2.setData(data,mView.type);
                     mView.gd_list.setAdapter(mView.adaphter2);
                 }
-               data=model.getData();
+
+
                 break;
             case Commons.ADDSHOPPINGCAR:   //加入购物车
                 BaseResponseModel model1= (BaseResponseModel) message.getData();
@@ -94,32 +107,7 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     }
 
     public void getData(){
-        switch (mView.index){
-            case HOT: //热卖
-
-                     Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-
-                break;
-            case SALE_DOWN:   //销量下降
-                    Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-
-                break;
-            case SALE_UP:   //销量上升
-
-                    Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-
-                break;
-            case PRICE_DOWN: //价格
-
-                    Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-
-                break;
-            case PRICE_UP: //价格
-
-                    Net.getNet().getSearchFarm(mView.title,"1","10",mView.index+"");
-
-                break;
-        }
+        Net.getNet().getSearchFarm(mView.title,mView.page+"","10",mView.index+"");
     }
 
 }

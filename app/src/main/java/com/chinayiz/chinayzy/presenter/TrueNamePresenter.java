@@ -58,7 +58,7 @@ public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
             BaseResponseModel model= (BaseResponseModel) message.getData();
             BaseActivity.showToast(mView.getActivity(),model.getMsg());
             if (model.getCode().equals("100")){
-                mView.mineActivity.onBackPressed();
+                mView.mActivity.onBackPressed();
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.TRUENAME,truename));
             }
         }

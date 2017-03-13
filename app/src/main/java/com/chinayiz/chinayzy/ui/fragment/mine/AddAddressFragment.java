@@ -30,7 +30,7 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     public  ImageView iv_address;
     public  EditText et_address;
     public TextView tv_delete;
-    public  MineActivity mineActivity;
+
     public int type;  //0 新增   1是编辑
     public static final int ADD=0;
     public static final int EDIT=1;

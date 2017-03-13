@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.EmailPresenter;
+import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.orhanobut.logger.Logger;
 
@@ -23,7 +25,7 @@ import com.orhanobut.logger.Logger;
  */
 public class EmailFragment extends BaseFragment<EmailPresenter> {
     public EditText et_email;
-    public MineActivity mineActivity;
+    public CommonActivity mineActivity;
     public String param;
 
 
@@ -47,9 +49,11 @@ public class EmailFragment extends BaseFragment<EmailPresenter> {
 
     }
 
+
+
     @Override
     public void onInitActionBar(BaseActivity activity) {
-      mineActivity= (MineActivity) activity;
+      mineActivity= (CommonActivity) activity;
         mineActivity.mTvActionBarTitle.setText("邮箱地址");
         mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
         mineActivity.mCbActionBarEdit.setText("完成");

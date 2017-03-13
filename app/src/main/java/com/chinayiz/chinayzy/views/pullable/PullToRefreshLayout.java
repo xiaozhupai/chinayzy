@@ -431,31 +431,27 @@ public class PullToRefreshLayout extends RelativeLayout
 				radio = (float) (2 + 2 * Math.tan(Math.PI / 2 / getMeasuredHeight()
 						* (pullDownY + Math.abs(pullUpY))));
 				requestLayout();
-				Logger.i("当前的状态"+state);
 				if (pullDownY <= 100 && state == RELEASE_TO_REFRESH)
 				{
 					// 如果下拉距离没达到刷新的距离且当前状态是释放刷新，改变状态为下拉刷新
-					Log.i(TAG,"INIT");
+
 					changeState(INIT);
 				}
 				if (pullDownY >= 100 && state == INIT)
 				{
-					Log.i(TAG,"RELEASE_TO_REFRESH");
-					Log.i(TAG,"pullDownY"+pullDownY);
+
 					// 如果下拉距离达到刷新的距离且当前状态是初始状态刷新，改变状态为释放刷新
 					changeState(RELEASE_TO_REFRESH);
 				}
 				// 下面是判断上拉加载的，同上，注意pullUpY是负值
 				if (-pullUpY <= 100 && state == RELEASE_TO_LOAD)
 				{
-					Log.i(TAG,"RELEASE_TO_LOAD");
-					Log.i(TAG,"pullUpY"+pullUpY);
+
 					changeState(INIT);
 				}
 				if (-pullUpY >= 100 && state == INIT)
 				{
-					Log.i(TAG,"INIT");
-					Log.i(TAG,"pullUpY"+pullUpY);
+
 					changeState(RELEASE_TO_LOAD);
 				}
 				// 因为刷新和加载操作不能同时进行，所以pullDownY和pullUpY不会同时不为0，因此这里用(pullDownY +

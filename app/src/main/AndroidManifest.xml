@@ -145,6 +145,12 @@
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
         </activity>
+        <activity android:name=".ui.activity.CommonActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

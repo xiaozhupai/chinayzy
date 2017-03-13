@@ -1,5 +1,7 @@
 package com.chinayiz.chinayzy.entity.model;
 
+import java.io.Serializable;
+
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/1/18 9:12
@@ -13,7 +15,8 @@ package com.chinayiz.chinayzy.entity.model;
 //        "code": "100",
 //        "msg": "获取成功！"
 //        }
-public class BaseResponseModel {
+public class BaseResponseModel  {
+
     private String time;//响应时间
     private String code;//响应码
     private String msg;//响应消息

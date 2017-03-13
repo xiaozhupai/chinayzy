@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.net.Commons;
@@ -45,10 +46,17 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
     public FindListModel.DataBean bean;
     public static final String FIND_DETAIL="FIND_DETAIL";
 
-    public FindDetailFragment(FindListModel.DataBean bean) {
+    @Override
+    public void onInintData(Bundle bundle) {
+        FindListModel.DataBean bean= (FindListModel.DataBean) bundle.getSerializable("bean");
         this.bean = bean;
         bid=bean.getBid()+"";
         url= Commons.API+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid+"&type=app";
+    }
+
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        activity.mTvActionBarTitle.setText("详情");
     }
 
     @Override

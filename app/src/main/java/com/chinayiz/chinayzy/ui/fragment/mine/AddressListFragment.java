@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.AddressListPresenter;
+import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.orhanobut.logger.Logger;
@@ -26,15 +27,17 @@ import org.greenrobot.eventbus.EventBus;
  * A simple {@link Fragment} subclass.
  */
 public class AddressListFragment extends BaseFragment<AddressListPresenter> implements View.OnClickListener {
-    public BaseActivity mineActivity;
+
     public ListView lv_addreddlist;
     public TextView tv_submit;
     public AddressAdaphter adaphter;
     public int index;
     public static final String ADDRESS_BACK="ADDRESS_BACK";
+    public CommonActivity activity;
 
-    public AddressListFragment(int index) {
-        this.index = index;
+    @Override
+    public void onInintData(Bundle bundle) {
+
     }
 
     @Override
@@ -53,26 +56,20 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> impl
     }
 
     @Override
-    public void onInitActionBar(BaseActivity activity) {
-        mineActivity= activity;
-        mineActivity.mTvActionBarTitle.setText("收货地址");
-        mineActivity.mCbActionBarEdit.setVisibility(View.GONE);
-        mineActivity.mIvBackButton.setOnClickListener(new View.OnClickListener() {
+    public void onInitActionBar(final BaseActivity activity) {
+        activity.mTvActionBarTitle.setText("收货地址");
+        activity.mCbActionBarEdit.setVisibility(View.GONE);
+        activity.mIvBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,ADDRESS_BACK,""));
-                mineActivity.onBackPressed();
+                activity.onBackPressed();
             }
         });
     }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (index==0){
-          BaseActivity activity= (BaseActivity) getActivity();
-            activity.mTvActionBarTitle.setText("收货地址");
-            activity.mCbActionBarEdit.setVisibility(View.GONE);
-        }
         View view = inflater.inflate(R.layout.fragment_address_list, null);
         lv_addreddlist = (ListView) view.findViewById(R.id.lv_addreddlist);
         tv_submit = (TextView) view.findViewById(R.id.tv_submit);

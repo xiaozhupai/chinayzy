@@ -31,7 +31,7 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
     public TextView tv_sex_woman;
     public ImageView iv_sex_woman;
     public RelativeLayout rl_sex_woman;
-    public MineActivity mineActivity;
+
 
 
     public SexFragment(String param) {
@@ -56,11 +56,11 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        mineActivity= (MineActivity) activity;
-        mineActivity.mTvActionBarTitle.setText("性别");
-        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        mineActivity.mCbActionBarEdit.setText("完成");
-        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+
+        activity.mTvActionBarTitle.setText("性别");
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("完成");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Logger.i("完成");

@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.ui.common.GoodsActivity;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +38,15 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public CheckBox cb_sale,cb_price;
     public SearchResultAdaphter adaphter;
     public SearchResultAdaphter adaphter2;
+    public PullToRefreshLayout refresh_view;
     public static final String TITLE="TITLE";
     public String title;
     public int index=2;
     public NongYeMainActivity activity;
     public boolean isList=true;  //是否是列表排列
     public int type=1;
+    public int page=1;
+    public int mPostion;
 
     public SearchResultFragment(String title) {
         this.title=title;
@@ -67,6 +71,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_result, null);
+        refresh_view= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
         gd_list= (GridView) view.findViewById(R.id.gd_list);
         cb_sale= (CheckBox) view.findViewById(R.id.cb_sale);
         cb_price= (CheckBox) view.findViewById(R.id.cb_price);
@@ -77,9 +82,24 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         adaphter2=new SearchResultAdaphter(list,2,getActivity());
         gd_list.setAdapter(adaphter);
         gd_list.setOnItemClickListener(this);
+
+        refresh_view.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+                mPresenter.getData();
+            }
+
+            @Override
+            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+              mPostion=gd_list.getFirstVisiblePosition();
+                page++;
+                mPresenter.getData();
+            }
+        });
         cb_sale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                page=1;
                 setAll();
                 cb_sale.setTextColor(getResources().getColor(R.color.find_green_text));
 
@@ -101,6 +121,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         cb_price.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                page=1;
                 setAll();
                 cb_price.setTextColor(getResources().getColor(R.color.find_green_text));
                 if (b){
@@ -170,6 +191,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         setAll();
         switch (v.getId()){
             case R.id.tv_hot:
+                page=1;
                 index=2;
                 tv_hot.setTextColor(getResources().getColor(R.color.find_green_text));
                 break;

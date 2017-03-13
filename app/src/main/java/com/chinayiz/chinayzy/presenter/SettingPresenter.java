@@ -84,7 +84,7 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
                     dialog.dismiss();
                     APP.sUserid="0";
                     UserSeeion.logout(mView.getActivity());
-                    mView.getActivity().finish();
+                  APP.exit();
                 }
             });
         }
@@ -98,7 +98,7 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
 
     public void clearCache(){
         APP.cacheUtil.clearImageAllCache(mView.getActivity());
-        mView.tv_cache_data.setText("(有"+APP.cacheUtil.getCacheSize(mView.getActivity())+"缓存)");
+        mView.tv_cache_data.setText("(有0.0Byte缓存)");
         Toast.makeText(mView.getActivity(),"清除成功",Toast.LENGTH_SHORT).show();
     }
 
@@ -106,15 +106,15 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
      * 去个人资料
      */
     public void toPerson(){
-        MineActivity activity= (MineActivity) mView.getActivity();
-        activity.addFragment(new PersonFragment());
+
+       mView.mActivity.addFragment(new PersonFragment());
     }
 
     /**
      * 关于我们
      */
     public void toAboutUs() {
-        MineActivity activity= (MineActivity) mView.getActivity();
-        activity.addFragment(new WebPowerFragment("关于我们", Commons.API+Commons.ABOUTUS));
+
+     mView.mActivity.addFragment(new WebPowerFragment("关于我们", Commons.API+Commons.ABOUTUS));
     }
 }

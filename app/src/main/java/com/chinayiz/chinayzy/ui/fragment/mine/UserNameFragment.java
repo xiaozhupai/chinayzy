@@ -23,7 +23,7 @@ import com.orhanobut.logger.Logger;
 public class UserNameFragment extends BaseFragment<UserNamePresenter> {
     public String params;
     public EditText et_username;
-    public MineActivity mineActivity;
+
 
 
 
@@ -33,11 +33,10 @@ public class UserNameFragment extends BaseFragment<UserNamePresenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-       mineActivity= (MineActivity) activity;
-        mineActivity.mTvActionBarTitle.setText("用户名");
-        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        mineActivity.mCbActionBarEdit.setText("完成");
-        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+        activity.mTvActionBarTitle.setText("用户名");
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("完成");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

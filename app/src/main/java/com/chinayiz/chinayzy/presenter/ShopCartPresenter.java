@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
@@ -203,13 +204,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                         params.append(",");
                     }
                 }
-              if (mView.index==1){
-              MineActivity activity= (MineActivity) mView.getActivity();
-                  activity.addFragment(new ResultFragment(1,params.toString()));
-              }else {
-                  mView.startFragment(new ResultFragment(0,params.toString()),"ResultFragment");
-
-              }
+                Skip.toResult(mView.getActivity(),params.toString());
                 break;
             case TYPE_EDITER:
                 itemChecked();

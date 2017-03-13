@@ -52,8 +52,9 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public GoodsStandardPopuWindow popuWindow;
     public int index;
 
-    public ShopCartFragment(int index){
-        this.index=index;
+
+    @Override
+    public void onInintData(Bundle bundle) {
     }
 
     @Override
@@ -96,36 +97,10 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         });
     }
 
+
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (index==0){
-            final BaseActivity activity= (BaseActivity) getActivity();
-            activity.mTvActionBarTitle.setText("购物车");
-            activity.mIvActionBarMore.setVisibility(View.GONE);
-            activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-            activity.mCbActionBarEdit.setText("编辑");
-            activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isClick){  //编辑后
-                        activity.mCbActionBarEdit.setText("完成");
-                        tv_shopcart_submit.setText("删除");
-                        tv_shopcart_price.setVisibility(View.GONE);
-                        isClick=false;
-                        mPresenter.UpdateUi(1);
-                    }else {   //编辑前
-                        activity.mCbActionBarEdit.setText("编辑");
-                        tv_shopcart_submit.setText("结算");
-                        tv_shopcart_price.setVisibility(View.VISIBLE);
-                        isClick=true;
-                        mPresenter.UpdateUi(0);
-                        mPresenter.UpdateShopCart();
-                    }
-                }
-            });
-        }
-
-
         View view = View.inflate(getActivity(), R.layout.fragment_shop_cart, null);
         rl_shopcart= (RelativeLayout) view.findViewById(R.id.rl_shopcart);
         pullToRefreshLayout=(PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
@@ -153,6 +128,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         });
         adaphter=new ShopCartAdaphter(getActivity(),list,iv_shopcart_radio,tv_shopcart_price,tv_shopcart_all,0);
         listv_shopcart.setAdapter(adaphter);
+
         return view;
     }
 

@@ -16,7 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -64,6 +66,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        APP.register(this);
         mFragmentManager=getFragmentManager();
         mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
@@ -202,7 +205,8 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_shop_car:  //购物车
-            addFragment(new ShopCartFragment(1));
+//            addFragment(new ShopCartFragment(1));
+                Skip.toShopCart(getActivity());
                 break;
             case R.id.lv_mine_scores:   //我的积分
                 Intent intent =new Intent(this,GoldActivity.class);
@@ -212,10 +216,10 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_suggest:  //我的建议
-                addFragment(new SuggestFragment());
+                Skip.toSuggest(getActivity());
                 break;
             case R.id.lv_mine_setting:  //设置
-                addFragment(new SettingFragment());
+                Skip.toSetting(getActivity());
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
 
@@ -224,7 +228,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
                 onBackPressed();
                 break;
             case R.id.lv_user:
-               addFragment( new PersonFragment());
+                Skip.toPerson(getActivity());
             break;
         }
     }
@@ -266,6 +270,13 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
     public void OnBackPressed(){
         super.onBackPressed();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        APP.unRegister(this);
+        super.onDestroy();
 
     }
 }
