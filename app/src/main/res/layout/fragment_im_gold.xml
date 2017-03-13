@@ -94,7 +94,6 @@
                 android:textColor="@color/Background"
                 android:textSize="12sp"
                 android:layout_alignStart="@+id/tv_outMoney"/>
-
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="15dp"
@@ -102,7 +101,6 @@
                 android:layout_centerHorizontal="true"
                 android:background="@color/Background"
                 />
-
             <TextView
                 android:id="@+id/tv_goldRule"
                 android:layout_width="52dp"

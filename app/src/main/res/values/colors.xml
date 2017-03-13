@@ -21,7 +21,7 @@
     <color name="classifyText_pre">#ff3951</color>
     <color name="nongye_ActionBarTitle">#6db430</color>
     <color name="NongYe_Tabtext">#b0b0b0</color>
-    <color name="NongYe_TabtextSelected">#b0db5a</color>
+    <color name="NongYe_TabtextSelected">#6db430</color>
     <color name="NongYe_TyepMenu">#a3a4ac</color>
     <color name="NongYe_Line">#dcdcdc</color>
     <color name="NongYe_tuiJianBar">#79ca34</color>
@@ -42,6 +42,7 @@
     <color name="Actionbar_edit">#1c1c1c</color>
     <color name="goldDte">#8B8B8B</color>
     <color name="goldCO">#F4C500</color>
+    <color name="takeMoney">#505050</color>
     <color name="goldBg">#eeeeee</color>
     <color name="province_line_border">#C7C7C7</color>
 

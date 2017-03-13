@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.net;
 
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
@@ -18,6 +19,7 @@ import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
+import com.chinayiz.chinayzy.ui.fragment.mine.ResuestTakeFragment;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -721,7 +723,77 @@ public class CommonRequestUtils {
                 });
     }
 
+    /**
+     * 申请验证码
+     * @param phone 电话号码
+     */
+    public void getVerifyCode(String phone) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SRYCODE)
+                .addParams("time", new Date().toString())
+                .addParams("userid", APP.sUserid)
+                .addParams("phone", phone)
+                .addParams("sign", "")
+                .tag("content")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
 
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT
+                                    , ResuestTakeFragment.SEND_CODE,mGson.
+                                    fromJson(s, ResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
 
+    /**
+     *  申请积分提现
+     * @param phone 手机号码
+     * @param sprice 提现金额
+     * @param code  验证码
+     * @param account  提现账号
+     * @param dealthird  提现渠道 ( 1：支付宝 2：微信 3：银联 4：其他 )
+     */
+    public void requestTake(String phone,String sprice,String code,String account,String dealthird) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.GET_GOLD)
+                .addParams("time", new Date().toString())
+                .addParams("userid", APP.sUserid)
+                .addParams("phone", phone)
+                .addParams("sprice", sprice)
+                .addParams("code", code)
+                .addParams("tx_account",account)
+                .addParams("dealthird", dealthird)
+                .addParams("sign", "")
+                .tag("content")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault()
+                                    .post(new EventMessage(EventMessage.NET_EVENT
+                                            ,Commons.GET_GOLD,mGson.fromJson(s, ResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
 
 }

@@ -277,36 +277,6 @@ public class UserNet {
                 });
     }
 
-//    /**
-//     *  添加自定义个性标签
-//     * @param tag 添加的标签名字
-//     */
-//    public void getAddTags(String tag) {
-//        OkHttpUtils
-//                .post()
-//                .url(Commons.API + Commons.ADDTAGS)
-//                .tag("ny")
-//                .addParams("tag",tag)
-//                .build()
-//                .execute(new StrCallback() {
-//                    @Override
-//                    public void onError(Call call, Exception e, int i) {
-//                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String s, int i) {
-//                        try {
-//                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-//                                    ,Commons.ADDTAGS
-//                                    ,mGson.fromJson(s,BaseResponseModel.class)));
-//                        }catch (Exception e){
-//                            onError(null,e,i);
-//                        }
-//                    }
-//                });
-//    }
-
 
     /**
      * 修改完成标签

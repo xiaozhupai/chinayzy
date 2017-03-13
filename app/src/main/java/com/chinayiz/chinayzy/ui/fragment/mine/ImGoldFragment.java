@@ -19,7 +19,6 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.CommonWebFragment;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -38,6 +37,7 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
     private TextView mTvDealLog;
     private TextView mTvGetGold;
     private View mNotData;
+    private String goldNum;
     private ScreListAdapter mAdapter;
 
 
@@ -89,8 +89,7 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
                 break;
             case R.id.tv_outMoneys:
             case R.id.tv_outMoney:
-
-                Logger.i("提现q1");
+                addFragment(new TakeFragment(goldNum),"TakeFragment");
                 break;
             case R.id.tv_goldRule:
                 addFragment(new CommonWebFragment("积分规则",Commons.API+Commons.GOLD_RULE),"CommonWebFragment");
@@ -121,7 +120,8 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
 
     private void setGold(ImGoldModel model) {
         mTvSumGolds.setText(model.getData().getTotalpoints()+"0");
-        mTvOutMoneys.setText(model.getData().getCancarrypoints()+".00");
+        goldNum=model.getData().getCancarrypoints()+".00";
+        mTvOutMoneys.setText(goldNum);
         mAdapter=new ScreListAdapter(getActivity(),model.getData().getEarningslist());
         mLvAccrualLog.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
