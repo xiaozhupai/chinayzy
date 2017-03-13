@@ -64,13 +64,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_qq:
+            case R.id.iv_qq:  //QQ
                mPresenter.toQQ();
                 break;
-            case R.id.iv_wechat:
+            case R.id.iv_wechat:  //微信
               mPresenter.toWechat();
                 break;
-            case R.id.iv_weibo:
+            case R.id.iv_weibo:  //微博
                 mPresenter.toWeibo();
                 break;
             case R.id.tv_left_login:   //登录UI
@@ -88,7 +88,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
             case R.id.tv_register_submit:   //注册提交
                 mPresenter.register();
                 break;
-            case R.id.tv_register_sendmessage:
+            case R.id.tv_register_sendmessage: //发送验证码
               mPresenter.sendMessage();
                 break;
             case R.id.iv_back:

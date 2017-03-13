@@ -35,7 +35,7 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
     public TextView tv_add;
     public TagListView tlv_mystyle;
     public TagListView tlv_staple;
-    public MineActivity mineActivity;
+
     private int editStart;//光标开始位置
     private int editEnd;//光标结束位置
     private CharSequence temp;//监听前的文本
@@ -57,11 +57,10 @@ public class LabelFragment extends BaseFragment<LabelPresenter> implements View.
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        mineActivity= (MineActivity) activity;
-        mineActivity.mTvActionBarTitle.setText("个性标签");
-        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        mineActivity.mCbActionBarEdit.setText("保存");
-        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+        activity.mTvActionBarTitle.setText("个性标签");
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("保存");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Logger.i("完成");

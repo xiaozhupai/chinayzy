@@ -61,7 +61,7 @@ public class SexPresenter extends BasePresenter<SexFragment> {
                     param="女";
                 }
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.SEX,param));
-                mView.mineActivity.onBackPressed();
+                mView.mActivity.onBackPressed();
             }
         }
 

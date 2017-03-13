@@ -70,21 +70,25 @@
         </LinearLayout>
 
     </LinearLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
-        >
-        <GridView
-            android:id="@+id/gd_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/basecolor"
-            android:numColumns="1"
-            android:verticalSpacing="2dp"
-            android:horizontalSpacing="2dp"
-            android:visibility="visible"
-            />
-    </FrameLayout>
+   <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/refresh_view"
+       >
+       <include  layout="@layout/refresh_head"/>
+       <com.chinayiz.chinayzy.views.pullable.PullableGridView
+           android:id="@+id/gd_list"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:background="@color/basecolor"
+           android:numColumns="1"
+           android:verticalSpacing="2dp"
+           android:horizontalSpacing="2dp"
+           android:visibility="visible"
+           android:layout_marginTop="2dp">
+       </com.chinayiz.chinayzy.views.pullable.PullableGridView>
+       <include  layout="@layout/load_more"/>
+   </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
+
 
 </LinearLayout>

@@ -26,7 +26,7 @@ public class HeightFragment extends BaseFragment<HeightPresenter> {
     public String param;
     public EditText et_height;
     public TextView tv_right;
-    public MineActivity mineActivity;
+
 
     public HeightFragment(String param) {
         this.param = param;
@@ -48,11 +48,10 @@ public class HeightFragment extends BaseFragment<HeightPresenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        mineActivity= (MineActivity) activity;
-        mineActivity.mTvActionBarTitle.setText("身高");
-        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        mineActivity.mCbActionBarEdit.setText("完成");
-        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+        activity.mTvActionBarTitle.setText("身高");
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("完成");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Logger.i("完成");

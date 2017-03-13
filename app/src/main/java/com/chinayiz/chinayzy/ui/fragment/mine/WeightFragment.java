@@ -24,7 +24,7 @@ public class WeightFragment extends BaseFragment<WeightPresenter> {
     public String param;
     public EditText et_weight;
     public TextView tv_right;
-    public MineActivity mineActivity;
+
 
     public WeightFragment(String param) {
         this.param = param;
@@ -49,11 +49,10 @@ public class WeightFragment extends BaseFragment<WeightPresenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        mineActivity= (MineActivity) activity;
-        mineActivity.mTvActionBarTitle.setText("体重");
-        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        mineActivity.mCbActionBarEdit.setText("完成");
-        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+        activity.mTvActionBarTitle.setText("体重");
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("完成");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Logger.i("完成");

@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.ui.fragment.cart;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,9 +26,12 @@ import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 购物车
@@ -40,7 +44,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public TextView tv_shopcart_price;
     private TextView tv_shopcart_submit;
     public LinearLayout lv_boom;
-    private PullToRefreshLayout pullToRefreshLayout;
+    public PullToRefreshLayout pullToRefreshLayout;
     public ShopCartAdaphter adaphter;
     public List<ShopCartModel.DataBean> list=new ArrayList<>();
     public TextView tv_shopcart_all;
@@ -48,8 +52,9 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public GoodsStandardPopuWindow popuWindow;
     public int index;
 
-    public ShopCartFragment(int index){
-        this.index=index;
+
+    @Override
+    public void onInintData(Bundle bundle) {
     }
 
     @Override
@@ -92,36 +97,10 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         });
     }
 
+
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (index==0){
-            final BaseActivity activity= (BaseActivity) getActivity();
-            activity.mTvActionBarTitle.setText("购物车");
-            activity.mIvActionBarMore.setVisibility(View.GONE);
-            activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-            activity.mCbActionBarEdit.setText("编辑");
-            activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isClick){  //编辑后
-                        activity.mCbActionBarEdit.setText("完成");
-                        tv_shopcart_submit.setText("删除");
-                        tv_shopcart_price.setVisibility(View.GONE);
-                        isClick=false;
-                        mPresenter.UpdateUi(1);
-                    }else {   //编辑前
-                        activity.mCbActionBarEdit.setText("编辑");
-                        tv_shopcart_submit.setText("结算");
-                        tv_shopcart_price.setVisibility(View.VISIBLE);
-                        isClick=true;
-                        mPresenter.UpdateUi(0);
-                        mPresenter.UpdateShopCart();
-                    }
-                }
-            });
-        }
-
-
         View view = View.inflate(getActivity(), R.layout.fragment_shop_cart, null);
         rl_shopcart= (RelativeLayout) view.findViewById(R.id.rl_shopcart);
         pullToRefreshLayout=(PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
@@ -134,10 +113,12 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         tv_shopcart_submit.setOnClickListener(this);
         iv_shopcart_radio.setOnClickListener(this);
         listv_shopcart.setOnItemClickListener(this);
+        view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+//                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                             mPresenter.getData();
             }
 
             @Override
@@ -147,6 +128,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         });
         adaphter=new ShopCartAdaphter(getActivity(),list,iv_shopcart_radio,tv_shopcart_price,tv_shopcart_all,0);
         listv_shopcart.setAdapter(adaphter);
+
         return view;
     }
 

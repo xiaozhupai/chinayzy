@@ -26,7 +26,7 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
     public EditText et_suggest_title;
     public EditText et_suggest_content;
     public TextView tv_suggest_submit;
-    public MineActivity mineActivity;
+
 
     @Override
     protected void onVisible() {
@@ -48,9 +48,9 @@ public class SuggestFragment extends BaseFragment<SuggestPresenter> implements V
     @Override
     public void onInitActionBar(BaseActivity activity) {
 
-        mineActivity= (MineActivity) activity;
-        mineActivity.mTvActionBarTitle.setText("意见反馈");
-        mineActivity.mCbActionBarEdit.setVisibility(View.GONE);
+
+        activity.mTvActionBarTitle.setText("意见反馈");
+        activity.mCbActionBarEdit.setVisibility(View.GONE);
 
 
     }

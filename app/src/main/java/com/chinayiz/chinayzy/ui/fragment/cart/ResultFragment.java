@@ -15,13 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
+import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
@@ -29,7 +29,6 @@ import com.orhanobut.logger.Logger;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
-
 import java.util.List;
 
 /**
@@ -50,15 +49,18 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public CheckImageView iv_pay_ali;
     public CheckImageView iv_pay_wechat;
     public LinearLayout lv_payway;
+    public TextView tv_pay_way;
     public List<ResultModel.DataBean.GoodmessageBean> list;
     public String params;
     public TextView tv_address_name,tv_address_phone,tv_address_text,tv_deducpoint;
     public int index;
+    public CommonActivity activity;
 
-    public ResultFragment(int index,String params){
-        this.index=index;
-        this.params=params;
-        Logger.i("resultFragment"+params);
+
+    @Override
+    public void onInintData(Bundle bundle) {
+        this.params=bundle.getString("params");
+
     }
 
     @Override
@@ -76,7 +78,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     @Override
     public void onInitActionBar(BaseActivity activity) {
         activity.mTvActionBarTitle.setText("结算订单");
-        activity.mCbActionBarEdit.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -97,17 +99,14 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (index==0){ //生态农业
-                    startFragment(new AddressListFragment(index),"AddressListFragment");
-                }else {  //个人中心
-                 MineActivity activity= (MineActivity) getActivity();
-                    activity.addFragment(new AddressListFragment(index));
-                }
+                mActivity.addFragment(new AddressListFragment());
+
 
             }
         });
 
         View foot = View.inflate(getActivity(), R.layout.result_foot, null);
+        tv_pay_way= (TextView) foot.findViewById(R.id.tv_pay_way);
         tv_goods_total = (TextView) foot.findViewById(R.id.tv_goods_total);
         tv_deducpoint= (TextView) foot.findViewById(R.id.tv_deducpoint);
         tv_cost = (TextView) foot.findViewById(R.id.tv_cost);
@@ -119,6 +118,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         iv_pay_ali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {  //支付宝支付
+                tv_pay_way.setText("支付宝");
                 if (iv_pay_wechat.isCheck){
                     iv_pay_wechat.setCheck(false);
                     iv_pay_ali.setCheck(true);
@@ -128,6 +128,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         iv_pay_wechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {  //微信支付
+                tv_pay_way.setText("微信");
                 if (iv_pay_ali.isCheck){
                     iv_pay_ali.setCheck(false);
                     iv_pay_wechat.setCheck(true);
@@ -177,6 +178,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
                     lv_payway.setVisibility(View.GONE);
                 }else {
                     lv_payway.setVisibility(View.VISIBLE);
+                    lv_result.setSelection(lv_result.getBottom());
                 }
                 break;
         }

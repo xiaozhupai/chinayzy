@@ -1,10 +1,12 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,10 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
+import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.views.CircleImageView;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.TagListView;
 import com.orhanobut.logger.Logger;
 
@@ -53,9 +57,10 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public ImageView iv_label_arrow;
     public RelativeLayout rl_person_label;
     public TagListView tlv_list;
-    public  MineActivity activity;
+
     public TextView tv_person_username;
     public RelativeLayout rl_person_username;
+    public PullToRefreshLayout refresh_view;
 
     @Override
     public void onStart() {
@@ -78,19 +83,21 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     protected void lazyLoad() {
     }
 
+
+
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        MineActivity activity1 = (MineActivity) activity;
-        activity1.mTvActionBarTitle.setText("个人资料");
-        activity1.mCbActionBarEdit.setVisibility(View.GONE);
+
+        activity.mTvActionBarTitle.setText("个人资料");
+        activity.mCbActionBarEdit.setVisibility(View.GONE);
         Logger.i("onInitActionBar------------PersonFragment");
     }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        activity= (MineActivity) getActivity();
-        View view = inflater.inflate(R.layout.fragment_person, null);
 
+        View view = inflater.inflate(R.layout.fragment_person, null);
+        refresh_view= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
         iv_head_right = (ImageView) view.findViewById(R.id.iv_head_right);
         iv_head_right.setOnClickListener(this);
         iv_person_head = (CircleImageView)view.findViewById(R.id.iv_person_head);
@@ -147,9 +154,22 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         rl_person_username= (RelativeLayout) view.findViewById(R.id.rl_person_username);
         rl_person_username.setOnClickListener(this);
         tlv_list= (TagListView) view.findViewById(R.id.tlv_list);
+        refresh_view.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+                mPresenter.getData();
 
+            }
+
+            @Override
+            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+                refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+            }
+        });
+          view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
         tlv_list.setTagViewBackgroundRes(R.drawable.label_black);
         tlv_list.setTagViewTextColorRes(Color.BLACK);
+
         return view;
     }
 
@@ -172,6 +192,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
             case  R.id.rl_person_email:
                 Logger.i("email");
                 mPresenter.toEmail();
+
                 break;
             case R.id.rl_person_sex:
                 Logger.i("性别");

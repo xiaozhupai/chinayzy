@@ -5,15 +5,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -33,7 +30,7 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     public  ImageView iv_address;
     public  EditText et_address;
     public TextView tv_delete;
-    public  MineActivity mineActivity;
+
     public int type;  //0 新增   1是编辑
     public static final int ADD=0;
     public static final int EDIT=1;

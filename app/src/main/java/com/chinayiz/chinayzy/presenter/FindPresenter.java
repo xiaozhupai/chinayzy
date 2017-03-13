@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.PagerAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.BasePresenter;
@@ -145,8 +146,7 @@ public class FindPresenter  extends BasePresenter<FindFragment>{
             switch (message.getDataType()){
                 case FindListFragment.TO_FINDDETAIL:
                     FindListModel.DataBean dataBean= (FindListModel.DataBean) message.getData();
-                    FindDetailFragment findDetailFragment=new FindDetailFragment(dataBean);
-                    mView.startFragment(findDetailFragment,"FindDetailFragment");
+                    Skip.toFindDetail(mView.getActivity(),dataBean);
                     break;
             }
     }

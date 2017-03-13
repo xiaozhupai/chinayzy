@@ -1,7 +1,9 @@
 package com.chinayiz.chinayzy.base;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
@@ -13,15 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
  * CreateDate 2016/12/27 9:59
  * Class BaseActivity
  */
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView, View.OnClickListener, CompoundButton.OnCheckedChangeListener, FragmentManager.OnBackStackChangedListener {
     public View mActionBar;
     /**
      * ActionBar标题
@@ -38,6 +42,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected T mPresenter;
     protected static Toast toast;
     public String TAG;
+    public FragmentManager fragmentManager;
+    private  BaseFragment mCurrentFragment;
     /**
      * web Fragment（通用）；
      */
@@ -53,6 +59,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         onCreateActivity(savedInstanceState);
         //初始化Presenter
         mPresenter.onStart();
+        fragmentManager = getFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(this);
     }
 
     protected void initActionBar(){
@@ -122,4 +130,49 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         toast.show();
     }
 
+    public void addtoFragment(Intent intent) {
+        @SuppressWarnings("unchecked") Class<? extends BaseFragment> clazz = (Class<? extends BaseFragment>) intent.getSerializableExtra(Skip.CLASS);
+        try {
+            BaseFragment fragment = clazz.newInstance();
+            fragment.setArguments(intent.getExtras());
+            addFragment(fragment);
+        } catch (Exception e) {
+            e.printStackTrace();
+            finish();
+        }
+    }
+
+	/* (non-Javadoc)
+	 * @see cn.stlc.app.BaseActivity#addFragment(android.support.v4.app.Fragment, java.lang.Class, boolean)
+	 */
+
+    public void addFragment(BaseFragment fragment) {
+        Class<?> classz=fragment.getClass();
+
+        try {
+            fragmentManager.beginTransaction().add(R.id.content_frame, fragment, classz.getSimpleName()).addToBackStack(classz.getSimpleName()).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fragmentManager.beginTransaction().add(R.id.content_frame, fragment, classz.getSimpleName()).addToBackStack(classz.getSimpleName()).commitAllowingStateLoss();
+        }
+
+    }
+
+
+    @Override
+    public void onBackStackChanged() {
+        int backStackEntryCount=fragmentManager.getBackStackEntryCount();
+        if (backStackEntryCount==0){
+            finish();
+            return;
+        }
+        if (backStackEntryCount>0){
+            FragmentManager.BackStackEntry backStack=fragmentManager.getBackStackEntryAt(backStackEntryCount-1);
+            String name=backStack.getName();
+            mCurrentFragment= (BaseFragment) fragmentManager.findFragmentByTag(name);
+            mCbActionBarEdit.setVisibility(View.GONE);
+            mCurrentFragment.onInitActionBar(this);
+            Logger.i("OnBackPressed---------------------------------------------------"+name);
+        }
+    }
 }

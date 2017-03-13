@@ -1,10 +1,18 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:f="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.mine.PersonFragment"
-    android:background="@color/basecolor">
+    android:background="@color/basecolor"
+    android:id="@+id/refresh_view"
+    >
+    <include  layout="@layout/refresh_head"/>
+    <com.chinayiz.chinayzy.views.pullable.PullableScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -271,5 +279,8 @@
         <!--<View-->
             <!--style="@style/Divider"/>-->
     </LinearLayout>
-
-</ScrollView>
+    </com.chinayiz.chinayzy.views.pullable.PullableScrollView>
+    <include layout="@layout/load_more"
+        android:id="@+id/loadlayout"
+        />
+</com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>

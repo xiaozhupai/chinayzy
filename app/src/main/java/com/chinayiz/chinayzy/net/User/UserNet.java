@@ -184,14 +184,14 @@ public class UserNet {
      * @param descpoInteger  描述分
      * @param commentscontent  评论内容
      */
-    public void getCommentOrder(Long orderid,String pic,String isanonymity,double descpoInteger,String commentscontent) {
+    public void getCommentOrder(String orderid,String pic,String isanonymity,String descpoInteger,String commentscontent) {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.COMMENTORDER)
-                .addParams("orderid", orderid+"")
+                .addParams("orderid", orderid)
                 .addParams("pic", pic)
                 .addParams("isanonymity", isanonymity)
-                .addParams("descpoInteger", descpoInteger+"")
+                .addParams("descpoInteger", descpoInteger)
                 .addParams("commentscontent", commentscontent)
                 .tag("ny")
                 .build()
@@ -226,6 +226,7 @@ public class UserNet {
                 .url(Commons.API + Commons.ADDIDEA)
                 .addParams("theme", theme)
                 .addParams("idea", idea)
+                .addParams("userid",APP.sUserid)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {

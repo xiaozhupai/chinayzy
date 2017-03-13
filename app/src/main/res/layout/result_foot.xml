@@ -63,7 +63,19 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="16dp"
                     />
+                <TextView
+                    android:id="@+id/tv_pay_way"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="支付宝"
+                    android:textSize="13sp"
+                    android:textColor="#acacac"
+                    android:layout_toLeftOf="@+id/iv_pay_right"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="15dp"
+                    />
                 <ImageView
+                    android:id="@+id/iv_pay_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"

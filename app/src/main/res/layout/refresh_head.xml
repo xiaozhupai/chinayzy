@@ -3,7 +3,7 @@
     android:id="@+id/head_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mineBG" >
+    android:background="@color/basecolor" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,8 +22,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="80dp"
-                android:background="@drawable/pull_icon_big" />
+
+                android:background="@mipmap/pull_icon_big"
+                android:layout_toLeftOf="@+id/state_tv"
+                android:layout_marginRight="15dp"
+                />
 
             <ImageView
                 android:id="@+id/refreshing_icon"
@@ -32,6 +35,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
                 android:background="@drawable/refreshing"
+                android:layout_toLeftOf="@+id/state_tv"
+                android:layout_marginRight="15dp"
                 android:visibility="gone" />
 
             <TextView
@@ -40,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/pull_to_refresh"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <ImageView

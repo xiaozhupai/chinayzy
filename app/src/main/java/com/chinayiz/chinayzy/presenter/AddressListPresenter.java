@@ -66,7 +66,7 @@ public class AddressListPresenter extends BasePresenter<AddressListFragment> {
                 mView.adaphter.setData(model1.getData());
                 break;
             case Commons.DELETEADDRESS:
-             BaseResponseModel model2= (BaseResponseModel) message.getData();
+                BaseResponseModel model2= (BaseResponseModel) message.getData();
                 BaseActivity.showToast(mView.getActivity(),model2.getMsg());
                 if (model2.getCode().equals("100")){
                     getData();
@@ -89,17 +89,12 @@ public class AddressListPresenter extends BasePresenter<AddressListFragment> {
                 getData();
                 break;
             case DELETE:
-              String addressid= (String) message.getData();
+                String addressid= (String) message.getData();
                 delete(addressid);
                 break;
             case EDITER:
-             AddressListModel.DataBean bean= (AddressListModel.DataBean) message.getData();
-                if (mView.index==0){
-                    mView.startFragment(new AddAddressFragment(1,bean,mView.index),"AddAddressFragment");
-                }else {
-                    MineActivity activity= (MineActivity) mView.getActivity();
-                    activity.addFragment(new AddAddressFragment(1,bean,mView.index));
-                }
+                AddressListModel.DataBean bean= (AddressListModel.DataBean) message.getData();
+                mView. mActivity.addFragment(new AddAddressFragment(1,bean,mView.index));
                 break;
             case ISDEFAULT:
                 String addressid2= (String) message.getData();
@@ -122,11 +117,8 @@ public class AddressListPresenter extends BasePresenter<AddressListFragment> {
 
 
     public void toAdd(){
-        if (mView.index==0){
-            mView.startFragment(new AddAddressFragment(0,mView.index),"AddAddressFragment");
-        }else {
-         MineActivity activity= (MineActivity) mView.getActivity();
-            activity.addFragment(new AddAddressFragment(0,mView.index));
-        }
+
+        mView.mActivity.addFragment(new AddAddressFragment(0,mView.index));
+
     }
 }

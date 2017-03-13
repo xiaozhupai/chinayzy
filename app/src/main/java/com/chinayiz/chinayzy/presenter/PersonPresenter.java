@@ -11,14 +11,8 @@ import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-
-import com.alibaba.sdk.android.oss.ClientConfiguration;
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.OSSClient;
-import com.alibaba.sdk.android.oss.common.OSSLog;
-import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.bumptech.glide.Glide;
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
@@ -38,6 +32,7 @@ import com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.WeightFragment;
 import com.chinayiz.chinayzy.utils.PutObjectSamples;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.chinayiz.chinayzy.widget.Tag;
 import com.orhanobut.logger.Logger;
@@ -70,13 +65,9 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     public static final int CAMERA_REQUEST_CODE = 0x00008002;
     private Uri imageUri;
     public Activity activity;
-    private OSS oss;
-    // 运行sample前需要配置以下字段为有效的值
-    private static final String endpoint = "http://oss-cn-shanghai.aliyuncs.com"; // yzy-app-img.oss-cn-shanghai.aliyuncs.com  外网地址
-    private static final String accessKeyId = "LTAIUtA7pQz24S4r";
-    private static final String accessKeySecret = "uAD9Mkes66zETtRKXy7fSmZLyIJ2s7";
+
     private   String uploadFilePath = "<upload_file_path>";
-    private static final String testBucket = "yzy-app-img";
+
     private   String uploadObject = "";
     private static final String downloadObject = "sampleObject";
     private String newurl;
@@ -84,23 +75,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     public UserModel.DataBean bean;
     @Override
     public void onCreate() {
-        net.getUserInfo();
-         initoss();
-    }
-
-    /**
-     * OSS配置
-     */
-    private void initoss(){
-        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(accessKeyId, accessKeySecret);
-
-        ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
-        conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
-        conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
-        OSSLog.enableLog();
-        oss = new OSSClient(mView.getActivity(), endpoint, credentialProvider, conf);
+        getData();
     }
 
     /**
@@ -132,7 +107,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    new PutObjectSamples(oss, testBucket, uploadObject, uploadFilePath).asyncPutObjectFromLocalFile();
+                    new PutObjectSamples(APP.oss, APP.testBucket, uploadObject, uploadFilePath).asyncPutObjectFromLocalFile();
                 }
             }).start();
         }
@@ -203,6 +178,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                     String last=idcard.substring(idcard.length()-4,idcard.length());
                     mView.tv_person_card.setText(first+"****"+last);
                 }
+                tags_list.clear();
                 if (!TextUtils.isEmpty(bean.getTag())){
 
                     String [] tags=bean.getTag().split(",");
@@ -215,6 +191,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                     }
                     mView.tlv_list.setTags(tags_list);
                 }
+              mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
                 break;
             case UserNet.PIC:  //上传图片回调
                 BaseResponseModel model1= (BaseResponseModel) message.getData();
@@ -309,7 +286,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                             imageUri = Uri.fromFile(new File(SDCardUtil.getTempPath(mView.getActivity()), path));
                             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                            mView. activity.startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+                            mView. mActivity.startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
                         } else {
                             BaseActivity.showToast(mView.getActivity(),"请插入sd卡");
                         }
@@ -320,7 +297,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                         galleryIntent.addCategory(Intent.CATEGORY_OPENABLE);
                         galleryIntent.setType("image/*");
-                        mView.activity.startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
+                        mView.mActivity.startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
                         break;
                 }
             }
@@ -343,44 +320,49 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
         intent.putExtra("return-data", true);
-        mView.activity.startActivityForResult(intent, RESIZE_REQUEST_CODE);
+        mView.mActivity.startActivityForResult(intent, RESIZE_REQUEST_CODE);
     }
 
 
 
     public void toEmail(){
-        mView.activity.addFragment(new EmailFragment(bean!=null?bean.getEmail():""));
+          mView.mActivity.addFragment(new EmailFragment(bean!=null?bean.getEmail():""));
+//        mView.activity.addFragment(new EmailFragment(bean!=null?bean.getEmail():""));
     }
     public void toSex(){
-        mView.activity.addFragment(new SexFragment(bean!=null?(bean.getSex()):""));
+        mView.mActivity.addFragment(new SexFragment(bean!=null?(bean.getSex()):""));
     }
     public void tofactName(){
-        mView.activity.addFragment(new TrueNameFragment(bean!=null?bean.getTruename():""));
+        mView.mActivity.addFragment(new TrueNameFragment(bean!=null?bean.getTruename():""));
     }
 
     public void toHeight(){
 
-        mView.activity.addFragment(new HeightFragment(bean!=null?bean.getHeight():""));
+        mView.mActivity.addFragment(new HeightFragment(bean!=null?bean.getHeight():""));
     }
 
     public void toWeight(){
-        mView.activity.addFragment(new WeightFragment(bean!=null?bean.getWeight():""));
+        mView.mActivity.addFragment(new WeightFragment(bean!=null?bean.getWeight():""));
     }
     public void toCard(){
-        mView. activity.addFragment(new CardFragment(bean!=null?bean.getIdcard():""));
+        mView. mActivity.addFragment(new CardFragment(bean!=null?bean.getIdcard():""));
     }
 
     public void toLabel(){
 
-        mView.activity.addFragment(new LabelFragment(bean!=null?tags_list:new ArrayList<Tag>()));
+        mView.mActivity.addFragment(new LabelFragment(bean!=null?tags_list:new ArrayList<Tag>()));
     }
 
     public void toUsername(){
-        mView.activity.addFragment(new UserNameFragment(bean!=null?bean.getNickname():""));
+        mView.mActivity.addFragment(new UserNameFragment(bean!=null?bean.getNickname():""));
     }
 
 
     public void toAddress() {
-        mView.activity.addFragment(new AddressListFragment(1));
+        mView.mActivity.addFragment(new AddressListFragment());
+    }
+
+    public void getData() {
+        net.getUserInfo();
     }
 }

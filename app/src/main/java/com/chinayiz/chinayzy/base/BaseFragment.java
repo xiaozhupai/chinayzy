@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -31,6 +33,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     //ui是否初始化
 
     public boolean isInit = true;
+
 
     /**
      * 初始化Fragment应有的视图
@@ -54,7 +57,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (BaseActivity) context;
+//        mActivity = (BaseActivity) context;
     }
 
     @Override
@@ -84,6 +87,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
     }
 
+
+
     /**
      * fragment可见时
      */
@@ -111,6 +116,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+          mActivity= (BaseActivity) getActivity();
         //获取bundle,并保存起来
         if (savedInstanceState != null) {
             mBundle = savedInstanceState.getBundle("bundle");
@@ -125,8 +131,15 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         } else {
             mBundle = getArguments() == null ? new Bundle() : getArguments();
         }
+        onInintData(mBundle);
+
         //创建presenter
         mPresenter = initPresenter();
+
+    }
+
+    public void onInintData(Bundle bundle) {
+
     }
 
     /**

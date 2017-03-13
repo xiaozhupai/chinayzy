@@ -80,6 +80,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
     };
     @Override
     public void onCreate() {
+
       getData();
     }
 

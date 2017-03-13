@@ -3,7 +3,7 @@
     android:id="@+id/loadmore_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray" >
+    android:background="@color/basecolor" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +23,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
-                android:background="@drawable/pullup_icon_big" />
+                android:background="@mipmap/pullup_icon_big"
+                android:layout_toLeftOf="@+id/loadstate_tv"
+                android:layout_marginRight="15dp"
+                />
 
             <ImageView
                 android:id="@+id/loading_icon"

@@ -24,7 +24,6 @@ import com.orhanobut.logger.Logger;
 public class CardFragment extends BaseFragment<CardPresenter> {
     public String param;
     public EditText et_card;
-    public MineActivity mineActivity;
 
 
 
@@ -49,11 +48,10 @@ public class CardFragment extends BaseFragment<CardPresenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-         mineActivity= (MineActivity) activity;
-        mineActivity.mTvActionBarTitle.setText("身份证号码");
-        mineActivity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        mineActivity.mCbActionBarEdit.setText("完成");
-        mineActivity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+        activity.mTvActionBarTitle.setText("身份证号码");
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("完成");
+        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Logger.i("完成");

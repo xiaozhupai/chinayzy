@@ -92,7 +92,7 @@ public class LabelPresenter extends BasePresenter<LabelFragment> {
                       BaseActivity.showToast(mView.getActivity(),model2.getMsg());
                       if (model2.getCode().equals("100")){
                           EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,LABEL,tags_mystle));
-                          mView.mineActivity.OnBackPressed();
+                          mView.mActivity.onBackPressed();
                       }
 
                       break;
@@ -104,11 +104,13 @@ public class LabelPresenter extends BasePresenter<LabelFragment> {
 
     }
 
+    //个性标签
     public void mystyleTag(Tag tag){
                tags_mystle.remove(tag);
         mView.tlv_mystyle.setTags(tags_mystle);
     }
 
+    //常用标签
     public void stapleTag(Tag tag){
         for (Tag bean:tags_mystle){
             if (bean.getTitle().equals(tag.getTitle())){
@@ -119,12 +121,15 @@ public class LabelPresenter extends BasePresenter<LabelFragment> {
             BaseActivity.showToast(mView.getActivity(),"最多添加5个标签");
             return;
         }
-          tags_mystle.add(tag);
+        Tag mystyle_tag=new Tag();
+         mystyle_tag.setId(tag.getId());
+        mystyle_tag.setTitle(tag.getTitle());
+          tags_mystle.add(mystyle_tag);
         mView.tlv_mystyle.setTags(tags_mystle);
     }
 
     /**
-     * 添加标签
+     * 手动添加标签
      */
     public void AddTag(){
         String label=mView.et_label.getText().toString().trim();
@@ -149,6 +154,7 @@ public class LabelPresenter extends BasePresenter<LabelFragment> {
 
     }
 
+    //完成
     public void submit(){
         StringBuilder tag=new StringBuilder();
        StringBuilder tagid=new StringBuilder();

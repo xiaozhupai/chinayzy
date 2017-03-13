@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.FindAdaphter;
@@ -35,11 +36,11 @@ import java.util.List;
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
     public PullableGridView gd_find_list;
     public FindAdaphter adaphter;
-    private PullToRefreshLayout pullToRefreshLayout;
+    public PullToRefreshLayout pullToRefreshLayout;
     public static final String DATA_TYPE="DATA_TYPE";
     public static final String TO_FINDDETAIL="TO_FINDDETAIL";
     public String type;
-    public GridView lv_list;
+    public PullableGridView lv_list;
     public FindListFragment(String type){
         this.type=type;
     }
@@ -48,7 +49,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     @Override
     protected void onVisible() {
         if (isInit){
-           Net.getNet().getFindBlogByType(type);
+          getData();
         }
         isInit=false;
     }
@@ -77,31 +78,32 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
         return view;
     }
 
+    public void getData(){
+        Net.getNet().getFindBlogByType(type);
+    }
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_find_list,container,false);
-        lv_list= (GridView) view.findViewById(R.id.lv_list);
-//        pullToRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
-//        gd_find_list= (PullableGridView) view.findViewById(R.id.gd_find_list);
-//        gd_find_list.setOnItemClickListener(this);
+        lv_list= (PullableGridView) view.findViewById(R.id.lv_list);
+        pullToRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
         List list=new ArrayList();
         adaphter=new FindAdaphter(getActivity(),list);
         lv_list.setAdapter(adaphter);
         lv_list.setOnItemClickListener(this);
-//        gd_find_list.setAdapter(adaphter);
-//        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-//                Toast.makeText(mContext,"refresh",Toast.LENGTH_LONG).show();
-//                pullToRefreshLayout.refreshFinish(0);
-//            }
-//
-//            @Override
-//            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-//                Toast.makeText(mContext,"refresh",Toast.LENGTH_LONG).show();
-//                pullToRefreshLayout.loadmoreFinish(0);
-//            }
-//        });
+        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+             getData();
+
+            }
+
+            @Override
+            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+                Toast.makeText(getActivity(),"refresh",Toast.LENGTH_SHORT).show();
+                pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+            }
+        });
         return view;
     }
 
@@ -118,9 +120,6 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
       List <FindListModel.DataBean> lists=mPresenter.lists;
       FindListModel.DataBean dataBean=lists.get(position);
-//        FindDetailFragment findDetailFragment=new FindDetailFragment(dataBean.getBid()+"");
-//        startFragment(findDetailFragment,"dsdsds");
-//        startFragment(new SearchFragment(),"SearchFragment");
         EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,TO_FINDDETAIL,dataBean));
     }
 }
