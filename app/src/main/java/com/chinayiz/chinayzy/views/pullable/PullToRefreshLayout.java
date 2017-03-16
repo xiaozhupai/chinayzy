@@ -1,19 +1,9 @@
 package com.chinayiz.chinayzy.views.pullable;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.RectF;
-import android.graphics.Shader.TileMode;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.widget.Tag;
-import com.orhanobut.logger.Logger;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -296,7 +287,7 @@ public class PullToRefreshLayout extends RelativeLayout
 	private void changeState(int to)
 
 	{
-		Logger.i(to+"");
+
 		state = to;
 		switch (state)
 		{
@@ -311,13 +302,12 @@ public class PullToRefreshLayout extends RelativeLayout
 				loadStateTextView.setText(R.string.pullup_to_load);
 				pullUpView.clearAnimation();
 				pullUpView.setVisibility(View.VISIBLE);
-				Logger.i("INIT");
+
 				break;
 			case RELEASE_TO_REFRESH:
 				// 释放刷新状态
 				refreshStateTextView.setText(R.string.release_to_refresh);
 				pullView.startAnimation(rotateAnimation);
-				Logger.i("释放刷新状态");
 				break;
 			case REFRESHING:
 				// 正在刷新状态
@@ -326,7 +316,6 @@ public class PullToRefreshLayout extends RelativeLayout
 				pullView.setVisibility(View.INVISIBLE);
 				refreshingView.startAnimation(refreshingAnimation);
 				refreshStateTextView.setText(R.string.refreshing);
-				Logger.i("正在刷新状态");
 				break;
 			case RELEASE_TO_LOAD:
 				// 释放加载状态
@@ -385,7 +374,7 @@ public class PullToRefreshLayout extends RelativeLayout
 					if (((Pullable) pullableView).canPullDown() && canPullDown
 							&& state != LOADING)
 					{
-						Logger.i("下拉刷新");
+
 						// 可以下拉，正在加载时不能下拉
 						// 对实际滑动距离做缩小，造成用力拉的感觉
 						pullDownY = pullDownY + (ev.getY() - lastY) / radio;
@@ -406,7 +395,6 @@ public class PullToRefreshLayout extends RelativeLayout
 					} else if (((Pullable) pullableView).canPullUp() && canPullUp
 							&& state != REFRESHING)
 					{
-						Logger.i("上拉加载");
 						// 可以上拉，正在刷新时不能上拉
 						pullUpY = pullUpY + (ev.getY() - lastY) / radio;
 						if (pullUpY > 0)

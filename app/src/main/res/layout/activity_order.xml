@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_line"/>
+
+    <RadioGroup
+        android:id="@+id/rg_orderState"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal"
+        android:background="@color/Background"
+        >
+
+        <RadioButton
+            android:id="@+id/rb_orderAll"
+            style="@style/rb_orderbg"
+            android:text="全部"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_order1"
+            style="@style/rb_orderbg"
+            android:text="待付款"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_order2"
+            style="@style/rb_orderbg"
+            android:text="待发货"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_order3"
+            style="@style/rb_orderbg"
+            android:text="待收货"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_order4"
+            style="@style/rb_orderbg"
+            android:text="待评价"
+            />
+    </RadioGroup>
+    <include layout="@layout/view_line"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_orderContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

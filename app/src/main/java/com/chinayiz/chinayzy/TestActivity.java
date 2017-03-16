@@ -91,16 +91,8 @@ public class TestActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_action1: {
-                Intent intent=new Intent(this, GoldActivity.class);
+                Intent intent = new Intent(this, GoldActivity.class);
                 startActivity(intent);
-                break;
-            }
-            case R.id.btn_action2: {
-
-                break;
-            }
-            case R.id.btn_action3: {
-
                 break;
             }
         }

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_alignParentBottom="true"
+              android:layout_below="@id/tv_address"
+              android:background="@color/orderbg"
+              android:orientation="vertical"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/Background"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:text="运费："
+            android:textColor="@color/NongYe_home_goodsText"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_yunfei"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:gravity="center_vertical"
+            android:paddingRight="14dp"
+            android:text="￥0.00"
+            android:textColor="@color/NongYe_home_goodsText"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+    <include layout="@layout/view_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/Background"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:text="积分抵扣："
+            android:textColor="@color/NongYe_home_goodsText"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_sumGolds"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:gravity="center_vertical"
+            android:paddingRight="14dp"
+            android:text="￥0.00"
+            android:textColor="@color/classifyText_pre"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+    <include layout="@layout/view_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal"
+        android:background="@color/Background"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_orderNum"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical|end"
+            android:text="共3件商品 总计："
+            android:textColor="@color/deep_grey"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_orderMyone"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="￥0.00"
+            android:textColor="@color/classifyText"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_orderSpay"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|end"
+            android:text="实付：￥0.00"
+            android:textColor="@color/deep_grey"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_createDate"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical|end"
+        android:background="@color/Background"
+        android:paddingRight="14dp"
+        android:text="下单时间：2017-03-15 19:30:27"
+        android:textSize="10dp"
+        />
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lv_boom"
+        >
+        <include layout="@layout/refresh_head"/>
+        <com.chinayiz.chinayzy.views.pullable.PullableListView
+            android:id="@+id/lv_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/goldBg"
+            android:dividerHeight="5dp"
+            android:paddingTop="5dp"
+           />
+        <include layout="@layout/load_more" />
+    </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
+    <include layout="@layout/view_progress"/>
+    <include layout="@layout/view_order_null"/>
+</FrameLayout>

@@ -1,13 +1,12 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,12 +22,8 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
-import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
-import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.CircleImageView;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -184,16 +179,16 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_user_all_order: //所有 订单
-
+                Skip.toOrder(this,0);
                 break;
             case R.id.lv_wait_pay:  //待付款
-
+                Skip.toOrder(this,1);
                 break;
             case R.id.lv_wait_goods:   //待发货
-
+                Skip.toOrder(this,2);
                 break;
             case R.id.lv_wait_accept_goods:   //待收货
-
+                Skip.toOrder(this,3);
                 break;
             case R.id.lv_after_sale:   //售后
 

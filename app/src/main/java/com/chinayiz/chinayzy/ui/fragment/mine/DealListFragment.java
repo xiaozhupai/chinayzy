@@ -35,7 +35,7 @@ import java.util.ArrayList;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/3/8 17:00
- * Class DealListFragment
+ * Class DealListFragment  积分账单
  */
 public class DealListFragment extends AbsFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private CheckBox cb_dealType;

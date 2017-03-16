@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/Background"
+    >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="43dp"
+      android:orientation="horizontal"
+      android:gravity="center_vertical"
+      android:paddingLeft="14dp"
+      android:clickable="true"
+      >
+      <ImageView
+          android:id="@+id/iv_storeLogo"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:dividerHeight="0.5dp"
+          android:src="@mipmap/btn_fruit"
+          android:scaleType="centerCrop"
+          />
+      <TextView
+          android:id="@+id/tv_storeName"
+          android:layout_width="wrap_content"
+          android:layout_height="43dp"
+          android:drawableRight="@mipmap/icon_boot"
+          android:gravity="center_vertical"
+          android:paddingLeft="4dp"
+          android:text="亿众自营  "
+          android:textColor="@color/NongYe_home_goodsText"
+          android:textSize="13sp"
+          />
+      <TextView
+          android:id="@+id/tv_orderState"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="center_vertical|end"
+          android:textSize="13sp"
+          android:textColor="@color/classifyText_pre"
+          android:text="等待卖家发货"
+          android:paddingRight="14dp"
+          />
+  </LinearLayout>
+    <include layout="@layout/view_line"/>
+    <ListView
+        android:id="@+id/lv_orderGoods"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+    </ListView>
+
+    <include layout="@layout/view_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_orderNum"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical|end"
+            android:text="共3件商品 总计："
+            android:textColor="@color/deep_grey"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_orderMyone"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="￥0.00"
+            android:textColor="@color/classifyText"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_orderSpay"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|end"
+            android:text="实付：￥0.00"
+            android:textColor="@color/deep_grey"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+    <include layout="@layout/view_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:gravity="center_vertical|end"
+        android:paddingRight="14dp"
+        >
+
+        <Button
+            android:id="@+id/btn_order1"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:text="取消订单"
+            android:textSize="14sp"
+            android:background="@drawable/btn_shape"
+           android:layout_marginRight="14dp"
+            />
+
+        <Button
+            android:id="@+id/btn_order2"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:text="删除订单"
+            android:textSize="14sp"
+            android:background="@drawable/btn_shape"
+            />
+
+    </LinearLayout>
+    <include layout="@layout/view_line"/>
+</LinearLayout>

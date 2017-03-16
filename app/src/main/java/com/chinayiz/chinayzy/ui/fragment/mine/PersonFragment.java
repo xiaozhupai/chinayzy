@@ -1,12 +1,10 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +16,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
-import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.views.CircleImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.TagListView;
@@ -87,7 +83,6 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-
         activity.mTvActionBarTitle.setText("个人资料");
         activity.mCbActionBarEdit.setVisibility(View.GONE);
         Logger.i("onInitActionBar------------PersonFragment");

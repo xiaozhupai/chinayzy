@@ -12,6 +12,8 @@ import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
+import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
+import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
@@ -797,4 +799,186 @@ public class CommonRequestUtils {
                 });
     }
 
+    /**
+     * 我的订单
+     * @param type 订单类型
+     */
+    public void getImOrder(String type) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.ORDER_STATE)
+                .addParams("userid", "30")
+                .addParams("type", type)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+//                            Logger.i("订单信息成功"+s);
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ORDER_STATE
+                                    , mGson.fromJson(s, OrderListModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 订单详情
+     * @param orderId 订单号
+     */
+    public void getOrderDetail(String orderId) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.ORDER_DETAIL)
+                .addParams("userid", "30")
+                .addParams("orderid", orderId)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            Logger.i("订单详情信息"+s);
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ORDER_DETAIL
+                                    , mGson.fromJson(s, OrderDetailModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 删除订单
+     * @param orderId 订单号
+     */
+    public void deleteOrder(String orderId) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.DELETE_ORDER)
+                .addParams("userid", "30")
+                .addParams("orderid", orderId)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            Logger.i("订单详情信息"+s);
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.DELETE_ORDER
+                                    , mGson.fromJson(s, ResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 取消订单
+     * @param orderId 订单号
+     */
+    public void cancelOrder(String orderId) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.CANCEL_ORDER)
+                .addParams("userid", "30")
+                .addParams("orderid", orderId)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            Logger.i("订单详情信息"+s);
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.CANCEL_ORDER
+                                    , mGson.fromJson(s, ResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 确认收货
+     * @param orderId 订单号
+     */
+    public void recognizelOrder(String orderId) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.CONFIRM_ORDER)
+                .addParams("userid", "30")
+                .addParams("orderid", orderId)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            Logger.i("订单详情信息"+s);
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.CONFIRM_ORDER
+                                    , mGson.fromJson(s, ResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 快速支付
+     * @param orderid 订单号
+     * @param total 支付价格
+     */
+    public void fastPay(String orderid,String total) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.CONFIRM_ORDER)
+                .addParams("userid", "30")
+                .addParams("orderid", orderid)
+                .addParams("total",total)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            Logger.i("订单详情信息"+s);
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.CONFIRM_ORDER
+                                    , mGson.fromJson(s, ResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
 }

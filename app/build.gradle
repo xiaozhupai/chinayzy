@@ -9,32 +9,14 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    lintOptions {
-        disable "ResourceType"
-    }
-
-    signingConfigs {
-        releaseConfig {
-            storeFile file("chinayzy.jks")
-            storePassword "1020304050z0"
-            keyAlias "chinayzy"
-            keyPassword "1020304050z0"
-        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.releaseConfig
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{
-            minifyEnabled false
-            signingConfig signingConfigs.releaseConfig
-        }
+
     }
 
 
@@ -44,8 +26,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    //dbug版内存泄漏检测
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

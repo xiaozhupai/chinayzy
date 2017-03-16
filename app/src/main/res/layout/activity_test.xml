@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_test"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Background"
     android:orientation="vertical"
-    tools:context="com.chinayiz.chinayzy.TestActivity">
+    >
+
     <FrameLayout
         android:id="@+id/fl_frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="20dp">
+        android:layout_height="wrap_content">
     </FrameLayout>
-   <Button
-       android:id="@+id/btn_action1"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="action 1"
-       android:onClick="onClick"
-       />
+
     <Button
-        android:id="@+id/btn_action2"
+        android:id="@+id/btn_action1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="action 1"
         android:onClick="onClick"
+        android:text="action 1"
         />
-    <Button
-        android:id="@+id/btn_action3"
+
+    <TextView
+        android:id="@+id/tv_test"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="action 1"
-        android:onClick="onClick"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text=" 测试类"
+        android:textColor="@color/classifyText_pre"
+        android:textSize="38sp"
         />
 </LinearLayout>

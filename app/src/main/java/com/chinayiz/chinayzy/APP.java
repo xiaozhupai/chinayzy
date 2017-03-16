@@ -84,7 +84,6 @@ public class APP extends Application {
 
     /**
      * 添加存储Activity
-     *
      * @param activity activity
      */
     public synchronized static void register(Activity activity) {

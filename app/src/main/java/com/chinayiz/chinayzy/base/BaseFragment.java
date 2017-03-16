@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -25,13 +23,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     protected T mPresenter;
     public FragmentManager mFragmentManager;
+    public BaseActivity mActivity;
     //fragment 懒加载标志位
     protected boolean isVisible;
     protected Bundle mBundle;
     public String TAG;
-    public BaseActivity mActivity;
     //ui是否初始化
-
     public boolean isInit = true;
 
 
@@ -57,7 +54,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        mActivity = (BaseActivity) context;
     }
 
     @Override
@@ -71,7 +67,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     }
 
     /**
-     * 在这里实现Fragment数据的缓加载. ViewPager有效
+     * 在这里实现Fragment数据的懒加载. ViewPager有效
      *
      * @param isVisibleToUser 通知系统当前fragment是否可见
      */
@@ -186,11 +182,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         super.onDestroyView();
     }
 
-    @Override
-    public void onDetach() {
-        mPresenter.onDetach();
-        super.onDestroyView();
-    }
 
     /**
      * @param tofragment 跳转的fragment

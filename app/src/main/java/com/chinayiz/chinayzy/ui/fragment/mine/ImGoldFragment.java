@@ -102,7 +102,6 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
                 break;
         }
     }
-
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
@@ -117,7 +116,6 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
             }
         }
     }
-
     private void setGold(ImGoldModel model) {
         mTvSumGolds.setText(model.getData().getTotalpoints()+"0");
         goldNum=model.getData().getCancarrypoints()+".00";

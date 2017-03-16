@@ -6,14 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 public class GenerateLayoutActivity extends AppCompatActivity {
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_pickview);
-
+        setContentView(R.layout.fragment_order_detail);
 
     }
+
+
 
 }

@@ -20,8 +20,7 @@
             android:layout_height="match_parent"
             android:background="@color/basecolor"
             ></com.chinayiz.chinayzy.views.pullable.PullableListView>
-        <include layout="@layout/load_more"
-            android:id="@+id/loadlayout"
+        <include layout="@layout/load_more" android:id="@+id/loadlayout"
             />
     </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
     <LinearLayout

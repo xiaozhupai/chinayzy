@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
-import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.OrderDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
@@ -87,7 +85,32 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context,intent);
     }
-
+    /**
+     * 我的订单
+     * @param context
+     * @param code
+     */
+    public static void toOrder(Context context,int code) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, OrderFrameworkFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putInt("orderType",code);
+        intent.putExtras(bundle);
+        skip(context,intent);
+    }
+    /**
+     * 订单详情
+     * @param context
+     * @param code
+     */
+    public static void toOrderDetail(Context context,String code) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, OrderDetailFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("orderid",code);
+        intent.putExtras(bundle);
+        skip(context,intent);
+    }
     /**
      * 发现详情
      * @param context

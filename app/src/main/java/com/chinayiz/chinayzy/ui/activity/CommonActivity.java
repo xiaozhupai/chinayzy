@@ -13,13 +13,10 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,12 +25,9 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.presenter.Presenter;
-import com.orhanobut.logger.Logger;
 
 import java.util.Stack;
 
@@ -46,8 +40,6 @@ import java.util.Stack;
 
 public class CommonActivity extends BaseActivity<Presenter> implements FragmentManager.OnBackStackChangedListener {
 	private Stack<BaseFragment> ftStack = new Stack<>();
-
-
 
 	@Override
 	public void onClick(View view) {
@@ -98,7 +90,7 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 		mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
 		mTvActionBarTitle.setText("个人中心");
 		mIvActionBarMore.setVisibility(View.GONE);
-		mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
+		mTvActionBarTitle.setTextColor(Color.rgb(255,255,255));
 		mIvBackButton.setImageResource(R.mipmap.back_arrow);
 		mActionBar.setBackgroundColor(Color.parseColor("#ff3951"));
 		mIvBackButton.setOnClickListener(this);
@@ -114,38 +106,6 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 	}
 
 
-
-
-
-	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-	}
-
-	/* (non-Javadoc)
-	 * @see
-	 */
-
-	@Override
-	public void onBackPressed() {
-
-		super.onBackPressed();
-
-	}
-
-
-
-	@Override
-	public void onResume() {
-		super.onResume();
-
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-
-	}
 
 	/* (non-Javadoc)
 	 * @see cn.stlc.app.BaseActivity#onDestroy()

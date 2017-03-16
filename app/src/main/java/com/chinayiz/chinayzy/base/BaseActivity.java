@@ -18,7 +18,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
-import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -150,10 +149,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         Class<?> classz=fragment.getClass();
 
         try {
-            fragmentManager.beginTransaction().add(R.id.content_frame, fragment, classz.getSimpleName()).addToBackStack(classz.getSimpleName()).commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.content_frame, fragment, classz.getSimpleName())
+                    .addToBackStack(classz.getSimpleName())
+                    .commit();
+
         } catch (Exception e) {
             e.printStackTrace();
-            fragmentManager.beginTransaction().add(R.id.content_frame, fragment, classz.getSimpleName()).addToBackStack(classz.getSimpleName()).commitAllowingStateLoss();
+            fragmentManager.beginTransaction()
+                    .add(R.id.content_frame, fragment, classz.getSimpleName())
+                    .addToBackStack(classz.getSimpleName())
+                    .commitAllowingStateLoss();
         }
 
     }
@@ -172,7 +178,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mCurrentFragment= (BaseFragment) fragmentManager.findFragmentByTag(name);
             mCbActionBarEdit.setVisibility(View.GONE);
             mCurrentFragment.onInitActionBar(this);
-            Logger.i("OnBackPressed---------------------------------------------------"+name);
         }
     }
 }

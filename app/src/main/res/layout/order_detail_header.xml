@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/orderbg"
+    >
+
+    <TextView
+        android:id="@+id/tv_orderId"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/tv_orderState"
+        android:background="@color/Background"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="14dp"
+        android:text="订单编号：233456859246s"
+        android:textColor="@color/NongYe_home_goodsText"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_orderState"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_alignParentEnd="true"
+        android:background="@color/Background"
+        android:gravity="center"
+        android:paddingRight="14dp"
+        android:text="等待卖家发货"
+        android:textColor="@color/classifyText_pre"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_expressId"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tv_orderId"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/Background"
+        android:gravity="center_vertical"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:paddingLeft="14dp"
+        android:text="物流单号：233456859246s"
+        android:textColor="@color/NongYe_home_goodsText"
+        android:textSize="13sp"
+        />
+
+    <Button
+        android:id="@+id/btn_copyId"
+        android:layout_width="51dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/tv_orderId"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="9.5dp"
+        android:background="@drawable/btn_shape"
+        android:text="复制"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_expressId"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@color/Background"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:text="胡图图   156****2034"
+        android:textColor="@color/NongYe_home_goodsText"
+        android:textSize="13sp"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="35dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/tv_expressId"
+        android:layout_marginTop="10dp"
+        android:background="@color/Background"
+        android:gravity="left"
+        android:paddingLeft="14dp"
+        android:src="@mipmap/icon_address"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_below="@id/tv_name"
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@color/Background"
+        android:maxLines="2"
+        android:paddingLeft="15dp"
+        android:paddingRight="14dp"
+        android:paddingTop="11dp"
+        android:text="湖北省武汉市东湖高新区光谷大道未来之光一栋502（武汉亿众益信息科技有限公司）"
+        android:textColor="@color/deep_grey"
+        android:textSize="13sp"/>
+
+    <include layout="@layout/view_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_below="@id/tv_address"
+        android:layout_marginTop="10dp"
+        android:background="@color/Background"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_storeLogo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:dividerHeight="0.5dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/btn_fruit"
+            />
+
+        <TextView
+            android:id="@+id/tv_storeName"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:drawableRight="@mipmap/icon_boot"
+            android:gravity="center_vertical"
+            android:paddingLeft="4dp"
+            android:text="亿众自营  "
+            android:textColor="@color/NongYe_home_goodsText"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

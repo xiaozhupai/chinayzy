@@ -94,6 +94,18 @@
         <item name="android:textSize">13sp</item>
         <item name="android:button">@null</item>
     </style>
+    <!--订单类型按钮（RadioButton）-->
+    <style name="rb_orderbg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:drawableBottom">@drawable/rb_checkedbg</item>
+        <item name="android:textColor">@drawable/rb_checkedtx</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+    </style>
+
     <!--生态农业首页类型菜单按钮文字（TextView）-->
     <style name="NongYe_tv_TypeMenu">
         <item name="android:layout_width">wrap_content</item>

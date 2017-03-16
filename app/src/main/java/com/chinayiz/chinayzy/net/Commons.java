@@ -281,4 +281,32 @@ public class Commons {
      * 积分规则
      */
     public static final String GOLD_RULE="/h5/jfgz";
+    /**
+     * 我的订单
+     */
+    public static final String ORDER_STATE="/centre/showOrders";
+    /**
+     * 订单详情
+     */
+    public static final String ORDER_DETAIL="/centre/showOrderDetail";
+    /**
+     * 删除订单
+     */
+    public static final String DELETE_ORDER="/centre/deleteOrder";
+    /**
+     * 取消订单
+     */
+    public static final String CANCEL_ORDER="/centre/cancelOrder";
+    /**
+     * 确认收货
+     */
+    public static final String CONFIRM_ORDER ="/centre/confirmGoods";
+    /**
+     * 评价订单
+     */
+    public static final String  COMMENT_ORDER="/centre/commentOrder";
+    /**
+     * 快速支付
+     */
+    public static final String FAST_PAY="/pay/fastPay";
 }
