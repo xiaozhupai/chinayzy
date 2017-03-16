@@ -38,6 +38,7 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     private PickView pickView;
     public int index;
 
+
     public AddAddressFragment(int type,int index) {
         this.type = type;
         this.index=index;
