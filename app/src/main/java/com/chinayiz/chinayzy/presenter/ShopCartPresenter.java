@@ -12,16 +12,16 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
-import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 import com.orhanobut.logger.Logger;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_EDITER = 1;
     private List<ShopCartModel.DataBean.ShoplistBean> list_checked;  //被选中的商品
-    private GoodsStandardPopuWindow    popuWindow;
+    private GoodsStandardPopuWindow popuWindow;
 
     @Override
     public void onCreate() {
@@ -61,9 +61,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-        if (message.getEventType()==EventMessage.NET_EVENT){
+        if (message.getEventType()== EventMessage.NET_EVENT){
             disposeNetMsg(message);
-        }else if (message.getEventType()==EventMessage.INFORM_EVENT){
+        }else if (message.getEventType()== EventMessage.INFORM_EVENT){
             disposeInfoMsg(message);
         }
     }
@@ -88,7 +88,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 if (list.size()==0){
                   mView.lv_boom.setVisibility(View.GONE);
                 }
-                mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                if (mView.pullToRefreshLayout!=null){
+                    mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                }
                 break;
             case Commons.DELSHOPPINGCAR:   //删除购物车商品
                 BaseResponseModel model2= (BaseResponseModel) message.getData();

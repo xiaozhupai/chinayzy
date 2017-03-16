@@ -11,6 +11,7 @@ import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -55,7 +56,7 @@ import java.util.UUID;
  */
 
 public class PersonPresenter extends BasePresenter<PersonFragment> {
-    private UserNet net=UserNet.getNet();
+    private UserNet net= UserNet.getNet();
     public List<Tag> tags_list=new ArrayList<>();
     private ArrayAlertDialog dialog;
     private static final int CAMERA=1;
@@ -126,7 +127,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-        if (message.getEventType()==EventMessage.NET_EVENT){
+        if (message.getEventType()== EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }
 
@@ -135,7 +136,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-        if (message.getEventType()==EventMessage.INFORM_EVENT){
+        if (message.getEventType()== EventMessage.INFORM_EVENT){
             disposeInfoMsg(message);
         }
     }
@@ -191,13 +192,15 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                     }
                     mView.tlv_list.setTags(tags_list);
                 }
-              mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+                if (mView.refresh_view!=null){
+                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+                }
                 break;
             case UserNet.PIC:  //上传图片回调
                 BaseResponseModel model1= (BaseResponseModel) message.getData();
                 if (model1.getCode().equals("100")){
                     Glide.with(mView).load(newurl).into(mView.iv_person_head);
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,MinePresenter.UPDATEMINE,""));
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, MinePresenter.UPDATEMINE,""));
                 }
                 BaseActivity.showToast(mView.getActivity(),model1.getMsg());
                 break;
@@ -226,7 +229,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 Logger.i("sex返回值");
                 Logger.i(message.getData().toString());
                 mView.tv_person_sex.setText(message.getData().toString());
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,MinePresenter.UPDATEMINE,""));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, MinePresenter.UPDATEMINE,""));
                 break;
             case UserNet.TRUENAME:
                 mView.tv_person_factname.setText(message.getData().toString());
@@ -237,7 +240,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 break;
             case UserNet.NICKNAME:
                 mView.tv_person_username.setText(message.getData().toString());
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,MinePresenter.UPDATEMINE,""));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, MinePresenter.UPDATEMINE,""));
                 break;
             case LabelPresenter.LABEL:
                 tags_list= (List<Tag>) message.getData();
@@ -262,7 +265,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 }
                 break;
             case PutObjectSamples.PUTOBJECTSAMPLES:
-                newurl=Commons.HOST+"/"+uploadObject;
+                newurl= Commons.HOST+"/"+uploadObject;
                 Logger.i("newurl------"+newurl);
                 net.getEditerUser(UserNet.PIC,newurl);
                 break;

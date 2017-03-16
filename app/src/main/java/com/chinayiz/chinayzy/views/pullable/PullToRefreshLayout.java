@@ -1,19 +1,9 @@
 package com.chinayiz.chinayzy.views.pullable;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.RectF;
-import android.graphics.Shader.TileMode;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.widget.Tag;
 import com.orhanobut.logger.Logger;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -97,7 +89,7 @@ public class PullToRefreshLayout extends RelativeLayout
 	private TextView refreshStateTextView;
 
 	// 上拉头
-	private View loadmoreView;
+	public View loadmoreView;
 	// 上拉的箭头
 	private View pullUpView;
 	// 正在加载的图标
@@ -114,6 +106,8 @@ public class PullToRefreshLayout extends RelativeLayout
 	// 这两个变量用来控制pull的方向，如果不加控制，当情况满足可上拉又可下拉时没法下拉
 	private boolean canPullDown = true;
 	private boolean canPullUp = true;
+
+	private boolean LoadMoreVisiable;
 
 	/**
 	 * 执行自动回滚的handler
@@ -477,7 +471,9 @@ public class PullToRefreshLayout extends RelativeLayout
 					changeState(LOADING);
 					// 加载操作
 					if (mListener != null)
-						mListener.onLoadMore(this);
+						if (LoadMoreVisiable){
+							mListener.onLoadMore(this);
+						}
 				}
 				hide();
 			default:
@@ -532,6 +528,10 @@ public class PullToRefreshLayout extends RelativeLayout
 				loadmoreView.getMeasuredWidth(),
 				(int) (pullDownY + pullUpY) + pullableView.getMeasuredHeight()
 						+ loadmoreView.getMeasuredHeight());
+	}
+
+	public void setLoadMoreVisiable(boolean isVisiable){
+		this.LoadMoreVisiable=isVisiable;
 	}
 
 	class MyTimer

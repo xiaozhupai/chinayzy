@@ -249,6 +249,26 @@ public class Commons {
     public static final String ADDADDRESS="/centre/addAddress";
 
     /**
+     *宝贝收藏
+     */
+    public static final String SHOWGOODSCOLLECT="/centre/showGoodsCollect";
+    /**
+     *店铺收藏
+     */
+    public static final String SHOWSHOPCOLLECT="/centre/showShopCollect";
+    /**
+     *博文收藏
+     */
+    public static final String SHOWBLOGCOLLECT="/centre/showBlogCollect";
+    /**
+     *足迹列表
+     */
+    public static final String SHOWFOOTMARKS="/centre/showFootmarks";
+    /**
+     *删除足迹
+     */
+    public static final String DELETEFOOTMARK="/centre/deleteFootmark";
+    /**
      * 关于我们
      */
     public static final String ABOUTUS="/h5/aboutus";

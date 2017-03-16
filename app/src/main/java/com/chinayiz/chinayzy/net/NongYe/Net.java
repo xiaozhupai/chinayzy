@@ -364,7 +364,7 @@ public class Net {
     /**
      * 发现列表
      */
-    public void getFindBlogByType(final String type) {
+    public void getFindBlogByType(final String type,String page,String size){
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.FINDBLOGBYTYPE)

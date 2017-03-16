@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.presenter.SearchPresenter;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.SearchEditText;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.chinayiz.chinayzy.widget.Tag;
@@ -54,6 +54,12 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
 
     @Override
     protected void lazyLoad() {
+
+    }
+
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        activity.mActionBar.setVisibility(View.GONE);
 
     }
 
@@ -127,8 +133,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        NongYeMainActivity activity= (NongYeMainActivity) getActivity();
-        activity.mActionBar.setVisibility(View.GONE);
+
 
         View view = initView(inflater, container, savedInstanceState);
         return view;

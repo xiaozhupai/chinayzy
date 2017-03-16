@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
@@ -12,7 +13,6 @@ import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
-import com.chinayiz.chinayzy.views.MainViewPager;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 
@@ -52,7 +52,7 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
         Logger.i("SearchResultPresenter");
-        if (message.getEventType()==EventMessage.NET_EVENT){
+        if (message.getEventType()== EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }
     }
@@ -71,21 +71,29 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
             case Commons.SEARCHFARM:   //搜索结果
                 SearchFarmModel model= (SearchFarmModel) message.getData();
 
-                if (mView.page==1){
-                    data=model.getData();
+                if (mView.page==1){ //下拉刷新
+                    if (mView.type==1){
+                        data=model.getData();
+                        mView.adaphter.setData(model.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.setData(model.getData(),mView.type);
+                    }
                     mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
-                }else {
-                    data.addAll(model.getData());
+                }else {   //上拉加载
+                   data.addAll(model.getData());
+                    if (mView.type==1){
+                        mView.adaphter.AddData(model.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.AddData(model.getData(),mView.type);
+                    }
                     mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
                 }
-                if (mView.type==1){
-                    mView.gd_list.setSelection(mView.mPostion);
-                    mView.adaphter.setData(data,mView.type);
-                    mView.gd_list.setAdapter(mView.adaphter);
+                if (data.size()<10){
+                    mView.refresh_view.setVisibility(View.GONE);
+                    mView.refresh_view.setLoadMoreVisiable(false);
                 }else {
-                    mView.gd_list.setSelection(mView.mPostion);
-                    mView.adaphter2.setData(data,mView.type);
-                    mView.gd_list.setAdapter(mView.adaphter2);
+                    mView.refresh_view.setVisibility(View.VISIBLE);
+                    mView.refresh_view.setLoadMoreVisiable(true);
                 }
 
 

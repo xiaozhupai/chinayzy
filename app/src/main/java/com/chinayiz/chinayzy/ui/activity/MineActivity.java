@@ -1,13 +1,12 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,12 +22,8 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
-import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
-import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.CircleImageView;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -74,12 +69,12 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
                 int backStackEntryCount=mFragmentManager.getBackStackEntryCount();
                 if (backStackEntryCount==0){
                     mTvActionBarTitle.setText("个人中心");
-                  return;
+                    return;
                 }
                 if (backStackEntryCount>0){
                     FragmentManager.BackStackEntry backStack=mFragmentManager.getBackStackEntryAt(backStackEntryCount-1);
                     String name=backStack.getName();
-                 BaseFragment fragment= (BaseFragment) mFragmentManager.findFragmentByTag(name);
+                    BaseFragment fragment= (BaseFragment) mFragmentManager.findFragmentByTag(name);
                     fragment.onInitActionBar(MineActivity.this);
                     Logger.i("OnBackPressed---------------------------------------------------"+name);
                 }
@@ -199,13 +194,12 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
 
                 break;
             case R.id.lv_mine_keep:   //宝贝收藏
-
+           Skip.toGoodsCollection(getActivity());
                 break;
             case R.id.lv_mine_step:   //我的足迹
-
+                Skip.toMyStep(getActivity());
                 break;
             case R.id.lv_mine_shop_car:  //购物车
-//            addFragment(new ShopCartFragment(1));
                 Skip.toShopCart(getActivity());
                 break;
             case R.id.lv_mine_scores:   //我的积分
@@ -222,20 +216,20 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
                 Skip.toSetting(getActivity());
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
-
+                Skip.toContentCollection(getActivity());
                 break;
             case R.id.iv_back_button:
                 onBackPressed();
                 break;
             case R.id.lv_user:
                 Skip.toPerson(getActivity());
-            break;
+                break;
         }
     }
 
     //个人中心fragment跳转
     public void addFragment( Fragment fragment) {
-      Class <?> tag=fragment.getClass();
+        Class <?> tag=fragment.getClass();
 
         try {
             mFragmentManager.beginTransaction().add(R.id.container, fragment,tag.getSimpleName()).addToBackStack(fragment.getTag()).commit();

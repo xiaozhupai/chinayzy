@@ -4,11 +4,14 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
+import com.chinayiz.chinayzy.entity.response.ArticleModel;
+import com.chinayiz.chinayzy.entity.response.GoodsCollectModel;
+import com.chinayiz.chinayzy.entity.response.MyStepModel;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
+import com.chinayiz.chinayzy.entity.response.ShopCollectModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
-
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -69,7 +72,7 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.GETPERSONALCENTER
+                                    , Commons.GETPERSONALCENTER
                                     ,mGson.fromJson(s,PersonalModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -100,7 +103,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.GETUSERINFO
+                                    , Commons.GETUSERINFO
                                     ,mGson.fromJson(s,UserModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -205,7 +208,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.COMMENTORDER
+                                    , Commons.COMMENTORDER
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -226,7 +229,7 @@ public class UserNet {
                 .url(Commons.API + Commons.ADDIDEA)
                 .addParams("theme", theme)
                 .addParams("idea", idea)
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -239,7 +242,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.ADDIDEA
+                                    , Commons.ADDIDEA
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -257,7 +260,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.GETTAGS)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -269,7 +272,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.GETTAGS
+                                    , Commons.GETTAGS
                                     ,mGson.fromJson(s,TagsModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -319,7 +322,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.FINISHTAGS)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .addParams("tag",tag)
                 .addParams("tagid",tagid)
                 .build()
@@ -333,7 +336,7 @@ public class UserNet {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.FINISHTAGS
+                                    , Commons.FINISHTAGS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -352,7 +355,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.DIZAN)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .addParams("blogid",bid)
                 .addParams("isdianzan",isdianzan)
                 .build()
@@ -367,7 +370,7 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.DIZAN
+                                    , Commons.DIZAN
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -386,7 +389,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.CANCELCOLLECT)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .addParams("blogid",bid)
                 .addParams("iscollect",iscollect)
                 .build()
@@ -401,7 +404,7 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.CANCELCOLLECT
+                                    , Commons.CANCELCOLLECT
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -418,7 +421,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.SHOWADDRESS)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -431,7 +434,7 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.SHOWADDRESS
+                                    , Commons.SHOWADDRESS
                                     ,mGson.fromJson(s,AddressListModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -456,7 +459,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.EDITADDRESS)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .addParams("addressid",addressid)
                 .addParams("consignee",consignee)
                 .addParams("phone",phone)
@@ -476,7 +479,7 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.EDITADDRESS
+                                    , Commons.EDITADDRESS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -493,9 +496,9 @@ public class UserNet {
     public void getdefaultAddress(String addressid) {
         OkHttpUtils
                 .post()
-                .url(Commons.API+Commons.DEFAULTADDRESS)
+                .url(Commons.API+ Commons.DEFAULTADDRESS)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .addParams("addressid",addressid)
                 .build()
                 .execute(new StrCallback() {
@@ -509,7 +512,7 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.DEFAULTADDRESS
+                                    , Commons.DEFAULTADDRESS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -527,7 +530,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.DELETEADDRESS)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .addParams("addressid",addressid)
                 .build()
                 .execute(new StrCallback() {
@@ -541,7 +544,7 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.DELETEADDRESS
+                                    , Commons.DELETEADDRESS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
@@ -564,7 +567,7 @@ public class UserNet {
                 .post()
                 .url(Commons.API + Commons.ADDADDRESS)
                 .tag("ny")
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .addParams("consignee",consignee)
                 .addParams("phone",phone)
                 .addParams("area",area)
@@ -583,7 +586,176 @@ public class UserNet {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.ADDADDRESS
+                                    , Commons.ADDADDRESS
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 宝贝收藏
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowGoodsCollect(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWGOODSCOLLECT)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWGOODSCOLLECT
+                                    ,mGson.fromJson(s,GoodsCollectModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 店铺收藏
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowShopCollect(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWSHOPCOLLECT)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWSHOPCOLLECT
+                                    ,mGson.fromJson(s,ShopCollectModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 博文收藏
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowBlogCollect(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWBLOGCOLLECT)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWBLOGCOLLECT
+                                    ,mGson.fromJson(s,ArticleModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 足迹列表
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowFootMarks(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWFOOTMARKS)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWFOOTMARKS
+                                    ,mGson.fromJson(s,MyStepModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 删除足迹
+     * @param goodsid  商品id
+     */
+
+    public void getdeletefootmark(String goodsid) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.DELETEFOOTMARK)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("goodsid",goodsid)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.DELETEFOOTMARK
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);

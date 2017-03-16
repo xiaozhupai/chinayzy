@@ -4,24 +4,23 @@ import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
+import com.chinayiz.chinayzy.ui.fragment.ListFragment;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-/**我的足迹
- * Created by Administrator on 2017/1/10.
+/**
+ * Created by Administrator on 2017/3/14.  列表通用布局
  */
 
-public class MyStepPresenter extends BasePresenter<MyStepFragment> {
+public class ListPresenter extends BasePresenter<ListFragment> {
     @Override
-    public void onCreate() {
+    protected void onCreate() {
 
-        mView.adapter.getdata(1);
     }
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
 
     }
 
@@ -34,14 +33,11 @@ public class MyStepPresenter extends BasePresenter<MyStepFragment> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
 
-
     }
 
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-
-
 
     }
 
@@ -54,4 +50,5 @@ public class MyStepPresenter extends BasePresenter<MyStepFragment> {
     public void disposeInfoMsg(EventMessage message) {
 
     }
+
 }

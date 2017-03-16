@@ -5,9 +5,7 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
-import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
-import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -41,9 +39,7 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
         if (message.getEventType() == EventMessage.NET_EVENT) {
             if (message.getDataType().equals(mView.type)) {
                 FindListModel model = (FindListModel) message.getData();
-                lists=model.getData();
-                mView.adaphter.setData(model.getData());
-              mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                mView.adaphter.onResult(model.getData());
             }
         }
     }
@@ -66,7 +62,5 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
         }
     }
 
-    public void getData(){
-        Net.getNet().getFindBlogByType(mView.type);
-    }
+
 }

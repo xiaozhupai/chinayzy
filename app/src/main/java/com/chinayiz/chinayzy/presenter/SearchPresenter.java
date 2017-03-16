@@ -22,12 +22,12 @@ import java.util.List;
  */
 
 public class SearchPresenter extends BasePresenter<SearchFragment> {
-    private Net net=Net.getNet();
+    private Net net= Net.getNet();
     public static final String TITLE="TITLE";
     @Override
     public void onCreate() {
         net.getALLTab();
-        List<String> data=SearchDao.findall();
+        List<String> data= SearchDao.findall();
         for (int i=0;i<data.size();i++){
             Tag tag=new Tag();
             tag.setTitle(data.get(i));
@@ -94,8 +94,8 @@ public class SearchPresenter extends BasePresenter<SearchFragment> {
      * @param title
      */
     public void toResult(String title){
-        SearchResultFragment fragment=new SearchResultFragment(title);
-        mView.startFragment(fragment,fragment.getTag());
+        mView.mActivity.addFragment(new SearchResultFragment(title));
+
 
     }
 

@@ -7,7 +7,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.ShopCollectModel;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.User.UserNet;
+import com.chinayiz.chinayzy.net.callback.EventBusCallback;
+import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -15,7 +26,7 @@ import java.util.List;
  * Created by Administrator on 2017/1/12.
  */
 
-public class ShopKeepAdaphter extends BaseInectAdaphter {
+public class ShopKeepAdaphter extends BaseInectAdaphter implements EventBusCallback {
     public ShopKeepAdaphter(Context context, List list) {
         this.lists = list;
         this.context = context;
@@ -29,9 +40,51 @@ public class ShopKeepAdaphter extends BaseInectAdaphter {
             viewHolder=new ViewHolder(view);
             view.setTag(viewHolder);
         } else {
-           viewHolder= (ViewHolder) view.getTag();
+            viewHolder= (ViewHolder) view.getTag();
         }
+        ShopCollectModel.DataBean bean= (ShopCollectModel.DataBean) lists.get(i);
+        Glide.with(context).load(bean.getPic()).into(viewHolder.iv_shopkeep_list_image);
+        viewHolder.tv_shopkeep_title.setText(bean.getSname());
+        viewHolder.tv_shopkeep_num.setText(bean.getCollectnum()+"人收藏");
+        viewHolder.tv_shopkeep_evaluate.setText("综合评价"+bean.getSynthesizepoint());
         return view;
+    }
+
+    @Override
+    public void onGetData(int pageindex) {
+        UserNet.getNet().getshowShopCollect(pageindex+"","10");
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void runUiThread(EventMessage message) {
+        if (message.getDataType()== Commons.SHOWSHOPCOLLECT){
+            ShopCollectModel model= (ShopCollectModel) message.getData();
+            Logger.i("ShopKeepAdaphter");
+            onResult(model.getData());
+        }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+     BaseActivity activity= (BaseActivity) context;
+        Logger.i("点击每一个商品");
+    }
+
+    @Override
+    @Subscribe (threadMode = ThreadMode.BACKGROUND)
+    public void runBgThread(EventMessage message) {
+
+    }
+
+    @Override
+    public void disposeNetMsg(EventMessage message) {
+
+    }
+
+    @Override
+    public void disposeInfoMsg(EventMessage message) {
+
     }
 
     public static class ViewHolder {
@@ -52,6 +105,7 @@ public class ShopKeepAdaphter extends BaseInectAdaphter {
             this.lv_center = (LinearLayout) rootView.findViewById(R.id.lv_center);
             this.iv_arrow_right = (ImageView) rootView.findViewById(R.id.iv_arrow_right);
         }
-
     }
+
+
 }

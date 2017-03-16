@@ -9,10 +9,14 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 
+import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.GoodsKeepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
@@ -101,5 +105,43 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context,intent);
     }
+    /**
+     * 搜索
+     * @param context
+     */
+    public static void toSearch(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, SearchFragment.class);
+        skip(context,intent);
+    }
 
+    /**
+     * 宝贝收藏
+     * @param context
+     */
+    public static void toGoodsCollection(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, GoodsKeepFragment.class);
+        skip(context,intent);
+    }
+
+    /**
+     * 内容收藏
+     * @param context
+     */
+    public static void toContentCollection(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, ContentKeepFragment.class);
+        skip(context,intent);
+    }
+
+    /**
+     * 我的足迹
+     * @param context
+     */
+    public static void toMyStep(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, MyStepFragment.class);
+        skip(context,intent);
+    }
 }

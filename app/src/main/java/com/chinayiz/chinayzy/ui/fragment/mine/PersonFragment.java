@@ -1,12 +1,10 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +16,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.PersonPresenter;
-import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.views.CircleImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.TagListView;
@@ -154,6 +150,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         rl_person_username= (RelativeLayout) view.findViewById(R.id.rl_person_username);
         rl_person_username.setOnClickListener(this);
         tlv_list= (TagListView) view.findViewById(R.id.tlv_list);
+        refresh_view.setLoadMoreVisiable(false);
         refresh_view.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {

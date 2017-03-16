@@ -1,33 +1,25 @@
 package com.chinayiz.chinayzy.ui.fragment.find;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.adapter.FindAdaphter;
+import com.chinayiz.chinayzy.adapter.BaseInectAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
-import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.presenter.FindListPresenter;
-import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.SexFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableGridView;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** 发现列表
@@ -35,20 +27,23 @@ import java.util.List;
  */
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
     public PullableGridView gd_find_list;
-    public FindAdaphter adaphter;
+
     public PullToRefreshLayout pullToRefreshLayout;
     public static final String DATA_TYPE="DATA_TYPE";
     public static final String TO_FINDDETAIL="TO_FINDDETAIL";
     public String type;
     public PullableGridView lv_list;
-    public FindListFragment(String type){
+    public BaseInectAdaphter adaphter;
+    public FindListFragment(String type, BaseInectAdaphter adaphter){
         this.type=type;
+        this.adaphter=adaphter;
     }
 
 
     @Override
     protected void onVisible() {
         if (isInit){
+
           getData();
         }
         isInit=false;
@@ -79,7 +74,7 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     }
 
     public void getData(){
-        Net.getNet().getFindBlogByType(type);
+       adaphter.onGetData(1);
     }
 
     @Override
@@ -87,21 +82,19 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
         View view=inflater.inflate(R.layout.fragment_find_list,container,false);
         lv_list= (PullableGridView) view.findViewById(R.id.lv_list);
         pullToRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
-        List list=new ArrayList();
-        adaphter=new FindAdaphter(getActivity(),list);
+        adaphter.setRefreshLayout(pullToRefreshLayout);
         lv_list.setAdapter(adaphter);
         lv_list.setOnItemClickListener(this);
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
              getData();
-
+               adaphter.onRefresh();
             }
 
             @Override
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                Toast.makeText(getActivity(),"refresh",Toast.LENGTH_SHORT).show();
-                pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                adaphter.LoadMore();
             }
         });
         return view;
@@ -118,7 +111,8 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      List <FindListModel.DataBean> lists=mPresenter.lists;
+
+      List <FindListModel.DataBean> lists=adaphter.getData();
       FindListModel.DataBean dataBean=lists.get(position);
         EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,TO_FINDDETAIL,dataBean));
     }
