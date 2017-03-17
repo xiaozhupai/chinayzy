@@ -79,7 +79,6 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_goods);
         initView();
-        Logger.w("onCreate");
         mFragmentManager = getFragmentManager();
         mRequestUtils = CommonRequestUtils.getRequestUtils();
         mPartWebFragment = new PartWebFragment();

@@ -55,7 +55,7 @@
                 android:layout_toLeftOf="@id/iv_more_btn"
                 />
         </RelativeLayout>
-       <include layout="@layout/view_progress"/>
+        <include layout="@layout/view_progress"/>
     </FrameLayout>
     <View
         android:layout_width="match_parent"
