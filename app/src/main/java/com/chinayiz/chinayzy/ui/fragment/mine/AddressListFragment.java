@@ -41,6 +41,7 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> impl
 
 
 
+
     }
 
     @Override
