@@ -30,8 +30,8 @@ public class PullableListView extends ListView implements Pullable
 			// û��item��ʱ��Ҳ��������ˢ��
 			return true;
 		} else if (getFirstVisiblePosition() == 0
-				&& getChildAt(0).getTop() >= 0)
-		{
+				&& getChildAt(0)!=null&&getChildAt(0).getTop() >= 0) {
+
 			// ����ListView�Ķ�����
 			return true;
 		} else

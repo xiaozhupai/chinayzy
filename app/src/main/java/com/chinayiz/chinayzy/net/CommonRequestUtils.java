@@ -807,7 +807,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ORDER_STATE)
-                .addParams("userid", "30")
+                .addParams("userid", "18")
                 .addParams("type", type)
                 .tag("ny")
                 .build()
@@ -819,7 +819,6 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-//                            Logger.i("订单信息成功"+s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ORDER_STATE
                                     , mGson.fromJson(s, OrderListModel.class)));
@@ -837,7 +836,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ORDER_DETAIL)
-                .addParams("userid", "30")
+                .addParams("userid", "18")
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -867,7 +866,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.DELETE_ORDER)
-                .addParams("userid", "30")
+                .addParams("userid", "18")
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -879,7 +878,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("订单详情信息"+s);
+                            Logger.i("删除订单"+s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.DELETE_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -897,7 +896,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.CANCEL_ORDER)
-                .addParams("userid", "30")
+                .addParams("userid", "18")
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -909,7 +908,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("订单详情信息"+s);
+                            Logger.i("取消订单"+s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CANCEL_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -927,7 +926,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.CONFIRM_ORDER)
-                .addParams("userid", "30")
+                .addParams("userid", "18")
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -939,7 +938,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("订单详情信息"+s);
+                            Logger.i("确认收货"+s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CONFIRM_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -957,8 +956,8 @@ public class CommonRequestUtils {
     public void fastPay(String orderid,String total) {
         OkHttpUtils
                 .post()
-                .url(Commons.API + Commons.CONFIRM_ORDER)
-                .addParams("userid", "30")
+                .url(Commons.API + Commons.FAST_PAY)
+                .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderid)
                 .addParams("total",total)
                 .tag("ny")
@@ -971,9 +970,9 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("订单详情信息"+s);
+                            Logger.i("快捷支付消息="+s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.CONFIRM_ORDER
+                                    , Commons.FAST_PAY
                                     , mGson.fromJson(s, ResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);

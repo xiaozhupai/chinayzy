@@ -32,8 +32,11 @@
     <!--商品详情相关商品点击View TAGKEY-->
     <item name="tag_view" type="id">0</item>
     <item name="tag_click" type="id">1</item>
-    <item name="tag_orderId" type="id">2</item>
+    <item name="tag_orderInfo" type="id">2</item>
     <item name="tag_detailId" type="id">3</item>
+    <item name="click_type" type="id">4</item>
+    <item name="click_pay" type="id">5</item>
+    <item name="tag_position" type="id">6</item>
     <item name="tag_mPageBottom" type="id">0</item>
     <item name="tag_mPageTop" type="id">1</item>
 </resources>

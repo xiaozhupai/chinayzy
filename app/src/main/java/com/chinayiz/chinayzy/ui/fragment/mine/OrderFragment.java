@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.OrderListAdapter;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -22,11 +23,14 @@ import org.greenrobot.eventbus.EventBus;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/3/14 9:17
- * Class OrderFragment  订单
+ * Class OrderFragment  订单状态
  */
 
 public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
     private PullableListView mLvOrder;
+    /**
+     * 订单页请求订单数据
+     */
     public static final String GET_DATA="OrderFragment_GET";
     private PullToRefreshLayout mPullrefresh;
     private View mLlProgress,mNullOrder;
@@ -81,6 +85,11 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
     @Override
     public FrgOrderPresenter initPresenter() {
         return new FrgOrderPresenter();
+    }
+    @Override
+
+    public void onInitActionBar(BaseActivity activity) {
+        activity.mTvActionBarTitle.setText("我的订单");
     }
 
     @Override

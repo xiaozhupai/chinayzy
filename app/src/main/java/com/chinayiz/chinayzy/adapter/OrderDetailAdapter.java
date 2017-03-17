@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.adapter;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -98,17 +99,21 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
                 mHolder.btn_action2.setVisibility(View.GONE);
                 break;
             case "4"://待评价
-                mHolder.btn_action1.setTag(R.id.tag_orderId,mDetailModel.getData().getOrderid());
+                mHolder.btn_action1.setTag(R.id.tag_orderInfo,mDetailModel.getData().getOrderid());
                 mHolder.btn_action1.setTag(R.id.tag_detailId,goodsList.get(position).getOrderdetailid());
-                mHolder.btn_action2.setTag(R.id.tag_orderId,mDetailModel.getData().getOrderid());
+                mHolder.btn_action2.setTag(R.id.tag_orderInfo,mDetailModel.getData().getOrderid());
                 mHolder.btn_action2.setTag(R.id.tag_detailId,goodsList.get(position).getOrderdetailid());
                 mHolder.btn_action1.setText("售后");
+                mHolder.btn_action2.setTextColor(Color.rgb(255,57,81));
+                mHolder.btn_action2.setBackground(mFragment.getResources().getDrawable(R.drawable.btn_shape_pre));
                 mHolder.btn_action2.setText("去评价");
                 break;
             case "5"://已完成
                 mHolder.btn_action1.setVisibility(View.GONE);
-                mHolder.btn_action2.setTag(R.id.tag_orderId,mDetailModel.getData().getOrderid());
+                mHolder.btn_action2.setTag(R.id.tag_orderInfo,mDetailModel.getData().getOrderid());
                 mHolder.btn_action2.setTag(R.id.tag_detailId,goodsList.get(position).getOrderdetailid());
+                mHolder.btn_action2.setTextColor(Color.rgb(11,27,1));
+                mHolder.btn_action2.setBackground(mFragment.getResources().getDrawable(R.drawable.btn_shape));
                 mHolder.btn_action2.setText("售后");
                 break;
             case "6"://取消订单

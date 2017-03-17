@@ -1,10 +1,12 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,10 @@ import android.widget.RadioGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.OderPagerAdapter;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.presenter.OrderFrameworkPresenter;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
         , ViewPager.OnPageChangeListener{
     public List<OrderFragment> mFragments;
     private OderPagerAdapter mPagerAdapter;
+    private AlertDialog alert = null;
+    private AlertDialog.Builder builder = null;
     public int orderType;
     private RadioButton rb_orderAll;
     private RadioButton rb_order1;
@@ -42,13 +47,17 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
     public void isNightMode(boolean isNight) {
 
     }
-
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        activity.mTvActionBarTitle.setText("我的订单");
+    }
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_order,container,false);
         initView(view);
         return view;
     }
+
     private void initView(View view) {
         mFragments = new ArrayList<>(5);
         mFragments.add(OrderFragment.newInstance("0"));
@@ -87,6 +96,7 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
                 break;
         }
     }
+
     @Override
     public void onInintData(Bundle bundle) {
         orderType=bundle.getInt("orderType",-1);
@@ -97,11 +107,74 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
         return new OrderFrameworkPresenter();
     }
 
+    public void showDilog(int type, final OrderListModel.Order.Goods goods){
+        builder = new AlertDialog.Builder(getActivity());
+        switch (type){
+            case 0:
+                alert = null;
+                alert = builder
+                        .setMessage("确定删除订单？")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.mRequestUtils.deleteOrder(String.valueOf(goods.getOrderid()));
+                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
+                            }
+                        }).create();
+
+                alert.show();
+                break;
+            case 1:
+                alert = null;
+                alert = builder
+                        .setMessage("确定取消订单？")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.mRequestUtils.cancelOrder(String.valueOf(goods.getOrderid()));
+                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
+                            }
+                        }).create();
+
+                alert.show();
+                break;
+            case 2:
+                alert = null;
+                alert = builder
+                        .setTitle("确认收货")
+                        .setMessage("您要确认已经收到此订单中的商品？")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.mRequestUtils.recognizelOrder(String.valueOf(goods.getOrderid()));
+                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
+                            }
+                        }).create();
+
+                alert.show();
+                break;
+        }
+    }
     @Override
     protected void onVisible() {
 
     }
-
     @Override
     protected void onInvisible() {
 
@@ -114,36 +187,26 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
             case R.id.rb_orderAll:
                 vp_orderContent.setCurrentItem(0);
                 mFragments.get(0).onVisible();
-                Logger.i("rb全部");
-                mActivity.mTvActionBarTitle.setText("全部");
                 mPresenter.doGteOrderList("0",0);
                 break;
             case R.id.rb_order1:
                 vp_orderContent.setCurrentItem(1);
                 mFragments.get(1).onVisible();
-                Logger.i("rb待付款");
-                mActivity.mTvActionBarTitle.setText("待付款");
                 mPresenter.doGteOrderList("1", 1);
                 break;
             case R.id.rb_order2:
                 vp_orderContent.setCurrentItem(2);
                 mFragments.get(2).onVisible();
-                Logger.i("rb待发货");
-                mActivity.mTvActionBarTitle.setText("待发货");
                 mPresenter.doGteOrderList("2", 2);
                 break;
             case R.id.rb_order3:
                 vp_orderContent.setCurrentItem(3);
                 mFragments.get(3).onVisible();
-                Logger.i("rb待收货");
-                mActivity.mTvActionBarTitle.setText("待收货");
                 mPresenter.doGteOrderList("3", 3);
                 break;
             case R.id.rb_order4:
                 vp_orderContent.setCurrentItem(4);
                 mFragments.get(4).onVisible();
-                Logger.i("rb待评价");
-                mActivity.mTvActionBarTitle.setText("待评价");
                 mPresenter.doGteOrderList("4", 4);
                 break;
         }

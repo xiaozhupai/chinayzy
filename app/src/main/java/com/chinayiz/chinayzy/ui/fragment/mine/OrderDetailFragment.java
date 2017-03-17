@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.ui.fragment.mine;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,11 +16,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.OrderDetailAdapter;
+import com.chinayiz.chinayzy.adapter.OrderListAdapter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
+import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.presenter.OrderDetailPresenter;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -39,6 +46,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
     public OrderDetailModel mOrderDetailModel;
     public OrderDetailAdapter mAdapter;
     public boolean isLoad = true;
+    public  OrderListModel.Order.Goods goods;
     private View headerView, FooderView;
     public String orderid;
     public String orderState;
@@ -66,7 +74,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
 
         mViewHolder.mPregress = view.findViewById(R.id.ll_progress);
         mViewHolder.btn_order1 = (Button) view.findViewById(R.id.btn_order1);
-        mViewHolder.btn_order2 = (Button) view.findViewById(R.id.btn_order1);
+        mViewHolder.btn_order2 = (Button) view.findViewById(R.id.btn_order2);
         mViewHolder.lv_orderGoods = (ListView) view.findViewById(lv_orderGoods);
 
         mViewHolder.tv_yunfei = (TextView) fooderView.findViewById(R.id.tv_yunfei);
@@ -92,8 +100,14 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
     }
 
     @Override
+    public void onInitActionBar(BaseActivity activity) {
+        activity.mTvActionBarTitle.setText("订单详情");
+    }
+
+    @Override
     public void onInintData(Bundle bundle) {
         orderid = bundle.getString("orderid", "-1");
+
     }
 
     /**
@@ -102,6 +116,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
      * @param model
      */
     public void setData(OrderDetailModel model) {
+        goods=new OrderListModel.Order.Goods();
         isLoad = false;
         mOrderDetailModel = model;
         mGoodsList = mOrderDetailModel.getData().getOmessages();
@@ -144,33 +159,43 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
                 BaseActivity.showToast(getActivity(), "复制成功");
                 break;
             case R.id.btn_order1:
+                goods.setOrderid(mOrderDetailModel.getData().getOrderid());
+                goods.setTotalmoney(mOrderDetailModel.getData().getTotalmoney());
                 switch (orderState) {
                     case "1"://待付款
-                        mPresenter.mRequestUtils.cancelOrder(v.getTag(R.id.tag_click).toString());
+                        v.setTag(R.id.click_type,OrderListAdapter.CANCEL_ORDER);
+                        v.setTag(R.id.tag_orderInfo,goods);
+                        EventBus.getDefault()
+                                .post(new EventMessage(BaseMessage.NET_EVENT,OrderListAdapter.ADAPTER_CLICK, v));
                         break;
                 }
                 break;
             case R.id.btn_order2:
+                goods.setOrderid(mOrderDetailModel.getData().getOrderid());
+                goods.setTotalmoney(mOrderDetailModel.getData().getTotalmoney());
                 switch (orderState) {
                     case "1"://待付款
-                        mPresenter.mRequestUtils
-                                .fastPay(v.getTag(R.id.tag_click).toString()
-                                        , String.valueOf(mOrderDetailModel.getData().getTotalmoney()));
+                        v.setTag(R.id.click_type,OrderListAdapter.PAY_ORDER);
+                        v.setTag(R.id.tag_orderInfo,goods);
+                        EventBus.getDefault()
+                                .post(new EventMessage(BaseMessage.NET_EVENT,OrderListAdapter.ADAPTER_CLICK, v));
                         break;
                     case "2"://待发货
                         BaseActivity.showToast(getActivity(), "提醒成功");
                         break;
                     case "3"://待收货
-                        mPresenter.mRequestUtils.recognizelOrder(v.getTag(R.id.tag_click).toString());
+                        v.setTag(R.id.click_type,OrderListAdapter.CONFIRM_ORDER);
+                        v.setTag(R.id.tag_orderInfo,goods);
+                        EventBus.getDefault()
+                                .post(new EventMessage(BaseMessage.NET_EVENT,OrderListAdapter.ADAPTER_CLICK, v));
                         break;
                     case "4"://待评价
-                        mPresenter.mRequestUtils.deleteOrder(v.getTag(R.id.tag_click).toString());
-                        break;
                     case "5"://已完成
-                        mPresenter.mRequestUtils.deleteOrder(v.getTag(R.id.tag_click).toString());
-                        break;
                     case "6"://取消订单
-                        mPresenter.mRequestUtils.deleteOrder(v.getTag(R.id.tag_click).toString());
+                        v.setTag(R.id.click_type,OrderListAdapter.DELETE_ORDER);
+                        v.setTag(R.id.tag_orderInfo,goods);
+                        EventBus.getDefault()
+                                .post(new EventMessage(BaseMessage.NET_EVENT,OrderListAdapter.ADAPTER_CLICK, v));
                         break;
                 }
                 break;
@@ -181,39 +206,44 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         switch (state) {
             case "1"://待付款
                 mViewHolder.tv_orderState.setText("待付款");
-                mViewHolder.btn_order1.setTag(R.id.tag_click, mOrderDetailModel.getData().getOrderid());
-                mViewHolder.btn_order2.setTag(R.id.tag_click, mOrderDetailModel.getData().getOrderid());
                 mViewHolder.btn_order1.setText("取消订单");
+                mViewHolder.btn_order2.setTextColor(Color.rgb(255,57,81));
+                mViewHolder.btn_order2.setBackground(this.getResources().getDrawable(R.drawable.btn_shape_pre));
                 mViewHolder.btn_order2.setText("付 款");
                 break;
             case "2"://待发货
                 mViewHolder.tv_orderState.setText("待发货");
                 mViewHolder.btn_order1.setVisibility(View.GONE);
-                mViewHolder.btn_order2.setTag(R.id.tag_click, mOrderDetailModel.getData().getOrderid());
+                mViewHolder.btn_order2.setTextColor(Color.rgb(255,57,81));
+                mViewHolder.btn_order2.setBackground(this.getResources().getDrawable(R.drawable.btn_shape_pre));
                 mViewHolder.btn_order2.setText("提醒发货");
                 break;
             case "3"://待收货
                 mViewHolder.tv_orderState.setText("待收货");
                 mViewHolder.btn_order1.setVisibility(View.GONE);
-                mViewHolder.btn_order2.setTag(R.id.tag_click, mOrderDetailModel.getData().getOrderid());
+                mViewHolder.btn_order2.setTextColor(Color.rgb(255,57,81));
+                mViewHolder.btn_order2.setBackground(this.getResources().getDrawable(R.drawable.btn_shape_pre));
                 mViewHolder.btn_order2.setText("确认收货");
                 break;
             case "4"://待评价
                 mViewHolder.tv_orderState.setText("待评价");
                 mViewHolder.btn_order1.setVisibility(View.GONE);
-                mViewHolder.btn_order2.setTag(R.id.tag_click, mOrderDetailModel.getData().getOrderid());
+                mViewHolder.btn_order2.setTextColor(Color.rgb(11,27,1));
+                mViewHolder.btn_order2.setBackground(this.getResources().getDrawable(R.drawable.btn_shape));
                 mViewHolder.btn_order2.setText("删除订单");
                 break;
             case "5"://已完成
                 mViewHolder.tv_orderState.setText("已完成");
                 mViewHolder.btn_order1.setVisibility(View.GONE);
-                mViewHolder.btn_order2.setTag(R.id.tag_click, mOrderDetailModel.getData().getOrderid());
+                mViewHolder.btn_order2.setTextColor(Color.rgb(11,27,1));
+                mViewHolder.btn_order2.setBackground(this.getResources().getDrawable(R.drawable.btn_shape));
                 mViewHolder.btn_order2.setText("删除订单");
                 break;
             case "6"://取消订单
                 mViewHolder.tv_orderState.setText("取消订单");
                 mViewHolder.btn_order1.setVisibility(View.GONE);
-                mViewHolder.btn_order2.setTag(R.id.tag_click, mOrderDetailModel.getData().getOrderid());
+                mViewHolder.btn_order2.setTextColor(Color.rgb(11,27,1));
+                mViewHolder.btn_order2.setBackground(this.getResources().getDrawable(R.drawable.btn_shape));
                 mViewHolder.btn_order2.setText("删除订单");
                 break;
         }

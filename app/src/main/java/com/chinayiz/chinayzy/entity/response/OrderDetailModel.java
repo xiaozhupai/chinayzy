@@ -52,7 +52,7 @@ public class OrderDetailModel extends BaseResponseModel {
          * receivingtime : 2017-02-11 11:49:26
          */
 
-        private int totalmoney;
+        private String totalmoney;
         private String phone;
         private String pic;
         private String addressid;
@@ -75,11 +75,11 @@ public class OrderDetailModel extends BaseResponseModel {
         private int orderid;
         private String receivingtime;
         private List<OmessagesBean> omessages;
-        public int getTotalmoney() {
+        public String getTotalmoney() {
             return totalmoney;
         }
 
-        public void setTotalmoney(int totalmoney) {
+        public void setTotalmoney(String totalmoney) {
             this.totalmoney = totalmoney;
         }
 

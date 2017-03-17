@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.ThreadMode;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/3/14 9:18
- * Class FrgOrderPresenter
+ * Class FrgOrderPresenter 订单状态
  */
 
 public class FrgOrderPresenter extends BasePresenter<OrderFragment> {

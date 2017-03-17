@@ -101,13 +101,13 @@ public class Skip {
     /**
      * 订单详情
      * @param context
-     * @param code
+     * @param orderid 订单编号
      */
-    public static void toOrderDetail(Context context,String code) {
+    public static void toOrderDetail(Context context,String orderid) {
         Intent intent=new Intent(context,CommonActivity.class);
         intent.putExtra(CLASS, OrderDetailFragment.class);
         Bundle bundle=new Bundle();
-        bundle.putString("orderid",code);
+        bundle.putString("orderid",orderid);
         intent.putExtras(bundle);
         skip(context,intent);
     }
