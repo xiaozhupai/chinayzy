@@ -40,6 +40,7 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> impl
     public void onInintData(Bundle bundle) {
 
 
+
     }
 
     @Override
