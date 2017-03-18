@@ -2,6 +2,9 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
@@ -70,7 +73,6 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
         switch (message.getDataType()){
             case Commons.SEARCHFARM:   //搜索结果
                 SearchFarmModel model= (SearchFarmModel) message.getData();
-
                 if (mView.page==1){ //下拉刷新
                     if (mView.type==1){
                         data=model.getData();
@@ -80,7 +82,7 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                     }
                     mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
                 }else {   //上拉加载
-                   data.addAll(model.getData());
+                    data.addAll(model.getData());
                     if (mView.type==1){
                         mView.adaphter.AddData(model.getData(),mView.type);
                     }else {
@@ -88,21 +90,30 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                     }
                     mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
                 }
-                if (data.size()<10){
-                    mView.refresh_view.setVisibility(View.GONE);
+                if (model.getData().size()<10){
+                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
                     mView.refresh_view.setLoadMoreVisiable(false);
                 }else {
-                    mView.refresh_view.setVisibility(View.VISIBLE);
+                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
                     mView.refresh_view.setLoadMoreVisiable(true);
                 }
-
-
                 break;
             case Commons.ADDSHOPPINGCAR:   //加入购物车
-                BaseResponseModel model1= (BaseResponseModel) message.getData();
-                Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
+                animation();
+//                BaseResponseModel model1= (BaseResponseModel) message.getData();
+//                Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    //抖动动画
+    public void animation(){
+        TranslateAnimation animation = new TranslateAnimation(0, -5, 0, 0);
+        animation.setInterpolator(new OvershootInterpolator());
+        animation.setDuration(50);
+        animation.setRepeatCount(3);
+        animation.setRepeatMode(Animation.REVERSE);
+        mView.mActivity.mIvActionBarCart.startAnimation(animation);
     }
 
     @Override
@@ -110,7 +121,6 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
         if (message.getDataType()== SearchResultAdaphter.JOINCART){
             SearchFarmModel.DataBean bean= (SearchFarmModel.DataBean) message.getData();
             CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
-
         }
     }
 

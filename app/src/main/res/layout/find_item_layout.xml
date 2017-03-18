@@ -6,7 +6,7 @@
     >
 <ImageView
     android:id="@+id/iv_find_item_image"
-    android:layout_width="147dp"
+    android:layout_width="match_parent"
     android:layout_height="147dp"
     android:src="@mipmap/ic_launcher"
     android:scaleType="centerCrop"

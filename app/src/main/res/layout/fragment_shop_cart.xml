@@ -1,12 +1,17 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.cart.ShopCartFragment"
-    android:orientation="vertical"
-    android:background="#f4f8fb"
-    android:id="@+id/rl_shopcart"
     >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f4f8fb"
+        android:id="@+id/rl_shopcart"
+        >
     <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
@@ -90,5 +95,30 @@
 
         </RelativeLayout>
     </LinearLayout>
+    </RelativeLayout>
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_no_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bg_no_goods"
+            android:layout_marginTop="58dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购物车是空的,快去逛逛吧"
+            android:layout_marginTop="19dp"
+             android:textColor="#a6a6a6"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+</FrameLayout>

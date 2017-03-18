@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
@@ -29,8 +30,6 @@ import com.orhanobut.logger.Logger;
  */
 public class SearchResultFragment extends BaseFragment<SearchResultPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
     private TextView tv_hot;
-    private TextView tv_sale;
-    private TextView tv_price;
     public GridView gd_list;
     public CheckBox cb_sale,cb_price;
     public SearchResultAdaphter adaphter;
@@ -39,11 +38,11 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public static final String TITLE="TITLE";
     public String title;
     public int index=2;
-    public NongYeMainActivity activity;
     public boolean isList=true;  //是否是列表排列
     public int type=1;
     public int page=1;
     public int mPostion;
+    public ImageView mIvActionBarCart;
 
     public SearchResultFragment(String title) {
         this.title=title;
@@ -61,6 +60,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     @Override
     public void onInitActionBar(final BaseActivity activity) {
         activity.mActionBar.setVisibility(View.VISIBLE);
+        activity.mIvActionBarCart.setVisibility(View.VISIBLE);
         activity.mTvActionBarTitle.setText(title);
         activity.mIvActionBarMore.setVisibility(View.VISIBLE);
         activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
@@ -112,11 +112,11 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 page=1;
                 mPresenter.getData();
+
             }
 
             @Override
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-//              mPostion=gd_list.getFirstVisiblePosition();
                 page++;
                 mPresenter.getData();
             }
@@ -179,6 +179,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
 
     }
 
+    //将所有的设置成不选中状态
     public void setAll(){
         tv_hot.setTextColor(getResources().getColor(R.color.find_text));
         cb_sale.setTextColor(getResources().getColor(R.color.find_text));

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
@@ -193,6 +195,8 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     @Override
     public void onResp(BaseResp baseResp) {
         Log.i("ResultFragment", "onPayFinish, errCode = " + baseResp.errCode);
+//              if (baseResp.getType()==ConstantsAPI.)
+
 
 //        if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 //            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

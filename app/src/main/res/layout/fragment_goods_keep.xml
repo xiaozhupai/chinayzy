@@ -9,7 +9,16 @@
     <com.chinayiz.chinayzy.utils.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/diver"
+        />
       <com.chinayiz.chinayzy.views.XViewPager
           android:id="@+id/v_pager"
           android:layout_width="match_parent"

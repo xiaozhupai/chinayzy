@@ -14,6 +14,7 @@ import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
@@ -82,12 +83,10 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 ShopCartModel model= (ShopCartModel) message.getData();
                 list=model.getData();
                 mView.adaphter.setData(model.getData(),0);
-                if (list==null){
-                    mView.lv_boom.setVisibility(View.GONE);
+                if (list==null || list.size()==0){
+                    mView.ll_no_goods.setVisibility(View.VISIBLE);
                 }
-                if (list.size()==0){
-                  mView.lv_boom.setVisibility(View.GONE);
-                }
+
                 if (mView.pullToRefreshLayout!=null){
                     mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 }
@@ -116,6 +115,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 GoodStandardModel model4= (GoodStandardModel) message.getData();
                 List<GoodStandardModel.DataBean>  lists=model4.getData();
                 popuWindow.setData(lists);
+                break;
+            case ResultPresenter.RESULT_BACK:
+                mView.mActivity.addFragment(new PayFragment());
                 break;
         }
     }

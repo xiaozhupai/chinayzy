@@ -39,9 +39,6 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> impl
     @Override
     public void onInintData(Bundle bundle) {
 
-
-
-
     }
 
     @Override

@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ArticleAdaphter;
 import com.chinayiz.chinayzy.adapter.PagerAdaphter;
@@ -28,6 +27,7 @@ import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.abs.C
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator;
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
@@ -42,6 +42,7 @@ import java.util.List;
  * 博文收藏
  * A simple {@link Fragment} subclass.
  */
+
 public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     private MagicIndicator magic_indicator;
     private PullableListView pull_listview;
@@ -117,21 +118,21 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
-
-                linePagerIndicator.setColors(Color.parseColor("#ff3952"));
-                return linePagerIndicator;
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_STYLE);
+                indicator.setColors(Color.parseColor("#ff3952"));
+                return indicator;
             }
         });
         magic_indicator.setNavigator(commonNavigator);
-        LinearLayout titleContainer = commonNavigator.getTitleContainer(); // must after setNavigator
-        titleContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        titleContainer.setDividerDrawable(new ColorDrawable() {
-            @Override
-            public int getIntrinsicWidth() {
-                return UIUtil.dip2px(getActivity(), 15);
-            }
-        });
+//        LinearLayout titleContainer = commonNavigator.getTitleContainer(); // must after setNavigator
+//        titleContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+////        titleContainer.setDividerDrawable(new ColorDrawable() {
+////            @Override
+////            public int getIntrinsicWidth() {
+////                return UIUtil.dip2px(getActivity(), 1);
+////            }
+////        });
         ViewPagerHelper.bind(magic_indicator,v_pager);
         return view;
 

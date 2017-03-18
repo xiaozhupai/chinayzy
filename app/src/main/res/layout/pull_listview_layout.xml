@@ -12,8 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/pull_listview"
-            android:divider="#acacac"
-            android:dividerHeight="1dp"
+            android:divider="@color/diver"
+            android:dividerHeight="1px"
             >
 
         </com.chinayiz.chinayzy.views.pullable.PullableListView>

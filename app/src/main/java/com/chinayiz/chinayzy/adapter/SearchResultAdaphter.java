@@ -63,6 +63,8 @@ public class SearchResultAdaphter extends BaseInectAdaphter<SearchFarmModel.Data
         });
         return view;
     }
+
+
     public void AddData(List<SearchFarmModel.DataBean> list, int type){
       this.lists.addAll(list);
         this.type=type;

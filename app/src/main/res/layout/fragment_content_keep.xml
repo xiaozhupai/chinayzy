@@ -14,8 +14,8 @@
             android:id="@+id/lv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="1dp"
-            android:divider="#acacac"
+            android:dividerHeight="1px"
+            android:divider="@color/diver"
             >
         </com.chinayiz.chinayzy.views.pullable.PullableListView>
         <include layout="@layout/load_more"/>

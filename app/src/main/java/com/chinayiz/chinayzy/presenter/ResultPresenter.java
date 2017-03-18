@@ -20,6 +20,7 @@ import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.utils.PayResult;
@@ -30,6 +31,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -45,7 +47,7 @@ import java.util.Map;
  */
 
 public class ResultPresenter extends BasePresenter <ResultFragment>{
-
+    public static final String RESULT_BACK="RESULT_BACK";
     private ResultModel resultModel;
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
@@ -66,6 +68,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(mView.getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
+
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(mView.getActivity(), "支付失败", Toast.LENGTH_SHORT).show();
@@ -229,57 +232,60 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
 
     //提交结算订单
     public void submit(){
-        String type="2";
-        String orderbill=null;
-        Gson gson=new Gson();
-        PayModel payModel=new PayModel();
-        if (resultModel!=null)
-            if (resultModel.getData().getAddressRecord()!=null){
-                payModel.setAddressid(resultModel.getData().getAddressRecord().getAddressid());
-            }
-        payModel.setAddressid(6);
 
-        List<PayModel.ShoplistBean> list=new ArrayList<>();
-        for (ResultModel.DataBean.CarriagesBean bean: resultModel.getData().getCarriages()) { //运费
-            PayModel.ShoplistBean shoplistbean=new PayModel.ShoplistBean();
-            shoplistbean.setCarriage(bean.getCarriage());
-            shoplistbean.setShopid(bean.getShopid());
-            shoplistbean.setGoodstotal(bean.getShopTatalPrice());
-            List<PayModel.ShoplistBean.GoodslistBean> list_goods=new ArrayList<>();
-            for (ResultModel.DataBean.GoodmessageBean goodsbean: resultModel.getData().getGoodmessage()) {  //商品
-                for (ResultModel.DataBean.GoodmessageBean.GoodmessagelistBean goodslistbean:goodsbean.getGoodmessagelist()) {
-                    if (bean.getShopid()==goodslistbean.getShopid()){
-                        PayModel.ShoplistBean.GoodslistBean goods_bean=new PayModel.ShoplistBean.GoodslistBean();
-                        goods_bean.setGoodsstandardid(goodslistbean.getGoodsstandardid());
-                        goods_bean.setCount(goodslistbean.getNum());
-                        list_goods.add(goods_bean);
-                    }
-                }
-            }
-            shoplistbean.setGoodslist(list_goods);
-            list.add(shoplistbean);
-        }
-
-        payModel.setIntegration(resultModel.getData().getDeductionpoint());
-        payModel.setShoplist(list);
-        orderbill=gson.toJson(payModel);
-        Logger.i(orderbill);
-        String total; //总金额=商品金额+运费-积分
-        if (mView.cb_check.isChecked()){ //判断积分是否被选中
-            double result=resultModel.getData().getTotalmoney()-resultModel.getData().getDeductionpoint();
-          total=result+"";
-        }else {
-            total=resultModel.getData().getTotalmoney()+"";
-        }
-
-        if (resultModel.getData().getAddressRecord() == null) {
-            BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
-            return;
-        }
-        if (mView.iv_pay_ali.isCheck){  //支付宝支付
-            CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total,orderbill);
-        }else {  //微信支付
-            CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total,orderbill);
-        }
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,""));
+        mView.mActivity.onBackPressed();
+//        String type="2";
+//        String orderbill=null;
+//        Gson gson=new Gson();
+//        PayModel payModel=new PayModel();
+//        if (resultModel!=null)
+//            if (resultModel.getData().getAddressRecord()!=null){
+//                payModel.setAddressid(resultModel.getData().getAddressRecord().getAddressid());
+//            }
+//        payModel.setAddressid(6);
+//
+//        List<PayModel.ShoplistBean> list=new ArrayList<>();
+//        for (ResultModel.DataBean.CarriagesBean bean: resultModel.getData().getCarriages()) { //运费
+//            PayModel.ShoplistBean shoplistbean=new PayModel.ShoplistBean();
+//            shoplistbean.setCarriage(bean.getCarriage());
+//            shoplistbean.setShopid(bean.getShopid());
+//            shoplistbean.setGoodstotal(bean.getShopTatalPrice());
+//            List<PayModel.ShoplistBean.GoodslistBean> list_goods=new ArrayList<>();
+//            for (ResultModel.DataBean.GoodmessageBean goodsbean: resultModel.getData().getGoodmessage()) {  //商品
+//                for (ResultModel.DataBean.GoodmessageBean.GoodmessagelistBean goodslistbean:goodsbean.getGoodmessagelist()) {
+//                    if (bean.getShopid()==goodslistbean.getShopid()){
+//                        PayModel.ShoplistBean.GoodslistBean goods_bean=new PayModel.ShoplistBean.GoodslistBean();
+//                        goods_bean.setGoodsstandardid(goodslistbean.getGoodsstandardid());
+//                        goods_bean.setCount(goodslistbean.getNum());
+//                        list_goods.add(goods_bean);
+//                    }
+//                }
+//            }
+//            shoplistbean.setGoodslist(list_goods);
+//            list.add(shoplistbean);
+//        }
+//
+//        payModel.setIntegration(resultModel.getData().getDeductionpoint());
+//        payModel.setShoplist(list);
+//        orderbill=gson.toJson(payModel);
+//        Logger.i(orderbill);
+//        String total; //总金额=商品金额+运费-积分
+//        if (mView.cb_check.isChecked()){ //判断积分是否被选中
+//            double result=resultModel.getData().getTotalmoney()-resultModel.getData().getDeductionpoint();
+//          total=result+"";
+//        }else {
+//            total=resultModel.getData().getTotalmoney()+"";
+//        }
+//
+//        if (resultModel.getData().getAddressRecord() == null) {
+//            BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
+//            return;
+//        }
+//        if (mView.iv_pay_ali.isCheck){  //支付宝支付
+//            CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total,orderbill);
+//        }else {  //微信支付
+//            CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total,orderbill);
+//        }
     }
 }
