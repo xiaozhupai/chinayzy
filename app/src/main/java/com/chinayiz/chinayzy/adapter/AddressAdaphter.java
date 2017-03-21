@@ -26,6 +26,7 @@ public class AddressAdaphter extends BaseInectAdaphter<AddressListModel.DataBean
     public AddressAdaphter(Context context, List<AddressListModel.DataBean> list) {
         this.context=context;
         this.lists=list;
+        
     }
 
     @Override
