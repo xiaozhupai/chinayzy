@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/15 14:46
- * Class GoodsHolder
+ * Class GoodsHolder  商品详情的ViewHolder
  */
 public class GoodsHolder {
     public ConvenientBanner mVpagerBanner;

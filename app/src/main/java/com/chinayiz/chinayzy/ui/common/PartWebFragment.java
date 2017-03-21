@@ -10,7 +10,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.chinayiz.chinayzy.R;
-import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -20,27 +19,56 @@ import com.orhanobut.logger.Logger;
 public class PartWebFragment extends Fragment{
     private WebView wv_view;
     private String  goodsid="-1";
-    private String url="-1";
 
-    public void setUrl(String goodsid, String url){
-        this.goodsid = goodsid;
+    public void setUrl(String url,String goodsid) {
         this.url = url;
-        try {
-            Logger.i("访问新页面ID="+goodsid+"WBE等于="+(wv_view==null));
-            wv_view.loadUrl(url+"?goodsid="+goodsid);
-        }catch (Exception e){
-            if (wv_view!=null){
-                wv_view.loadUrl(url+"?goodsid="+goodsid);
-            }else {
-                Logger.e("WEB还是等于空=catch");
-            }
-        }finally {
-            if (wv_view!=null){
-                wv_view.loadUrl(url+"?goodsid="+goodsid);
-            }else {
-                Logger.e("WEB还是等于空=finally");
-            }
+        this.goodsid=goodsid;
+    }
+
+    private String url="-1";
+    //fragment 懒加载标志位
+    protected boolean isVisible;
+    /**
+     * 加载商品图文详情
+     * @return
+     */
+    public static PartWebFragment newInstance() {
+        Bundle args = new Bundle();
+        PartWebFragment fragment = new PartWebFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    /**
+     * 在这里实现Fragment数据的懒加载. ViewPager有效
+     *
+     * @param isVisibleToUser 通知系统当前fragment是否可见
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();//当前可见
+        } else {
+            isVisible = false;
+            onInvisible();//当前不可见
         }
+    }
+
+    /**
+     * fragment可见时
+     */
+    protected void onVisible() {
+        wv_view.loadUrl(url+"?goodsid="+goodsid);
+    }
+    /**
+     * fragment不可见,且视图有肯能为null
+     * lazyLoad延迟到子类一并判断
+     */
+    protected void onInvisible() {
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +87,6 @@ public class PartWebFragment extends Fragment{
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         // 设置是否支持变焦
         settings.setSupportZoom(true);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 让网页自适应屏幕宽度
             settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -67,11 +94,10 @@ public class PartWebFragment extends Fragment{
         return view;
     }
     public int getScrollY(){
+        if (wv_view==null){
+            return 0;
+        }
         return wv_view.getScrollY();
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        wv_view.loadUrl(url+"?goodsid="+goodsid);
-    }
+
 }

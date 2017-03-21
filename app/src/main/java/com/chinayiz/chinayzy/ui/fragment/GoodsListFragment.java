@@ -11,51 +11,40 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.views.MyGridView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/16 16:42
- * Class GoodsListFragment
+ * Class GoodsListFragment 相关商品
  */
 public class GoodsListFragment extends Fragment {
     private MyGridView mGoodsList;
     private GoodsDetailGridAdpter mAdapter;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goodslist, container, false);
         initView(view);
-        EventBus.getDefault().register(this);
         return view;
     }
-
     private void initView(View view) {
         mGoodsList = (MyGridView) view.findViewById(R.id.gv_goodsList);
         mAdapter = new GoodsDetailGridAdpter(getActivity());
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
     public void setData(EventMessage message) {
-        if (EventMessage.NET_EVENT == message.getEventType()) {
-            switch (message.getDataType()){
-                case Commons.GOODS_RELATED:{
-                    RelatedGoodsModel model = (RelatedGoodsModel) message.getData();
-                    mAdapter.setData(model);
-                    mGoodsList.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
-                    break;
-                }
+        RelatedGoodsModel model = (RelatedGoodsModel) message.getData();
+        mAdapter.setData(model);
+        mGoodsList.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
 
-            }
-
-        }
+    public static GoodsListFragment newInstance() {
+        Bundle args = new Bundle();
+        GoodsListFragment fragment = new GoodsListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
     /**
      * 动态计算GridView滑动的位置
@@ -73,11 +62,9 @@ public class GoodsListFragment extends Fragment {
         }
         return  0;
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
         mGoodsList = null;
     }
 }

@@ -33,7 +33,6 @@
         android:text="相关商品"
         />
 </RadioGroup>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -45,7 +44,13 @@
     android:layout_height="0dp"
     android:layout_weight="1"
     >
-    <include layout="@layout/view_progress"/>
+<com.chinayiz.chinayzy.views.NoScrollViewPager
+    android:id="@+id/vp_goodsPicDetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Background"
+    >
+</com.chinayiz.chinayzy.views.NoScrollViewPager>
 </FrameLayout>
 
 </LinearLayout>

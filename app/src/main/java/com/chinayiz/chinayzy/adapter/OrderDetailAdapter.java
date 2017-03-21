@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
+import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -37,14 +40,20 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
     private Fragment mFragment;
     private ViewHolder mHolder;
     private String orderState;
-    public OrderDetailAdapter( Fragment fragment) {
+    private String orderID;
+    private CommentGoodsModel model;
+    public OrderDetailAdapter( Fragment fragment,String orderID) {
         mFragment = fragment;
+        this.orderID=orderID;
     }
 
     public void setDetailModel(OrderDetailModel detailModel) {
+        this.mDetailModel=null;
+        this.goodsList=null;
+        this.orderState=null;
         this.mDetailModel = detailModel;
-        goodsList=detailModel.getData().getOmessages();
-        orderState=detailModel.getData().getState();
+        this.goodsList=detailModel.getData().getOmessages();
+        this.orderState=detailModel.getData().getState();
         notifyDataSetChanged();
     }
     @Override
@@ -64,6 +73,7 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        model=new CommentGoodsModel();
         if (convertView==null){
             mHolder=new ViewHolder();
             convertView=View.inflate(mFragment.getActivity(), R.layout.order_detail_item,null);
@@ -99,14 +109,26 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
                 mHolder.btn_action2.setVisibility(View.GONE);
                 break;
             case "4"://待评价
-                mHolder.btn_action1.setTag(R.id.tag_orderInfo,mDetailModel.getData().getOrderid());
-                mHolder.btn_action1.setTag(R.id.tag_detailId,goodsList.get(position).getOrderdetailid());
-                mHolder.btn_action2.setTag(R.id.tag_orderInfo,mDetailModel.getData().getOrderid());
-                mHolder.btn_action2.setTag(R.id.tag_detailId,goodsList.get(position).getOrderdetailid());
+                model.setOrderdetailid(goodsList.get(position).getOrderdetailid()+"");
+                model.setOrderid(orderID);
+                model.setgPic(goodsList.get(position).getStanderpic());
+                model.setGoodsName(goodsList.get(position).getGname());
+                model.setGoodsCount("x"+goodsList.get(position).getGoodscount());
+                model.setsName(goodsList.get(position).getStandardname());
+                model.setPice("￥"+goodsList.get(position).getPrice());
+
+                mHolder.btn_action1.setTag(R.id.tag_orderInfo,model);
+                mHolder.btn_action2.setTag(R.id.tag_orderInfo,model);
                 mHolder.btn_action1.setText("售后");
-                mHolder.btn_action2.setTextColor(Color.rgb(255,57,81));
-                mHolder.btn_action2.setBackground(mFragment.getResources().getDrawable(R.drawable.btn_shape_pre));
-                mHolder.btn_action2.setText("去评价");
+                if (goodsList.get(position).getIscomment().equals("0")) {
+                    mHolder.btn_action2.setTextColor(Color.rgb(255,57,81));
+                    mHolder.btn_action2.setBackground(mFragment.getResources().getDrawable(R.drawable.btn_shape_pre));
+                    mHolder.btn_action2.setText("去评价");
+                    mHolder.btn_action2.setOnClickListener(this);
+                }else {
+                    mHolder.btn_action2.setVisibility(View.GONE);
+                }
+                mHolder.btn_action1.setOnClickListener(this);
                 break;
             case "5"://已完成
                 mHolder.btn_action1.setVisibility(View.GONE);
@@ -115,6 +137,7 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
                 mHolder.btn_action2.setTextColor(Color.rgb(11,27,1));
                 mHolder.btn_action2.setBackground(mFragment.getResources().getDrawable(R.drawable.btn_shape));
                 mHolder.btn_action2.setText("售后");
+                mHolder.btn_action2.setOnClickListener(this);
                 break;
             case "6"://取消订单
                 mHolder.btn_action1.setVisibility(View.GONE);
@@ -125,7 +148,19 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
     }
     @Override
     public void onClick(View v) {
-
+    switch (v.getId()){
+        case R.id.btn_action1:
+            Logger.i("btn_action1售后");
+            break;
+        case R.id.btn_action2:
+            model= (CommentGoodsModel) v.getTag(R.id.tag_orderInfo);
+            Skip.toCommentGoods(mFragment.getActivity(),model);
+            Button button= (Button) v;
+            button.setClickable(false);
+            button.setVisibility(View.GONE);
+            Logger.i("btn_action2评价" );
+            break;
+    }
     }
 
     public static class ViewHolder {

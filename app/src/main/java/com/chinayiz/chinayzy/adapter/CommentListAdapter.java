@@ -52,7 +52,7 @@ public class CommentListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         CommentListModel.DataBean.CommentlistBean data = mDataList.get(position);
-        String[] picUrl;
+        String[]  picUrl=null;
         View view;
         int sum = data.getDeliverypoint() + data.getServicepoint() + data.getDescpoint();
         if (convertView == null) {
@@ -92,8 +92,11 @@ public class CommentListAdapter extends BaseAdapter {
                 mHolder.mUserName.setText(data.getNickname());
             }
         }
-        picUrl = data.getCpic().split(",");
-        if (picUrl.length != 0) {//判断是否有评论图片
+
+        if (data.getCpic()!=null){
+            picUrl = data.getCpic().split(",");
+        }
+        if (picUrl!=null&&picUrl.length != 0) {//判断是否有评论图片
             for (int i = 0; i < picUrl.length; i++) {
                 Glide.with(mFragment)
                         .load(picUrl[i])

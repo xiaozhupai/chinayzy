@@ -9,10 +9,8 @@ public class GenerateLayoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_order_detail);
+        setContentView(R.layout.fragment_comment);
 
     }
-
-
 
 }

@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
+import com.chinayiz.chinayzy.ui.common.GoodsFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.OrderDetailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
@@ -16,6 +19,8 @@ import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 
 import java.io.Serializable;
+
+import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.COMMENT_DATA;
 
 /**
  * Created by Administrator on 2017/3/10.
@@ -112,6 +117,19 @@ public class Skip {
         skip(context,intent);
     }
     /**
+     * 商品详情页
+     * @param context
+     * @param goodId 订单编号
+     */
+    public static void toGoodsDetail(Context context,String goodId) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, GoodsFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("goodsID",goodId);
+        intent.putExtras(bundle);
+        skip(context,intent);
+    }
+    /**
      * 发现详情
      * @param context
      * @param  bean
@@ -124,5 +142,17 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context,intent);
     }
-
+    /**
+     * 评价订单
+     * @param context
+     * @param orderInfo 订单信息
+     */
+    public static void toCommentGoods(Context context,CommentGoodsModel orderInfo) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, GoodsCommentFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putParcelable(COMMENT_DATA,orderInfo);
+        intent.putExtras(bundle);
+        skip(context,intent);
+    }
 }

@@ -12,7 +12,6 @@ import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
-import com.chinayiz.chinayzy.views.MainViewPager;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 

@@ -25,6 +25,7 @@ import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.presenter.OrderDetailPresenter;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -58,10 +59,9 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         FooderView = inflater.inflate(R.layout.order_detail_footer, null);
         mViewHolder = new ViewHolder();
         initViews(view, headerView, FooderView);
-        mAdapter = new OrderDetailAdapter(this);
+        mAdapter = new OrderDetailAdapter(this,orderid);
         return view;
     }
-
     private void initViews(View view, View headerView, View fooderView) {
         mViewHolder.tv_orderId = (TextView) headerView.findViewById(R.id.tv_orderId);
         mViewHolder.tv_orderState = (TextView) headerView.findViewById(R.id.tv_orderState);
@@ -96,6 +96,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
             if (isLoad) {
                 mPresenter.mRequestUtils.getOrderDetail(orderid);
             }
+            Logger.e("重新载入商品详情");
         }
     }
 
@@ -107,7 +108,6 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
     @Override
     public void onInintData(Bundle bundle) {
         orderid = bundle.getString("orderid", "-1");
-
     }
 
     /**
@@ -135,8 +135,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         mViewHolder.lv_orderGoods.addHeaderView(headerView);
         mViewHolder.lv_orderGoods.addFooterView(FooderView);
 
-        mViewHolder.lv_orderGoods.setAdapter(mAdapter);
         mAdapter.setDetailModel(model);
+        mViewHolder.lv_orderGoods.setAdapter(mAdapter);
         mViewHolder.tv_yunfei.setText("￥" + model.getData().getCarriage());
         mViewHolder.tv_sumGolds.setText(model.getData().getPoint());
         mViewHolder.tv_orderNum.setText("共" + mGoodsList.size() + "件商品   总计：");

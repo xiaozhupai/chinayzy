@@ -55,18 +55,18 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
     private GoodsListFragment mGoodssFragment;
     private CommentsFragment mCommentFragment;
     private PartWebFragment mPartWebFragment;
-    private CommonRequestUtils mRequestUtils;
     private McoySnapPageLayout mMlMcoySnapPageLayout = null;
     private FragmentManager mFragmentManager;
     private TopDetailInfoPage mTopPage = null;
     private BotContentPage mBottomPage = null;
     private GoodsHolder mGoodsHolder = null;
     private List<String> urls = new ArrayList<>();
+    private CommonRequestUtils mRequestUtils;
+    private GoodsDetailModel model = null;
     private boolean isFirst = true;
     private boolean isShowComments;
     private boolean isRefresh=false;
     private CheckBox mRbFavorite;
-    private GoodsDetailModel model = null;
     private ImageView mIvBackBtn;
     private int sumComment = 0;
     private View mPregress;
@@ -247,10 +247,10 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                         mFragmentManager.beginTransaction().hide(mPartWebFragment).show(mGoodssFragment).commit();
                     }
                 } else {
-                    mFragmentManager
-                            .beginTransaction()
-                            .add(R.id.fl_goodsDetail, mGoodssFragment, "mGoodssFragment")
-                            .commitAllowingStateLoss();
+//                    mFragmentManager
+//                            .beginTransaction()
+//                            .add(R.id.fl_goodsDetail, mGoodssFragment, "mGoodssFragment")
+//                            .commitAllowingStateLoss();
                 }
                mRequestUtils.getRelatedGoods(model.getData().getItemcode(), "1", "14");
                 break;
@@ -273,16 +273,20 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
                     mFragmentManager.beginTransaction().show(mPartWebFragment).commit();
                 }
             }
-            mPartWebFragment.setUrl(goodsID, url);
+//            mPartWebFragment.setUrl(goodsID, url);
         } else {
-            mFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fl_goodsDetail, mPartWebFragment, "mPartWebFragment")
-                    .commitAllowingStateLoss();
-            mPartWebFragment.setUrl(goodsID, url);
+//            mFragmentManager
+//                    .beginTransaction()
+//                    .add(R.id.fl_goodsDetail, mPartWebFragment, "mPartWebFragment")
+//                    .commitAllowingStateLoss();
+//            mPartWebFragment.setUrl(goodsID, url);
         }
     }
 
+    /**
+     * 设置商品信息
+     * @param model
+     */
     private void setGoodsInfo(GoodsDetailModel model) {
         int sum = 0;
         //设置banner图
@@ -348,7 +352,6 @@ public class GoodsActivity extends AppCompatActivity implements BotContentPage.S
     @Override
     public boolean isAtTop() {
         //判断相关商品视图是否滑到顶部
-
         switch (comitsID) {
             case 1: {
 

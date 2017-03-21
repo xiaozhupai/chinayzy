@@ -1,10 +1,13 @@
 package com.chinayiz.chinayzy.net;
 
+import android.text.TextUtils;
+
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
+import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
@@ -14,6 +17,7 @@ import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
+import com.chinayiz.chinayzy.entity.response.PayModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
@@ -156,7 +160,7 @@ public class CommonRequestUtils {
      * @param storeID  店铺ID
      * @param typecode 商品类型代码
      */
-    public void getGoodsListByPosition(String storeID, String typecode,String page,String size) {
+    public void getGoodsListByPosition(String storeID, String typecode, String page, String size) {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.FORTYPEBY_GOODSS)
@@ -276,21 +280,24 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.IM_GOLD
-                                    , mGson.fromJson(s,ImGoldModel.class)));
+                                    , mGson.fromJson(s, ImGoldModel.class)));
                         } catch (Exception e) {
-                           onError(null, e, i);
+                            onError(null, e, i);
                         }
                     }
                 });
     }
+
     /**
      * 请求积分列表
-     * @param tradetype  交易类型
+     *
+     * @param tradetype 交易类型
      */
     public void getDealList(String tradetype) {
         OkHttpUtils
@@ -307,6 +314,7 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
@@ -319,6 +327,7 @@ public class CommonRequestUtils {
                     }
                 });
     }
+
     /**
      * 获取商品详情相关商品
      *
@@ -511,6 +520,7 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
@@ -631,7 +641,7 @@ public class CommonRequestUtils {
                 .post()
                 .url(Commons.API + Commons.PREVIEWORDER)
                 .addParams("carids", carids)
-                .addParams("userid",APP.sUserid)
+                .addParams("userid", APP.sUserid)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -656,18 +666,19 @@ public class CommonRequestUtils {
 
     /**
      * 支付宝支付
-     * @param type  类型 1充值2购物
-     * @param total 支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
-    public void getAliPayOrder(String type,String total,String orderbill) {
+    public void getAliPayOrder(String type, String total, String orderbill) {
         OkHttpUtils
                 .post()
                 .url(Commons.PAY + Commons.ALIPAYORDER)
                 .addParams("type", type)
-                .addParams("userid",APP.sUserid)
-                .addParams("total",total)
-                .addParams("orderbill",orderbill)
+                .addParams("userid", APP.sUserid)
+                .addParams("total", total)
+                .addParams("orderbill", orderbill)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -692,18 +703,19 @@ public class CommonRequestUtils {
 
     /**
      * 微信支付
-     * @param type  类型 1充值2购物
-     * @param total 支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
-    public void getWxPayOrder(String type,String total,String orderbill) {
+    public void getWxPayOrder(String type, String total, String orderbill) {
         OkHttpUtils
                 .post()
                 .url(Commons.PAY + Commons.WXPAYORDER)
                 .addParams("type", type)
-                .addParams("userid",APP.sUserid)
-                .addParams("total",total)
-                .addParams("orderbill",orderbill)
+                .addParams("userid", APP.sUserid)
+                .addParams("total", total)
+                .addParams("orderbill", orderbill)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -728,6 +740,7 @@ public class CommonRequestUtils {
 
     /**
      * 申请验证码
+     *
      * @param phone 电话号码
      */
     public void getVerifyCode(String phone) {
@@ -750,7 +763,7 @@ public class CommonRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT
-                                    , ResuestTakeFragment.SEND_CODE,mGson.
+                                    , ResuestTakeFragment.SEND_CODE, mGson.
                                     fromJson(s, ResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -760,14 +773,15 @@ public class CommonRequestUtils {
     }
 
     /**
-     *  申请积分提现
-     * @param phone 手机号码
-     * @param sprice 提现金额
-     * @param code  验证码
-     * @param account  提现账号
-     * @param dealthird  提现渠道 ( 1：支付宝 2：微信 3：银联 4：其他 )
+     * 申请积分提现
+     *
+     * @param phone     手机号码
+     * @param sprice    提现金额
+     * @param code      验证码
+     * @param account   提现账号
+     * @param dealthird 提现渠道 ( 1：支付宝 2：微信 3：银联 4：其他 )
      */
-    public void requestTake(String phone,String sprice,String code,String account,String dealthird) {
+    public void requestTake(String phone, String sprice, String code, String account, String dealthird) {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.GET_GOLD)
@@ -776,7 +790,7 @@ public class CommonRequestUtils {
                 .addParams("phone", phone)
                 .addParams("sprice", sprice)
                 .addParams("code", code)
-                .addParams("tx_account",account)
+                .addParams("tx_account", account)
                 .addParams("dealthird", dealthird)
                 .addParams("sign", "")
                 .tag("content")
@@ -786,12 +800,13 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
                             EventBus.getDefault()
                                     .post(new EventMessage(EventMessage.NET_EVENT
-                                            ,Commons.GET_GOLD,mGson.fromJson(s, ResponseModel.class)));
+                                            , Commons.GET_GOLD, mGson.fromJson(s, ResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
                         }
@@ -801,6 +816,7 @@ public class CommonRequestUtils {
 
     /**
      * 我的订单
+     *
      * @param type 订单类型
      */
     public void getImOrder(String type) {
@@ -816,6 +832,7 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
@@ -828,8 +845,10 @@ public class CommonRequestUtils {
                     }
                 });
     }
+
     /**
      * 订单详情
+     *
      * @param orderId 订单号
      */
     public void getOrderDetail(String orderId) {
@@ -845,10 +864,11 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("订单详情信息"+s);
+                            Logger.i("订单详情信息" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ORDER_DETAIL
                                     , mGson.fromJson(s, OrderDetailModel.class)));
@@ -858,8 +878,10 @@ public class CommonRequestUtils {
                     }
                 });
     }
+
     /**
      * 删除订单
+     *
      * @param orderId 订单号
      */
     public void deleteOrder(String orderId) {
@@ -875,10 +897,11 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("删除订单"+s);
+                            Logger.i("删除订单" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.DELETE_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -888,8 +911,10 @@ public class CommonRequestUtils {
                     }
                 });
     }
+
     /**
      * 取消订单
+     *
      * @param orderId 订单号
      */
     public void cancelOrder(String orderId) {
@@ -905,10 +930,11 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("取消订单"+s);
+                            Logger.i("取消订单" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CANCEL_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -918,8 +944,10 @@ public class CommonRequestUtils {
                     }
                 });
     }
+
     /**
      * 确认收货
+     *
      * @param orderId 订单号
      */
     public void recognizelOrder(String orderId) {
@@ -935,10 +963,11 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("确认收货"+s);
+                            Logger.i("确认收货" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CONFIRM_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -948,18 +977,20 @@ public class CommonRequestUtils {
                     }
                 });
     }
+
     /**
      * 快速支付
+     *
      * @param orderid 订单号
-     * @param total 支付价格
+     * @param total   支付价格
      */
-    public void fastPay(String orderid,String total) {
+    public void fastPay(String orderid, String total) {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.FAST_PAY)
                 .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderid)
-                .addParams("total",total)
+                .addParams("total", total)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -967,17 +998,91 @@ public class CommonRequestUtils {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
                     }
+
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("快捷支付消息="+s);
+                            Logger.i("快捷支付消息=" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FAST_PAY
-                                    , mGson.fromJson(s, ResponseModel.class)));
+                                    , mGson.fromJson(s, PayModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
                         }
                     }
                 });
+    }
+
+    /**
+     * 评价商品
+     *
+     * @param model 评论信息
+     */
+    public void commentGoods(CommentGoodsModel model) {
+
+        if (TextUtils.isEmpty(model.getPic())) {
+            Logger.e("图片地址为空------------0000------------");
+            OkHttpUtils
+                    .post()
+                    .url(Commons.API + Commons.COMMENT_ORDER)
+                    .addParams("userid", "18")
+                    .addParams("orderid", model.getOrderid())
+                    .addParams("isanonymity", model.getIsanonymity())
+                    .addParams("descpoint", model.getDescpoint())
+                    .addParams("commentscontent", model.getCommentscontent())
+                    .addParams("orderdetailid", model.getOrderdetailid())
+                    .tag("ny")
+                    .build()
+                    .execute(new StrCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int i) {
+                            Logger.i("报错信息Code=" + i);
+                            Logger.e("错误信息：" + e.toString());
+                        }
+
+                        @Override
+                        public void onResponse(String s, int i) {
+                            try {
+                                Logger.i("评论订单" + s);
+                                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                        , Commons.COMMENT_ORDER
+                                        , mGson.fromJson(s, ResponseModel.class)));
+                            } catch (Exception e) {
+                                onError(null, e, i);
+                            }
+                        }
+                    });
+        }else {
+            OkHttpUtils
+                    .post()
+                    .url(Commons.API + Commons.COMMENT_ORDER)
+                    .addParams("userid", "18")
+                    .addParams("orderid", model.getOrderid())
+                    .addParams("isanonymity", model.getIsanonymity())
+                    .addParams("descpoint", model.getDescpoint())
+                    .addParams("commentscontent", model.getCommentscontent())
+                    .addParams("orderdetailid", model.getOrderdetailid())
+                    .addParams("pic", model.getPic())
+                    .tag("ny")
+                    .build()
+                    .execute(new StrCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int i) {
+                            Logger.i("报错信息Code=" + i);
+                            Logger.e("错误信息：" + e.toString());
+                        }
+                        @Override
+                        public void onResponse(String s, int i) {
+                            try {
+                                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                        , Commons.COMMENT_ORDER
+                                        , mGson.fromJson(s, ResponseModel.class)));
+                            } catch (Exception e) {
+                                onError(null, e, i);
+                            }
+                        }
+                    });
+        }
+
     }
 }

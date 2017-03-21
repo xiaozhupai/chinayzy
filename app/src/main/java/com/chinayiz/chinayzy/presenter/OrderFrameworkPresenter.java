@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
+import com.chinayiz.chinayzy.entity.response.PayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.StoreActivity;
@@ -53,6 +54,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                     case OrderListAdapter.PAY_ORDER:
                         Logger.i("快速支付订单");
                         mRequestUtils.fastPay(String.valueOf(goods.getOrderid()), goods.getTotalmoney());
+
                         break;
                     case OrderListAdapter.CANCEL_ORDER:
                         mView.showDilog(1, goods);
@@ -74,6 +76,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 break;
             }
             case Commons.FAST_PAY:{
+                  PayModel model= (PayModel) message.getData();
 
                 break;
             }

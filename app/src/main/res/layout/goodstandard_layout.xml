@@ -112,17 +112,18 @@
                           android:layout_width="104dp"
                           android:layout_height="26dp"
                           android:layout_alignParentRight="true"
-
                           android:orientation="horizontal"
                           android:gravity="center_vertical"
+                          android:layout_marginRight="10dp"
                           >
                        <ImageView
                            android:id="@+id/iv_decrease"
                            android:layout_weight="1"
                            android:layout_width="0dp"
-                           android:layout_height="wrap_content"
+                           android:layout_height="match_parent"
                            android:src="@mipmap/img_left_remove"
                            android:layout_marginLeft="10dp"
+                           android:scaleType="center"
                            />
                           <TextView
                               android:id="@+id/tv_num"
@@ -130,6 +131,7 @@
                               android:layout_width="0dp"
                               android:layout_height="wrap_content"
                               android:text="1"
+                              android:textColor="@color/Actionbar_edit"
                               android:layout_marginLeft="10dp"
                               />
                           <ImageView

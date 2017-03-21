@@ -42,16 +42,16 @@ public class PutObjectSamples {
         this.uploadFilePath = uploadFilePath;
     }
 
+    public PutObjectSamples() {
+    }
+
     // 从本地文件上传，采用阻塞的同步接口
     public void putObjectFromLocalFile() {
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(testBucket, testObject, uploadFilePath);
-
         try {
             PutObjectResult putResult = oss.putObject(put);
-
             Log.d("PutObject", "UploadSuccess");
-
             Log.d("ETag", putResult.getETag());
             Log.d("RequestId", putResult.getRequestId());
         } catch (ClientException e) {
@@ -70,7 +70,6 @@ public class PutObjectSamples {
     public void asyncPutObjectFromLocalFile() {
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(testBucket, testObject, uploadFilePath);
-
         // 异步上传时可以设置进度回调
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
             @Override
@@ -78,7 +77,6 @@ public class PutObjectSamples {
                 Log.i("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
             }
         });
-
         OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {

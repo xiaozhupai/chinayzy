@@ -2,7 +2,6 @@ package com.chinayiz.chinayzy.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.media.Image;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
-import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/3/2.
+ * Created by Administrator on 2017/3/2. 商品套餐/规格选择
  */
 
 public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickListener,EventBusCallback {
@@ -152,7 +150,8 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 break;
             case R.id.tv_submit:  //加入购物车
                 Logger.i("确定");
-                CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"",num+"");
+                CommonRequestUtils.getRequestUtils()
+                        .getJoinCart(String.valueOf(bean.getShopid()),String.valueOf(bean.getGoodsstandardid()),String.valueOf(num));
                 todismiss();
                 break;
             case R.id.iv_add:   //数量添加

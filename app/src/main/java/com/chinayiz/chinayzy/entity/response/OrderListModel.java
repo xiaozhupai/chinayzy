@@ -86,7 +86,7 @@ public class OrderListModel extends BaseResponseModel {
             private String standerpic;
             private String pic;
             private String standardname;
-            private int point;
+            private String point;
             private String unit;
             private String price;
             private String brand;
@@ -253,11 +253,11 @@ public class OrderListModel extends BaseResponseModel {
                 this.standardname = standardname;
             }
 
-            public int getPoint() {
+            public String getPoint() {
                 return point;
             }
 
-            public void setPoint(int point) {
+            public void setPoint(String point) {
                 this.point = point;
             }
 

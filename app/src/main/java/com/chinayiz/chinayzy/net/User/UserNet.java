@@ -176,44 +176,6 @@ public class UserNet {
     }
 
 
-    /**
-     *
-     * @param orderid 订单编号
-     * @param pic  图片地址
-     * @param isanonymity 是否匿名
-     * @param descpoInteger  描述分
-     * @param commentscontent  评论内容
-     */
-    public void getCommentOrder(String orderid,String pic,String isanonymity,String descpoInteger,String commentscontent) {
-        OkHttpUtils
-                .post()
-                .url(Commons.API + Commons.COMMENTORDER)
-                .addParams("orderid", orderid)
-                .addParams("pic", pic)
-                .addParams("isanonymity", isanonymity)
-                .addParams("descpoInteger", descpoInteger)
-                .addParams("commentscontent", commentscontent)
-                .tag("ny")
-                .build()
-                .execute(new StrCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        try {
-                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,Commons.COMMENTORDER
-                                    ,mGson.fromJson(s,BaseResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,e,i);
-                        }
-                    }
-                });
-    }
-
 
     /**
      *  意见反馈

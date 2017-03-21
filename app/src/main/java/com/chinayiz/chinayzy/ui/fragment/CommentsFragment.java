@@ -12,6 +12,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.CommentListAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -23,7 +24,6 @@ public class CommentsFragment extends Fragment{
      * 评论列表启动
      */
     public static final int START=1;
-
     private ListView mCommentList;
     private CommentListAdapter mAdapter;
     private StateListener mStateListener;
@@ -38,19 +38,19 @@ public class CommentsFragment extends Fragment{
         initView(view);
         return view;
     }
-
     @Override
     public void onStart() {
         super.onStart();
         mStateListener.stateChange(START);
+        Logger.i("开始评论列表");
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDetach() {
+        super.onDetach();
+        Logger.i("结束评论列表");
         mStateListener.stateChange(-1);
     }
-
     private void initView(View view) {
         mAdapter=new CommentListAdapter(this);
         mCommentList= (ListView) view.findViewById(R.id.lv_comments);

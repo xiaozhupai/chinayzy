@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,15 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.homePresenter;
-import com.chinayiz.chinayzy.ui.common.GoodsActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
-
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -61,9 +59,11 @@ public class HomeFragment extends BaseFragment<homePresenter> {
      * @param goodsId 商品ID
      */
     public void openGoodesDetail(String goodsId) {
-        Intent intent=new Intent(getActivity(), GoodsActivity.class);
-        intent.putExtra("goodsID",goodsId);
-        startActivity(intent);
+//        Intent intent=new Intent(getActivity(), GoodsActivity.class);
+//        intent.putExtra("goodsID",goodsId);
+//
+//        startActivity(intent);
+        Skip.toGoodsDetail(mActivity,goodsId);
     }
 
     /**

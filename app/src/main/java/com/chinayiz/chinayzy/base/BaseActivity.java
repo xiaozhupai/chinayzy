@@ -30,15 +30,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * ActionBar标题
      */
     public TextView mTvActionBarTitle;
-    /**
-     * 返回按钮；购物车按钮；更多按钮
-     */
     public ImageView mIvBackButton,mIvActionBarCart,mIvActionBarMore;
     /**
      * 编辑，或完成（供购物车或个人资料修改使用）
      */
     public CheckBox mCbActionBarEdit;
     protected T mPresenter;
+
+
+    /**
+     * 返回按钮；购物车按钮；更多按钮
+     */
     protected static Toast toast;
     public String TAG;
     public FragmentManager fragmentManager;
@@ -76,6 +78,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mIvActionBarCart.setOnClickListener(this);
         mCbActionBarEdit.setOnCheckedChangeListener(this);
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

@@ -181,10 +181,7 @@ public class Commons {
      * 编辑用户信息
      */
     public static final String EDITUSER="/centre/editUser";
-    /**
-     * 发表评论
-     */
-    public static final String COMMENTORDER="/centre/commentOrder";
+
     /**
      * 意见反馈
      */

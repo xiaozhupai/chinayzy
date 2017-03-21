@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/goldBg"
+              android:orientation="vertical"
+    >
+    <include layout="@layout/order_item"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Background"
+        >
+
+        <EditText
+            android:id="@+id/edit_comment"
+            android:layout_width="match_parent"
+            android:layout_height="147dp"
+            android:layout_margin="14dp"
+            android:background="@drawable/btn_shape"
+            android:gravity="start"
+            android:hint="发表您对商品的评价，看法和体验"
+            android:padding="9dp"
+            android:textColorHint="@color/find_item_content"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_images"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:background="@mipmap/img_add_image"
+        >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/Background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="描述相符"
+            android:textColor="@color/Actionbar_edit"
+            android:textSize="14sp"
+            />
+
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/rb_describe"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="5dp"
+            android:clickable="true"
+            app:halfstart="false"
+            app:starCount="5"
+            app:starEmpty="@mipmap/icon_star_normal"
+            app:starFill="@mipmap/icon_star_selected"
+            app:starImageHeight="22dp"
+            app:starImagePadding="0dp"
+            app:starImageWidth="22dp"
+            >
+        </com.hedgehog.ratingbar.RatingBar>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/Background"
+        android:orientation="horizontal"
+        >
+
+        <CheckBox
+            android:id="@+id/cb_isCryptonym"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="14dp"
+            android:layout_weight="2"
+            android:button="@null"
+            android:drawableLeft="@drawable/checked_drawable"
+            android:gravity="center_vertical"
+            android:text="   是否匿名"
+            android:textColor="@color/classifItem"
+            />
+
+        <Button
+            android:id="@+id/btn_sendComment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/classifyText_pre"
+            android:text="发表评论"
+            android:textColor="@color/Background"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+</LinearLayout>
