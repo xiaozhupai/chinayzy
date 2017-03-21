@@ -11,6 +11,7 @@
         android:id="@+id/iv_mystep_image"
         android:layout_width="85dp"
         android:layout_height="97dp"
+        android:layout_marginLeft="10dp"
         android:src="@mipmap/ic_launcher"
         />
 

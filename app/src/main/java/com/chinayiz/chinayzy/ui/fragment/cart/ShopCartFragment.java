@@ -59,6 +59,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     protected void onVisible() {
+//     mPresenter.getData();
     }
 
     @Override
@@ -169,5 +170,11 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         Intent intent=new Intent(getActivity(), GoodsActivity.class);
         intent.putExtra("goodsID",bean.getGoodsid()+"");
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.getData();
     }
 }

@@ -32,12 +32,6 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     public String title;
     public List <SearchFarmModel.DataBean> data;
 
-    private static final int HOT=2;
-    private static final int SALE_DOWN=3;
-    private static final int SALE_UP=4;
-    private static final int PRICE_DOWN=5;
-    private static final int PRICE_UP=6;
-
     @Override
     protected void onCreate() {
         getData();

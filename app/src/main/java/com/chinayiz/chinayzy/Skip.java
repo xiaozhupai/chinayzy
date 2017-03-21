@@ -10,6 +10,7 @@ import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
+import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
@@ -144,4 +145,17 @@ public class Skip {
         intent.putExtra(CLASS, MyStepFragment.class);
         skip(context,intent);
     }
+
+
+    /**
+     * 支付成功
+     * @param context
+     */
+    public static void toPayResult(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, PayFragment.class);
+        skip(context,intent);
+    }
+
+
 }

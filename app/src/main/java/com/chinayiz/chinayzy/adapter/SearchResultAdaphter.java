@@ -10,11 +10,14 @@ import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.utils.DensityUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 /**
  * Created by Administrator on 2017/2/8.

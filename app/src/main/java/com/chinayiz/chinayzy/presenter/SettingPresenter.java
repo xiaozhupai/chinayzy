@@ -117,4 +117,8 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
 
      mView.mActivity.addFragment(new WebPowerFragment("关于我们", Commons.API+Commons.ABOUTUS));
     }
+
+    public void tofxcode() {
+        mView.mActivity.addFragment(new WebPowerFragment("分享二维码", Commons.API+Commons.FXCODE+"?type=android"));
+    }
 }

@@ -27,7 +27,12 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.presenter.Presenter;
+import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Stack;
 
@@ -37,9 +42,7 @@ import java.util.Stack;
  */
 
 public class CommonActivity extends BaseActivity<Presenter> implements FragmentManager.OnBackStackChangedListener {
-	private Stack<BaseFragment> ftStack = new Stack<>();
-
-
+	public static final String RESULT_BACK="RESULT_BACK";
 
 	@Override
 	public void onClick(View view) {
@@ -48,7 +51,6 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 				onBackPressed();
 				break;
 		}
-
 	}
 
 	@Override
@@ -60,7 +62,6 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 	public Activity getActivity() {
 		return this;
 	}
-
 	/* (non-Javadoc)
 	 * @see cn.stlc.app.BaseActivity#onCreate(android.os.Bundle)
 	 */
@@ -75,9 +76,10 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 		addtoFragment(getIntent());
 	}
 
-
-
-
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
 
 	@Override
 	protected void initActionBar() {
@@ -104,10 +106,6 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 		addtoFragment(intent);
 	}
 
-
-
-
-
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
@@ -119,23 +117,17 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 
 	@Override
 	public void onBackPressed() {
-
 		super.onBackPressed();
-
 	}
-
-
 
 	@Override
 	public void onResume() {
 		super.onResume();
-
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-
 	}
 
 	/* (non-Javadoc)
@@ -160,8 +152,13 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		Logger.i("CommonActivity--  resultCode"+resultCode);
+		if (resultCode==1){
+			int code=data.getIntExtra("code",0);
+			if (code==0){
+				onBackPressed();
+				EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,""));
+			}
+		}
 	}
-
-
 }

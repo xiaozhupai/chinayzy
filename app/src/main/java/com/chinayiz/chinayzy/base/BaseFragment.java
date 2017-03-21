@@ -15,13 +15,16 @@ import android.view.ViewGroup;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 /**
  * author  by  Canrom7 .
  * CreateDate 2016/12/27 10:15
  * Class BaseFragment
  */
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView{
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     protected T mPresenter;
     public FragmentManager mFragmentManager;
@@ -62,12 +65,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+
         if (mBundle != null) {
             outState.putBundle("bundle", mBundle);
         }
         outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
         Logger.e("onSaveInstanceState");
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -242,5 +246,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public BaseFragment getFragment() {
         return this;
     }
+
+    @Override
+    public void isNightMode(boolean isNight) {
+
+    }
+
+
 
 }

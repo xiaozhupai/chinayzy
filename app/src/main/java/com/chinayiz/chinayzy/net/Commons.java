@@ -301,4 +301,9 @@ public class Commons {
      * 积分规则
      */
     public static final String GOLD_RULE="/h5/jfgz";
+    /**
+     * 分享二维码
+     */
+    public static final String FXCODE="/h5/fxcode";
+
 }

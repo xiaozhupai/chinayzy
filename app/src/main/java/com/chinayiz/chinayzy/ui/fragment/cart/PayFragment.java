@@ -34,7 +34,6 @@ public class PayFragment extends BaseFragment<Presenter> implements View.OnClick
         tv_two = (TextView) view.findViewById(R.id.tv_two);
         tv_two.setOnClickListener(this);
         return view;
-
     }
 
     @Override

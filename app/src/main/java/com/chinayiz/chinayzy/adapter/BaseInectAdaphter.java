@@ -58,6 +58,7 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
         return null;
     }
 
+    //注册EventBus调用的数据请求
     public void getdata(int pageindex){
         this.page=1;
         EventBus.getDefault().register(this);
@@ -71,6 +72,7 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     public void onGetData(int pageindex){
     }
 
+    //下拉刷新
     public void onRefresh(){
         this.page=1;
         onGetData(1);
@@ -86,7 +88,6 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
         this.listView=listView;
         listview.setOnItemClickListener(this);
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -119,6 +120,7 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
         pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
     }
 
+    //设置下拉刷新布局
     public void setRefreshLayout(PullToRefreshLayout pullrefresh) {
         this.pullrefresh=pullrefresh;
     }

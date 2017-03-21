@@ -42,7 +42,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
     @Override
     public void onCreate() {
-        getData();
+//          getData();
     }
 
     public void getData(){
@@ -85,6 +85,8 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 mView.adaphter.setData(model.getData(),0);
                 if (list==null || list.size()==0){
                     mView.ll_no_goods.setVisibility(View.VISIBLE);
+                }else {
+                    mView.ll_no_goods.setVisibility(View.GONE);
                 }
 
                 if (mView.pullToRefreshLayout!=null){
@@ -116,9 +118,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 List<GoodStandardModel.DataBean>  lists=model4.getData();
                 popuWindow.setData(lists);
                 break;
-            case ResultPresenter.RESULT_BACK:
-                mView.mActivity.addFragment(new PayFragment());
-                break;
+
         }
     }
 
@@ -144,6 +144,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                     }
                 }
                 mView.adaphter.setData(list,type);
+                break;
+            case ResultPresenter.RESULT_BACK:
+                Skip.toPayResult(mView.getActivity());
                 break;
         }
     }

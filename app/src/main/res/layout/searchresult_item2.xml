@@ -33,7 +33,7 @@
             android:id="@+id/tv_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:textColor="#f02b2b"
             android:text="￥99"
             android:layout_centerVertical="true"
@@ -42,8 +42,8 @@
             />
         <ImageView
             android:id="@+id/iv_join_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:src="@mipmap/pic_cart"
             android:layout_alignParentRight="true"
             />

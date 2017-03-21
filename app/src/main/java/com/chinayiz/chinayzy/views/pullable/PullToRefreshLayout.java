@@ -473,6 +473,8 @@ public class PullToRefreshLayout extends RelativeLayout
 					if (mListener != null)
 						if (LoadMoreVisiable){
 							mListener.onLoadMore(this);
+						}else {
+							loadmoreFinish(SUCCEED);
 						}
 				}
 				hide();

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -61,21 +62,27 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public void onInitActionBar(final BaseActivity activity) {
         activity.mActionBar.setVisibility(View.VISIBLE);
         activity.mIvActionBarCart.setVisibility(View.VISIBLE);
+        activity.mIvActionBarCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Skip.toShopCart(getActivity());
+            }
+        });
         activity.mTvActionBarTitle.setText(title);
         activity.mIvActionBarMore.setVisibility(View.VISIBLE);
-        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
+        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
         activity.mIvActionBarMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isList){
-                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
+                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
                     isList=false;
                     type=2;
                     gd_list.setNumColumns(2);
                     adaphter2.setData(mPresenter.data,2);
                     gd_list.setAdapter(adaphter2);
                 }else {
-                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
+                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
                     isList=true;
                     type=1;
                     gd_list.setNumColumns(1);
@@ -121,7 +128,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                 mPresenter.getData();
             }
         });
-        cb_sale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cb_sale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { //销量
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 page=1;
@@ -142,7 +149,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                 mPresenter.getData();
             }
         });
-
+//价格
         cb_price.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

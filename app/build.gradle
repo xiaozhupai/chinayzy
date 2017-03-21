@@ -14,6 +14,8 @@ android {
 
     lintOptions {
         disable "ResourceType"
+        abortOnError false
+        checkReleaseBuilds false
     }
 
     signingConfigs {
