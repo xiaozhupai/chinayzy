@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeBanner;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -67,7 +68,7 @@ public class homePresenter extends BasePresenter<HomeFragment> {
                 getData(message.getData().toString());
                 break;
             case NY_HomeBanner.SEARCH://搜索
-            mView.startFragment(new SearchFragment(),"SearchFragment");
+                Skip.toSearch(mView.getActivity());
                 break;
             case Commons.ADD_CAR ://添加购物车
                 data= (NY_EatItemModel.DataBean) message.getData();

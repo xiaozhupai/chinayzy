@@ -1,6 +1,10 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
@@ -28,12 +32,6 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     public String title;
     public List <SearchFarmModel.DataBean> data;
 
-    private static final int HOT=2;
-    private static final int SALE_DOWN=3;
-    private static final int SALE_UP=4;
-    private static final int PRICE_DOWN=5;
-    private static final int PRICE_UP=6;
-
     @Override
     protected void onCreate() {
         getData();
@@ -51,7 +49,7 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
         Logger.i("SearchResultPresenter");
-        if (message.getEventType()==EventMessage.NET_EVENT){
+        if (message.getEventType()== EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }
     }
@@ -69,31 +67,47 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
         switch (message.getDataType()){
             case Commons.SEARCHFARM:   //搜索结果
                 SearchFarmModel model= (SearchFarmModel) message.getData();
-
-                if (mView.page==1){
-                    data=model.getData();
+                if (mView.page==1){ //下拉刷新
+                    if (mView.type==1){
+                        data=model.getData();
+                        mView.adaphter.setData(model.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.setData(model.getData(),mView.type);
+                    }
                     mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
-                }else {
+                }else {   //上拉加载
                     data.addAll(model.getData());
+                    if (mView.type==1){
+                        mView.adaphter.AddData(model.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.AddData(model.getData(),mView.type);
+                    }
                     mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
                 }
-                if (mView.type==1){
-                    mView.gd_list.setSelection(mView.mPostion);
-                    mView.adaphter.setData(data,mView.type);
-                    mView.gd_list.setAdapter(mView.adaphter);
+                if (model.getData().size()<10){
+                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
+                    mView.refresh_view.setLoadMoreVisiable(false);
                 }else {
-                    mView.gd_list.setSelection(mView.mPostion);
-                    mView.adaphter2.setData(data,mView.type);
-                    mView.gd_list.setAdapter(mView.adaphter2);
+                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
+                    mView.refresh_view.setLoadMoreVisiable(true);
                 }
-
-
                 break;
             case Commons.ADDSHOPPINGCAR:   //加入购物车
-                BaseResponseModel model1= (BaseResponseModel) message.getData();
-                Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
+                animation();
+//                BaseResponseModel model1= (BaseResponseModel) message.getData();
+//                Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    //抖动动画
+    public void animation(){
+        TranslateAnimation animation = new TranslateAnimation(0, -5, 0, 0);
+        animation.setInterpolator(new OvershootInterpolator());
+        animation.setDuration(50);
+        animation.setRepeatCount(3);
+        animation.setRepeatMode(Animation.REVERSE);
+        mView.mActivity.mIvActionBarCart.startAnimation(animation);
     }
 
     @Override
@@ -101,7 +115,6 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
         if (message.getDataType()== SearchResultAdaphter.JOINCART){
             SearchFarmModel.DataBean bean= (SearchFarmModel.DataBean) message.getData();
             CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
-
         }
     }
 

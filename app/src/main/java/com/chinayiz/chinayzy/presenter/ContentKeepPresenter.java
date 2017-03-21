@@ -48,4 +48,8 @@ public class ContentKeepPresenter extends BasePresenter<ContentKeepFragment> {
     public void disposeInfoMsg(EventMessage message) {
 
     }
+
+    public void getData(){
+
+    }
 }

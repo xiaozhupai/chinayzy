@@ -114,6 +114,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
                 break;
             case R.id.rl_two_code:   //分享二维码
                 Logger.i("分享二维码");
+                mPresenter.tofxcode();
                 break;
             case R.id.rl_version:   //版本更新
                 Logger.i("版本更新");

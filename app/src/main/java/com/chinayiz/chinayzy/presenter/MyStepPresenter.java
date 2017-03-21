@@ -17,6 +17,7 @@ public class MyStepPresenter extends BasePresenter<MyStepFragment> {
     @Override
     public void onCreate() {
 
+        mView.adapter.getdata(1);
     }
 
     @Override
@@ -33,11 +34,14 @@ public class MyStepPresenter extends BasePresenter<MyStepFragment> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
 
+
     }
 
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
+
+
 
     }
 

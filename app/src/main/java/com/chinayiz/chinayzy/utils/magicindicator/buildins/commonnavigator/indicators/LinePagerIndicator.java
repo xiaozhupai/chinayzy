@@ -26,6 +26,7 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
     public static final int MODE_MATCH_EDGE = 0;   // 直线宽度 == title宽度 - 2 * mXOffset
     public static final int MODE_WRAP_CONTENT = 1;    // 直线宽度 == title内容宽度 - 2 * mXOffset
     public static final int MODE_EXACTLY = 2;  // 直线宽度 == mLineWidth
+    public static final int MODE_STYLE=3;   //直线宽度
 
     private int mMode;  // 默认为MODE_MATCH_EDGE模式
 
@@ -94,11 +95,16 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
             nextLeftX = next.mContentLeft + mXOffset;
             rightX = current.mContentRight - mXOffset;
             nextRightX = next.mContentRight - mXOffset;
-        } else {    // MODE_EXACTLY
+        } else if (mMode==MODE_EXACTLY){    // MODE_EXACTLY
             leftX = current.mLeft + (current.width() - mLineWidth) / 2;
             nextLeftX = next.mLeft + (next.width() - mLineWidth) / 2;
             rightX = current.mLeft + (current.width() + mLineWidth) / 2;
             nextRightX = next.mLeft + (next.width() + mLineWidth) / 2;
+        }else {
+            leftX = current.mContentLeft + mXOffset-20;
+            nextLeftX = next.mContentLeft + mXOffset-20;
+            rightX = current.mContentRight - mXOffset+20;
+            nextRightX = next.mContentRight - mXOffset+20;
         }
 
         mLineRect.left = leftX + (nextLeftX - leftX) * mStartInterpolator.getInterpolation(positionOffset);
@@ -167,7 +173,7 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
     }
 
     public void setMode(int mode) {
-        if (mode == MODE_EXACTLY || mode == MODE_MATCH_EDGE || mode == MODE_WRAP_CONTENT) {
+        if (mode == MODE_EXACTLY || mode == MODE_MATCH_EDGE || mode == MODE_WRAP_CONTENT ||mode==MODE_STYLE) {
             mMode = mode;
         } else {
             throw new IllegalArgumentException("mode " + mode + " not supported.");

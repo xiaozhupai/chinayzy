@@ -20,16 +20,25 @@ import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
+import com.chinayiz.chinayzy.utils.AliPayUntil;
 import com.chinayiz.chinayzy.utils.PayResult;
+import com.chinayiz.chinayzy.utils.WeChatPayUntil;
+import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
+import com.chinayiz.chinayzy.views.MainViewPager;
+import com.chinayiz.chinayzy.widget.MessageDialog;
+import com.chinayiz.chinayzy.wxapi.WXPayEntryActivity;
 import com.google.gson.Gson;
 
 import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -44,45 +53,22 @@ import java.util.Map;
  * Created by Administrator on 2017/1/4.
  */
 
-public class ResultPresenter extends BasePresenter <ResultFragment>{
-
+public class ResultPresenter extends BasePresenter <ResultFragment> implements AlipayHandler.AliPay {
+    public static final String RESULT_BACK="RESULT_BACK";
     private ResultModel resultModel;
     private static final int SDK_PAY_FLAG = 1;
-    private static final int SDK_AUTH_FLAG = 2;
+    private static final int SDK_PAY2_FLAG = 2;
     private double carriagestotal;
-    private Handler mHandler = new Handler() {
-        @SuppressWarnings("unused")
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SDK_PAY_FLAG: {
-                    @SuppressWarnings("unchecked")
-                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
-                    /**
-                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
-                     */
-                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-                    String resultStatus = payResult.getResultStatus();
-                    // 判断resultStatus 为9000则代表支付成功
-                    if (TextUtils.equals(resultStatus, "9000")) {
-                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        Toast.makeText(mView.getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        Toast.makeText(mView.getActivity(), "支付失败", Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                }
+    private  AlipayHandler mHandler =new AlipayHandler(mView,this);
+    private MessageDialog dialog;
+    public int status;
 
-                default:
-                    break;
-            }
-        };
-    };
     @Override
     public void onCreate() {
-
       getData();
     }
+
+
 
     @Override
     public void onDestroy() {
@@ -140,57 +126,15 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
             case Commons.ALIPAYORDER:  //支付宝支付
                 final AlipayModel modell= (AlipayModel) message.getData();
                 if (modell.getCode().equals("100")){
-                    Runnable payRunnable = new Runnable() {
-
-                        @Override
-                        public void run() {
-                            PayTask alipay = new PayTask(mView.getActivity());
-                            Map<String, String> result = alipay.payV2(modell.getData(), true);
-                            Log.i("msp", result.toString());
-
-                            Message msg = new Message();
-                            msg.what = SDK_PAY_FLAG;
-                            msg.obj = result;
-                            mHandler.sendMessage(msg);
-                        }
-                    };
-
-                    Thread payThread = new Thread(payRunnable);
-                    payThread.start();
+                    AliPayUntil.pay(mView.getActivity(),mHandler,modell);
                 }
                 break;
             case Commons.WXPAYORDER: //微信支付
                 WxpayModel model2= (WxpayModel) message.getData();
-                String json=model2.getData();
-                Logger.i(json);
-                try {
-                    JSONObject jsonobject=new JSONObject(json);
-                    String appid=jsonobject.getString("appid");
-                    String  partnerid=jsonobject.getString("partnerid");
-                    String prepayid=jsonobject.getString("prepayid");
-                    String packagevalue=jsonobject.getString("package");
-                    String sign=jsonobject.getString("sign");
-                    String noncestr=jsonobject.getString("noncestr");
-                    String timestamp=jsonobject.getString("timestamp");
-                    IWXAPI api = null;
-                    PayReq request = new PayReq();
-                    request.appId = appid;
-                    request.partnerId = partnerid;
-                    request.prepayId= prepayid;
-                    request.packageValue =packagevalue;
-                    request.nonceStr= noncestr;
-                    request.timeStamp=timestamp;
-                    request.sign= sign;
-                    api = WXAPIFactory.createWXAPI(mView.getActivity(), appid, true);
-                    api.sendReq(request);
-                    api.handleIntent(mView.getActivity().getIntent(),mView);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (model2.getCode().equals("100")){
+                    WeChatPayUntil.pay(mView,model2);
                 }
-
-
                 break;
-
         }
     }
 
@@ -200,8 +144,13 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
             case AddressListFragment.ADDRESS_BACK:
                  getData();
                 break;
+            case WXPayEntryActivity.WECHAT_BACK:
+                BaseResp resp= (BaseResp) message.getData();
+                if (resp.errCode==0){
+                    status=1;
+                }
+                break;
         }
-
     }
 
     private void getData(){
@@ -229,7 +178,10 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
 
     //提交结算订单
     public void submit(){
-        String type="2";
+        if (resultModel==null){
+            return;
+        }
+        final String type="2";
         String orderbill=null;
         Gson gson=new Gson();
         PayModel payModel=new PayModel();
@@ -264,7 +216,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
         payModel.setShoplist(list);
         orderbill=gson.toJson(payModel);
         Logger.i(orderbill);
-        String total; //总金额=商品金额+运费-积分
+        final String total; //总金额=商品金额+运费-积分
         if (mView.cb_check.isChecked()){ //判断积分是否被选中
             double result=resultModel.getData().getTotalmoney()-resultModel.getData().getDeductionpoint();
           total=result+"";
@@ -276,10 +228,50 @@ public class ResultPresenter extends BasePresenter <ResultFragment>{
             BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
             return;
         }
-        if (mView.iv_pay_ali.isCheck){  //支付宝支付
-            CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total,orderbill);
-        }else {  //微信支付
-            CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total,orderbill);
+        if (dialog==null){
+            dialog=new MessageDialog(mView.getActivity());
+            dialog.message.setText("请核对您的收货地址");
+            dialog.setButton1("取消", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            final String finalOrderbill = orderbill;
+            dialog.setButton2("确定", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mView.iv_pay_ali.isCheck){  //支付宝支付
+                        CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total, finalOrderbill);
+                    }else {  //微信支付
+                        CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total, finalOrderbill);
+                    }
+                    dialog.dismiss();
+                }
+            });
         }
+         dialog.show();
+
+    }
+
+    //支付成功跳转到成功页面
+    public void success(){
+
+        mView.mActivity.onBackPressed();
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,""));
+    }
+
+       //支付宝支付成功
+    @Override
+    public void onAliSuccess() {
+        Logger.i("onAliSuccess");
+//      success();
+        status=1;
+    }
+
+    //支付宝支付失败
+    @Override
+    public void onAliFail() {
+
     }
 }

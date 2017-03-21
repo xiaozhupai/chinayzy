@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
+import com.chinayiz.chinayzy.net.NongYe.Net;
 
 import java.util.List;
 
@@ -16,10 +17,12 @@ import java.util.List;
  * Created by Administrator on 2017/1/12.
  */
 
-public class FindAdaphter extends BaseInectAdaphter<FindListModel.DataBean>{
-    public FindAdaphter(Context context,List<FindListModel.DataBean> lists) {
+public class FindAdaphter extends BaseInectAdaphter<FindListModel.DataBean> {
+    private String type;
+    public FindAdaphter(Context context, List<FindListModel.DataBean> lists, String type) {
         this.context=context;
         this.lists=lists;
+        this.type=type;
     }
 
     @Override
@@ -38,6 +41,12 @@ public class FindAdaphter extends BaseInectAdaphter<FindListModel.DataBean>{
         viewHolder.tv_find_item_title.setText(bean.getTitle());
         viewHolder.tv_find_item_content.setText(bean.getSynopsis());
         return view;
+    }
+
+
+    @Override
+    public void onGetData(int pageindex) {
+        Net.getNet().getFindBlogByType(type,pageindex+"","10");
     }
 
     public static class ViewHolder {

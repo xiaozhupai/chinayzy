@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.GoodsCollectModel;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsKeepFragment;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -16,7 +18,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class GoodsKeepPresenter extends BasePresenter<GoodsKeepFragment> {
     @Override
     public void onCreate() {
-
+        mView.adaphter.onGetData(1);
     }
 
     @Override
@@ -32,7 +34,9 @@ public class GoodsKeepPresenter extends BasePresenter<GoodsKeepFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-
+       if (message.getEventType()== EventMessage.NET_EVENT){
+           disposeNetMsg(message);
+       }
     }
 
     @Override
@@ -43,11 +47,16 @@ public class GoodsKeepPresenter extends BasePresenter<GoodsKeepFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-
+       if (message.getDataType().equals(Commons.SHOWGOODSCOLLECT)){
+           GoodsCollectModel model= (GoodsCollectModel) message.getData();
+         mView.adaphter.onResult(model.getData());
+       }
     }
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
 
     }
+
+
 }

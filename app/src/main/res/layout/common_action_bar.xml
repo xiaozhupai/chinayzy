@@ -60,4 +60,11 @@
         android:src="@mipmap/btn_cart"
         android:visibility="gone"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#acacac"
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

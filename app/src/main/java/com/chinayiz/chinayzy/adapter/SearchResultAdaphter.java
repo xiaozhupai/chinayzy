@@ -5,13 +5,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.utils.DensityUtil;
 import com.orhanobut.logger.Logger;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 /**
  * Created by Administrator on 2017/2/8.
@@ -61,7 +67,15 @@ public class SearchResultAdaphter extends BaseInectAdaphter<SearchFarmModel.Data
         return view;
     }
 
-    public void setData(List<SearchFarmModel.DataBean> lists,int type){
+
+    public void AddData(List<SearchFarmModel.DataBean> list, int type){
+      this.lists.addAll(list);
+        this.type=type;
+        notifyDataSetChanged();
+
+    }
+
+    public void setData(List<SearchFarmModel.DataBean> lists, int type){
         this.lists=lists;
         this.type=type;
         notifyDataSetChanged();

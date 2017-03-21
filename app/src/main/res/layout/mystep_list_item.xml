@@ -5,13 +5,16 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:paddingRight="12dp"
+    android:background="@color/white"
     >
     <ImageView
         android:id="@+id/iv_mystep_image"
         android:layout_width="85dp"
         android:layout_height="97dp"
+        android:layout_marginLeft="10dp"
         android:src="@mipmap/ic_launcher"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,14 +49,14 @@
                 android:src="@mipmap/icon_delete"
                 android:layout_alignParentRight="true"
                 />
-            <ImageView
-                android:id="@+id/iv_mystep_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/iv_mystep_delete"
-                android:src="@mipmap/icon_share"
-                android:layout_marginRight="23dp"
-                />
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_mystep_share"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toLeftOf="@+id/iv_mystep_delete"-->
+                <!--android:src="@mipmap/icon_share"-->
+                <!--android:layout_marginRight="23dp"-->
+                <!--/>-->
         </RelativeLayout>
     </LinearLayout>
 

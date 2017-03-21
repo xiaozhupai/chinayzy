@@ -27,8 +27,6 @@ public class Main2Activity extends Activity {
         for (int i=0;i<10;i++){
             list.add("dsds");
         }
-        adaphter.addSection("title1",new MyStepAdaphter(this,list));
-        adaphter.addSection("title2",new MyStepAdaphter(this,list));
         listView.setAdapter(adaphter);
     }
 }

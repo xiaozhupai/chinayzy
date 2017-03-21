@@ -35,6 +35,7 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> impl
     public static final String ADDRESS_BACK="ADDRESS_BACK";
     public CommonActivity activity;
 
+
     @Override
     public void onInintData(Bundle bundle) {
 

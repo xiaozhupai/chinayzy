@@ -246,6 +246,26 @@ public class Commons {
     public static final String ADDADDRESS="/centre/addAddress";
 
     /**
+     *宝贝收藏
+     */
+    public static final String SHOWGOODSCOLLECT="/centre/showGoodsCollect";
+    /**
+     *店铺收藏
+     */
+    public static final String SHOWSHOPCOLLECT="/centre/showShopCollect";
+    /**
+     *博文收藏
+     */
+    public static final String SHOWBLOGCOLLECT="/centre/showBlogCollect";
+    /**
+     *足迹列表
+     */
+    public static final String SHOWFOOTMARKS="/centre/showFootmarks";
+    /**
+     *删除足迹
+     */
+    public static final String DELETEFOOTMARK="/centre/deleteFootmark";
+    /**
      * 关于我们
      */
     public static final String ABOUTUS="/h5/aboutus";
@@ -278,6 +298,11 @@ public class Commons {
      * 积分规则
      */
     public static final String GOLD_RULE="/h5/jfgz";
+    /**
+     * 分享二维码
+     */
+    public static final String FXCODE="/h5/fxcode";
+
     /**
      * 我的订单
      */

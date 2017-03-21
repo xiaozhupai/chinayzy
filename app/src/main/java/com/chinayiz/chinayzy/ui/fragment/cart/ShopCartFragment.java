@@ -43,7 +43,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public CheckImageView iv_shopcart_radio;
     public TextView tv_shopcart_price;
     private TextView tv_shopcart_submit;
-    public LinearLayout lv_boom;
+    public LinearLayout lv_boom,ll_no_goods;
     public PullToRefreshLayout pullToRefreshLayout;
     public ShopCartAdaphter adaphter;
     public List<ShopCartModel.DataBean> list=new ArrayList<>();
@@ -59,6 +59,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     protected void onVisible() {
+//     mPresenter.getData();
     }
 
     @Override
@@ -110,6 +111,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         tv_shopcart_submit = (TextView) view.findViewById(R.id.tv_shopcart_submit);
         lv_boom = (LinearLayout) view.findViewById(R.id.lv_boom);
         tv_shopcart_all= (TextView) view.findViewById(R.id.tv_shopcart_all);
+        ll_no_goods= (LinearLayout) view.findViewById(R.id.ll_no_goods);
         tv_shopcart_submit.setOnClickListener(this);
         iv_shopcart_radio.setOnClickListener(this);
         listv_shopcart.setOnItemClickListener(this);
@@ -168,5 +170,11 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         Intent intent=new Intent(getActivity(), GoodsActivity.class);
         intent.putExtra("goodsID",bean.getGoodsid()+"");
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.getData();
     }
 }

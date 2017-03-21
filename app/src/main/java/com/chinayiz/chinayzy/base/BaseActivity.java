@@ -1,7 +1,9 @@
 package com.chinayiz.chinayzy.base;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -167,6 +169,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     }
 
+//    public void replaceFragment(Fragment current,Fragment newfragment){
+//        FragmentTransaction transaction=fragmentManager.beginTransaction();
+//        transaction.replace(R.id.content_frame,newfragment).commit();
+////        if (!newfragment.isAdded()) { // 先判断是否被add过
+////            transaction.hide(current)
+////                    .add(R.id.content_frame, newfragment, newfragment.getTag()).commit(); // 隐藏当前的fragment，add下一个到Activity中
+////        } else {
+////            transaction.hide(current).show(newfragment).commit(); // 隐藏当前的fragment，显示下一个
+////        }
+//    }
+
 
     @Override
     public void onBackStackChanged() {
@@ -180,6 +193,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             String name=backStack.getName();
             mCurrentFragment= (BaseFragment) fragmentManager.findFragmentByTag(name);
             mCbActionBarEdit.setVisibility(View.GONE);
+            mIvActionBarCart.setVisibility(View.GONE);
             mCurrentFragment.onInitActionBar(this);
         }
     }

@@ -176,6 +176,44 @@ public class UserNet {
     }
 
 
+    /**
+     *
+     * @param orderid 订单编号
+     * @param pic  图片地址
+     * @param isanonymity 是否匿名
+     * @param descpoInteger  描述分
+     * @param commentscontent  评论内容
+     */
+    public void getCommentOrder(String orderid,String pic,String isanonymity,String descpoInteger,String commentscontent) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.COMMENTORDER)
+                .addParams("orderid", orderid)
+                .addParams("pic", pic)
+                .addParams("isanonymity", isanonymity)
+                .addParams("descpoInteger", descpoInteger)
+                .addParams("commentscontent", commentscontent)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.COMMENTORDER
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
 
     /**
      *  意见反馈
@@ -239,6 +277,36 @@ public class UserNet {
                     }
                 });
     }
+
+//    /**
+//     *  添加自定义个性标签
+//     * @param tag 添加的标签名字
+//     */
+//    public void getAddTags(String tag) {
+//        OkHttpUtils
+//                .post()
+//                .url(Commons.API + Commons.ADDTAGS)
+//                .tag("ny")
+//                .addParams("tag",tag)
+//                .build()
+//                .execute(new StrCallback() {
+//                    @Override
+//                    public void onError(Call call, Exception e, int i) {
+//                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String s, int i) {
+//                        try {
+//                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+//                                    ,Commons.ADDTAGS
+//                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+//                        }catch (Exception e){
+//                            onError(null,e,i);
+//                        }
+//                    }
+//                });
+//    }
 
 
     /**
@@ -516,6 +584,175 @@ public class UserNet {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.ADDADDRESS
+                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 宝贝收藏
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowGoodsCollect(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWGOODSCOLLECT)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWGOODSCOLLECT
+                                    ,mGson.fromJson(s,GoodsCollectModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 店铺收藏
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowShopCollect(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWSHOPCOLLECT)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWSHOPCOLLECT
+                                    ,mGson.fromJson(s,ShopCollectModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 博文收藏
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowBlogCollect(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWBLOGCOLLECT)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWBLOGCOLLECT
+                                    ,mGson.fromJson(s,ArticleModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 足迹列表
+     * @param page   当前页
+     * @param size    当前页条数
+     */
+    public void getshowFootMarks(String page,String size) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.SHOWFOOTMARKS)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWFOOTMARKS
+                                    ,mGson.fromJson(s,MyStepModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 删除足迹
+     * @param goodsid  商品id
+     */
+
+    public void getdeletefootmark(String goodsid) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.DELETEFOOTMARK)
+                .tag("ny")
+                .addParams("userid", APP.sUserid)
+                .addParams("goodsid",goodsid)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.DELETEFOOTMARK
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);

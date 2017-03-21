@@ -24,7 +24,7 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="#0b1b01"
             android:text="横渡牛腱子"
             android:lines="2"

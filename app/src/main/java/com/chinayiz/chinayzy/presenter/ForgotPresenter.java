@@ -106,7 +106,7 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
             Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
-        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$");
+        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|17[0-9]|18[0|1|2|3|5|6|7|8|9]|19[0-9])\\d{8}$");
         Matcher matcher=pattern.matcher(phone);
         if (!matcher.find()){
             BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");

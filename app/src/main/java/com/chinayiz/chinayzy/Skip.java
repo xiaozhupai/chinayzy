@@ -4,23 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
+import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
+import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-import com.chinayiz.chinayzy.ui.common.GoodsFragment;
+
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.OrderDetailFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 
 import java.io.Serializable;
-
-import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.COMMENT_DATA;
 
 /**
  * Created by Administrator on 2017/3/10.
@@ -155,4 +152,56 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context,intent);
     }
+    /**
+     * 搜索
+     * @param context
+     */
+    public static void toSearch(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, SearchFragment.class);
+        skip(context,intent);
+    }
+
+    /**
+     * 宝贝收藏
+     * @param context
+     */
+    public static void toGoodsCollection(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, GoodsKeepFragment.class);
+        skip(context,intent);
+    }
+
+    /**
+     * 内容收藏
+     * @param context
+     */
+    public static void toContentCollection(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, ContentKeepFragment.class);
+        skip(context,intent);
+    }
+
+    /**
+     * 我的足迹
+     * @param context
+     */
+    public static void toMyStep(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, MyStepFragment.class);
+        skip(context,intent);
+    }
+
+
+    /**
+     * 支付成功
+     * @param context
+     */
+    public static void toPayResult(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, PayFragment.class);
+        skip(context,intent);
+    }
+
+
 }

@@ -2,9 +2,11 @@ package com.chinayiz.chinayzy.ui.fragment.cart;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
@@ -36,7 +39,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 
-public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener, IWXAPIEventHandler {
+public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener{
     public ListView lv_result;
     public TextView tv_result_price,tv_no_address;
     public TextView tv_result_submit;
@@ -55,6 +58,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public TextView tv_address_name,tv_address_phone,tv_address_text,tv_deducpoint;
     public int index;
     public CommonActivity activity;
+    public static final int WECHAR_BACK=1;
 
 
     @Override
@@ -171,7 +175,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_result_submit:  //确定支付
-             mPresenter.submit();
+                mPresenter.submit();
                 break;
             case R.id.rl_payway_boom:    //底部支付方式
                 if (lv_payway.getVisibility()==View.VISIBLE){
@@ -184,21 +188,11 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         }
     }
 
-
     @Override
-    public void onReq(BaseReq baseReq) {
-
-    }
-
-    @Override
-    public void onResp(BaseResp baseResp) {
-        Log.i("ResultFragment", "onPayFinish, errCode = " + baseResp.errCode);
-
-//        if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//            builder.setTitle(R.string.app_tip);
-//            builder.setMessage(getString(R.string.pay_result_callback_msg, String.valueOf(baseResp.errCode)));
-//            builder.show();
-//        }
+    public void onResume() {
+        super.onResume();
+        if (mPresenter.status==1){
+            mPresenter.success();
+        }
     }
 }
