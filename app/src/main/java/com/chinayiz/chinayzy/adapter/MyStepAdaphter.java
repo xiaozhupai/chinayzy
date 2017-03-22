@@ -72,7 +72,6 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
                 if (model1.getCode().equals("100")){
                     delete();
                 }
-                BaseActivity.showToast(context,model1.getMsg());
                 break;
 
         }

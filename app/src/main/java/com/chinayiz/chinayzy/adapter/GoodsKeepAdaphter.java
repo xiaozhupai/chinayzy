@@ -3,14 +3,18 @@ package com.chinayiz.chinayzy.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.entity.response.GoodsCollectModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.User.UserNet;
+import com.chinayiz.chinayzy.widget.MessageDialog;
 
 import java.util.List;
 
@@ -19,6 +23,7 @@ import java.util.List;
  */
 
 public class GoodsKeepAdaphter extends BaseInectAdaphter {
+    private int deleteposition;
     public GoodsKeepAdaphter(Context context, List <GoodsCollectModel.DataBean> lists) {
         this.context=context;
         this.lists=lists;
@@ -42,6 +47,42 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter {
         viewHolder.tv_goodskeep_price.setText(bean.getPrice());
         return view;
     }
+
+    @Override
+    public void onItemClick(int position) {
+      GoodsCollectModel.DataBean bean= (GoodsCollectModel.DataBean) lists.get(position);
+        Skip.toGoodsDetail(context,bean.getGoodsid()+"");
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView adapterView, View view, final int i, long l) {
+        deleteposition=i;
+        final GoodsCollectModel.DataBean bean= (GoodsCollectModel.DataBean) lists.get(i);
+        final MessageDialog dialog=new MessageDialog(context);
+        dialog.message.setText("是否取消商品收藏");
+        dialog.setButton1("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setButton2("确定", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonRequestUtils.getRequestUtils().doUnCollectGoods(bean.getGoodsid()+"");
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+        return true;
+    }
+
+    public void delete(){
+         lists.remove(deleteposition);
+        notifyDataSetChanged();
+    }
+
+
 
     @Override
     public void onGetData(int pageindex) {

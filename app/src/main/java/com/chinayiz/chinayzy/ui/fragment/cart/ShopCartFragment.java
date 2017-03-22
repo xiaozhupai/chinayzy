@@ -1,11 +1,8 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,23 +12,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
-import com.chinayiz.chinayzy.ui.common.GoodsActivity;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * 购物车
@@ -167,14 +160,12 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //        goodsID
         ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) adapterView.getItemAtPosition(i);
-        Intent intent=new Intent(getActivity(), GoodsActivity.class);
-        intent.putExtra("goodsID",bean.getGoodsid()+"");
-        startActivity(intent);
+        Skip.toGoodsDetail(getActivity(),bean.getGoodsid()+"");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getData();
+
     }
 }

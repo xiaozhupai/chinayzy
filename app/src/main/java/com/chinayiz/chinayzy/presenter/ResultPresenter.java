@@ -27,7 +27,7 @@ import com.chinayiz.chinayzy.utils.AliPayUntil;
 import com.chinayiz.chinayzy.utils.PayResult;
 import com.chinayiz.chinayzy.utils.WeChatPayUntil;
 import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
-import com.chinayiz.chinayzy.views.MainViewPager;
+
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.chinayiz.chinayzy.wxapi.WXPayEntryActivity;
 import com.google.gson.Gson;

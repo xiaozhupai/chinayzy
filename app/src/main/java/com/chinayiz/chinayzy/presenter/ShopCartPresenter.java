@@ -14,7 +14,6 @@ import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
@@ -42,7 +41,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
     @Override
     public void onCreate() {
-//          getData();
+          getData();
     }
 
     public void getData(){
@@ -228,6 +227,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         }
     }
 
+    //子布局点击
     private void itemChecked(){
         List <ShopCartModel.DataBean.ShoplistBean> list_selected=new ArrayList<>();  //被选中的ITEM
         for (ShopCartModel.DataBean data:list){
@@ -240,6 +240,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         list_checked=list_selected;
     }
 
+    //更新购物车
     public void UpdateShopCart(){
         StringBuilder sb=new StringBuilder();
         for (ShopCartModel.DataBean data:list){

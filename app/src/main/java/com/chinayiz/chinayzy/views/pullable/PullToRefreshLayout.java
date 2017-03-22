@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.orhanobut.logger.Logger;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -88,7 +89,7 @@ public class PullToRefreshLayout extends RelativeLayout
 	private TextView refreshStateTextView;
 
 	// 上拉头
-	private View loadmoreView;
+	public View loadmoreView;
 	// 上拉的箭头
 	private View pullUpView;
 	// 正在加载的图标
@@ -105,6 +106,8 @@ public class PullToRefreshLayout extends RelativeLayout
 	// 这两个变量用来控制pull的方向，如果不加控制，当情况满足可上拉又可下拉时没法下拉
 	private boolean canPullDown = true;
 	private boolean canPullUp = true;
+
+	private boolean LoadMoreVisiable;
 
 	/**
 	 * 执行自动回滚的handler
@@ -287,7 +290,7 @@ public class PullToRefreshLayout extends RelativeLayout
 	private void changeState(int to)
 
 	{
-
+		Logger.i(to+"");
 		state = to;
 		switch (state)
 		{
@@ -302,12 +305,13 @@ public class PullToRefreshLayout extends RelativeLayout
 				loadStateTextView.setText(R.string.pullup_to_load);
 				pullUpView.clearAnimation();
 				pullUpView.setVisibility(View.VISIBLE);
-
+				Logger.i("INIT");
 				break;
 			case RELEASE_TO_REFRESH:
 				// 释放刷新状态
 				refreshStateTextView.setText(R.string.release_to_refresh);
 				pullView.startAnimation(rotateAnimation);
+				Logger.i("释放刷新状态");
 				break;
 			case REFRESHING:
 				// 正在刷新状态
@@ -316,6 +320,7 @@ public class PullToRefreshLayout extends RelativeLayout
 				pullView.setVisibility(View.INVISIBLE);
 				refreshingView.startAnimation(refreshingAnimation);
 				refreshStateTextView.setText(R.string.refreshing);
+				Logger.i("正在刷新状态");
 				break;
 			case RELEASE_TO_LOAD:
 				// 释放加载状态
@@ -356,7 +361,7 @@ public class PullToRefreshLayout extends RelativeLayout
 		switch (ev.getActionMasked())
 		{
 			case MotionEvent.ACTION_DOWN:
-              state=INIT;
+				state=INIT;
 				downY = ev.getY();
 				lastY = downY;
 				timer.cancel();
@@ -374,7 +379,7 @@ public class PullToRefreshLayout extends RelativeLayout
 					if (((Pullable) pullableView).canPullDown() && canPullDown
 							&& state != LOADING)
 					{
-
+						Logger.i("下拉刷新");
 						// 可以下拉，正在加载时不能下拉
 						// 对实际滑动距离做缩小，造成用力拉的感觉
 						pullDownY = pullDownY + (ev.getY() - lastY) / radio;
@@ -395,6 +400,7 @@ public class PullToRefreshLayout extends RelativeLayout
 					} else if (((Pullable) pullableView).canPullUp() && canPullUp
 							&& state != REFRESHING)
 					{
+						Logger.i("上拉加载");
 						// 可以上拉，正在刷新时不能上拉
 						pullUpY = pullUpY + (ev.getY() - lastY) / radio;
 						if (pullUpY > 0)
@@ -465,7 +471,11 @@ public class PullToRefreshLayout extends RelativeLayout
 					changeState(LOADING);
 					// 加载操作
 					if (mListener != null)
-						mListener.onLoadMore(this);
+						if (LoadMoreVisiable){
+							mListener.onLoadMore(this);
+						}else {
+							loadmoreFinish(SUCCEED);
+						}
 				}
 				hide();
 			default:
@@ -520,6 +530,10 @@ public class PullToRefreshLayout extends RelativeLayout
 				loadmoreView.getMeasuredWidth(),
 				(int) (pullDownY + pullUpY) + pullableView.getMeasuredHeight()
 						+ loadmoreView.getMeasuredHeight());
+	}
+
+	public void setLoadMoreVisiable(boolean isVisiable){
+		this.LoadMoreVisiable=isVisiable;
 	}
 
 	class MyTimer

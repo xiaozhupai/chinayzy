@@ -13,13 +13,10 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,14 +25,8 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
-import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.presenter.Presenter;
-import com.orhanobut.logger.Logger;
-
-import java.util.Stack;
 
 
 
@@ -94,11 +85,9 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 		mIvActionBarMore = (ImageView) findViewById(R.id.iv_more_button);
 		mIvActionBarCart= (ImageView) findViewById(R.id.iv_shopcart);
 		mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
-		mTvActionBarTitle.setText("个人中心");
 		mIvActionBarMore.setVisibility(View.GONE);
-		mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
+		mTvActionBarTitle.setTextColor(Color.BLACK);
 		mIvBackButton.setImageResource(R.mipmap.back_arrow);
-		mActionBar.setBackgroundColor(Color.parseColor("#ff3951"));
 		mIvBackButton.setOnClickListener(this);
 	}
 
@@ -164,20 +153,8 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-			List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
-			EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,
-					GoodsCommentFragment.COMMENT_DATA,pathList));
-			for (String path : pathList) {
-				Logger.i("图片路径"+path);
-			}
 
-		}
 
-	}
 
 
 }

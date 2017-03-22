@@ -33,20 +33,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="37dp"
             >
-            <TextView
-                android:id="@+id/tv_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="再去逛逛"
-                android:textSize="14sp"
-                android:textColor="#ff3952"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginLeft="75dp"
-                android:background="@drawable/shape_corner_red_solid"
-                />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_one"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="再去逛逛"-->
+                <!--android:textSize="14sp"-->
+                <!--android:textColor="#ff3952"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:paddingBottom="10dp"-->
+                <!--android:paddingLeft="20dp"-->
+                <!--android:paddingRight="20dp"-->
+                <!--android:layout_marginLeft="75dp"-->
+                <!--android:background="@drawable/shape_corner_red_solid"-->
+                <!--/>-->
             <TextView
                 android:id="@+id/tv_two"
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginRight="75dp"
                 android:background="@drawable/shape_corner_red_solid"
-                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
                 />
         </RelativeLayout>
     </LinearLayout>
