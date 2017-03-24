@@ -4,11 +4,14 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
+import com.chinayiz.chinayzy.entity.response.ArticleModel;
+import com.chinayiz.chinayzy.entity.response.GoodsCollectModel;
+import com.chinayiz.chinayzy.entity.response.MyStepModel;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
+import com.chinayiz.chinayzy.entity.response.ShopCollectModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
-
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
