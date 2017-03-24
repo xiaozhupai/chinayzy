@@ -173,16 +173,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     }
 
-//    public void replaceFragment(Fragment current,Fragment newfragment){
-//        FragmentTransaction transaction=fragmentManager.beginTransaction();
-//        transaction.replace(R.id.content_frame,newfragment).commit();
-////        if (!newfragment.isAdded()) { // 先判断是否被add过
-////            transaction.hide(current)
-////                    .add(R.id.content_frame, newfragment, newfragment.getTag()).commit(); // 隐藏当前的fragment，add下一个到Activity中
-////        } else {
-////            transaction.hide(current).show(newfragment).commit(); // 隐藏当前的fragment，显示下一个
-////        }
-//    }
+
 
 
     @Override
