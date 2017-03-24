@@ -9,6 +9,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
+import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.GoodsFragment;
@@ -32,44 +33,47 @@ public class GoodsPresenter extends BasePresenter<GoodsFragment> {
         switch (message.getDataType()) {
             case Commons.GOODS_DETAIL: {//商品详情简要信息
                 Logger.i("商品详情简要信息");
-                mView.mMlMcoySnapPageLayout.setVisibility(View.VISIBLE);
                 model = (GoodsDetailModel) message.getData();
                 mView.storeID = String.valueOf(model.getData().getShopid());
                 mView.setGoodsInfo(model);
                 break;
             }
             case Commons.COMMENT_LIST: {//评论列表
-                mView.mMlMcoySnapPageLayout.setVisibility(View.GONE);
+                mView.mScroll_Group.setVisibility(View.GONE);
                 mView.mCommentFragment.setCommentData(message);
                 break;
             }
             case Commons.GOODS_RELATED: {//相关商品
-                mView.mGoodssFragment.setData(message);
+                RelatedGoodsModel model = (RelatedGoodsModel) message.getData();
+                mView.mGoodsHolder.mAdapter.setData(model);
+                mView.mPregress.setVisibility(View.GONE);
                 break;
             }
+
+        }
+    }
+
+    @Override
+    public void disposeInfoMsg(EventMessage message) {
+        switch (message.getDataType()) {
             case GoodsDetailGridAdpter.CLICK_GOODS: {
                 String goodsID = message.getData().toString();
-                Logger.i("相关商品被点击"+goodsID);
-                Skip.toGoodsDetail(mView.getActivity(),goodsID);
+                Logger.i("相关商品被点击" + goodsID);
+                Skip.toGoodsDetail(mView.getActivity(), goodsID);
                 break;
             }
         }
     }
 
     @Override
-    public void disposeInfoMsg(EventMessage message) {
-
-    }
-
-    @Override
     protected void onCreate() {
-        mRequestUtils=CommonRequestUtils.getRequestUtils();
-    mRequestUtils.getGoodsDetail(mView.goodsID);
+        mRequestUtils = CommonRequestUtils.getRequestUtils();
+        mRequestUtils.getGoodsDetail(mView.goodsID);
     }
 
     @Override
     protected void onDestroy() {
-
+        mRequestUtils = null;
     }
 
     @Override

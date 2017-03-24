@@ -11,7 +11,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
-import com.chinayiz.chinayzy.views.MyGridView;
+import com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView;
 
 /**
  * author  by  Canrom7 .
@@ -19,7 +19,7 @@ import com.chinayiz.chinayzy.views.MyGridView;
  * Class GoodsListFragment 相关商品
  */
 public class GoodsListFragment extends Fragment {
-    private MyGridView mGoodsList;
+    private NoScrollGridView mGoodsList;
     private GoodsDetailGridAdpter mAdapter;
     @Nullable
     @Override
@@ -29,7 +29,7 @@ public class GoodsListFragment extends Fragment {
         return view;
     }
     private void initView(View view) {
-        mGoodsList = (MyGridView) view.findViewById(R.id.gv_goodsList);
+        mGoodsList = (NoScrollGridView) view.findViewById(R.id.gv_goodsList);
         mAdapter = new GoodsDetailGridAdpter(getActivity());
     }
 

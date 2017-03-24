@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -61,7 +62,9 @@ public class PartWebFragment extends Fragment{
      * fragment可见时
      */
     protected void onVisible() {
-        wv_view.loadUrl(url+"?goodsid="+goodsid);
+        if (wv_view!=null){
+            wv_view.loadUrl(url+"?goodsid="+goodsid);
+        }
     }
     /**
      * fragment不可见,且视图有肯能为null
@@ -73,7 +76,7 @@ public class PartWebFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_web,null);
+        final View view=inflater.inflate(R.layout.fragment_web,null);
         wv_view= (WebView) view.findViewById(R.id.wv_view);
         wv_view.loadUrl(url+"?goodsid="+goodsid);
         wv_view.   setScrollbarFadingEnabled(true);
@@ -91,6 +94,15 @@ public class PartWebFragment extends Fragment{
             // 让网页自适应屏幕宽度
             settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         }
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (getScrollY()==0){
+                    view.setClickable(false);
+                }
+                return false;
+            }
+        });
         return view;
     }
     public int getScrollY(){

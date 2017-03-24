@@ -20,10 +20,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.GoodsTypeMeunAdapter;
 import com.chinayiz.chinayzy.adapter.StoreHomeAdapter;
 import com.chinayiz.chinayzy.adapter.viewHolder.StoreHomeHead;
-import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.StoreInfo;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
@@ -308,11 +308,7 @@ public class StoreActivity extends AppCompatActivity implements EventBusCallback
      * 点击店铺商品
      */
     public void onItemClick(View view, String goodsID) {
-        Intent intent=new Intent(this,GoodsActivity.class);
-        startActivity(intent);
-        EventBus.getDefault()
-                .post(new EventMessage(BaseMessage.NET_EVENT
-                        ,GoodsActivity.REFRESH,goodsID));
+        Skip.toGoodsDetail(this,goodsID);
         Logger.i("点击店铺商品发送消息！="+goodsID);
     }
 }

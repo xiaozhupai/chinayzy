@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.chinayiz.chinayzy.views.MyGridView
+    <com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView
         android:id="@+id/gv_goodsList"
         android:background="@color/NongYe_Line"
         android:layout_width="match_parent"
@@ -12,6 +12,6 @@
         android:horizontalSpacing="1dp"
         android:verticalSpacing="1dp"
         >
-    </com.chinayiz.chinayzy.views.MyGridView>
+    </com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView>
 
 </LinearLayout>

@@ -26,9 +26,18 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.Presenter;
+import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
+import com.jaiky.imagespickers.ImageSelectorActivity;
+import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
+import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.REQUEST_CODE;
 
 
 /**
@@ -85,9 +94,11 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 		mIvActionBarMore = (ImageView) findViewById(R.id.iv_more_button);
 		mIvActionBarCart= (ImageView) findViewById(R.id.iv_shopcart);
 		mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
+		mTvActionBarTitle.setText("个人中心");
 		mIvActionBarMore.setVisibility(View.GONE);
-		mTvActionBarTitle.setTextColor(Color.BLACK);
+		mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
 		mIvBackButton.setImageResource(R.mipmap.back_arrow);
+		mActionBar.setBackgroundColor(Color.parseColor("#ff3951"));
 		mIvBackButton.setOnClickListener(this);
 	}
 
@@ -153,8 +164,20 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+			List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+			EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,
+					GoodsCommentFragment.COMMENT_DATA,pathList));
+			for (String path : pathList) {
+				Logger.i("图片路径"+path);
+			}
 
+		}
 
+	}
 
 
 }

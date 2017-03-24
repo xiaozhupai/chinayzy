@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.MainActivity;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -61,6 +62,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatuBarColor(MineActivity.this, Color.rgb(218, 22, 47));
         APP.register(this);
         mFragmentManager=getFragmentManager();
         mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {

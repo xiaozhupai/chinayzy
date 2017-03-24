@@ -102,6 +102,7 @@ public class ShopKeepAdaphter extends BaseInectAdaphter implements EventBusCallb
     public void onItemClick(int position) {
      BaseActivity activity= (BaseActivity) context;
         Logger.i("点击每一个商品");
+
     }
 
     @Override

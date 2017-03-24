@@ -7,6 +7,7 @@
     >
 
     <include layout="@layout/common_action_bar"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="172dp"
@@ -45,55 +46,56 @@
                 android:id="@+id/tv_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_sumGolds"
                 android:layout_alignParentLeft="true"
+                android:layout_below="@id/tv_sumGolds"
                 android:layout_marginTop="6dp"
-                android:text="收益（年化率%5）"
+                android:layout_toStartOf="@+id/tv_sumGold"
                 android:gravity="center"
+                android:text="收益（年化率%5）"
                 android:textColor="@color/Background"
-                android:textSize="12sp"
-                android:layout_toStartOf="@+id/tv_sumGold"/>
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/tv_outMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
+                android:layout_alignParentRight="true"
                 android:layout_below="@id/tv_sumGolds"
                 android:layout_marginTop="6dp"
+                android:layout_toEndOf="@+id/tv_sumGold"
                 android:clickable="true"
+                android:gravity="center"
                 android:text="可提现金额"
                 android:textColor="@color/Background"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:layout_alignParentRight="true"
-                android:layout_toEndOf="@+id/tv_sumGold"/>
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/tv_incomes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/tv_income"
+                android:layout_alignParentStart="true"
                 android:layout_below="@id/tv_income"
                 android:layout_marginTop="9dp"
-                android:text="00.00"
                 android:gravity="center"
+                android:text="00.00"
                 android:textColor="@color/Background"
-                android:textSize="12sp"
-                android:layout_alignEnd="@+id/tv_income"
-                android:layout_alignParentStart="true"/>
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/tv_outMoneys"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_income"
                 android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/tv_outMoney"
+                android:layout_below="@id/tv_income"
                 android:layout_marginTop="9dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="00.00"
                 android:textColor="@color/Background"
-                android:textSize="12sp"
-                android:layout_alignStart="@+id/tv_outMoney"/>
+                android:textSize="12sp"/>
+
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="15dp"
@@ -101,22 +103,8 @@
                 android:layout_centerHorizontal="true"
                 android:background="@color/Background"
                 />
-            <TextView
-                android:id="@+id/tv_goldRule"
-                android:layout_width="52dp"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="13dp"
-                android:layout_marginTop="16dp"
-                android:clickable="true"
-                android:drawableLeft="@mipmap/pic_what"
-                android:gravity="right|center_vertical"
-                android:text="积分规则"
-                android:textColor="@color/Background"
-                android:textSize="10sp"
-                />
         </RelativeLayout>
-        <include layout="@layout/view_progress" />
+        <include layout="@layout/view_progress"/>
     </FrameLayout>
 
     <TextView
@@ -124,27 +112,30 @@
         android:layout_height="34dp"
         android:layout_marginTop="5dp"
         android:background="@color/Background"
-        android:text="收益记录"
-        android:textSize="12sp"
         android:gravity="center"
+        android:text="收益记录"
         android:textColor="@color/gray"
+        android:textSize="12sp"
         />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         >
+
         <ListView
             android:id="@+id/lv_accrualLog"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="0.5dp"
+            android:background="@color/Background"
             android:divider="@color/goldBg"
+            android:dividerHeight="0.5dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:background="@color/Background"
             >
         </ListView>
+
         <include layout="@layout/view_null_earnings"/>
     </FrameLayout>
 
@@ -153,40 +144,44 @@
         android:layout_height="0.5dp"
         android:background="@color/NongYe_Line"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:orientation="horizontal"
         android:background="@color/Background"
+        android:orientation="horizontal"
         >
+
         <TextView
             android:id="@+id/tv_dealLog"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
-            android:text="积分账单"
             android:gravity="center"
-            android:textSize="15dp"
+            android:text="积分账单"
             android:textColor="@color/Mine_color"
+            android:textSize="15dp"
             />
+
         <View
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:background="@color/NongYe_Line"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/NongYe_Line"
             />
+
         <TextView
             android:id="@+id/tv_getGold"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
-            android:text="赚取积分"
             android:gravity="center"
-            android:textSize="15dp"
+            android:text="积分规则"
             android:textColor="@color/Mine_color"
+            android:textSize="15dp"
             />
     </LinearLayout>
 </LinearLayout>

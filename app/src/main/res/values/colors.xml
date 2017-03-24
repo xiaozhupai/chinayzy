@@ -30,6 +30,7 @@
     <color name="Main_StateBar">#da162f</color>
     <color name="NongYe_home_goodsText">#0b1b01</color>
     <color name="NongYe_home_priceText">#f02b2b</color>
+    <color name="deep_transparent">#bb000000</color>
 	<color name="GoodsUserName">#222222</color>
     <color name="Goods_Postage">#757575</color>
     <color name="Goods_Comment">#8a8a8a</color>

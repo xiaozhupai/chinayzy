@@ -158,7 +158,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        goodsID
         ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) adapterView.getItemAtPosition(i);
         Skip.toGoodsDetail(getActivity(),bean.getGoodsid()+"");
     }

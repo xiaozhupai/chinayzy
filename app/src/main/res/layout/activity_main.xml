@@ -85,7 +85,7 @@
                 />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/btn_im"
+            android:id="@+id/btn_LvYou"
             style="@style/Main_itemMenuLayout"
             android:background="@mipmap/im_itembg"
             android:layout_marginRight="11dp"
@@ -94,11 +94,11 @@
             <ImageView
                 android:layout_width="40.5dp"
                 android:layout_height="41dp"
-                android:src="@mipmap/icon_im"
+                android:src="@mipmap/icon_lvyou"
                 />
             <TextView
                 style="@style/Main_itemMenuText"
-                android:text="个人中心"
+                android:text="亿众旅游"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -110,7 +110,7 @@
         >
 
         <LinearLayout
-            android:id="@+id/btn_LvYou"
+            android:id="@+id/btn_im"
             style="@style/Main_itemMenuLayout"
             android:background="@mipmap/lvyou_itembg"
             android:layout_marginRight="1.5dp"
@@ -119,11 +119,11 @@
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="41.5dp"
-                android:src="@mipmap/icon_lvyou"
+                android:src="@mipmap/icon_im"
                 />
             <TextView
                 style="@style/Main_itemMenuText"
-                android:text="亿众旅游"
+                android:text="个人中心"
                 />
         </LinearLayout>
         <LinearLayout
