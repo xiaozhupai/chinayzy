@@ -268,11 +268,10 @@ public class ScrollViewContainer extends RelativeLayout {
 
             topView = getChildAt(0);
             bottomView = getChildAt(1);
-            Logger.i("======onMeasure====mViewHeight======" + mViewHeight);
-            Logger.i("======onMeasure====mViewWidth======" + mViewWidth);
+//            Logger.i("======onMeasure====mViewHeight======" + mViewHeight);
+//            Logger.i("======onMeasure====mViewWidth======" + mViewWidth);
             topView.setOnTouchListener(topViewTouchListener);
             bottomView.setOnTouchListener(bottomViewTouchListener);
-            Logger.e("onMeasure测量控件");
         }
     }
 
@@ -280,10 +279,10 @@ public class ScrollViewContainer extends RelativeLayout {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             ScrollView sv = (ScrollView) v;
-            Logger.i("测量第一页能否上拉=" + canPullUp);
-            Logger.i("测量第一页触摸数据=" + "Scroll.getScrollY()=" + sv.getScrollY()
-                    + "Scroll.getChildAt(0).getMeasuredHeight()=" + sv.getChildAt(0).getMeasuredHeight() + "Scroll.getMeasuredHeight()=" + sv
-                    .getMeasuredHeight());
+//            Logger.i("测量第一页能否上拉=" + canPullUp);
+//            Logger.i("测量第一页触摸数据=" + "Scroll.getScrollY()=" + sv.getScrollY()
+//                    + "Scroll.getChildAt(0).getMeasuredHeight()=" + sv.getChildAt(0).getMeasuredHeight() + "Scroll.getMeasuredHeight()=" + sv
+//                    .getMeasuredHeight());
             if (sv.getScrollY() == (sv.getChildAt(0).getMeasuredHeight() - sv
                     .getMeasuredHeight()) && mCurrentViewIndex == 0) {
                 canPullUp = true;
@@ -298,16 +297,14 @@ public class ScrollViewContainer extends RelativeLayout {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             ScrollView sv = (ScrollView) v;
-            Logger.i("测量第二页下拉值=" + mPageChangeListener.getScorllY());
-            Logger.i("测量第二页触摸数据=" + "Scroll.getScrollY()=" + sv.getScrollY()
-                    + "  子类高度：=" + sv.getChildAt(0).getMeasuredHeight() + "  Scroll.getMeasuredHeight()=" + sv
-                    .getMeasuredHeight());
+//            Logger.i("测量第二页下拉值=" + mPageChangeListener.getScorllY());
+//            Logger.i("测量第二页触摸数据=" + "Scroll.getScrollY()=" + sv.getScrollY()
+//                    + "  子类高度：=" + sv.getChildAt(0).getMeasuredHeight() + "  Scroll.getMeasuredHeight()=" + sv
+//                    .getMeasuredHeight());
 
             if (sv.getScrollY() < 2 && mCurrentViewIndex == 1) {
-                Logger.i("可以上拉");
                 canPullDown = true;
             } else {
-                Logger.i("不能以上拉");
                 canPullDown = false;
             }
             return false;

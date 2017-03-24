@@ -32,7 +32,6 @@ public class GoodsPresenter extends BasePresenter<GoodsFragment> {
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
             case Commons.GOODS_DETAIL: {//商品详情简要信息
-                Logger.i("商品详情简要信息");
                 model = (GoodsDetailModel) message.getData();
                 mView.storeID = String.valueOf(model.getData().getShopid());
                 mView.setGoodsInfo(model);
@@ -68,7 +67,6 @@ public class GoodsPresenter extends BasePresenter<GoodsFragment> {
     @Override
     protected void onCreate() {
         mRequestUtils = CommonRequestUtils.getRequestUtils();
-        mRequestUtils.getGoodsDetail(mView.goodsID);
     }
 
     @Override

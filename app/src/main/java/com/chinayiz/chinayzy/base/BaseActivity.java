@@ -31,7 +31,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * ActionBar标题
      */
     public TextView mTvActionBarTitle;
-    public ImageView mIvBackButton,mIvActionBarCart,mIvActionBarMore;
+    public ImageView mIvBackButton, mIvActionBarCart, mIvActionBarMore;
     /**
      * 编辑，或完成（供购物车或个人资料修改使用）
      */
@@ -45,11 +45,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected static Toast toast;
     public String TAG;
     public FragmentManager fragmentManager;
-    private  BaseFragment mCurrentFragment;
+    private BaseFragment mCurrentFragment;
     /**
      * web Fragment（通用）；
      */
     public WebFragment mWebFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +66,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         fragmentManager.addOnBackStackChangedListener(this);
     }
 
-    protected void initActionBar(){
-        mActionBar=findViewById(R.id.rl_ActionBar);
+    protected void initActionBar() {
+        mActionBar = findViewById(R.id.rl_ActionBar);
         mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
         mTvActionBarTitle = (TextView) findViewById(R.id.tv_actionbar_title);
         mIvActionBarMore = (ImageView) findViewById(R.id.iv_more_button);
-        mIvActionBarCart= (ImageView) findViewById(R.id.iv_shopcart);
-        mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
+        mIvActionBarCart = (ImageView) findViewById(R.id.iv_shopcart);
+        mCbActionBarEdit = (CheckBox) findViewById(R.id.cb_edit_button);
         TextPaint paint = mTvActionBarTitle.getPaint();
         paint.setFakeBoldText(true);
         mIvBackButton.setOnClickListener(this);
@@ -93,8 +94,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mPresenter.onStop();
         super.onDestroy();
     }
+
     /**
      * 创建prensenter
+     *
      * @return <T extends BasePresenter> 必须是BasePresenter的子类
      */
     protected abstract T initPresenter();
@@ -111,15 +114,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     /**
      * 透明/改变通知栏颜色
+     *
      * @param activity 需要改变状态栏颜色的activity
      * @param RGBColor 必须使用 Colr.rgb 取值才能取到有效值
      */
-    protected void setStatuBarColor(Activity activity,int RGBColor) {
-        BarUtils.setColor(activity,RGBColor);
+    protected void setStatuBarColor(Activity activity, int RGBColor) {
+        BarUtils.setColor(activity, RGBColor);
     }
 
     /**
      * 显示吐司，解决重复延时展示问题
+     *
      * @param context
      * @param content
      */
@@ -147,12 +152,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
 	/* (non-Javadoc)
-	 * @see cn.stlc.app.BaseActivity#addFragment(android.support.v4.app.Fragment, java.lang.Class, boolean)
+     * @see cn.stlc.app.BaseActivity#addFragment(android.support.v4.app.Fragment, java.lang.Class, boolean)
 	 */
 
     public void addFragment(BaseFragment fragment) {
-        Class<?> classz=fragment.getClass();
-
+        Class<?> classz = fragment.getClass();
         try {
             fragmentManager.beginTransaction()
                     .add(R.id.content_frame, fragment, classz.getSimpleName())
@@ -183,15 +187,15 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     public void onBackStackChanged() {
-        int backStackEntryCount=fragmentManager.getBackStackEntryCount();
-        if (backStackEntryCount==0){
+        int backStackEntryCount = fragmentManager.getBackStackEntryCount();
+        if (backStackEntryCount == 0) {
             finish();
             return;
         }
-        if (backStackEntryCount>0){
-            FragmentManager.BackStackEntry backStack=fragmentManager.getBackStackEntryAt(backStackEntryCount-1);
-            String name=backStack.getName();
-            mCurrentFragment= (BaseFragment) fragmentManager.findFragmentByTag(name);
+        if (backStackEntryCount > 0) {
+            FragmentManager.BackStackEntry backStack = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1);
+            String name = backStack.getName();
+            mCurrentFragment = (BaseFragment) fragmentManager.findFragmentByTag(name);
             mCbActionBarEdit.setVisibility(View.GONE);
             mIvActionBarCart.setVisibility(View.GONE);
             mActionBar.setVisibility(View.VISIBLE);

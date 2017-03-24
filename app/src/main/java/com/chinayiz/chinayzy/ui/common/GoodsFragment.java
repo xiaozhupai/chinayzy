@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.CreatePhotosHolder;
 import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
 import com.chinayiz.chinayzy.adapter.viewHolder.GoodsHolder;
@@ -205,6 +206,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
             urls.clear();
             mPresenter.mRequestUtils.getGoodsDetail(goodsID);
         }
+        Logger.i("商品详情=onResume="+goodsID);
     }
 
     /**
@@ -214,7 +216,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
      */
     public void setGoodsInfo(GoodsDetailModel model) {
         this.model = model;
-        int sum = 0;
+        isFristLod=false;
         //设置banner图
         urls.clear();
         for (String str : model.getData().getGpic().split(",")) {
@@ -236,11 +238,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         mGoodsHolder.mTvCommentCount.setText("（" + String.valueOf(model.getData().getCommentnum()) + "条评论）");
         sumComment = model.getData().getCommentlist().size();
         if (sumComment != 0) {//判断商品是否有评论
-            sum = model.getData().getCommentlist().get(0).getDescpoint() +
-                    model.getData().getCommentlist().get(0).getDeliverypoint() +
-                    model.getData().getCommentlist().get(0).getServicepoint();
-            Logger.i("评分总分：=" + sum);
-            mGoodsHolder.mRbGoodsGrade.setStar(sum / 3);//设置综合分数
+            mGoodsHolder.mRbGoodsGrade.setStar(model.getData().getCommentlist().get(0).getDescpoint());//设置综合分数
             Glide.with(this).load(model.getData().getCommentlist().get(0).getPic())
                     .transform(new GlideCircleTransform(getActivity()))
                     .into(mGoodsHolder.mIvUserIcon);
@@ -309,7 +307,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 Logger.i("更多消息");
                 break;
             case R.id.iv_cart_btn:
-                Logger.i("购物车");
+                Skip.toShopCart(getActivity());
                 break;
             case R.id.tv_share_btn:
                 Logger.i("分享");
@@ -356,19 +354,16 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         switch (checkedId) {
             case R.id.rb_goodsDetail: {
                 comitsID = 1;
-                Logger.i("点击图文详情");
                 clickPicGateil(1);
                 break;
             }
             case R.id.rb_goodsNorms: {
                 comitsID = 2;
-                Logger.i("点击规格参数");
                 clickPicGateil(0);
                 break;
             }
             case R.id.rb_goodsRelated: {
                 comitsID = 3;
-                Logger.i("点击相关商品");
                 mPregress.setVisibility(View.VISIBLE);
                 mGoodsHolder.mWebView.setClickable(false);
                 mGoodsHolder.mWebView.setVisibility(View.GONE);
@@ -400,7 +395,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
 
     @Override
     public void onPageChanged(int derection) {
-        Logger.e("翻页了=" + derection);
         if (derection==1) {
             if (pegerIdex!=1){//防止翻页失败重新加载数据
                 mGoodsHolder.mTitel.setText("商品详情");
@@ -450,7 +444,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
 
     @Override
     public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
-        Logger.i("GradationScrollView滑动=" + scrollView.getScrollY());
         // TODO Auto-generated method stub
         if (y <= 0) {   //设置标题的背景颜色
             mGoodsHolder.mActionBar.setBackgroundColor(Color.argb((int) 0, 255,255,255));
@@ -500,6 +493,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
     @Override
     public void onInintData(Bundle bundle) {
         goodsID = bundle.getString("goodsID", "-1");
+        Logger.i("商品详情onInintData="+goodsID);
     }
 
     @Override
