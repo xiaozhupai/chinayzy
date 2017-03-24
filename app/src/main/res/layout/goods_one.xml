@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
     <!--下拉刷新-->
     <com.chinayiz.chinayzy.views.goodsParticular.McoyScrollView
         android:id="@+id/scolv_goods"

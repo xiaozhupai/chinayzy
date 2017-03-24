@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/tv_alte"
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="继续下拉，返回上一页"
+            android:textColor="@color/Goods_Postage"
+            android:textSize="10sp"
+            android:padding="17dp"
+            />
+        <include layout="@layout/view_line"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+        <com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView
+            android:id="@+id/gv_goodsList"
+            android:background="@color/NongYe_Line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:horizontalSpacing="1dp"
+            android:verticalSpacing="1dp"
+            android:visibility="gone"
+            >
+        </com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView>
+        <WebView
+            android:id="@+id/wv_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@color/Background"
+            />
+    </FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/goldBg"
+            android:padding="@dimen/spacing_smallest">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/spacing_normal"
+                android:layout_toLeftOf="@+id/tv_good_detail_daodi"
+                android:background="@color/deep_transparent" />
+
+            <TextView
+                android:id="@+id/tv_good_detail_daodi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="已经到底啦 !"
+                android:textSize="12sp"
+                android:textColor="@color/contentBlack"
+                />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/spacing_normal"
+                android:layout_toRightOf="@+id/tv_good_detail_daodi"
+                android:background="@color/deep_transparent" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -4,11 +4,14 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
+import com.chinayiz.chinayzy.entity.response.ArticleModel;
+import com.chinayiz.chinayzy.entity.response.GoodsCollectModel;
+import com.chinayiz.chinayzy.entity.response.MyStepModel;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
+import com.chinayiz.chinayzy.entity.response.ShopCollectModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
-
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -167,45 +170,6 @@ public class UserNet {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,index
-                                    ,mGson.fromJson(s,BaseResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,e,i);
-                        }
-                    }
-                });
-    }
-
-
-    /**
-     *
-     * @param orderid 订单编号
-     * @param pic  图片地址
-     * @param isanonymity 是否匿名
-     * @param descpoInteger  描述分
-     * @param commentscontent  评论内容
-     */
-    public void getCommentOrder(String orderid,String pic,String isanonymity,String descpoInteger,String commentscontent) {
-        OkHttpUtils
-                .post()
-                .url(Commons.API + Commons.COMMENTORDER)
-                .addParams("orderid", orderid)
-                .addParams("pic", pic)
-                .addParams("isanonymity", isanonymity)
-                .addParams("descpoInteger", descpoInteger)
-                .addParams("commentscontent", commentscontent)
-                .tag("ny")
-                .build()
-                .execute(new StrCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        try {
-                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.COMMENTORDER
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);

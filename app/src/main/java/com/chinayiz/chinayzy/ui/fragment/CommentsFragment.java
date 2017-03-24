@@ -67,6 +67,9 @@ public class CommentsFragment extends Fragment{
      * 监听评论列表状态
      */
     public interface StateListener{
+        /**
+         * 监听评论列表状态 启动= 1 销毁= -1
+         */
         void stateChange(int stateCode);
     }
 }

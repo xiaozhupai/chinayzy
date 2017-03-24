@@ -85,7 +85,7 @@
     <!--商品详情导航栏（RadioButton）-->
     <style name="goods_meun_style" >
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">41dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">5dp</item>

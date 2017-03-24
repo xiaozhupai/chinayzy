@@ -4,20 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
-import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-
+import com.chinayiz.chinayzy.ui.common.GoodsFragment;
+import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
+import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.GoodsKeepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.OrderDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 
 import java.io.Serializable;
+
+import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.COMMENT_DATA;
 
 /**
  * Created by Administrator on 2017/3/10.

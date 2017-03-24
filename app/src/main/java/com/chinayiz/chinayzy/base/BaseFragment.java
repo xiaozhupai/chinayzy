@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.orhanobut.logger.Logger;
-import com.tencent.mm.opensdk.modelbase.BaseReq;
-import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 /**
  * author  by  Canrom7 .
@@ -61,7 +58,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
         if (mBundle != null) {
             outState.putBundle("bundle", mBundle);
         }

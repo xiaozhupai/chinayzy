@@ -28,7 +28,7 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
     private RelatedGoodsModel mModel;
     private ViewHoder mHoder;
     private Context mContext;
-    private boolean isInit = false;
+
 
     public GoodsDetailGridAdpter(Context context) {
         mContext = context;
@@ -36,22 +36,17 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
 
     public void setData(RelatedGoodsModel model) {
         mModel = model;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        if (isInit) {
-            return mModel.getData().size();
-        }
-        return mModel.getData().size();
+        return mModel==null? 0:mModel.getData().size();
     }
 
     @Override
     public Object getItem(int position) {
-        if (isInit) {
-            return mModel.getData().get(position);
-        }
-        return mModel.getData().get(position);
+        return mModel==null? null:mModel.getData().get(position);
     }
 
     @Override
@@ -87,7 +82,7 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag(R.id.tag_click)));
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag(R.id.tag_click)));
     }
 
     class ViewHoder {

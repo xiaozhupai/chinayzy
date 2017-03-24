@@ -13,13 +13,10 @@
 package com.chinayiz.chinayzy.ui.activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,16 +25,19 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
-import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.Presenter;
+import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
+import com.jaiky.imagespickers.ImageSelectorActivity;
 import com.orhanobut.logger.Logger;
 
-import java.util.Stack;
+import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 
+import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.REQUEST_CODE;
 
 
 /**

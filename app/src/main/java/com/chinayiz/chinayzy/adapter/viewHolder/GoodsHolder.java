@@ -1,11 +1,16 @@
 package com.chinayiz.chinayzy.adapter.viewHolder;
 
+import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.chinayiz.chinayzy.adapter.GoodsDetailGridAdpter;
+import com.chinayiz.chinayzy.views.goodsDetail.GradationScrollView;
+import com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView;
 import com.hedgehog.ratingbar.RatingBar;
 
 import java.util.ArrayList;
@@ -17,6 +22,13 @@ import java.util.List;
  * Class GoodsHolder  商品详情的ViewHolder
  */
 public class GoodsHolder {
+    public View mActionBar;
+    public View mLine;
+    public TextView mTitel;
+    public WebView mWebView;
+    public NoScrollGridView mGridView;
+    public GoodsDetailGridAdpter mAdapter;
+    public GradationScrollView mScrollView;
     public ConvenientBanner mVpagerBanner;
     public RadioGroup mGoodsMeun;
     public RadioButton mRbDetail;
@@ -44,7 +56,6 @@ public class GoodsHolder {
     public  static class Holder{
         public ImageView mIvService;
         public TextView mTvService;
-
         public Holder(ImageView ivService, TextView tvService) {
             mIvService = ivService;
             mTvService = tvService;
