@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.content.Context;
-import android.content.pm.ProviderInfo;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,6 +35,7 @@ public class AddAddressPresenter extends BasePresenter<AddAddressFragment> {
     private String lng="";
     private String lat="";
     public static final String PICKVIEW="PICKVIEW";
+    public String specificaddress;
 
     @Override
     public void onCreate() {
@@ -143,9 +143,10 @@ public class AddAddressPresenter extends BasePresenter<AddAddressFragment> {
     @Override
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
-            case PICKVIEW:
-                String part= (String) message.getData();
-                mView.tv_part.setText(part);
+            case PICKVIEW:  //地区选择器回调
+                specificaddress= (String) message.getData();
+               String a[]= specificaddress.split(",");
+                mView.tv_part.setText(a[0]+a[1]+a[2]);
                 mView.tv_part.setTextColor(Color.BLACK);
                 break;
         }
@@ -170,8 +171,8 @@ public class AddAddressPresenter extends BasePresenter<AddAddressFragment> {
             Toast.makeText(mView.getActivity(), "收货地址不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        String part=mView.tv_part.getText().toString().trim();
-        if (part.equals("请选择")) {
+        String parter=mView.tv_part.getText().toString().trim();
+        if (parter.equals("请选择")) {
             Toast.makeText(mView.getActivity(), "地区不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -183,14 +184,15 @@ public class AddAddressPresenter extends BasePresenter<AddAddressFragment> {
             return;
         }
 
-
+        com.orhanobut.logger.Logger.i(specificaddress);
         if (mView.type==mView.ADD){
-            UserNet.getNet().getaddAddress(username,phone,part,address,lng,lat);
+            UserNet.getNet().getaddAddress(username,phone,parter,address,lng,lat,specificaddress);
         }else {
-            UserNet.getNet().geteditAddress(mView.bean.getAddressid()+"",username,phone,part,address,lng,lat);
+            UserNet.getNet().geteditAddress(mView.bean.getAddressid()+"",username,phone,parter,address,lng,lat,specificaddress);
         }
     }
 
+    //删除收货地址
     public void delete() {
         UserNet.getNet().getdeleteAddress(mView.bean.getAddressid()+"");
     }

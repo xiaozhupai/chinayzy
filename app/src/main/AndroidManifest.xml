@@ -60,12 +60,16 @@
         <!-- 商品详情activity -->
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            >
         </activity>
         <activity
             android:name=".ui.activity.ForgotActivity"
             android:label="@string/title_activity_forgot"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
         <!-- MobUIshell -->
 
         <activity
@@ -148,6 +152,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             ></activity>
 
         <receiver

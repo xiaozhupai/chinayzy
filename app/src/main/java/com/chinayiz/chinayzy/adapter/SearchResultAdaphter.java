@@ -8,16 +8,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
-import com.chinayiz.chinayzy.utils.DensityUtil;
 import com.orhanobut.logger.Logger;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
-
-import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 /**
  * Created by Administrator on 2017/2/8.
@@ -57,13 +51,11 @@ public class SearchResultAdaphter extends BaseInectAdaphter<SearchFarmModel.Data
         Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_image);
         viewHolder.tv_price.setText("￥"+bean.getPrice());
         viewHolder.tv_title.setText(bean.getGname());
-        viewHolder.iv_join_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logger.i("加入购物车");
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,JOINCART,bean));
-            }
-        });
+       if (bean.getIsself().equals("1")){   //是否自营
+           viewHolder.iv_join_cart.setVisibility(View.VISIBLE);
+       }else {
+           viewHolder.iv_join_cart.setVisibility(View.GONE);
+       }
         return view;
     }
 

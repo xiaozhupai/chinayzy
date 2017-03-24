@@ -3,18 +3,15 @@ package com.chinayiz.chinayzy.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
 import com.chinayiz.chinayzy.entity.response.ThirdModel;
@@ -24,7 +21,6 @@ import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
-import com.chinayiz.chinayzy.utils.TimeUntils;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -100,22 +96,11 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
                 break;
-            case Commons.REGISTER:  //注册
-                BaseResponseModel model2= (BaseResponseModel) message.getData();
-                if (model2.getCode().equals("100")){  //注册成功
-                    showLeft();
-                    mView.ev_login_input_phone.setText(registerphone);
-                    mView.ev_login_input_phone.setSelection(registerphone.length());
-                }
-                Toast.makeText(mView,model2.getMsg(),Toast.LENGTH_LONG).show();
-                break;
+
             case Commons.THIRD:   //第三方登录
               ThirdModel model3= (ThirdModel) message.getData();
                  ThirdModel.DataBean dataBean=model3.getData();
                 SaveData(dataBean.getUserid());
-                break;
-            case Commons.SRYCODE:   //发送验证码
-
                 break;
         }
 
@@ -147,52 +132,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
 
     }
 
-    /**
-     * 左边视图显示
-     */
-    public void showLeft(){
-        mView.ivlogo.setVisibility(View.VISIBLE);
-        mView. lv_login.setVisibility(View.VISIBLE);
-        mView.  lv_register.setVisibility(View.GONE);
-        mView.  v_left_line.setVisibility(View.VISIBLE);
-        mView.  v_right_line.setVisibility(View.GONE);
-        mView.tv_left_login.setAlpha(1);
-        mView.tv_right_register.setAlpha(0.6f);
-    }
-    /**
-     * 右边视图显示
-     */
-    public void showRight(){
-        mView.   lv_register.setVisibility(View.VISIBLE);
-        mView.   ivlogo.setVisibility(View.INVISIBLE);
-        mView. lv_login.setVisibility(View.GONE);
-        mView. v_left_line.setVisibility(View.GONE);
-        mView.  v_right_line.setVisibility(View.VISIBLE);
-        mView.tv_left_login.setAlpha(0.6f);
-        mView.tv_right_register.setAlpha(1);
-    }
 
-    public void sendMessage(){
-        String phone = mView.et_register_input_phone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)){
-            Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$");
-        Matcher matcher=pattern.matcher(phone);
-        if (!matcher.find()){
-            BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
-            return;
-        }
-
-        if (!mView.tv_register_sendmessage.isClickable()){
-            return;
-        }
-        TimeUntils timeUntils=new TimeUntils(handler);
-        timeUntils.RunTimer();
-        new LoginNet().toSendMessage(phone);
-    }
 
     /**
      * 跳转忘记密码
@@ -227,13 +167,13 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
      * 登录
      */
     public void login() {
-        String phone = mView.ev_login_input_phone.getText().toString().trim();
+        String phone = mView.mEvLoginInputPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)  ) {
             Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String password = mView.et_login_input_password.getText().toString().trim();
+        String password = mView.mEtLoginInputPassword.getText().toString().trim();
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(mView, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
@@ -247,35 +187,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         new LoginNet().toLogin(phone,password);
     }
 
-    /**
-     * 注册
-     */
-    public void register() {
-         registerphone =mView. et_register_input_phone.getText().toString().trim();
-        if (TextUtils.isEmpty(registerphone)){
-            Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        String message = mView.et_register_input_message.getText().toString().trim();
-        if (TextUtils.isEmpty(message)) {
-            Toast.makeText(mView, "请输入验证码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String password =mView. et_register_input_password.getText().toString().trim();
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(mView, "请输入6-12位密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|17[0-9]|18[0|1|2|3|5|6|7|8|9]|19[0-9])\\d{8}$");
-        Matcher matcher=pattern.matcher(registerphone);
-        if (!matcher.find()){
-            BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
-            return;
-        }
-       new LoginNet().toRegister(registerphone,password,message);
-    }
 
     //执行授权,获取用户信息
     //文档：http://wiki.mob.com/Android_%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E8%B5%84%E6%96%99
@@ -363,17 +275,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 new LoginNet().toThird(platDB.getUserId(),logintype,platDB.getUserIcon(),platDB.getUserName(),sex);
             }
             break;
-            case MSG_NUM:{
-                num=msg.arg1;
-                if (num==0){
-                    mView. tv_register_sendmessage.setText("发送验证码");
-                    mView. tv_register_sendmessage.setClickable(true);
-                }else {
-                    mView. tv_register_sendmessage.setText(num+"后重新获取");
-                    mView.   tv_register_sendmessage.setClickable(false);
-                }
-            }
-            break;
+
         }
         return false;
     }
