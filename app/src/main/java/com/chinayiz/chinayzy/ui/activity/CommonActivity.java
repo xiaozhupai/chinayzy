@@ -94,12 +94,12 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 		mIvActionBarMore = (ImageView) findViewById(R.id.iv_more_button);
 		mIvActionBarCart= (ImageView) findViewById(R.id.iv_shopcart);
 		mCbActionBarEdit= (CheckBox) findViewById(R.id.cb_edit_button);
-		mTvActionBarTitle.setText("个人中心");
 		mIvActionBarMore.setVisibility(View.GONE);
-		mTvActionBarTitle.setTextColor(getResources().getColor(R.color.white));
+		mTvActionBarTitle.setTextColor(Color.parseColor("#1c1c1c"));
 		mIvBackButton.setImageResource(R.mipmap.back_arrow);
-		mActionBar.setBackgroundColor(Color.parseColor("#ff3951"));
+		mActionBar.setBackgroundColor(Color.parseColor("#f5f5f5"));
 		mIvBackButton.setOnClickListener(this);
+
 	}
 
 	/* (non-Javadoc)

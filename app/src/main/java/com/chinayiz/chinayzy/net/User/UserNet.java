@@ -387,7 +387,7 @@ public class UserNet {
      * @param lng  经度
      * @param lat  纬度
      */
-    public void geteditAddress(String addressid,String consignee,String phone,String area,String address,String lng,String lat) {
+    public void geteditAddress(String addressid,String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.EDITADDRESS)
@@ -398,6 +398,7 @@ public class UserNet {
                 .addParams("phone",phone)
                 .addParams("area",area)
                 .addParams("address",address)
+                .addParams("specificaddress",specificaddress)
                 .addParams("lng",lng)
                 .addParams("lat",lat)
                 .build()
@@ -495,7 +496,7 @@ public class UserNet {
      * @param lng  经度
      * @param lat  纬度
      */
-    public void getaddAddress(String consignee,String phone,String area,String address,String lng,String lat) {
+    public void getaddAddress(String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ADDADDRESS)
@@ -505,6 +506,7 @@ public class UserNet {
                 .addParams("phone",phone)
                 .addParams("area",area)
                 .addParams("address",address)
+                .addParams("specificaddress",specificaddress)
                 .addParams("lng",lng)
                 .addParams("lat",lat)
                 .build()

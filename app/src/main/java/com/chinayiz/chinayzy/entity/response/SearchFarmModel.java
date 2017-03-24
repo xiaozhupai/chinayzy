@@ -44,6 +44,16 @@ public class SearchFarmModel extends BaseResponseModel {
         private int goodsstandardid;
         private String productarea;
 
+        public String getIsself() {
+            return isself;
+        }
+
+        public void setIsself(String isself) {
+            this.isself = isself;
+        }
+
+        private String isself;
+
         public String getUnit() {
             return unit;
         }

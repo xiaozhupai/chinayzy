@@ -1,7 +1,7 @@
-package  com.chinayiz.chinayzy.ui.activity;
+package com.chinayiz.chinayzy.ui.activity;
+
 import android.app.Activity;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -9,9 +9,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.LoginPresenter;
 
@@ -19,36 +21,34 @@ import com.chinayiz.chinayzy.presenter.LoginPresenter;
  * 注册登录
  */
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements View.OnClickListener{
-    public ImageView ivlogo;
-    public TextView tv_left_login;
-    public View v_left_line;
-    public TextView tv_right_register;
-    public View v_right_line;
-    public EditText ev_login_input_phone;
-    public ImageView iv_lock;
-    public EditText et_login_input_password;
-    public TextView tv_forgot;
-    public View v_line;
-    public ImageView iv_qq;
-    public ImageView iv_wechat;
-    public ImageView iv_weibo;
-    public EditText et_register_input_phone;
-    public ImageView iv__register_lock;
-    public EditText et_register_input_message;
-    public TextView tv_register_sendmessage;
-    public View v_register_line;
-    public EditText et_register_input_password;
-    public LinearLayout lv_login,lv_register;
-    public TextView tv_login_submit,tv_register_submit;
-    public ImageView iv_back;
+public class LoginActivity extends BaseActivity<LoginPresenter> implements View.OnClickListener {
+
+
+    public ImageView mIvBackButton;
+    public TextView mTvActionbarTitle;
+    public ImageView mIvMoreButton;
+    public CheckBox mCbEditButton;
+    public ImageView mIvShopcart;
+    public RelativeLayout mRlActionBar;
+    public EditText mEvLoginInputPhone;
+    public TextView mTvLock;
+    public EditText mEtLoginInputPassword;
+    public ImageView mIvForgot;
+    public View mVLine;
+    public TextView mTvLoginSubmit;
+    public TextView mTvRegisterSubmit;
+    public ImageView mIvQq;
+    public ImageView mIvWechat;
+    public ImageView mIvWeibo;
+    public LinearLayout mLvLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_login);
-        setStatuBarColor(LoginActivity.this, Color.parseColor("#eb5c70"));
         initView();
+        setStatuBarColor(LoginActivity.this, Color.parseColor("#eb5c70"));
+
     }
 
 
@@ -65,77 +65,28 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_qq:  //QQ
-               mPresenter.toQQ();
+                mPresenter.toQQ();
                 break;
             case R.id.iv_wechat:  //微信
-              mPresenter.toWechat();
+                mPresenter.toWechat();
                 break;
             case R.id.iv_weibo:  //微博
                 mPresenter.toWeibo();
                 break;
-            case R.id.tv_left_login:   //登录UI
-                mPresenter.showLeft();
-                break;
-            case R.id.tv_right_register:    //注册UI
-                mPresenter.showRight();
-                break;
-            case R.id.tv_forgot:   //忘记密码
-               mPresenter.toForgot();
+            case R.id.iv_forgot:   //忘记密码
+                mPresenter.toForgot();
                 break;
             case R.id.tv_login_submit:    //登录提交
-              mPresenter.login();
+                mPresenter.login();
                 break;
             case R.id.tv_register_submit:   //注册提交
-                mPresenter.register();
+                Skip.toMemberRuleFragment(getActivity());
                 break;
-            case R.id.tv_register_sendmessage: //发送验证码
-              mPresenter.sendMessage();
-                break;
-            case R.id.iv_back:
+            case R.id.iv_back_button:
                 onBackPressed();
                 break;
-
         }
-    }
 
-
-
-    private void initView() {
-        iv_back= (ImageView) findViewById(R.id.iv_back);
-        ivlogo = (ImageView) findViewById(R.id.ivlogo);
-        tv_left_login = (TextView) findViewById(R.id.tv_left_login);
-        v_left_line = (View) findViewById(R.id.v_left_line);
-        tv_right_register = (TextView) findViewById(R.id.tv_right_register);
-        v_right_line = (View) findViewById(R.id.v_right_line);
-        ev_login_input_phone = (EditText) findViewById(R.id.ev_login_input_phone);
-        iv_lock = (ImageView) findViewById(R.id.iv_lock);
-        et_login_input_password = (EditText) findViewById(R.id.et_login_input_password);
-        tv_forgot = (TextView) findViewById(R.id.tv_forgot);
-        v_line = (View) findViewById(R.id.v_line);
-        iv_qq = (ImageView) findViewById(R.id.iv_qq);
-        iv_wechat = (ImageView) findViewById(R.id.iv_wechat);
-        iv_weibo = (ImageView) findViewById(R.id.iv_weibo);
-        et_register_input_phone = (EditText) findViewById(R.id.et_register_input_phone);
-        iv__register_lock = (ImageView) findViewById(R.id.iv__register_lock);
-        et_register_input_message = (EditText) findViewById(R.id.et_register_input_message);
-        tv_register_sendmessage = (TextView) findViewById(R.id.tv_register_sendmessage);
-        v_register_line = (View) findViewById(R.id.v_register_line);
-        et_register_input_password = (EditText) findViewById(R.id.et_register_input_password);
-        lv_login= (LinearLayout) findViewById(R.id.lv_login);
-        lv_register= (LinearLayout) findViewById(R.id.lv_register);
-        tv_login_submit= (TextView) findViewById(R.id.tv_login_submit);
-        tv_register_submit= (TextView) findViewById(R.id.tv_register_submit);
-        ivlogo.setOnClickListener(this);
-        tv_left_login.setOnClickListener(this);
-        tv_right_register.setOnClickListener(this);
-        tv_forgot.setOnClickListener(this);
-        iv_qq.setOnClickListener(this);
-        iv_wechat.setOnClickListener(this);
-        iv_weibo.setOnClickListener(this);
-        tv_login_submit.setOnClickListener(this);
-        tv_register_submit.setOnClickListener(this);
-        tv_register_sendmessage.setOnClickListener(this);
-        iv_back.setOnClickListener(this);
     }
 
 
@@ -148,4 +99,43 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
     }
+
+    public void initView() {
+        mIvBackButton = (ImageView) findViewById(R.id.iv_back_button);
+        mTvActionbarTitle = (TextView) findViewById(R.id.tv_actionbar_title);
+        mIvMoreButton = (ImageView) findViewById(R.id.iv_more_button);
+        mCbEditButton = (CheckBox) findViewById(R.id.cb_edit_button);
+        mIvShopcart = (ImageView) findViewById(R.id.iv_shopcart);
+        mRlActionBar = (RelativeLayout) findViewById(R.id.rl_ActionBar);
+        mEvLoginInputPhone = (EditText) findViewById(R.id.ev_login_input_phone);
+        mTvLock = (TextView) findViewById(R.id.tv_lock);
+        mEtLoginInputPassword = (EditText) findViewById(R.id.et_login_input_password);
+        mIvForgot = (ImageView) findViewById(R.id.iv_forgot);
+        mVLine = (View) findViewById(R.id.v_line);
+        mTvLoginSubmit = (TextView) findViewById(R.id.tv_login_submit);
+        mTvRegisterSubmit = (TextView) findViewById(R.id.tv_register_submit);
+        mIvQq = (ImageView) findViewById(R.id.iv_qq);
+        mIvWechat = (ImageView) findViewById(R.id.iv_wechat);
+        mIvWeibo = (ImageView) findViewById(R.id.iv_weibo);
+        mLvLogin = (LinearLayout) findViewById(R.id.lv_login);
+
+        mIvBackButton.setOnClickListener(this);
+        mIvMoreButton.setOnClickListener(this);
+        mIvShopcart.setOnClickListener(this);
+        mIvForgot.setOnClickListener(this);
+        mTvLoginSubmit.setOnClickListener(this);
+        mTvRegisterSubmit.setOnClickListener(this);
+        mIvQq.setOnClickListener(this);
+        mIvWechat.setOnClickListener(this);
+        mIvWeibo.setOnClickListener(this);
+
+        mTvActionbarTitle.setText("登录");
+        mIvMoreButton.setVisibility(View.GONE);
+        mTvActionbarTitle.setTextColor(Color.parseColor("#1c1c1c"));
+        mIvBackButton.setImageResource(R.mipmap.back_arrow);
+        mIvBackButton.setBackgroundColor(Color.parseColor("#f5f5f5"));
+        mIvBackButton.setOnClickListener(this);
+    }
+
+
 }

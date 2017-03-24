@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
+import com.chinayiz.chinayzy.ui.fragment.register.MemberRuleFragment;
 
 import java.io.Serializable;
 
@@ -223,6 +224,17 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context,intent);
     }
+
+    /**
+     * 会员须知
+     * @param context
+     */
+    public static void toMemberRuleFragment(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, MemberRuleFragment.class);
+        skip(context,intent);
+    }
+
 
 
 

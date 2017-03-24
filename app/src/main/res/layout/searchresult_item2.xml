@@ -44,7 +44,7 @@
             android:id="@+id/iv_join_cart"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@mipmap/pic_cart"
+            android:src="@mipmap/icon_oneself_store"
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>

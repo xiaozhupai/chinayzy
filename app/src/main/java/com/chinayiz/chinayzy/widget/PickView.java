@@ -3,15 +3,11 @@ package com.chinayiz.chinayzy.widget;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.view.Gravity;
-import android.view.KeyboardShortcutGroup;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
-
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.AddAddressPresenter;
 import com.chinayiz.chinayzy.views.wheelview.model.CityModel;
@@ -22,11 +18,9 @@ import com.chinayiz.chinayzy.views.wheelview.view.OnWheelChangedListener;
 import com.chinayiz.chinayzy.views.wheelview.view.WheelView;
 import com.chinayiz.chinayzy.views.wheelview.view.adapters.ArrayWheelAdapter;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +113,7 @@ public class PickView extends DialogUtils.XDialog implements View.OnClickListene
                 dismiss();
                 break;
             case R.id.tv_submit:
-                String param=mCurrentProviceName+mCurrentCityName+mCurrentDistrictName;
+                String param=mCurrentProviceName+","+mCurrentCityName+","+mCurrentDistrictName;
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, AddAddressPresenter.PICKVIEW,param));
                 dismiss();
                 break;

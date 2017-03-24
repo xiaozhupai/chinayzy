@@ -67,14 +67,12 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
     private void initView() {
         initActionBar();
         et_forgot_input_phone = (EditText) findViewById(R.id.et_forgot_input_phone);
-        iv__register_lock = (ImageView) findViewById(R.id.iv__register_lock);
         et_forgot_input_message = (EditText) findViewById(R.id.et_forgot_input_message);
         tv_forgot_sendmessage = (TextView) findViewById(R.id.tv_forgot_sendmessage);
         v_register_line = (View) findViewById(R.id.v_register_line);
         et_forgot_input_password = (EditText) findViewById(R.id.et_forgot_input_password);
         et_forgot_input_newpassword = (EditText) findViewById(R.id.et_forgot_input_newpassword);
         tv_forgot_submit= (TextView) findViewById(R.id.tv_forgot_submit);
-        tv_forgot_pact= (TextView) findViewById(R.id.tv_forgot_pact);
         tv_forgot_pact.setOnClickListener(this);
         tv_forgot_submit.setOnClickListener(this);
         tv_forgot_sendmessage.setOnClickListener(this);
@@ -85,8 +83,6 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_forgot_pact:  //用户协议
-                break;
             case R.id.tv_forgot_submit:  //忘记密码提交
                 mPresenter.submit();
                 break;

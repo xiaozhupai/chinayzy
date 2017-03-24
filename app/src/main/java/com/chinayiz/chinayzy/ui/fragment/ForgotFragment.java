@@ -49,8 +49,6 @@ public class ForgotFragment extends BaseFragment<ForgotPresenter> implements Vie
         View view=inflater.inflate(R.layout.activity_forgot, null);
         et_forgot_input_phone = (EditText) view.findViewById(R.id.et_forgot_input_phone);
         et_forgot_input_phone.setOnClickListener(this);
-        iv__register_lock = (ImageView) view.findViewById(R.id.iv__register_lock);
-        iv__register_lock.setOnClickListener(this);
         et_forgot_input_message = (EditText) view.findViewById(R.id.et_forgot_input_message);
         et_forgot_input_message.setOnClickListener(this);
         tv_forgot_sendmessage = (TextView) view.findViewById(R.id.tv_forgot_sendmessage);
