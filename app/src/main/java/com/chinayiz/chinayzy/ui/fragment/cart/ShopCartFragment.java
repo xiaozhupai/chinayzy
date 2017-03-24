@@ -165,6 +165,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getData();
+
     }
 }

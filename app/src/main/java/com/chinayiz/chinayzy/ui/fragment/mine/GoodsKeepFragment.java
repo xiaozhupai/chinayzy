@@ -61,6 +61,7 @@ public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
         pullrefresh= (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
         lv_list   =(PullableListView) view.findViewById(R.id.lv_list);
         adaphter.setRefreshLayout(pullrefresh);
+       adaphter.setListview(lv_list);
         pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
@@ -72,6 +73,7 @@ public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
                 adaphter.LoadMore();
             }
         });
+
 
         lv_list.setAdapter(adaphter);
 

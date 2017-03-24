@@ -361,7 +361,7 @@ public class PullToRefreshLayout extends RelativeLayout
 		switch (ev.getActionMasked())
 		{
 			case MotionEvent.ACTION_DOWN:
-              state=INIT;
+				state=INIT;
 				downY = ev.getY();
 				lastY = downY;
 				timer.cancel();

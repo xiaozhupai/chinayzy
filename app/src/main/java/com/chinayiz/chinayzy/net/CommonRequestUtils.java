@@ -146,6 +146,9 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.UNATTENTION_STORE
+                                    , mGson.fromJson(s, ResponseModel.class)));
                             Logger.i(mGson.fromJson(s, ResponseModel.class).toString());
                         } catch (Exception e) {
                             onError(null, e, i);
@@ -423,6 +426,9 @@ public class CommonRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             Logger.i(mGson.fromJson(s, ResponseModel.class).toString());
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.GOODS_UNCOLLECT
+                                    , mGson.fromJson(s, ResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
                         }

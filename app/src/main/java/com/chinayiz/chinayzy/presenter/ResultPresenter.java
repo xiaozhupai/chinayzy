@@ -1,9 +1,16 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
-import android.text.Html;
-import android.view.View;
+import android.os.Handler;
+import android.os.Message;
 
+import android.text.Html;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+import com.alipay.sdk.app.PayTask;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -13,23 +20,34 @@ import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.utils.AliPayUntil;
+import com.chinayiz.chinayzy.utils.PayResult;
 import com.chinayiz.chinayzy.utils.WeChatPayUntil;
 import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
+import com.chinayiz.chinayzy.views.MainViewPager;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.chinayiz.chinayzy.wxapi.WXPayEntryActivity;
 import com.google.gson.Gson;
+
 import com.orhanobut.logger.Logger;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**  结算订单
  * Created by Administrator on 2017/1/4.

@@ -1,11 +1,10 @@
 package com.chinayiz.chinayzy.base;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
@@ -79,6 +78,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mIvActionBarMore.setOnClickListener(this);
         mIvActionBarCart.setOnClickListener(this);
         mCbActionBarEdit.setOnCheckedChangeListener(this);
+        mActionBar.setBackgroundColor(Color.WHITE);
     }
 
 
@@ -194,6 +194,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mCurrentFragment= (BaseFragment) fragmentManager.findFragmentByTag(name);
             mCbActionBarEdit.setVisibility(View.GONE);
             mIvActionBarCart.setVisibility(View.GONE);
+            mActionBar.setVisibility(View.VISIBLE);
             mCurrentFragment.onInitActionBar(this);
         }
     }

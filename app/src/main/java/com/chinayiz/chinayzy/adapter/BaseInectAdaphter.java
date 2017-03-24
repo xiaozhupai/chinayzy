@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2017/1/3.
  */
 
-public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnItemClickListener {
+public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
     public List<T> lists;
     public Context context;
     public ListView listView;
@@ -87,6 +87,8 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     public  void setListview(ListView listview){
         this.listView=listView;
         listview.setOnItemClickListener(this);
+
+        listview.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -123,5 +125,12 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     //设置下拉刷新布局
     public void setRefreshLayout(PullToRefreshLayout pullrefresh) {
         this.pullrefresh=pullrefresh;
+    }
+
+
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        return true;
     }
 }

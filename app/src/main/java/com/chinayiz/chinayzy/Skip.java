@@ -210,6 +210,20 @@ public class Skip {
         intent.putExtra(CLASS, PayFragment.class);
         skip(context,intent);
     }
+    /**
+     * 结果页面
+     * @param context
+     */
+    public static void toPayResult(Context context,int type,String title) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, PayFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("title",title);
+        bundle.putInt("type",type);
+        intent.putExtras(bundle);
+        skip(context,intent);
+    }
+
 
 
 }

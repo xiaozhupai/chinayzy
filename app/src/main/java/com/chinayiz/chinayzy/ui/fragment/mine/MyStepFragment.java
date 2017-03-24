@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.MyStepAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -57,6 +58,7 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
         pull_listview = (PullableListView) view.findViewById(R.id.pull_listview);
         pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
         pull_listview.setAdapter(adapter);
+
         adapter.setRefreshLayout(pullrefresh);
         pull_listview.setOnItemClickListener(this);
         pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
@@ -86,9 +88,11 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
            MyStepModel.DataBean.FootmarklistBean bean= (MyStepModel.DataBean.FootmarklistBean) adapterView.getItemAtPosition(i);
+        Skip.toGoodsDetail(getActivity(),bean.getGoodsid()+"");
         Logger.i("点击每一个商品");
-
     }
+
+
 
 
     @Override
@@ -96,4 +100,6 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
         super.onDestroy();
         adapter.onDestory();
     }
+
+
 }
