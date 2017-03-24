@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/3/8 10:06
- * Class ImGoldFragment
+ * Class ImGoldFragment  我的积分
  */
 public class ImGoldFragment extends AbsFragment implements View.OnClickListener {
     private TextView mTvSumGolds;
@@ -87,18 +87,14 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
             case R.id.iv_back_button:
                 getActivity().finish();
                 break;
-            case R.id.tv_outMoneys:
             case R.id.tv_outMoney:
                 addFragment(new TakeFragment(goldNum),"TakeFragment");
-                break;
-            case R.id.tv_goldRule:
-                addFragment(new CommonWebFragment("积分规则",Commons.API+Commons.GOLD_RULE),"CommonWebFragment");
                 break;
             case R.id.tv_dealLog:
                 addFragment(new DealListFragment(),"DealListFragment");
                 break;
             case R.id.tv_getGold:
-                addFragment(new CommonWebFragment("赚取积分",Commons.API+Commons.GET_GOLD_MODE),"CommonWebFragment");
+                addFragment(new CommonWebFragment("积分规则",Commons.API+Commons.GOLD_RULE),"CommonWebFragment");
                 break;
         }
     }
