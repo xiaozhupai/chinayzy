@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('E:/workspace/chinayzy/app/chinayzy.jks')
+            keyAlias 'chinayzy'
+            keyPassword '1020304050z0'
+            storePassword '1020304050z0'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -17,11 +25,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
 
     }
-
-
 }
 
 
@@ -46,7 +53,6 @@ dependencies {
     compile files('libs/aliyun-oss-sdk-android-2.3.0.jar')
     compile files('libs/alipaySdk-20161222.jar')
     compile files('libs/wechat-sdk-android-with-mta-1.0.2.jar')
-
     compile 'com.jude:utils:1.2.1'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.orhanobut:logger:1.15'

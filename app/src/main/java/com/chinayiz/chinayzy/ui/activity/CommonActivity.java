@@ -46,7 +46,9 @@ import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.REQUES
 
 public class CommonActivity extends BaseActivity<Presenter> implements FragmentManager.OnBackStackChangedListener {
 	public static final String RESULT_BACK="RESULT_BACK";
-
+	public static final int IMAGE_REQUEST_CODE = 0x00008000;
+	public static final int RESIZE_REQUEST_CODE = 0x00008001;
+	public static final int CAMERA_REQUEST_CODE = 0x00008002;
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()){
@@ -167,6 +169,9 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode==IMAGE_REQUEST_CODE || requestCode==RESIZE_REQUEST_CODE || requestCode==CAMERA_REQUEST_CODE){
+			EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,requestCode+"",data));
+		}
 		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
 			List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
 			EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,

@@ -122,7 +122,6 @@ public class PickView extends DialogUtils.XDialog implements View.OnClickListene
 
     private void setUpData() {
         initProvinceDatas();
-
         mViewProvince.setViewAdapter(new ArrayWheelAdapter(context, mProvinceDatas));
         // 设置可见条目数量
         mViewProvince.setVisibleItems(7);

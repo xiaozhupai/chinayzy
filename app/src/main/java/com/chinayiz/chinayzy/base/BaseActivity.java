@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -19,6 +20,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -144,7 +146,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         try {
             BaseFragment fragment = clazz.newInstance();
             fragment.setArguments(intent.getExtras());
-            addFragment(fragment);
+            Bundle bundle=intent.getExtras();
+            if (TextUtils.isEmpty(bundle.getString("goodsID"))){
+                addFragment(fragment);
+            }else {
+                addFragment(fragment,bundle.getString("goodsID"));
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             finish();
@@ -171,6 +179,30 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                     .commitAllowingStateLoss();
         }
 
+    }
+
+    public void addFragment(BaseFragment fragment,String tag) {
+        Logger.i("bundle"+tag);
+        Class<?> classz = fragment.getClass();
+
+        try {
+            fragmentManager.beginTransaction()
+                    .add(R.id.content_frame, fragment, classz.getSimpleName()+tag)
+                    .addToBackStack(classz.getSimpleName()+tag)
+                    .commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fragmentManager.beginTransaction()
+                    .add(R.id.content_frame, fragment, classz.getSimpleName()+tag)
+                    .addToBackStack(classz.getSimpleName()+tag)
+                    .commitAllowingStateLoss();
+        }
+
+    }
+
+    public void finishFragment(){
+        fragmentManager.popBackStack();
     }
 
 

@@ -1,7 +1,11 @@
 package com.chinayiz.chinayzy.database;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.chinayiz.chinayzy.Skip;
+import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 
 /**
  * Created by Administrator on 2017/2/5.
@@ -9,14 +13,38 @@ import android.content.SharedPreferences;
 
 public class UserSeeion {
     public static boolean isLogin(Context context){
-            return context.getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0)!=0;
+        int isLogin=context.getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0);
+        if (isLogin==0){  //没有登录
+            Intent intent=new Intent(context, LoginActivity.class);
+            context.startActivity(intent);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void setMember(Context context){
+        SharedPreferences sp=context.getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString("ismember","1");
+        editor.commit();
+    }
+
+    public static boolean isMember(Context context){
+        String isMember=context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("ismember","");
+        if (isMember.equals("0")){
+            Skip.toDeposit(context);
+            return false;
+        }else {
+            return true;
+        }
     }
 
     public static void logout(Context context){
-     SharedPreferences sp=context.getSharedPreferences("login", Context.MODE_PRIVATE);
-      SharedPreferences.Editor editor=sp.edit();
-         editor.putInt("userid",0);
-         editor.commit();
+        SharedPreferences sp=context.getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putInt("userid",0);
+        editor.commit();
     }
 
     public static int getUserid(Context context){

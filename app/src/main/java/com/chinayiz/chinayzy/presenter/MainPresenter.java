@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.MainActivity;
+import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
-import com.chinayiz.chinayzy.ui.activity.LoginActivity;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
-import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -72,13 +71,11 @@ public class MainPresenter extends BasePresenter<MainActivity> {
      */
     public void doStartMine() {
         if (UserSeeion.isLogin(mView.getActivity())){
-            intent = new Intent(mView, MineActivity.class);
-            mView.startActivity(intent);
-        }else {
-            intent = new Intent(mView, LoginActivity.class);
-            mView.startActivity(intent);
+            if (UserSeeion.isMember(mView.getActivity())){
+                intent = new Intent(mView, MineActivity.class);
+                mView.startActivity(intent);
+            }
         }
-
     }
 
 }

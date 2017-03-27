@@ -1,20 +1,19 @@
 package com.chinayiz.chinayzy.wxapi;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
-import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -47,11 +46,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler,E
 
 	@Override
 	public void onResp(BaseResp resp) {
-		Log.i(TAG, "onPayFinish, errCode = " + resp.errCode);
 
-//	   Intent data=new Intent(this, CommonActivity.class);
-//		data.putExtra("code",resp.errCode);
-//		setResult(WECHAR_BACK,data);
+		Log.i(TAG, "onPayFinish, errCode = " + resp.errCode+"errstr"+resp.errStr);
 		finish();
         EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,WECHAT_BACK,resp));
 	}

@@ -64,15 +64,15 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_qq:  //QQ
-                mPresenter.toQQ();
-                break;
-            case R.id.iv_wechat:  //微信
-                mPresenter.toWechat();
-                break;
-            case R.id.iv_weibo:  //微博
-                mPresenter.toWeibo();
-                break;
+//            case R.id.iv_qq:  //QQ
+//                mPresenter.toQQ();
+//                break;
+//            case R.id.iv_wechat:  //微信
+//                mPresenter.toWechat();
+//                break;
+//            case R.id.iv_weibo:  //微博
+//                mPresenter.toWeibo();
+//                break;
             case R.id.iv_forgot:   //忘记密码
                 mPresenter.toForgot();
                 break;
