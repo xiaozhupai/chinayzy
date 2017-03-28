@@ -530,6 +530,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
+                            Logger.i(s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ADDSHOPPINGCAR
                                     , mGson.fromJson(s, BaseResponseModel.class)));

@@ -1,16 +1,20 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.chinayiz.chinayzy.ui.fragment.register.RegisterInfoFragment"
     android:background="@color/white"
     >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/white"
-
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
         >
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
@@ -27,11 +31,14 @@
                     />
             </LinearLayout>
            <EditText
+               android:id="@+id/et_nickname"
              style="@style/Registerinfo_EditText"
                android:hint="请输入昵称"
 
                />
         </LinearLayout>
+        <View
+           style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -47,11 +54,14 @@
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_username"
                 style="@style/Registerinfo_EditText"
                 android:hint="请输入姓名"
 
                 />
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -67,11 +77,14 @@
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_sex"
                 style="@style/Registerinfo_EditText"
-                android:hint="请输入性别"
-
+                android:hint="请选择性别"
+             android:focusable="false"
                 />
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -87,11 +100,14 @@
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_birth"
                 style="@style/Registerinfo_EditText"
                 android:hint="请选择出生年月"
-
+               android:focusable="false"
                 />
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -107,11 +123,15 @@
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_card"
                 style="@style/Registerinfo_EditText"
                 android:hint="请输入身份证号"
-
+                android:inputType="number"
+                android:maxLength="18"
                 />
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -125,11 +145,14 @@
 
             </LinearLayout>
             <EditText
+                android:id="@+id/et_address"
                 style="@style/Registerinfo_EditText"
                 android:hint="请选择常住地"
-
+            android:focusable="false"
                 />
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -142,11 +165,14 @@
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_marriage"
                 style="@style/Registerinfo_EditText"
                 android:hint="请选择"
-
+                android:focusable="false"
                 />
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -155,15 +181,20 @@
                 >
                 <TextView
                     style="@style/Registerinfo_left_text"
-                    android:text="身高"
+                    android:text="身高(cm)"
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_height"
                 style="@style/Registerinfo_EditText"
                 android:hint="请输入身高"
+              android:layout_marginRight="20dp"
 
                 />
+
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -172,15 +203,19 @@
                 >
                 <TextView
                     style="@style/Registerinfo_left_text"
-                    android:text="体重"
+                    android:text="体重(kg)"
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_weight"
                 style="@style/Registerinfo_EditText"
                 android:hint="请输入体重"
 
                 />
+
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -193,12 +228,14 @@
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_education"
                 style="@style/Registerinfo_EditText"
                 android:hint="请输入学历"
-
+                android:focusable="false"
                 />
         </LinearLayout>
-
+        <View
+            style="@style/Divider"/>
         <LinearLayout
             style="@style/Registerinfo_linerlayout"
             >
@@ -211,17 +248,21 @@
                     />
             </LinearLayout>
             <EditText
+                android:id="@+id/et_policatical"
                 style="@style/Registerinfo_EditText"
                 android:hint="请选择政治面貌"
-
+                android:focusable="false"
                 />
         </LinearLayout>
+        <View
+            style="@style/Divider"/>
         <ImageView
+            android:id="@+id/iv_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_marginLeft="90dp"
             android:layout_marginRight="90dp"
-
+            android:src="@mipmap/bg_img_card"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -233,11 +274,13 @@
             android:layout_marginTop="12dp"
             />
         <ImageView
+            android:id="@+id/iv_card_back"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_marginLeft="90dp"
             android:layout_marginRight="90dp"
             android:layout_marginTop="25dp"
+            android:src="@mipmap/bg_img_card_background"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -255,7 +298,8 @@
             android:layout_marginLeft="29dp"
             android:layout_marginRight="29dp"
             android:layout_marginTop="56dp"
-            android:background="@drawable/shape_corner_gray"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_corner_red"
             android:clickable="true"
             android:gravity="center"
             android:padding="16dp"
@@ -264,5 +308,5 @@
             android:textSize="14sp"
             />
     </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

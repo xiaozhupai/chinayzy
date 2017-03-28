@@ -66,6 +66,7 @@ public class GoodsPresenter extends BasePresenter<GoodsFragment> {
 
     @Override
     protected void onCreate() {
+        Logger.i("GoodsPresenter"+mView.goodsID);
         mRequestUtils = CommonRequestUtils.getRequestUtils();
     }
 

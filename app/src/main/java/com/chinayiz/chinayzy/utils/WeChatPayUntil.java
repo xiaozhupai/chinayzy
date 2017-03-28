@@ -1,10 +1,8 @@
 package com.chinayiz.chinayzy.utils;
 
-import android.app.Activity;
-import android.app.Fragment;
-
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
+import com.chinayiz.chinayzy.wxapi.Constants;
 import com.orhanobut.logger.Logger;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -44,8 +42,8 @@ public class WeChatPayUntil {
               request.nonceStr= noncestr;
               request.timeStamp=timestamp;
               request.sign= sign;
-              api = WXAPIFactory.createWXAPI(mView.getActivity(), appid, true);
-              api.registerApp(appid);
+              api = WXAPIFactory.createWXAPI(mView.getActivity(), Constants.APP_ID, true);
+              api.registerApp(Constants.APP_ID);
               api.sendReq(request);
           } catch (JSONException e) {
               e.printStackTrace();

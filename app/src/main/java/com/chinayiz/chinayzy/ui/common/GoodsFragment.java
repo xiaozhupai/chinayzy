@@ -77,6 +77,8 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
     private int sumComment = 0;
     private int pegerIdex=0;
     private int comitsID = 1;
+
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods, container, false);
@@ -200,15 +202,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         mGoodsHolder.mWebView.setWebViewClient(client);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (isFristLod) {
-            urls.clear();
-            mPresenter.mRequestUtils.getGoodsDetail(goodsID);
-        }
-        Logger.i("商品详情=onResume="+goodsID);
-    }
+
 
     /**
      * 设置商品信息
@@ -304,7 +298,8 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                     Logger.i("移除评论列表");
                 } else {
                     Logger.i("退出详情");
-                    getActivity().onBackPressed();
+//                    mActivity.onBackPressed();
+                    mActivity.finishFragment();
                 }
                 break;
             case R.id.iv_more_btn:
@@ -500,11 +495,23 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         Logger.i("商品详情onInintData="+goodsID);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFristLod) {
+            urls.clear();
+            mPresenter.mRequestUtils.getGoodsDetail(goodsID);
+        }
+        Logger.i("商品详情=onResume="+goodsID);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         mGoodsHolder.mWebView.destroy();
         mGoodsHolder=null;
         mFragmentManager=null;
+        Logger.i("onDestroy"+goodsID);
     }
 }

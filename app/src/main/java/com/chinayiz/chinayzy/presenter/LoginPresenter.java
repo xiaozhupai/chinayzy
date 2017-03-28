@@ -14,16 +14,12 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
-import com.chinayiz.chinayzy.entity.response.ThirdModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
-import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
 import com.orhanobut.logger.Logger;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -92,38 +88,40 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 LoginModel model= (LoginModel) message.getData();
                 if (model.getCode().equals("100")){
                   int userid=model.getData().getUserid();
-                    SaveData(userid);
+                    String isMember=model.getData().getIsmember();
+                    SaveData(userid,isMember);
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
                 break;
 
-            case Commons.THIRD:   //第三方登录
-              ThirdModel model3= (ThirdModel) message.getData();
-                 ThirdModel.DataBean dataBean=model3.getData();
-                SaveData(dataBean.getUserid());
-                break;
+//            case Commons.THIRD:   //第三方登录
+//              ThirdModel model3= (ThirdModel) message.getData();
+//                 ThirdModel.DataBean dataBean=model3.getData();
+//                SaveData(dataBean.getUserid());
+//                break;
         }
-
     }
 
     /**
      *  本地存储
      * @param userid   用户登录成功后的ID
      */
-    private void SaveData(int userid){
+    private void SaveData(int userid,String isMember){
         SharedPreferences sharedPreferences = mView.getSharedPreferences("login", Context.MODE_PRIVATE); //私有数据
         SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
         editor.putInt("userid",userid);
+        editor.putString("ismember",isMember);
         editor.commit();//提交修改
         APP.sUserid=userid+"";
         mView.finish();
-       Intent intent_data=mView.getIntent();
-        if (intent_data.getStringExtra("FindDetailFragment")!=null){
-            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, FindDetailFragment.FIND_DETAIL,""));
-        }else {
-            Intent intent=new Intent(mView, MineActivity.class);
-            mView.startActivity(intent);
-        }
+//       Intent intent_data=mView.getIntent();
+//        if (intent_data.getStringExtra("FindDetailFragment")!=null){
+//            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, FindDetailFragment.FIND_DETAIL,""));
+//        }else {
+////            Intent intent=new Intent(mView, MineActivity.class);
+////            mView.startActivity(intent);
+//            mView.finish();
+//        }
 
     }
 

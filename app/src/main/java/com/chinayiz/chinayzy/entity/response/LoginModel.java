@@ -7,18 +7,33 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
  */
 
 public class LoginModel extends BaseResponseModel {
-    private LoginBean data;
-    public LoginBean getData() {
+
+
+    /**
+     * data : {"userid":1,"sys_auth":"1","ismember":"1"}
+     */
+
+    private DataBean data;
+
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(LoginBean data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
+    public static class DataBean {
+        /**
+         * userid : 1
+         * sys_auth : 1
+         * ismember : 1
+         */
 
+        private int userid;
+        private String sys_auth;
+        private String ismember;
 
-    public class LoginBean{
         public int getUserid() {
             return userid;
         }
@@ -27,7 +42,20 @@ public class LoginModel extends BaseResponseModel {
             this.userid = userid;
         }
 
-        private int userid;
-    }
+        public String getSys_auth() {
+            return sys_auth;
+        }
 
+        public void setSys_auth(String sys_auth) {
+            this.sys_auth = sys_auth;
+        }
+
+        public String getIsmember() {
+            return ismember;
+        }
+
+        public void setIsmember(String ismember) {
+            this.ismember = ismember;
+        }
+    }
 }

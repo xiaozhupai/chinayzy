@@ -67,7 +67,7 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
 
     //提交
     public void submit() {
-        // validate
+//        // validate
         String phone = mView.et_register_phone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
             Toast.makeText(mView.getActivity(), "请输入手机号", Toast.LENGTH_SHORT).show();
@@ -93,7 +93,6 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
         }
 
        mView.mActivity.addFragment(new RegisterInfoFragment(message,phone,password));
-        // TODO validate success, do something
 
 
     }

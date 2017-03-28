@@ -8,7 +8,6 @@ import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.common.GoodsFragment;
-import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
@@ -248,4 +247,25 @@ public static void toItemMenu(Context context,String itemCode) {
     intent.putExtras(bundle);
     skip(context,intent);
 }
+    /**
+     * 充值1350
+     * @param context
+     */
+    public static void toDeposit(Context context) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, DepositFragment.class);
+        skip(context,intent);
+    }
+
+    /**
+     * 登录
+     * @param context
+     */
+    public static void toLogin(Context context){
+        Intent intent=new Intent(context,LoginActivity.class);
+      context.startActivity(intent);
+    }
+
+
+
 }

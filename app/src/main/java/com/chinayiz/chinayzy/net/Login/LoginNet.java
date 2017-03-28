@@ -1,11 +1,11 @@
 package com.chinayiz.chinayzy.net.Login;
 
 
-import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
+import com.chinayiz.chinayzy.entity.response.RegisterModel;
 import com.chinayiz.chinayzy.entity.response.StringModel;
 import com.chinayiz.chinayzy.entity.response.ThirdModel;
 import com.chinayiz.chinayzy.net.Commons;
@@ -13,6 +13,7 @@ import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
+
 import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
@@ -23,20 +24,54 @@ import okhttp3.Call;
 
 public class LoginNet {
     private Gson mGson = new Gson();
+    private static LoginNet loginNet;
+
+    public static LoginNet getLoginNet(){
+        if (loginNet==null){
+            loginNet=new LoginNet();
+        }
+        return loginNet;
+    }
 
     /**
      * 注册
+     * @param username 手机号	String	是	11位
+     * @param password 密码	String	是
+     * @param sendMessage 验证码	String	是	5位
+     * @param nickname  昵称	String	是
+     * @param idcard   身份证号	String	是
+     * @param realname  真实姓名	String	是
+     * @param pic   身份证照片	String	是
+     * @param sex   性别	String	是	0.男 1.女
+     * @param birthday   出生年月	String	是
+     * @param usualplace  常驻地	String	是
+     * @param ismarriage  婚姻状况	String	是	0未婚1已婚2离异
+     * @param height     身高	String	是
+     * @param weight     体重	String	是
+     * @param educational   学历	String	是	1高中2大专3本科4研究生
+     * @param politics    政治面貌	String	是	1团员2党员3群众
      */
-
-    public  void toRegister(String username,String password,String sendMessage) {
+    public  void toRegister(String username,String password,String sendMessage,String nickname,String idcard,String realname,String pic,String sex,String birthday,String usualplace,String ismarriage,String height,String weight,String educational,String politics){
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.REGISTER)
                 .addParams("imei", AppInfo.IMEI)
-                .addParams("userid", APP.sUserid)
+                .addParams("userid","0")
                 .addParams("phone", username)
                 .addParams("yzm",sendMessage)
                 .addParams("password",password)
+                .addParams("nickname",nickname)
+                .addParams("idcard",idcard)
+                .addParams("realname",realname)
+                .addParams("pic",pic)
+                .addParams("sex",sex)
+                .addParams("birthday",birthday)
+                .addParams("usualplace",usualplace)
+                .addParams("ismarriage",ismarriage)
+                .addParams("height",height)
+                .addParams("weight",weight)
+                .addParams("educational",educational)
+                .addParams("politics",politics)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -50,7 +85,7 @@ public class LoginNet {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.REGISTER
-                                    ,mGson.fromJson(s,BaseResponseModel.class)));
+                                    ,mGson.fromJson(s,RegisterModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }
@@ -154,7 +189,6 @@ public class LoginNet {
 
     /**第三方登录
      *
-     * @param imei 手机唯一标识
      * @param thirdid 第三方登录唯一ID
      * @param logintype 登陆方式
      * @param pic  第三方头像

@@ -247,7 +247,6 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     @Override
     public void onAliSuccess() {
         Logger.i("onAliSuccess");
-//      success();
         status=1;
     }
 
