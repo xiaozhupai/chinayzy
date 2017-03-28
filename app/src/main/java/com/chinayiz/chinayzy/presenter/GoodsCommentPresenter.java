@@ -49,6 +49,7 @@ public class GoodsCommentPresenter extends BasePresenter<GoodsCommentFragment> {
             case Commons.COMMENT_ORDER:{
                 Logger.i("商品评论成功了");
                 mView.getActivity().getFragmentManager().popBackStack("OrderDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
                 break;
         }
         }

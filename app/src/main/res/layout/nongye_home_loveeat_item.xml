@@ -21,10 +21,10 @@
             android:padding="10dp"
             android:clickable="true"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:textSize="12sp"
             android:maxLength="30"
-            android:lineSpacingMultiplier="1.2"
+            android:lineSpacingMultiplier="1.1"
             android:text="螺蛳粉广西正宗柳州 嘻螺会螺狮粉特产袋装螺丝粉5包"
             android:textColor="@color/NongYe_home_goodsText"
             />

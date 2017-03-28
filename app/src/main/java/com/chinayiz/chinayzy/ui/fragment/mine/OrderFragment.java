@@ -76,6 +76,7 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
         mLlProgress.setVisibility(View.GONE);
         if (mOrderListModel.getOrderList().size()==0){
             mNullOrder.setVisibility(View.VISIBLE);
+            mLvOrder.setVisibility(View.GONE);
             Logger.i("没有相关订单");
             return;
         }

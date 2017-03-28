@@ -57,13 +57,14 @@ public class DealListFragment extends AbsFragment implements View.OnClickListene
 
     @Override
     protected void initView(View view) {
-        mNotData = view.findViewById(R.id.view_notEarnings);
         mProgress = view.findViewById(R.id.ll_progress);
+        mNotData = view.findViewById(R.id.view_notEarnings);
         iv_back_button = (ImageView) view.findViewById(R.id.iv_back_button);
         iv_back_button.setOnClickListener(this);
         tv_actionbar_title = (TextView) view.findViewById(R.id.tv_actionbar_title);
         tv_actionbar_title.setText("积分账单");
         tv_actionbar_title.setTextColor(Color.BLACK);
+
         Paint paint = tv_actionbar_title.getPaint();
         paint.setFakeBoldText(false);
         view.findViewById(R.id.iv_more_button).setVisibility(View.GONE);

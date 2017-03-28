@@ -140,8 +140,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         mViewHolder.tv_yunfei.setText("￥" + model.getData().getCarriage());
         mViewHolder.tv_sumGolds.setText(model.getData().getPoint());
         mViewHolder.tv_orderNum.setText("共" + mGoodsList.size() + "件商品   总计：");
-        mViewHolder.tv_orderMyone.setText("￥" + model.getData().getMoney());
-        mViewHolder.tv_orderSpay.setText("实付：￥" + model.getData().getTotalmoney());
+        mViewHolder.tv_orderMyone.setText("￥" + model.getData().getTotalmoney());
+        mViewHolder.tv_orderSpay.setText("实付：￥" + model.getData().getMoney());
         mViewHolder.tv_createDate.setText("下单时间：" + model.getData().getOrdertime());
         mViewHolder.btn_copyId.setTag(R.id.tag_click, model.getData().getCodeX());
         mViewHolder.btn_copyId.setOnClickListener(this);

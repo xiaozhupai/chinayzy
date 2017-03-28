@@ -82,6 +82,7 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
             case R.id.iv_back_button:
                 getActivity().finish();
                 break;
+            case R.id.tv_outMoneys:
             case R.id.tv_outMoney:
                 addFragment(new TakeFragment(goldNum),"TakeFragment");
                 break;

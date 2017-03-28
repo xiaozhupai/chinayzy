@@ -18,8 +18,6 @@ import com.chinayiz.chinayzy.presenter.Presenter;
  * A simple {@link Fragment} subclass.
  */
 public class PayFragment extends BaseFragment<Presenter> implements View.OnClickListener {
-
-
     private TextView tv_two;
 
     @Override

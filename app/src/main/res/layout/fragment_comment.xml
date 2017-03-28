@@ -32,12 +32,11 @@
         android:id="@+id/ll_images"
         android:layout_width="match_parent"
         android:layout_height="79dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginRight="9dp"
         android:orientation="horizontal"
         android:clickable="true"
-        android:background="@mipmap/img_add_image"
+        android:background="@mipmap/add_image"
         >
     </LinearLayout>
 

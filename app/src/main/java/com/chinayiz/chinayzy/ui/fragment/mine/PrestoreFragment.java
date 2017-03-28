@@ -79,7 +79,14 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
                 break;
             }
             case R.id.bt_inPut:{
+                if (TextUtils.isEmpty(edit_moneys.getText().toString())){
+                    BaseActivity.showToast(getActivity(),"输入正确金额");
+                    return;
+                }
+                mRequestUtils.getWxPayOrder("1",edit_moneys.getText().toString(),"");
+
                 Logger.i("确认充值");
+
                 break;
             }
         }

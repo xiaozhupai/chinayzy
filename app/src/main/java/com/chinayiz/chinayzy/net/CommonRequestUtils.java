@@ -274,7 +274,7 @@ public class CommonRequestUtils {
                 .post()
                 .url(Commons.API + Commons.IM_GOLD)
                 .addParams("time", new Date().toString())
-                .addParams("userid", "14")
+                .addParams("userid",APP.sUserid)
                 .addParams("sign", "")
                 .tag("content")
                 .build()
@@ -307,7 +307,7 @@ public class CommonRequestUtils {
                 .post()
                 .url(Commons.API + Commons.DEAL_LIST)
                 .addParams("time", new Date().toString())
-                .addParams("userid", "14")
+                .addParams("userid",APP.sUserid)
                 .addParams("tradetype", tradetype)
                 .addParams("sign", "")
                 .tag("content")
@@ -616,6 +616,7 @@ public class CommonRequestUtils {
                 .post()
                 .url(Commons.API + Commons.SHOWGOODSSTANDARD)
                 .addParams("goodsid", goodsid)
+                .addParams("userid", APP.sUserid)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -830,7 +831,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ORDER_STATE)
-                .addParams("userid", "18")
+                .addParams("userid", APP.sUserid)
                 .addParams("type", type)
                 .tag("ny")
                 .build()
@@ -862,7 +863,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ORDER_DETAIL)
-                .addParams("userid", "18")
+                .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -895,7 +896,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.DELETE_ORDER)
-                .addParams("userid", "18")
+                .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -928,7 +929,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.CANCEL_ORDER)
-                .addParams("userid", "18")
+                .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -961,7 +962,7 @@ public class CommonRequestUtils {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.CONFIRM_ORDER)
-                .addParams("userid", "18")
+                .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
                 .build()
@@ -1032,7 +1033,7 @@ public class CommonRequestUtils {
             OkHttpUtils
                     .post()
                     .url(Commons.API + Commons.COMMENT_ORDER)
-                    .addParams("userid", "18")
+                    .addParams("userid", APP.sUserid)
                     .addParams("orderid", model.getOrderid())
                     .addParams("isanonymity", model.getIsanonymity())
                     .addParams("descpoint", model.getDescpoint())
@@ -1063,7 +1064,7 @@ public class CommonRequestUtils {
             OkHttpUtils
                     .post()
                     .url(Commons.API + Commons.COMMENT_ORDER)
-                    .addParams("userid", "18")
+                    .addParams("userid", APP.sUserid)
                     .addParams("orderid", model.getOrderid())
                     .addParams("isanonymity", model.getIsanonymity())
                     .addParams("descpoint", model.getDescpoint())

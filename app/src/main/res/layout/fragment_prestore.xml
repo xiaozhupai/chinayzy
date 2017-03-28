@@ -57,7 +57,7 @@
         android:id="@+id/rg_payType"
         android:layout_marginTop="12dp"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="88dp"
         android:background="@color/Background"
         android:orientation="vertical"
         >
@@ -66,7 +66,8 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:button="@drawable/btn_alipay"
+            android:button="@null"
+            android:background="@drawable/btn_alipay"
             />
         <View
             android:layout_width="match_parent"
@@ -78,7 +79,8 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:button="@drawable/btn_wecpay"
+            android:button="@null"
+            android:background="@drawable/btn_wecpay"
             />
     </RadioGroup>
     <Button

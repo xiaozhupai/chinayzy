@@ -25,8 +25,23 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
     private TextView tv_to_others;
     private String title;
     private int type;
-    private static final int EVALUE=0;
-    private static final int TRADE=1;
+    /**
+     * 商品评价成功
+     */
+    public static final int EVALUE=0;
+    /**
+     * 确认收货，交易成功
+     */
+    public static final int TRADE=1;
+
+    /**
+     * 支付订单成功
+     */
+    public static final int PAY=2;
+
+    /**
+     *
+     */
 
     @Override
     protected void onVisible() {
@@ -63,6 +78,11 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
                 break;
             case TRADE:
                 tv_result.setText("交易成功!卖家将收到您的付款~");
+                iv_result.setImageResource(R.mipmap.img_trade_success);
+                tv_to_others.setText("去评价");
+                break;
+            case PAY:
+                tv_result.setText("付款成功，等待卖家发货");
                 iv_result.setImageResource(R.mipmap.img_trade_success);
                 break;
         }
