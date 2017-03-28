@@ -20,6 +20,7 @@ import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.CheckImageView;
@@ -28,9 +29,6 @@ import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 购物车
@@ -41,15 +39,18 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     private PullableListView listv_shopcart;
     public CheckImageView iv_shopcart_radio;
     public TextView tv_shopcart_price;
-    private TextView tv_shopcart_submit;
+    public TextView tv_shopcart_submit;
     public LinearLayout lv_boom,ll_no_goods;
     public PullToRefreshLayout pullToRefreshLayout;
     public ShopCartAdaphter adaphter;
-    public List<ShopCartModel.DataBean> list=new ArrayList<>();
+
     public TextView tv_shopcart_all;
     public boolean isClick=true;
     public GoodsStandardPopuWindow popuWindow;
     public int index;
+
+    public static final int TYPE_NORMAL = 0;
+    public static final int TYPE_EDITER = 1;
 
 
     @Override
@@ -82,20 +83,18 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
                     tv_shopcart_submit.setText("删除");
                     tv_shopcart_price.setVisibility(View.GONE);
                     isClick=false;
-                    mPresenter.UpdateUi(1);
+                    UpdateUi(1);
                 }else {   //编辑前
                     activity.mCbActionBarEdit.setText("编辑");
                     tv_shopcart_submit.setText("结算");
                     tv_shopcart_price.setVisibility(View.VISIBLE);
                     isClick=true;
-                    mPresenter.UpdateUi(0);
-                    mPresenter.UpdateShopCart();
+                    UpdateUi(0);
+                   UpdateShopCart();
                 }
             }
         });
     }
-
-
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -116,7 +115,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-//                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                              mPresenter.getData();
             }
 
@@ -125,9 +123,8 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
                 pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
             }
         });
-        adaphter=new ShopCartAdaphter(getActivity(),list,iv_shopcart_radio,tv_shopcart_price,tv_shopcart_all,0);
+        adaphter=new ShopCartAdaphter(getActivity(),null,iv_shopcart_radio,tv_shopcart_price,tv_shopcart_all,0);
         listv_shopcart.setAdapter(adaphter);
-
         return view;
     }
 
@@ -168,9 +165,42 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public void onResume() {
+       mPresenter.getData();
         EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
                 NongYeMainActivity.NYMAIN_ACTIONBAR, new ActionBarControlModel(NongYeMainActivity.SHOW_ALL, "购物车", 1, 0, 1, 0)));
         super.onResume();
 
+    }
+
+    /**
+     * 更新adaphter
+     * @param type   0编辑前  1编辑后
+     */
+    public void UpdateUi(int type){
+        mPresenter.type=type;
+        adaphter.setData(mPresenter.list,type);
+        if (type==TYPE_NORMAL){
+            double total=adaphter.UpdateTotal();
+            tv_shopcart_price.setText(total+"");
+        }
+    }
+
+    //更新购物车
+    public void UpdateShopCart(){
+        StringBuilder sb=new StringBuilder();
+        for (ShopCartModel.DataBean data:mPresenter.list){
+            for (int i=0;i<data.getShoplist().size();i++){
+                ShopCartModel.DataBean.ShoplistBean bean= data.getShoplist().get(i);
+                sb.append(bean.getCarid());
+                sb.append("/");
+                sb.append(bean.getNum()+"");
+                sb.append("/");
+                sb.append(bean.getGoodsstandardid());
+                if (i!=data.getShoplist().size()-1){
+                    sb.append(",");
+                }
+            }
+        }
+        CommonRequestUtils.getRequestUtils().getUpdateCart(sb.toString());
     }
 }

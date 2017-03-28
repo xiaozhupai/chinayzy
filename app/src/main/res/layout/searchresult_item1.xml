@@ -52,6 +52,7 @@
                 android:layout_height="wrap_content"
               android:src="@mipmap/icon_oneself_store"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 />
         </RelativeLayout>
     </LinearLayout>

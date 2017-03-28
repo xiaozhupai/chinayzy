@@ -13,6 +13,7 @@ import com.chinayiz.chinayzy.ui.fragment.register.DepositFragment;
 import com.chinayiz.chinayzy.utils.AliPayUntil;
 import com.chinayiz.chinayzy.utils.WeChatPayUntil;
 import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
+import com.chinayiz.chinayzy.widget.LoadlingDialog;
 import com.chinayiz.chinayzy.wxapi.WXPayEntryActivity;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 
@@ -28,6 +29,7 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
     private AlipayHandler mHandler =new AlipayHandler(mView,this);
     public int status;
     public static final String RESULT_BACK="RESULT_BACK";
+    private LoadlingDialog loadlingDialog;
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
@@ -46,6 +48,7 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
 
     @Override
     public void disposeNetMsg(EventMessage message) {
+        loadlingDialog.dismiss();
         switch (message.getDataType()){
             case Commons.ALIPAYORDER:  //支付宝支付
                 final AlipayModel modell= (AlipayModel) message.getData();
@@ -95,6 +98,10 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
     public void submit() {
         String type="3";
         String total="1350";
+        if (loadlingDialog==null){
+            loadlingDialog=new LoadlingDialog(mView.getActivity());
+        }
+        loadlingDialog.show();
         if (mView.iv_ali_pay.isCheck){  //支付宝支付
             CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total, "");
         }else {  //微信支付

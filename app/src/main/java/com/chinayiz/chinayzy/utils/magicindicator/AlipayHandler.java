@@ -1,12 +1,11 @@
 package com.chinayiz.chinayzy.utils.magicindicator;
 
+import android.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.widget.Toast;
-import com.chinayiz.chinayzy.base.BaseFragment;
+
 import com.chinayiz.chinayzy.utils.PayResult;
-import com.orhanobut.logger.Logger;
 
 import java.util.Map;
 
@@ -18,9 +17,9 @@ public class AlipayHandler extends Handler {
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_PAY2_FLAG = 2;
     public static final String RESULT_BACK="RESULT_BACK";
-    private BaseFragment mView;
+    private Fragment mView;
     private AliPay listener;
-    public AlipayHandler(BaseFragment mView,AliPay listener){
+    public AlipayHandler(Fragment mView, AliPay listener){
         this.mView=mView;
         this.listener=listener;
     }

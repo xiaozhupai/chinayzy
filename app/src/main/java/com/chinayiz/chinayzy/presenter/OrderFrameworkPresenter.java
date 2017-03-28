@@ -10,13 +10,20 @@ import com.chinayiz.chinayzy.adapter.OrderListAdapter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.entity.response.PayModel;
+import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.StoreActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
+import com.chinayiz.chinayzy.utils.AliPayUntil;
+import com.chinayiz.chinayzy.utils.WeChatPayUntil;
+import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
+import com.chinayiz.chinayzy.wxapi.WXPayEntryActivity;
 import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -30,9 +37,11 @@ import static com.chinayiz.chinayzy.ui.fragment.mine.OrderFragment.GET_DATA;
  * Class OrderFrameworkPresenter  订单详情
  */
 
-public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragment> {
+public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragment> implements AlipayHandler.AliPay {
     public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     public int index, state;
+    private AlipayHandler alipayHandler=new AlipayHandler(mView,this);
+    public int status;  //1 支付成功  2 支付失败
 
     @Override
     public void disposeNetMsg(EventMessage message) {
@@ -76,7 +85,15 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
             }
             case Commons.FAST_PAY:{
                   PayModel model= (PayModel) message.getData();
-
+                 if (model.getData().getType().equals("1")){  //支付宝
+                     AlipayModel alipayModel=new AlipayModel();
+                      alipayModel.setData(model.getData().getLinkString());
+                     AliPayUntil.pay(mView.getActivity(),alipayHandler,alipayModel);
+                 }else {  //微信
+                     WxpayModel wxpayModel=new WxpayModel();
+                     wxpayModel.setData(model.getData().getLinkString());
+                     WeChatPayUntil.pay(mView,wxpayModel);
+                 }
                 break;
             }
         }
@@ -103,6 +120,16 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 mView.getActivity().startActivity(intent);
                 break;
             }
+            case WXPayEntryActivity.WECHAT_BACK:
+                BaseResp resp= (BaseResp) message.getData();
+                if (resp.errCode==0){
+                    status=1;
+                    Logger.i("微信支付成功");
+                }else {
+                    state=0;
+                    Logger.i("微信支付失败");
+                }
+                break;
         }
     }
 
@@ -144,5 +171,17 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     public void doGteOrderList(String code, int position) {
         index = position;
         mRequestUtils.getImOrder(code);
+    }
+
+    @Override
+    public void onAliSuccess() {
+         status=1;
+        Logger.i("支付宝支付成功");
+    }
+
+    @Override
+    public void onAliFail() {
+        state=0;
+        Logger.i("支付宝支付失败");
     }
 }

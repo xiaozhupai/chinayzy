@@ -99,7 +99,7 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 		mIvActionBarMore.setVisibility(View.GONE);
 		mTvActionBarTitle.setTextColor(Color.parseColor("#1c1c1c"));
 		mIvBackButton.setImageResource(R.mipmap.back_arrow);
-		mActionBar.setBackgroundColor(Color.parseColor("#f5f5f5"));
+//		mActionBar.setBackgroundColor(Color.parseColor("#f5f5f5"));
 		mIvBackButton.setOnClickListener(this);
 
 	}

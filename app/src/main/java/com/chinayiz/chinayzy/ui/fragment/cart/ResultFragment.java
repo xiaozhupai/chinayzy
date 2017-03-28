@@ -1,13 +1,9 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -24,14 +21,9 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.presenter.ResultPresenter;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
-import com.orhanobut.logger.Logger;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
-import com.tencent.mm.opensdk.modelbase.BaseReq;
-import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+
 import java.util.List;
 
 /**
@@ -59,7 +51,6 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public int index;
     public CommonActivity activity;
     public static final int WECHAR_BACK=1;
-
 
     @Override
     public void onInintData(Bundle bundle) {
@@ -93,7 +84,6 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         tv_result_submit = (TextView) view.findViewById(R.id.tv_result_submit);
         tv_result_submit.setOnClickListener(this);
         result_list = (RelativeLayout) view.findViewById(R.id.result_list);
-
         View head = View.inflate(getActivity(), R.layout.result_head, null);
         tv_address_name= (TextView) head.findViewById(R.id.tv_address_name);
         tv_address_phone= (TextView) head.findViewById(R.id.tv_address_phone);
@@ -104,11 +94,8 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
             @Override
             public void onClick(View view) {
                 mActivity.addFragment(new AddressListFragment());
-
-
             }
         });
-
         View foot = View.inflate(getActivity(), R.layout.result_foot, null);
         tv_pay_way= (TextView) foot.findViewById(R.id.tv_pay_way);
         tv_goods_total = (TextView) foot.findViewById(R.id.tv_goods_total);

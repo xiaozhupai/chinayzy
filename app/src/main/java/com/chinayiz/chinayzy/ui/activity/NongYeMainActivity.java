@@ -289,9 +289,18 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             buttonView.setText("完成");
+            mCartFragment.tv_shopcart_submit.setText("删除");
+            mCartFragment.tv_shopcart_price.setVisibility(View.GONE);
+            mCartFragment.  isClick=false;
+            mCartFragment.UpdateUi(1);
             Logger.i("完成");
         } else {
             buttonView.setText("编辑");
+            mCartFragment. tv_shopcart_submit.setText("结算");
+            mCartFragment.tv_shopcart_price.setVisibility(View.VISIBLE);
+            mCartFragment. isClick=true;
+            mCartFragment.UpdateUi(0);
+            mCartFragment.UpdateShopCart();
             Logger.i("编辑");
         }
     }

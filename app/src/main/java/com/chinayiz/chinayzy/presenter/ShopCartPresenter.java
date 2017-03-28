@@ -33,16 +33,16 @@ import java.util.List;
 
 public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
-    private List<ShopCartModel.DataBean> list;  //购物车数据
-    private int type;
+    public List<ShopCartModel.DataBean> list;  //购物车数据
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_EDITER = 1;
     private List<ShopCartModel.DataBean.ShoplistBean> list_checked;  //被选中的商品
     private GoodsStandardPopuWindow popuWindow;
+    public int type;
 
     @Override
     public void onCreate() {
-          getData();
+
     }
 
     public void getData(){
@@ -179,18 +179,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         mView.tv_shopcart_all.setText("全选("+list_selected.size()+")");
     }
 
-    /**
-     * 更新adaphter
-     * @param type   0编辑前  1编辑后
-     */
-    public void UpdateUi(int type){
-        this.type=type;
-        mView.adaphter.setData(list,type);
-        if (type==TYPE_NORMAL){
-            double total=mView.adaphter.UpdateTotal();
-            mView.tv_shopcart_price.setText(total+"");
-        }
-    }
+
 
     /**
      * 提交或者删除
@@ -245,22 +234,5 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         list_checked=list_selected;
     }
 
-    //更新购物车
-    public void UpdateShopCart(){
-        StringBuilder sb=new StringBuilder();
-        for (ShopCartModel.DataBean data:list){
-            for (int i=0;i<data.getShoplist().size();i++){
-                ShopCartModel.DataBean.ShoplistBean bean= data.getShoplist().get(i);
-                sb.append(bean.getCarid());
-                sb.append("/");
-                sb.append(bean.getNum()+"");
-                sb.append("/");
-                sb.append(bean.getGoodsstandardid());
-                if (i!=data.getShoplist().size()-1){
-                    sb.append(",");
-                }
-            }
-        }
-        net.getUpdateCart(sb.toString());
-    }
+
 }

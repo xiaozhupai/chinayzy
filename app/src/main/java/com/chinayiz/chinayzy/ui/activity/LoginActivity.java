@@ -133,7 +133,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         mIvMoreButton.setVisibility(View.GONE);
         mTvActionbarTitle.setTextColor(Color.parseColor("#1c1c1c"));
         mIvBackButton.setImageResource(R.mipmap.back_arrow);
-        mIvBackButton.setBackgroundColor(Color.parseColor("#f5f5f5"));
+//        mIvBackButton.setBackgroundColor(Color.parseColor("#f5f5f5"));
         mIvBackButton.setOnClickListener(this);
     }
 

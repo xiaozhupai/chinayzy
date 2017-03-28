@@ -30,10 +30,14 @@ import org.greenrobot.eventbus.ThreadMode;
  * Class PrestoreFragment  积分充值
  */
 
-public class PrestoreFragment extends AbsFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class PrestoreFragment extends AbsFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, AlipayHandler.AliPay {
     private EditText edit_moneys;
     private Button bt_inPut;
     private RadioGroup mRadioGroup;
+    private int type=1;
+    private AlipayHandler alipayHandler=new AlipayHandler(this,this);
+    private int status;
+    private LoadlingDialog loadlingDialog;
 
     @Nullable
     @Override
@@ -45,13 +49,34 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-
+        loadlingDialog.dismiss();
+        switch (message.getDataType()){
+            case Commons.ALIPAYORDER:
+               AlipayModel alipayModel= (AlipayModel) message.getData();
+                AliPayUntil.pay(getActivity(),alipayHandler,alipayModel);
+                break;
+            case Commons.WXPAYORDER:
+                WxpayModel wxpayModel= (WxpayModel) message.getData();
+                WeChatPayUntil.pay(this,wxpayModel);
+                break;
+        }
     }
 
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-
+             switch (message.getDataType()){
+                 case WXPayEntryActivity.WECHAT_BACK:
+                     BaseResp resp= (BaseResp) message.getData();
+                     if (resp.errCode==0){
+                         status=1;
+                         Logger.i("微信支付成功");
+                     }else {
+                         status=0;
+                         Logger.i("微信支付失败");
+                     }
+                     break;
+             }
     }
 
     @Override
@@ -86,7 +111,16 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
                 mRequestUtils.getWxPayOrder("1",edit_moneys.getText().toString(),"");
 
                 Logger.i("确认充值");
-
+                if (loadlingDialog==null){
+                    loadlingDialog=new LoadlingDialog(getActivity());
+                }
+                loadlingDialog.show();
+                String total=edit_moneys.getText().toString().trim();
+                 if (type==1){  //支付宝支付
+                     CommonRequestUtils.getRequestUtils().getAliPayOrder("1",total, "");
+                 }else {
+                    CommonRequestUtils.getRequestUtils().getWxPayOrder("1",total, "");
+                 }
                 break;
             }
         }
@@ -108,9 +142,11 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
         switch (checkedId){
             case R.id.rb_weicpay:{
                 Logger.i("微信支付");
+                type=2;
                 break;
             }
             case R.id.rb_alipay:{
+                type=1;
                 Logger.i("支付宝支付");
                 break;
             }
@@ -131,5 +167,17 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
             return;
         }
 
+    }
+
+    @Override
+    public void onAliSuccess() {
+       status=1;
+        Logger.i("支付宝支付成功");
+    }
+
+    @Override
+    public void onAliFail() {
+        status=0;
+        Logger.i("支付宝支付失败");
     }
 }
