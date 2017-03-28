@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.utils;
 
-import com.chinayiz.chinayzy.base.BaseFragment;
+import android.app.Fragment;
+
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.wxapi.Constants;
 import com.orhanobut.logger.Logger;
@@ -21,7 +22,7 @@ public class WeChatPayUntil {
      * @param mView  当前的fragment
      * @param model   微信支付数据源
      */
-      public static void pay(BaseFragment mView, WxpayModel model){
+      public static void pay(Fragment mView, WxpayModel model){
           String json=model.getData();
           Logger.i(json);
           try {
