@@ -65,9 +65,12 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                     String price=dataBean.getPrice();
                     if (price.contains("-")) {
                         String [] strings=price.split("-");
-                        holder.Price.setText(strings[0]);
+                        holder.Price.setText(" "+strings[0]);
                     }else {
-                        holder.Price.setText(price);
+                        holder.Price.setText(" "+price);
+                    }
+                    if ("0".equals(dataBean.getIsself())) {
+                        holder.Price.setCompoundDrawables(null,null,null,null);
                     }
                     Glide.with(fragment).load(dataBean.getIcon()).into(holder.Icon);
                     holder.view.setTag(dataBean.getGoodsid());
@@ -84,9 +87,9 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                     String price=dataBean.getPrice();
                     if (price.contains("-")) {
                         String [] strings=price.split("-");
-                        holder.Price.setText(strings[0]);
+                        holder.Price.setText(" "+strings[0]);
                     }else {
-                        holder.Price.setText(price);
+                        holder.Price.setText(" "+price);
                     }
                     Glide.with(fragment).load(dataBean.getIcon()).into(holder.Icon);
                     holder.view.setTag(dataBean.getGoodsid());
@@ -102,13 +105,13 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                 Logger.i("特色购主题宣传图");
                 break;
             case R.id.lv_comgoods1://商品1
-                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods2://商品2
-                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods3://商品3
-                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag()));
                 break;
         }
     }

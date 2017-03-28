@@ -1,9 +1,12 @@
-package com.chinayiz.chinayzy.views.pullable;
+package com.chinayiz.chinayzy.views.refreshView;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
+
+import com.chinayiz.chinayzy.views.pullable.Pullable;
 
 /**
  * author  by  Canrom7 .
@@ -11,6 +14,15 @@ import android.util.AttributeSet;
  * Class MyRecycleView
  */
 public class PullableRecycleView extends RecyclerView implements Pullable {
+    private RefreshListner mListner;
+
+    public RefreshListner getListner() {
+        return mListner;
+    }
+
+    public void setListner(RefreshListner listner) {
+        mListner = listner;
+    }
 
     public PullableRecycleView(Context context) {
         super(context);
@@ -24,19 +36,26 @@ public class PullableRecycleView extends RecyclerView implements Pullable {
         super(context, attrs, defStyle);
     }
 
+
     @Override
     public boolean canPullDown() {
-        if (getScrollY() == 0)
-            return true;
-        else
-            return false;
+        return false;
     }
 
     @Override
     public boolean canPullUp() {
-        if (getScrollY() >= (getChildAt(0).getHeight() - getMeasuredHeight()))
-            return true;
-        else
+        if (mListner.canLoad()){
+            View view = getChildAt(getChildCount() - 1);
+            if (view.getBottom() == getMeasuredHeight())
+                return true;
+            else
+                return false;
+        }else {
             return false;
+        }
+    }
+
+    public interface RefreshListner {
+        boolean canLoad();
     }
 }

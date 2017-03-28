@@ -42,6 +42,16 @@ public class RelatedGoodsModel extends BaseResponseModel {
         private String goodsdesc;
         private String itemcode;
 
+        private String isself;
+
+        public String getIsself() {
+            return isself;
+        }
+
+        public void setIsself(String isself) {
+            this.isself = isself;
+        }
+
         public String getIcon() {
             return icon;
         }

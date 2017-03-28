@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -85,9 +84,12 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
             String price=recommentlistBeen.get(i).getPrice();
             if (price.contains("-")) {
                 String [] strings=price.split("-");
-                holder.price.setText(strings[0]);
+                holder.price.setText(" "+strings[0]);
             }else {
-                holder.price.setText(price);
+                holder.price.setText(" "+price);
+            }
+            if ("0".equals(recommentlistBeen.get(i).getIsself())) {
+                holder.price.setCompoundDrawables(null,null,null,null);
             }
             //设置商品ID
             holder.view.setTag(recommentlistBeen.get(i).getGoodsid());
@@ -108,13 +110,13 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
             case R.id.iv_recommend_Item5:
                 break;
             case R.id.lv_comgoods1:
-                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag()));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods2:
-                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag()));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods3:
-                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,CLICK_GOODS,v.getTag()));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
         }
     }

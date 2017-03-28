@@ -206,8 +206,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
 
-
-
     @Override
     public void onBackStackChanged() {
         int backStackEntryCount = fragmentManager.getBackStackEntryCount();

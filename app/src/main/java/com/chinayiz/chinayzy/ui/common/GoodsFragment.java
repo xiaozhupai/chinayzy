@@ -99,6 +99,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         ImageView mIvMoreBtn = (ImageView) view.findViewById(R.id.iv_more_btn);
         ImageView mIvCartBtn = (ImageView) view.findViewById(R.id.iv_cart_btn);
         mGoodsHolder.mTitel = (TextView) view.findViewById(R.id.tv_title);
+        mGoodsHolder.isSelf=view.findViewById(R.id.view_isSelf);
         mGoodsHolder.mLine=view.findViewById(R.id.view_menuLine);
         TextView mTvServer = (TextView) view.findViewById(R.id.tv_server);
         TextView mTvStore = (TextView) view.findViewById(R.id.tv_store);
@@ -218,7 +219,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         }
         mPregress.setVisibility(View.GONE);
         mGoodsHolder.mVpagerBanner.setPages(new CreatePhotosHolder(), urls);
-        mGoodsHolder.mTvGoodsTitle.setText(model.getData().getGname());
         mGoodsHolder.mTvGoodsPrice.setText(model.getData().getPrice());
         mGoodsHolder.mTvGoodsPostage.setText("运费：" + model.getData().getCarriage() + "元");
         mGoodsHolder.mTvGoodsSales.setText("月销量：" + model.getData().getSalesvolume());
@@ -257,6 +257,10 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         mGoodsHolder.mTvStoreName.setText(model.getData().getSname());
         if ("0".equals(model.getData().getIsself())) {//是否是自营店铺
             mGoodsHolder.mIvStoreType.setVisibility(View.GONE);
+            mGoodsHolder.isSelf.setVisibility(View.GONE);
+            mGoodsHolder.mTvGoodsTitle.setText(model.getData().getGname());
+        }else {
+            mGoodsHolder.mTvGoodsTitle.setText("\t\t\t\t\t\t"+model.getData().getGname());
         }
         mGoodsHolder.mTvGoodsCount.setText(String.valueOf(model.getData().getGoodsnum()));
         mGoodsHolder.mTvFansCount.setText(String.valueOf(model.getData().getCollectnum()));

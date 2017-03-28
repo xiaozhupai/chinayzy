@@ -25,6 +25,9 @@ public class NY_HomeBanner extends RecyclerView.ViewHolder implements View.OnCli
     public ImageView mIvSearch;
     public ConvenientBanner mBannerNongyeHome;
     public List<String> mUrls = new ArrayList<>();
+    /**
+     * 搜索
+     */
     public static final String SEARCH="SEARCH";
 
     public NY_HomeBanner(View itemView) {

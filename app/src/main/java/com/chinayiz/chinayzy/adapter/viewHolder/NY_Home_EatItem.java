@@ -25,7 +25,7 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
     private TextView mTvGoodItemTitle;
     private TextView mTvGoodItemPrice;
     private ImageView mIvAddCart;
-    private NY_EatItemModel.DataBean data;
+    private View isSelf;
 
     public NY_Home_EatItem(View itemView) {
         super(itemView);
@@ -33,49 +33,51 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
         mTvGoodItemTitle = (TextView) itemView.findViewById(R.id.tv_goodItemTitle);
         mTvGoodItemPrice = (TextView) itemView.findViewById(R.id.tv_goodItemPrice);
         mIvAddCart = (ImageView) itemView.findViewById(R.id.iv_addCart);
-
+        isSelf = itemView.findViewById(R.id.view_isSelf);
         mIvGoodItemIcon.setOnClickListener(this);
         mTvGoodItemTitle.setOnClickListener(this);
         mIvAddCart.setOnClickListener(this);
     }
 
-    public void setData(NY_EatItemModel ny_eatItemModel, Fragment fragment,int position) {
-        if (ny_eatItemModel.getData().size()>position){
-            data=ny_eatItemModel.getData().get(position);
-            Glide.with(fragment).load(data.getIcon()).into(mIvGoodItemIcon);
-            mIvGoodItemIcon.setTag(R.id.tag_click,data.getGoodsid());
-            mTvGoodItemTitle.setText(data.getGname());
-            mTvGoodItemTitle.setTag(R.id.tag_click,data.getGoodsid());
+    public void setData(NY_EatItemModel.DataBean data, Fragment fragment) {
 
-            String price=data.getPrice();
-            if (price.contains("-")) {
-                String [] strings=price.split("-");
-                mTvGoodItemPrice.setText(strings[0]);
-            }else {
-                mTvGoodItemPrice.setText(price);
-            }
-            mIvAddCart.setTag(R.id.tag_click,data);
+        Glide.with(fragment).load(data.getIcon()).into(mIvGoodItemIcon);
+        mIvGoodItemIcon.setTag(R.id.tag_click, data.getGoodsid());
+        mTvGoodItemTitle.setText(data.getGname());
+        mTvGoodItemTitle.setTag(R.id.tag_click, data.getGoodsid());
+
+        if ("0".equals(data.getIsself())) {
+            isSelf.setVisibility(View.GONE);
         }
+
+        String price = data.getPrice();
+        if (price.contains("-")) {
+            String[] strings = price.split("-");
+            mTvGoodItemPrice.setText(" " + strings[0]);
+        } else {
+            mTvGoodItemPrice.setText(" " + price);
+        }
+        mIvAddCart.setTag(R.id.tag_click, data);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_goodItemIcon:
-                if (v.getTag(R.id.tag_click)!=null){
-                    EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
-                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
+                if (v.getTag(R.id.tag_click) != null) {
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,
+                            NongYeHomeRecylAdapter.CLICK_GOODS, v.getTag(R.id.tag_click)));
                 }
                 break;
             case R.id.tv_goodItemTitle:
-                if (v.getTag(R.id.tag_click)!=null){
-                    EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,
-                            NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
+                if (v.getTag(R.id.tag_click) != null) {
+                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,
+                            NongYeHomeRecylAdapter.CLICK_GOODS, v.getTag(R.id.tag_click)));
                 }
                 break;
             case R.id.iv_addCart://加入购物车
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,
-                        Commons.ADD_CAR,v.getTag(R.id.tag_click)));
+                        Commons.ADD_CAR, v.getTag(R.id.tag_click)));
                 break;
         }
     }

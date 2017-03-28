@@ -14,17 +14,13 @@ import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeRecommend;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeTypeMenu;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_Home_EatItem;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_Home_EatTheme;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
 import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
-import com.chinayiz.chinayzy.net.Commons;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -49,9 +45,12 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
      * 动态获取数据flag
      */
     public static final String GTE_DATA = "GETDATA";
+    /**
+     * 获取数据成功标志flag
+     */
+    public static final String REFRESH = "REFRESH_DATA";
     private Fragment mFragment;
-    private List<String> isLoad;//记录请求是否发送
-    private boolean isSetBanner=true;
+    private boolean isSetBanner = true;
     private static final int BANNER_TYPE = 0;//轮播图
     private static final int MENU_TYPE = 1;//类型菜单
     private static final int RECOMMEND_TYPE = 2;//精选推荐
@@ -62,7 +61,7 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     /**
      * RecyclerView 填充数据
      */
-    private Map<Integer, Object> mDates;
+    private Map<Integer, Object> mDates = new HashMap<>();
     private NY_HomeBanner mBanner;
     private NY_HomeRecommend mRecommend;
     private NY_HomeFeature mFeature1;
@@ -71,12 +70,19 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private NY_Home_EatItem mEatItem;
 
     /**
-     * @param date 数据
+     * 构造适配器
      */
-    public NongYeHomeRecylAdapter(Map<Integer, Object> date, Fragment fragment) {
+    public NongYeHomeRecylAdapter(Fragment fragment) {
         this.mFragment = fragment;
-        this.mDates = date;
-        this.isLoad = (List<String>) this.mDates.get(1);
+        mDates.put(0,5);
+    }
+
+    public void setData(int key, Object object) {
+        mDates.put(key,object);
+        if(key>5){
+            mDates.put(0,key+1);
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -101,43 +107,43 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (position) {
             case 0://banner图
-                if (mDates.containsKey(2)&&isSetBanner) {
+                if (mDates.containsKey(1) && isSetBanner) {
                     mBanner = (NY_HomeBanner) holder;
-                    mBanner.setData((NY_BannerModel) mDates.get(2));
-                    isSetBanner=false;
+                    mBanner.setData((NY_BannerModel) mDates.get(1));
+                    isSetBanner = false;
                 }
                 break;
             case 1://类型菜单
                 break;
             case 2://精选推荐
-                if (mDates.containsKey(3)) {
+                if (mDates.containsKey(2)) {
                     mRecommend = (NY_HomeRecommend) holder;
-                    NY_RecommentModel model = (NY_RecommentModel) mDates.get(3);
+                    NY_RecommentModel model = (NY_RecommentModel) mDates.get(2);
                     mRecommend.setData(model, mFragment);
                 }
                 break;
             case 3://特色购
-                if (mDates.containsKey(4)) {
+                if (mDates.containsKey(3)) {
                     mFeature1 = (NY_HomeFeature) holder;
-                    mFeature1.setData((NY_FeatureModel) mDates.get(4), mFragment, true);
+                    mFeature1.setData((NY_FeatureModel) mDates.get(3), mFragment, true);
                 }
                 break;
             case 4://特色购
-                if (mDates.containsKey(4)) {
+                if (mDates.containsKey(3)) {
                     mFeature2 = (NY_HomeFeature) holder;
-                    mFeature2.setData((NY_FeatureModel) mDates.get(4), mFragment, false);
+                    mFeature2.setData((NY_FeatureModel) mDates.get(3), mFragment, false);
                 }
                 break;
             case 5://爱吃主题
-                if (mDates.containsKey(5)) {
+                if (mDates.containsKey(4)) {
                     mLoveEat = (NY_Home_EatTheme) holder;
-                    mLoveEat.setData((NY_EatThemeModel) mDates.get(5), mFragment);
+                    mLoveEat.setData((NY_EatThemeModel) mDates.get(4), mFragment);
                 }
                 break;
             default://爱吃item
-                if (mDates.containsKey(6)) {
+                if (mDates.containsKey(position)) {
                     mEatItem = (NY_Home_EatItem) holder;
-                    mEatItem.setData((NY_EatItemModel) mDates.get(6), mFragment, position-6);
+                    mEatItem.setData((NY_EatItemModel.DataBean) mDates.get(position), mFragment);
                 }
                 break;
         }
@@ -147,47 +153,25 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemViewType(int position) {
         switch (position) {
             case 0://返回banner图
-                if (!isLoad.contains(Commons.NY_BANNER)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_BANNER));
-                    isLoad.add(Commons.NY_BANNER);
-                }
                 return BANNER_TYPE;
             case 1://返回类型菜单
                 return MENU_TYPE;
             case 2://返回精选推荐
-                if (!isLoad.contains(Commons.NY_RECOMMENT)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_RECOMMENT));
-                    isLoad.add(Commons.NY_RECOMMENT);
-                }
                 return RECOMMEND_TYPE;
             case 3://返回特色购
-                if (!isLoad.contains(Commons.NY_FEATURE)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_FEATURE));
-                    isLoad.add(Commons.NY_FEATURE);
-                }
                 return FEATURE_TYPE;
             case 4://返回特色购
                 return FEATURE_TYPE;
             case 5://返回爱吃主题
-                if (!isLoad.contains(Commons.NY_EATTHEME)) {
-                    EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_EATTHEME));
-                    isLoad.add(Commons.NY_EATTHEME);
-                }
                 return LOVE_ATE_TYPE;
+            default://返回爱吃item
+                return LOVE_ITEM_TYPE;
         }
-        if (!isLoad.contains(Commons.NY_EATITEM)) {
-            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, GTE_DATA, Commons.NY_EATITEM));
-            isLoad.add(Commons.NY_EATITEM);
-        }
-        return LOVE_ITEM_TYPE;//返回爱吃item
     }
 
     @Override
     public int getItemCount() {
-        if (mDates.containsKey(0)) {
-            return Integer.valueOf(mDates.get(0).toString());
-        }
-        return 0;
+        return Integer.valueOf(mDates.get(0).toString());
     }
 
     /**

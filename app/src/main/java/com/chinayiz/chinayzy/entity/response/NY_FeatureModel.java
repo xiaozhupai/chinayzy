@@ -55,7 +55,15 @@ public class NY_FeatureModel extends BaseResponseModel {
         private int salesvolume;
         private String gname;
         private String brand;
+        private String isself;
 
+        public String getIsself() {
+            return isself;
+        }
+
+        public void setIsself(String isself) {
+            this.isself = isself;
+        }
         public String getThemename() {
             return themename;
         }

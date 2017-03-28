@@ -34,9 +34,10 @@
         <item name="android:windowEnterAnimation">@anim/enter_anim</item>
         <item name="android:windowExitAnimation">@anim/out_anim</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="Image_arrow">
         <item name="android:layout_width">wrap_content</item>
@@ -57,6 +58,7 @@
         <item name="android:layout_marginBottom">14dp</item>
         <item name="android:layout_marginLeft">12dp</item>
     </style>
+
     <style name="Person_right_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -71,8 +73,8 @@
         <item name="android:windowExitAnimation">@anim/slide_out</item>
     </style>
 
-   <!--生态农业底部导航栏（RadioButton）-->
-    <style name="nav_rb_style" >
+    <!--生态农业底部导航栏（RadioButton）-->
+    <style name="nav_rb_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
@@ -83,7 +85,7 @@
         <item name="android:button">@null</item>
     </style>
     <!--商品详情导航栏（RadioButton）-->
-    <style name="goods_meun_style" >
+    <style name="goods_meun_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">41dp</item>
         <item name="android:layout_weight">1</item>
@@ -158,11 +160,11 @@
         <item name="android:orientation">vertical</item>
     </style>
     <!--图片查看器activity主题-->
-    <style name="IMTheme"  parent="Animation.AppCompat.Dialog">
-    <item name="android:windowBackground">@android:color/transparent</item>
-    <item name="android:windowIsTranslucent">true</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowContentOverlay">@null</item>
+    <style name="IMTheme" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
     <!--生态农业首页精选推荐横向商品宫格布局（LinearLayout）-->
     <style name="NongYe_features">
@@ -171,7 +173,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">163dp</item>
+        <item name="android:layout_height">170dp</item>
         <item name="android:orientation">vertical</item>
     </style>
     <!--生态农业首页横向商品图片（imagerView）-->
@@ -198,15 +200,18 @@
     </style>
     <!--生态农业首页横向商品价格（textView）-->
     <style name="NongYe_Products_pricetv">
-        <item name="android:layout_marginLeft">3dp</item>
-        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_marginTop">1dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/NongYe_home_priceText</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
         <item name="android:drawableLeft">@mipmap/icon_rmb</item>
         <item name="android:maxLines">1</item>
+        <item name="android:drawableRight">@mipmap/icon_oneself_store</item>
     </style>
     <!--商品详情页商品提供服务描述（TextView）-->
     <style name="Goods_serviceTv">
@@ -246,9 +251,9 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:src">@color/Background</item>
         <item name="android:paddingLeft">7dp</item>
         <item name="android:paddingRight">7dp</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="Registerinfo_linerlayout">
@@ -283,6 +288,7 @@
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
     <style name="Registerinfo_EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -319,11 +325,13 @@
         <item name="android:shadowDx">1.2</item>
         <item name="android:shadowRadius">1</item>
     </style>
+
     <style name="MMLineButton" parent="@style/MMButton">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/mm_style_two_btn_text</item>
     </style>
+
     <style name="MMButton">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -332,6 +340,19 @@
         <item name="android:background">@null</item>
         <item name="android:minHeight">40dp</item>
         <item name="android:minWidth">40dp</item>
+    </style>
+    <!--自营标识(TextView)-->
+    <style name="Tv_Self">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_self</item>
+        <item name="android:text">@string/tx_self</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/classifyText_pre</item>
+        <item name="android:paddingBottom">0.7dp</item>
+        <item name="android:paddingTop">0.7dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
     </style>
 
     <!--loading-->

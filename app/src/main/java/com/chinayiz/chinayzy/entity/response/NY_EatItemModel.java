@@ -42,10 +42,20 @@ public class NY_EatItemModel extends BaseResponseModel {
         private int goodsid;
         private int salesvolume;
         private String gname;
+
         private String brand;
         private int goodsstandardid;
         private int repertorytotal;
         private String productarea;
+        private String isself;
+
+        public String getIsself() {
+            return isself;
+        }
+
+        public void setIsself(String isself) {
+            this.isself = isself;
+        }
 
         public String getIcon() {
             return icon;

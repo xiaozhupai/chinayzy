@@ -41,7 +41,6 @@
                 />
         </LinearLayout>
     </ScrollView>
-
     <TextView
         android:id="@+id/tv_member_submit"
         android:layout_width="match_parent"

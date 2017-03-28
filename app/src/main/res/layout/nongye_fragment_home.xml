@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+<com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
+    <include layout="@layout/refresh_head" />
     <!--生态农业首页全部-->
-    <android.support.v7.widget.RecyclerView
+    <com.chinayiz.chinayzy.views.refreshView.PullableRecycleView
         android:id="@+id/nongye_home_recyclerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         >
-    </android.support.v7.widget.RecyclerView>
-
-</LinearLayout>
+    </com.chinayiz.chinayzy.views.refreshView.PullableRecycleView>
+    <include layout="@layout/load_more" />
+</com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout>

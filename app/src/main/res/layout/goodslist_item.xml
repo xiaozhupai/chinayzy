@@ -35,11 +35,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goodsName"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="8dp"
         android:text="168"
         android:textColor="@color/NongYe_home_priceText"
-        android:textSize="18sp"
-        />
+        android:drawableRight="@mipmap/icon_oneself_store"
+        android:textSize="16sp"
+        android:layout_alignStart="@+id/tv_goodsName"/>
 
     <ImageView
         android:id="@+id/iv_goodsRMB"

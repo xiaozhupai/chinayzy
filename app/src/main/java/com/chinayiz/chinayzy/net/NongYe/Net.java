@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.net.NongYe;
 
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ClassifyCodesModel;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
@@ -192,8 +193,8 @@ public class Net {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                        EventBus.getDefault().post(new EventMessage(BaseMessage.ERROR_EVENT,"",""));
                     }
-
                     @Override
                     public void onResponse(String s, int i) {
                         try {

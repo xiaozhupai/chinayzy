@@ -47,7 +47,6 @@ public class GoodsCommentFragment extends BaseFragment<GoodsCommentPresenter>
         View view=inflater.inflate(R.layout.fragment_comment, container,false);
         mHolder=new ViewHolder();
         initHolder(view);
-        Logger.i("初始化视图");
         return view;
     }
 
