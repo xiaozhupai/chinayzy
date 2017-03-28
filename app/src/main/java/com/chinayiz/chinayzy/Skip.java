@@ -7,7 +7,9 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
+import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.ui.common.GoodsFragment;
+import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
@@ -22,6 +24,7 @@ import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
+import com.chinayiz.chinayzy.ui.fragment.register.DepositFragment;
 import com.chinayiz.chinayzy.ui.fragment.register.MemberRuleFragment;
 
 import java.io.Serializable;

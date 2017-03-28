@@ -19,6 +19,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.presenter.OrderFrameworkPresenter;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,6 +165,7 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.mRequestUtils.recognizelOrder(String.valueOf(goods.getOrderid()));
                                 mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
+                                Logger.i("收货成功");
                             }
                         }).create();
 
