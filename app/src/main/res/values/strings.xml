@@ -16,7 +16,7 @@
     <string name="nongye_recommendBar"><b>  精选推荐</b></string>
     <string name="nongye_featureBar"><b>  特色购</b></string>
     <string name="nongye_loveEatBar"><b>  爱吃</b></string>
-
+    <string name="tx_self"> 自营 </string>
 
     <string name="head">这里是HeadView</string>
     <string name="pull_to_refresh">下拉刷新</string>

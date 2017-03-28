@@ -8,6 +8,7 @@ import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.common.GoodsFragment;
+import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
@@ -236,6 +237,15 @@ public class Skip {
     }
 
 
-
-
+/**
+ * 生态农业二级菜单
+ */
+public static void toItemMenu(Context context,String itemCode) {
+    Intent intent=new Intent(context,CommonActivity.class);
+    intent.putExtra(CLASS, ClassifyFragment.class);
+    Bundle bundle=new Bundle();
+    bundle.putString("itemCode",itemCode);
+    intent.putExtras(bundle);
+    skip(context,intent);
+}
 }

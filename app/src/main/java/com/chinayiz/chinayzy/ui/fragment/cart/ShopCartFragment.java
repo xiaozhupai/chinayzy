@@ -16,12 +16,18 @@ import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
+import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +58,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     protected void onVisible() {
-//     mPresenter.getData();
     }
 
     @Override
@@ -65,7 +70,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public void onInitActionBar(final BaseActivity  activity) {
-
         activity.mTvActionBarTitle.setText("购物车");
         activity.mIvActionBarMore.setVisibility(View.GONE);
         activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
@@ -164,6 +168,8 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public void onResume() {
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
+                NongYeMainActivity.NYMAIN_ACTIONBAR, new ActionBarControlModel(NongYeMainActivity.SHOW_ALL, "购物车", 1, 0, 1, 0)));
         super.onResume();
 
     }

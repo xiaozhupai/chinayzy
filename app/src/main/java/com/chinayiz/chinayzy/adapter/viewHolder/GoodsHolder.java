@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class GoodsHolder {
     public View mActionBar;
-    public View mLine;
+    public View mLine,isSelf;
     public TextView mTitel;
     public WebView mWebView;
     public NoScrollGridView mGridView;

@@ -41,31 +41,31 @@ public class NY_HomeTypeMenu extends RecyclerView.ViewHolder implements View.OnC
             case R.id.ly_type_btn1://野生农业
                 Logger.i("野生农业");
                 EventBus.getDefault()
-                        .post(new EventMessage(EventMessage.NET_EVENT,
+                        .post(new EventMessage(EventMessage.INFORM_EVENT,
                                 NongYeHomeRecylAdapter.CLICK_MENU,"2"));
                 break;
             case R.id.ly_type_btn2://有机农业
                 Logger.i("有机农业");
                 EventBus.getDefault()
-                        .post(new EventMessage(EventMessage.NET_EVENT,
+                        .post(new EventMessage(EventMessage.INFORM_EVENT,
                                 NongYeHomeRecylAdapter.CLICK_MENU,"1"));
                 break;
             case R.id.ly_type_btn3://地区特产
                 Logger.i("地区特产");
                 EventBus.getDefault()
-                        .post(new EventMessage(EventMessage.NET_EVENT,
+                        .post(new EventMessage(EventMessage.INFORM_EVENT,
                                 NongYeHomeRecylAdapter.CLICK_MENU,"3"));
                 break;
             case R.id.ly_type_btn4://食品组合
                 Logger.i("食品组合");
                 EventBus.getDefault()
-                        .post(new EventMessage(EventMessage.NET_EVENT,
+                        .post(new EventMessage(EventMessage.INFORM_EVENT,
                                 NongYeHomeRecylAdapter.CLICK_MENU,"4"));
                 break;
             case R.id.ly_type_btn5://期货产品
                 Logger.i("期货产品");
                 EventBus.getDefault()
-                        .post(new EventMessage(EventMessage.NET_EVENT,
+                        .post(new EventMessage(EventMessage.INFORM_EVENT,
                                 NongYeHomeRecylAdapter.CLICK_MENU,"5"));
                 break;
         }

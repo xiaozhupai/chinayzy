@@ -37,7 +37,7 @@
         />
     <CheckBox
         android:id="@+id/cb_edit_button"
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_marginRight="7dp"

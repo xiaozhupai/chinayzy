@@ -35,15 +35,17 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     public TypeListAdpter mListAdpter;
     public ClassGridAdapter mGridAdapter;
     public String picUrl;
-    public int clickPosition;
-    public void setTypeCode(String typeCode){
-        this.mTypeCode = typeCode;
-    }
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_classify,container,false);
         initViews(view);
         return view;
+    }
+
+    @Override
+    public void onInintData(Bundle bundle) {
+        mTypeCode=bundle.getString("itemCode");
     }
 
     private void initViews(View view) {
