@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -60,7 +61,7 @@ public class PayFragment extends BaseFragment<Presenter> implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_two:
-
+                APP.exit();
                 break;
         }
     }

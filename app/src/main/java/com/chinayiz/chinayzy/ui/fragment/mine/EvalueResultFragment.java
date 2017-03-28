@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -83,7 +84,7 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_to_others:
-
+                APP.exit();
                 break;
         }
     }
