@@ -91,8 +91,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         });
     }
 
-
-
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_shop_cart, null);

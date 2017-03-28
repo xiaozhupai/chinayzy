@@ -18,6 +18,7 @@ import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.utils.AliPayUntil;
 import com.chinayiz.chinayzy.utils.WeChatPayUntil;
 import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
+import com.chinayiz.chinayzy.widget.LoadlingDialog;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.chinayiz.chinayzy.wxapi.WXPayEntryActivity;
 import com.google.gson.Gson;
@@ -44,6 +45,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     private  AlipayHandler mHandler =new AlipayHandler(mView,this);
     private MessageDialog dialog;
     public int status;
+    private LoadlingDialog loadlingDialog;
 
     @Override
     public void onCreate() {
@@ -106,15 +108,21 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                 mView.adaphter.setData(resultModel.getData().getGoodmessage(),resultModel.getData().getCarriages());
                 break;
             case Commons.ALIPAYORDER:  //支付宝支付
+                loadlingDialog.dismiss();
                 final AlipayModel modell= (AlipayModel) message.getData();
                 if (modell.getCode().equals("100")){
                     AliPayUntil.pay(mView.getActivity(),mHandler,modell);
+                }else {
+                    BaseActivity.showToast(mView.getActivity(),modell.getMsg());
                 }
                 break;
             case Commons.WXPAYORDER: //微信支付
+                loadlingDialog.dismiss();
                 WxpayModel model2= (WxpayModel) message.getData();
                 if (model2.getCode().equals("100")){
                     WeChatPayUntil.pay(mView,model2);
+                }else {
+                    BaseActivity.showToast(mView.getActivity(),model2.getMsg());
                 }
                 break;
         }
@@ -223,6 +231,10 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             dialog.setButton2("确定", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (loadlingDialog==null){
+                        loadlingDialog=new LoadlingDialog(mView.mActivity);
+                    }
+                    loadlingDialog.show();
                     if (mView.iv_pay_ali.isCheck){  //支付宝支付
                         CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total, finalOrderbill);
                     }else {  //微信支付
