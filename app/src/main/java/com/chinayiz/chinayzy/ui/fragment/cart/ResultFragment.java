@@ -152,11 +152,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public void isNightMode(boolean isNight) {
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = initView(inflater, container, savedInstanceState);
-        return view;
-    }
+
 
     @Override
     public void onClick(View v) {

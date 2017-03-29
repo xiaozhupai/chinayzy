@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -20,9 +19,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
-import com.orhanobut.logger.Logger;
-
-import java.util.Stack;
 
 /**
  * author  by  Canrom7 .
@@ -54,8 +50,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * web Fragment（通用）；
      */
     public WebFragment mWebFragment;
-    private Stack<String> stack=new Stack<>();
-    private String name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,12 +146,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             BaseFragment fragment = clazz.newInstance();
             fragment.setArguments(intent.getExtras());
             Bundle bundle=intent.getExtras();
-            if (TextUtils.isEmpty(bundle.getString("goodsID"))){
-                addFragment(fragment);
-            }else {
-                addFragment(fragment,bundle.getString("goodsID"));
-            }
-                stack.push(name);
+            addFragment(fragment);
+//            if (TextUtils.isEmpty(bundle.getString("goodsID"))){
+//
+//            }else {
+//                addFragment(fragment,bundle.getString("goodsID"));
+//            }
+
         } catch (Exception e) {
             e.printStackTrace();
             finish();
@@ -169,7 +165,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void addFragment(BaseFragment fragment) {
         Class<?> classz = fragment.getClass();
-        name=classz.getSimpleName();
         try {
             fragmentManager.beginTransaction()
                     .add(R.id.content_frame, fragment, classz.getSimpleName())
@@ -180,37 +175,16 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             e.printStackTrace();
             fragmentManager.beginTransaction()
                     .add(R.id.content_frame, fragment, classz.getSimpleName())
-                    .addToBackStack(classz.getSimpleName())
+                    .addToBackStack(null)
                     .commitAllowingStateLoss();
         }
 
     }
 
-    public void addFragment(BaseFragment fragment,String tag) {
-        Logger.i("bundle"+tag);
-        Class<?> classz = fragment.getClass();
-        name=classz.getSimpleName()+tag;
-        try {
-            fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment, classz.getSimpleName()+tag)
-                    .addToBackStack(classz.getSimpleName()+tag)
-                    .commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment, classz.getSimpleName()+tag)
-                    .addToBackStack(classz.getSimpleName()+tag)
-                    .commitAllowingStateLoss();
-        }
 
-    }
 
-    public void finishFragment(){
-        stack.pop();
-        String tag=stack.peek();
-        fragmentManager.popBackStack(tag,0);
-    }
+
 
 
 

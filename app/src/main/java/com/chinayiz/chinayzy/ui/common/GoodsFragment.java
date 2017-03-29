@@ -31,6 +31,7 @@ import com.chinayiz.chinayzy.adapter.viewHolder.GoodsHolder;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.GoodsPresenter;
 import com.chinayiz.chinayzy.ui.fragment.CommentsFragment;
@@ -81,7 +82,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods, container, false);
+        View view = inflater.inflate(R.layout.fragment_goods, null);
         mFragmentManager = getFragmentManager();
         mGoodsHolder = new GoodsHolder();
         initHolder(view);
@@ -298,8 +299,8 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                     Logger.i("移除评论列表");
                 } else {
                     Logger.i("退出详情");
-//                    mActivity.onBackPressed();
-                    mActivity.finishFragment();
+                    mActivity.onBackPressed();
+//                    mActivity.finishFragment();
                 }
                 break;
             case R.id.iv_more_btn:
@@ -458,6 +459,9 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
     @Override
     public void onInitActionBar(BaseActivity activity) {
         activity.mActionBar.setVisibility(View.GONE);
+        Logger.i("goodsId-------------"+goodsID);
+        CommonRequestUtils.getRequestUtils().getGoodsDetail(goodsID);
+
     }
 
     /**
