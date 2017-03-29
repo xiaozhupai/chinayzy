@@ -39,7 +39,7 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
     public int orderType;
     private RadioButton rb_orderAll;
     private RadioButton rb_order1;
-    private RadioButton rb_order2;
+    public RadioButton rb_order2;
     private RadioButton rb_order3;
     private RadioButton rb_order4;
     private RadioGroup rg_orderState;
@@ -167,8 +167,6 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.mRequestUtils.recognizelOrder(String.valueOf(goods.getOrderid()));
                                 mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
-
-                                Logger.i("收货成功");
                             }
                         }).create();
 

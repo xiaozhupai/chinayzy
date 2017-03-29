@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,13 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.EvalueResultPresenter;
+import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 
 /**
  *   交易，评价 结果
  * A simple {@link } subclass.
  */
 public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> implements View.OnClickListener {
-
-
     private ImageView iv_result;
     private TextView tv_result;
     private TextView tv_to_others;
@@ -55,13 +55,12 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
 
     @Override
     public void onInintData(Bundle bundle) {
-        this.title=bundle.getString("title");
         this.type=bundle.getInt("type");
     }
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        activity.mTvActionBarTitle.setText(title);
+        mActivity=activity;
     }
 
     @Override
@@ -73,15 +72,17 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
         tv_to_others.setOnClickListener(this);
         switch (type){
             case EVALUE:
+                mActivity.mTvActionBarTitle.setText("评价成功");
                 tv_result.setText("感谢您宝贵的评价!");
                 iv_result.setImageResource(R.mipmap.img_evalue_result);
                 break;
             case TRADE:
+                mActivity.mTvActionBarTitle.setText("交易成功");
                 tv_result.setText("交易成功!卖家将收到您的付款~");
                 iv_result.setImageResource(R.mipmap.img_trade_success);
-                tv_to_others.setText("去评价");
                 break;
             case PAY:
+                mActivity.mTvActionBarTitle.setText("付款成功");
                 tv_result.setText("付款成功，等待卖家发货");
                 iv_result.setImageResource(R.mipmap.img_trade_success);
                 break;
@@ -103,7 +104,8 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_to_others:
-
+                Intent intent=new Intent(getActivity(), NongYeMainActivity.class);
+                startActivity(intent);
                 break;
         }
     }

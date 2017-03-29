@@ -31,6 +31,8 @@ public class APP extends Application {
      */
 	public static String sUserid="0";
     public static  APP instance;
+    public static String phone;
+
     public static GlideCacheUtil cacheUtil;
     private static final ArrayList<Activity> activityLists = new ArrayList<>();
 
@@ -56,6 +58,7 @@ public class APP extends Application {
         initData();
         initoss();
         sUserid=getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0)+"";
+        phone=getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone","-1");
         Logger.i(sUserid);
     }
 

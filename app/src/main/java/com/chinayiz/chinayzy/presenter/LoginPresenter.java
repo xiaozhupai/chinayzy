@@ -46,6 +46,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     private static final int MSG_AUTH_COMPLETE = 4;
     private static final int MSG_NUM=5;
     private Handler handler;
+    private String phone;
     private int num;
     public String logintype;
     private String registerphone;
@@ -111,6 +112,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
         editor.putInt("userid",userid);
         editor.putString("ismember",isMember);
+        editor.putString("phone",phone);
         editor.commit();//提交修改
         APP.sUserid=userid+"";
         mView.finish();
@@ -165,7 +167,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
      * 登录
      */
     public void login() {
-        String phone = mView.mEvLoginInputPhone.getText().toString().trim();
+        phone = mView.mEvLoginInputPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)  ) {
             Toast.makeText(mView, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;

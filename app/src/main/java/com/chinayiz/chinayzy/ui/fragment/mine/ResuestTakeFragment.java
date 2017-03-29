@@ -34,13 +34,14 @@ import org.greenrobot.eventbus.ThreadMode;
 public class ResuestTakeFragment extends AbsFragment implements View.OnClickListener {
     public final static String SEND_CODE = "ResuestTakeFragment";
     public final static String SEND_TIME = "ResuestTak";
-    public final static String MSG="0";
+    public final static String MSG = "0";
     private EditText edit_alpayId;
     private EditText edit_money;
     private EditText edit_verifyNumb;
     private EditText edit_phoneNumb;
     private Button btn_sendMSG;
     private Button bt_affirm;
+    private String alpayId,money;
 
     @Nullable
     @Override
@@ -59,7 +60,7 @@ public class ResuestTakeFragment extends AbsFragment implements View.OnClickList
         edit_alpayId = (EditText) view.findViewById(R.id.edit_alpayId);
         edit_money = (EditText) view.findViewById(R.id.edit_money);
         edit_verifyNumb = (EditText) view.findViewById(R.id.edit_verifyNumb);
-        edit_phoneNumb= (EditText) view.findViewById(R.id.edit_phoneNumb);
+        edit_phoneNumb = (EditText) view.findViewById(R.id.edit_phoneNumb);
         btn_sendMSG = (Button) view.findViewById(R.id.btn_sendMSG);
         bt_affirm = (Button) view.findViewById(R.id.bt_affirm);
 
@@ -81,7 +82,7 @@ public class ResuestTakeFragment extends AbsFragment implements View.OnClickList
                     BaseActivity.showToast(getActivity(), "手机号码不允许为空");
                     return;
                 }
-                if (phone.length()!=11){
+                if (phone.length() != 11) {
                     BaseActivity.showToast(getActivity(), "手机号码错误");
                     return;
                 }
@@ -90,12 +91,12 @@ public class ResuestTakeFragment extends AbsFragment implements View.OnClickList
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        EventMessage message=new EventMessage(BaseMessage.NET_EVENT,SEND_TIME,"");
-                        for (int i=60;i>-1;i--){
+                        EventMessage message = new EventMessage(BaseMessage.NET_EVENT, SEND_TIME, "");
+                        for (int i = 60; i > -1; i--) {
                             message.setData(String.valueOf(i));
                             try {
                                 Thread.sleep(1000);
-                            } catch (Exception  e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             EventBus.getDefault().post(message);
@@ -110,12 +111,12 @@ public class ResuestTakeFragment extends AbsFragment implements View.OnClickList
     }
 
     private void submit() {
-        String alpayId = edit_alpayId.getText().toString().trim();
+       alpayId = edit_alpayId.getText().toString().trim();
         if (TextUtils.isEmpty(alpayId)) {
             BaseActivity.showToast(getActivity(), "账号不能为空");
             return;
         }
-        String money = edit_money.getText().toString().trim();
+       money = edit_money.getText().toString().trim();
         if (TextUtils.isEmpty(money)) {
             BaseActivity.showToast(getActivity(), "金额不能为空");
             return;
@@ -130,31 +131,31 @@ public class ResuestTakeFragment extends AbsFragment implements View.OnClickList
             BaseActivity.showToast(getActivity(), "手机号码不允许为空");
             return;
         }
-        mRequestUtils.requestTake(phone,money,verifyNumb,alpayId,"1");
+        mRequestUtils.requestTake(phone, money, verifyNumb, alpayId, "1");
     }
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        switch (message.getDataType()){
-            case ResuestTakeFragment.SEND_CODE:{
-                BaseActivity.showToast(getActivity(),"获取验证码成功");
+        switch (message.getDataType()) {
+            case ResuestTakeFragment.SEND_CODE: {
+                BaseActivity.showToast(getActivity(), "获取验证码成功");
             }
-            case ResuestTakeFragment.SEND_TIME:{
-                if (MSG.equals(message.getData())){
+            case ResuestTakeFragment.SEND_TIME: {
+                if (MSG.equals(message.getData())) {
                     btn_sendMSG.setText("获取验证码");
                     btn_sendMSG.setClickable(true);
-                }else {
-                    btn_sendMSG.setText(message.getData().toString()+"秒后再获取");
+                } else {
+                    btn_sendMSG.setText(message.getData().toString() + "秒后再获取");
                 }
                 break;
             }
-           case Commons.GET_GOLD:{
-               ResponseModel model= (ResponseModel) message.getData();
-               if ("100".equals(model.getCode())){
-
-               }else {
-                  BaseActivity.showToast(getActivity(),model.getMsg());
-               }
+            case Commons.GET_GOLD: {
+                ResponseModel model = (ResponseModel) message.getData();
+                if ("100".equals(model.getCode())) {
+                    addFragment(new GoldSucceeFragment(2, alpayId,money),"GoldSucceeFragment");
+                } else {
+                    BaseActivity.showToast(getActivity(), model.getMsg());
+                }
                 break;
             }
         }

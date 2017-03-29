@@ -13,11 +13,13 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
 import com.orhanobut.logger.Logger;
 
@@ -49,7 +51,7 @@ public class GoodsCommentPresenter extends BasePresenter<GoodsCommentFragment> {
             case Commons.COMMENT_ORDER:{
                 Logger.i("商品评论成功了");
                 mView.getActivity().getFragmentManager().popBackStack("OrderDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
+                Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.EVALUE);
                 break;
         }
         }

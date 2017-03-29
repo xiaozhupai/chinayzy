@@ -15,11 +15,22 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.AbsFragment;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.AlipayModel;
+import com.chinayiz.chinayzy.entity.response.WxpayModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.utils.AliPayUntil;
+import com.chinayiz.chinayzy.utils.WeChatPayUntil;
+import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
+import com.chinayiz.chinayzy.widget.LoadlingDialog;
+import com.chinayiz.chinayzy.wxapi.WXPayEntryActivity;
 import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -73,7 +84,7 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
                          Logger.i("微信支付成功");
                      }else {
                          status=0;
-                         Logger.i("微信支付失败");
+                       BaseActivity.showToast(getActivity(),"充值失败，请重试");
                      }
                      break;
              }
@@ -108,7 +119,6 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
                     BaseActivity.showToast(getActivity(),"输入正确金额");
                     return;
                 }
-                mRequestUtils.getWxPayOrder("1",edit_moneys.getText().toString(),"");
 
                 Logger.i("确认充值");
                 if (loadlingDialog==null){
@@ -161,23 +171,18 @@ public class PrestoreFragment extends AbsFragment implements View.OnClickListene
         }
     }
 
-    private void submit() {
-        String moneys = edit_moneys.getText().toString().trim();
-        if (TextUtils.isEmpty(moneys)) {
-            return;
-        }
 
-    }
 
     @Override
     public void onAliSuccess() {
        status=1;
         Logger.i("支付宝支付成功");
+        addFragment(new GoldSucceeFragment(1, APP.phone,edit_moneys.getText().toString()),"GoldSucceeFragment");
     }
 
     @Override
     public void onAliFail() {
         status=0;
-        Logger.i("支付宝支付失败");
+       BaseActivity.showToast(getActivity(),"充值失败，请重试");
     }
 }

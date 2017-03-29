@@ -976,7 +976,7 @@ public class CommonRequestUtils {
                     public void onResponse(String s, int i) {
                         try {
                             Logger.i("确认收货" + s);
-                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     , Commons.CONFIRM_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
                         } catch (Exception e) {

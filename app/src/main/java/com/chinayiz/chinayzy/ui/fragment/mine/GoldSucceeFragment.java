@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -52,8 +51,8 @@ public class GoldSucceeFragment extends AbsFragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goldsuccee, container, false);
-        initView(super.onCreateView(inflater, container, savedInstanceState));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        initView(view);
+        return view;
     }
 
     @Override
@@ -65,14 +64,14 @@ public class GoldSucceeFragment extends AbsFragment implements View.OnClickListe
             tv_titel.setText("充值账号");
             tv_value.setText(valuel1);
             tv_titel1.setText("充值金额");
-            tv_value1.setText(valuel2);
+            tv_value1.setText("￥"+valuel2);
         }else {
             tv_actionbar_title.setText("提现");
             tv_result.setText("恭喜您申请提现成功！");
             tv_titel.setText("提现账号");
             tv_value.setText(valuel1);
             tv_titel1.setText("提现金额");
-            tv_value1.setText(valuel2);
+            tv_value1.setText("￥"+valuel2);
         }
     }
 
@@ -127,10 +126,8 @@ public class GoldSucceeFragment extends AbsFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back_button:
-                getActivity().onBackPressed();
-                break;
             case R.id.bt_inPut:
-                getFragmentManager().popBackStack("PrestoreFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getActivity().onBackPressed();
                 break;
         }
     }

@@ -17,6 +17,7 @@ import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.StoreActivity;
+import com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.utils.AliPayUntil;
 import com.chinayiz.chinayzy.utils.WeChatPayUntil;
@@ -125,10 +126,15 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 if (resp.errCode==0){
                     status=1;
                     Logger.i("微信支付成功");
+                    Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.PAY);
                 }else {
                     state=0;
                     Logger.i("微信支付失败");
+                    BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
                 }
+            case Commons.CONFIRM_ORDER:{
+               Skip.toSucceePage(mView.getActivity(),EvalueResultFragment.TRADE);
+            }
                 break;
         }
     }
@@ -177,11 +183,14 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     public void onAliSuccess() {
          status=1;
         Logger.i("支付宝支付成功");
+        mView.rb_order2.setChecked(true);
+        Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.PAY);
     }
 
     @Override
     public void onAliFail() {
         state=0;
         Logger.i("支付宝支付失败");
+        BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
     }
 }

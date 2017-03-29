@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
@@ -269,6 +270,18 @@ public static void toItemMenu(Context context,String itemCode) {
       context.startActivity(intent);
     }
 
-
+    /**
+     * 操作完成页
+     * @param context
+     * @param type 操作类型
+     */
+    public static void toSucceePage(Context context,int type) {
+        Intent intent=new Intent(context,CommonActivity.class);
+        intent.putExtra(CLASS, EvalueResultFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putInt("type",type);
+        intent.putExtras(bundle);
+        skip(context,intent);
+    }
 
 }
