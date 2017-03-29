@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.presenter.GoodsKeepPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 
+
 /**   宝贝收藏
  * A simple {@link Fragment} subclass.
  */

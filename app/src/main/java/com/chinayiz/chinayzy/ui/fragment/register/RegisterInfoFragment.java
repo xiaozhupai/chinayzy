@@ -14,12 +14,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.RegisterInfoPresenter;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.chinayiz.chinayzy.widget.PickView;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -245,4 +247,6 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
+
 }

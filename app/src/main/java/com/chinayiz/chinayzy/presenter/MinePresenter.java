@@ -65,7 +65,9 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                 PersonalModel model= (PersonalModel) message.getData();
                 PersonalModel.DataBean dataBean=model.getData();
                 mView.tv_user_username.setText(dataBean.getNickname());
-                Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);
+                if (!TextUtils.isEmpty(dataBean.getPic())){
+                    Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);
+                }
                 if (!TextUtils.isEmpty(dataBean.getSex())){
                     if (dataBean.getSex().equals("0")){
                         mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_man_sex);

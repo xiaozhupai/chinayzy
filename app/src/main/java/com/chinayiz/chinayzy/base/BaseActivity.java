@@ -22,6 +22,8 @@ import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
 import com.orhanobut.logger.Logger;
 
+import java.util.Stack;
+
 /**
  * author  by  Canrom7 .
  * CreateDate 2016/12/27 9:59
@@ -52,6 +54,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * web Fragment（通用）；
      */
     public WebFragment mWebFragment;
+    private Stack<String> stack=new Stack<>();
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +156,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             }else {
                 addFragment(fragment,bundle.getString("goodsID"));
             }
-
+                stack.push(name);
         } catch (Exception e) {
             e.printStackTrace();
             finish();
@@ -165,6 +169,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void addFragment(BaseFragment fragment) {
         Class<?> classz = fragment.getClass();
+        name=classz.getSimpleName();
         try {
             fragmentManager.beginTransaction()
                     .add(R.id.content_frame, fragment, classz.getSimpleName())
@@ -184,7 +189,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void addFragment(BaseFragment fragment,String tag) {
         Logger.i("bundle"+tag);
         Class<?> classz = fragment.getClass();
-
+        name=classz.getSimpleName()+tag;
         try {
             fragmentManager.beginTransaction()
                     .add(R.id.content_frame, fragment, classz.getSimpleName()+tag)
@@ -202,8 +207,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     public void finishFragment(){
-        fragmentManager.popBackStack();
+        stack.pop();
+        String tag=stack.peek();
+        fragmentManager.popBackStack(tag,0);
     }
+
+
 
 
     @Override

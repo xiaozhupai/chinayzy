@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.Presenter;
@@ -36,6 +37,7 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.Stack;
 
 import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.REQUEST_CODE;
 
@@ -49,6 +51,7 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 	public static final int IMAGE_REQUEST_CODE = 0x00008000;
 	public static final int RESIZE_REQUEST_CODE = 0x00008001;
 	public static final int CAMERA_REQUEST_CODE = 0x00008002;
+
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()){

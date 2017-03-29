@@ -37,9 +37,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     public View mVLine;
     public TextView mTvLoginSubmit;
     public TextView mTvRegisterSubmit;
-    public ImageView mIvQq;
-    public ImageView mIvWechat;
-    public ImageView mIvWeibo;
+//    public ImageView mIvQq;
+//    public ImageView mIvWechat;
+//    public ImageView mIvWeibo;
     public LinearLayout mLvLogin;
 
     @Override
@@ -114,9 +114,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         mVLine = (View) findViewById(R.id.v_line);
         mTvLoginSubmit = (TextView) findViewById(R.id.tv_login_submit);
         mTvRegisterSubmit = (TextView) findViewById(R.id.tv_register_submit);
-        mIvQq = (ImageView) findViewById(R.id.iv_qq);
-        mIvWechat = (ImageView) findViewById(R.id.iv_wechat);
-        mIvWeibo = (ImageView) findViewById(R.id.iv_weibo);
+//        mIvQq = (ImageView) findViewById(R.id.iv_qq);
+//        mIvWechat = (ImageView) findViewById(R.id.iv_wechat);
+//        mIvWeibo = (ImageView) findViewById(R.id.iv_weibo);
         mLvLogin = (LinearLayout) findViewById(R.id.lv_login);
 
         mIvBackButton.setOnClickListener(this);
@@ -125,9 +125,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         mIvForgot.setOnClickListener(this);
         mTvLoginSubmit.setOnClickListener(this);
         mTvRegisterSubmit.setOnClickListener(this);
-        mIvQq.setOnClickListener(this);
-        mIvWechat.setOnClickListener(this);
-        mIvWeibo.setOnClickListener(this);
+//        mIvQq.setOnClickListener(this);
+//        mIvWechat.setOnClickListener(this);
+//        mIvWeibo.setOnClickListener(this);
 
         mTvActionbarTitle.setText("登录");
         mIvMoreButton.setVisibility(View.GONE);
