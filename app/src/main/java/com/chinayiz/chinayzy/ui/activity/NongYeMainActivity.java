@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -79,6 +80,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        APP.register(this);
     }
 
 

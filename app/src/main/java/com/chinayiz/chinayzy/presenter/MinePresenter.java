@@ -81,19 +81,19 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                 }else {
                     mView.tv_user_username.setCompoundDrawables(null, null, nav_up, null);
                 }
-                if (dataBean.getWaittakecount()>0){
-                    mView.tv_wait_pay_count.setVisibility(View.VISIBLE);
-                    mView.tv_wait_pay_count.setText(dataBean.getWaittakecount()+"");
-                }
-                if (dataBean.getWaitpaycount()>0){
-                    mView.tv_wait_goods_count.setVisibility(View.VISIBLE);
-                    mView.tv_wait_goods_count.setText(dataBean.getWaitpaycount()+"");
-                }
-                if (dataBean.getWaitdelivercount()>0){
+                if (dataBean.getWaittakecount()>0){  //待收货
                     mView.tv_wait_accept_goods_count.setVisibility(View.VISIBLE);
-                    mView.tv_wait_accept_goods_count.setText(dataBean.getWaitdelivercount()+"");
+                    mView.tv_wait_accept_goods_count.setText(dataBean.getWaittakecount()+"");
                 }
-                if (dataBean.getAftercount()>0){
+                if (dataBean.getWaitpaycount()>0){   //待付款
+                    mView.tv_wait_pay_count.setVisibility(View.VISIBLE);
+                    mView.tv_wait_pay_count.setText(dataBean.getWaitpaycount()+"");
+                }
+                if (dataBean.getWaitdelivercount()>0){  //待发货
+                    mView.tv_wait_goods_count.setVisibility(View.VISIBLE);
+                    mView.tv_wait_goods_count.setText(dataBean.getWaitdelivercount()+"");
+                }
+                if (dataBean.getAftercount()>0){   //售后
                     mView.tv_after_sale_count.setVisibility(View.VISIBLE);
                     mView.tv_after_sale_count.setText(dataBean.getAftercount()+"");
                 }

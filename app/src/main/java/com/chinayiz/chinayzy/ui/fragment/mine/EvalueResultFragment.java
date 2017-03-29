@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.EvalueResultPresenter;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 
 /**
  *   交易，评价 结果
  * A simple {@link } subclass.
  */
 public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> implements View.OnClickListener {
+
+
     private ImageView iv_result;
     private TextView tv_result;
     private TextView tv_to_others;
