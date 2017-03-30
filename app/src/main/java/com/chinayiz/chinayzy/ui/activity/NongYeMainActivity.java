@@ -228,9 +228,9 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
             case 1://显示发现
                 if (mFindFragment == null) {
                     mFindFragment = new FindFragment();
+                    Logger.w("启动**************发现");
                 }
                 addOrShowFragment(getFragmentManager().beginTransaction(), mFindFragment);
-                Logger.i("启动发现");
                 break;
             case 2://显示活动
                 if (mActivityFragment == null) {

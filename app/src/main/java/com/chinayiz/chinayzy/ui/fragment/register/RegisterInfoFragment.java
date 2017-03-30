@@ -158,7 +158,7 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
                 marriagedialog.show();
                 break;
             case R.id.et_education:   //学历
-                final ArrayAlertDialog educationdialog=new ArrayAlertDialog(getActivity(), Gravity.BOTTOM,new String[]{"中专","大专","本科","研究生","博士"});
+                final ArrayAlertDialog educationdialog=new ArrayAlertDialog(getActivity(), Gravity.BOTTOM,new String[]{"中专","大专","本科","研究生"});
                 educationdialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
