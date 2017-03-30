@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -149,10 +151,13 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 todismiss();
                 break;
             case R.id.tv_submit:  //加入购物车
-                Logger.i("确定");
-                CommonRequestUtils.getRequestUtils()
-                        .getJoinCart(String.valueOf(bean.getShopid()),String.valueOf(bean.getGoodsstandardid()),String.valueOf(num));
-                todismiss();
+                if (!"0".equals(APP.sUserid)){//是否登录
+                    CommonRequestUtils.getRequestUtils()
+                            .getJoinCart(String.valueOf(bean.getShopid()),String.valueOf(bean.getGoodsstandardid()),String.valueOf(num));
+                    todismiss();
+                }else {
+                    Skip.toLogin(context);
+                }
                 break;
             case R.id.iv_add:   //数量添加
                 if (num==bean.getRepertorytotal() || num>bean.getRepertorytotal()){

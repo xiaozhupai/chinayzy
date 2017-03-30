@@ -1,7 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.OrderDetailAdapter;
 import com.chinayiz.chinayzy.adapter.OrderListAdapter;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -23,15 +22,14 @@ import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.OrderDetailPresenter;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import static android.content.Context.CLIPBOARD_SERVICE;
 import static com.chinayiz.chinayzy.R.id.lv_orderGoods;
 
 
@@ -96,7 +94,6 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
             if (isLoad) {
                 mPresenter.mRequestUtils.getOrderDetail(orderid);
             }
-            Logger.e("重新载入商品详情");
         }
     }
 
@@ -152,11 +149,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_copyId:
-                ClipboardManager myClipboard = (ClipboardManager) getActivity()
-                        .getSystemService(CLIPBOARD_SERVICE);
-                ClipData data = ClipData.newPlainText("text", v.getTag(R.id.tag_click).toString());
-                myClipboard.setPrimaryClip(data);
-                BaseActivity.showToast(getActivity(), "复制成功");
+                String url=new String(Commons.API+Commons.LOGISTICS_INFO+"?orderid="+orderid);
+                Skip.toWebPage(getActivity(),url,"物流信息");
                 break;
             case R.id.btn_order1:
                 goods.setOrderid(mOrderDetailModel.getData().getOrderid());

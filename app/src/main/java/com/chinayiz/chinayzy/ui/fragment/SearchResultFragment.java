@@ -33,7 +33,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public SearchResultAdaphter adaphter;
     public SearchResultAdaphter adaphter2;
     public PullToRefreshLayout refresh_view;
-    public static final String TITLE="TITLE";
     public String title;
     public int index=2;
     public boolean isList=true;  //是否是列表排列
@@ -42,9 +41,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public int mPostion;
     public ImageView mIvActionBarCart;
 
-    public SearchResultFragment(String title) {
-        this.title=title;
-    }
 
     @Override
     protected void onVisible() {
@@ -93,6 +89,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
 
     @Override
     public void onInintData(Bundle bundle) {
+        title=bundle.getString("titel","-1");
         adaphter=new SearchResultAdaphter(null,1,getActivity());
         adaphter2=new SearchResultAdaphter(null,2,getActivity());
 

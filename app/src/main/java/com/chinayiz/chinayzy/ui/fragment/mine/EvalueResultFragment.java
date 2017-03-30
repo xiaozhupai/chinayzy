@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.EvalueResultPresenter;
+import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
+import com.orhanobut.logger.Logger;
 
 /**
  *   交易，评价 结果
@@ -62,6 +64,12 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
     @Override
     public void onInitActionBar(BaseActivity activity) {
         mActivity=activity;
+        mActivity.mIvBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -102,11 +110,19 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        Logger.i("评价停止");
+        getActivity().onBackPressed();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_to_others:
                 Intent intent=new Intent(getActivity(), NongYeMainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
                 break;
         }
     }

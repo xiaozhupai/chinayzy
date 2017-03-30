@@ -51,7 +51,7 @@ public class TakeFragment extends AbsFragment implements View.OnClickListener {
         iv_back_button = (ImageView) view.findViewById(R.id.iv_back_button);
         iv_back_button.setOnClickListener(this);
         tv_actionbar_title = (TextView) view.findViewById(R.id.tv_actionbar_title);
-        tv_actionbar_title.setText("积分提现");
+        tv_actionbar_title.setText("亿众币提现");
         tv_actionbar_title.setTextColor(Color.BLACK);
         view.findViewById(R.id.iv_more_button).setVisibility(View.GONE);
 

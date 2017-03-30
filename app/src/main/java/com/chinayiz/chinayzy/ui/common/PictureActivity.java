@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.common;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,12 +11,11 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.utils.BarUtils;
 import com.chinayiz.chinayzy.views.PhotoView.Info;
 import com.chinayiz.chinayzy.views.PhotoView.PhotoView;
-import com.orhanobut.logger.Logger;
 
 public class PictureActivity extends AppCompatActivity implements View.OnClickListener {
-
     private View progress;
     private PhotoView mPhotoView;
     private String url;
@@ -23,6 +23,7 @@ public class PictureActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        BarUtils.setColor(this, Color.rgb(0,0,0));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
         Intent intent = getIntent();

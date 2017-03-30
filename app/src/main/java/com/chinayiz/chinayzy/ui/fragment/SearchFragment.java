@@ -134,7 +134,6 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         View view = initView(inflater, container, savedInstanceState);
         return view;
     }

@@ -21,7 +21,7 @@
         android:id="@+id/banner_MainPager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@mipmap/banner"
+        android:background="@color/Background"
         app:canLoop="true"
         />
     <LinearLayout
@@ -134,8 +134,8 @@
             android:layout_marginLeft="1.5dp"
             >
             <ImageView
-                android:layout_width="41dp"
-                android:layout_height="41dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:src="@mipmap/icon_zhongchou"
                 />
             <TextView
@@ -143,9 +143,25 @@
                 android:text="亿众众筹"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_asIm"
+            style="@style/Main_itemMenuLayout"
+            android:background="@mipmap/asim_itembg"
+            android:layout_marginLeft="1.5dp"
+            >
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="41dp"
+                android:src="@mipmap/icon_asim"
+                />
+            <TextView
+                style="@style/Main_itemMenuText"
+                android:text="关于我们"
+                />
+        </LinearLayout>
      <View
-         android:layout_marginLeft="15.5dp"
-         android:layout_weight="2"
+         android:layout_marginLeft="15dp"
+         android:layout_weight="1"
          android:layout_width="0dp"
          android:layout_height="95dp"/>
     </LinearLayout>

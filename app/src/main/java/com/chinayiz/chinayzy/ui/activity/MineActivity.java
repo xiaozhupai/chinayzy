@@ -16,12 +16,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.APP;
-import com.chinayiz.chinayzy.MainActivity;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
 import com.chinayiz.chinayzy.views.CircleImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
@@ -193,7 +193,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
                 Skip.toOrder(this,3);
                 break;
             case R.id.lv_after_sale:   //售后
-
+                Skip.toWebPage(this, Commons.API+Commons.AFTER_LIST+"?userid="+APP.sUserid,"售后");
                 break;
             case R.id.lv_mine_keep:   //宝贝收藏
            Skip.toGoodsCollection(getActivity());

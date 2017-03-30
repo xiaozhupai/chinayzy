@@ -5,11 +5,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
@@ -29,7 +27,6 @@ import java.util.List;
  */
 
 public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
-    public String title;
     public List <SearchFarmModel.DataBean> data;
 
     @Override

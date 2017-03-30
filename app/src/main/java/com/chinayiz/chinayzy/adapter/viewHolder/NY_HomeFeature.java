@@ -55,7 +55,13 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
         NY_FeatureModel.DataBean dataBean;
         Holder holder;
         if (isLoad){
-            for (int i = 0; i < 4 ; i++) {
+            int count;
+            if (datas.size()>=4){
+                count=4;
+            }else {
+                count=datas.size();
+            }
+            for (int i = 0; i < count ; i++) {
                 holder = mGoods.get(i);
                 dataBean = datas.get(i);
                 if (dataBean.getType().equals("1")) {//主题类型

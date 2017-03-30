@@ -1,133 +1,145 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragment.SearchFragment"
-    android:background="@color/white"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:context=".ui.fragment.SearchFragment"
 
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
- <RelativeLayout
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:orientation="horizontal"
-     >
-     <com.chinayiz.chinayzy.views.SearchEditText
-       android:id="@+id/sv_search"
-         android:layout_width="match_parent"
-         android:layout_height="28dp"
-         android:layout_toLeftOf="@+id/tv_cancel"
-         android:layout_marginTop="10dp"
-         android:layout_marginBottom="10dp"
-         android:layout_marginLeft="10dp"
-         android:paddingLeft="5dp"
-         android:textSize="14sp"
-         android:drawableLeft="@drawable/search_bar_icon_normal"
-         android:drawableRight="@drawable/ic_edit_input_clear"
-         android:hint="搜索"
-         android:imeOptions="actionSearch"
-         android:textColor="@color/find_text"
-         android:background="@drawable/bg_search"
-         android:textColorHint="@color/find_text"
-         android:singleLine="true"
-         />
-     <TextView
-          android:id="@+id/tv_cancel"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="取消"
-         android:textSize="13sp"
-         android:textColor="#81838e"
-          android:paddingLeft="13dp"
-         android:paddingRight="13dp"
-         android:layout_alignParentRight="true"
-         android:layout_centerVertical="true"
-         android:clickable="true"
-         />
- </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="#e0e4e6"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="21dp"
-        android:layout_marginLeft="16dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="热门搜索"
-            android:textSize="13sp"
-            android:textColor="#0b1b01"
-            />
-        <com.chinayiz.chinayzy.widget.TagListView
-            xmlns:f="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/tagview"
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/common_margin"
-            android:paddingLeft="@dimen/common_margin"
-            android:paddingRight="@dimen/common_margin"
-            android:paddingTop="16.0dip"
-            f:horizontalSpacing="@dimen/tag_horizontal_spacing"
-            f:orientation="horizontal"
-            f:verticalSpacing="@dimen/tag_vertical_spacing"/>
-    </LinearLayout>
-    <!--<View-->
+            android:orientation="horizontal"
+            >
+
+            <com.chinayiz.chinayzy.views.SearchEditText
+                android:id="@+id/sv_search"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@+id/tv_cancel"
+                android:background="@drawable/bg_search"
+                android:drawableLeft="@drawable/search_bar_icon_normal"
+                android:drawableRight="@drawable/ic_edit_input_clear"
+                android:hint="搜索"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textColor="@color/find_text"
+                android:textColorHint="@color/find_text"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:text="取消"
+                android:textColor="#81838e"
+                android:textSize="13sp"
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="#e0e4e6"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="21dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热门搜索"
+                android:textColor="#0b1b01"
+                android:textSize="13sp"
+                />
+
+            <com.chinayiz.chinayzy.widget.TagListView
+                xmlns:f="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/tagview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/common_margin"
+                android:paddingLeft="@dimen/common_margin"
+                android:paddingRight="@dimen/common_margin"
+                android:paddingTop="16.0dip"
+                f:horizontalSpacing="@dimen/tag_horizontal_spacing"
+                f:orientation="horizontal"
+                f:verticalSpacing="@dimen/tag_vertical_spacing"/>
+        </LinearLayout>
+        <!--<View-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="8dp"-->
         <!--android:background="#e0e4e6"-->
         <!--/>-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        android:layout_marginLeft="16dp"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="搜索历史"
-                android:textSize="13sp"
-                android:textColor="#0b1b01"
-                android:layout_marginTop="15dp"
-                />
-            <ImageView
-                android:id="@+id/iv_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_delete"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="18dp"
-                android:clickable="true"
-                />
-        </RelativeLayout>
-        <com.chinayiz.chinayzy.widget.TagListView
-            xmlns:f="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/tagview2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/common_margin"
-            android:paddingLeft="@dimen/common_margin"
-            android:paddingRight="@dimen/common_margin"
-            android:paddingTop="16.0dip"
-            f:horizontalSpacing="@dimen/tag_horizontal_spacing"
-            f:orientation="horizontal"
-            f:verticalSpacing="@dimen/tag_vertical_spacing"/>
-    </LinearLayout>
+            android:layout_marginLeft="16dp"
+
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="搜索历史"
+                    android:textColor="#0b1b01"
+                    android:textSize="13sp"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="15dp"
+                    android:clickable="true"
+                    android:src="@mipmap/icon_delete"
+                    />
+            </RelativeLayout>
+
+            <com.chinayiz.chinayzy.widget.TagListView
+                xmlns:f="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/tagview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/common_margin"
+                android:paddingLeft="@dimen/common_margin"
+                android:paddingRight="@dimen/common_margin"
+                android:paddingTop="16.0dip"
+                f:horizontalSpacing="@dimen/tag_horizontal_spacing"
+                f:orientation="horizontal"
+                f:verticalSpacing="@dimen/tag_vertical_spacing"/>
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

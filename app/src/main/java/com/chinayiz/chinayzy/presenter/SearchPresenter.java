@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -9,7 +10,6 @@ import com.chinayiz.chinayzy.entity.response.SearchLabelModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
-import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.widget.Tag;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -94,9 +94,7 @@ public class SearchPresenter extends BasePresenter<SearchFragment> {
      * @param title
      */
     public void toResult(String title){
-        mView.mActivity.addFragment(new SearchResultFragment(title));
-
-
+        Skip.toSearchResult(mView.getActivity(),title);
     }
 
 

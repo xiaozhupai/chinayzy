@@ -59,6 +59,12 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onResume();
+}
+
     private void initView(View view) {
         mFragments = new ArrayList<>(5);
         mFragments.add(OrderFragment.newInstance("0"));

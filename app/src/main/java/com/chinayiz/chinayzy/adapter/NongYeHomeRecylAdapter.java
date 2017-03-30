@@ -74,12 +74,12 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
      */
     public NongYeHomeRecylAdapter(Fragment fragment) {
         this.mFragment = fragment;
-        mDates.put(0,5);
+        mDates.put(0,10);
     }
 
     public void setData(int key, Object object) {
         mDates.put(key,object);
-        if(key>5){
+        if(key>10){
             mDates.put(0,key+1);
         }
         notifyDataSetChanged();

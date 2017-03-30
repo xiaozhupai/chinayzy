@@ -18,6 +18,14 @@ public class NY_BannerModel extends BaseResponseModel {
     public List<Data> getData(){
         return this.data;
     }
+
+    @Override
+    public String toString() {
+        return "NY_BannerModel{" +
+                "data=" + data +
+                '}';
+    }
+
     public class Data {
         private int showtime;
 
@@ -70,11 +78,5 @@ public class NY_BannerModel extends BaseResponseModel {
                     ", showlink='" + showlink + '\'' +
                     '}';
         }
-    }
-    @Override
-    public String toString() {
-        return "NY_BannerResponseResult{" +
-                "data=" + data +
-                '}';
     }
 }

@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.base.FragmentAlternate;
@@ -243,8 +244,11 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 if (mCartFragment == null) {
                     mCartFragment = new ShopCartFragment();
                 }
-                addOrShowFragment(getFragmentManager().beginTransaction(), mCartFragment);
-                Logger.i("启动活动");
+                if (!"0".equals(APP.sUserid)) {
+                    addOrShowFragment(getFragmentManager().beginTransaction(), mCartFragment);
+                }else {
+                    Skip.toLogin(this);
+                }
                 break;
         }
     }

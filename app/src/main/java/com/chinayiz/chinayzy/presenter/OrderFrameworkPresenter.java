@@ -42,7 +42,10 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     public int index, state;
     private AlipayHandler alipayHandler=new AlipayHandler(mView,this);
-    public int status;  //1 支付成功  2 支付失败
+    /**
+     * 支付状态码 /1 支付成功  0 支付失败
+     */
+    public  static int status=3;
 
     @Override
     public void disposeNetMsg(EventMessage message) {
@@ -86,6 +89,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
             }
             case Commons.FAST_PAY:{
                   PayModel model= (PayModel) message.getData();
+                if (model==null){ BaseActivity.showToast(mView.getActivity(),"未知错误，请重试");return;};
                  if (model.getData().getType().equals("1")){  //支付宝
                      AlipayModel alipayModel=new AlipayModel();
                       alipayModel.setData(model.getData().getLinkString());
@@ -99,7 +103,16 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
             }
         }
     }
-
+    public void onResume(){
+        Logger.i("onResume,界面重新可见");
+        if (status==1){
+            Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.PAY);
+            mView.rb_order2.setChecked(true);
+            status=0;
+        }else if (status==0){
+            BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
+        }
+    }
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
@@ -126,11 +139,9 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 if (resp.errCode==0){
                     status=1;
                     Logger.i("微信支付成功");
-                    Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.PAY);
                 }else {
-                    state=0;
+                    status=0;
                     Logger.i("微信支付失败");
-                    BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
                 }
             case Commons.CONFIRM_ORDER:{
                Skip.toSucceePage(mView.getActivity(),EvalueResultFragment.TRADE);
@@ -183,14 +194,11 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     public void onAliSuccess() {
          status=1;
         Logger.i("支付宝支付成功");
-        mView.rb_order2.setChecked(true);
-        Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.PAY);
     }
 
     @Override
     public void onAliFail() {
-        state=0;
+        status=0;
         Logger.i("支付宝支付失败");
-        BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
     }
 }

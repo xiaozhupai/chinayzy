@@ -27,7 +27,7 @@ public class PagerAdaphter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return lists==null?0:lists.size();
+        return lists==null? 0:lists.size();
     }
 
     public void setData(List<BaseFragment> lists){

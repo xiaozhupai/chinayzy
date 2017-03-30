@@ -18,7 +18,6 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.CommonWebFragment;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -57,7 +56,7 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
         view.findViewById(R.id.tv_outMoney).setOnClickListener(this);
         tv_actionbar_title = (TextView) view.findViewById(R.id.tv_actionbar_title);
         tv_actionbar_title.setTextColor(Color.BLACK);
-        tv_actionbar_title.setText("我的积分");
+        tv_actionbar_title.setText("我的账户");
         view.findViewById(R.id.iv_more_button).setVisibility(View.GONE);
         mTvSumGolds = (TextView) view.findViewById(R.id.tv_sumGolds);
         mTvIncomes = (TextView) view.findViewById(R.id.tv_incomes);
@@ -90,7 +89,7 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
                 addFragment(new DealListFragment(),"DealListFragment");
                 break;
             case R.id.tv_getGold:
-                addFragment(new CommonWebFragment("积分规则",Commons.API+Commons.GOLD_RULE),"CommonWebFragment");
+                addFragment(new CommonWebFragment("亿众币规则",Commons.API+Commons.GOLD_RULE),"CommonWebFragment");
                 break;
         }
     }
@@ -103,7 +102,6 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
                 if (model.getData().getEarningslist()!=null&&model.getData().getEarningslist().size()>0){
                     mNotData.setVisibility(View.GONE);
                 }
-                Logger.i("积分信息返回");
                 setGold(model);
                 break;
             }

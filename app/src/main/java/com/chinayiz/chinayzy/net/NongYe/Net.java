@@ -65,7 +65,6 @@ public class Net {
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString() + "错误码：" + i);
                     }
-
                     @Override
                     public void onResponse(String s, int i) {
                         try {

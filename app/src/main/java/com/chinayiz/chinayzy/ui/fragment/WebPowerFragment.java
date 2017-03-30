@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.ui.fragment;
 
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,27 +20,34 @@ import android.widget.ProgressBar;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.presenter.Presenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class WebPowerFragment extends BaseFragment<Presenter> {
     public WebView wv_view;
-    private String title;
+    private String titel;
     private String url;
     public ProgressBar progressbar;
-
+    public static ValueCallback<Uri> mUploadMessage;
+    public static ValueCallback<Uri[]> uploadMessage;
+    public static final int REQUEST_SELECT_FILE = 100;
+    public final static int FILECHOOSER_RESULTCODE = 2;
 
 
     public WebPowerFragment(String title, String url) {
-        this.title = title;
+        this.titel = title;
         this.url = url;
+    }
+
+    public WebPowerFragment() {
+    }
+
+    @Override
+    public void onInintData(Bundle bundle) {
+        this.titel=bundle.getString("titel","错误...");
+        this.url=bundle.getString("url","-1");
     }
 
     @Override
@@ -52,7 +61,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        activity.mTvActionBarTitle.setText(title);
+        activity.mTvActionBarTitle.setText(titel);
         activity.mCbActionBarEdit.setVisibility(View.GONE);
     }
 
@@ -116,11 +125,6 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
             msettings.setJavaScriptCanOpenWindowsAutomatically(true);
             //设置WebViewClient
             wv_view.setWebViewClient(new WebViewClient(){
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    view.loadUrl(url);
-                    return true;
-                }
 
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -139,7 +143,6 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
             wv_view.setWebChromeClient(new WebChromeClient(){
                 @Override
                 public void onProgressChanged(WebView view, int newProgress) {
-//                super.onProgressChanged(view, newProgress);
                     if (newProgress==100){
                         progressbar.setVisibility(View.GONE);
                     }else {
@@ -147,10 +150,9 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
                         progressbar.setVisibility(View.VISIBLE);
                     }
                 }
+
             });
         }
-
-
 
     @Override
     public void isNightMode(boolean isNight) {

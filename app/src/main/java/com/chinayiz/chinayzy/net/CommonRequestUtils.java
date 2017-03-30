@@ -9,6 +9,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
 import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.AlipayModel;
+import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
@@ -83,6 +84,37 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.STORE_HOME
                                     , mGson.fromJson(s, StoreInfoModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     * 获取APP更新信息
+     * @param buildcode 本地版本号
+     */
+    public void getCanUpdata(String buildcode) {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.UPDATA)
+                .addParams("time", new Date().toString())
+                .addParams("userid", APP.sUserid)
+                .addParams("buildcode", buildcode)
+                .addParams("sign", "")
+                .tag(Commons.UPDATA)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.UPDATA
+                                    , mGson.fromJson(s, AppUpdataModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
                         }

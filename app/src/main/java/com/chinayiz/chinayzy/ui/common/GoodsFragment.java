@@ -217,7 +217,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         for (String str : model.getData().getGpic().split(",")) {
             urls.add(str);
         }
-        mPregress.setVisibility(View.GONE);
         mGoodsHolder.mVpagerBanner.setPages(new CreatePhotosHolder(), urls);
         mGoodsHolder.mTvGoodsPrice.setText(model.getData().getPrice());
         mGoodsHolder.mTvGoodsPostage.setText("运费：" + model.getData().getCarriage() + "元");
@@ -264,6 +263,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         }
         mGoodsHolder.mTvGoodsCount.setText(String.valueOf(model.getData().getGoodsnum()));
         mGoodsHolder.mTvFansCount.setText(String.valueOf(model.getData().getCollectnum()));
+        mPregress.setVisibility(View.GONE);
         if ("1".equals(model.getData().getIscollect())) {//是否收藏
             mRbFavorite.setChecked(true);
         }
@@ -273,7 +273,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_server:
-                Logger.i("客服");
                 break;
             case R.id.tv_store:
                 Intent intent = new Intent(getActivity(), StoreActivity.class);
@@ -281,7 +280,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 startActivity(intent);
                 break;
             case R.id.tv_addCart:
-                Logger.i("加入购物车");
                 if (model != null) {
                     if (goodsStandard2==null){
                         goodsStandard2=new GoodsStandard2(getActivity(), model.getData());
@@ -290,7 +288,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 }
                 break;
             case R.id.iv_back_btn:
-                Logger.i("返回");
                 if (isShowComments) {
                     mFragmentManager
                             .beginTransaction()
@@ -298,7 +295,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                     Logger.i("移除评论列表");
                 } else {
                     Logger.i("退出详情");
-//                    mActivity.onBackPressed();
                     mActivity.finishFragment();
                 }
                 break;
@@ -512,6 +508,5 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
         mGoodsHolder.mWebView.destroy();
         mGoodsHolder=null;
         mFragmentManager=null;
-        Logger.i("onDestroy"+goodsID);
     }
 }

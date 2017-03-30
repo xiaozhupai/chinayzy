@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.adapter.viewHolder.NY_HomeBanner;
@@ -74,7 +75,7 @@ public class homePresenter extends BasePresenter<HomeFragment> implements PullTo
                 break;
             case Commons.NY_EATITEM://爱吃商品
                 NY_EatItemModel model = (NY_EatItemModel) message.getData();
-                mToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                if (mToRefreshLayout!=null) mToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
                 eatList.addAll(model.getData());
                 for (NY_EatItemModel.DataBean eatItem : eatList) {
                     mView.mRecylAdapter.setData(count++, eatItem);
@@ -106,18 +107,16 @@ public class homePresenter extends BasePresenter<HomeFragment> implements PullTo
                 break;
             default:
                 pager = eatList.size() / 5;
-                if (model != null) {
-                    if (model.getData().size() == 5) {
-                        Logger.i("请求第：" + pager + "页数据");
+                if (model != null) {//是否首次加载
+                    if (model.getData().size() == 5) {//是否还有数据
                         mNet.getEatItem(String.valueOf(pager + 1), "5");
                     } else {
+                        mToRefreshLayout.refreshFinish(PullToRefreshLayout.FAIL);
                         BaseActivity.showToast(mView.getActivity(), "没有更多啦，到底啦！");
-                        mToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                     }
                 } else {
                     pager++;
                     mNet.getEatItem(String.valueOf(pager), "5");
-                    Logger.w("请求第：" + pager + "页数据");
                 }
                 break;
 
@@ -132,15 +131,20 @@ public class homePresenter extends BasePresenter<HomeFragment> implements PullTo
                 Skip.toSearch(mView.getActivity());
                 break;
             case Commons.ADD_CAR://添加购物车
-                data = (NY_EatItemModel.DataBean) message.getData();
-                mRequestUtils.getJoinCart(String.valueOf(data.getShopid()),
-                        String.valueOf(data.getGoodsstandardid()), "1");
+                if (!"0".equals(APP.sUserid)){//是否登录
+                    data = (NY_EatItemModel.DataBean) message.getData();
+                    mRequestUtils.getJoinCart(String.valueOf(data.getShopid()),
+                            String.valueOf(data.getGoodsstandardid()), "1");
+                }else {
+                    Skip.toLogin(mView.getActivity());
+                }
                 break;
             case NongYeHomeRecylAdapter.CLICK_GOODS://首页商品点击事件
                 mView.openGoodesDetail(message.getData().toString());
                 break;
             case NongYeHomeRecylAdapter.CLICK_MENU://首页菜单点击事件
-                mView.openClassify(message.getData().toString());
+                String code=message.getData().toString();
+                    mView.openClassify(code);
                 break;
             case NongYeHomeRecylAdapter.REFRESH://数据刷新成功
                 mThread = new Thread(new Runnable() {
@@ -161,7 +165,7 @@ public class homePresenter extends BasePresenter<HomeFragment> implements PullTo
 
     @Override
     public void onCreate() {
-        count = 5;
+        count = 6;
         for (int i = 1; i < count; i++) {
             getData(i);
         }

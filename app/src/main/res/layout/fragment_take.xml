@@ -12,20 +12,17 @@
         android:background="@color/NongYe_Line"
         />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             >
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="149dp"
                 android:background="@color/Background"
                 >
-
                 <ImageView
                     android:layout_width="30.5dp"
                     android:layout_height="32dp"
@@ -66,7 +63,7 @@
                     android:layout_below="@id/tv_canTakeNum"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="7dp"
-                    android:text="(1积分=1元)"
+                    android:text="(1亿众币=1元)"
                     android:textColor="@color/takeMoney"
                     android:textSize="11sp"
                     />
@@ -98,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="积分暂时仅支持提现到支付宝"
+                android:text="亿众币暂时仅支持提现到支付宝"
                 android:textColor="@color/Main_menuText"
                 android:textSize="11sp"
                 />

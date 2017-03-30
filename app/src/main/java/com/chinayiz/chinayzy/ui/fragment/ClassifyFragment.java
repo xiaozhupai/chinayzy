@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ClassGridAdapter;
 import com.chinayiz.chinayzy.adapter.TypeListAdpter;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
@@ -38,23 +39,42 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_classify,container,false);
-        initViews(view);
+        View view;
+        if ("-1".equals(mTypeCode)){
+            view=inflater.inflate(R.layout.fragment_activity,container,false);
+        }else {
+            view= inflater.inflate(R.layout.fragment_classify, container, false);
+            initViews(view);
+        }
         return view;
     }
 
     @Override
+    public void onInitActionBar(BaseActivity activity) {
+        switch (mTypeCode) {
+            case "1":
+                activity.mTvActionBarTitle.setText("有机农业");
+                break;
+            case "-1":
+                activity.mTvActionBarTitle.setText("敬请期待");
+                break;
+
+        }
+        activity.mTvActionBarTitle.setText("");
+    }
+
+    @Override
     public void onInintData(Bundle bundle) {
-        mTypeCode=bundle.getString("itemCode");
+        mTypeCode = bundle.getString("itemCode");
     }
 
     private void initViews(View view) {
-        mListView= (ListView) view.findViewById(R.id.lv_typeList);
-        mListAdpter=new TypeListAdpter(getActivity());
+        mListView = (ListView) view.findViewById(R.id.lv_typeList);
+        mListAdpter = new TypeListAdpter(getActivity());
         mListView.setAdapter(mListAdpter);
         mListAdpter.setItemSeletdListener(this);
-        mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_typeGrid);
-        mGridAdapter=new ClassGridAdapter(this);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_typeGrid);
+        mGridAdapter = new ClassGridAdapter(this);
         //设置网格布局管理器
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -72,9 +92,9 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     }
 
     @Override
-    public void onSeletItem(int position,ClassifyTypesModel.DataBean data) {
-        ClassifyTypesModel.DataBean dataBean=data;
-        picUrl=dataBean.getPic();
+    public void onSeletItem(int position, ClassifyTypesModel.DataBean data) {
+        ClassifyTypesModel.DataBean dataBean = data;
+        picUrl = dataBean.getPic();
         mPresenter.getClassDatas(dataBean.getTypecode());
         mListAdpter.changeSelected(position);
     }
@@ -83,12 +103,13 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     @Override
     public void onResume() {
         super.onResume();
-        if (mTypeCode!=null) {
+        // code不等于空白页，并且code不为空
+        if (!("-1".equals(mTypeCode))&&mTypeCode != null) {
             mPresenter.getTypeDatas(mTypeCode);
         }
         EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
                 NongYeMainActivity.NYMAIN_ACTIONBAR,
-                new ActionBarControlModel(NongYeMainActivity.HIDE_NAVIGTION,"分类",1,1,0,1)));
+                new ActionBarControlModel(NongYeMainActivity.HIDE_NAVIGTION, "分类", 1, 1, 0, 1)));
     }
 
     @Override
@@ -96,7 +117,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
         super.onStop();
         EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
                 NongYeMainActivity.NYMAIN_ACTIONBAR,
-                new ActionBarControlModel(NongYeMainActivity.SHOW_ALL,"首页",1,0,0,1)));
+                new ActionBarControlModel(NongYeMainActivity.SHOW_ALL, "首页", 1, 0, 0, 1)));
     }
 
     @Override

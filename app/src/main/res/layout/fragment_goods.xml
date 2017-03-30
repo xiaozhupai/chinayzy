@@ -127,9 +127,10 @@
         <TextView
             android:id="@+id/tv_server"
             style="@style/Goods_nvText"
-            android:clickable="true"
+            android:clickable="false"
             android:drawableTop="@mipmap/btn_server"
             android:text="客服"
+            android:visibility="gone"
             />
 
         <TextView

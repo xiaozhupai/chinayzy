@@ -30,7 +30,7 @@
         android:maxLength="9"
         android:paddingLeft="12dp"
         android:background="@color/Background"
-        android:hint="输入金额（1元=1积分）"
+        android:hint="输入金额（1元=1亿众币）"
         android:inputType="number"
         android:layout_weight="1"
         />

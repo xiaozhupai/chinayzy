@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
+import com.chinayiz.chinayzy.net.Commons;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -132,8 +134,7 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
                 break;
             case "5"://已完成
                 mHolder.btn_action1.setVisibility(View.GONE);
-                mHolder.btn_action2.setTag(R.id.tag_orderInfo,mDetailModel.getData().getOrderid());
-                mHolder.btn_action2.setTag(R.id.tag_detailId,goodsList.get(position).getOrderdetailid());
+                mHolder.btn_action2.setTag(R.id.tag_orderInfo,model);
                 mHolder.btn_action2.setTextColor(Color.rgb(11,27,1));
                 mHolder.btn_action2.setBackground(mFragment.getResources().getDrawable(R.drawable.btn_shape));
                 mHolder.btn_action2.setText("售后");
@@ -148,9 +149,15 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
     }
     @Override
     public void onClick(View v) {
+
     switch (v.getId()){
+
         case R.id.btn_action1:
+            model= (CommentGoodsModel) v.getTag(R.id.tag_orderInfo);
             Logger.i("btn_action1售后");
+            String url=new String(Commons.API+Commons.AFTER_RESQUEST+
+                    "?userid="+ APP.sUserid+"&orderdetailid="+model.getOrderdetailid());
+            Skip.toWebPage(mFragment.getActivity(),url,"申请售后");
             break;
         case R.id.btn_action2:
             model= (CommentGoodsModel) v.getTag(R.id.tag_orderInfo);

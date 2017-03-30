@@ -14,14 +14,19 @@ public class Commons {
      */
     public static final String API = "http://192.168.1.8:8081/yzyProduct/v1/api";
     /**
+     * 添加购物车
+     */
+
+    public static final String ADD_CAR = "ClickAddCar";
+    /**
      * 检查更新地址
      */
 
-    public static final String UPDATE = "http://rap.taobao.org/mockjs/12395/";
+    public static final String UPDATA = "/centre/updateVersion";
     /**
-     * 添加购物车
+     * 平台首页广告
      */
-    public static final String ADD_CAR = "ClickAddCar";
+    public static final String MAIN_BANNER = "/farm/showIndexAd";
     /**
      * 生态农业首页banner图
      */
@@ -302,7 +307,10 @@ public class Commons {
      * 分享二维码
      */
     public static final String FXCODE="/h5/fxcode";
-
+/**
+ * 物流信息
+ */
+public static final String LOGISTICS_INFO="/h5/wlxx";
     /**
      * 我的订单
      */
@@ -331,4 +339,13 @@ public class Commons {
      * 快速支付
      */
     public static final String FAST_PAY="/pay/fastPay";
+    /**
+     *售后列表
+     */
+    public static final String AFTER_LIST="/salesreturn/salesReturnList";
+    /**
+     *售后申请
+     */
+    public static final String AFTER_RESQUEST="/salesreturn/toApplySalesafter";
+
 }
