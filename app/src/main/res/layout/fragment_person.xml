@@ -42,7 +42,7 @@
               android:id="@+id/iv_person_head"
               android:layout_width="40dp"
               android:layout_height="40dp"
-              android:src="@mipmap/ic_launcher"
+              android:src="@mipmap/img_user"
               android:layout_toLeftOf="@+id/iv_head_right"
               android:layout_marginRight="6dp"
               android:layout_centerVertical="true"

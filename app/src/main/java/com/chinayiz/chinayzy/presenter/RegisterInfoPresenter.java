@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.APP;
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -27,6 +26,7 @@ import com.chinayiz.chinayzy.utils.SDCardUtil;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -63,6 +63,7 @@ public class RegisterInfoPresenter extends BasePresenter<RegisterInfoFragment> {
     private String ismarriage_code;  //婚姻
     private String education_code;  //学历
     private String politics_code;     //政治面貌
+    public static final String REGISTERINFO_BACK="REGISTERINFO_BACK";
 
     /**
      * 上传头像
@@ -147,8 +148,9 @@ public class RegisterInfoPresenter extends BasePresenter<RegisterInfoFragment> {
                   BaseActivity.showToast(mView.getActivity(),model.getMsg());
                   if (model.getCode().equals("100")){
                       APP.sUserid=model.getData().getUserid()+"";
-                       mView.mActivity.finish();
-                      Skip.toDeposit(mView.getActivity());
+                      mView.mActivity.finish();
+                      EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,REGISTERINFO_BACK,""));
+
                   }
 
                   break;
@@ -184,6 +186,7 @@ public class RegisterInfoPresenter extends BasePresenter<RegisterInfoFragment> {
     //提交
     public void submit() {
         // validate
+
         String nickname = mView.et_nickname.getText().toString().trim();
         if (TextUtils.isEmpty(nickname)) {
             Toast.makeText(mView.getActivity(), "请输入昵称", Toast.LENGTH_SHORT).show();
@@ -222,7 +225,7 @@ public class RegisterInfoPresenter extends BasePresenter<RegisterInfoFragment> {
         String policatical = mView.et_policatical.getText().toString().trim();
 
 
-        Pattern pattern=Pattern.compile("^\\d{15}|\\d{18}$");
+        Pattern pattern= Pattern.compile("^\\d{15}|\\d{18}$");
         Matcher matcher=pattern.matcher(idcard);
         if (!matcher.find()){
             BaseActivity.showToast(mView.getActivity(),"请输入正确的身份证");

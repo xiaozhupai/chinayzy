@@ -14,12 +14,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.RegisterInfoPresenter;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.chinayiz.chinayzy.widget.PickView;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -156,7 +158,7 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
                 marriagedialog.show();
                 break;
             case R.id.et_education:   //学历
-                final ArrayAlertDialog educationdialog=new ArrayAlertDialog(getActivity(), Gravity.BOTTOM,new String[]{"中专","大专","本科","研究生","博士"});
+                final ArrayAlertDialog educationdialog=new ArrayAlertDialog(getActivity(), Gravity.BOTTOM,new String[]{"中专","大专","本科","研究生"});
                 educationdialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -245,4 +247,6 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
+
 }

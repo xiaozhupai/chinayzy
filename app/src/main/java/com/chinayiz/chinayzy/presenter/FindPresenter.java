@@ -42,11 +42,16 @@ import java.util.List;
  */
 
 public class FindPresenter  extends BasePresenter<FindFragment> {
-    private Net net= Net.getNet();
+
     private List<String> titles=new ArrayList<>();
+    private   List <BaseFragment> lists=new ArrayList<>();
+    private PagerAdaphter adaphter;
     @Override
     public void onCreate() {
-        net.getFindType();
+
+
+
+        Net.getNet().getFindType();
     }
 
     @Override
@@ -62,7 +67,7 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-        if (message.getDataType() == Commons.FINDTYPE) {//网络请求回调消息
+        if (message.getEventType() ==EventMessage.NET_EVENT) {//网络请求回调消息
             Logger.i("网络请求回调消息" + message.toString());
             disposeNetMsg(message);
         }
@@ -78,11 +83,11 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        if (message.getEventType()== EventMessage.NET_EVENT){
+        if (message.getDataType()== Commons.FINDTYPE){
             FindTypeModel model= (FindTypeModel) message.getData();
             titles.clear();
             //发现指示器
-            List <BaseFragment> lists=new ArrayList<>();
+             lists.clear();
             for (FindTypeModel.DataBean bean: model.getData()){
                 FindListFragment fragment=new FindListFragment(bean.getType(),new FindAdaphter(mView.getActivity(),null,bean.getType()));
                 lists.add(fragment);
@@ -135,7 +140,9 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
             });
             ViewPagerHelper.bind(mView.magic_indicator,mView.vp_find);
             //发现viewpager
-            mView.vp_find.setAdapter(new PagerAdaphter(mView.getChildFragmentManager(),lists));
+            Logger.i(lists.size()+"listsize------------------");
+            adaphter=new PagerAdaphter(mView.getChildFragmentManager(),lists);
+            mView.vp_find.setAdapter(adaphter);
             mView.vp_find.setOffscreenPageLimit(lists.size());
         }
     }

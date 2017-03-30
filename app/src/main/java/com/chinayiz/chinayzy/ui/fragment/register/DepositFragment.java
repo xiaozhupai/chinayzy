@@ -27,7 +27,8 @@ public class DepositFragment extends BaseFragment<DepositPresenter> implements V
     @Override
     public void onInitActionBar(BaseActivity activity) {
         activity.mTvActionBarTitle.setText("充值");
-        activity.mCbActionBarEdit.setText("切换账号");
+        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+        activity.mCbActionBarEdit.setText("切换\n账号");
         activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

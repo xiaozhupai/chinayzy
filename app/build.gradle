@@ -57,6 +57,7 @@ dependencies {
     compile files('libs/aliyun-oss-sdk-android-2.3.0.jar')
     compile files('libs/alipaySdk-20161222.jar')
     compile files('libs/wechat-sdk-android-with-mta-1.0.2.jar')
+    compile files('libs/badgeview.jar')
     compile 'com.jude:utils:1.2.1'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.orhanobut:logger:1.15'
@@ -72,5 +73,4 @@ dependencies {
     compile 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile files('libs/badgeview.jar')
 }

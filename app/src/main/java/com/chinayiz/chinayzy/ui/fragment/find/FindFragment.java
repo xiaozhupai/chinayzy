@@ -35,6 +35,12 @@ public class FindFragment extends BaseFragment<FindPresenter> {
 
     @Override
     protected void onVisible() {
+
+    }
+
+    @Override
+    public void onInintData(Bundle bundle) {
+
     }
 
     @Override
@@ -52,6 +58,7 @@ public class FindFragment extends BaseFragment<FindPresenter> {
         View view=inflater.inflate(R.layout.fragment_find,container,false);
         magic_indicator= (MagicIndicator) view.findViewById(R.id.magic_indicator);
         vp_find = (ViewPager) view.findViewById(R.id.vp_find);
+
         return view;
     }
     @Override

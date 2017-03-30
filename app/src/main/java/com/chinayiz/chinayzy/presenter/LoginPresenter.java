@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -80,6 +81,9 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     @Override
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
+        if (message.getEventType()==EventMessage.INFORM_EVENT){
+            disposeInfoMsg(message);
+        }
     }
 
     @Override
@@ -116,6 +120,9 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         editor.commit();//提交修改
         APP.sUserid=userid+"";
         mView.finish();
+        if (isMember.equals("0")){
+            Skip.toDeposit(mView.getActivity());
+        }
 //       Intent intent_data=mView.getIntent();
 //        if (intent_data.getStringExtra("FindDetailFragment")!=null){
 //            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, FindDetailFragment.FIND_DETAIL,""));
@@ -129,7 +136,11 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-
+        switch (message.getDataType()){
+            case RegisterInfoPresenter.REGISTERINFO_BACK:
+                Skip.toDeposit(mView.getActivity());
+                break;
+        }
     }
 
 
