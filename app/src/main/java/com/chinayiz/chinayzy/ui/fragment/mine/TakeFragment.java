@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,7 +27,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/3/10 13:48
  * Class TakeFragment  积分提现/充值
  */
-
+@SuppressLint("ValidFragment")
 public class TakeFragment extends AbsFragment implements View.OnClickListener {
     private String goldNum;
     private TextView tv_goldRule;

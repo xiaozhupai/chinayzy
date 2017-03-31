@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.find;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import java.util.List;
 /** 发现列表
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
     public PullableGridView gd_find_list;
 

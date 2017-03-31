@@ -109,7 +109,7 @@
 #---------------------------------------------------------------------------------------------------
 #---------------------------------实体类---------------------------------
 
--keep class [com.chinayiz.chinayzy.entity].** { *; }
+-keep class com.chinayiz.chinayzy.entity.** { *; }
 
 #---------------------------------第三方包-------------------------------
 #保持 Parcelable 不被混淆
@@ -368,15 +368,7 @@ public void xxxxxx(**);
     public static Java.lang.String TABLENAME;
 }
 -keep class **$Properties
-# #  ############### volley混淆  ###############
-# # -------------------------------------------
--keep class com.android.volley.** {*;}
--keep class com.android.volley.toolbox.** {*;}
--keep class com.android.volley.Response$* { *; }
--keep class com.android.volley.Request$* { *; }
--keep class com.android.volley.RequestQueue$* { *; }
--keep class com.android.volley.toolbox.HurlStack$* { *; }
--keep class com.android.volley.toolbox.ImageLoader$* { *; }
+
 
 #jpush极光推送
 -dontwarn cn.jpush.**
@@ -391,44 +383,9 @@ public void xxxxxx(**);
 #log4j
 -dontwarn org.apache.log4j.**
 -keep class  org.apache.log4j.** { *;}
-#下面几行 是环信即时通信的代码混淆
--keep class com.easemob.** {*;}
--keep class org.jivesoftware.** {*;}
--dontwarn  com.easemob.**
 
-#融云
--keepclassmembers class fqcn.of.javascript.interface.for.webview {
- public *;
-}
 
--keepattributes Exceptions,InnerClasses
 
--keep class io.rong.** {*;}
-
--keep class * implements io.rong.imlib.model.MessageContent{*;}
-
--keepattributes Signature
-
--keepattributes *Annotation*
-
--keep class sun.misc.Unsafe { *; }
-
--keep class com.google.gson.examples.android.model.** { *; }
-
--keepclassmembers class * extends com.sea_monster.dao.AbstractDao {
- public static java.lang.String TABLENAME;
-}
--keep class **$Properties
--dontwarn org.eclipse.jdt.annotation.**
-
--keep class com.ultrapower.** {*;}
-#高徳地图
--dontwarn com.amap.api.**
--dontwarn com.a.a.**
--dontwarn com.autonavi.**
--keep class com.amap.api.**  {*;}
--keep class com.autonavi.**  {*;}
--keep class com.a.a.**  {*;}
 #---------------------------------反射相关的类和方法-----------------------
 
 -keep public class com.chinayiz.chinayzy.Skip
@@ -463,19 +420,6 @@ public void xxxxxx(**);
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
-
-#litepal
--dontwarn org.litepal.
--keep class org.litepal.* { ; }
--keep enum org.litepal.*
--keep interface org.litepal. { ; }
--keep public class  extends org.litepal.
--keepattributes Annotation
--keepclassmembers class * extends org.litepal.crud.DataSupport{*;}
-
-#fastJson
--dontwarn com.alibaba.fastjson.**
--keep class com.alibaba.fastjson.** { *; }
 
 # Okio
 -dontwarn com.squareup.**

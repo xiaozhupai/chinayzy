@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.orhanobut.logger.Logger;
  * CreateDate 2017/2/27 9:47
  * Class CommentsFragment 评论列表
  */
+@SuppressLint("ValidFragment")
 public class CommentsFragment extends Fragment{
     /**
      * 评论列表启动

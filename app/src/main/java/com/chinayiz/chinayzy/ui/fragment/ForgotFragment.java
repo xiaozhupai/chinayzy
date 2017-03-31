@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.chinayiz.chinayzy.presenter.ForgotPresenter;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class ForgotFragment extends BaseFragment<ForgotPresenter> implements View.OnClickListener {
 
 

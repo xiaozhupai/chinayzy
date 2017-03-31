@@ -31,7 +31,7 @@ public class AppUpdataModel extends BaseResponseModel {
                 '}';
     }
 
-    public static class DataBean {
+    public  class DataBean {
         /**
          * createtime : 2017-03-30 15:34:44
          * isforce : 0

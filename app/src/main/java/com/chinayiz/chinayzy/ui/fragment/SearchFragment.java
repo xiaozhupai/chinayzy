@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import java.util.List;
  * 搜索
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class SearchFragment extends BaseFragment<SearchPresenter> implements View.OnClickListener {
     private SearchEditText sv_search;
     private TextView tv_cancel;

@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import com.chinayiz.chinayzy.views.pullable.PullableListView;
 /**   宝贝收藏
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
     public PullableListView lv_list;
     public PullToRefreshLayout pullrefresh;

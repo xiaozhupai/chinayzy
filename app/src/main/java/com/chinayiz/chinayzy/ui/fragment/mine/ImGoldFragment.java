@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/3/8 10:06
  * Class ImGoldFragment  我的积分
  */
+@SuppressLint("ValidFragment")
 public class ImGoldFragment extends AbsFragment implements View.OnClickListener {
     private TextView mTvSumGolds;
     private TextView mTvIncomes;

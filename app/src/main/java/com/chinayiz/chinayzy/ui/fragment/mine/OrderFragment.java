@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import org.greenrobot.eventbus.EventBus;
  * CreateDate 2017/3/14 9:17
  * Class OrderFragment  订单状态
  */
-
+@SuppressLint("ValidFragment")
 public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
     private PullableListView mLvOrder;
     /**

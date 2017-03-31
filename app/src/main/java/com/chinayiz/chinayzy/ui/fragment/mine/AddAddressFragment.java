@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,17 +12,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
 import com.chinayiz.chinayzy.presenter.AddAddressPresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.widget.PickView;
 
 /** 添加/编辑收货地址
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implements View.OnClickListener {
     public  EditText et_username;
     public  EditText et_phone;
@@ -48,6 +50,9 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
         this.type=type;
         this.bean=bean;
         this.index=index;
+    }
+
+    public AddAddressFragment() {
     }
 
     @Override

@@ -17,7 +17,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.LabelPresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.widget.Tag;
 import com.chinayiz.chinayzy.widget.TagListView;
 import com.chinayiz.chinayzy.widget.TagView;
@@ -28,6 +27,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/2/18. 个性标签
  */
+@SuppressLint("ValidFragment")
 public class LabelFragment extends BaseFragment<LabelPresenter> implements View.OnClickListener {
     public List <Tag> param;
     public EditText et_label;

@@ -6,13 +6,13 @@ package com.chinayiz.chinayzy.net;
  */
 
 public class Commons {
-    public static final String PAY="http://192.168.200.132:8081/yzyProduct/v1/api";
+    public static final String PAY="http://106.14.20.226/yzyProduct/v1/api";
 
     public static final String HOST="http://chinayiz.cn";
     /**
      * 主机地址
      */
-    public static final String API = "http://192.168.1.8:8081/yzyProduct/v1/api";
+    public static final String API = "http://106.14.20.226/yzyProduct/v1/api";
     /**
      * 添加购物车
      */

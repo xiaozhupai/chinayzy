@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.base;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
  * CreateDate 2017/3/8 10:01
  * Class AbsFragment
  */
+@SuppressLint("ValidFragment")
 public abstract class AbsFragment extends Fragment implements EventBusCallback{
     protected CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     protected View mProgress;

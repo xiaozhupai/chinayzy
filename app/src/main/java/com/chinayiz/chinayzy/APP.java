@@ -32,7 +32,7 @@ public class APP extends Application {
 	public static String sUserid="0";
     public static  APP instance;
     public static String phone;
-    public static String Version="2";
+    public static String Version="1";
 
     public static GlideCacheUtil cacheUtil;
     private static final ArrayList<Activity> activityLists = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
  * CreateDate 2017/3/20 10:17
  * Class GoodsCommentFragment 商品评论
  */
-
+@SuppressLint("ValidFragment")
 public class GoodsCommentFragment extends BaseFragment<GoodsCommentPresenter>
         implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, RatingBar.OnRatingChangeListener {
     public static final int REQUEST_CODE = 0x0001;

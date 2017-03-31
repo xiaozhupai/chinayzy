@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,6 +35,7 @@ import org.greenrobot.eventbus.EventBus;
  * 购物车
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
     public RelativeLayout rl_shopcart;
     private PullableListView listv_shopcart;

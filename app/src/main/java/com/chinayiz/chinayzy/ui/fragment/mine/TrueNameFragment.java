@@ -14,12 +14,12 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.TrueNamePresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.orhanobut.logger.Logger;
 
 /**
  * A simple {@link Fragment} subclass. 真实姓名
  */
+@SuppressLint("ValidFragment")
 public class TrueNameFragment extends BaseFragment<TrueNamePresenter> {
     public String param;
     public EditText et_username;

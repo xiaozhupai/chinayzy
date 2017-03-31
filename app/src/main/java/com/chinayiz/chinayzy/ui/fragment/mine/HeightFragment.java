@@ -15,13 +15,13 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.HeightPresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.orhanobut.logger.Logger;
 
 /**
  * 身高
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class HeightFragment extends BaseFragment<HeightPresenter> {
     public String param;
     public EditText et_height;

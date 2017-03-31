@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import java.util.List;
  * CreateDate 2017/3/15 16:55
  * Class OrderFrameworkFragment
  */
-
+@SuppressLint("ValidFragment")
 public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter> implements RadioGroup.OnCheckedChangeListener
         , ViewPager.OnPageChangeListener{
     public List<OrderFragment> mFragments;

@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.orhanobut.logger.Logger;
  *   交易，评价 结果
  * A simple {@link } subclass.
  */
+@SuppressLint("ValidFragment")
 public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> implements View.OnClickListener {
 
 

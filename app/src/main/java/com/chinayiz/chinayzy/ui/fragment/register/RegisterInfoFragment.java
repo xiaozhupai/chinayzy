@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.register;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import java.util.Locale;
 /*  注册信息
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
     public String code;
     public String phone;

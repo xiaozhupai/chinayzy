@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,7 +24,7 @@ import com.orhanobut.logger.Logger;
 /**我的足迹
  * A simple {@link Fragment} subclass.
  */
-
+@SuppressLint("ValidFragment")
 public class MyStepFragment extends BaseFragment<MyStepPresenter> implements AdapterView.OnItemClickListener {
     public PullableListView pull_listview;
     public PullToRefreshLayout pullrefresh;

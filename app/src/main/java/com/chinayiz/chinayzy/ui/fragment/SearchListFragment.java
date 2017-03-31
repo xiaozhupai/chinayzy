@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseFragment;
@@ -22,6 +23,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.搜索结果列表
  */
+@SuppressLint("ValidFragment")
 public class SearchListFragment extends BaseFragment<SearchListPresenter> {
     private ListView lv_list;
     public SearchResultAdaphter adaphter;

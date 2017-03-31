@@ -908,7 +908,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("订单详情信息" + s);
+                            Logger.e("订单详情信息" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ORDER_DETAIL
                                     , mGson.fromJson(s, OrderDetailModel.class)));

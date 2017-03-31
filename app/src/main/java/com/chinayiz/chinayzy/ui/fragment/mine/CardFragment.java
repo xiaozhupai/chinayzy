@@ -14,13 +14,13 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.CardPresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.orhanobut.logger.Logger;
 
 /**
  * 身份证
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class CardFragment extends BaseFragment<CardPresenter> {
     public String param;
     public EditText et_card;

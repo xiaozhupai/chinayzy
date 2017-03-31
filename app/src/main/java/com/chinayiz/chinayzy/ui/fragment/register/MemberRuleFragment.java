@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.register;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.chinayiz.chinayzy.presenter.Presenter;
 /**
  * 会员须知
  */
+@SuppressLint("ValidFragment")
 public class MemberRuleFragment extends BaseFragment<Presenter> implements View.OnClickListener {
 
     private TextView tv_content;

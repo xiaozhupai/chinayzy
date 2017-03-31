@@ -10,16 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.WeightPresenter;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.orhanobut.logger.Logger;
 
 /**
  * A simple {@link Fragment} subclass.  体重
  */
+@SuppressLint("ValidFragment")
 public class WeightFragment extends BaseFragment<WeightPresenter> {
     public String param;
     public EditText et_weight;

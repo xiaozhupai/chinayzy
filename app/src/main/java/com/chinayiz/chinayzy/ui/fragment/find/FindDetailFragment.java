@@ -1,7 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.find;
 
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +31,7 @@ import com.orhanobut.logger.Logger;
 /**发现详情
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implements View.OnClickListener {
     public ImageView iv_love,iv_keep;
     public LinearLayout lv_love;

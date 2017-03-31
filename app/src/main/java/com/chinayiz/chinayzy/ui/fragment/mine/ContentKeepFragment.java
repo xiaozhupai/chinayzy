@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ import java.util.List;
  * 博文收藏
  * A simple {@link Fragment} subclass.
  */
-
+@SuppressLint("ValidFragment")
 public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     private MagicIndicator magic_indicator;
     private PullableListView pull_listview;

@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
  * CreateDate 2017/2/27 15:54
  * Class ClassifyFragment  生态农业首页二级分类菜单
  */
+@SuppressLint("ValidFragment")
 public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements TypeListAdpter.OnItemSeletdListener {
     public RecyclerView mRecyclerView;
     public ListView mListView;

@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import java.util.List;
  * CreateDate 2017/1/7 15:19
  * Class NongYe_homeFragment 农业首页
  */
+@SuppressLint("ValidFragment")
 public class HomeFragment extends BaseFragment<homePresenter> {
     public PullableRecycleView mNongyeHomeRecyclerLayout;
     public NongYeHomeRecylAdapter mRecylAdapter;

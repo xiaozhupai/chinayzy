@@ -44,6 +44,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
         switch (message.getDataType()) {
             case Commons.MAIN_BANNER: {
                 mView.setData((NY_BannerModel) message.getData());
+                break;
             }
             case Commons.UPDATA: {
                 isLoad = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getBoolean("isLoad", false);
@@ -72,6 +73,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
 
                 }
             }
+            break;
             case UpdateService.UPDATA_APP:{
                 if (mView.isYes) {
                     Logger.i("收到下载完成消息");
@@ -82,6 +84,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
                     mView.startActivity(intent);
                 }
             }
+            break;
         }
     }
 

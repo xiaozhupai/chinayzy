@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.register;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.orhanobut.logger.Logger;
  * 注册
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class RegisterFragment extends BaseFragment<RegisterPresenter> implements View.OnClickListener, SoftKeyboardStateHelper.SoftKeyboardStateListener {
 
 

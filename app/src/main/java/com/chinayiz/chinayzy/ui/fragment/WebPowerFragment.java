@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +26,7 @@ import com.chinayiz.chinayzy.presenter.Presenter;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class WebPowerFragment extends BaseFragment<Presenter> {
     public WebView wv_view;
     private String titel;

@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
  * CreateDate 2017/3/8 17:00
  * Class DealListFragment  积分账单
  */
+@SuppressLint("ValidFragment")
 public class DealListFragment extends AbsFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private CheckBox cb_dealType;
     private ListView lv_dealList;

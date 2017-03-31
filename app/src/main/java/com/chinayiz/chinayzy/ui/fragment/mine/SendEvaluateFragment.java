@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.chinayiz.chinayzy.widget.RatingBar;
 /**   发表评价
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class SendEvaluateFragment extends BaseFragment<SendEvaluatePresenter> implements View.OnClickListener {
     private ImageView iv_order_image;
     private TextView tv_order_title;

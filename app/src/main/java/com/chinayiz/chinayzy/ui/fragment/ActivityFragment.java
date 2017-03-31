@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import org.greenrobot.eventbus.EventBus;
  * CreateDate 2017/2/21 10:03
  * Class ActivityFragment 生态农业活动页面
  */
+@SuppressLint("ValidFragment")
 public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
     @Override

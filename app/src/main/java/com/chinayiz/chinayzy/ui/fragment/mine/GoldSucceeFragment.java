@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/3/28 14:15
  * Class GoldSucceeFragment  积分充值成功/提现成功
  */
+@SuppressLint("ValidFragment")
 public class GoldSucceeFragment extends AbsFragment implements View.OnClickListener {
     /**
      * 充值类型

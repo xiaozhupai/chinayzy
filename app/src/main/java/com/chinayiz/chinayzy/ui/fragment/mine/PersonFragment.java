@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.orhanobut.logger.Logger;
  * 个人资料
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class PersonFragment extends BaseFragment<PersonPresenter> implements View.OnClickListener {
 
     public ImageView iv_head_right;

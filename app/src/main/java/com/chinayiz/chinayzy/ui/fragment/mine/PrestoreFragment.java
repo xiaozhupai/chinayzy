@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -40,7 +41,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/3/13 10:28
  * Class PrestoreFragment  积分充值
  */
-
+@SuppressLint("ValidFragment")
 public class PrestoreFragment extends AbsFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, AlipayHandler.AliPay {
     private EditText edit_moneys;
     private Button bt_inPut;

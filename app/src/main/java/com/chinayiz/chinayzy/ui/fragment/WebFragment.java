@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -18,6 +19,7 @@ import com.chinayiz.chinayzy.R;
 /**
  * A simple {@link Fragment} subclass. 公共的fragment
  */
+@SuppressLint("ValidFragment")
 public class WebFragment extends Fragment {
     public ProgressBar progressbar;
     public WebView wv_view;

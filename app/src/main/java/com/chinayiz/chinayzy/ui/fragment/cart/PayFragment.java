@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.cart;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.chinayiz.chinayzy.presenter.Presenter;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class PayFragment extends BaseFragment<Presenter> implements View.OnClickListener {
     private TextView tv_two;
 

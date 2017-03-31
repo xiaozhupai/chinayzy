@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView;
  * CreateDate 2017/2/16 16:42
  * Class GoodsListFragment 相关商品
  */
+@SuppressLint("ValidFragment")
 public class GoodsListFragment extends Fragment {
     private NoScrollGridView mGoodsList;
     private GoodsDetailGridAdpter mAdapter;

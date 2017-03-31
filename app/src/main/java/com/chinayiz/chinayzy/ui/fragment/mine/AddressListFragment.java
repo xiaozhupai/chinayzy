@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,15 +18,13 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.AddressListPresenter;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class AddressListFragment extends BaseFragment<AddressListPresenter> implements View.OnClickListener {
 
     public ListView lv_addreddlist;

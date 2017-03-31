@@ -179,7 +179,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             if (resultModel.getData().getAddressRecord()!=null){
                 payModel.setAddressid(resultModel.getData().getAddressRecord().getAddressid());
             }
-        payModel.setAddressid(6);
+
 
         List<PayModel.ShoplistBean> list=new ArrayList<>();
         for (ResultModel.DataBean.CarriagesBean bean: resultModel.getData().getCarriages()) { //运费

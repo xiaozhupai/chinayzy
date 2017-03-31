@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.register;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.chinayiz.chinayzy.views.CheckImageView;
  * 充值
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class DepositFragment extends BaseFragment<DepositPresenter> implements View.OnClickListener {
     public CheckImageView iv_ali_pay;
     public CheckImageView iv_wechat_pay;

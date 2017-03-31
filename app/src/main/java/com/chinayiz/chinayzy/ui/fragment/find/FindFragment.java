@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.find;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,7 +24,7 @@ import org.greenrobot.eventbus.EventBus;
  * 发现
  * A simple {@link Fragment} subclass.
  */
-
+@SuppressLint("ValidFragment")
 public class FindFragment extends BaseFragment<FindPresenter> {
     public ViewPager vp_find;
 

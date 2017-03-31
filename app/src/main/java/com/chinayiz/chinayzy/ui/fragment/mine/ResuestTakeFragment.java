@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,7 +31,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/3/10 16:34
  * Class ResuestTakeFragment  积分提现
  */
-
+@SuppressLint("ValidFragment")
 public class ResuestTakeFragment extends AbsFragment implements View.OnClickListener {
     public final static String SEND_CODE = "ResuestTakeFragment";
     public final static String SEND_TIME = "ResuestTak";

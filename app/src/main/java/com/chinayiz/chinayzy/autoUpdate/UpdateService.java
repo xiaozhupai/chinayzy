@@ -39,30 +39,33 @@ public class UpdateService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         String uri = intent.getStringExtra("downloadURI");
-            OkHttpUtils.
-                    get()
-                    .tag("downloadURI")
-                    .url(uri)
-                    .build()
-                    .execute(new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), "chinayzy.apk") {
-                        @Override
-                        public void inProgress(float progress, long total, int id) {
-                            super.inProgress(progress, total, id);
-                        }
-                        @Override
-                        public void onError(Call call, Exception e, int i) {
-                            Logger.i("错误",e.toString());
-                        }
-                        @Override
-                        public void onResponse(File file, int i) {
-                            Logger.i("下载完成，文件地址="+file.getAbsolutePath());
-                            mEditer=getSharedPreferences("update", Context.MODE_PRIVATE).edit();
-                            mEditer.putString("apkPath",file.getAbsolutePath());
-                            mEditer.putBoolean("isLoad",true);
-                            mEditer.commit();
-                            EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,UPDATA_APP,""));
-                        }
-                    });
+       if (uri!=null){
+           OkHttpUtils.
+                   get()
+                   .tag("downloadURI")
+                   .url(uri)
+                   .build()
+                   .execute(new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), "chinayzy.apk") {
+                       @Override
+                       public void inProgress(float progress, long total, int id) {
+                           super.inProgress(progress, total, id);
+                       }
+                       @Override
+                       public void onError(Call call, Exception e, int i) {
+                           Logger.i("错误",e.toString());
+                       }
+                       @Override
+                       public void onResponse(File file, int i) {
+                           Logger.i("下载完成，文件地址="+file.getAbsolutePath());
+                           mEditer=getSharedPreferences("update", Context.MODE_PRIVATE).edit();
+                           mEditer.putString("apkPath",file.getAbsolutePath());
+                           mEditer.putBoolean("isLoad",true);
+                           mEditer.commit();
+                           EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,UPDATA_APP,""));
+                       }
+                   });
+       }
+
         }
 
 

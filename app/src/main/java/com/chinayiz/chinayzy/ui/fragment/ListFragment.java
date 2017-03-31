@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.chinayiz.chinayzy.views.pullable.PullableListView;
 /**
  * A simple {@link Fragment} subclass.  列表通用布局
  */
+@SuppressLint("ValidFragment")
 public class ListFragment extends BaseFragment<ListPresenter> {
     private PullableListView pull_listview;
     private PullToRefreshLayout pullrefresh;

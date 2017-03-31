@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.base;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import com.orhanobut.logger.Logger;
  * CreateDate 2016/12/27 10:15
  * Class BaseFragment
  */
+@SuppressLint("ValidFragment")
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView{
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     protected T mPresenter;

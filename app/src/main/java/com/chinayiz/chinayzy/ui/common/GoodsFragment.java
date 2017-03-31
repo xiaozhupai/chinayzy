@@ -31,6 +31,7 @@ import com.chinayiz.chinayzy.adapter.viewHolder.GoodsHolder;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.GoodsPresenter;
 import com.chinayiz.chinayzy.ui.fragment.CommentsFragment;

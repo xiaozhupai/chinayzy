@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment.mine;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,7 +39,7 @@ import static com.chinayiz.chinayzy.R.id.lv_orderGoods;
  * CreateDate 2017/3/15 18:09
  * Class OrderDetailFragment  订单详情
  */
-
+@SuppressLint("ValidFragment")
 public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> implements View.OnClickListener {
     public ViewHolder mViewHolder;
     private List<OrderDetailModel.DataBean.OmessagesBean> mGoodsList;
@@ -113,6 +114,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
      * @param model
      */
     public void setData(OrderDetailModel model) {
+
         goods=new OrderListModel.Order.Goods();
         isLoad = false;
         mOrderDetailModel = model;

@@ -26,7 +26,6 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailFragment> {
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
             case Commons.ORDER_DETAIL:
-                Logger.i("订单详情数据返回");
                 OrderDetailModel model= (OrderDetailModel) message.getData();
                 mView.setData(model);
                 break;
