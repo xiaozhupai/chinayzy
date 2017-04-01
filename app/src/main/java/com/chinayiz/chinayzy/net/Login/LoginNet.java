@@ -8,6 +8,8 @@ import com.chinayiz.chinayzy.entity.response.LoginModel;
 import com.chinayiz.chinayzy.entity.response.RegisterModel;
 import com.chinayiz.chinayzy.entity.response.StringModel;
 import com.chinayiz.chinayzy.entity.response.ThirdModel;
+import com.chinayiz.chinayzy.entity.response.WechatAccessModel;
+import com.chinayiz.chinayzy.entity.response.WechatInfoModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.google.gson.Gson;
@@ -225,6 +227,108 @@ public class LoginNet {
                     }
                 });
     }
+
+    /**
+     * 微信获得 access_token
+     * @param code
+     */
+    public void togetAccessToken(String code){
+        OkHttpUtils
+                .get()
+                .url(Commons.ACCESS_TOKEN)
+                .addParams("appid", "")
+                .addParams("secret","")
+                .addParams("code",code)
+                .addParams("grant_type","grant_type")
+                .tag("login")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ACCESS_TOKEN
+                                    ,mGson.fromJson(s,WechatAccessModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     *   刷新access_token
+     * @param refresh_token  刷新token的唯一标识符
+     */
+    public void toRefreshToken(String refresh_token){
+        OkHttpUtils
+                .get()
+                .url(Commons.REFRESH_TOKEN)
+                .addParams("appid", "")
+                .addParams("refresh_token",refresh_token)
+                .addParams("grant_type","refresh_token")
+                .tag("login")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.REFRESH_TOKEN
+                                    ,mGson.fromJson(s,WechatAccessModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获得微信用户信息
+     * @param access_token
+     * @param openid
+     */
+    public void togetWechatUserInfo(String access_token,String openid){
+        OkHttpUtils
+                .get()
+                .url(Commons.REFRESH_TOKEN)
+                .addParams("access_token",access_token)
+                .addParams("openid",openid)
+                .tag("login")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.REFRESH_TOKEN
+                                    ,mGson.fromJson(s,WechatInfoModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+
 
 
 }

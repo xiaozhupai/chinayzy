@@ -9,6 +9,14 @@ public class Commons {
     public static final String PAY="http://106.14.20.226/yzyProduct/v1/api";
 
     public static final String HOST="http://chinayiz.cn";
+
+    //获得accss_token
+    public static final String ACCESS_TOKEN="https://api.weixin.qq.com/sns/oauth2/access_token";
+    //刷新 refresh_token
+    public static final String REFRESH_TOKEN="https://api.weixin.qq.com/sns/oauth2/refresh_token";
+    //微信获得用户信息
+    public static final String WECHAT_USERINFO="https://api.weixin.qq.com/sns/userinfo";
+
     /**
      * 主机地址
      */

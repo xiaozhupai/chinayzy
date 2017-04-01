@@ -4,12 +4,17 @@ package com.chinayiz.chinayzy.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.WechatAccessModel;
+import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.Login.LoginNet;
+import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -21,8 +26,12 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler,EventBusCallback {
 	
 	private static final int TIMELINE_SUPPORTED_VERSION = 0x21020001;
 	
@@ -35,7 +44,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entry);
-        
+        EventBus.getDefault().register(this);
         // ͨ��WXAPIFactory��������ȡIWXAPI��ʵ��
     	api = WXAPIFactory.createWXAPI(this,Constants.APP_ID, false);
 
@@ -142,17 +151,25 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 	// ������Ӧ�÷��͵�΢�ŵ�����������Ӧ�������ص����÷���
 	@Override
 	public void onResp(BaseResp resp) {
-		Toast.makeText(this, "openid = " + resp.openId, Toast.LENGTH_SHORT).show();
-		
-		if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
-			Toast.makeText(this, "code = " + ((SendAuth.Resp) resp).code, Toast.LENGTH_SHORT).show();
+		if (APP.APP_DBG){
+			Toast.makeText(this, "openid = " + resp.openId, Toast.LENGTH_SHORT).show();
+
+			if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+				Toast.makeText(this, "code = " + ((SendAuth.Resp) resp).code, Toast.LENGTH_SHORT).show();
+			}
 		}
-		
+
 		int result = 0;
 		
 		switch (resp.errCode) {
 		case BaseResp.ErrCode.ERR_OK:
+			if (resp instanceof  SendAuth.Resp){  //登录成功的回调
+				LoginNet.getLoginNet().togetAccessToken(((SendAuth.Resp) resp).code);
+			}else {  //分享成功的回调
+				finish();
+			}
 			result = R.string.errcode_success;
+
 			break;
 		case BaseResp.ErrCode.ERR_USER_CANCEL:
 			result = R.string.errcode_cancel;
@@ -165,7 +182,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 			break;
 		}
 		
-		Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+//		Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 	}
 	
 //	private void goToGetMsg() {
@@ -197,5 +214,47 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 //		finish();
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
 
+	@Override
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void runUiThread(EventMessage message) {
+		 if (message.getEventType()==EventMessage.NET_EVENT){
+			 disposeNetMsg(message);
+		 }
+	}
+
+	@Override
+	@Subscribe(threadMode = ThreadMode.BACKGROUND)
+	public void runBgThread(EventMessage message) {
+
+	}
+
+	@Override
+	public void disposeNetMsg(EventMessage message) {
+       switch (message.getDataType()){
+		   case Commons.ACCESS_TOKEN:
+             WechatAccessModel model= (WechatAccessModel) message.getData();
+			 if (model.getExpires_in()>7200){   //access_token接口调用超时
+                   LoginNet.getLoginNet().toRefreshToken(model.getRefresh_token());
+			 }
+		   	break;
+		   case Commons.REFRESH_TOKEN:
+			   WechatAccessModel model2= (WechatAccessModel) message.getData();
+			   LoginNet.getLoginNet().togetWechatUserInfo(model2.getAccess_token(),model2.getOpenid());
+		   	break;
+		   case Commons.WECHAT_USERINFO:
+
+		   	break;
+	   }
+	}
+
+	@Override
+	public void disposeInfoMsg(EventMessage message) {
+
+	}
 }

@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.OSS;
@@ -14,6 +15,7 @@ import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
+import com.mob.MobSDK;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -43,6 +45,32 @@ public class APP extends Application {
     private static final String accessKeyId = "LTAIUtA7pQz24S4r";
     private static final String accessKeySecret = "uAD9Mkes66zETtRKXy7fSmZLyIJ2s7";
     public static final String testBucket = "yzy-app-img";
+    public static boolean APP_DBG = false; // 是否是debug模式
+
+    public static void initdebug(Context context){
+        APP_DBG = isApkDebugable(context);
+    }
+
+    /**
+     * 但是当我们没在AndroidManifest.xml中设置其debug属性时:
+     * 使用Eclipse运行这种方式打包时其debug属性为true,使用Eclipse导出这种方式打包时其debug属性为法false.
+     * 在使用ant打包时，其值就取决于ant的打包参数是release还是debug.
+     * 因此在AndroidMainifest.xml中最好不设置android:debuggable属性置，而是由打包方式来决定其值.
+     *
+     * @param context
+     * @return
+     * @author SHANHY
+     * @date   2015-8-7
+     */
+    public static boolean isApkDebugable(Context context) {
+        try {
+            ApplicationInfo info= context.getApplicationInfo();
+            return (info.flags&ApplicationInfo.FLAG_DEBUGGABLE)!=0;
+        } catch (Exception e) {
+
+        }
+        return false;
+    }
 
     public static APP getInstance() {
         return instance;
@@ -50,7 +78,7 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        MobSDK.init(this);
         cacheUtil=GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);
         ShareSDK.initSDK(this);
@@ -58,6 +86,7 @@ public class APP extends Application {
         AppInfo.init(this);
         initData();
         initoss();
+        initdebug(this);
         sUserid=getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0)+"";
         phone=getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone","-1");
         Logger.i(sUserid);
