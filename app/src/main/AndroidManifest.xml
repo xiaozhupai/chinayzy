@@ -16,7 +16,6 @@
     <!-- 往sdcard中写入数据的权限 -->
     <application
         android:name=".APP"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -41,6 +40,8 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
@@ -48,6 +49,8 @@
         <activity
             android:name=".ui.activity.NongYeMainActivity"
             android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <!-- 下载更新应用service -->
         <service android:name=".autoUpdate.UpdateService" />
@@ -55,10 +58,14 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".ui.activity.ForgotActivity"
             android:label="@string/title_activity_forgot"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <!-- MobUIshell -->
@@ -109,6 +116,8 @@
         <activity
             android:name=".ui.common.PictureActivity"
             android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.common.StoreActivity"

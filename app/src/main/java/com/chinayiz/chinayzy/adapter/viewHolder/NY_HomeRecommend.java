@@ -100,14 +100,19 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_recommend_Item1:
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"51"));
                 break;
             case R.id.iv_recommend_Item2:
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"56"));
                 break;
             case R.id.iv_recommend_Item3:
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"52"));
                 break;
             case R.id.iv_recommend_Item4:
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"67"));
                 break;
             case R.id.iv_recommend_Item5:
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"54"));
                 break;
             case R.id.lv_comgoods1:
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));

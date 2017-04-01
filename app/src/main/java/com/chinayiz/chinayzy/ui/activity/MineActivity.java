@@ -209,7 +209,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
                 startActivity(intent);
                 break;
             case R.id.lv_mine_server:   //消息
-
+                Skip.toItemMenu(this,"-1");
                 break;
             case R.id.lv_mine_suggest:  //我的建议
                 Skip.toSuggest(getActivity());

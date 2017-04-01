@@ -77,6 +77,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     public ActivityFragment mActivityFragment = null;
     public ShopCartFragment mCartFragment = null;
     public int frgmtCount=0;
+    private RadioButton mRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +103,10 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     private void initView() {
         initActionBar();
         mRgNongyeMenu = (RadioGroup) findViewById(R.id.rg_nongye_menu);
-        RadioButton radioButton = (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nongye_home);
+        mRadioButton = (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nongye_home);
         mRgNongyeMenu.setOnCheckedChangeListener(this);
         //默认选中农业首页
-        radioButton.setChecked(true);
+        mRadioButton.setChecked(true);
     }
 
     @Override
@@ -187,7 +188,6 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 }
                 setAcctionBar(SHOW_ALL);
                 showFragment(3);
-
                 EventBus.getDefault()
                         .post(new EventMessage(BaseMessage
                                 .NET_EVENT,NYMAIN_ACTIONBAR,
@@ -247,6 +247,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 if (!"0".equals(APP.sUserid)) {
                     addOrShowFragment(getFragmentManager().beginTransaction(), mCartFragment);
                 }else {
+                    mRadioButton.setChecked(true);
                     Skip.toLogin(this);
                 }
                 break;

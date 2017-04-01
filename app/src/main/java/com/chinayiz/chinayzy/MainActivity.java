@@ -113,15 +113,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 mPresenter.doStartNongye();
                 break;
             case R.id.btn_CityWide://同城
+                Skip.toItemMenu(this,"-1");
                 break;
             case R.id.btn_Store://商城
+                Skip.toItemMenu(this,"-1");
                 break;
             case R.id.btn_im://个人中心
                 mPresenter.doStartMine();
                 break;
             case R.id.btn_LvYou://旅游
+                Skip.toItemMenu(this,"-1");
                 break;
             case R.id.btn_ZhongChou://众筹
+                Skip.toItemMenu(this,"-1");
                 break;
             case R.id.btn_asIm:
                 Logger.i("关于我们");

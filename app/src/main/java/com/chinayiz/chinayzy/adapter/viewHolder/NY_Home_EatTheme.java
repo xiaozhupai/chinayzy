@@ -7,8 +7,12 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
-import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * author  by  Canrom7 .
@@ -30,6 +34,6 @@ public class NY_Home_EatTheme extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View v) {
-        Logger.i("爱吃主题宣传图");
+        EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,"46"));
     }
 }

@@ -21,7 +21,6 @@ import static com.chinayiz.chinayzy.ui.activity.NongYeMainActivity.NYMAIN_ACTION
  * Class MainPresenter
  */
 public class NongYeMainPresenter extends BasePresenter<NongYeMainActivity> {
-    public static String lastFragment=null;
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
