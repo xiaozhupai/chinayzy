@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.presenter;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,7 +15,6 @@ import com.chinayiz.chinayzy.entity.response.PayModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.ui.common.StoreActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.utils.AliPayUntil;
@@ -128,10 +126,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 break;
             }
             case OrderListAdapter.CLICK_STORE: {
-                Logger.i("进入店铺");
-                Intent intent = new Intent(mView.getActivity(), StoreActivity.class);
-                intent.putExtra("storeID", message.getData().toString());
-                mView.getActivity().startActivity(intent);
+                Skip.toStore(mView.getActivity(),message.getData().toString());
                 break;
             }
             case WXPayEntryActivity.WECHAT_BACK:

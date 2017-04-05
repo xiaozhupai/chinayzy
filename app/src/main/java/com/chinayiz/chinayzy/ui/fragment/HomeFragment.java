@@ -19,6 +19,7 @@ import com.chinayiz.chinayzy.presenter.homePresenter;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.refreshView.PullableRecycleView;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -89,6 +90,12 @@ public class HomeFragment extends BaseFragment<homePresenter> {
     @Override
     public void isNightMode(boolean isNight) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Logger.i("当前视图"+getClass().getSimpleName());
     }
 
     @Override

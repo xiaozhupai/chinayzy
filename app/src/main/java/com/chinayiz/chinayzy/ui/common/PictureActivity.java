@@ -33,7 +33,7 @@ public class PictureActivity extends AppCompatActivity implements View.OnClickLi
     private void initView() {
         mPhotoView= (PhotoView) findViewById(R.id.pv_photoView);
         progress=findViewById(R.id.ll_progress);
-        mPhotoView.setMaxScale(3);
+        mPhotoView.setMaxScale(1);
         mPhotoView.setOnClickListener(this);
         mPhotoView.enable();
         Glide.with(this)

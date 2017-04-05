@@ -1,14 +1,13 @@
 package com.chinayiz.chinayzy.ui.common;
 
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextPaint;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,39 +22,32 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.GoodsTypeMeunAdapter;
 import com.chinayiz.chinayzy.adapter.StoreHomeAdapter;
-import com.chinayiz.chinayzy.adapter.viewHolder.StoreHomeHead;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.StoreInfo;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
-import com.chinayiz.chinayzy.net.CommonRequestUtils;
-import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.net.callback.EventBusCallback;
+import com.chinayiz.chinayzy.presenter.StorePresenter;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
 import com.chinayiz.chinayzy.views.MyDecoration;
 import com.orhanobut.logger.Logger;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 /**
  * author  by  Canrom7 .
- * CreateDate 2017/3/4 15:32
- * StoreActivity  店铺首页
+ * CreateDate 2017/4/5 11:15
+ * Class StoreFragment 店铺主页
  */
-public class StoreActivity extends AppCompatActivity implements EventBusCallback,
-        View.OnClickListener, AdapterView.OnItemClickListener, StoreHomeAdapter.OnRecyclerViewItemClickListener {
+
+public class StoreFragment extends BaseFragment<StorePresenter> implements View.OnClickListener, StoreHomeAdapter.OnRecyclerViewItemClickListener, AdapterView.OnItemClickListener {
     public StoreInfoModel mStoreInfoModel;
-    public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     public List<StoreInfoModel.DataBean.TypecodeBean> mTypecodeList = new ArrayList<>();
-    private List<StoreGoodsListModel.DataBean> mDataList = new ArrayList<>();
+    public List<StoreGoodsListModel.DataBean> mDataList = new ArrayList<>();
     private TextView mTvSort, mAcctionBarTitle, mTvGoodsType;
-    private StoreInfo mStoreInfo;
-    private View mProgress;
+    public StoreInfo mStoreInfo;
+    public View mProgress;
     public GoodsTypeMeunAdapter mGoodsTypeMeunAdapter;
     public StoreHomeAdapter mAdapter;
     public String mStoreID;
@@ -67,32 +59,23 @@ public class StoreActivity extends AppCompatActivity implements EventBusCallback
     private View mView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store);
-        EventBus.getDefault().register(this);
-        Intent intent=getIntent();
-        mStoreID=intent.getStringExtra("storeID");
-        if (mStoreID==null){throw new RuntimeException("店铺ID为空，启动失败");}
-        mRequestUtils.getStoerInfo(mStoreID);
-        initView();
+    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.activity_store,container,false);
+        initView(view);
+        return view;
     }
-
-    private void initView() {
+    private void initView(View view) {
         mAdapter = new StoreHomeAdapter();
         mAdapter.setOnItemClickListener(this);
 
-        mAcctionBarTitle = (TextView) findViewById(R.id.tv_actionbar_title);
-        ImageView back = (ImageView) findViewById(R.id.iv_back_button);
-        back.setOnClickListener(this);
-        findViewById(R.id.iv_more_button).setVisibility(View.GONE);
-        mProgress = findViewById(R.id.ll_progress);
-        mTvSort = (TextView) findViewById(R.id.tv_sort);
-        mTvGoodsType = (TextView) findViewById(R.id.tv_goodsType);
-        mNvGoodsMenu2 = findViewById(R.id.nv_goodsMenu2);
-        mRvStoreHome = (RecyclerView) findViewById(R.id.rv_StoreHome);
+
+        mProgress =  view.findViewById(R.id.ll_progress);
+        mTvSort = (TextView)  view.findViewById(R.id.tv_sort);
+        mTvGoodsType = (TextView)  view.findViewById(R.id.tv_goodsType);
+        mNvGoodsMenu2 =  view.findViewById(R.id.nv_goodsMenu2);
+        mRvStoreHome = (RecyclerView)  view.findViewById(R.id.rv_StoreHome);
         //设置网格布局管理器
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //添加headview核心代码
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -126,10 +109,14 @@ public class StoreActivity extends AppCompatActivity implements EventBusCallback
 
         mTvSort.setOnClickListener(this);
         mTvGoodsType.setOnClickListener(this);
-        popupWindowview = View.inflate(this, R.layout.store_goods_typelist, null);
+        popupWindowview = View.inflate(getActivity(), R.layout.store_goods_typelist, null);
         mTypeListView = (ListView) popupWindowview.findViewById(R.id.lv_GoodsTypeList);
     }
-
+    @Override
+    public void onInintData(Bundle bundle) {
+        mStoreID=bundle.getString("storeID");
+        if (mStoreID==null){BaseActivity.showToast(getActivity(),"未知错误，请重试");}
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -143,25 +130,31 @@ public class StoreActivity extends AppCompatActivity implements EventBusCallback
             case R.id.iv_brand://品牌信息
                 showBrandInfo();
                 break;
-            case R.id.iv_back_button: {//返回键
-                onBackPressed();
-            }
-
         }
     }
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        activity.mIvActionBarMore.setClickable(false);
+       activity.mIvActionBarMore.setVisibility(View.GONE);
+        mActivity=activity;
+    }
 
+    @Override
+    public StorePresenter initPresenter() {
+        return new StorePresenter();
+    }
     /**
      * 显示品牌信息
      */
-    private void showBrandInfo() {
+    public void showBrandInfo() {
         View mDialogView;
         AlertDialog mDialog;
         AlertDialog.Builder mDialogBuilder;
         TextView name;
         TextView info;
         ImageView logo;
-        mDialogBuilder = new AlertDialog.Builder(this);
-        mDialogView = View.inflate(this, R.layout.dialog_storeinfo, null);
+        mDialogBuilder = new AlertDialog.Builder(getActivity());
+        mDialogView = View.inflate(getActivity(), R.layout.dialog_storeinfo, null);
 
         name = (TextView) mDialogView.findViewById(R.id.tv_stareName);
         name.setText(mStoreInfoModel.getData().getSname());
@@ -172,14 +165,13 @@ public class StoreActivity extends AppCompatActivity implements EventBusCallback
         Glide.with(this)
                 .load(mStoreInfoModel.getData().getPic())
                 //设置logo圆角
-                .transform(new GlideRoundTransform(this, 8))
+                .transform(new GlideRoundTransform(getActivity(), 8))
                 .into(logo);
         mDialog = mDialogBuilder.setView(mDialogView)
                 .setCancelable(true)
                 .create();
         mDialog.show();
     }
-
     /**
      * 显示类型菜单
      *
@@ -205,93 +197,26 @@ public class StoreActivity extends AppCompatActivity implements EventBusCallback
         //设置popupWindow显示的位置，参数依次是参照View，x轴的偏移量，y轴的偏移量
         mPopupWindow.showAsDropDown(view, 0, 3);
     }
-
     @Override
-    public void disposeNetMsg(EventMessage message) {
-        switch (message.getDataType()) {
-            case Commons.STORE_HOME: {
-                mStoreInfoModel = (StoreInfoModel) message.getData();
-                mGoodsTypeMeunAdapter = new GoodsTypeMeunAdapter(this);
-                //逆向排序分类数据
-                Collections.reverse(mStoreInfoModel.getData().getTypecodelist());
-                mGoodsTypeMeunAdapter.setTypecodeList(mStoreInfoModel.getData().getTypecodelist());
-                mGoodsTypeMeunAdapter.notifyDataSetChanged();
-                if (!mStoreInfoModel.getData().getTypecodelist().isEmpty()) {
-                    mRequestUtils.getGoodsListByPosition(mStoreID
-                            , mGoodsTypeMeunAdapter.getTypecodeList().get(0).getTypecode(), "1", "16");
-                }
-                mStoreInfo = new StoreInfo(mStoreInfoModel.getData().getIsself()
-                        , mStoreInfoModel.getData().getIsattention()
-                        , mStoreInfoModel.getData().getPic()
-                        , mStoreInfoModel.getData().getBigicon()
-                        , mStoreInfoModel.getData().getSname()
-                        , mStoreInfoModel.getData().getIntroduction());
-                //标题设置加粗
-                TextPaint tp = mAcctionBarTitle.getPaint();
-                tp.setFakeBoldText(true);
-                mAcctionBarTitle.setText(mStoreInfo.getSname());
-                mAdapter.setData(mDataList, mStoreInfo);
-                mAdapter.notifyDataSetChanged();
-                mRvStoreHome.setAdapter(mAdapter);
-                break;
-            }
-            case Commons.FORTYPEBY_GOODSS: {
-                mProgress.setVisibility(View.GONE);
-                StoreGoodsListModel model = (StoreGoodsListModel) message.getData();
-                mDataList = model.getData();
-                mAdapter.setData(mDataList);
-                mAdapter.notifyDataSetChanged();
-                break;
-            }
-            //悬浮头视图点击事件
-            case StoreHomeHead.CLICK: {
-                onClick((View) message.getData());
-                break;
-            }
-        }
+    protected void onVisible() {
+
     }
-
     @Override
-    public void disposeInfoMsg(EventMessage message) {
-        switch (message.getDataType()) {
-            case StoreHomeHead.CHECKED: {//关注商店
-                if ((boolean) message.getData()) {
-                    mRequestUtils.doAttentionStore(mStoreID);
-                } else {
-                    mRequestUtils.doUnAttentionStore(mStoreID);
-                }
-                break;
-            }
-        }
+    /**
+     * 点击店铺商品
+     */
+    public void onItemClick(View view, String goodsID) {
+        Skip.toGoodsDetail(getActivity(),goodsID);
+        Logger.i("点击店铺商品发送消息！="+goodsID);
     }
-
     @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void runUiThread(EventMessage message) {
-        if (EventMessage.NET_EVENT == message.getEventType()) {
-            disposeNetMsg(message);
-        }
-    }
+    protected void onInvisible() {
 
-    @Override
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void runBgThread(EventMessage message) {
-        if (EventMessage.INFORM_EVENT == message.getEventType()) {
-            disposeInfoMsg(message);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mRequestUtils = null;
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView textView = (TextView) view.findViewById(R.id.tv_GoodsTypeName);
-        Logger.i("点击了：=" + textView.getText());
         if (mPopupWindow != null) {
             mPopupWindow.dismiss();
         }
@@ -299,16 +224,7 @@ public class StoreActivity extends AppCompatActivity implements EventBusCallback
         //设置适配器中的悬浮头指示
         mAdapter.getHomeHead().setType(textView.getText().toString());
         //请求不同类型
-        mRequestUtils.getGoodsListByPosition(mStoreID
+        mPresenter.mRequestUtils.getGoodsListByPosition(mStoreID
                 , mGoodsTypeMeunAdapter.getTypecodeList().get(position).getTypecode(), "1", "16");
-    }
-
-    @Override
-    /**
-     * 点击店铺商品
-     */
-    public void onItemClick(View view, String goodsID) {
-        Skip.toGoodsDetail(this,goodsID);
-        Logger.i("点击店铺商品发送消息！="+goodsID);
     }
 }

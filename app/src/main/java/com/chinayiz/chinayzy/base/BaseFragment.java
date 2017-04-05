@@ -21,7 +21,7 @@ import com.orhanobut.logger.Logger;
  * Class BaseFragment
  */
 @SuppressLint("ValidFragment")
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView{
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView {
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     protected T mPresenter;
     public FragmentManager mFragmentManager;
@@ -86,7 +86,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     }
 
 
-
     /**
      * fragment可见时
      */
@@ -114,7 +113,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-          mActivity= (BaseActivity) getActivity();
+        mActivity = (BaseActivity) getActivity();
         //获取bundle,并保存起来
         if (savedInstanceState != null) {
             mBundle = savedInstanceState.getBundle("bundle");
@@ -130,7 +129,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             mBundle = getArguments() == null ? new Bundle() : getArguments();
         }
         onInintData(mBundle);
-
         //创建presenter
         mPresenter = initPresenter();
 
@@ -142,9 +140,10 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     /**
      * actionbar导航
+     *
      * @param activity
      */
-    public  void onInitActionBar(BaseActivity activity){
+    public void onInitActionBar(BaseActivity activity) {
         Logger.i("onInitActionBar");
     }
 
@@ -157,7 +156,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = initView(inflater, container, savedInstanceState);
         TAG = getClass().getSimpleName();
-        Logger.i(TAG+"  onCreateView");
+        Logger.i(TAG + "  onCreateView");
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -219,10 +218,10 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
     }
 
-        /**
-         * 类似Activity的OnBackgress
-         * fragment进行回退
-         */
+    /**
+     * 类似Activity的OnBackgress
+     * fragment进行回退
+     */
     public void onBack() {
         getFragmentManager().popBackStack();
     }
@@ -241,7 +240,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void isNightMode(boolean isNight) {
 
     }
-
 
 
 }

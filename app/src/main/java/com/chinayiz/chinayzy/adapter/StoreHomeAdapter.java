@@ -108,7 +108,7 @@ public class StoreHomeAdapter extends RecyclerView.Adapter implements View.OnCli
         }
     }
 
-    public static interface OnRecyclerViewItemClickListener {
+    public  interface OnRecyclerViewItemClickListener {
         /**
          * @param view 被点击的视图
          * @param goodsID 商品ID

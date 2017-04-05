@@ -29,7 +29,7 @@ import java.io.File;
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/1/10 14:06
- * Class MainPresenter
+ * Class MainPresenter 主页persenter
  */
 public class MainPresenter extends BasePresenter<MainActivity> {
     public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();

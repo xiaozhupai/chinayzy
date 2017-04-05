@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy.ui.common;
 
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -277,12 +276,9 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 Logger.i("客服");
                 break;
             case R.id.tv_store:
-                Intent intent = new Intent(getActivity(), StoreActivity.class);
-                intent.putExtra("storeID", storeID);
-                startActivity(intent);
+                Skip.toStore(getActivity(),storeID);
                 break;
             case R.id.tv_addCart:
-                Logger.i("加入购物车");
                 if (model != null) {
                     if (goodsStandard2==null){
                         goodsStandard2=new GoodsStandard2(getActivity(), model.getData());
@@ -291,7 +287,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 }
                 break;
             case R.id.iv_back_btn:
-                Logger.i("返回");
                 if (isShowComments) {
                     mFragmentManager
                             .beginTransaction()
@@ -309,12 +304,10 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 Skip.toShopCart(getActivity());
                 break;
             case R.id.tv_share_btn:
-                Logger.i("分享");
                 ShareDialog dialog = new ShareDialog(getActivity());
                 dialog.show();
                 break;
             case R.id.tv_goodstype:
-                Logger.i("选择套餐");
                 if (model != null) {
                     if (model != null) {
                         if (goodsStandard2==null){
@@ -325,7 +318,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 }
                 break;
             case R.id.tv_moreComment://更多评论
-                Logger.i("更多评论");
                 if (sumComment < 2) {
                     BaseActivity.showToast(getActivity(), "没有更多评论");
                 } else {
@@ -340,10 +332,7 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
                 }
                 break;
             case R.id.iv_InStore:
-                Logger.i("启动店铺主页");
-                Intent intent2 = new Intent(getActivity(), StoreActivity.class);
-                intent2.putExtra("storeID", storeID);
-                startActivity(intent2);
+                Skip.toStore(getActivity(),storeID);
                 break;
         }
     }

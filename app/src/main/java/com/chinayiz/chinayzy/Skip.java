@@ -9,6 +9,7 @@ import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.ui.common.GoodsFragment;
+import com.chinayiz.chinayzy.ui.common.StoreFragment;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
@@ -342,4 +343,18 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context, intent);
     }
+
+    /**
+     * 进入店铺首页
+     * @param context
+     * @param storeID
+     */
+  public static void toStore(Context context,String storeID){
+      Intent intent = new Intent(context, CommonActivity.class);
+      intent.putExtra(CLASS, StoreFragment.class);
+      Bundle bundle = new Bundle();
+      bundle.putString("storeID", storeID);
+      intent.putExtras(bundle);
+      skip(context, intent);
+  }
 }
