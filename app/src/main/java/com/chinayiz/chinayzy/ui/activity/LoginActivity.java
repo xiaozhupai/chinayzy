@@ -37,9 +37,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     public View mVLine;
     public TextView mTvLoginSubmit;
     public TextView mTvRegisterSubmit;
-//    public ImageView mIvQq;
-//    public ImageView mIvWechat;
-//    public ImageView mIvWeibo;
+    public ImageView mIvQq;
+    public ImageView mIvWechat;
+    public ImageView mIvWeibo;
     public LinearLayout mLvLogin;
 
     @Override

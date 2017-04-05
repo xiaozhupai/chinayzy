@@ -57,13 +57,19 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
     private int type;//
     private String mId;
     private String dis;
-    private String shareImageUrl;
+    private static String shareImageUrl="http://chinayiz.cn/v1/2017/0330/f8bafa64-bbea-486f-9efd-0495ef266a47.png";
+    private String url="";
 
     /**
      * @param context
      */
 
-    public ShareDialog(Context context) {
+    public ShareDialog(Context context,String url) {
+        super(context, R.style.Dialog);
+        this.context = context;
+        this.url=url;
+    }
+    public ShareDialog(Context context){
         super(context, R.style.Dialog);
         this.context = context;
     }
@@ -97,7 +103,7 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         int shareImg = R.mipmap.ic_launcher;
-        String url = "https://www.baidu.com";  //点击的url
+
         dis="sdsdsdsds";  //分享的内容
         PlatformActionListener pl;
         pl=new PlatformActionListener() {
@@ -114,7 +120,7 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
                 Toast.makeText(context,"分享失败",Toast.LENGTH_LONG).show();
             }
         };
-        ShareUtils.turnToShare(position,dis,"",shareImageUrl,url,pl);
+        ShareUtils.turnToShare(position,dis,"",shareImageUrl,url,pl,context);
         dismiss();
     }
 
@@ -135,7 +141,7 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
 
     private class Adapter extends BaseAdapter {
 
-        private int[] resId = new int[]{R.mipmap.icon_moments, R.mipmap.icon_wechat, R.mipmap.icon_sino, R.mipmap.icon_qq,};
+        private int[] resId = new int[]{R.mipmap.icon_moments, R.mipmap.icon_wechat,R.mipmap.icon_sino,R.mipmap.icon_qq,};
         private String [] share_name=new String []{"朋友圈","微信","微博","QQ"};
 
         /* (non-Javadoc)

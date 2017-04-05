@@ -176,11 +176,9 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
 
                 break;
             case R.id.lv_share:   //分享
-                if (dialog==null){
-                    dialog=new ShareDialog(getActivity());
-                }
+//                ShareUtils.showShare(getActivity(),url);
+       ShareDialog dialog=new ShareDialog(getActivity(),url);
                 dialog.show();
-
                 break;
         }
     }
