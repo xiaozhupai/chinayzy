@@ -1,11 +1,13 @@
 package com.chinayiz.chinayzy.net.Login;
 
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
 import com.chinayiz.chinayzy.entity.response.RegisterModel;
+import com.chinayiz.chinayzy.entity.response.RongModel;
 import com.chinayiz.chinayzy.entity.response.StringModel;
 import com.chinayiz.chinayzy.entity.response.ThirdModel;
 import com.chinayiz.chinayzy.entity.response.WechatAccessModel;
@@ -118,10 +120,43 @@ public class LoginNet {
 
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.LOGIN
                                     ,mGson.fromJson(s,LoginModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+
+    }
+
+    /**
+     * 获得token
+     */
+
+    public void getToken() {
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.TOKEN)
+                .addParams("userid", APP.sUserid)
+                .tag("login")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.TOKEN
+                                    ,mGson.fromJson(s,RongModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }

@@ -2,7 +2,6 @@ package com.chinayiz.chinayzy.entity.response;
 
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -21,42 +20,29 @@ public class FindListModel extends BaseResponseModel {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable {
+    public static class DataBean {
         /**
-         * content : 好吃的
-         * picpath : https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1484978891802&di=0503356ebe895df517add71013824e36&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F94%2F51%2F89Y58PICVMa_1024.jpg
-         * title : 啊哈哈
-         * nickname : bbb
-         * pic : kkk
+         * logo : http://chinayiz.cn/v1/2017/0407/415ab22a-6aa0-4739-9ada-c3d314bf6f0d.png
+         * picpath : http://www.stny.cn/UploadFiles/2014-10/2/201410311516407812864.jpg
+         * title : 有机农业对防治土壤荒漠化有哪些作用
+         * synopsis : 有机农业结合了传统农业、创新思维和科学技术，有利于保护我们所共享的生存环境，也有利于促进包括人类在内的自然界所有成员间的公平与和谐共生
+         * logowenzi : 中国亿众
          * bid : 1
-         * iscollect : 1
-         * ispraise : 1
          */
-        private static final long serialVersionUID = -6919461967497580385L;
-        private String content;
+
+        private String logo;
         private String picpath;
         private String title;
-        private String nickname;
-        private String pic;
-        private int bid;
-        private String iscollect;
-        private String ispraise;
         private String synopsis;
+        private String logowenzi;
+        private int bid;
 
-        public String getSynopsis() {
-            return synopsis;
+        public String getLogo() {
+            return logo;
         }
 
-        public void setSynopsis(String synopsis) {
-            this.synopsis = synopsis;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
+        public void setLogo(String logo) {
+            this.logo = logo;
         }
 
         public String getPicpath() {
@@ -75,20 +61,20 @@ public class FindListModel extends BaseResponseModel {
             this.title = title;
         }
 
-        public String getNickname() {
-            return nickname;
+        public String getSynopsis() {
+            return synopsis;
         }
 
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
+        public void setSynopsis(String synopsis) {
+            this.synopsis = synopsis;
         }
 
-        public String getPic() {
-            return pic;
+        public String getLogowenzi() {
+            return logowenzi;
         }
 
-        public void setPic(String pic) {
-            this.pic = pic;
+        public void setLogowenzi(String logowenzi) {
+            this.logowenzi = logowenzi;
         }
 
         public int getBid() {
@@ -97,22 +83,6 @@ public class FindListModel extends BaseResponseModel {
 
         public void setBid(int bid) {
             this.bid = bid;
-        }
-
-        public String getIscollect() {
-            return iscollect;
-        }
-
-        public void setIscollect(String iscollect) {
-            this.iscollect = iscollect;
-        }
-
-        public String getIspraise() {
-            return ispraise;
-        }
-
-        public void setIspraise(String ispraise) {
-            this.ispraise = ispraise;
         }
     }
 }

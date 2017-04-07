@@ -178,7 +178,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
             case R.id.lv_share:   //分享
 //                ShareUtils.showShare(getActivity(),url);
                 String path=Commons.SHARE+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid;
-       ShareDialog dialog=new ShareDialog(getActivity(),path,bean.getTitle(),bean.getContent());
+       ShareDialog dialog=new ShareDialog(getActivity(),path,bean.getTitle(),bean.getSynopsis());
                 dialog.show();
                 break;
         }

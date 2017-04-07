@@ -48,7 +48,9 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        loadlingDialog.dismiss();
+        if (loadlingDialog!=null){
+            loadlingDialog.dismiss();
+        }
         switch (message.getDataType()){
             case Commons.ALIPAYORDER:  //支付宝支付
                 final AlipayModel modell= (AlipayModel) message.getData();

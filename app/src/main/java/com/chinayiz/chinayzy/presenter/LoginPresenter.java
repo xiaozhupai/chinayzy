@@ -13,8 +13,10 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
+import com.chinayiz.chinayzy.entity.response.RongModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
@@ -97,6 +99,15 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                     SaveData(userid,isMember);
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
+                LoginNet.getLoginNet().getToken();
+                break;
+            case Commons.TOKEN:
+             RongModel rongModel= (RongModel) message.getData();
+                if (rongModel.getCode().equals("100")){
+                    if (UserSeeion.isMember(mView)){
+                        mView.finish();
+                    }
+                }
                 break;
 
 //            case Commons.THIRD:   //第三方登录
@@ -119,10 +130,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         editor.putString("phone",phone);
         editor.commit();//提交修改
         APP.sUserid=userid+"";
-        mView.finish();
-        if (isMember.equals("0")){
-            Skip.toDeposit(mView.getActivity());
-        }
+
 //       Intent intent_data=mView.getIntent();
 //        if (intent_data.getStringExtra("FindDetailFragment")!=null){
 //            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, FindDetailFragment.FIND_DETAIL,""));
