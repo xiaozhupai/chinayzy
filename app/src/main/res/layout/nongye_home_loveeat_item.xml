@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:maxLength="9"
-        android:text="99"
+        android:text="00.00"
         android:drawableLeft="@mipmap/icon_rmb"
         android:textColor="@color/NongYe_home_priceText"
         />
