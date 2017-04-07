@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class MemberRuleFragment extends BaseFragment<Presenter> implements View.
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        activity.mTvActionBarTitle.setText("会员须知");
+        activity.mTvActionBarTitle.setText("会员权益");
     }
 
     @Override
@@ -39,6 +40,7 @@ public class MemberRuleFragment extends BaseFragment<Presenter> implements View.
         tv_member_submit = (TextView) view.findViewById(R.id.tv_member_submit);
         tv_member_submit.setOnClickListener(this);
         tv_member_check.setOnClickListener(this);
+        tv_member_check.setText(Html.fromHtml("同意<font color='#ff3952'>《会员权益》</font>"));
         String content = "1、申请人须仔细阅读本须知，您点击同意按钮后即表示完全接受本协议项下的全部条款，" +
                 "一旦注册即视为用户确认自己享有相关民事权利能力和行为能力并能够独立承担法律责任。\n\n 2、" +
                 "申请会员资格须一次性向商城“我的钱包”充值1350元人民币消费益众品牌的商品和标有自营标签的商品，" +
@@ -72,7 +74,7 @@ public class MemberRuleFragment extends BaseFragment<Presenter> implements View.
         switch (view.getId()) {
             case R.id.tv_member_submit:
                 if (isCheck) {
-                    mActivity.addFragment(new RegisterFragment());
+                    mActivity.addFragment(new MemberProtocolFragment());
                 }
                 break;
             case R.id.tv_member_check:

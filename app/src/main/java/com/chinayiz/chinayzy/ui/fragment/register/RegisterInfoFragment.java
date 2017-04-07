@@ -49,12 +49,14 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
     public ImageView iv_card;
     public ImageView iv_card_back;
     public TextView tv_register_submit;
+    public String recommendcard;
     private Calendar dateAndTime = Calendar.getInstance(Locale.CHINA);
    private  DateFormat fmtDate = new java.text.SimpleDateFormat("yyyy-MM");
-    public RegisterInfoFragment(String code, String phone, String password) {
+    public RegisterInfoFragment(String code, String phone, String password,String recommendcard) {
         this.code = code;
         this.phone = phone;
         this.password = password;
+        this.recommendcard=recommendcard;
     }
 
     @Override

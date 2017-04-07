@@ -32,6 +32,9 @@ public class SearchFarmModel extends BaseResponseModel {
          * brand : 英山云雾
          * goodsstandardid : 1
          * productarea : 湖北
+         * isself : 1
+         * praise : 10%
+         * commenttotal : 100
          */
 
         private String unit;
@@ -43,16 +46,9 @@ public class SearchFarmModel extends BaseResponseModel {
         private String brand;
         private int goodsstandardid;
         private String productarea;
-
-        public String getIsself() {
-            return isself;
-        }
-
-        public void setIsself(String isself) {
-            this.isself = isself;
-        }
-
         private String isself;
+        private String praise;
+        private String commenttotal;
 
         public String getUnit() {
             return unit;
@@ -124,6 +120,30 @@ public class SearchFarmModel extends BaseResponseModel {
 
         public void setProductarea(String productarea) {
             this.productarea = productarea;
+        }
+
+        public String getIsself() {
+            return isself;
+        }
+
+        public void setIsself(String isself) {
+            this.isself = isself;
+        }
+
+        public String getPraise() {
+            return praise;
+        }
+
+        public void setPraise(String praise) {
+            this.praise = praise;
+        }
+
+        public String getCommenttotal() {
+            return commenttotal;
+        }
+
+        public void setCommenttotal(String commenttotal) {
+            this.commenttotal = commenttotal;
         }
     }
 }

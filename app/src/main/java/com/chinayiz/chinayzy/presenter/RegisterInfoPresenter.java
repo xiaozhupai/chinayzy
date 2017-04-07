@@ -288,7 +288,7 @@ public class RegisterInfoPresenter extends BasePresenter<RegisterInfoFragment> {
         }
 
 
-        LoginNet.getLoginNet().toRegister(mView.phone,mView.password,mView.code,nickname,idcard,username,card+","+card_back,sex_code,birth,address,ismarriage_code,height,weight,education_code,politics_code);
+        LoginNet.getLoginNet().toRegister(mView.phone,mView.password,mView.code,nickname,idcard,username,card+","+card_back,sex_code,birth,address,ismarriage_code,height,weight,education_code,politics_code,mView.recommendcard);
 
 
     }
