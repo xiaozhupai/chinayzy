@@ -127,6 +127,10 @@ public class Commons {
      */
     public static final String LOGIN = "/user/login";
     /**
+     * 融云token
+     */
+    public static final String TOKEN = "/user/token";
+    /**
      * 找回密码
      */
     public static final String BACKPWD = "/user/backpwd";

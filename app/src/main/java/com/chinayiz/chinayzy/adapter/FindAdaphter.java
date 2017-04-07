@@ -40,6 +40,8 @@ public class FindAdaphter extends BaseInectAdaphter<FindListModel.DataBean> {
 //        Glide.with(context).load(bean.getPic()).into(viewHolder.iv_find_item_logo);
         viewHolder.tv_find_item_title.setText(bean.getTitle());
         viewHolder.tv_find_item_content.setText(bean.getSynopsis());
+        viewHolder.tv_find_item_logo_text.setText(bean.getLogowenzi());
+        Glide.with(context).load(bean.getLogo()).into(viewHolder.iv_find_item_logo);
         return view;
     }
 
