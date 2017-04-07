@@ -196,6 +196,7 @@ public class Net {
                     }
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.e("data="+s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.NY_EATITEM

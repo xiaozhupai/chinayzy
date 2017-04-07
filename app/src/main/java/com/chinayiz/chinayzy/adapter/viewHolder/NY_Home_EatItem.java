@@ -12,6 +12,7 @@ import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.net.Commons;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -22,8 +23,8 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnClickListener {
     private ImageView mIvGoodItemIcon;
-    private TextView mTvGoodItemTitle;
-    private TextView mTvGoodItemPrice;
+    private TextView mTvGoodItemTitle, mTvcommentCuon, mTvgoodComment;
+    private TextView mTvGoodItemPrice, mTvGoodItemPrice1;
     private ImageView mIvAddCart;
     private View isSelf;
 
@@ -32,6 +33,9 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
         mIvGoodItemIcon = (ImageView) itemView.findViewById(R.id.iv_goodItemIcon);
         mTvGoodItemTitle = (TextView) itemView.findViewById(R.id.tv_goodItemTitle);
         mTvGoodItemPrice = (TextView) itemView.findViewById(R.id.tv_goodItemPrice);
+        mTvcommentCuon = (TextView) itemView.findViewById(R.id.tv_CommentCount);
+        mTvgoodComment = (TextView) itemView.findViewById(R.id.tv_goodComment);
+        mTvGoodItemPrice1 = (TextView) itemView.findViewById(R.id.tv_goodItemPrice1);
         mIvAddCart = (ImageView) itemView.findViewById(R.id.iv_addCart);
         isSelf = itemView.findViewById(R.id.view_isSelf);
         mIvGoodItemIcon.setOnClickListener(this);
@@ -45,19 +49,34 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
         mIvGoodItemIcon.setTag(R.id.tag_click, data.getGoodsid());
         mTvGoodItemTitle.setText(data.getGname());
         mTvGoodItemTitle.setTag(R.id.tag_click, data.getGoodsid());
-
-        if ("0".equals(data.getIsself())) {
+        if (!"0".equals(data.getCommenttotal())) {
+            mTvcommentCuon.setText(data.getCommenttotal()+"条评价");
+            mTvgoodComment.setText(data.getPraise()+"好评率");
+        }
+        if ("0".equals(data.getIsself())) {//是否自营
             isSelf.setVisibility(View.GONE);
         }
-
         String price = data.getPrice();
+        Logger.e("打印价格="+price);
         if (price.contains("-")) {
             String[] strings = price.split("-");
-            mTvGoodItemPrice.setText(" " + strings[0]);
+            strUtil(strings[0]);
         } else {
-            mTvGoodItemPrice.setText(" " + price);
+            strUtil(price);
         }
         mIvAddCart.setTag(R.id.tag_click, data);
+    }
+
+    private void strUtil(String str) {
+    if (str.contains(".")){
+        String[] strings = str.split("\\.");
+        Logger.i("数组长度="+strings.length);
+        mTvGoodItemPrice.setText(" " + strings[0]+".");
+        mTvGoodItemPrice1.setText(strings[strings.length-1]);
+    }else {
+        mTvGoodItemPrice.setText(" " + str+".");
+        mTvGoodItemPrice1.setText("00");
+    }
     }
 
     @Override
