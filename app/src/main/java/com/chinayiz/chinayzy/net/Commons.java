@@ -1,26 +1,29 @@
 package com.chinayiz.chinayzy.net;
 
+import com.chinayiz.chinayzy.APP;
+
 /**
  * Created by Administrator on 2017/1/3.
  *  公有的API
  */
 
 public class Commons {
-    public static final String PAY="http://106.14.20.226/yzyProduct/v1/api";
+    public static final boolean isDebug= APP.APP_DBG;
+    public static final String PAY=isDebug?"http://192.168.200.132:8081/yzyProduct/v1":"http://106.14.20.226/yzyProduct/v1/api";
 
-    public static final String HOST="http://chinayiz.cn";
-
+//    public static final String HOST= isDebug?"http://192.168.1.8:8081/yzyProduct/v1":"http://chinayiz.cn";
+      public static final String HOST="http://chinayiz.cn";
     //获得accss_token
     public static final String ACCESS_TOKEN="https://api.weixin.qq.com/sns/oauth2/access_token";
     //刷新 refresh_token
     public static final String REFRESH_TOKEN="https://api.weixin.qq.com/sns/oauth2/refresh_token";
     //微信获得用户信息
     public static final String WECHAT_USERINFO="https://api.weixin.qq.com/sns/userinfo";
-
+    public static final String SHARE="http://www.chinayiz.cn/yzyProduct/v1/api";
     /**
      * 主机地址
      */
-    public static final String API = "http://106.14.20.226/yzyProduct/v1/api";
+    public static final String API =isDebug?"http://192.168.1.8:8081/yzyProduct/v1/api":"http://106.14.20.226/yzyProduct/v1/api";
     /**
      * 添加购物车
      */

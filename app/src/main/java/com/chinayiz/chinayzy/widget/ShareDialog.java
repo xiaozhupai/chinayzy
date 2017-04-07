@@ -59,15 +59,19 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
     private String dis;
     private static String shareImageUrl="http://chinayiz.cn/v1/2017/0330/f8bafa64-bbea-486f-9efd-0495ef266a47.png";
     private String url="";
+    private String title;
+    private String content;
 
     /**
      * @param context
      */
 
-    public ShareDialog(Context context,String url) {
+    public ShareDialog(Context context,String url,String title,String content) {
         super(context, R.style.Dialog);
         this.context = context;
         this.url=url;
+        this.title=title;
+        this.content=content;
     }
     public ShareDialog(Context context){
         super(context, R.style.Dialog);
@@ -104,7 +108,7 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
 
         int shareImg = R.mipmap.ic_launcher;
 
-        dis="sdsdsdsds";  //分享的内容
+        dis=content;  //分享的内容
         PlatformActionListener pl;
         pl=new PlatformActionListener() {
             @Override
@@ -120,7 +124,7 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
                 Toast.makeText(context,"分享失败",Toast.LENGTH_LONG).show();
             }
         };
-        ShareUtils.turnToShare(position,dis,"",shareImageUrl,url,pl,context);
+        ShareUtils.turnToShare(position,dis,title,shareImageUrl,url,pl,context);
         dismiss();
     }
 

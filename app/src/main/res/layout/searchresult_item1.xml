@@ -13,55 +13,111 @@
         android:src="@mipmap/ic_launcher"
         android:scaleType="centerCrop"
         />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp"
-    >
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="8dp"
+        android:paddingTop="14dp"
+        android:paddingLeft="12dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="8dp"
         >
-        <TextView
-            android:id="@+id/tv_title"
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="#0b1b01"
-            android:text="横渡牛腱子"
-            android:lines="2"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="37dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
             >
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="#f02b2b"
-                android:text="￥99"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_join_cart"
-                android:layout_marginRight="10dp"
-                android:lines="1"
+                android:textSize="12sp"
+                android:textColor="#0b1b01"
+                android:text="横渡牛腱子fffffffffffffffffffffffffffffffffffffffffffffffffffffffffdddddddddddddd"
+                android:lineSpacingExtra="8dp"
+                android:lineSpacingMultiplier="1"
+                android:maxLines="2"
                 />
-            <ImageView
-                android:id="@+id/iv_join_cart"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-              android:src="@mipmap/icon_oneself_store"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                />
-        </RelativeLayout>
+                android:orientation="horizontal"
+                android:baselineAligned="true"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_rmb"
+                     android:layout_gravity="center"
+
+                    />
+                <TextView
+                    android:id="@+id/tv_price_pre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#f02b2b"
+                    android:text="99"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/iv_join_cart"
+                    android:lines="1"
+                    android:layout_marginLeft="8dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_price_after"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=".00"
+                    android:textColor="#f02b2b"
+                    />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_oneselft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_oneself_store"
+                    android:layout_centerVertical="true"
+                    />
+                <TextView
+                    android:id="@+id/tv_evaluate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11945条评价"
+                    android:layout_toRightOf="@+id/iv_oneselft"
+                    android:layout_centerVertical="true"
+                    android:textColor="#848689"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="7dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_good_evaluate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="95%好评"
+                    android:layout_toRightOf="@+id/tv_evaluate"
+                    android:textColor="#848689"
+                    android:textSize="12sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    />
+                <ImageView
+                    android:id="@+id/iv_join_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_mine_shop_car"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </LinearLayout>

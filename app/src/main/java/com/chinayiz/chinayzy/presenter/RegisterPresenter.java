@@ -91,8 +91,8 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
             BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
             return;
         }
-
-       mView.mActivity.addFragment(new RegisterInfoFragment(message,phone,password));
+     String recommendcard=mView.et_register_recommendcard.getText().toString().trim();
+       mView.mActivity.addFragment(new RegisterInfoFragment(message,phone,password,recommendcard));
 
 
     }

@@ -31,7 +31,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
     public EditText et_register_message;
     public TextView tv_register_sendmessage;
     public View v_register_line;
-    public EditText et_register_password;
+    public EditText et_register_password,et_register_recommendcard;
     public TextView tv_register_submit;
 
     @Override
@@ -49,6 +49,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
         v_register_line = (View) view.findViewById(R.id.v_register_line);
         et_register_password = (EditText)view.findViewById(R.id.et_register_password);
         tv_register_submit = (TextView)view.findViewById(R.id.tv_register_submit);
+        et_register_recommendcard= (EditText) view.findViewById(R.id.et_register_recommendcard);
         tv_register_submit.setOnClickListener(this);
         tv_register_sendmessage.setOnClickListener(this);
 

@@ -52,7 +52,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
         FindListModel.DataBean bean= (FindListModel.DataBean) bundle.getSerializable("bean");
         this.bean = bean;
         bid=bean.getBid()+"";
-        url= Commons.API+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid+"&type=app";
+        url= Commons.SHARE+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid+"&type=app";
     }
 
     @Override
@@ -177,7 +177,8 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
                 break;
             case R.id.lv_share:   //分享
 //                ShareUtils.showShare(getActivity(),url);
-       ShareDialog dialog=new ShareDialog(getActivity(),url);
+                String path=Commons.SHARE+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid;
+       ShareDialog dialog=new ShareDialog(getActivity(),path,bean.getTitle(),bean.getContent());
                 dialog.show();
                 break;
         }

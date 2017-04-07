@@ -33,6 +33,7 @@ public class LoginNet {
             loginNet=new LoginNet();
         }
         return loginNet;
+
     }
 
     /**
@@ -52,8 +53,9 @@ public class LoginNet {
      * @param weight     体重	String	是
      * @param educational   学历	String	是	1高中2大专3本科4研究生
      * @param politics    政治面貌	String	是	1团员2党员3群众
+     * @param recommendcard    推荐码
      */
-    public  void toRegister(String username,String password,String sendMessage,String nickname,String idcard,String realname,String pic,String sex,String birthday,String usualplace,String ismarriage,String height,String weight,String educational,String politics){
+    public  void toRegister(String username,String password,String sendMessage,String nickname,String idcard,String realname,String pic,String sex,String birthday,String usualplace,String ismarriage,String height,String weight,String educational,String politics,String recommendcard){
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.REGISTER)
@@ -74,6 +76,7 @@ public class LoginNet {
                 .addParams("weight",weight)
                 .addParams("educational",educational)
                 .addParams("politics",politics)
+                .addParams("recommendcard",recommendcard)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -124,6 +127,7 @@ public class LoginNet {
                         }
                     }
                 });
+
     }
 
     /**
@@ -326,6 +330,7 @@ public class LoginNet {
                         }
                     }
                 });
+
     }
 
 

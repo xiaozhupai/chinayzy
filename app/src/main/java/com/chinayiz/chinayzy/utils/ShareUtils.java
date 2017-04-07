@@ -28,17 +28,15 @@ public class ShareUtils {
      * 分享
      *
      * @param dis     内容
-     * @param path    图片
+     * @param title    标题
      * @param url     路径
      */
-    public static void turnToShare(int type, String dis, String path , String imageUrl, String url, PlatformActionListener paListener, Context context) {
-
+    public static void turnToShare(int type, String dis, String title , String imageUrl, String url, PlatformActionListener paListener, Context context) {
         switch (type){
-
             case WECHATMOMENTS:
                 //朋友圈的分享
                 WechatMoments.ShareParams momentsp=new WechatMoments.ShareParams();
-                momentsp.setTitle("中国亿众");
+                momentsp.setTitle(title);
                 momentsp.setImageUrl(imageUrl);
                 momentsp.setText(dis);
                 momentsp.setUrl(url);
@@ -53,10 +51,11 @@ public class ShareUtils {
             case WECHAT:
                 //微信分享
                 Wechat.ShareParams wechatsp=new  Wechat.ShareParams();
-                wechatsp.setTitle("中国亿众");
+                wechatsp.setTitle(title);
                 wechatsp.setImageUrl(imageUrl);
                 wechatsp.setText(dis);
                 wechatsp.setUrl(url);
+
                 wechatsp.setShareType(Platform.SHARE_WEBPAGE);
                 Platform wechat = ShareSDK.getPlatform (context,Wechat.NAME);
 // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
@@ -67,7 +66,7 @@ public class ShareUtils {
             case SINOWEIBO:
                 //新浪微博分享
                 SinaWeibo.ShareParams weibosp = new SinaWeibo.ShareParams();
-                weibosp.setText("中国亿众");
+                weibosp.setText(title);
                 weibosp.setImageUrl(imageUrl);
                 weibosp.setText(dis);
                 weibosp.setUrl(url);
@@ -80,7 +79,7 @@ public class ShareUtils {
             case QQPERSON:
                 //QQ分享
                 QQ.ShareParams qqsp=new QQ.ShareParams();
-                qqsp.setTitle("中国亿众");
+                qqsp.setTitle(title);
                 qqsp.setImageUrl(imageUrl);
                 qqsp.setText(dis);
                 qqsp.setTitleUrl(url);
