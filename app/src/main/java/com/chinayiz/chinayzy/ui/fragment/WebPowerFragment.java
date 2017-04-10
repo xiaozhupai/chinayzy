@@ -19,20 +19,23 @@ import android.widget.ProgressBar;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
+import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.Presenter;
+import com.chinayiz.chinayzy.widget.ShareDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class WebPowerFragment extends BaseFragment<Presenter> {
+public class WebPowerFragment extends BaseFragment<Presenter> implements View.OnClickListener {
+    public static final String SHARE="分享";
     public WebView wv_view;
     private String titel;
     private String url;
     public ProgressBar progressbar;
-    public static final int REQUEST_SELECT_FILE = 100;
-    public final static int FILECHOOSER_RESULTCODE = 2;
-
 
     public WebPowerFragment(String title, String url) {
         this.titel = title;
@@ -61,6 +64,11 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     public void onInitActionBar(BaseActivity activity) {
         activity.mTvActionBarTitle.setText(titel);
         activity.mCbActionBarEdit.setVisibility(View.GONE);
+        if (titel.equals(SHARE)) {
+            activity.mIvActionBarMore.setVisibility(View.VISIBLE);
+            activity.mIvActionBarMore.setImageResource(R.mipmap.btn_share);
+            activity.mIvActionBarMore.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -78,9 +86,6 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
 
     }
 
-    public int getScrollY(){
-        return wv_view.getScrollY();
-    }
     @Override
     public void onResume() {
         super.onResume();
@@ -155,5 +160,13 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     @Override
     public void isNightMode(boolean isNight) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.iv_more_button){
+            ShareDialog dialog = new ShareDialog(getActivity());
+            EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,dialog));
+        }
     }
 }

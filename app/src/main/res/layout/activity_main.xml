@@ -69,8 +69,8 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btn_Store"
-            style="@style/Main_itemMenuLayout"
             android:background="@mipmap/store_itembg"
+            style="@style/Main_itemMenuLayout"
             android:layout_marginRight="1.5dp"
             android:layout_marginLeft="1.5dp"
             >
@@ -145,8 +145,9 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btn_asIm"
-            style="@style/Main_itemMenuLayout"
             android:background="@mipmap/asim_itembg"
+            style="@style/Main_itemMenuLayout"
+            android:layout_marginRight="1.5dp"
             android:layout_marginLeft="1.5dp"
             >
             <ImageView
@@ -159,10 +160,22 @@
                 android:text="关于我们"
                 />
         </LinearLayout>
-     <View
-         android:layout_marginLeft="15dp"
-         android:layout_weight="1"
-         android:layout_width="0dp"
-         android:layout_height="95dp"/>
+        <LinearLayout
+            android:id="@+id/btn_Recommend"
+            style="@style/Main_itemMenuLayout"
+            android:background="@mipmap/im_itembg"
+            android:layout_marginRight="11dp"
+            android:layout_marginLeft="1.5dp"
+            >
+            <ImageView
+                android:layout_width="40.5dp"
+                android:layout_height="41dp"
+                android:src="@mipmap/btn_share"
+                />
+            <TextView
+                style="@style/Main_itemMenuText"
+                android:text="推荐好友"
+                />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

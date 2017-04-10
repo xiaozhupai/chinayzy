@@ -18,9 +18,11 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.chinayiz.chinayzy.adapter.viewHolder.CreateBannerHolder;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.MainPresenter;
+import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -34,7 +36,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     public String dowloadUrl="-1";
     public boolean isYes=false;
     private boolean isNotify=false;
-    private View mBtnNongYe,mBtn_asIm;
+    private View mBtnNongYe,mBtn_asIm,mBtnRecommend;
     private View mBtnCityWide;
     private View mBtnStore;
     private View mBtnIm;
@@ -71,6 +73,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         mBtnLvYou =  findViewById(R.id.btn_LvYou);
         mBtnZhongChou = findViewById(R.id.btn_ZhongChou);
         mBtn_asIm=findViewById(R.id.btn_asIm);
+        mBtnRecommend=findViewById(R.id.btn_Recommend);
 
         mBtnNongYe.setOnClickListener(this);
         mBtnCityWide.setOnClickListener(this);
@@ -79,6 +82,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         mBtnLvYou.setOnClickListener(this);
         mBtnZhongChou.setOnClickListener(this);
         mBtn_asIm.setOnClickListener(this);
+        mBtnRecommend.setOnClickListener(this);
     }
 
     public void setData(NY_BannerModel model) {
@@ -128,9 +132,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 Skip.toItemMenu(this,"-1");
                 break;
             case R.id.btn_asIm:
-                Logger.i("关于我们");
+
                 String url=new String(Commons.API+"/h5/aboutus");
                 Skip.toWebPage(this,url,"关于我们");
+                break;
+            case R.id.btn_Recommend:
+                if (UserSeeion.isLogin(this)) {
+                    String uri=new String(Commons.API+"/h5/tuijianma?userid="+APP.sUserid);
+                    Skip.toWebPage(this,uri, WebPowerFragment.SHARE);
+                }else {
+                    showToast(this,"请先登录");
+                }
                 break;
         }
     }

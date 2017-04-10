@@ -4,25 +4,25 @@ import com.chinayiz.chinayzy.APP;
 
 /**
  * Created by Administrator on 2017/1/3.
- *  公有的API
+ * 公有的API
  */
 
 public class Commons {
-    public static final boolean isDebug= APP.APP_DBG;
-    public static final String PAY=isDebug? "http://192.168.200.132:8081/yzyProduct/v1":"http://106.14.20.226/yzyProduct/v1/api";
+    public static final boolean isDebug = APP.APP_DBG;
+    public static final String PAY = isDebug ? "http://192.168.200.132:8081/yzyProduct/v1" : "http://106.14.20.226/yzyProduct/v1/api";
 
-      public static final String HOST="http://chinayiz.cn";
+    public static final String HOST = "http://chinayiz.cn";
     //获得accss_token
-    public static final String ACCESS_TOKEN="https://api.weixin.qq.com/sns/oauth2/access_token";
+    public static final String ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token";
     //刷新 refresh_token
-    public static final String REFRESH_TOKEN="https://api.weixin.qq.com/sns/oauth2/refresh_token";
+    public static final String REFRESH_TOKEN = "https://api.weixin.qq.com/sns/oauth2/refresh_token";
     //微信获得用户信息
-    public static final String WECHAT_USERINFO="https://api.weixin.qq.com/sns/userinfo";
-    public static final String SHARE="http://www.chinayiz.cn/yzyProduct/v1/api";
+    public static final String WECHAT_USERINFO = "https://api.weixin.qq.com/sns/userinfo";
+    public static final String SHARE = "http://www.chinayiz.cn/yzyProduct/v1/api";
     /**
      * 主机地址
      */
-    public static final String API =isDebug? "http://192.168.200.132:8081/yzyProduct/v1/api":"http://106.14.20.226/yzyProduct/v1/api";
+    public static final String API = isDebug ? "http://192.168.1.8:8081/yzyProduct/v1/api" : "http://106.14.20.226/yzyProduct/v1/api";
     /**
      * 添加购物车
      */
@@ -52,13 +52,13 @@ public class Commons {
     /**
      * 生态农业首页爱吃主题
      */
-    public static final String NY_EATTHEME="/farm/eattheme";
+    public static final String NY_EATTHEME = "/farm/eattheme";
     /**
      * 生态农业首页爱吃商品
      */
     public static final String NY_EATITEM = "/farm/eat";
     /**
-     *根据商品id进入商铺主页
+     * 根据商品id进入商铺主页
      */
     public static final String STORE_HOME = "/farm/showShop";
     /**
@@ -74,15 +74,15 @@ public class Commons {
      */
     public static final String FORTYPEBY_GOODSS = "/farm/inShopGoods";
     /**
-     *自营茶叶首页banner图
+     * 自营茶叶首页banner图
      */
     public static final String TEA_BANNER = "/farm/showTeaAdv";
     /**
-     *获取生态农业二级分类code
+     * 获取生态农业二级分类code
      */
     public static final String TYPE_CODES = "/farm/showInitFarmType";
     /**
-     *获取生态农业（二级子类）三级分类code
+     * 获取生态农业（二级子类）三级分类code
      */
     public static final String CLASS_CODES = "/farm/showTeaCode";
     /**
@@ -117,7 +117,7 @@ public class Commons {
      * 获取评论列表
      */
     public static final String COMMENT_LIST = "/farm/showComments";
-	 /**
+    /**
      * 注册
      */
     public static final String REGISTER = "/user/register";
@@ -158,208 +158,211 @@ public class Commons {
     /**
      * 加入购物车
      */
-    public static final String ADDSHOPPINGCAR="/farm/addShoppingCar";
+    public static final String ADDSHOPPINGCAR = "/farm/addShoppingCar";
     /**
      * 购物车
      */
-    public static final String SHOPCART="/farm/showShoppingCar";
+    public static final String SHOPCART = "/farm/showShoppingCar";
     /**
      * 删除购物车商品
      */
-    public static final String DELSHOPPINGCAR="/farm/delShoppingCar";
+    public static final String DELSHOPPINGCAR = "/farm/delShoppingCar";
 
     /**
      * 编辑购物车完成
      */
-    public static final String UPDATESHOPPINGCAR="/farm/updateShoppingCar";
+    public static final String UPDATESHOPPINGCAR = "/farm/updateShoppingCar";
 
 
     /**
      * 获取所有的搜索标签
      */
-    public static final String GETSEARCHKEY="/farm/getSearchkey";
+    public static final String GETSEARCHKEY = "/farm/getSearchkey";
     /**
      * 生态农业首页搜索
      */
-    public static final String SEARCHFARM="/farm/searchFarm";
+    public static final String SEARCHFARM = "/farm/searchFarm";
 
     /**
      * 获取商品套餐
      */
-    public static final String SHOWGOODSSTANDARD="/farm/showGoodsStandard";
+    public static final String SHOWGOODSSTANDARD = "/farm/showGoodsStandard";
     /**
      * 获取个人中心个人信息
      */
-    public static final String GETPERSONALCENTER="/centre/getPersonalCenter";
+    public static final String GETPERSONALCENTER = "/centre/getPersonalCenter";
     /**
      * 获取个人信息
      */
-    public static final String GETUSERINFO="/centre/getUserinfo";
+    public static final String GETUSERINFO = "/centre/getUserinfo";
 
     /**
      * 编辑用户信息
      */
-    public static final String EDITUSER="/centre/editUser";
+    public static final String EDITUSER = "/centre/editUser";
 
     /**
      * 意见反馈
      */
-    public static final String ADDIDEA="/centre/addIdea";
+    public static final String ADDIDEA = "/centre/addIdea";
 
     /**
      * 获取个性标签
      */
-    public static final String GETTAGS="/centre/getTags";
+    public static final String GETTAGS = "/centre/getTags";
 
     /**
      * 添加自定义个性标签
      */
-    public static final String ADDTAGS="/centre/addTags";
+    public static final String ADDTAGS = "/centre/addTags";
     /**
      * 修改完成个性标签
      */
-    public static final String FINISHTAGS="/centre/finishTags";
+    public static final String FINISHTAGS = "/centre/finishTags";
 
     /**
      * 结算购物车选中的订单，预览订单
      */
-    public static final String PREVIEWORDER="/centre/previewOrder";
+    public static final String PREVIEWORDER = "/centre/previewOrder";
     /**
      * 支付宝支付
      */
-    public static final String ALIPAYORDER="/pay/aliPayOrder";
+    public static final String ALIPAYORDER = "/pay/aliPayOrder";
     /**
      * 微信支付支付
      */
-    public static final String WXPAYORDER="/pay/wxPayOrder";
+    public static final String WXPAYORDER = "/pay/wxPayOrder";
 
     /**
      * 博文点赞
      */
-    public static final String DIZAN="/centre/dizan";
+    public static final String DIZAN = "/centre/dizan";
     /**
      * 博文收藏
      */
-    public static final String CANCELCOLLECT="/centre/cancelCollect";
+    public static final String CANCELCOLLECT = "/centre/cancelCollect";
 
     /**
      * 获取收货地址
      */
-    public static final String SHOWADDRESS="/centre/showAddress";
+    public static final String SHOWADDRESS = "/centre/showAddress";
     /**
      * 编辑收货地址
      */
-    public static final String EDITADDRESS="/centre/editAddress";
+    public static final String EDITADDRESS = "/centre/editAddress";
 
     /**
      * 将收货地址设置为默认
      */
-    public static final String DEFAULTADDRESS="/centre/defaultAddress";
+    public static final String DEFAULTADDRESS = "/centre/defaultAddress";
     /**
-     *删除收货地址
+     * 删除收货地址
      */
-    public static final String DELETEADDRESS="/centre/deleteAddress";
+    public static final String DELETEADDRESS = "/centre/deleteAddress";
     /**
-     *新增收货地址
+     * 新增收货地址
      */
-    public static final String ADDADDRESS="/centre/addAddress";
+    public static final String ADDADDRESS = "/centre/addAddress";
 
     /**
-     *宝贝收藏
+     * 宝贝收藏
      */
-    public static final String SHOWGOODSCOLLECT="/centre/showGoodsCollect";
+    public static final String SHOWGOODSCOLLECT = "/centre/showGoodsCollect";
     /**
-     *店铺收藏
+     * 店铺收藏
      */
-    public static final String SHOWSHOPCOLLECT="/centre/showShopCollect";
+    public static final String SHOWSHOPCOLLECT = "/centre/showShopCollect";
     /**
-     *博文收藏
+     * 博文收藏
      */
-    public static final String SHOWBLOGCOLLECT="/centre/showBlogCollect";
+    public static final String SHOWBLOGCOLLECT = "/centre/showBlogCollect";
     /**
-     *足迹列表
+     * 足迹列表
      */
-    public static final String SHOWFOOTMARKS="/centre/showFootmarks";
+    public static final String SHOWFOOTMARKS = "/centre/showFootmarks";
     /**
-     *删除足迹
+     * 删除足迹
      */
-    public static final String DELETEFOOTMARK="/centre/deleteFootmark";
+    public static final String DELETEFOOTMARK = "/centre/deleteFootmark";
     /**
      * 关于我们
      */
-    public static final String ABOUTUS="/h5/aboutus";
+    public static final String ABOUTUS = "/h5/aboutus";
 
     /**
      * 发现详情
      */
-    public static final String FXXQ="/h5/fxxq";
+    public static final String FXXQ = "/h5/fxxq";
     /**
      * 我的积分
      */
-    public static final String IM_GOLD="/centre/showPointEarnings";
+    public static final String IM_GOLD = "/centre/showPointEarnings";
     /**
-     *积分交易列表
+     * 积分交易列表
      */
-    public static final String DEAL_LIST="/centre/showPointDealDetail";
+    public static final String DEAL_LIST = "/centre/showPointDealDetail";
     /**
      * 申请积分提现
      */
-    public static final String GET_GOLD="/centre/withdraw";
+    public static final String GET_GOLD = "/centre/withdraw";
     /**
      * 获取积分
      */
-    public static final String GET_GOLD_MODE="/h5/zqjf";
+    public static final String GET_GOLD_MODE = "/h5/zqjf";
     /**
      * 提现规则
      */
-    public static final String GET_GOLD_RULE="/h5/txgz";
+    public static final String GET_GOLD_RULE = "/h5/txgz";
     /**
      * 积分规则
      */
-    public static final String GOLD_RULE="/h5/jfgz";
+    public static final String GOLD_RULE = "/h5/jfgz";
     /**
      * 分享二维码
      */
-    public static final String FXCODE="/h5/fxcode";
-/**
- * 物流信息
- */
-public static final String LOGISTICS_INFO="/h5/wlxx";
+    public static final String FXCODE = "/h5/fxcode";
+    /**
+     * 物流信息
+     */
+    public static final String LOGISTICS_INFO = "/h5/wlxx";
     /**
      * 我的订单
      */
-    public static final String ORDER_STATE="/centre/showOrders";
+    public static final String ORDER_STATE = "/centre/showOrders";
     /**
      * 订单详情
      */
-    public static final String ORDER_DETAIL="/centre/showOrderDetail";
+    public static final String ORDER_DETAIL = "/centre/showOrderDetail";
     /**
      * 删除订单
      */
-    public static final String DELETE_ORDER="/centre/deleteOrder";
+    public static final String DELETE_ORDER = "/centre/deleteOrder";
     /**
      * 取消订单
      */
-    public static final String CANCEL_ORDER="/centre/cancelOrder";
+    public static final String CANCEL_ORDER = "/centre/cancelOrder";
     /**
      * 确认收货
      */
-    public static final String CONFIRM_ORDER ="/centre/confirmGoods";
+    public static final String CONFIRM_ORDER = "/centre/confirmGoods";
     /**
      * 评价订单
      */
-    public static final String  COMMENT_ORDER="/centre/commentOrder";
+    public static final String COMMENT_ORDER = "/centre/commentOrder";
     /**
      * 快速支付
      */
-    public static final String FAST_PAY="/pay/fastPay";
+    public static final String FAST_PAY = "/pay/fastPay";
     /**
-     *售后列表
+     * 售后列表
      */
-    public static final String AFTER_LIST="/salesreturn/salesReturnList";
+    public static final String AFTER_LIST = "/salesreturn/salesReturnList";
     /**
-     *售后申请
+     * 售后申请
      */
-    public static final String AFTER_RESQUEST="/salesreturn/toApplySalesafter";
-
+    public static final String AFTER_RESQUEST = "/salesreturn/toApplySalesafter";
+    /**
+     * 推荐信息
+     */
+    public static final String RECOMMEND_INFO = "/centre/myRecommendCode";
 }

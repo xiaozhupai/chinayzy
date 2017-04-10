@@ -408,7 +408,6 @@ public class GoodsFragment extends BaseFragment<GoodsPresenter> implements
     @Override
     public int getScorllY() {
         if (comitsID==1||comitsID==2){
-            Logger.i("大英="+mGoodsHolder.mWebView.getScrollY());
             return (int) mGoodsHolder.mWebView.getScaleY();
         }else {
             return mGoodsHolder.mGridView.getScrollY();

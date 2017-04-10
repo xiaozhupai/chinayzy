@@ -19,6 +19,7 @@ import com.chinayiz.chinayzy.entity.response.ImGoldModel;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.entity.response.PayModel;
+import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
@@ -1119,5 +1120,34 @@ public class CommonRequestUtils {
                     });
         }
 
+    }
+    /**
+     * 获取推荐信息
+     */
+    public void getRecommendInfo() {
+        post()
+                .url(Commons.API + Commons.RECOMMEND_INFO)
+                .addParams("time", System.currentTimeMillis()+"")
+                .addParams("userid", APP.sUserid)
+                .tag(Commons.RECOMMEND_INFO)
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i("推荐信息="+s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.RECOMMEND_INFO
+                                    , mGson.fromJson(s, RecommendCodeModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
     }
 }

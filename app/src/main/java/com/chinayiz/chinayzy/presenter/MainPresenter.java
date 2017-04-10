@@ -18,7 +18,9 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
+import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.utils.NetworkUtils;
+import com.chinayiz.chinayzy.widget.ShareDialog;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -35,6 +37,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
     public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     public AppUpdataModel.DataBean info;
     private Intent intent;
+    public ShareDialog mShareDialog;
     public boolean isLoad;
     public String apkPath;
     private Net mNet = Net.getNet();
@@ -85,6 +88,15 @@ public class MainPresenter extends BasePresenter<MainActivity> {
                 }
             }
             break;
+            case Commons.RECOMMEND_INFO: //推荐好友信息
+                Logger.i("推荐好友信息返回");
+
+                break;
+            case WebPowerFragment.SHARE://分享点击
+                mShareDialog= (ShareDialog) message.getData();
+                mShareDialog.show();
+                mRequestUtils.getRecommendInfo();
+                break;
         }
     }
 
