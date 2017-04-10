@@ -23,6 +23,8 @@ import java.util.Date;
 
 import okhttp3.Call;
 
+import static com.zhy.http.okhttp.OkHttpUtils.post;
+
 /**
  * Created by Administrator on 2017/2/22.
  */
@@ -53,12 +55,16 @@ public class UserNet {
      * 个人中心个人信息
      */
     public void getPersonalCenter() {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.GETPERSONALCENTER)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -85,12 +91,16 @@ public class UserNet {
      * 获取用户信息
      */
     public void getUserInfo() {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.GETUSERINFO)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -152,11 +162,17 @@ public class UserNet {
                 key="pic";
                 break;
         }
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&"+key+param);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.EDITUSER)
                 .addParams("userid", APP.sUserid)
                 .addParams(key,param)
+                .addParams("sign",sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -186,12 +202,20 @@ public class UserNet {
      * @param idea  反馈内容
      */
     public void getAddIdea(String theme,String idea) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&theme="+theme);
+        str.append("&idea="+idea);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ADDIDEA)
                 .addParams("theme", theme)
                 .addParams("idea", idea)
                 .addParams("userid",APP.sUserid)
+                .addParams("sign",sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -218,11 +242,16 @@ public class UserNet {
      *  获取个性标签
      */
     public void getTags() {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.GETTAGS)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -251,13 +280,20 @@ public class UserNet {
      * @param tagid  系统标签id集合，逗号分隔
      */
     public void getFinishTags(String tag,String tagid) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&tag="+tag);
+        str.append("&tagid="+tagid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.FINISHTAGS)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
                 .addParams("tag",tag)
                 .addParams("tagid",tagid)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -284,13 +320,20 @@ public class UserNet {
      * @param isdianzan  是否点赞
      */
     public void getDiZan(String bid,String isdianzan) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&blogid="+bid);
+        str.append("&isdianzan="+isdianzan);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.DIZAN)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
                 .addParams("blogid",bid)
                 .addParams("isdianzan",isdianzan)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -318,13 +361,20 @@ public class UserNet {
      * @param iscollect  是否收藏
      */
     public void getCollection(String bid,String iscollect) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&blogid="+bid);
+        str.append("&iscollect="+iscollect);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.CANCELCOLLECT)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
                 .addParams("blogid",bid)
                 .addParams("iscollect",iscollect)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -350,11 +400,16 @@ public class UserNet {
      *  获得收货地址列表
      */
     public void getshowAddress() {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.SHOWADDRESS)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -388,8 +443,20 @@ public class UserNet {
      * @param lat  纬度
      */
     public void geteditAddress(String addressid,String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&addressid="+addressid);
+        str.append("&consignee="+consignee);
+        str.append("&phone="+phone);
+        str.append("&area="+area);
+        str.append("&address="+address);
+        str.append("&specificaddress="+specificaddress);
+        str.append("&lng="+lng);
+        str.append("&lat="+lat);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.EDITADDRESS)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
@@ -401,6 +468,7 @@ public class UserNet {
                 .addParams("specificaddress",specificaddress)
                 .addParams("lng",lng)
                 .addParams("lat",lat)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -428,12 +496,18 @@ public class UserNet {
      * @param addressid   地址ID
      */
     public void getdefaultAddress(String addressid) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&addressid="+addressid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API+Commons.DEFAULTADDRESS)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
                 .addParams("addressid",addressid)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -460,12 +534,18 @@ public class UserNet {
      * @param addressid   地址ID
      */
     public void getdeleteAddress(String addressid) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&addressid="+addressid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.DELETEADDRESS)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
                 .addParams("addressid",addressid)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -497,8 +577,19 @@ public class UserNet {
      * @param lat  纬度
      */
     public void getaddAddress(String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&consignee="+consignee);
+        str.append("&phone="+phone);
+        str.append("&area="+area);
+        str.append("&address="+address);
+        str.append("&specificaddress="+specificaddress);
+        str.append("&lng="+lng);
+        str.append("&lat="+lat);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.ADDADDRESS)
                 .tag("ny")
                 .addParams("userid",APP.sUserid)
@@ -509,6 +600,7 @@ public class UserNet {
                 .addParams("specificaddress",specificaddress)
                 .addParams("lng",lng)
                 .addParams("lat",lat)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -536,13 +628,20 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowGoodsCollect(String page,String size) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&page="+page);
+        str.append("&size="+size);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.SHOWGOODSCOLLECT)
                 .tag("ny")
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -570,13 +669,20 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowShopCollect(String page,String size) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&page="+page);
+        str.append("&size="+size);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.SHOWSHOPCOLLECT)
                 .tag("ny")
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -604,13 +710,20 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowBlogCollect(String page,String size) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&page="+page);
+        str.append("&size="+size);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.SHOWBLOGCOLLECT)
                 .tag("ny")
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -638,13 +751,20 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowFootMarks(String page,String size) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&page="+page);
+        str.append("&size="+size);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.SHOWFOOTMARKS)
                 .tag("ny")
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override
@@ -672,12 +792,18 @@ public class UserNet {
      */
 
     public void getdeletefootmark(String goodsid) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&goodsid="+goodsid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.DELETEFOOTMARK)
                 .tag("ny")
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid",goodsid)
+                .addParams("sign",sing)
                 .build()
                 .execute(new StrCallback() {
                     @Override

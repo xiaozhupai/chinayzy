@@ -68,13 +68,13 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                 if (!TextUtils.isEmpty(dataBean.getPic())){
                     Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);
                 }
-                if (!TextUtils.isEmpty(dataBean.getSex())){
-                    if (dataBean.getSex().equals("0")){
+
+                    if (dataBean.getSex()==0){
                         mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_man_sex);
                     }else {
                         mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_woman_sex);
                     }
-                }
+
 
                 Drawable nav_up=mView.getResources().getDrawable(R.mipmap.back_arrow_white);
                 nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
@@ -98,6 +98,9 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                 if (dataBean.getAftercount()>0){   //售后
                     mView.tv_after_sale_count.setVisibility(View.VISIBLE);
                     mView.tv_after_sale_count.setText(dataBean.getAftercount()+"");
+                }
+                if (!TextUtils.isEmpty(dataBean.getPid())){
+                    mView.tv_recommend.setText(dataBean.getPid());
                 }
               mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 break;

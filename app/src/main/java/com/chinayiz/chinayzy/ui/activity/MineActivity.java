@@ -55,7 +55,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
     public LinearLayout layout_content;
     public PullToRefreshLayout pullToRefreshLayout;
     public LinearLayout lv_user;
-    public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count;
+    public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count,tv_recommend;
     private FragmentManager mFragmentManager;
 
 
@@ -139,6 +139,7 @@ public class MineActivity extends BaseActivity<MinePresenter> implements View.On
         lv_mine_server = (LinearLayout) findViewById(R.id.lv_mine_server);
         lv_mine_suggest = (LinearLayout) findViewById(R.id.lv_mine_suggest);
         lv_mine_setting = (LinearLayout) findViewById(R.id.lv_mine_setting);
+        tv_recommend= (TextView) findViewById(R.id.tv_recommend);
 
         tv_wait_pay_count= (TextView) findViewById(R.id.tv_wait_pay_count);
         tv_wait_goods_count= (TextView) findViewById(R.id.tv_wait_goods_count);
