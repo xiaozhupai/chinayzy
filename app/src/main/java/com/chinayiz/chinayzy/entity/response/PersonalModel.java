@@ -9,7 +9,7 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 public class PersonalModel extends BaseResponseModel {
 
     /**
-     * data : {"waitpaycount":1,"aftercount":0,"sex":"0","nickname":"ccc","pic":"http://qzapp.qlogo.cn/qzapp/1105981066/A3CA2E1D16ADDB5EA1AA7C4649E1E426/100","waitdelivercount":1,"waittakecount":0}
+     * data : {"sex":0,"waittakecount":0,"waitpaycount":1,"waitdelivercount":1,"aftercount":0,"nickname":"ccc","pic":"http://qzapp.qlogo.cn/qzapp/1105981066/A3CA2E1D16ADDB5EA1AA7C4649E1E426/100","ismember":"1","pid":"1234567"}
      */
 
     private DataBean data;
@@ -24,22 +24,42 @@ public class PersonalModel extends BaseResponseModel {
 
     public static class DataBean {
         /**
-         * waitpaycount : 1
-         * aftercount : 0
          * sex : 0
+         * waittakecount : 0
+         * waitpaycount : 1
+         * waitdelivercount : 1
+         * aftercount : 0
          * nickname : ccc
          * pic : http://qzapp.qlogo.cn/qzapp/1105981066/A3CA2E1D16ADDB5EA1AA7C4649E1E426/100
-         * waitdelivercount : 1
-         * waittakecount : 0
+         * ismember : 1
+         * pid : 1234567
          */
 
+        private int sex;
+        private int waittakecount;
         private int waitpaycount;
+        private int waitdelivercount;
         private int aftercount;
-        private String sex;
         private String nickname;
         private String pic;
-        private int waitdelivercount;
-        private int waittakecount;
+        private String ismember;
+        private String pid;
+
+        public int getSex() {
+            return sex;
+        }
+
+        public void setSex(int sex) {
+            this.sex = sex;
+        }
+
+        public int getWaittakecount() {
+            return waittakecount;
+        }
+
+        public void setWaittakecount(int waittakecount) {
+            this.waittakecount = waittakecount;
+        }
 
         public int getWaitpaycount() {
             return waitpaycount;
@@ -49,20 +69,20 @@ public class PersonalModel extends BaseResponseModel {
             this.waitpaycount = waitpaycount;
         }
 
+        public int getWaitdelivercount() {
+            return waitdelivercount;
+        }
+
+        public void setWaitdelivercount(int waitdelivercount) {
+            this.waitdelivercount = waitdelivercount;
+        }
+
         public int getAftercount() {
             return aftercount;
         }
 
         public void setAftercount(int aftercount) {
             this.aftercount = aftercount;
-        }
-
-        public String getSex() {
-            return sex;
-        }
-
-        public void setSex(String sex) {
-            this.sex = sex;
         }
 
         public String getNickname() {
@@ -81,20 +101,20 @@ public class PersonalModel extends BaseResponseModel {
             this.pic = pic;
         }
 
-        public int getWaitdelivercount() {
-            return waitdelivercount;
+        public String getIsmember() {
+            return ismember;
         }
 
-        public void setWaitdelivercount(int waitdelivercount) {
-            this.waitdelivercount = waitdelivercount;
+        public void setIsmember(String ismember) {
+            this.ismember = ismember;
         }
 
-        public int getWaittakecount() {
-            return waittakecount;
+        public String getPid() {
+            return pid;
         }
 
-        public void setWaittakecount(int waittakecount) {
-            this.waittakecount = waittakecount;
+        public void setPid(String pid) {
+            this.pid = pid;
         }
     }
 }

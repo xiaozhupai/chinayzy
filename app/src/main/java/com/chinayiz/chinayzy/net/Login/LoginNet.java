@@ -22,6 +22,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
 
+import static com.chinayiz.chinayzy.APP.phone;
+import static com.zhy.http.okhttp.OkHttpUtils.post;
+
 /**
  * Created by Administrator on 2017/2/4.
  */
@@ -58,8 +61,28 @@ public class LoginNet {
      * @param recommendcard    推荐码
      */
     public  void toRegister(String username,String password,String sendMessage,String nickname,String idcard,String realname,String pic,String sex,String birthday,String usualplace,String ismarriage,String height,String weight,String educational,String politics,String recommendcard){
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid=0");
+        str.append("&phone="+phone);
+        str.append("&yzm="+sendMessage);
+        str.append("&password="+password);
+        str.append("&nickname="+nickname);
+        str.append("&idcard="+idcard);
+        str.append("&realname="+realname);
+        str.append("&pic="+pic);
+        str.append("&sex="+sex);
+        str.append("&birthday="+birthday);
+        str.append("&usualplace="+usualplace);
+        str.append("&ismarriage="+ismarriage);
+        str.append("&height="+height);
+        str.append("&weight="+weight);
+        str.append("&educational="+educational);
+        str.append("&politics="+politics);
+        str.append("&recommendcard="+recommendcard);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.REGISTER)
                 .addParams("imei", AppInfo.IMEI)
                 .addParams("userid","0")
@@ -79,6 +102,7 @@ public class LoginNet {
                 .addParams("educational",educational)
                 .addParams("politics",politics)
                 .addParams("recommendcard",recommendcard)
+                .addParams("sign",sing)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -105,11 +129,18 @@ public class LoginNet {
      */
 
     public void toLogin(String username,String password) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&phone="+phone);
+        str.append("&password="+password);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.LOGIN)
                 .addParams("phone", username)
                 .addParams("password",password)
+                .addParams("sign",sing)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -138,10 +169,15 @@ public class LoginNet {
      */
 
     public void getToken() {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.TOKEN)
                 .addParams("userid", APP.sUserid)
+                .addParams("sign",sing)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -170,12 +206,20 @@ public class LoginNet {
      */
 
     public void toBackpwd(String username,String newpassword,String sendMessage) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&username="+username);
+        str.append("&newpassword="+newpassword);
+        str.append("&sendMessage="+sendMessage);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.BACKPWD)
                 .addParams("phone", username)
                 .addParams("newpwd",newpassword)
                 .addParams("yzm",sendMessage)
+                .addParams("sign",sing)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -201,10 +245,16 @@ public class LoginNet {
      * 发送验证码
      */
     public void toSendMessage(String  phone) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&phone="+phone);
+        String sing=APP.DES3code(str.toString());
+        post()
                 .url(Commons.API + Commons.SRYCODE)
                 .addParams("phone", phone)
+                .addParams("sign",sing)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -237,6 +287,16 @@ public class LoginNet {
      * @param sex  性别 0.男 1.女
      */
     public void toThird(String thirdid,String logintype,String pic,String nickname,String sex) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&thirdid="+thirdid);
+        str.append("&logintype="+logintype);
+        str.append("&pic="+pic);
+        str.append("&nickname="+nickname);
+        str.append("&sex="+sex);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.THIRD)
@@ -246,6 +306,7 @@ public class LoginNet {
                 .addParams("pic",pic)
                 .addParams("nickname",nickname)
                 .addParams("sex",sex)
+                .addParams("sign",sing)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {

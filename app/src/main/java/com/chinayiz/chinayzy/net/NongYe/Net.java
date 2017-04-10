@@ -52,12 +52,17 @@ public class Net {
      * @param url 链接
      */
     public void getBanner(final String url) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + url)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -82,12 +87,17 @@ public class Net {
      * 获取生态农业首页推荐版块data
      */
     public void getRecomment() {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_RECOMMENT)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -113,12 +123,17 @@ public class Net {
      * 获取生态农业首页特色购版块data
      */
     public void getFeature() {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_FEATURE)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -144,12 +159,17 @@ public class Net {
      * 获取生态农业首页爱吃版块data （支持分页）
      */
     public void getEatTheme() {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_EATTHEME)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -178,6 +198,13 @@ public class Net {
      * @param size 需要加载的数量
      */
     public void getEatItem(String page, String size) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&page="+page);
+        str.append("&size="+size);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_EATITEM)
@@ -185,7 +212,7 @@ public class Net {
                 .addParams("userid", APP.sUserid)
                 .addParams("page", page)
                 .addParams("size", size)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -212,13 +239,19 @@ public class Net {
      * @param type  类型代码：  1.有机农业 2.野生农业 3.地区特产 4.食品保健组合 5.期货 6.其他
      */
     public void getTypeCodes(String type) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&type="+type);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.TYPE_CODES)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("type",type)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -242,13 +275,19 @@ public class Net {
      * 获取农产品自营茶叶首页的三级级分类code
      */
     public void getClassCodes(String typecode) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&typecode="+typecode);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.CLASS_CODES)
                 .addParams("time", new Date().toString())
                 .addParams("userid", APP.sUserid)
                 .addParams("typecode",typecode)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -277,6 +316,15 @@ public class Net {
      * @param type 类型 1热卖降序2热卖升序3销量降序4销量升序5价格降序6价格升序
      */
     public void getSearchFarm(String title,String page,String size,String type) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+APP.sUserid);
+        str.append("&type="+type);
+        str.append("&title="+title);
+        str.append("&page="+page);
+        str.append("&size="+size);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.SEARCHFARM)

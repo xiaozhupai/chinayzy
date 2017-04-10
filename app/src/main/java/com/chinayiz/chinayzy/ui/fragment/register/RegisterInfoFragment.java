@@ -51,7 +51,7 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
     public TextView tv_register_submit;
     public String recommendcard;
     private Calendar dateAndTime = Calendar.getInstance(Locale.CHINA);
-   private  DateFormat fmtDate = new java.text.SimpleDateFormat("yyyy-MM");
+   private  DateFormat fmtDate = new java.text.SimpleDateFormat("yyyy-MM-dd");
     public RegisterInfoFragment(String code, String phone, String password,String recommendcard) {
         this.code = code;
         this.phone = phone;
@@ -241,7 +241,7 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
         //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
         dateAndTime.set(Calendar.YEAR, year);
         dateAndTime.set(Calendar.MONTH, monthOfYear);
-//        dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         //将页面TextView的显示更新为最新时间
         upDateDate();
     }
