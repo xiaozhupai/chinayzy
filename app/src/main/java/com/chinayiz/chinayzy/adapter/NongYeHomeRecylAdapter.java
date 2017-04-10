@@ -105,47 +105,52 @@ public class NongYeHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (position) {
-            case 0://banner图
-                if (mDates.containsKey(1) && isSetBanner) {
-                    mBanner = (NY_HomeBanner) holder;
-                    mBanner.setData((NY_BannerModel) mDates.get(1));
-                    isSetBanner = false;
-                }
-                break;
-            case 1://类型菜单
-                break;
-            case 2://精选推荐
-                if (mDates.containsKey(2)) {
-                    mRecommend = (NY_HomeRecommend) holder;
-                    NY_RecommentModel model = (NY_RecommentModel) mDates.get(2);
-                    mRecommend.setData(model, mFragment);
-                }
-                break;
-            case 3://特色购
-                if (mDates.containsKey(3)) {
-                    mFeature1 = (NY_HomeFeature) holder;
-                    mFeature1.setData((NY_FeatureModel) mDates.get(3), mFragment, true);
-                }
-                break;
-            case 4://特色购
-                if (mDates.containsKey(3)) {
-                    mFeature2 = (NY_HomeFeature) holder;
-                    mFeature2.setData((NY_FeatureModel) mDates.get(3), mFragment, false);
-                }
-                break;
-            case 5://爱吃主题
-                if (mDates.containsKey(4)) {
-                    mLoveEat = (NY_Home_EatTheme) holder;
-                    mLoveEat.setData((NY_EatThemeModel) mDates.get(4), mFragment);
-                }
-                break;
-            default://爱吃item
-                if (mDates.containsKey(position)) {
-                    mEatItem = (NY_Home_EatItem) holder;
-                    mEatItem.setData((NY_EatItemModel.DataBean) mDates.get(position), mFragment);
-                }
-                break;
+        try {
+            switch (position) {
+                case 0://banner图
+                    if (mDates.containsKey(1) && isSetBanner) {
+                        mBanner = (NY_HomeBanner) holder;
+                        mBanner.setData((NY_BannerModel) mDates.get(1));
+                        isSetBanner = false;
+                    }
+                    break;
+                case 1://类型菜单
+                    break;
+                case 2://精选推荐
+                    if (mDates.containsKey(2)) {
+                        mRecommend = (NY_HomeRecommend) holder;
+                        NY_RecommentModel model = (NY_RecommentModel) mDates.get(2);
+                        mRecommend.setData(model, mFragment);
+                    }
+                    break;
+                case 3://特色购
+                    if (mDates.containsKey(3)) {
+                        mFeature1 = (NY_HomeFeature) holder;
+                        mFeature1.setData((NY_FeatureModel) mDates.get(3), mFragment, true);
+                    }
+                    break;
+                case 4://特色购
+                    if (mDates.containsKey(3)) {
+                        mFeature2 = (NY_HomeFeature) holder;
+                        mFeature2.setData((NY_FeatureModel) mDates.get(3), mFragment, false);
+                    }
+                    break;
+                case 5://爱吃主题
+                    if (mDates.containsKey(4)) {
+                        mLoveEat = (NY_Home_EatTheme) holder;
+                        mLoveEat.setData((NY_EatThemeModel) mDates.get(4), mFragment);
+                    }
+                    break;
+                default://爱吃item
+                    if (mDates.containsKey(position)) {
+                        mEatItem = (NY_Home_EatItem) holder;
+                        mEatItem.setData((NY_EatItemModel.DataBean) mDates.get(position), mFragment);
+                    }
+                    break;
+            }
+
+        }catch (Exception e){
+            new RuntimeException("首页数据异常");
         }
     }
 

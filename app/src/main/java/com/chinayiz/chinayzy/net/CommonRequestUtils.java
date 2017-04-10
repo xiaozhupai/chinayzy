@@ -33,9 +33,9 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Date;
-
 import okhttp3.Call;
+
+import static com.zhy.http.okhttp.OkHttpUtils.post;
 
 /**
  * author  by  Canrom7 .
@@ -63,13 +63,19 @@ public class CommonRequestUtils {
      * @param shopID 商品ID
      */
     public void getStoerInfo(String shopID) {
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+ APP.sUserid);
+        str.append("&shopid="+shopID);
+        String sing=APP.DES3code(str.toString());
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.STORE_HOME)
-                .addParams("time", new Date().toString())
+                .addParams("time",time )
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", shopID)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag(Commons.STORE_HOME)
                 .build()
                 .execute(new StrCallback() {
@@ -95,10 +101,9 @@ public class CommonRequestUtils {
      * @param buildcode 本地版本号
      */
     public void getCanUpdata(String buildcode) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.UPDATA)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("buildcode", buildcode)
                 .addParams("sign", "")
@@ -128,10 +133,9 @@ public class CommonRequestUtils {
      * @param storeID 店铺ID
      */
     public void doAttentionStore(String storeID) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.ATTENTION_STORE)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
                 .addParams("sign", "")
@@ -160,10 +164,9 @@ public class CommonRequestUtils {
      * @param storeID 店铺ID
      */
     public void doUnAttentionStore(String storeID) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.UNATTENTION_STORE)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
                 .addParams("sign", "")
@@ -196,10 +199,9 @@ public class CommonRequestUtils {
      * @param typecode 商品类型代码
      */
     public void getGoodsListByPosition(String storeID, String typecode, String page, String size) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.FORTYPEBY_GOODSS)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
                 .addParams("typecode", typecode)
@@ -233,13 +235,20 @@ public class CommonRequestUtils {
      * @param goodsId 商品ID
      */
     public void getGoodsDetail(String goodsId) {
-        OkHttpUtils
-                .post()
+        String time=System.currentTimeMillis()+"";
+        StringBuffer str=new StringBuffer();
+        str.append("time="+time);
+        str.append("&userid="+ APP.sUserid);
+        str.append("&goodsid"+goodsId);
+        String sing=APP.DES3code(str.toString());
+        Logger.i("商品详情签名="+sing);
+        Logger.e("主机地址="+Commons.API);
+        post()
                 .url(Commons.API + Commons.GOODS_DETAIL)
-                .addParams("time", new Date().toString())
+                .addParams("time",time)
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsId)
-                .addParams("sign", "")
+                .addParams("sign",sing)
                 .tag("content")
                 .build()
                 .execute(new StrCallback() {
@@ -253,6 +262,7 @@ public class CommonRequestUtils {
 
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i("商品详情="+s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_DETAIL
@@ -270,10 +280,9 @@ public class CommonRequestUtils {
      * @param goodsId
      */
     public void getGoodsGroup(String goodsId) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GOODS_GROUP)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsId)
                 .addParams("sign", "")
@@ -302,10 +311,9 @@ public class CommonRequestUtils {
      * 请求我的积分信息
      */
     public void getImGodl() {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.IM_GOLD)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid",APP.sUserid)
                 .addParams("sign", "")
                 .tag("content")
@@ -335,10 +343,9 @@ public class CommonRequestUtils {
      * @param tradetype 交易类型
      */
     public void getDealList(String tradetype) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.DEAL_LIST)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid",APP.sUserid)
                 .addParams("tradetype", tradetype)
                 .addParams("sign", "")
@@ -371,10 +378,9 @@ public class CommonRequestUtils {
      * @param size     数量
      */
     public void getRelatedGoods(String itemcode, String page, String size) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GOODS_RELATED)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("itemcode", itemcode)
                 .addParams("page", page)
@@ -407,10 +413,9 @@ public class CommonRequestUtils {
      * @param goodsID 商品ID
      */
     public void doCollectGoods(String goodsID) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GOODS_COLLECT)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsID)
                 .addParams("sign", "")
@@ -439,10 +444,9 @@ public class CommonRequestUtils {
      * @param goodsID 商品ID
      */
     public void doUnCollectGoods(String goodsID) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GOODS_UNCOLLECT)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsID)
                 .addParams("sign", "")
@@ -476,10 +480,9 @@ public class CommonRequestUtils {
      * @param size    数量
      */
     public void getCommentList(String goodsid, String page, String size) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.COMMENT_LIST)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsid)
                 .addParams("page", page)
@@ -510,10 +513,10 @@ public class CommonRequestUtils {
      * 购物车
      */
     public void getShopCart() {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.SHOPCART)
                 .addParams("userid", APP.sUserid)
+                .addParams("time", System.currentTimeMillis()+"")
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -544,10 +547,10 @@ public class CommonRequestUtils {
      * @param count           数量
      */
     public void getJoinCart(String shopid, String goodsstandardid, String count) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.ADDSHOPPINGCAR)
                 .addParams("userid", APP.sUserid)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("shopid", shopid)
                 .addParams("goodsstandardid", goodsstandardid)
                 .addParams("count", count)
@@ -579,11 +582,11 @@ public class CommonRequestUtils {
      * @param carids 购物车唯一标识符，用逗号隔开
      */
     public void getDelCart(String carids) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.DELSHOPPINGCAR)
                 .addParams("userid", APP.sUserid)
                 .addParams("carids", carids)
+                .addParams("time", System.currentTimeMillis()+"")
                 .tag("ny")
                 .build()
                 .execute(new StrCallback() {
@@ -611,10 +614,10 @@ public class CommonRequestUtils {
      * @param caridandcounts
      */
     public void getUpdateCart(String caridandcounts) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.UPDATESHOPPINGCAR)
                 .addParams("userid", APP.sUserid)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("caridandcounts", caridandcounts)
                 .tag("ny")
                 .build()
@@ -644,10 +647,10 @@ public class CommonRequestUtils {
      * @param goodsid 商品ID
      */
     public void getShopGoodStandard(String goodsid) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.SHOWGOODSSTANDARD)
                 .addParams("goodsid", goodsid)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .tag("ny")
                 .build()
@@ -677,10 +680,10 @@ public class CommonRequestUtils {
      * @param carids 购物车id数组
      */
     public void getPreviewOrder(String carids) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.PREVIEWORDER)
                 .addParams("carids", carids)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .tag("ny")
                 .build()
@@ -712,12 +715,12 @@ public class CommonRequestUtils {
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
     public void getAliPayOrder(String type, String total, String orderbill) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.PAY + Commons.ALIPAYORDER)
                 .addParams("type", type)
                 .addParams("userid", APP.sUserid)
                 .addParams("total", total)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("orderbill", orderbill)
                 .tag("ny")
                 .build()
@@ -749,12 +752,12 @@ public class CommonRequestUtils {
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
     public void getWxPayOrder(String type, String total, String orderbill) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.PAY + Commons.WXPAYORDER)
                 .addParams("type", type)
                 .addParams("userid", APP.sUserid)
                 .addParams("total", total)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("orderbill", orderbill)
                 .tag("ny")
                 .build()
@@ -784,10 +787,9 @@ public class CommonRequestUtils {
      * @param phone 电话号码
      */
     public void getVerifyCode(String phone) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.SRYCODE)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("phone", phone)
                 .addParams("sign", "")
@@ -822,10 +824,9 @@ public class CommonRequestUtils {
      * @param dealthird 提现渠道 ( 1：支付宝 2：微信 3：银联 4：其他 )
      */
     public void requestTake(String phone, String sprice, String code, String account, String dealthird) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GET_GOLD)
-                .addParams("time", new Date().toString())
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("phone", phone)
                 .addParams("sprice", sprice)
@@ -860,10 +861,10 @@ public class CommonRequestUtils {
      * @param type 订单类型
      */
     public void getImOrder(String type) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.ORDER_STATE)
                 .addParams("userid", APP.sUserid)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("type", type)
                 .tag("ny")
                 .build()
@@ -892,9 +893,9 @@ public class CommonRequestUtils {
      * @param orderId 订单号
      */
     public void getOrderDetail(String orderId) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.ORDER_DETAIL)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
@@ -908,7 +909,6 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.e("订单详情信息" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ORDER_DETAIL
                                     , mGson.fromJson(s, OrderDetailModel.class)));
@@ -925,9 +925,9 @@ public class CommonRequestUtils {
      * @param orderId 订单号
      */
     public void deleteOrder(String orderId) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.DELETE_ORDER)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
@@ -941,7 +941,6 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("删除订单" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.DELETE_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -958,9 +957,9 @@ public class CommonRequestUtils {
      * @param orderId 订单号
      */
     public void cancelOrder(String orderId) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.CANCEL_ORDER)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
@@ -974,7 +973,6 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("取消订单" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CANCEL_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -991,9 +989,9 @@ public class CommonRequestUtils {
      * @param orderId 订单号
      */
     public void recognizelOrder(String orderId) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.CONFIRM_ORDER)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderId)
                 .tag("ny")
@@ -1007,7 +1005,6 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("确认收货" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     , Commons.CONFIRM_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
@@ -1025,9 +1022,9 @@ public class CommonRequestUtils {
      * @param total   支付价格
      */
     public void fastPay(String orderid, String total) {
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.FAST_PAY)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderid)
                 .addParams("total", total)
@@ -1042,7 +1039,6 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            Logger.i("快捷支付消息=" + s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FAST_PAY
                                     , mGson.fromJson(s, PayModel.class)));
@@ -1061,10 +1057,9 @@ public class CommonRequestUtils {
     public void commentGoods(CommentGoodsModel model) {
 
         if (TextUtils.isEmpty(model.getPic())) {
-            Logger.e("图片地址为空------------0000------------");
-            OkHttpUtils
-                    .post()
+            post()
                     .url(Commons.API + Commons.COMMENT_ORDER)
+                    .addParams("time", System.currentTimeMillis()+"")
                     .addParams("userid", APP.sUserid)
                     .addParams("orderid", model.getOrderid())
                     .addParams("isanonymity", model.getIsanonymity())
@@ -1093,9 +1088,9 @@ public class CommonRequestUtils {
                         }
                     });
         }else {
-            OkHttpUtils
-                    .post()
+            post()
                     .url(Commons.API + Commons.COMMENT_ORDER)
+                    .addParams("time", System.currentTimeMillis()+"")
                     .addParams("userid", APP.sUserid)
                     .addParams("orderid", model.getOrderid())
                     .addParams("isanonymity", model.getIsanonymity())

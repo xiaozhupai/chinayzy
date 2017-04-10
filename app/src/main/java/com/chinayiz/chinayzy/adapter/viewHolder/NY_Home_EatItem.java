@@ -12,7 +12,6 @@ import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.net.Commons;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,7 +56,6 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
             isSelf.setVisibility(View.GONE);
         }
         String price = data.getPrice();
-        Logger.e("打印价格="+price);
         if (price.contains("-")) {
             String[] strings = price.split("-");
             strUtil(strings[0]);
@@ -70,7 +68,6 @@ public class NY_Home_EatItem extends RecyclerView.ViewHolder implements View.OnC
     private void strUtil(String str) {
     if (str.contains(".")){
         String[] strings = str.split("\\.");
-        Logger.i("数组长度="+strings.length);
         mTvGoodItemPrice.setText(" " + strings[0]+".");
         mTvGoodItemPrice1.setText(strings[strings.length-1]);
     }else {

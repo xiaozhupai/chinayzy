@@ -13,6 +13,7 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
+import com.chinayiz.chinayzy.utils.DES3;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
 import com.mob.MobSDK;
@@ -31,10 +32,10 @@ public class APP extends Application {
     /**
      * 全局用户ID
      */
-	public static String sUserid="0";
-    public static  APP instance;
+    public static String sUserid = "0";
+    public static APP instance;
     public static String phone;
-    public static String Version="1";
+    public static String Version = "1";
 
     public static GlideCacheUtil cacheUtil;
     private static final ArrayList<Activity> activityLists = new ArrayList<>();
@@ -47,7 +48,7 @@ public class APP extends Application {
     public static final String testBucket = "yzy-app-img";
     public static boolean APP_DBG = false; // 是否是debug模式
 
-    public static void initdebug(Context context){
+    public static void initdebug(Context context) {
         APP_DBG = isApkDebugable(context);
     }
 
@@ -60,12 +61,12 @@ public class APP extends Application {
      * @param context
      * @return
      * @author SHANHY
-     * @date   2015-8-7
+     * @date 2015-8-7
      */
     public static boolean isApkDebugable(Context context) {
         try {
-            ApplicationInfo info= context.getApplicationInfo();
-            return (info.flags&ApplicationInfo.FLAG_DEBUGGABLE)!=0;
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         } catch (Exception e) {
 
         }
@@ -75,11 +76,12 @@ public class APP extends Application {
     public static APP getInstance() {
         return instance;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
         MobSDK.init(this);
-        cacheUtil=GlideCacheUtil.getInstance();
+        cacheUtil = GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);
         ShareSDK.initSDK(this);
         SearchDao.getInstance(this);
@@ -87,8 +89,8 @@ public class APP extends Application {
         initData();
         initoss();
         initdebug(this);
-        sUserid=getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0)+"";
-        phone=getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone","-1");
+        sUserid = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid", 0) + "";
+        phone = getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone", "-1");
         Logger.i(sUserid);
     }
 
@@ -102,7 +104,7 @@ public class APP extends Application {
     /**
      * OSS配置
      */
-    private void initoss(){
+    private void initoss() {
         OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(accessKeyId, accessKeySecret);
 
         ClientConfiguration conf = new ClientConfiguration();
@@ -116,6 +118,7 @@ public class APP extends Application {
 
     /**
      * 添加存储Activity
+     *
      * @param activity activity
      */
     public synchronized static void register(Activity activity) {
@@ -190,5 +193,13 @@ public class APP extends Application {
         }
     }
 
+    public static String DES3code(String str) {
+        String sign;
+        sign = DES3.encode(str);
+        sign = ((char) (sign.charAt(sign.length() - 1) - 1)) + sign.substring(1, sign.length() - 1) + ((char) (sign.charAt(0) + 1));
+        System.out.println(sign);
+        sign = sign.replace("+", "%2B");
+        return sign;
+    }
 
 }
