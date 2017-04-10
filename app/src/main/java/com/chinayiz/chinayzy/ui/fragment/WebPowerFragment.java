@@ -3,7 +3,6 @@ package com.chinayiz.chinayzy.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -32,8 +30,6 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     private String titel;
     private String url;
     public ProgressBar progressbar;
-    public static ValueCallback<Uri> mUploadMessage;
-    public static ValueCallback<Uri[]> uploadMessage;
     public static final int REQUEST_SELECT_FILE = 100;
     public final static int FILECHOOSER_RESULTCODE = 2;
 
