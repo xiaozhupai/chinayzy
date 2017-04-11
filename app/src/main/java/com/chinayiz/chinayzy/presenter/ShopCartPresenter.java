@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -88,6 +89,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 }else {
                     mView.ll_no_goods.setVisibility(View.GONE);
                 }
+               UpdateBoom();
 
                 if (mView.pullToRefreshLayout!=null){
                     mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
@@ -104,13 +106,18 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                     }
                     Logger.i(list.size()+"list size");
                     mView.adaphter.setData(list,type);
-                    UpdateBoom();
+                    mView.tv_shopcart_all.setText("全选(0)");
+                    mView.iv_shopcart_radio.setCheck(false);
                 }
-                Toast.makeText(mView.getActivity(),model2.getMsg(),Toast.LENGTH_SHORT).show();
+                if (APP.APP_DBG){
+                    Toast.makeText(mView.getActivity(),model2.getMsg(),Toast.LENGTH_SHORT).show();
+                }
                 break;
             case Commons.UPDATESHOPPINGCAR:   //编辑完成
-                BaseResponseModel model3= (BaseResponseModel) message.getData();
-                Toast.makeText(mView.getActivity(),model3.getMsg(),Toast.LENGTH_SHORT).show();
+                if (APP.APP_DBG){
+                    BaseResponseModel model3= (BaseResponseModel) message.getData();
+                    Toast.makeText(mView.getActivity(),model3.getMsg(),Toast.LENGTH_SHORT).show();
+                }
                 break;
             case Commons.SHOWGOODSSTANDARD:   //购物车商品套餐
                 Logger.i(Commons.SHOWGOODSSTANDARD);
@@ -154,6 +161,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public void UpdateBoom(){
         mView.tv_shopcart_all.setText("全选(0)");
         mView.iv_shopcart_radio.setCheck(false);
+        mView.tv_shopcart_price.setText("￥0.00");
     }
 
     //更新底部布局

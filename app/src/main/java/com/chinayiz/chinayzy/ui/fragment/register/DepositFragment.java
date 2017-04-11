@@ -35,6 +35,7 @@ public class DepositFragment extends BaseFragment<DepositPresenter> implements V
             @Override
             public void onClick(View v) {
                 Skip.toLogin(getActivity());
+                mActivity.onBackPressed();
             }
         });
     }

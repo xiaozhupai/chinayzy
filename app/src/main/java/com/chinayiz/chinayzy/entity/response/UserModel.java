@@ -10,7 +10,7 @@ public class UserModel extends BaseResponseModel {
 
 
     /**
-     * data : {"truename":null,"sex":"0","idcard":null,"nickname":"ccc","weight":null,"pic":"http://qzapp.qlogo.cn/qzapp/1105981066/A3CA2E1D16ADDB5EA1AA7C4649E1E426/100","tag":"嘿嘿,嘿嘿,嘿嘿,欧美,日系,韩系","email":null,"height":null}
+     * data : {"politics":"","birthday":"2017-04","sex":"0","weight":"","height":"","usualplace":"","nickname":"dsds","educational":"","ismarriage":"","pic":null}
      */
 
     private DataBean data;
@@ -25,33 +25,43 @@ public class UserModel extends BaseResponseModel {
 
     public static class DataBean {
         /**
-         * truename : null
+         * politics :
+         * birthday : 2017-04
          * sex : 0
-         * idcard : null
-         * nickname : ccc
-         * weight : null
-         * pic : http://qzapp.qlogo.cn/qzapp/1105981066/A3CA2E1D16ADDB5EA1AA7C4649E1E426/100
-         * tag : 嘿嘿,嘿嘿,嘿嘿,欧美,日系,韩系
-         * email : null
-         * height : null
+         * weight :
+         * height :
+         * usualplace :
+         * nickname : dsds
+         * educational :
+         * ismarriage :
+         * pic : null
          */
 
-        private String truename;
+        private String politics;
+        private String birthday;
         private String sex;
-        private String idcard;
-        private String nickname;
         private String weight;
-        private String pic;
-        private String tag;
-        private String email;
         private String height;
+        private String usualplace;
+        private String nickname;
+        private String educational;
+        private String ismarriage;
+        private String pic;
 
-        public String getTruename() {
-            return truename;
+        public String getPolitics() {
+            return politics;
         }
 
-        public void setTruename(String truename) {
-            this.truename = truename;
+        public void setPolitics(String politics) {
+            this.politics = politics;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
         }
 
         public String getSex() {
@@ -62,12 +72,28 @@ public class UserModel extends BaseResponseModel {
             this.sex = sex;
         }
 
-        public String getIdcard() {
-            return idcard;
+        public String getWeight() {
+            return weight;
         }
 
-        public void setIdcard(String idcard) {
-            this.idcard = idcard;
+        public void setWeight(String weight) {
+            this.weight = weight;
+        }
+
+        public String getHeight() {
+            return height;
+        }
+
+        public void setHeight(String height) {
+            this.height = height;
+        }
+
+        public String getUsualplace() {
+            return usualplace;
+        }
+
+        public void setUsualplace(String usualplace) {
+            this.usualplace = usualplace;
         }
 
         public String getNickname() {
@@ -78,12 +104,20 @@ public class UserModel extends BaseResponseModel {
             this.nickname = nickname;
         }
 
-        public String getWeight() {
-            return weight;
+        public String getEducational() {
+            return educational;
         }
 
-        public void setWeight(String weight) {
-            this.weight = weight;
+        public void setEducational(String educational) {
+            this.educational = educational;
+        }
+
+        public String getIsmarriage() {
+            return ismarriage;
+        }
+
+        public void setIsmarriage(String ismarriage) {
+            this.ismarriage = ismarriage;
         }
 
         public String getPic() {
@@ -92,30 +126,6 @@ public class UserModel extends BaseResponseModel {
 
         public void setPic(String pic) {
             this.pic = pic;
-        }
-
-        public String getTag() {
-            return tag;
-        }
-
-        public void setTag(String tag) {
-            this.tag = tag;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getHeight() {
-            return height;
-        }
-
-        public void setHeight(String height) {
-            this.height = height;
         }
     }
 }

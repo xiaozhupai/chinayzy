@@ -2,7 +2,6 @@ package com.chinayiz.chinayzy.ui.fragment.mine;
 
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -59,6 +58,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public TextView tv_person_username;
     public RelativeLayout rl_person_username;
     public PullToRefreshLayout refresh_view;
+    private RelativeLayout  rl_person_birthday,rl_person_ismarriage,rl_person_education,rl_person_politics,rl_person_usualplace;
 
     @Override
     public void onStart() {
@@ -103,12 +103,6 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         rl_person_head.setOnClickListener(this);
         tv_person_username = (TextView) view.findViewById(R.id.tv_person_username);
         tv_person_username.setOnClickListener(this);
-        tv_person_email = (TextView) view.findViewById(R.id.tv_person_email);
-        tv_person_email.setOnClickListener(this);
-        iv_email_arrow = (ImageView) view.findViewById(R.id.iv_email_arrow);
-        iv_email_arrow.setOnClickListener(this);
-        rl_person_email = (RelativeLayout) view.findViewById(R.id.rl_person_email);
-        rl_person_email.setOnClickListener(this);
         tv_person_sex = (TextView)view.findViewById(R.id.tv_person_sex);
         tv_person_sex.setOnClickListener(this);
         iv_sex_arrow = (ImageView) view.findViewById(R.id.iv_sex_arrow);
@@ -133,20 +127,31 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         iv_factname_arrow.setOnClickListener(this);
         rl_person_factname = (RelativeLayout) view.findViewById(R.id.rl_person_factname);
         rl_person_factname.setOnClickListener(this);
-        tv_person_card = (TextView) view.findViewById(R.id.tv_person_card);
-        tv_person_card.setOnClickListener(this);
-        iv_card_arrow = (ImageView) view.findViewById(R.id.iv_card_arrow);
-        iv_card_arrow.setOnClickListener(this);
-        rl_person_card = (RelativeLayout) view.findViewById(R.id.rl_person_card);
-        rl_person_card.setOnClickListener(this);
+//        tv_person_card = (TextView) view.findViewById(R.id.tv_person_card);
+//        tv_person_card.setOnClickListener(this);
+//        iv_card_arrow = (ImageView) view.findViewById(R.id.iv_card_arrow);
+//        iv_card_arrow.setOnClickListener(this);
+//        rl_person_card = (RelativeLayout) view.findViewById(R.id.rl_person_card);
+//        rl_person_card.setOnClickListener(this);
         iv_address_arrow = (ImageView) view.findViewById(R.id.iv_address_arrow);
         iv_address_arrow.setOnClickListener(this);
         rl_person_address = (RelativeLayout) view.findViewById(R.id.rl_person_address);
         rl_person_address.setOnClickListener(this);
-        iv_label_arrow = (ImageView) view.findViewById(R.id.iv_label_arrow);
-        iv_label_arrow.setOnClickListener(this);
-        rl_person_label = (RelativeLayout) view.findViewById(R.id.rl_person_label);
-        rl_person_label.setOnClickListener(this);
+        rl_person_birthday= (RelativeLayout) view.findViewById(R.id.rl_person_birthday);
+        rl_person_ismarriage= (RelativeLayout) view.findViewById(R.id.rl_person_ismarriage);
+        rl_person_education= (RelativeLayout) view.findViewById(R.id.rl_person_education);
+        rl_person_politics= (RelativeLayout) view.findViewById(R.id.rl_person_politics);
+        rl_person_usualplace= (RelativeLayout) view.findViewById(R.id.rl_person_usualplace);
+        rl_person_birthday.setOnClickListener(this);
+        rl_person_ismarriage.setOnClickListener(this);
+        rl_person_education.setOnClickListener(this);
+        rl_person_politics.setOnClickListener(this);
+        rl_person_usualplace.setOnClickListener(this);
+
+//        iv_label_arrow = (ImageView) view.findViewById(R.id.iv_label_arrow);
+//        iv_label_arrow.setOnClickListener(this);
+//        rl_person_label = (RelativeLayout) view.findViewById(R.id.rl_person_label);
+//        rl_person_label.setOnClickListener(this);
         tv_person_username= (TextView) view.findViewById(R.id.tv_person_username);
         rl_person_username= (RelativeLayout) view.findViewById(R.id.rl_person_username);
         rl_person_username.setOnClickListener(this);
@@ -165,8 +170,8 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
             }
         });
           view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
-        tlv_list.setTagViewBackgroundRes(R.drawable.label_black);
-        tlv_list.setTagViewTextColorRes(Color.BLACK);
+//        tlv_list.setTagViewBackgroundRes(R.drawable.label_black);
+//        tlv_list.setTagViewTextColorRes(Color.BLACK);
 
         return view;
     }
@@ -187,19 +192,11 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case  R.id.rl_person_email:
-                Logger.i("email");
-                mPresenter.toEmail();
-
-                break;
             case R.id.rl_person_sex:
                 Logger.i("性别");
                 mPresenter.toSex();
                 break;
-            case R.id.rl_person_factname:
-                Logger.i("真实姓名");
-                mPresenter.tofactName();
-                break;
+
             case R.id.rl_person_height:
                 mPresenter.toHeight();
                 Logger.i("身高");
@@ -208,14 +205,26 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
                 mPresenter.toWeight();
                 Logger.i("体重");
                 break;
-            case R.id.rl_person_card:
-              mPresenter.toCard();
-                Logger.i("身份证");
+            case R.id.rl_person_birthday:
+                Logger.i("出生日期");
                 break;
-            case R.id.rl_person_label:
-                mPresenter.toLabel();
-                Logger.i("标签");
+            case R.id.rl_person_ismarriage:
+                Logger.i("婚姻状况");
                 break;
+            case R.id.rl_person_education:
+                Logger.i("学历");
+                break;
+            case R.id.rl_person_politics:
+                Logger.i("政治面貌");
+                break;
+            case R.id.rl_person_usualplace:
+                Logger.i("常驻地");
+                break;
+
+//            case R.id.rl_person_label:
+//                mPresenter.toLabel();
+//                Logger.i("标签");
+//                break;
             case R.id.rl_person_address:
                 Logger.i("收货地址");
                 mPresenter.toAddress();
