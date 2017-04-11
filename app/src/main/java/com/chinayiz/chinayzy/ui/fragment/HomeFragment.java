@@ -47,6 +47,9 @@ public class HomeFragment extends BaseFragment<homePresenter> {
         return view;
     }
 
+    public static HomeFragment getInstance() {
+        return new HomeFragment();
+    }
     private void initWidget(View view) {
         mNongyeHomeRecyclerLayout = (PullableRecycleView) view.findViewById(R.id.nongye_home_recyclerLayout);
         mRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);

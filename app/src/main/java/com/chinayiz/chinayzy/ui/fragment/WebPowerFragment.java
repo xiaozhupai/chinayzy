@@ -22,7 +22,6 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.Presenter;
-import com.chinayiz.chinayzy.widget.ShareDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -165,8 +164,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> implements View.On
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.iv_more_button){
-            ShareDialog dialog = new ShareDialog(getActivity());
-            EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,dialog));
+            EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,getActivity()));
         }
     }
 }

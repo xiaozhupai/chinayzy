@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
+import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
@@ -21,7 +23,6 @@ import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.utils.NetworkUtils;
 import com.chinayiz.chinayzy.widget.ShareDialog;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -41,6 +42,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
     public boolean isLoad;
     public String apkPath;
     private Net mNet = Net.getNet();
+    private Activity messageData;
 
     @Override
     public void disposeNetMsg(EventMessage message) {
@@ -79,7 +81,6 @@ public class MainPresenter extends BasePresenter<MainActivity> {
             break;
             case UpdateService.UPDATA_APP:{
                 if (mView.isYes) {
-                    Logger.i("收到下载完成消息");
                     isLoad = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getBoolean("isLoad", false);
                     apkPath = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getString("apkPath", "-1");
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -89,11 +90,16 @@ public class MainPresenter extends BasePresenter<MainActivity> {
             }
             break;
             case Commons.RECOMMEND_INFO: //推荐好友信息
-                mShareDialog.setContent("测试分享内容","中国亿众平台","www.baidu.com");
+                RecommendCodeModel model= (RecommendCodeModel) message.getData();
+                //设置分享内容
+                mShareDialog=new ShareDialog(messageData,model.getData().getImage(),
+                        model.getData().getWebpageUrl(),model.getData().getTitle(),
+                        model.getData().getContent());
+
                 mShareDialog.show();
                 break;
             case WebPowerFragment.SHARE://分享点击
-                mShareDialog= (ShareDialog) message.getData();
+                messageData = (Activity) message.getData();
                 mRequestUtils.getRecommendInfo();
                 break;
         }
@@ -130,6 +136,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
 
     @Override
     public void onDestroy() {
+        mShareDialog=null;
         intent = null;
         mNet = null;
     }

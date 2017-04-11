@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ import org.greenrobot.eventbus.EventBus;
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
     public RelativeLayout rl_shopcart;
     private PullableListView listv_shopcart;
     public CheckImageView iv_shopcart_radio;
@@ -54,7 +55,9 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_EDITER = 1;
 
-
+    public static ShopCartFragment getInstance() {
+        return new ShopCartFragment();
+    }
     @Override
     public void onInintData(Bundle bundle) {
     }
@@ -77,25 +80,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         activity.mIvActionBarMore.setVisibility(View.GONE);
         activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
         activity.mCbActionBarEdit.setText("编辑");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isClick){  //编辑后
-                    activity.mCbActionBarEdit.setText("完成");
-                    tv_shopcart_submit.setText("删除");
-                    tv_shopcart_price.setVisibility(View.GONE);
-                    isClick=false;
-                    UpdateUi(1);
-                }else {   //编辑前
-                    activity.mCbActionBarEdit.setText("编辑");
-                    tv_shopcart_submit.setText("结算");
-                    tv_shopcart_price.setVisibility(View.VISIBLE);
-                    isClick=true;
-                    UpdateUi(0);
-                   UpdateShopCart();
-                }
-            }
-        });
+        activity.mCbActionBarEdit.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -200,5 +185,23 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
             }
         }
         CommonRequestUtils.getRequestUtils().getUpdateCart(sb.toString());
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            buttonView.setText("完成");
+            tv_shopcart_submit.setText("删除");
+            tv_shopcart_price.setVisibility(View.GONE);
+            isClick=false;
+            UpdateUi(1);
+        }else {
+            buttonView.setText("编辑");
+            tv_shopcart_submit.setText("结算");
+            tv_shopcart_price.setVisibility(View.VISIBLE);
+            isClick=true;
+            UpdateUi(0);
+            UpdateShopCart();
+        }
     }
 }

@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
     android:orientation="vertical"
     >
-
-    <FrameLayout
-        android:id="@+id/fl_frameLayout"
+    <include layout="@layout/common_action_bar"/>
+    <com.chinayiz.chinayzy.views.NoScrollViewPager
+        android:id="@+id/vp_nyHome"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/btn_action1"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+    </com.chinayiz.chinayzy.views.NoScrollViewPager>
+    <RadioGroup
+        android:id="@+id/rg_nongye_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="action 1"
-        />
+        android:layout_height="49dp"
+        android:orientation="horizontal"
+        android:background="@color/Background"
+        >
+        <RadioButton
+            android:id="@+id/rb_nongye_home"
+            style="@style/nav_rb_style"
+            android:drawableTop="@drawable/nav_home_btn"
+            android:text="首页"
+            />
 
-    <TextView
-        android:id="@+id/tv_test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text=" 测试类"
-        android:textColor="@color/classifyText_pre"
-        android:textSize="38sp"
-        />
+        <RadioButton
+            android:id="@+id/rb_nongye_find"
+            style="@style/nav_rb_style"
+            android:drawableTop="@drawable/nav_find_btn"
+            android:text="发现"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_nongye_activi"
+            style="@style/nav_rb_style"
+            android:drawableTop="@drawable/nav_activi_btn"
+            android:text="活动"
+            />
+        <RadioButton
+            android:id="@+id/rb_nongye_cart"
+            style="@style/nav_rb_style"
+            android:drawableTop="@drawable/nav_cart_btn"
+            android:text="购物车"
+            />
+    </RadioGroup>
 </LinearLayout>

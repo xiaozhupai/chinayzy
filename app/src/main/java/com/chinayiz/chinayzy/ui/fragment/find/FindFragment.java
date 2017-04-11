@@ -11,14 +11,8 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
-import com.chinayiz.chinayzy.entity.model.BaseMessage;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.FindPresenter;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.utils.magicindicator.MagicIndicator;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * 发现
@@ -39,6 +33,9 @@ public class FindFragment extends BaseFragment<FindPresenter> {
 
     }
 
+    public static FindFragment getInstance() {
+        return new FindFragment();
+    }
     @Override
     public void onInintData(Bundle bundle) {
 
@@ -55,19 +52,13 @@ public class FindFragment extends BaseFragment<FindPresenter> {
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        NongYeMainActivity activity= (NongYeMainActivity) getActivity();
         View view=inflater.inflate(R.layout.fragment_find,container,false);
         magic_indicator= (MagicIndicator) view.findViewById(R.id.magic_indicator);
         vp_find = (ViewPager) view.findViewById(R.id.vp_find);
 
         return view;
     }
-    @Override
-    public void onResume() {
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
-                NongYeMainActivity.NYMAIN_ACTIONBAR,new ActionBarControlModel(NongYeMainActivity.SHOW_ALL,"发现",1,0,0,1)));
-        super.onResume();
-    }
+
     @Override
     public FindPresenter initPresenter() {
         return new FindPresenter();

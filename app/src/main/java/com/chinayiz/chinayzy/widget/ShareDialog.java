@@ -54,31 +54,29 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
     private TextView vCancel;
     private Adapter mAdapter;
     private Context context;
-    private int type;//
+    private int type;
     private String mId;
     private String dis;
-    private static String shareImageUrl="http://chinayiz.cn/v1/2017/0330/f8bafa64-bbea-486f-9efd-0495ef266a47.png";
+    private String url="";
+    private String title;
+    private String content;
+    private static String shareImageUrl;
+
 
     /**
-     * 设置分享内容
+     * 构造分享内容
      * @param content 文字内容
      * @param title 标题
      * @param url 链接
      */
-    public void setContent(String content,String title,String url) {
-        this.content = content;
-        this.title = title;
-        this.url = url;
+    public ShareDialog(Context context,String logo,String url,String title,String content) {
+        super(context, R.style.Dialog);
+        this.context = context;
+        this.url=url;
+        this.shareImageUrl=logo;
+        this.title=title;
+        this.content=content;
     }
-
-    private String url="";
-    private String title;
-    private String content;
-
-    /**
-     * @param context
-     */
-
     public ShareDialog(Context context,String url,String title,String content) {
         super(context, R.style.Dialog);
         this.context = context;

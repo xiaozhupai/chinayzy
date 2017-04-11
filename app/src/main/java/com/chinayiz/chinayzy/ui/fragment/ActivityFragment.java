@@ -30,6 +30,9 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
     }
 
+    public static ActivityFragment getInstance() {
+        return new ActivityFragment();
+    }
     @Override
     protected void onInvisible() {
 
