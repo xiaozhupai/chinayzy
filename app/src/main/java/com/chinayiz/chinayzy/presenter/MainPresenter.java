@@ -89,12 +89,11 @@ public class MainPresenter extends BasePresenter<MainActivity> {
             }
             break;
             case Commons.RECOMMEND_INFO: //推荐好友信息
-                Logger.i("推荐好友信息返回");
-
+                mShareDialog.setContent("测试分享内容","中国亿众平台","www.baidu.com");
+                mShareDialog.show();
                 break;
             case WebPowerFragment.SHARE://分享点击
                 mShareDialog= (ShareDialog) message.getData();
-                mShareDialog.show();
                 mRequestUtils.getRecommendInfo();
                 break;
         }

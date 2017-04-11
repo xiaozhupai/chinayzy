@@ -58,6 +58,19 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
     private String mId;
     private String dis;
     private static String shareImageUrl="http://chinayiz.cn/v1/2017/0330/f8bafa64-bbea-486f-9efd-0495ef266a47.png";
+
+    /**
+     * 设置分享内容
+     * @param content 文字内容
+     * @param title 标题
+     * @param url 链接
+     */
+    public void setContent(String content,String title,String url) {
+        this.content = content;
+        this.title = title;
+        this.url = url;
+    }
+
     private String url="";
     private String title;
     private String content;
@@ -161,7 +174,7 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
          */
         @Override
         public Object getItem(int position) {
-            return null;
+            return position;
         }
 
         /* (non-Javadoc)

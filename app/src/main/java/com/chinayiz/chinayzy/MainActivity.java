@@ -132,7 +132,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 Skip.toItemMenu(this,"-1");
                 break;
             case R.id.btn_asIm:
-
                 String url=new String(Commons.API+"/h5/aboutus");
                 Skip.toWebPage(this,url,"关于我们");
                 break;
