@@ -74,29 +74,29 @@
         <View
             style="@style/Divider"/>
 
-        <RelativeLayout
-            android:id="@+id/rl_person_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_click_trans"
-            >
-            <TextView
-            style="@style/Person_left_text"
-                android:text="邮箱地址"
-                />
-            <TextView
-                android:id="@+id/tv_person_email"
-                style="@style/Person_right_text"
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl_person_email"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/btn_click_trans"-->
+            <!--&gt;-->
+            <!--<TextView-->
+            <!--style="@style/Person_left_text"-->
+                <!--android:text="邮箱地址"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/tv_person_email"-->
+                <!--style="@style/Person_right_text"-->
 
-                android:layout_toLeftOf="@+id/iv_email_arrow"
-                />
-            <ImageView
-                android:id="@+id/iv_email_arrow"
-                style="@style/Image_arrow"
-                />
-        </RelativeLayout>
-        <View
-            style="@style/Divider"/>
+                <!--android:layout_toLeftOf="@+id/iv_email_arrow"-->
+                <!--/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_email_arrow"-->
+                <!--style="@style/Image_arrow"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
+        <!--<View-->
+            <!--style="@style/Divider"/>-->
         <RelativeLayout
             android:id="@+id/rl_person_sex"
             android:layout_width="match_parent"
@@ -118,6 +118,79 @@
                 style="@style/Image_arrow"
                 />
         </RelativeLayout>
+        <View
+            style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_person_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_click_trans"
+            >
+            <TextView
+                style="@style/Person_left_text"
+                android:text="出生日期"
+                />
+            <TextView
+                android:id="@+id/tv_person_birthday"
+                style="@style/Person_right_text"
+
+                android:layout_toLeftOf="@+id/iv_birthday_arrow"
+                />
+            <ImageView
+                android:id="@+id/iv_birthday_arrow"
+                style="@style/Image_arrow"
+                />
+        </RelativeLayout>
+
+        <View
+            style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_person_usualplace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_click_trans"
+            >
+            <TextView
+                style="@style/Person_left_text"
+                android:text="常住地"
+                />
+            <TextView
+                android:id="@+id/tv_person_usualplace"
+                style="@style/Person_right_text"
+                android:layout_toLeftOf="@+id/iv_usualplace_arrow"
+                />
+            <ImageView
+                android:id="@+id/iv_usualplace_arrow"
+                style="@style/Image_arrow"
+                />
+        </RelativeLayout>
+
+        <View
+            style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_person_ismarriage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_click_trans"
+            >
+            <TextView
+                style="@style/Person_left_text"
+                android:text="婚姻状况"
+                />
+            <TextView
+                android:id="@+id/tv_person_ismarriage"
+                style="@style/Person_right_text"
+                android:layout_toLeftOf="@+id/iv_ismarriage_arrow"
+                />
+            <ImageView
+                android:id="@+id/iv_ismarriage_arrow"
+                style="@style/Image_arrow"
+                />
+        </RelativeLayout>
+
         <View
             style="@style/Divider"/>
 
@@ -145,6 +218,7 @@
 
         <View
             style="@style/Divider"/>
+
         <RelativeLayout
             android:id="@+id/rl_person_weight"
             android:layout_width="match_parent"
@@ -170,6 +244,52 @@
             style="@style/Divider"/>
 
         <RelativeLayout
+            android:id="@+id/rl_person_education"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_click_trans"
+            >
+            <TextView
+                style="@style/Person_left_text"
+                android:text="学历"
+                />
+            <TextView
+                android:id="@+id/tv_person_education"
+                style="@style/Person_right_text"
+                android:layout_toLeftOf="@+id/iv_education_arrow"
+                />
+            <ImageView
+                android:id="@+id/iv_education_arrow"
+                style="@style/Image_arrow"
+                />
+        </RelativeLayout>
+        <View
+            style="@style/Divider"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_person_politics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_click_trans"
+            >
+            <TextView
+                style="@style/Person_left_text"
+                android:text="政治面貌"
+                />
+            <TextView
+                android:id="@+id/tv_person_politics"
+                style="@style/Person_right_text"
+                android:layout_toLeftOf="@+id/iv_politics_arrow"
+                />
+            <ImageView
+                android:id="@+id/iv_politics_arrow"
+                style="@style/Image_arrow"
+                />
+        </RelativeLayout>
+        <View
+            style="@style/Divider"/>
+
+        <RelativeLayout
             android:id="@+id/rl_person_factname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -178,7 +298,7 @@
             >
             <TextView
                 style="@style/Person_left_text"
-                android:text="真实姓名"
+                android:text="实名认证"
                 />
             <TextView
                 android:id="@+id/tv_person_factname"
@@ -193,30 +313,30 @@
         </RelativeLayout>
         <View
             style="@style/Divider"/>
-        <RelativeLayout
-            android:id="@+id/rl_person_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_click_trans"
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl_person_card"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/btn_click_trans"-->
 
-            >
-            <TextView
-                style="@style/Person_left_text"
-                android:text="身份证号码"
-                />
-            <TextView
-                android:id="@+id/tv_person_card"
-                style="@style/Person_right_text"
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--style="@style/Person_left_text"-->
+                <!--android:text="身份证号码"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/tv_person_card"-->
+                <!--style="@style/Person_right_text"-->
 
-                android:layout_toLeftOf="@+id/iv_card_arrow"
-                />
-            <ImageView
-                android:id="@+id/iv_card_arrow"
-                style="@style/Image_arrow"
-                />
-        </RelativeLayout>
-        <View
-            style="@style/Divider"/>
+                <!--android:layout_toLeftOf="@+id/iv_card_arrow"-->
+                <!--/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_card_arrow"-->
+                <!--style="@style/Image_arrow"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
+        <!--<View-->
+            <!--style="@style/Divider"/>-->
 
         <RelativeLayout
             android:id="@+id/rl_person_address"
@@ -242,40 +362,40 @@
         <View
             style="@style/Divider"/>
 
-        <RelativeLayout
-            android:id="@+id/rl_person_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_click_trans"
-           android:layout_marginTop="5dp"
-            >
-            <TextView
-                style="@style/Person_left_text"
-                android:text="个性标签"
-                />
-            <TextView
-            style="@style/Person_right_text"
-            android:text="添加"
-            android:layout_toLeftOf="@+id/iv_label_arrow"
-            />
-            <ImageView
-                android:id="@+id/iv_label_arrow"
-                style="@style/Image_arrow"
-                />
-        </RelativeLayout>
-        <com.chinayiz.chinayzy.widget.TagListView
-            android:id="@+id/tlv_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingBottom="@dimen/common_margin"
-            android:paddingLeft="@dimen/common_margin"
-            android:paddingRight="@dimen/common_margin"
-            android:paddingTop="16.0dip"
-            f:horizontalSpacing="@dimen/tag_horizontal_spacing"
-            f:orientation="horizontal"
-            f:verticalSpacing="@dimen/tag_vertical_spacing"
-            />
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl_person_label"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/btn_click_trans"-->
+           <!--android:layout_marginTop="5dp"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--style="@style/Person_left_text"-->
+                <!--android:text="个性标签"-->
+                <!--/>-->
+            <!--<TextView-->
+            <!--style="@style/Person_right_text"-->
+            <!--android:text="添加"-->
+            <!--android:layout_toLeftOf="@+id/iv_label_arrow"-->
+            <!--/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_label_arrow"-->
+                <!--style="@style/Image_arrow"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
+        <!--<com.chinayiz.chinayzy.widget.TagListView-->
+            <!--android:id="@+id/tlv_list"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/white"-->
+            <!--android:paddingBottom="@dimen/common_margin"-->
+            <!--android:paddingLeft="@dimen/common_margin"-->
+            <!--android:paddingRight="@dimen/common_margin"-->
+            <!--android:paddingTop="16.0dip"-->
+            <!--f:horizontalSpacing="@dimen/tag_horizontal_spacing"-->
+            <!--f:orientation="horizontal"-->
+            <!--f:verticalSpacing="@dimen/tag_vertical_spacing"-->
+            <!--/>-->
         <!--<View-->
             <!--style="@style/Divider"/>-->
     </LinearLayout>

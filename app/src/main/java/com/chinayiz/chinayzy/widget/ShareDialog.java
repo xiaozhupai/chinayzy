@@ -76,7 +76,11 @@ public class ShareDialog extends DialogUtils.XDialog implements View.OnClickList
     private String content;
 
     /**
+     *
      * @param context
+     * @param url    分享地址
+     * @param title   标题
+     * @param content  内容
      */
 
     public ShareDialog(Context context,String url,String title,String content) {

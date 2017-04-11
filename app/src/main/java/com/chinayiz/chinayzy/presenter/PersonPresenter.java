@@ -22,13 +22,10 @@ import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.CardFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.EmailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.HeightFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.LabelFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SexFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.WeightFragment;
 import com.chinayiz.chinayzy.utils.PutObjectSamples;
@@ -154,9 +151,9 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 if (!TextUtils.isEmpty(bean.getNickname())){
                     mView.tv_person_username.setText(bean.getNickname());
                 }
-                if (!TextUtils.isEmpty(bean.getEmail())){
-                    mView.tv_person_email.setText(bean.getEmail());
-                }
+//                if (!TextUtils.isEmpty(bean.getEmail())){
+//                    mView.tv_person_email.setText(bean.getEmail());
+//                }
                 if (!TextUtils.isEmpty(bean.getSex())){
                     if (bean.getSex().equals("0")){
                         mView.tv_person_sex.setText("男");
@@ -170,28 +167,29 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 if (!TextUtils.isEmpty(bean.getWeight())){
                     mView.tv_person_weight.setText(bean.getWeight()+"kg");
                 }
-                if (!TextUtils.isEmpty(bean.getTruename())){
-                    mView.tv_person_factname.setText(bean.getTruename());
-                }
-                if (!TextUtils.isEmpty(bean.getIdcard())){
-                    String idcard=bean.getIdcard();
-                    String first=idcard.substring(0,4);
-                    String last=idcard.substring(idcard.length()-4,idcard.length());
-                    mView.tv_person_card.setText(first+"****"+last);
-                }
-                tags_list.clear();
-                if (!TextUtils.isEmpty(bean.getTag())){
-
-                    String [] tags=bean.getTag().split(",");
-                    for (int i = 0; i <tags.length ; i++) {
-                        if (!TextUtils.isEmpty(tags[i])){
-                            Tag tag=new Tag();
-                            tag.setTitle(tags[i]);
-                            tags_list.add(tag);
-                        }
-                    }
-                    mView.tlv_list.setTags(tags_list);
-                }
+//                if (!TextUtils.isEmpty(bean.getTruename())){
+//                    mView.tv_person_factname.setText(bean.getTruename());
+//                }
+//                if (!TextUtils.isEmpty(bean.getIdcard())){
+//                    String idcard=bean.getIdcard();
+//                    String first=idcard.substring(0,4);
+//                    String last=idcard.substring(idcard.length()-4,idcard.length());
+//                    mView.tv_person_card.setText(first+"****"+last);
+//                }
+//                //标签
+//                tags_list.clear();
+//                if (!TextUtils.isEmpty(bean.getTag())){
+//
+//                    String [] tags=bean.getTag().split(",");
+//                    for (int i = 0; i <tags.length ; i++) {
+//                        if (!TextUtils.isEmpty(tags[i])){
+//                            Tag tag=new Tag();
+//                            tag.setTitle(tags[i]);
+//                            tags_list.add(tag);
+//                        }
+//                    }
+//                    mView.tlv_list.setTags(tags_list);
+//                }
                 if (mView.refresh_view!=null){
                     mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
                 }
@@ -328,16 +326,11 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
 
 
 
-    public void toEmail(){
-          mView.mActivity.addFragment(new EmailFragment(bean!=null?bean.getEmail():""));
-//        mView.activity.addFragment(new EmailFragment(bean!=null?bean.getEmail():""));
-    }
+
     public void toSex(){
         mView.mActivity.addFragment(new SexFragment(bean!=null?(bean.getSex()):""));
     }
-    public void tofactName(){
-        mView.mActivity.addFragment(new TrueNameFragment(bean!=null?bean.getTruename():""));
-    }
+
 
     public void toHeight(){
 
@@ -347,9 +340,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     public void toWeight(){
         mView.mActivity.addFragment(new WeightFragment(bean!=null?bean.getWeight():""));
     }
-    public void toCard(){
-        mView. mActivity.addFragment(new CardFragment(bean!=null?bean.getIdcard():""));
-    }
+
 
     public void toLabel(){
 
