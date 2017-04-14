@@ -141,7 +141,7 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
                 sexdialog.show();
                 break;
             case R.id.et_marriage:   //婚姻状况
-                final ArrayAlertDialog marriagedialog=new ArrayAlertDialog(getActivity(), Gravity.BOTTOM,new String[]{"已婚","未婚","离异"});
+                final ArrayAlertDialog marriagedialog=new ArrayAlertDialog(getActivity(), Gravity.BOTTOM,new String[]{"未婚","已婚","离异"});
                 marriagedialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -150,7 +150,7 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
                                 et_marriage.setText("已婚");
                                 break;
                             case 1:
-                                et_marriage.setText("未婚");
+                                et_marriage.setText("已婚");
                                 break;
                             case 2:
                                 et_marriage.setText("离异");
@@ -168,7 +168,7 @@ public class RegisterInfoFragment extends BaseFragment<RegisterInfoPresenter> im
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         switch (i){
                             case 0:
-                                et_education.setText("高中");
+                                et_education.setText("中专");
                                 break;
                             case 1:
                                 et_education.setText("大专");

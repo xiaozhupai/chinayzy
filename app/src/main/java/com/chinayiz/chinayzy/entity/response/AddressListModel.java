@@ -44,6 +44,15 @@ public class AddressListModel extends BaseResponseModel {
         private double lng;
         private Object postcode;
         private double lat;
+        private String specificaddress;
+
+        public String getSpecificaddress() {
+            return specificaddress;
+        }
+
+        public void setSpecificaddress(String specificaddress) {
+            this.specificaddress = specificaddress;
+        }
 
         public String getCreatetime() {
             return createtime;

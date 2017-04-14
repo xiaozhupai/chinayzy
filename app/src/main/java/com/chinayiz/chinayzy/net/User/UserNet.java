@@ -13,13 +13,12 @@ import com.chinayiz.chinayzy.entity.response.TagsModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
+import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Date;
 
 import okhttp3.Call;
 
@@ -42,6 +41,12 @@ public class UserNet {
     public static final String TAGS="TAGS";
     public static final String NICKNAME ="NICKNAME";
     public static final String PIC ="PIC";
+    public static final String BIRTHDAY="BIRTHDAY";
+    public static final String USUALPLACE="USUALPLACE";
+    public static final String ISMARRIAGE="ISMARRIAGE";
+    public static final String EDUCATIONAL="EDUCATIONAL";
+    public static final String POLITICS="POLITICS";
+
 
 
     public static UserNet getNet() {
@@ -56,13 +61,10 @@ public class UserNet {
      */
     public void getPersonalCenter() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing= Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.GETPERSONALCENTER)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", sing)
                 .tag("ny")
@@ -92,13 +94,10 @@ public class UserNet {
      */
     public void getUserInfo() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.GETUSERINFO)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", sing)
                 .tag("ny")
@@ -162,16 +161,28 @@ public class UserNet {
             case PIC:
                 key="pic";
                 break;
+            case BIRTHDAY:
+                key="birthday";
+                break;
+            case USUALPLACE:
+                key="usualplace";
+                break;
+            case ISMARRIAGE:
+                key="ismarriage";
+                break;
+            case POLITICS:
+                key="politics";
+                break;
+            case EDUCATIONAL:
+                key="educational";
+                break;
         }
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&"+key+param);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.EDITUSER)
                 .addParams("userid", APP.sUserid)
+                .addParams("time",time)
                 .addParams(key,param)
                 .addParams("sign",sing)
                 .tag("ny")
@@ -204,15 +215,11 @@ public class UserNet {
      */
     public void getAddIdea(String theme,String idea) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&theme="+theme);
-        str.append("&idea="+idea);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ADDIDEA)
+                .addParams("time",time)
                 .addParams("theme", theme)
                 .addParams("idea", idea)
                 .addParams("userid",APP.sUserid)
@@ -244,10 +251,7 @@ public class UserNet {
      */
     public void getTags() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.GETTAGS)
                 .tag("ny")
@@ -282,12 +286,7 @@ public class UserNet {
      */
     public void getFinishTags(String tag,String tagid) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&tag="+tag);
-        str.append("&tagid="+tagid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.FINISHTAGS)
                 .tag("ny")
@@ -322,15 +321,11 @@ public class UserNet {
      */
     public void getDiZan(String bid,String isdianzan) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&blogid="+bid);
-        str.append("&isdianzan="+isdianzan);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.DIZAN)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid",APP.sUserid)
                 .addParams("blogid",bid)
                 .addParams("isdianzan",isdianzan)
@@ -363,15 +358,11 @@ public class UserNet {
      */
     public void getCollection(String bid,String iscollect) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&blogid="+bid);
-        str.append("&iscollect="+iscollect);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.CANCELCOLLECT)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid",APP.sUserid)
                 .addParams("blogid",bid)
                 .addParams("iscollect",iscollect)
@@ -402,13 +393,11 @@ public class UserNet {
      */
     public void getshowAddress() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.SHOWADDRESS)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid",APP.sUserid)
                 .addParams("sign",sing)
                 .build()
@@ -445,21 +434,11 @@ public class UserNet {
      */
     public void geteditAddress(String addressid,String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&addressid="+addressid);
-        str.append("&consignee="+consignee);
-        str.append("&phone="+phone);
-        str.append("&area="+area);
-        str.append("&address="+address);
-        str.append("&specificaddress="+specificaddress);
-        str.append("&lng="+lng);
-        str.append("&lat="+lat);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.EDITADDRESS)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid",APP.sUserid)
                 .addParams("addressid",addressid)
                 .addParams("consignee",consignee)
@@ -498,14 +477,11 @@ public class UserNet {
      */
     public void getdefaultAddress(String addressid) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&addressid="+addressid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API+Commons.DEFAULTADDRESS)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid",APP.sUserid)
                 .addParams("addressid",addressid)
                 .addParams("sign",sing)
@@ -536,14 +512,11 @@ public class UserNet {
      */
     public void getdeleteAddress(String addressid) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&addressid="+addressid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.DELETEADDRESS)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid",APP.sUserid)
                 .addParams("addressid",addressid)
                 .addParams("sign",sing)
@@ -579,20 +552,11 @@ public class UserNet {
      */
     public void getaddAddress(String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&consignee="+consignee);
-        str.append("&phone="+phone);
-        str.append("&area="+area);
-        str.append("&address="+address);
-        str.append("&specificaddress="+specificaddress);
-        str.append("&lng="+lng);
-        str.append("&lat="+lat);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.ADDADDRESS)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid",APP.sUserid)
                 .addParams("consignee",consignee)
                 .addParams("phone",phone)
@@ -630,15 +594,11 @@ public class UserNet {
      */
     public void getshowGoodsCollect(String page,String size) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&page="+page);
-        str.append("&size="+size);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.SHOWGOODSCOLLECT)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
@@ -671,15 +631,11 @@ public class UserNet {
      */
     public void getshowShopCollect(String page,String size) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&page="+page);
-        str.append("&size="+size);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.SHOWSHOPCOLLECT)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
@@ -712,15 +668,11 @@ public class UserNet {
      */
     public void getshowBlogCollect(String page,String size) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&page="+page);
-        str.append("&size="+size);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.SHOWBLOGCOLLECT)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
@@ -753,15 +705,11 @@ public class UserNet {
      */
     public void getshowFootMarks(String page,String size) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&page="+page);
-        str.append("&size="+size);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.SHOWFOOTMARKS)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid", APP.sUserid)
                 .addParams("page",page)
                 .addParams("size",size)
@@ -794,14 +742,11 @@ public class UserNet {
 
     public void getdeletefootmark(String goodsid) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&goodsid="+goodsid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.DELETEFOOTMARK)
                 .tag("ny")
+                .addParams("time",time)
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid",goodsid)
                 .addParams("sign",sing)

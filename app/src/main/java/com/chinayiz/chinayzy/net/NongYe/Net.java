@@ -17,6 +17,7 @@ import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.entity.response.SearchLabelModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
+import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -53,14 +54,11 @@ public class Net {
      */
     public void getBanner(final String url) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + url)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", sing)
                 .tag("ny")
@@ -88,10 +86,7 @@ public class Net {
      */
     public void getRecomment() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_RECOMMENT)
@@ -124,10 +119,7 @@ public class Net {
      */
     public void getFeature() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_FEATURE)
@@ -160,10 +152,7 @@ public class Net {
      */
     public void getEatTheme() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_EATTHEME)
@@ -199,12 +188,7 @@ public class Net {
      */
     public void getEatItem(String page, String size) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&page="+page);
-        str.append("&size="+size);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_EATITEM)
@@ -240,11 +224,7 @@ public class Net {
      */
     public void getTypeCodes(String type) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&type="+type);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.TYPE_CODES)
@@ -276,11 +256,7 @@ public class Net {
      */
     public void getClassCodes(String typecode) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&typecode="+typecode);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.CLASS_CODES)
@@ -317,14 +293,7 @@ public class Net {
      */
     public void getSearchFarm(String title,String page,String size,String type) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&type="+type);
-        str.append("&title="+title);
-        str.append("&page="+page);
-        str.append("&size="+size);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.SEARCHFARM)
@@ -333,6 +302,8 @@ public class Net {
                 .addParams("page", page)
                 .addParams("size", size)
                 .addParams("type",type)
+                .addParams("time",time)
+                .addParams("sign",sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -357,10 +328,14 @@ public class Net {
      * 搜索所有标签
      */
     public void getALLTab() {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.GETSEARCHKEY)
                 .addParams("userid", APP.sUserid)
+                .addParams("time",time)
+                .addParams("sign",sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -380,14 +355,20 @@ public class Net {
                     }
                 });
     }
+
 	  /**
      * 发现类型
      *
      */
     public void getFindType() {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.FINDTYPE)
+                .addParams("time", time)
+                .addParams("userid", APP.sUserid)
+                .addParams("sign", sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -413,11 +394,17 @@ public class Net {
      * 发现列表
      */
     public void getFindBlogByType(final String type,String page,String size){
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.FINDBLOGBYTYPE)
+                .addParams("time",time)
                 .addParams("type",type)
                 .addParams("userid",APP.sUserid)
+                .addParams("page",page)
+                .addParams("size",size)
+                .addParams("sign",sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -445,11 +432,15 @@ public class Net {
      * @param bid  博文id
      */
     public void getCollectOrPraise( String bid) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.ISCOLLECTORPRAISE)
                 .addParams("bid",bid)
                 .addParams("userid",APP.sUserid)
+                .addParams("time",time)
+                .addParams("sign",sing)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){

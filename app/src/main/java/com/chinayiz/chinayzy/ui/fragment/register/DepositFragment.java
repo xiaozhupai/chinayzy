@@ -13,6 +13,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.presenter.DepositPresenter;
 import com.chinayiz.chinayzy.views.CheckImageView;
 
@@ -34,6 +35,7 @@ public class DepositFragment extends BaseFragment<DepositPresenter> implements V
         activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserSeeion.logout(getActivity());
                 Skip.toLogin(getActivity());
                 mActivity.onBackPressed();
             }

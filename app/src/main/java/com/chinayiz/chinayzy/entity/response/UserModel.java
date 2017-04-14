@@ -47,6 +47,15 @@ public class UserModel extends BaseResponseModel {
         private String educational;
         private String ismarriage;
         private String pic;
+        private String sys_auth;
+
+        public String getSys_auth() {
+            return sys_auth;
+        }
+
+        public void setSys_auth(String sys_auth) {
+            this.sys_auth = sys_auth;
+        }
 
         public String getPolitics() {
             return politics;
