@@ -24,8 +24,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Date;
-
 import okhttp3.Call;
 
 /**
@@ -90,7 +88,7 @@ public class Net {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_RECOMMENT)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", sing)
                 .tag("ny")
@@ -123,7 +121,7 @@ public class Net {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_FEATURE)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", sing)
                 .tag("ny")
@@ -156,7 +154,7 @@ public class Net {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_EATTHEME)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("sign", sing)
                 .tag("ny")
@@ -192,7 +190,7 @@ public class Net {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.NY_EATITEM)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("page", page)
                 .addParams("size", size)
@@ -228,7 +226,7 @@ public class Net {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.TYPE_CODES)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("type",type)
                 .addParams("sign", sing)
@@ -260,7 +258,7 @@ public class Net {
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.CLASS_CODES)
-                .addParams("time", new Date().toString())
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("typecode",typecode)
                 .addParams("sign", sing)
