@@ -13,9 +13,9 @@ import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
+import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
-import com.chinayiz.chinayzy.entity.response.NewGoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.entity.response.PayModel;
@@ -66,11 +66,7 @@ public class CommonRequestUtils {
      */
     public void getStoerInfo(String shopID) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+ APP.sUserid);
-        str.append("&shopid="+shopID);
-        String sing=APP.DES3code(str.toString());
+        String sing= Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.STORE_HOME)
@@ -103,12 +99,14 @@ public class CommonRequestUtils {
      * @param buildcode 本地版本号
      */
     public void getCanUpdata(String buildcode) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.UPDATA)
-                .addParams("time", System.currentTimeMillis()+"")
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("buildcode", buildcode)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag(Commons.UPDATA)
                 .build()
                 .execute(new StrCallback() {
@@ -135,12 +133,14 @@ public class CommonRequestUtils {
      * @param storeID 店铺ID
      */
     public void doAttentionStore(String storeID) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.ATTENTION_STORE)
-                .addParams("time", System.currentTimeMillis()+"")
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("content")
                 .build()
                 .execute(new StrCallback() {
@@ -166,12 +166,14 @@ public class CommonRequestUtils {
      * @param storeID 店铺ID
      */
     public void doUnAttentionStore(String storeID) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.UNATTENTION_STORE)
-                .addParams("time", System.currentTimeMillis()+"")
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("content")
                 .build()
                 .execute(new StrCallback() {
@@ -201,15 +203,17 @@ public class CommonRequestUtils {
      * @param typecode 商品类型代码
      */
     public void getGoodsListByPosition(String storeID, String typecode, String page, String size) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.FORTYPEBY_GOODSS)
-                .addParams("time", System.currentTimeMillis()+"")
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("shopid", storeID)
                 .addParams("typecode", typecode)
                 .addParams("page", page)
                 .addParams("size", size)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("content")
                 .build()
                 .execute(new StrCallback() {
@@ -220,7 +224,6 @@ public class CommonRequestUtils {
 
                     @Override
                     public void onResponse(String s, int i) {
-                        Logger.i("新的商品信息="+s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FORTYPEBY_GOODSS
@@ -239,8 +242,7 @@ public class CommonRequestUtils {
      */
     public void getGoodsDetail(String goodsId) {
         String time=System.currentTimeMillis()+"";
-        String sing= Md5Untils.getSign(time);
-        Logger.i("主机地址="+Commons.API );
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.GOODS_DETAIL)
                 .addParams("time",time)
@@ -278,12 +280,14 @@ public class CommonRequestUtils {
      * @param goodsId
      */
     public void getGoodsGroup(String goodsId) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.GOODS_GROUP)
-                .addParams("time", System.currentTimeMillis()+"")
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("goodsid", goodsId)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag("content")
                 .build()
                 .execute(new StrCallback() {
@@ -376,17 +380,14 @@ public class CommonRequestUtils {
      * @param size     数量
      */
     public void getRelatedGoods(String itemcode, String page, String size) {
-        String time=System.currentTimeMillis()+"";
-        String sing= Md5Untils.getSign(time);
-        Logger.i("主机地址="+Commons.API );
         post()
                 .url(Commons.API + Commons.GOODS_RELATED)
-                .addParams("time", time)
+                .addParams("time", System.currentTimeMillis()+"")
                 .addParams("userid", APP.sUserid)
                 .addParams("itemcode", itemcode)
                 .addParams("page", page)
                 .addParams("size", size)
-                .addParams("sign", sing)
+                .addParams("sign", "")
                 .tag(Commons.GOODS_RELATED)
                 .build()
                 .execute(new StrCallback() {
@@ -414,7 +415,6 @@ public class CommonRequestUtils {
      * @param goodsID 商品ID
      */
     public void doCollectGoods(String goodsID) {
-
         post()
                 .url(Commons.API + Commons.GOODS_COLLECT)
                 .addParams("time", System.currentTimeMillis()+"")

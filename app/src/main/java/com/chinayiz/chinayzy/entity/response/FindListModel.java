@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.entity.response;
 
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class FindListModel extends BaseResponseModel {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * logo : http://chinayiz.cn/v1/2017/0407/415ab22a-6aa0-4739-9ada-c3d314bf6f0d.png
          * picpath : http://www.stny.cn/UploadFiles/2014-10/2/201410311516407812864.jpg

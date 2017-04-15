@@ -5,12 +5,10 @@ import android.view.View;
 
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.fragment.mine.SexFragment;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -51,18 +49,7 @@ public class SexPresenter extends BasePresenter<SexFragment> {
     @Override
     public void disposeNetMsg(EventMessage message) {
         if (message.getDataType()==UserNet.SEX){
-          BaseResponseModel model= (BaseResponseModel) message.getData();
-            BaseActivity.showToast(mView.getActivity(),model.getMsg());
-            if (model.getCode().equals("100")){
-                String param;
-                if (mView.iv_sex_man.getVisibility()==View.VISIBLE){
-                    param="男";
-                }else {
-                    param="女";
-                }
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,UserNet.SEX,param));
-                mView.mActivity.onBackPressed();
-            }
+
         }
 
 

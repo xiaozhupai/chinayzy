@@ -104,6 +104,7 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
             tv_delete.setVisibility(View.GONE);
         }else {
             tv_delete.setVisibility(View.VISIBLE);
+            mPresenter.specificaddress=bean.getSpecificaddress();
         }
         if (bean!=null){
             setData();

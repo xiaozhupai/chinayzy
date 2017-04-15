@@ -259,7 +259,7 @@ public class RegisterInfoPresenter extends BasePresenter<RegisterInfoFragment> {
         }
         if (!TextUtils.isEmpty(education)){
             switch (education){
-                case "高中":
+                case "中专":
                     education_code="1";
                     break;
                 case "大专":

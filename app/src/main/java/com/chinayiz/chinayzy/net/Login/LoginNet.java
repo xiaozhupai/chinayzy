@@ -14,6 +14,7 @@ import com.chinayiz.chinayzy.entity.response.WechatAccessModel;
 import com.chinayiz.chinayzy.entity.response.WechatInfoModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
+import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -22,7 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
 
-import static com.chinayiz.chinayzy.APP.phone;
 import static com.zhy.http.okhttp.OkHttpUtils.post;
 
 /**
@@ -62,26 +62,7 @@ public class LoginNet {
      */
     public  void toRegister(String username,String password,String sendMessage,String nickname,String idcard,String realname,String pic,String sex,String birthday,String usualplace,String ismarriage,String height,String weight,String educational,String politics,String recommendcard){
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid=0");
-        str.append("&phone="+phone);
-        str.append("&yzm="+sendMessage);
-        str.append("&password="+password);
-        str.append("&nickname="+nickname);
-        str.append("&idcard="+idcard);
-        str.append("&realname="+realname);
-        str.append("&pic="+pic);
-        str.append("&sex="+sex);
-        str.append("&birthday="+birthday);
-        str.append("&usualplace="+usualplace);
-        str.append("&ismarriage="+ismarriage);
-        str.append("&height="+height);
-        str.append("&weight="+weight);
-        str.append("&educational="+educational);
-        str.append("&politics="+politics);
-        str.append("&recommendcard="+recommendcard);
-        String sing=APP.DES3code(str.toString());
+        String sing= Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.REGISTER)
                 .addParams("imei", AppInfo.IMEI)
@@ -103,6 +84,7 @@ public class LoginNet {
                 .addParams("politics",politics)
                 .addParams("recommendcard",recommendcard)
                 .addParams("sign",sing)
+                .addParams("time",time)
                 .tag("login")
                 .build()
                 .execute(new StrCallback() {
@@ -130,16 +112,13 @@ public class LoginNet {
 
     public void toLogin(String username,String password) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&phone="+phone);
-        str.append("&password="+password);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.LOGIN)
+                .addParams("userid","0")
                 .addParams("phone", username)
                 .addParams("password",password)
+                .addParams("time",time)
                 .addParams("sign",sing)
                 .tag("login")
                 .build()
@@ -170,13 +149,11 @@ public class LoginNet {
 
     public void getToken() {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.TOKEN)
                 .addParams("userid", APP.sUserid)
+                .addParams("time",time)
                 .addParams("sign",sing)
                 .tag("login")
                 .build()
@@ -207,15 +184,11 @@ public class LoginNet {
 
     public void toBackpwd(String username,String newpassword,String sendMessage) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&username="+username);
-        str.append("&newpassword="+newpassword);
-        str.append("&sendMessage="+sendMessage);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.BACKPWD)
+                .addParams("time",time)
+                .addParams("userid",APP.sUserid)
                 .addParams("phone", username)
                 .addParams("newpwd",newpassword)
                 .addParams("yzm",sendMessage)
@@ -246,13 +219,11 @@ public class LoginNet {
      */
     public void toSendMessage(String  phone) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&phone="+phone);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.SRYCODE)
+                .addParams("time",time)
+                .addParams("userid",APP.sUserid)
                 .addParams("phone", phone)
                 .addParams("sign",sing)
                 .tag("login")
@@ -288,18 +259,12 @@ public class LoginNet {
      */
     public void toThird(String thirdid,String logintype,String pic,String nickname,String sex) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+APP.sUserid);
-        str.append("&thirdid="+thirdid);
-        str.append("&logintype="+logintype);
-        str.append("&pic="+pic);
-        str.append("&nickname="+nickname);
-        str.append("&sex="+sex);
-        String sing=APP.DES3code(str.toString());
+        String sing=Md5Untils.getSign(time);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.THIRD)
+                .addParams("time",time)
+                .addParams("userid",APP.sUserid)
                 .addParams("imei", AppInfo.IMEI)
                 .addParams("thirdid",thirdid)
                 .addParams("logintype",logintype)

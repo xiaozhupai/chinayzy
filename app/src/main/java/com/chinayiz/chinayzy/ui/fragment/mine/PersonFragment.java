@@ -55,7 +55,7 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
     public RelativeLayout rl_person_label;
     public TagListView tlv_list;
 
-    public TextView tv_person_username;
+    public TextView tv_person_username,tv_person_birthday,tv_person_usualplace,tv_person_ismarriage,tv_person_education,tv_person_politics;
     public RelativeLayout rl_person_username;
     public PullToRefreshLayout refresh_view;
     private RelativeLayout  rl_person_birthday,rl_person_ismarriage,rl_person_education,rl_person_politics,rl_person_usualplace;
@@ -127,12 +127,6 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         iv_factname_arrow.setOnClickListener(this);
         rl_person_factname = (RelativeLayout) view.findViewById(R.id.rl_person_factname);
         rl_person_factname.setOnClickListener(this);
-//        tv_person_card = (TextView) view.findViewById(R.id.tv_person_card);
-//        tv_person_card.setOnClickListener(this);
-//        iv_card_arrow = (ImageView) view.findViewById(R.id.iv_card_arrow);
-//        iv_card_arrow.setOnClickListener(this);
-//        rl_person_card = (RelativeLayout) view.findViewById(R.id.rl_person_card);
-//        rl_person_card.setOnClickListener(this);
         iv_address_arrow = (ImageView) view.findViewById(R.id.iv_address_arrow);
         iv_address_arrow.setOnClickListener(this);
         rl_person_address = (RelativeLayout) view.findViewById(R.id.rl_person_address);
@@ -142,6 +136,12 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
         rl_person_education= (RelativeLayout) view.findViewById(R.id.rl_person_education);
         rl_person_politics= (RelativeLayout) view.findViewById(R.id.rl_person_politics);
         rl_person_usualplace= (RelativeLayout) view.findViewById(R.id.rl_person_usualplace);
+        tv_person_birthday= (TextView) view.findViewById(R.id.tv_person_birthday);
+        tv_person_usualplace= (TextView) view.findViewById(R.id.tv_person_usualplace);
+        tv_person_ismarriage= (TextView) view.findViewById(R.id.tv_person_ismarriage);
+        tv_person_education= (TextView) view.findViewById(R.id.tv_person_education);
+        tv_person_politics= (TextView) view.findViewById(R.id.tv_person_politics);
+
         rl_person_birthday.setOnClickListener(this);
         rl_person_ismarriage.setOnClickListener(this);
         rl_person_education.setOnClickListener(this);
@@ -207,18 +207,23 @@ public class PersonFragment extends BaseFragment<PersonPresenter> implements Vie
                 break;
             case R.id.rl_person_birthday:
                 Logger.i("出生日期");
+                mPresenter.toBirthday();
                 break;
             case R.id.rl_person_ismarriage:
                 Logger.i("婚姻状况");
+                mPresenter.toIsmarriage();
                 break;
             case R.id.rl_person_education:
                 Logger.i("学历");
+                mPresenter.toEducation();
                 break;
             case R.id.rl_person_politics:
                 Logger.i("政治面貌");
+                mPresenter.toPolitics();
                 break;
             case R.id.rl_person_usualplace:
                 Logger.i("常驻地");
+                mPresenter.toUsualplace();
                 break;
 
 //            case R.id.rl_person_label:

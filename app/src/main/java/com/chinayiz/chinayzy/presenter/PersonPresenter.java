@@ -22,12 +22,9 @@ import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.HeightFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.LabelFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.SexFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.UserNameFragment;
-import com.chinayiz.chinayzy.ui.fragment.mine.WeightFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.UserFragment;
 import com.chinayiz.chinayzy.utils.PutObjectSamples;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
@@ -63,14 +60,22 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     public static final int CAMERA_REQUEST_CODE = 0x00008002;
     private Uri imageUri;
     public Activity activity;
-
     private   String uploadFilePath = "<upload_file_path>";
-
     private   String uploadObject = "";
     private static final String downloadObject = "sampleObject";
     private String newurl;
-
     public UserModel.DataBean bean;
+    public static final String HIGJT="0";
+    public static final String JUNIOR="1";
+    public static final String UNDERGRADUATE="2";
+    public static final String GRADUATE="3";
+    public static final String NO_MARRIAGE="0";
+    public static final String MARRIAGE="1";
+    public static final String DIVORCED="2";
+    public static final String MEMBER="0";
+    public static final String PARTY_MEMBER="1";
+    public static final String MASSES="2";
+
     @Override
     public void onCreate() {
         getData();
@@ -167,9 +172,59 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 if (!TextUtils.isEmpty(bean.getWeight())){
                     mView.tv_person_weight.setText(bean.getWeight()+"kg");
                 }
-//                if (!TextUtils.isEmpty(bean.getTruename())){
-//                    mView.tv_person_factname.setText(bean.getTruename());
-//                }
+                if (!TextUtils.isEmpty(bean.getBirthday())){
+                    mView.tv_person_birthday.setText(bean.getBirthday());
+                }
+                if (!TextUtils.isEmpty(bean.getEducational())){
+                         switch (bean.getEducational()){
+                             case HIGJT:
+                                 mView.tv_person_education.setText("中专");
+                                 break;
+                             case JUNIOR:
+                                 mView.tv_person_education.setText("大专");
+                                 break;
+                             case UNDERGRADUATE:
+                                 mView.tv_person_education.setText("本科");
+                                 break;
+                             case GRADUATE:
+                                 mView.tv_person_education.setText("研究生");
+                                 break;
+                         }
+                }
+                if (!TextUtils.isEmpty(bean.getIsmarriage())){
+                    switch (bean.getIsmarriage()){
+                        case NO_MARRIAGE:
+                            mView.tv_person_ismarriage.setText("未婚");
+                            break;
+                        case MARRIAGE:
+                            mView.tv_person_ismarriage.setText("已婚");
+                            break;
+                        case DIVORCED:
+                            mView.tv_person_ismarriage.setText("离异");
+                            break;
+                    }
+                }
+
+                if (!TextUtils.isEmpty(bean.getPolitics())){
+                    switch (bean.getPolitics()){
+                        case MEMBER:
+                            mView.tv_person_politics.setText("团员");
+                            break;
+                        case PARTY_MEMBER:
+                            mView.tv_person_politics.setText("党员");
+                            break;
+                        case MASSES:
+                            mView.tv_person_politics.setText("群众");
+                            break;
+                    }
+                }
+                if (!TextUtils.isEmpty(bean.getUsualplace())){
+                    mView.tv_person_usualplace.setText(bean.getUsualplace());
+                }
+                if (bean.getSys_auth().equals("1")){
+                    mView.tv_person_factname.setText("认证成功");
+                }
+
 //                if (!TextUtils.isEmpty(bean.getIdcard())){
 //                    String idcard=bean.getIdcard();
 //                    String first=idcard.substring(0,4);
@@ -267,6 +322,9 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 Logger.i("newurl------"+newurl);
                 net.getEditerUser(UserNet.PIC,newurl);
                 break;
+            case UserNamePresenter.BACK:
+                getData();
+                break;
 
         }
     }
@@ -328,17 +386,17 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
 
 
     public void toSex(){
-        mView.mActivity.addFragment(new SexFragment(bean!=null?(bean.getSex()):""));
+        mView.mActivity.addFragment(new UserFragment(1,bean!=null?bean.getSex():"","性别"));
     }
 
 
     public void toHeight(){
 
-        mView.mActivity.addFragment(new HeightFragment(bean!=null?bean.getHeight():""));
+        mView.mActivity.addFragment(new UserFragment(5,bean!=null?bean.getHeight():"","身高"));
     }
 
     public void toWeight(){
-        mView.mActivity.addFragment(new WeightFragment(bean!=null?bean.getWeight():""));
+        mView.mActivity.addFragment(new UserFragment(6,bean!=null?bean.getWeight():"","体重"));
     }
 
 
@@ -348,7 +406,7 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     }
 
     public void toUsername(){
-        mView.mActivity.addFragment(new UserNameFragment(bean!=null?bean.getNickname():""));
+        mView.mActivity.addFragment(new UserFragment(0,bean!=null?bean.getNickname():"","用户名"));
     }
 
 
@@ -358,5 +416,25 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
 
     public void getData() {
         net.getUserInfo();
+    }
+
+    public void toBirthday() {
+        mView.mActivity.addFragment(new UserFragment(2,bean!=null?bean.getBirthday():"","出生日期"));
+    }
+
+    public void toUsualplace() {
+        mView.mActivity.addFragment(new UserFragment(3,bean!=null?bean.getUsualplace():"","常驻地"));
+    }
+
+    public void toIsmarriage() {
+        mView.mActivity.addFragment(new UserFragment(4,bean!=null?bean.getIsmarriage():"","婚姻状况"));
+    }
+
+    public void toEducation() {
+        mView.mActivity.addFragment(new UserFragment(7,bean!=null?bean.getEducational():"","学历"));
+    }
+
+    public void toPolitics() {
+        mView.mActivity.addFragment(new UserFragment(8,bean!=null?bean.getPolitics():"","政治面貌"));
     }
 }
