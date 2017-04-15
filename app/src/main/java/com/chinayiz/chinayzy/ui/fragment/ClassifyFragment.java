@@ -16,14 +16,8 @@ import com.chinayiz.chinayzy.adapter.ClassGridAdapter;
 import com.chinayiz.chinayzy.adapter.TypeListAdpter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
-import com.chinayiz.chinayzy.entity.model.BaseMessage;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
 import com.chinayiz.chinayzy.presenter.ClassifyPresenter;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * author  by  Canrom7 .
@@ -109,17 +103,11 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
         if (!("-1".equals(mTypeCode))&&mTypeCode != null) {
             mPresenter.getTypeDatas(mTypeCode);
         }
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
-                NongYeMainActivity.NYMAIN_ACTIONBAR,
-                new ActionBarControlModel(NongYeMainActivity.HIDE_NAVIGTION, "分类", 1, 1, 0, 1)));
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
-                NongYeMainActivity.NYMAIN_ACTIONBAR,
-                new ActionBarControlModel(NongYeMainActivity.SHOW_ALL, "首页", 1, 0, 0, 1)));
     }
 
     @Override

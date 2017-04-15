@@ -140,8 +140,6 @@ public class homePresenter extends BasePresenter<HomeFragment> implements PullTo
                 }
                 break;
             case NongYeHomeRecylAdapter.CLICK_GOODS://首页商品点击事件
-                Logger.e("测试代码！！！！");
-                message.setData("5");
                 mView.openGoodesDetail(message.getData().toString());
                 break;
             case NongYeHomeRecylAdapter.CLICK_MENU://首页菜单点击事件

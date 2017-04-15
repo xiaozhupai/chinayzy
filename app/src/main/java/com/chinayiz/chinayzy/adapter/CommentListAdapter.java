@@ -54,7 +54,7 @@ public class CommentListAdapter extends BaseAdapter {
         CommentListModel.DataBean.CommentlistBean data = mDataList.get(position);
         String[]  picUrl=null;
         View view;
-        int sum = data.getDeliverypoint() + data.getServicepoint() + data.getDescpoint();
+        int sum = Integer.parseInt(data.getServicepoint());
         if (convertView == null) {
             mHolder = new ViewHolder();
             view = View.inflate(mFragment.getActivity(), R.layout.comment_item, null);

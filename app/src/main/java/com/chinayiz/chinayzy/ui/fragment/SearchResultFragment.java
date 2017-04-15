@@ -210,6 +210,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Logger.i("点击每一个商品");
         SearchFarmModel.DataBean bean=mPresenter.data.get(i);
-         Skip.toGoodsDetail(getActivity(),bean.getGoodsid()+"");
+         Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
     }
 }

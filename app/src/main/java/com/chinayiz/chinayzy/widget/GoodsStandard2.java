@@ -49,9 +49,10 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     private TextView tv_num;
     private int num;
 
-    public GoodsStandard2(Context context, GoodsDetailModel.DataBean bean) {
+    public GoodsStandard2(Context context,String goodsid) {
         super(context, R.style.Dialog);
-        this.bean = bean;
+        this.bean=new GoodsDetailModel.DataBean();
+        this.bean.setGoodsid(Integer.parseInt(goodsid));
         this.context = context;
         EventBus.getDefault().register(this);
         initView();
@@ -205,14 +206,13 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     @Subscribe(threadMode = ThreadMode.MAIN)
 
     public void runUiThread(EventMessage message) {
-        Logger.i("GoodsStandard2   MAIN");
         switch (message.getDataType()){
-            case Commons.SHOWGOODSSTANDARD:
+            case Commons.SHOWGOODSSTANDARD://商品套餐
                 GoodStandardModel model4= (GoodStandardModel) message.getData();
                 List<GoodStandardModel.DataBean>  lists=model4.getData();
                 setData(lists);
                 break;
-            case  Commons.ADDSHOPPINGCAR:
+            case  Commons.ADDSHOPPINGCAR://加入购物车
                 BaseResponseModel model= (BaseResponseModel) message.getData();
                 BaseActivity.showToast(context,model.getMsg());
                 if (model.getCode().equals("100")){

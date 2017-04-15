@@ -41,8 +41,19 @@ public class RelatedGoodsModel extends BaseResponseModel {
         private String brand;
         private String goodsdesc;
         private String itemcode;
-
         private String isself;
+
+        public DataBean(String icon, String unit, String price, int goodsid, String gname, String brand, String goodsdesc, String itemcode, String isself) {
+            this.icon = icon;
+            this.unit = unit;
+            this.price = price;
+            this.goodsid = goodsid;
+            this.gname = gname;
+            this.brand = brand;
+            this.goodsdesc = goodsdesc;
+            this.itemcode = itemcode;
+            this.isself = isself;
+        }
 
         public String getIsself() {
             return isself;

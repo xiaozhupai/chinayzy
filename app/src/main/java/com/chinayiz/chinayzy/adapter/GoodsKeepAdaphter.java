@@ -51,7 +51,7 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter {
     @Override
     public void onItemClick(int position) {
       GoodsCollectModel.DataBean bean= (GoodsCollectModel.DataBean) lists.get(position);
-        Skip.toGoodsDetail(context,bean.getGoodsid()+"");
+        Skip.toNewGoodsDetail(context,bean.getGoodsid()+"");
     }
 
     @Override

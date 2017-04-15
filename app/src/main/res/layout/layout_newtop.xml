@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chinayiz.chinayzy.views.goodsDetail.GradationScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/vpager_Banner"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="@color/Background"
+            >
+        </com.bigkoo.convenientbanner.ConvenientBanner>
+
+        <TextView
+            android:id="@+id/view_isSelf"
+            style="@style/iv_Self"
+            android:layout_below="@id/vpager_Banner"
+            android:layout_marginLeft="@dimen/goodsLeftPanding"
+            android:layout_marginTop="18.5dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_goodsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/vpager_Banner"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="@dimen/goodsLeftPanding"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="16dp"
+            android:text="\t\t\t\t\t佳能（Canon)EOS700D单反套机（EF-S 18-135mm f/3.5-5.6 IS STM镜头）"
+            android:textColor="@color/NongYe_home_goodsText"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_goodsPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_goodsTitle"
+            android:layout_marginLeft="27dp"
+            android:maxLines="1"
+            android:text="00."
+            android:textColor="@color/NongYe_home_priceText"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_dobPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_goodsPrice"
+            android:layout_toRightOf="@id/tv_goodsPrice"
+            android:maxLines="1"
+            android:text="00"
+            android:textColor="@color/NongYe_home_priceText"
+            android:textSize="15sp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_goodsRMB"
+            android:layout_width="10dp"
+            android:layout_height="13dp"
+            android:layout_alignBottom="@id/tv_goodsPrice"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="@dimen/goodsLeftPanding"
+            android:src="@mipmap/icon_rmb"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_servicLis"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_below="@id/tv_goodsPrice"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingLeft="4dp"
+            android:paddingRight="12dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_service1"
+                style="@style/Goods_serviceItem"
+                android:text="质量保障"
+                />
+
+            <TextView
+                android:id="@+id/tv_service2"
+                style="@style/Goods_serviceItem"
+                android:text="亿众发货"
+                />
+
+            <TextView
+                android:id="@+id/tv_service3"
+                style="@style/Goods_serviceItem"
+                android:text="七天退换"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/iv_line2"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@id/ll_servicLis"
+            android:layout_marginTop="11dp"
+            android:background="@color/basecolor"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_goodstype"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_below="@id/iv_line2"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:text="已选"
+                android:textColor="@color/Goods_Postage"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_goodstype"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableRight="@mipmap/icon_boot"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="增值保障"
+                android:textColor="@color/Actionbar_edit"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/iv_line8"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@id/ll_goodstype"
+            android:background="@color/basecolor"
+            />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_line8"
+            android:layout_marginTop="21dp"
+            android:paddingLeft="12dp"
+            android:text="送至"
+            android:textColor="@color/Goods_Postage"
+            />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/textView6"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="16dp"
+            android:clickable="true"
+            android:layout_toEndOf="@+id/textView6"
+            android:drawableLeft="@mipmap/img_site"
+            android:drawableRight="@mipmap/icon_boot"
+            android:layout_marginBottom="-12dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingRight="12dp"
+            android:text="  武汉市洪山区"
+            android:textColor="@color/Actionbar_edit"
+            />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView6"
+            android:layout_marginTop="18dp"
+            android:paddingLeft="12dp"
+            android:text="运费"
+            android:textColor="@color/Goods_Postage"
+            />
+
+        <TextView
+            android:id="@+id/tv_yunfei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toEndOf="@+id/textView7"
+            android:paddingRight="12dp"
+            android:text="待定"
+            android:textColor="@color/Actionbar_edit"
+            />
+
+        <View
+            android:id="@+id/iv_line3"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@id/tv_yunfei"
+            android:layout_marginTop="21dp"
+            android:background="@color/basecolor"
+            />
+
+        <LinearLayout
+            android:id="@+id/tv_goodsComments"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_below="@id/iv_line3"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_commentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/iv_line3"
+                android:gravity="center_vertical"
+                android:text="商品评价（0条评论）"
+                android:textColor="@color/Goods_Comment"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:text="好评率"
+                android:textColor="@color/Actionbar_edit"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_goodComment"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:drawableRight="@mipmap/icon_boot"
+                android:gravity="center_vertical"
+                android:text="100%"
+                android:textColor="@color/classifyText_pre"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
+        <com.chinayiz.chinayzy.views.goodsDetail.NoScrollListView
+            android:id="@+id/lv_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_goodsComments"
+            >
+        </com.chinayiz.chinayzy.views.goodsDetail.NoScrollListView>
+
+        <View
+            android:id="@+id/iv_line5"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_goodsComments"
+            android:background="@color/basecolor"
+            />
+
+        <TextView
+            android:id="@+id/tv_moreComment"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_below="@id/iv_line5"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="查看更多评论"
+            android:textColor="@color/Goods_Postage"
+            android:textSize="11sp"
+            />
+
+        <View
+            android:id="@+id/iv_line6"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@id/tv_moreComment"
+            android:background="@color/basecolor"
+            />
+
+        <ImageView
+            android:id="@+id/iv_storeLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/iv_line6"
+            android:layout_marginLeft="@dimen/goodsLeftPanding"
+            android:layout_marginTop="11dp"
+            android:background="@null"
+            />
+
+        <TextView
+            android:id="@+id/tv_storeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_line6"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/iv_storeLogo"
+            android:text="亿众自营"
+            android:textColor="@color/GoodsUserName"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/iv_StoreType"
+            style="@style/Tv_Self"
+            android:layout_alignBottom="@id/tv_storeName"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/tv_storeName"
+            />
+
+        <ImageView
+            android:id="@+id/iv_InStore"
+            android:layout_width="90dp"
+            android:layout_height="34dp"
+            android:layout_alignRight="@id/vpager_Banner"
+            android:layout_alignTop="@id/iv_storeLogo"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/btn_instore"
+            android:clickable="true"
+            />
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="1dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/tv_storeName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            android:background="@color/NongYe_Line"
+            />
+
+        <TextView
+            android:id="@+id/tv_goodsCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_storeLogo"
+            android:layout_marginTop="19.5dp"
+            android:layout_toLeftOf="@id/line3"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textColor="@color/GoodsUserName"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_fansCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_storeLogo"
+            android:layout_marginTop="19.5dp"
+            android:layout_toRightOf="@id/line3"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textColor="@color/GoodsUserName"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_StoreGoodss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_goodsCount"
+            android:layout_marginTop="16dp"
+            android:layout_toLeftOf="@id/line3"
+            android:gravity="center_horizontal"
+            android:text="全部商品"
+            android:textColor="@color/Goods_Comment"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_StoreFans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_fansCount"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/line3"
+            android:gravity="center_horizontal"
+            android:text="收藏人数"
+            android:textColor="@color/Goods_Comment"
+            android:textSize="10sp"
+            />
+
+        <View
+            android:id="@+id/iv_line9"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@id/tv_StoreFans"
+            android:layout_marginTop="13dp"
+            android:background="@color/basecolor"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/iv_line9"
+            android:gravity="center"
+            android:text="为你推荐"
+            android:textColor="@color/classifyText_pre"
+            android:textSize="12sp"
+            />
+        <com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView
+            android:id="@+id/gv_Goodss"
+            android:layout_below="@id/iv_line9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:horizontalSpacing="1dp"
+            android:padding="1dp"
+            android:numColumns="3"
+            >
+        </com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView>
+        <TextView
+            android:id="@+id/tv_moreGoods"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/gv_Goodss"
+            android:gravity="center"
+             android:clickable="true"
+            android:textColor="@color/oldGray"
+            android:textSize="12sp"
+            android:text="查看为你推荐更多"
+            />
+    </RelativeLayout>
+</com.chinayiz.chinayzy.views.goodsDetail.GradationScrollView>

@@ -290,7 +290,7 @@ public class PullToRefreshLayout extends RelativeLayout
 	private void changeState(int to)
 
 	{
-		Logger.i(to+"");
+
 		state = to;
 		switch (state)
 		{

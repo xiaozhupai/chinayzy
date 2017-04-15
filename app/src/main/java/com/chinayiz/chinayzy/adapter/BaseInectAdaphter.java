@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -101,7 +102,7 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
      * @param position
      */
     public void onItemClick(int position){
-
+        Logger.e("地址列表点击="+lists.get(position).toString());
     }
 
     //结束加载 刷新

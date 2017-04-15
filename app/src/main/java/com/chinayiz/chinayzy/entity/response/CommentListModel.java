@@ -66,14 +66,27 @@ public class CommentListModel extends BaseResponseModel {
 
             private String isanonymity;
             private String createtime;
-            private int servicepoint;
+            private String servicepoint;
             private String commentscontent;
             private String nickname;
             private String cpic;
-            private int descpoint;
+            private String descpoint;
             private String pic;
-            private int cid;
-            private int deliverypoint;
+            private String cid;
+            private String deliverypoint;
+
+            public CommentlistBean(String isanonymity, String createtime, String servicepoint, String commentscontent, String nickname, String cpic, String descpoint, String pic, String cid, String deliverypoint) {
+                this.isanonymity = isanonymity;
+                this.createtime = createtime;
+                this.servicepoint = servicepoint;
+                this.commentscontent = commentscontent;
+                this.nickname = nickname;
+                this.cpic = cpic;
+                this.descpoint = descpoint;
+                this.pic = pic;
+                this.cid = cid;
+                this.deliverypoint = deliverypoint;
+            }
 
             public String getIsanonymity() {
                 return isanonymity;
@@ -91,11 +104,11 @@ public class CommentListModel extends BaseResponseModel {
                 this.createtime = createtime;
             }
 
-            public int getServicepoint() {
+            public String getServicepoint() {
                 return servicepoint;
             }
 
-            public void setServicepoint(int servicepoint) {
+            public void setServicepoint(String servicepoint) {
                 this.servicepoint = servicepoint;
             }
 
@@ -123,11 +136,11 @@ public class CommentListModel extends BaseResponseModel {
                 this.cpic = cpic;
             }
 
-            public int getDescpoint() {
+            public String getDescpoint() {
                 return descpoint;
             }
 
-            public void setDescpoint(int descpoint) {
+            public void setDescpoint(String descpoint) {
                 this.descpoint = descpoint;
             }
 
@@ -139,19 +152,19 @@ public class CommentListModel extends BaseResponseModel {
                 this.pic = pic;
             }
 
-            public int getCid() {
+            public String getCid() {
                 return cid;
             }
 
-            public void setCid(int cid) {
+            public void setCid(String cid) {
                 this.cid = cid;
             }
 
-            public int getDeliverypoint() {
+            public String getDeliverypoint() {
                 return deliverypoint;
             }
 
-            public void setDeliverypoint(int deliverypoint) {
+            public void setDeliverypoint(String deliverypoint) {
                 this.deliverypoint = deliverypoint;
             }
 

@@ -86,10 +86,6 @@ public class CardPresenter extends BasePresenter<CardFragment> {
             BaseActivity.showToast(mView.getActivity(),"请输入正确的身份证");
             return;
         }
-
         net.getEditerUser(UserNet.IDCARD,card);
-        // TODO validate success, do something
-
-
     }
 }

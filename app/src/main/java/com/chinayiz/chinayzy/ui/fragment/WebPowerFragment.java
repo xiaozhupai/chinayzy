@@ -30,7 +30,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 @SuppressLint("ValidFragment")
 public class WebPowerFragment extends BaseFragment<Presenter> implements View.OnClickListener {
-    public static final String SHARE="分享";
+    public static final String SHARE="分享推荐码";
     public WebView wv_view;
     private String titel;
     private String url;
@@ -65,7 +65,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> implements View.On
         activity.mCbActionBarEdit.setVisibility(View.GONE);
         if (titel.equals(SHARE)) {
             activity.mIvActionBarMore.setVisibility(View.VISIBLE);
-            activity.mIvActionBarMore.setImageResource(R.mipmap.btn_share);
+            activity.mIvActionBarMore.setImageResource(R.mipmap.pic_share);
             activity.mIvActionBarMore.setOnClickListener(this);
         }
     }

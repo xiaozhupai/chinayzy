@@ -22,7 +22,7 @@ import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass. 收货地址
  */
 @SuppressLint("ValidFragment")
 public class AddressListFragment extends BaseFragment<AddressListPresenter> implements View.OnClickListener {

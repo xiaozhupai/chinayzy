@@ -89,7 +89,7 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
            MyStepModel.DataBean.FootmarklistBean bean= (MyStepModel.DataBean.FootmarklistBean) adapterView.getItemAtPosition(i);
-        Skip.toGoodsDetail(getActivity(),bean.getGoodsid()+"");
+        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
         Logger.i("点击每一个商品");
     }
 

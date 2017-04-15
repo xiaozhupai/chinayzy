@@ -12,16 +12,10 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
-import com.chinayiz.chinayzy.entity.model.BaseMessage;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.homePresenter;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.refreshView.PullableRecycleView;
 import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +60,7 @@ public class HomeFragment extends BaseFragment<homePresenter> {
      * @param goodsId 商品ID
      */
     public void openGoodesDetail(String goodsId) {
-        Skip.toGoodsDetail(mActivity, goodsId);
+        Skip.toNewGoodsDetail(mActivity, goodsId);
     }
 
     /**
@@ -78,12 +72,6 @@ public class HomeFragment extends BaseFragment<homePresenter> {
         Skip.toItemMenu(getActivity(), code);
     }
 
-    @Override
-    public void onResume() {
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
-                NongYeMainActivity.NYMAIN_ACTIONBAR, new ActionBarControlModel(NongYeMainActivity.SHOW_ALL, "首页", 1, 0, 0, 1)));
-        super.onResume();
-    }
 
     @Override
     public homePresenter initPresenter() {

@@ -32,7 +32,7 @@ public class APP extends Application {
     /**
      * 全局用户ID
      */
-    public static String sUserid = "0";
+    public static String sUserid = "15";
     public static APP instance;
     public static String phone;
     public static String Version = "1";

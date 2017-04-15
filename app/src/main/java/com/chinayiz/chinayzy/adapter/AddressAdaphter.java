@@ -3,7 +3,6 @@ package com.chinayiz.chinayzy.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,7 +10,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
 import com.chinayiz.chinayzy.presenter.AddressListPresenter;
-import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -23,6 +21,11 @@ import java.util.List;
  */
 
 public class AddressAdaphter extends BaseInectAdaphter<AddressListModel.DataBean> {
+    /**
+     * 选择地址（大概地址）
+     */
+    public static final String CLICK_ADDRESS ="AddressAdaphtes_click";
+
     public AddressAdaphter(Context context, List<AddressListModel.DataBean> list) {
         this.context=context;
         this.lists=list;
@@ -44,6 +47,13 @@ public class AddressAdaphter extends BaseInectAdaphter<AddressListModel.DataBean
         viewHolder.tv_address.setText(bean.getArea()+bean.getAddress());
         String phone=bean.getPhone().substring(0,3)+"****"+bean.getPhone().substring(bean.getPhone().length()-4,bean.getPhone().length());
         viewHolder.tv_userphone.setText(phone);
+        viewHolder.clickAddress.setTag(R.id.tag_click,bean.getArea());
+        viewHolder.clickAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_ADDRESS,v.getTag(R.id.tag_click)));
+            }
+        });
         if (bean.getIsdefault()!=null){
             if (bean.getIsdefault().equals("1")){
                 viewHolder.iv_isdefault.setCheck(true);
@@ -76,6 +86,7 @@ public class AddressAdaphter extends BaseInectAdaphter<AddressListModel.DataBean
 
     public static class ViewHolder {
         public View rootView;
+        public View clickAddress;
         public TextView tv_username;
         public TextView tv_userphone;
         public TextView tv_address;
@@ -85,6 +96,7 @@ public class AddressAdaphter extends BaseInectAdaphter<AddressListModel.DataBean
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.clickAddress=rootView.findViewById(R.id.ll_address);
             this.tv_username = (TextView) rootView.findViewById(R.id.tv_username);
             this.tv_userphone = (TextView) rootView.findViewById(R.id.tv_userphone);
             this.tv_address = (TextView) rootView.findViewById(R.id.tv_address);

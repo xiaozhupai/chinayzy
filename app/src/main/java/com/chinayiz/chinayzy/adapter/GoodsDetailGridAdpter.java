@@ -14,6 +14,8 @@ import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/2/16 16:52
@@ -25,7 +27,7 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
      */
     public final static String CLICK_GOODS="GoodsDetailGridAdpter_goods";
 
-    private RelatedGoodsModel mModel;
+    private List<RelatedGoodsModel.DataBean> mBeanList;
     private ViewHoder mHoder;
     private Context mContext;
 
@@ -35,18 +37,21 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
     }
 
     public void setData(RelatedGoodsModel model) {
-        mModel = model;
+        mBeanList=model.getData();
         notifyDataSetChanged();
     }
-
+    public void setData(List<RelatedGoodsModel.DataBean> beanList ) {
+        mBeanList=beanList;
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
-        return mModel==null? 0:mModel.getData().size();
+        return mBeanList==null? 0:mBeanList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mModel==null? null:mModel.getData().get(position);
+        return mBeanList==null? null:mBeanList.get(position);
     }
 
     @Override
@@ -70,13 +75,19 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
             view = convertView;
             mHoder = (ViewHoder) view.getTag(R.id.tag_view);
         }
-        mHoder.mView.setTag(R.id.tag_click,mModel.getData().get(position).getGoodsid());
+        mHoder.mView.setTag(R.id.tag_click,mBeanList.get(position).getGoodsid());
         mHoder.mView.setOnClickListener(this);
         Glide.with(mContext)
-                .load(mModel.getData().get(position).getIcon())
+                .load(mBeanList.get(position).getIcon())
                 .into(mHoder.mIocn);
-        mHoder.mName.setText(mModel.getData().get(position).getGname());
-        mHoder.mPrice.setText(mModel.getData().get(position).getPrice());
+        mHoder.mName.setText(mBeanList.get(position).getGname());
+
+        if (mBeanList.get(position).getPrice().contains("-")){
+            String[] prices=mBeanList.get(position).getPrice().split("-");
+            mHoder.mPrice.setText(prices[0]);
+        }else {
+            mHoder.mPrice.setText(mBeanList.get(position).getPrice());
+        }
         return view;
     }
 

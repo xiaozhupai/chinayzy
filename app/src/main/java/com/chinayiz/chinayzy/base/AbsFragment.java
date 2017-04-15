@@ -23,8 +23,8 @@ import org.greenrobot.eventbus.EventBus;
 @SuppressLint("ValidFragment")
 public abstract class AbsFragment extends Fragment implements EventBusCallback{
     protected CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
-    protected View mProgress;
     public FragmentManager mFragmentManager;
+    protected View mProgress;
     protected ImageView iv_back_button;
     protected TextView tv_actionbar_title;
     protected ImageView iv_more_button;

@@ -131,11 +131,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             case R.id.btn_ZhongChou://众筹
                 Skip.toItemMenu(this,"-1");
                 break;
-            case R.id.btn_asIm:
-                String url=new String(Commons.API+"/h5/aboutus");
-                Skip.toWebPage(this,url,"关于我们");
+            case R.id.btn_asIm://关于我们
+//                String url=new String(Commons.API+"/h5/aboutus");
+//                Skip.toWebPage(this,url,"关于我们");
+                Skip.toNewGoodsDetail(this,"47");
                 break;
-            case R.id.btn_Recommend:
+            case R.id.btn_Recommend://分享我的二维码
                 if (UserSeeion.isLogin(this)) {
                     String uri=new String(Commons.API+"/h5/tuijianma?userid="+APP.sUserid);
                     Skip.toWebPage(this,uri, WebPowerFragment.SHARE);
@@ -152,7 +153,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             return;
         }
         if ("5".equals(mModel.getData().get(position).getType())){
-            Skip.toGoodsDetail(this,mModel.getData().get(position).getDetaillink());
+            Skip.toNewGoodsDetail(this,mModel.getData().get(position).getDetaillink());
         }
     }
 

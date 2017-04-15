@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RadioGroup
+        android:id="@+id/rg_goodsMeun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Background"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        >
+
+        <RadioButton
+            android:id="@+id/rb_goodsDetail"
+            style="@style/goods_meun_style"
+            android:text="图文详情"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_goodsNorms"
+            style="@style/goods_meun_style"
+            android:text="产品规格"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_goodsRelated"
+            style="@style/goods_meun_style"
+            android:text="相关商品"
+            />
+    </RadioGroup>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+        <GridView
+            android:id="@+id/gv_goodsList"
+            android:background="@color/NongYe_Line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:horizontalSpacing="1dp"
+            android:verticalSpacing="1dp"
+            android:visibility="gone"
+            >
+        </GridView>
+        <WebView
+            android:id="@+id/wv_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@color/Background"
+            />
+        <include layout="@layout/view_progress"/>
+    </FrameLayout>
+</LinearLayout>

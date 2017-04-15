@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/view_Goods"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@color/Background"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@drawable/content_bg"
                 android:clickable="true"
     >
 
     <ImageView
         android:id="@+id/iv_goodsPic"
         android:layout_width="match_parent"
-        android:layout_height="169dp"
+        android:layout_height="120dp"
         android:padding="1dp"
         android:src="@mipmap/img_evalue_result"
         />
@@ -31,7 +32,7 @@
 
     <TextView
         android:id="@+id/tv_goodsPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goodsName"
         android:layout_marginBottom="16dp"

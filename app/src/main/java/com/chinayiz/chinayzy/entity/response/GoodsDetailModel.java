@@ -96,6 +96,7 @@ public class GoodsDetailModel extends BaseResponseModel {
         private String goodsdesc;
         private List<CommentlistBean> commentlist;
 
+
         public double getServicepoint() {
             return servicepoint;
         }

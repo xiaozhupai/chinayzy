@@ -91,9 +91,20 @@
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">5dp</item>
-        <item name="android:drawableBottom">@drawable/goods_meun</item>
         <item name="android:textColor">@drawable/nav_menu_tv</item>
         <item name="android:textSize">13sp</item>
+        <item name="android:button">@null</item>
+    </style>
+    <!--商品详情导航栏（RadioButton）-->
+    <style name="goods_tab_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:drawableBottom">@drawable/goods_tab</item>
+        <item name="android:textColor">@drawable/tab_menu_tv</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:button">@null</item>
     </style>
     <!--订单类型按钮（RadioButton）-->
@@ -219,15 +230,28 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/Goods_Postage</item>
         <item name="android:layout_below">@id/iv_line1</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">visible</item>
         <item name="android:layout_marginTop">11dp</item>
         <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <!--商品详情页商品提供服务描述（TextView）-->
+    <style name="Goods_serviceItem">
+        <item name="android:layout_width">53dp</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/Goods_Postage</item>
+        <item name="android:layout_below">@id/iv_line1</item>
+        <item name="android:drawableLeft">@mipmap/icon_service</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_marginTop">11dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
         <item name="android:textSize">10sp</item>
     </style>
     <!--商品详情页商品提供服务图标（ImageView）-->
     <style name="Goods_serviceIv">
         <item name="android:layout_width">9dp</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">visible</item>
         <item name="android:layout_height">9dp</item>
         <item name="android:layout_below">@id/iv_line1</item>
         <item name="android:layout_marginTop">13.5dp</item>
@@ -241,7 +265,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">7dp</item>
+        <item name="android:padding">6dp</item>
         <item name="android:clickable">true</item>
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/NongYe_Tabtext</item>
@@ -354,7 +378,19 @@
         <item name="android:paddingRight">4dp</item>
         <item name="android:paddingLeft">4dp</item>
     </style>
-
+    <!--自营标识(TextView)-->
+    <style name="iv_Self">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_isself</item>
+        <item name="android:text">@string/tx_self</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/Background</item>
+        <item name="android:paddingBottom">0.7dp</item>
+        <item name="android:paddingTop">0.7dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
+    </style>
     <!--loading-->
     <style name="LoadDialog" parent="android:style/Theme.Dialog">
         <!--背景颜色及和透明程度-->

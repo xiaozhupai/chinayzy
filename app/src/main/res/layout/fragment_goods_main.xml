@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/Background"
+              android:clipToPadding="true"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:id="@+id/fl_commentList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/Background"
+        >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_goodsGetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="44dp"
+            >
+        </android.support.v4.view.ViewPager>
+        <!--<include layout="@layout/view_progress"/>-->
+        <RadioGroup
+            android:id="@+id/rg_goodsMeun"
+            android:layout_width="match_parent"
+            android:layout_height="85.5dp"
+            android:background="@color/Background"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            >
+
+            <RadioButton
+                android:id="@+id/rb_goodsDetail"
+                style="@style/goods_meun_style"
+                android:text="图文详情"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_goodsNorms"
+                style="@style/goods_meun_style"
+                android:text="产品规格"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_goodsRelated"
+                style="@style/goods_meun_style"
+                android:text="相关商品"
+                />
+        </RadioGroup>
+
+        <RelativeLayout
+            android:id="@+id/view_actionBar"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_back_btn"
+                android:layout_width="42dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="2dp"
+                android:clickable="true"
+                android:scaleType="center"
+                android:src="@mipmap/btn_back"
+                />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="图文详情"
+            android:textSize="16sp"
+            android:textColor="@color/Actionbar_edit"
+            android:visibility="gone"
+            />
+            <RadioGroup
+                android:id="@+id/rg_goodsTab"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                >
+
+                <RadioButton
+                    android:id="@+id/rb_tabDetail"
+                    style="@style/goods_tab_style"
+                    android:checked="true"
+                    android:text="商 品"
+                    />
+
+                <RadioButton
+                    android:id="@+id/rb_tabNorms"
+                    style="@style/goods_tab_style"
+                    android:text="详 情"
+                    />
+
+                <RadioButton
+                    android:id="@+id/rb_tabComments"
+                    style="@style/goods_tab_style"
+                    android:text="评 论"
+                    />
+
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/iv_more_btn"
+                android:layout_width="41dp"
+                android:layout_height="44dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="2dp"
+                android:clickable="true"
+                android:scaleType="center"
+                android:src="@mipmap/btn_more"
+                />
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="41dp"
+                android:layout_height="44dp"
+                android:layout_toLeftOf="@id/iv_more_btn"
+                android:clickable="false"
+                android:scaleType="center"
+                android:src="@mipmap/btn_share"
+                android:visibility="gone"
+                />
+
+            <View
+                android:id="@+id/view_menuLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/iv_cart_btn"
+                android:background="@color/NongYe_Line"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/basecolor"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/tv_store"
+            style="@style/Goods_nvText"
+            android:clickable="true"
+            android:drawableTop="@mipmap/btn_store"
+            android:text="店铺"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_favorite"
+            style="@style/Goods_nvText"
+            android:button="@null"
+            android:clickable="true"
+            android:drawableTop="@drawable/favorite_btn"
+            android:text="收藏"
+            />
+
+        <TextView
+            android:id="@+id/tv_cart"
+            style="@style/Goods_nvText"
+            android:clickable="true"
+            android:drawableTop="@mipmap/icon_cart"
+            android:text="购物车"
+            />
+
+        <TextView
+            android:id="@+id/tv_addCart"
+            android:layout_width="139dp"
+            android:layout_height="match_parent"
+            android:background="@color/Goods_CommentCount"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/Background"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+</LinearLayout>

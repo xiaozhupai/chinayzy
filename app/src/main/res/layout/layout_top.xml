@@ -39,10 +39,10 @@
             />
         <TextView
             android:id="@+id/view_isSelf"
-            style="@style/Tv_Self"
+            style="@style/iv_Self"
             android:layout_below="@id/vpager_Banner"
             android:layout_marginLeft="@dimen/goodsLeftPanding"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="18.5dp"
             />
         <TextView
             android:id="@+id/tv_goodsTitle"
@@ -51,8 +51,8 @@
             android:layout_below="@id/vpager_Banner"
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="@dimen/goodsLeftPanding"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="16dp"
             android:layout_toLeftOf="@id/tv_share_btn"
             android:text="\t\t\t佳能（Canon)EOS700D单反套机（EF-S 18-135mm f/3.5-5.6 IS STM镜头）"
             android:textColor="@color/NongYe_home_goodsText"

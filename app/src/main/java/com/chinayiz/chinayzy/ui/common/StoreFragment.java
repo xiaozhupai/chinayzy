@@ -30,7 +30,6 @@ import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.presenter.StorePresenter;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
 import com.chinayiz.chinayzy.views.MyDecoration;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -206,8 +205,7 @@ public class StoreFragment extends BaseFragment<StorePresenter> implements View.
      * 点击店铺商品
      */
     public void onItemClick(View view, String goodsID) {
-        Skip.toGoodsDetail(getActivity(),goodsID);
-        Logger.i("点击店铺商品发送消息！="+goodsID);
+        Skip.toNewGoodsDetail(getActivity(),goodsID);
     }
     @Override
     protected void onInvisible() {

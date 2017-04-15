@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -317,7 +315,7 @@ public class ScrollViewContainer extends RelativeLayout {
          *  当从某一页滑动到另一页完成时的回调函数
          */
         void onPageChanged(int derection);
-        int getScorllY();
+
     }
 
     class MyTimer {

@@ -1,4 +1,4 @@
-package com.chinayiz.chinayzy.ui.fragment;
+package com.chinayiz.chinayzy.ui.common;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -13,7 +13,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.CommentListAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
-import com.orhanobut.logger.Logger;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 
 /**
  * author  by  Canrom7 .
@@ -28,10 +28,14 @@ public class CommentsFragment extends Fragment{
     public static final int START=1;
     private ListView mCommentList;
     private CommentListAdapter mAdapter;
-    private StateListener mStateListener;
+    private View mView;
+    private CommentListModel mModel;
+    private boolean islaoad=false;
+    private int coun=0;
+    private String goodsID;
 
-    public void setStateListener(StateListener listener){
-        mStateListener=listener;
+    public void setGoodsID(String goodsID) {
+        this.goodsID = goodsID;
     }
     @Nullable
     @Override
@@ -40,38 +44,37 @@ public class CommentsFragment extends Fragment{
         initView(view);
         return view;
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        mStateListener.stateChange(START);
-        Logger.i("开始评论列表");
+
+    public void setCoun(int coun) {
+        this.coun = coun;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Logger.i("结束评论列表");
-        mStateListener.stateChange(-1);
+    public void setPager(String goodsid){
+        if (coun==0){
+            if (mView!=null){
+                mView.setVisibility(View.VISIBLE);
+            }
+        }else {
+            if (!islaoad) {
+                CommonRequestUtils.getRequestUtils().getCommentList(goodsid,"1","20");
+            }
+        }
     }
+    public static CommentsFragment getInstance() {
+        return new CommentsFragment();
+    }
+    
     private void initView(View view) {
         mAdapter=new CommentListAdapter(this);
+        mView=view.findViewById(R.id._ll_nullComment);
         mCommentList= (ListView) view.findViewById(R.id.lv_comments);
         mCommentList.setAdapter(mAdapter);
     }
 
     public void setCommentData(EventMessage message){
-        CommentListModel model= (CommentListModel) message.getData();
-        mAdapter.setCommentDatas(model.getData().getCommentlist());
+        mModel = (CommentListModel) message.getData();
+        mAdapter.setCommentDatas(mModel.getData().getCommentlist());
         mAdapter.notifyDataSetChanged();
     }
 
-    /**
-     * 监听评论列表状态
-     */
-    public interface StateListener{
-        /**
-         * 监听评论列表状态 启动= 1 销毁= -1
-         */
-        void stateChange(int stateCode);
-    }
 }

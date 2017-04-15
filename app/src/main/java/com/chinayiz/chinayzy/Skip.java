@@ -8,7 +8,7 @@ import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
-import com.chinayiz.chinayzy.ui.common.GoodsFragment;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.ui.common.StoreFragment;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
@@ -18,6 +18,7 @@ import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
@@ -111,6 +112,14 @@ public class Skip {
     }
 
     /**
+     * 收货地址列表
+     */
+    public static void toAddressList(Context context){
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, AddressListFragment.class);
+        skip(context, intent);
+    }
+    /**
      * 我的订单
      *
      * @param context
@@ -140,21 +149,35 @@ public class Skip {
         skip(context, intent);
     }
 
+//    /**
+//     * 商品详情页
+//     *
+//     * @param context
+//     * @param goodId  订单编号
+//     */
+//    public static void toGoodsDetail(Context context, String goodId) {
+//        Intent intent = new Intent(context, CommonActivity.class);
+//        intent.putExtra(CLASS, GoodsFragment.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("goodsID", goodId);
+//        intent.putExtras(bundle);
+//        skip(context, intent);
+//    }
+
     /**
-     * 商品详情页
+     * 新的商品详情页
      *
      * @param context
      * @param goodId  订单编号
      */
-    public static void toGoodsDetail(Context context, String goodId) {
+    public static void toNewGoodsDetail(Context context, String goodId) {
         Intent intent = new Intent(context, CommonActivity.class);
-        intent.putExtra(CLASS, GoodsFragment.class);
+        intent.putExtra(CLASS, GoodsMainFragment.class);
         Bundle bundle = new Bundle();
         bundle.putString("goodsID", goodId);
         intent.putExtras(bundle);
         skip(context, intent);
     }
-
     /**
      * 发现详情
      *

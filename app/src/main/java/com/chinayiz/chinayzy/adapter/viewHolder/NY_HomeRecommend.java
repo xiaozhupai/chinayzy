@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_RecommentModel;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -98,6 +99,7 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View v) {
+        Logger.e("测试="+v.getTag());
         switch (v.getId()) {
             case R.id.iv_recommend_Item1:
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"51"));

@@ -9,7 +9,7 @@
     <dimen name="common_margin">12.0dip</dimen>
     <dimen name="common_margin_10">10.0dip</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="goodsLeftPanding">11dp</dimen>
+    <dimen name="goodsLeftPanding">12dp</dimen>
 
     <dimen name="text_size_20sp">20sp</dimen>
     <dimen name="toolbar_elevation">8dp</dimen>

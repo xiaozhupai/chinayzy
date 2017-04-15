@@ -144,10 +144,27 @@
                 />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/btn_Recommend"
+            style="@style/Main_itemMenuLayout"
+            android:background="@mipmap/im_itembg"
+            android:layout_marginRight="1.5dp"
+            android:layout_marginLeft="1.5dp"
+            >
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/icon_qrcode"
+                />
+            <TextView
+                style="@style/Main_itemMenuText"
+                android:text="我的二维码"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/btn_asIm"
             android:background="@mipmap/asim_itembg"
             style="@style/Main_itemMenuLayout"
-            android:layout_marginRight="1.5dp"
+            android:layout_marginRight="11dp"
             android:layout_marginLeft="1.5dp"
             >
             <ImageView
@@ -160,22 +177,6 @@
                 android:text="关于我们"
                 />
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/btn_Recommend"
-            style="@style/Main_itemMenuLayout"
-            android:background="@mipmap/im_itembg"
-            android:layout_marginRight="11dp"
-            android:layout_marginLeft="1.5dp"
-            >
-            <ImageView
-                android:layout_width="40.5dp"
-                android:layout_height="41dp"
-                android:src="@mipmap/btn_share"
-                />
-            <TextView
-                style="@style/Main_itemMenuText"
-                android:text="推荐好友"
-                />
-        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

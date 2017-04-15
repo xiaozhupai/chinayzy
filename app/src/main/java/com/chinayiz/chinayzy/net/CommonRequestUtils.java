@@ -13,9 +13,9 @@ import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
-import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
+import com.chinayiz.chinayzy.entity.response.NewGoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.entity.response.PayModel;
@@ -28,6 +28,7 @@ import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.net.callback.StrCallback;
 import com.chinayiz.chinayzy.ui.fragment.mine.ResuestTakeFragment;
+import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -219,6 +220,7 @@ public class CommonRequestUtils {
 
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i("新的商品信息="+s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FORTYPEBY_GOODSS
@@ -237,13 +239,8 @@ public class CommonRequestUtils {
      */
     public void getGoodsDetail(String goodsId) {
         String time=System.currentTimeMillis()+"";
-        StringBuffer str=new StringBuffer();
-        str.append("time="+time);
-        str.append("&userid="+ APP.sUserid);
-        str.append("&goodsid"+goodsId);
-        String sing=APP.DES3code(str.toString());
-        Logger.i("商品详情签名="+sing);
-        Logger.e("主机地址="+Commons.API);
+        String sing= Md5Untils.getSign(time);
+        Logger.i("主机地址="+Commons.API );
         post()
                 .url(Commons.API + Commons.GOODS_DETAIL)
                 .addParams("time",time)
@@ -267,7 +264,7 @@ public class CommonRequestUtils {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_DETAIL
-                                    , mGson.fromJson(s, GoodsDetailModel.class)));
+                                    , mGson.fromJson(s, NewGoodsDetailModel.class)));
                         } catch (Exception e) {
                             onError(null, e, i);
                         }
@@ -379,14 +376,17 @@ public class CommonRequestUtils {
      * @param size     数量
      */
     public void getRelatedGoods(String itemcode, String page, String size) {
+        String time=System.currentTimeMillis()+"";
+        String sing= Md5Untils.getSign(time);
+        Logger.i("主机地址="+Commons.API );
         post()
                 .url(Commons.API + Commons.GOODS_RELATED)
-                .addParams("time", System.currentTimeMillis()+"")
+                .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("itemcode", itemcode)
                 .addParams("page", page)
                 .addParams("size", size)
-                .addParams("sign", "")
+                .addParams("sign", sing)
                 .tag(Commons.GOODS_RELATED)
                 .build()
                 .execute(new StrCallback() {
@@ -414,6 +414,7 @@ public class CommonRequestUtils {
      * @param goodsID 商品ID
      */
     public void doCollectGoods(String goodsID) {
+
         post()
                 .url(Commons.API + Commons.GOODS_COLLECT)
                 .addParams("time", System.currentTimeMillis()+"")

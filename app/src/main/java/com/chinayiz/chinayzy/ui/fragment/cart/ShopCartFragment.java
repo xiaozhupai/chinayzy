@@ -18,19 +18,13 @@ import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.entity.model.ActionBarControlModel;
-import com.chinayiz.chinayzy.entity.model.BaseMessage;
-import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.presenter.ShopCartPresenter;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * 购物车
@@ -130,7 +124,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_shopcart_submit:  //结算或者删除
-
                 mPresenter.submit();
                 break;
             case R.id.iv_shopcart_radio:   //是否全选
@@ -143,16 +136,13 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) adapterView.getItemAtPosition(i);
-        Skip.toGoodsDetail(getActivity(),bean.getGoodsid()+"");
+        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
     }
 
     @Override
     public void onResume() {
        mPresenter.getData();
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
-                NongYeMainActivity.NYMAIN_ACTIONBAR, new ActionBarControlModel(NongYeMainActivity.SHOW_ALL, "购物车", 1, 0, 1, 0)));
         super.onResume();
-
     }
 
     /**

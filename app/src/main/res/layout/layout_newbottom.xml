@@ -6,46 +6,46 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
         <TextView
             android:id="@+id/tv_alte"
             android:layout_width="match_parent"
-            android:layout_height="83dp"
-            android:gravity="bottom|center_horizontal"
-            android:text="继续下拉，返回上一页"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="继续上拉，查看商品详情~"
             android:textColor="@color/Goods_Postage"
             android:textSize="10sp"
-            android:padding="17dp"
             />
         <include layout="@layout/view_line"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
-        <com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView
-            android:id="@+id/gv_goodsList"
-            android:background="@color/NongYe_Line"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="2"
-            android:horizontalSpacing="1dp"
-            android:verticalSpacing="1dp"
-            android:visibility="gone"
+            android:layout_weight="1"
             >
-        </com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView>
-        <WebView
-            android:id="@+id/wv_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:background="@color/Background"
-            />
-    </FrameLayout>
+            <com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView
+                android:id="@+id/gv_goodsList"
+                android:background="@color/NongYe_Line"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="2"
+                android:horizontalSpacing="1dp"
+                android:verticalSpacing="1dp"
+                android:visibility="gone"
+                >
+            </com.chinayiz.chinayzy.views.goodsDetail.NoScrollGridView>
+            <WebView
+                android:id="@+id/wv_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@color/Background"
+                />
+            <include  layout="@layout/view_progress"/>
+        </FrameLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
