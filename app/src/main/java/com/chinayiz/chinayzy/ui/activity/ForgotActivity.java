@@ -20,9 +20,8 @@ import com.chinayiz.chinayzy.presenter.ForgotPresenter;
 
 public class ForgotActivity extends BaseActivity<ForgotPresenter> implements View.OnClickListener{
     public EditText et_forgot_input_phone;
-    public ImageView iv__register_lock;
     public EditText et_forgot_input_message;
-    public TextView tv_forgot_sendmessage,tv_forgot_submit,tv_forgot_pact;
+    public TextView tv_forgot_sendmessage,tv_forgot_submit;
     public View v_register_line;
     public EditText et_forgot_input_password;
     public EditText et_forgot_input_newpassword;
@@ -73,7 +72,6 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
         et_forgot_input_password = (EditText) findViewById(R.id.et_forgot_input_password);
         et_forgot_input_newpassword = (EditText) findViewById(R.id.et_forgot_input_newpassword);
         tv_forgot_submit= (TextView) findViewById(R.id.tv_forgot_submit);
-        tv_forgot_pact.setOnClickListener(this);
         tv_forgot_submit.setOnClickListener(this);
         tv_forgot_sendmessage.setOnClickListener(this);
     }
