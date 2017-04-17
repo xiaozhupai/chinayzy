@@ -185,7 +185,7 @@
             android:layout_marginLeft="29dp"
             android:layout_marginRight="29dp"
             android:layout_marginTop="35dp"
-            android:background="@drawable/shape_corner_gray"
+            android:background="@drawable/shape_corner_red"
             android:clickable="true"
             android:gravity="center"
             android:padding="16dp"
