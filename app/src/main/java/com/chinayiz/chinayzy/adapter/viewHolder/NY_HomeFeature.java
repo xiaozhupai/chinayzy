@@ -61,12 +61,12 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
             }else {
                 count=datas.size();
             }
-            mGoods.get(0).Icon.setTag(R.id.tag_click,"47");
             for (int i = 0; i < count ; i++) {
                 holder = mGoods.get(i);
                 dataBean = datas.get(i);
                 if (dataBean.getType().equals("1")) {//主题类型
                     Glide.with(fragment).load(dataBean.getThemepic()).into(mGoods.get(0).Icon);
+                    mGoods.get(0).Icon.setTag(R.id.tag_click,dataBean.getDetaillink());
                 } else if (i!=0){//商品类型
                     holder.Title.setText(dataBean.getGname());
                     String price=dataBean.getPrice();
@@ -87,9 +87,9 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
             for (int i = 4; i<datas.size() ; i++) {
                 dataBean = datas.get(i);
                 holder = mGoods.get(i%4);
-                mGoods.get(0).Icon.setTag(R.id.tag_click,"58");
                 if (dataBean.getType().equals("1")) {//主题类型
                     Glide.with(fragment).load(dataBean.getThemepic()).into(mGoods.get(0).Icon);
+                    mGoods.get(0).Icon.setTag(R.id.tag_click,dataBean.getDetaillink());
                 }else{//商品类型
                     holder.Title.setText(dataBean.getGname());
                     String price=dataBean.getPrice();
@@ -110,7 +110,6 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_themeIcon://特色购主题宣传图
-                Logger.i("特色购主题宣传图");
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
                 break;
             case R.id.lv_comgoods1://商品1

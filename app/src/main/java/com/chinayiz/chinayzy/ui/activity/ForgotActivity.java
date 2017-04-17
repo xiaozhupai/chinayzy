@@ -78,8 +78,6 @@ public class ForgotActivity extends BaseActivity<ForgotPresenter> implements Vie
         tv_forgot_sendmessage.setOnClickListener(this);
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){

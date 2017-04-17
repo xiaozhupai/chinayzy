@@ -262,7 +262,6 @@ public class CommonRequestUtils {
 
                     @Override
                     public void onResponse(String s, int i) {
-                        Logger.i("商品详情="+s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_DETAIL

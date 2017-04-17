@@ -68,7 +68,6 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
         if (message.getEventType() ==EventMessage.NET_EVENT) {//网络请求回调消息
-            Logger.i("网络请求回调消息" + message.toString());
             disposeNetMsg(message);
         }
     }

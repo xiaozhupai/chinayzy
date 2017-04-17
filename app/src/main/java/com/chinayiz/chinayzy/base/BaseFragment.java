@@ -64,7 +64,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             outState.putBundle("bundle", mBundle);
         }
         outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
-        Logger.e("onSaveInstanceState");
         super.onSaveInstanceState(outState);
     }
 

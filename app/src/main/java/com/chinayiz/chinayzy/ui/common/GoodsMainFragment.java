@@ -98,8 +98,6 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mViewHolder.tv_cart.setOnClickListener(this);
         mViewHolder.tv_addCart.setOnClickListener(this);
         mPresenter.mRequestUtils = CommonRequestUtils.getRequestUtils();
-        Logger.e(++startSum+"次数启动");
-
     }
 
 
@@ -287,11 +285,12 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     }
 
     public void setFavorite(String iscollect) {
-        Logger.i("是否收藏="+iscollect);
         if ("0".equals(iscollect)) {
             mViewHolder.cb_favorite.setChecked(false);
         }else {
-            mViewHolder.cb_favorite.setChecked(true);
+            if (iscollect!=null){  mViewHolder.cb_favorite.setChecked(true);}
+            else {mViewHolder.cb_favorite.setChecked(false);}
+
         }
     }
 
