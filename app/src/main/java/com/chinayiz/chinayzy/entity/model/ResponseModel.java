@@ -11,23 +11,14 @@ public class ResponseModel extends BaseResponseModel {
      * data : {}
      */
 
-    private DataBean data;
+    private String data;
 
-    public DataBean getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public  class DataBean {
-
-        @Override
-        public String toString() {
-            return "ResponseModel{" +
-                    "data=" + data +
-                    '}';
-        }
-    }
 }

@@ -23,7 +23,7 @@
             android:layout_marginTop="44dp"
             >
         </android.support.v4.view.ViewPager>
-        <!--<include layout="@layout/view_progress"/>-->
+        <include layout="@layout/view_progress"/>
         <RadioGroup
             android:id="@+id/rg_goodsMeun"
             android:layout_width="match_parent"

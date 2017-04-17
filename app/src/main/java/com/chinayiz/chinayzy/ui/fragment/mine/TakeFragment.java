@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.ui.fragment.mine;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.AbsFragment;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.model.ResponseModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.CommonWebFragment;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import static com.chinayiz.chinayzy.net.Commons.EDIE_USERINFO;
 
 /**
  * author  by  Canrom7 .
@@ -73,7 +81,43 @@ public class TakeFragment extends AbsFragment implements View.OnClickListener {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-
+        switch (message.getDataType()) {
+            case Commons.USERINFO_ISOK:{
+                ResponseModel model= (ResponseModel) message.getData();
+                if ("1".equals(model.getData())) {
+                    Logger.i("已经完善");
+                    addFragment(new ResuestTakeFragment(),"ResuestTakeFragment");
+                }else {
+                    Logger.i("待完善");
+                    new MaterialDialog.Builder(getActivity())
+                            .limitIconToDefaultSize()
+                            .title("提示")
+                            .titleColor(Color.rgb(209,97,88))
+                            .negativeText("下次再说")
+                            .positiveText("去完善")
+                            .content("系统检测您的详细资料尚未完善，请您先完善详细资料后再进行下一步操作。")
+                            .contentColor(Color.rgb(43,43,43))
+                            .backgroundColor(Color.rgb(230,230,230))
+                            .negativeColor(Color.rgb(65,51,60))
+                            .positiveColor(Color.rgb(57,181,74))
+                            .onAny(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    if (DialogAction.POSITIVE.toString().equals(which.name())){  //更新/下载
+                                        String url=new String(Commons.API+EDIE_USERINFO+"?userid="+ APP.sUserid);
+                                        Skip.toWebPage(getActivity(),url,"完善资料");
+                                    }else if (DialogAction.NEGATIVE.toString().equals(which.name())){ //取消更新/安装
+                                       dialog.dismiss();
+                                    }
+                                }
+                            })
+                            .cancelable(false)
+                            .build()
+                            .show();
+                }
+                break;
+            }
+        }
     }
 
     @Override
@@ -102,22 +146,20 @@ public class TakeFragment extends AbsFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_goldRule:{
-                addFragment(new CommonWebFragment("提现规则", Commons.API+Commons.GET_GOLD_RULE),"CommonWebFragment");
+        switch (v.getId()) {
+            case R.id.tv_goldRule: {
+                addFragment(new CommonWebFragment("提现规则", Commons.API + Commons.GET_GOLD_RULE), "CommonWebFragment");
                 break;
             }
-            case R.id.bt_inPut:{
-                Logger.i("充值");
-                addFragment(new PrestoreFragment(),"PrestoreFragment");
+            case R.id.bt_inPut: {
+                addFragment(new PrestoreFragment(), "PrestoreFragment");
                 break;
             }
-            case R.id.bt_outPut:{
-                addFragment(new ResuestTakeFragment(),"ResuestTakeFragment");
-                Logger.i("提现");
+            case R.id.bt_outPut: {
+                mRequestUtils.getUserInfoOk();
                 break;
             }
-            case R.id.iv_back_button:{
+            case R.id.iv_back_button: {
                 getActivity().onBackPressed();
                 break;
             }

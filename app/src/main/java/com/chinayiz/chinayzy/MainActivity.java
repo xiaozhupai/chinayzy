@@ -37,11 +37,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     public boolean isYes=false;
     private boolean isNotify=false;
     private View mBtnNongYe,mBtn_asIm,mBtnRecommend;
-    private View mBtnCityWide;
     private View mBtnStore;
     private View mBtnIm;
-    private View mBtnLvYou;
-    private View mBtnZhongChou;
     private NY_BannerModel mModel;
     private List<String> urls=new ArrayList<>();
 
@@ -67,20 +64,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         mBannerMainPager = (ConvenientBanner) findViewById(R.id.banner_MainPager);
         mBannerMainPager.setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused});
         mBtnNongYe =  findViewById(R.id.btn_NongYe);
-        mBtnCityWide = findViewById(R.id.btn_CityWide);
         mBtnStore = findViewById(R.id.btn_Store);
         mBtnIm = findViewById(R.id.btn_im);
-        mBtnLvYou =  findViewById(R.id.btn_LvYou);
-        mBtnZhongChou = findViewById(R.id.btn_ZhongChou);
         mBtn_asIm=findViewById(R.id.btn_asIm);
         mBtnRecommend=findViewById(R.id.btn_Recommend);
 
         mBtnNongYe.setOnClickListener(this);
-        mBtnCityWide.setOnClickListener(this);
+//        mBtnCityWide.setOnClickListener(this);
+//        mBtnLvYou.setOnClickListener(this);
+//        mBtnZhongChou.setOnClickListener(this);
         mBtnStore.setOnClickListener(this);
         mBtnIm.setOnClickListener(this);
-        mBtnLvYou.setOnClickListener(this);
-        mBtnZhongChou.setOnClickListener(this);
         mBtn_asIm.setOnClickListener(this);
         mBtnRecommend.setOnClickListener(this);
     }
@@ -116,25 +110,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             case R.id.btn_NongYe://农业
                 mPresenter.doStartNongye();
                 break;
-            case R.id.btn_CityWide://同城
-                Skip.toItemMenu(this,"-1");
-                break;
             case R.id.btn_Store://商城
-                Skip.toItemMenu(this,"-1");
-                break;
+            Skip.toItemMenu(this,"-1");
+            break;
             case R.id.btn_im://个人中心
-                mPresenter.doStartMine();
-                break;
-            case R.id.btn_LvYou://旅游
-                Skip.toItemMenu(this,"-1");
-                break;
-            case R.id.btn_ZhongChou://众筹
-                Skip.toItemMenu(this,"-1");
-                break;
+            mPresenter.doStartMine();
+            break;
+//            case R.id.btn_LvYou://旅游
+//            Skip.toItemMenu(this,"-1");
+//            break;
+//            case R.id.btn_CityWide://同城
+//                Skip.toItemMenu(this,"-1");
+//                break;
+//            case R.id.btn_ZhongChou://众筹
+//                Skip.toItemMenu(this,"-1");
+//                break;
             case R.id.btn_asIm://关于我们
-//                String url=new String(Commons.API+"/h5/aboutus");
-//                Skip.toWebPage(this,url,"关于我们");
-                Skip.toNewGoodsDetail(this,"47");
+                String url=new String(Commons.API+"/h5/aboutus");
+                Skip.toWebPage(this,url,"关于我们");
                 break;
             case R.id.btn_Recommend://分享我的二维码
                 if (UserSeeion.isLogin(this)) {

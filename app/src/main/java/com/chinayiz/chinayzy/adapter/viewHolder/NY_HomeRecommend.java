@@ -70,6 +70,7 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
            Glide.with(fragment)
                    .load(themelistBeen.get(i).getPic())
                    .into(mRecommendViews.get(i));
+           mRecommendViews.get(i).setTag(themelistBeen.get(i).getDetaillink());
             if ("1".equals(themelistBeen.get(i).getType())){// 1为主题
 
             }else if ("2".equals(themelistBeen.get(i).getType())){// 2为商品
@@ -102,19 +103,19 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
         Logger.e("测试="+v.getTag());
         switch (v.getId()) {
             case R.id.iv_recommend_Item1:
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"51"));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.iv_recommend_Item2:
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"56"));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.iv_recommend_Item3:
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"52"));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.iv_recommend_Item4:
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"67"));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.iv_recommend_Item5:
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,"54"));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));
                 break;
             case R.id.lv_comgoods1:
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));

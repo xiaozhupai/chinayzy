@@ -54,7 +54,6 @@ public class CommentListAdapter extends BaseAdapter {
         CommentListModel.DataBean.CommentlistBean data = mDataList.get(position);
         String[]  picUrl=null;
         View view;
-        int sum = Integer.parseInt(data.getServicepoint());
         if (convertView == null) {
             mHolder = new ViewHolder();
             view = View.inflate(mFragment.getActivity(), R.layout.comment_item, null);
@@ -73,11 +72,13 @@ public class CommentListAdapter extends BaseAdapter {
             view = convertView;
             mHolder = (ViewHolder) view.getTag();
         }
-        Glide.with(mFragment)
-                .load(data.getPic())
-                .transform(new GlideRoundTransform(mFragment.getActivity()))
-                .into(mHolder.mUserIcon);
-        mHolder.mRatingBar.setStar(sum / 3);
+        if (data.getPic()!=null){
+            Glide.with(mFragment)
+                    .load(data.getPic())
+                    .transform(new GlideRoundTransform(mFragment.getActivity()))
+                    .into(mHolder.mUserIcon);
+        }
+        mHolder.mRatingBar.setStar(5 );
         mHolder.mCommentContent.setText(data.getCommentscontent());
         mHolder.mCreateDate.setText(data.getCreatetime());
         char[] chars;

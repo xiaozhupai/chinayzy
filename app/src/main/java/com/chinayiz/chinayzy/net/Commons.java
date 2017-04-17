@@ -22,7 +22,7 @@ public class Commons {
     /**
      * 主机地址 http://106.14.20.226/yzyProduct/v1/api
      */
-    public static final String API = isDebug ? "http://192.168.1.8:8081/yzyProduct/v1/api" : "http://192.168.1.8:8081/yzyProduct/v1/api";
+    public static final String API = isDebug ? "http://192.168.1.8:8081/yzyProduct/v1/api" : "http://106.14.20.226/yzyProduct/v1/api";
     /**
      * 添加购物车
      */
@@ -325,6 +325,15 @@ public class Commons {
      * 物流信息
      */
     public static final String LOGISTICS_INFO = "/h5/wlxx";
+    /**
+     * 完善资料
+     */
+    public static final String EDIE_USERINFO = "/h5/demo";
+
+    /**
+     * 资料是否完善
+     */
+    public static final String USERINFO_ISOK = "/user/isresearch";
     /**
      * 我的订单
      */

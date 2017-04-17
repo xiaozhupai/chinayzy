@@ -65,8 +65,10 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     private int comitsID;
     private RelatedGoodsModel mRelatedGoodslist;
     private GoodsStandard2 goodsStandard2;
-
+    private boolean isSetData=true;
+    private boolean RelatGoodsisSetData=true;
     private String goodsID, address;
+    private View mView;
 
     public void setGoodsID(String goodsID) {
         this.goodsID = goodsID;
@@ -75,9 +77,10 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods_detail, container, false);
-        initView(view);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_goods_detail, container, false);
+        Logger.i("onCreateView="+GoodsMainFragment.startSum);
+        initView(mView);
+        return mView;
     }
 
     @Override
@@ -172,6 +175,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 }
             }
         });
+        Logger.i("子类加载数据"+GoodsMainFragment.startSum);
         mRequestUtils.getGoodsDetail(goodsID);
     }
 
@@ -180,6 +184,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     }
 
     public static GoodsDetailFragment getInstance() {
+        Logger.i("子类加载数据getInstance"+GoodsMainFragment.startSum);
         return new GoodsDetailFragment();
     }
 
@@ -194,7 +199,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 goodsStandard2.show();
                 break;
             case R.id.tv_address://选择地址
-                Logger.i("选择地址");
                 if ("0".equals(APP.sUserid)) {
                     BaseActivity.showToast(getActivity(), "请先进行登录");
                     Skip.toLogin(getActivity());
@@ -218,7 +222,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 break;
             case R.id.tv_moreGoods://更多推荐
                 Logger.i("更多推荐");
-
+                Skip.toGoodsRecommend(getActivity(),mDetailModel.getItemcode());
                 break;
         }
     }
@@ -245,6 +249,8 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 if (mRelatedGoodslist == null) {
                     mViewHolder.mProgerss.setVisibility(View.VISIBLE);
                     mRequestUtils.getRelatedGoods(mDetailModel.getItemcode(), "1", "14");
+                }else {
+                    setRelatGoodsList(mRelatedGoodslist);
                 }
                 break;
             }
@@ -275,6 +281,10 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     }
 
     public void setRelatGoodsList(RelatedGoodsModel relatedGoodsModel) {
+        if (!RelatGoodsisSetData) {
+            return;
+        }
+        RelatGoodsisSetData =false;
         mRelatedGoodslist = relatedGoodsModel;
         GoodsDetailGridAdpter detailGridAdpter = new GoodsDetailGridAdpter(getActivity());
         detailGridAdpter.setData(mRelatedGoodslist);
@@ -283,18 +293,21 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     }
 
     public void setData(NewGoodsDetailModel model) {
+        if (!isSetData) {
+            return;
+        }
+        isSetData=false;
         mDetailModel = model.getData();
         goodsID = mDetailModel.getGoodsid();
         List<String> urls = new ArrayList<>();
         for (String str : mDetailModel.getGpic().split(",")) {
             urls.add(str);
         }
-        Logger.e(String.valueOf(mViewHolder.vpager_Banner == null));
         mViewHolder.vpager_Banner.setPages(new CreatePhotosHolder(), urls);
 
         if ("1".equals(mDetailModel.getIsself())) {//是否自营
             Logger.i("是否自营");
-            mViewHolder.tv_goodsTitle.setText("\\t\\t\\t\\t\\t" + mDetailModel.getGname());
+            mViewHolder.tv_goodsTitle.setText("\t\t\t\t\t\t" + mDetailModel.getGname());
         } else {
             mViewHolder.view_isSelf.setVisibility(View.GONE);
             mViewHolder.iv_StoreType.setVisibility(View.GONE);

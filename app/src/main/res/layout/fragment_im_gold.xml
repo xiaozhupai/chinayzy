@@ -104,7 +104,7 @@
                 android:background="@color/Background"
                 />
         </RelativeLayout>
-
+        <include layout="@layout/view_progress"/>
     </FrameLayout>
 
     <TextView

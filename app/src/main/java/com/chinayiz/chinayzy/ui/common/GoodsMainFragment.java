@@ -45,22 +45,24 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     public NyMainPagerAdapter mPagerAdapter;
     private GoodsStandard2 mGoodsStandard2;
     public GoodsDetailModel.DataBean mDataBean;
-    public static int startSum=1;
+    public static int startSum=0;
+    public View mPregess;
     private List<Fragment> mFragments;
     public GoodsDetailFragment mDetailFragment;
     public PicDetailFragment mPicDetailFragment;
     public CommentsFragment mCommentsFragment;
     public String goodsID, storeID;
+    public View mView;
     private int pegerIdex = 0;
     private int mOnwPager = 0;
     private GoodsStandard2 goodsStandard2;
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods_main, container, false);
+        mView = inflater.inflate(R.layout.fragment_goods_main, container, false);
         mFragments = new ArrayList<>(3);
-        initViews(view);
-        return view;
+        initViews(mView);
+        return mView;
     }
 
     private void initViews(View view) {
@@ -69,8 +71,11 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mViewHolder.rg_goodsMeun.setOnCheckedChangeListener(this);
         mViewHolder.rg_goodsMeun.setVisibility(View.GONE);
         mViewHolder.rg_goodsMeun.setClickable(false);
+
         mDetailFragment = GoodsDetailFragment.getInstance();
         mDetailFragment.setGoodsID(goodsID);
+        mPregess=view.findViewById(R.id.ll_progress);
+        mPregess.setVisibility(View.VISIBLE);
         mPicDetailFragment = PicDetailFragment.getInstance();
         mCommentsFragment = CommentsFragment.getInstance();
         mCommentsFragment.setGoodsID(goodsID);
@@ -79,7 +84,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mFragments.add(mPicDetailFragment);
         mFragments.add(mCommentsFragment);
 
-        mPagerAdapter = new NyMainPagerAdapter(getFragmentManager(), mFragments);
+        mPagerAdapter = new NyMainPagerAdapter(getChildFragmentManager(), mFragments);
         mViewHolder.vp_goodsGetail.setOffscreenPageLimit(3);
         mViewHolder.vp_goodsGetail.setAdapter(mPagerAdapter);
         mViewHolder.vp_goodsGetail.addOnPageChangeListener(this);
@@ -93,7 +98,8 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mViewHolder.tv_cart.setOnClickListener(this);
         mViewHolder.tv_addCart.setOnClickListener(this);
         mPresenter.mRequestUtils = CommonRequestUtils.getRequestUtils();
-        Logger.e("启动次数"+startSum++);
+        Logger.e(++startSum+"次数启动");
+
     }
 
 
@@ -196,9 +202,6 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
      * 商品是否被收藏
      */
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (goodsID == null) {
-            return;
-        }
         if (isChecked) {
             mPresenter.mRequestUtils.doCollectGoods(goodsID);
         } else {
@@ -268,6 +271,12 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        startSum--;
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
@@ -275,6 +284,15 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    public void setFavorite(String iscollect) {
+        Logger.i("是否收藏="+iscollect);
+        if ("0".equals(iscollect)) {
+            mViewHolder.cb_favorite.setChecked(false);
+        }else {
+            mViewHolder.cb_favorite.setChecked(true);
+        }
     }
 
     private class ViewHolder {

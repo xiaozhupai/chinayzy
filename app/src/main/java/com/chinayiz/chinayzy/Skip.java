@@ -9,6 +9,7 @@ import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
+import com.chinayiz.chinayzy.ui.common.MoreRecommendGoodsFragment;
 import com.chinayiz.chinayzy.ui.common.StoreFragment;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
@@ -149,20 +150,19 @@ public class Skip {
         skip(context, intent);
     }
 
-//    /**
-//     * 商品详情页
-//     *
-//     * @param context
-//     * @param goodId  订单编号
-//     */
-//    public static void toGoodsDetail(Context context, String goodId) {
-//        Intent intent = new Intent(context, CommonActivity.class);
-//        intent.putExtra(CLASS, GoodsFragment.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("goodsID", goodId);
-//        intent.putExtras(bundle);
-//        skip(context, intent);
-//    }
+    /**
+     * 更多推荐商品（商品详情页进入）
+     * @param context
+     * @param itemCode  类型代码
+     */
+    public static void toGoodsRecommend(Context context, String itemCode) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, MoreRecommendGoodsFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("itemCode", itemCode);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
 
     /**
      * 新的商品详情页

@@ -1,7 +1,5 @@
 package com.chinayiz.chinayzy.entity.model;
 
-import java.io.Serializable;
-
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/1/18 9:12

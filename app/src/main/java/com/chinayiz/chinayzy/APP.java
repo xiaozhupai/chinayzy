@@ -32,10 +32,10 @@ public class APP extends Application {
     /**
      * 全局用户ID
      */
-    public static String sUserid = "15";
+    public static String sUserid = "0";
     public static APP instance;
     public static String phone;
-    public static String Version = "1";
+    public static String Version = "2";
 
     public static GlideCacheUtil cacheUtil;
     private static final ArrayList<Activity> activityLists = new ArrayList<>();

@@ -4,6 +4,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
+import com.orhanobut.logger.Logger;
+
 import java.util.List;
 
 /**

@@ -14,6 +14,7 @@ import com.chinayiz.chinayzy.adapter.CommentListAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -28,10 +29,11 @@ public class CommentsFragment extends Fragment{
     public static final int START=1;
     private ListView mCommentList;
     private CommentListAdapter mAdapter;
-    private View mView;
+    private View mView,views;
     private CommentListModel mModel;
     private boolean islaoad=false;
     private int coun=0;
+    private boolean isSetData=true;
     private String goodsID;
 
     public void setGoodsID(String goodsID) {
@@ -40,9 +42,9 @@ public class CommentsFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_comments, container,false);
-        initView(view);
-        return view;
+        views=inflater.inflate(R.layout.fragment_comments, container,false);
+        initView(views);
+        return views;
     }
 
     public void setCoun(int coun) {
@@ -68,13 +70,18 @@ public class CommentsFragment extends Fragment{
         mAdapter=new CommentListAdapter(this);
         mView=view.findViewById(R.id._ll_nullComment);
         mCommentList= (ListView) view.findViewById(R.id.lv_comments);
-        mCommentList.setAdapter(mAdapter);
     }
 
     public void setCommentData(EventMessage message){
+        Logger.i("评论列表返回");
+        if (!isSetData) {
+            return;
+        }
         mModel = (CommentListModel) message.getData();
         mAdapter.setCommentDatas(mModel.getData().getCommentlist());
         mAdapter.notifyDataSetChanged();
+        mCommentList.setAdapter(mAdapter);
+        isSetData=false;
     }
 
 }

@@ -11,9 +11,11 @@ import java.util.List;
  */
 
 public class NY_RecommentModel extends BaseResponseModel {
+
     /**
-     * data : {"recommentlist":[{"repertorytotal":100,"productarea":"湖北","goodsid":1,"price":"50-100","icon":"http://img4.imgtn.bdimg.com/it/u=2595096625,1878289837&fm=23&gp=0.jpg","salesvolume":500,"gname":"云雾绿茶","brand":"英山云雾"},{"repertorytotal":100,"productarea":"湖北","goodsid":7,"price":"50-100","icon":"http://img4.imgtn.bdimg.com/it/u=2595096625,1878289837&fm=23&gp=0.jpg","salesvolume":500,"gname":"云雾毛尖","brand":"英山云雾"},{"repertorytotal":100,"productarea":"湖北","goodsid":8,"price":"50-100","icon":"http://img4.imgtn.bdimg.com/it/u=2595096625,1878289837&fm=23&gp=0.jpg","salesvolume":500,"gname":"云雾红茶","brand":"英山云雾"}],"themelist":[{"themename":"打折","themeid":3,"pic":"https://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6d81800a19d8bc3ed69473cb848ba61ea8d34516.jpg","type":"1"},{"themename":"聚优美","themeid":4,"pic":"https://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6d81800a19d8bc3ed69473cb848ba61ea8d34516.jpg","type":"1"},{"themename":"亲友推荐","themeid":5,"pic":"https://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6d81800a19d8bc3ed69473cb848ba61ea8d34516.jpg","type":"1"},{"themename":"唯品会","themeid":6,"pic":"https://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6d81800a19d8bc3ed69473cb848ba61ea8d34516.jpg","type":"1"}]}
+     * data : {"recommentlist":[{"icon":"http://chinayiz.cn/m1/2017/0330/4f4797af-0cc8-409d-ae90-399ebd27a9ee.jpg","price":"1125.00-2250.00","goodsid":71,"salesvolume":0,"isself":"1","gname":"富硒纯手工玉露","brand":"益众","productarea":"湖北恩施"},{"icon":"http://chinayiz.cn/m1/2017/0330/724e7bcf-9cbe-406a-b55e-a3058e7c2bcf.jpg","price":"165.00-325.00","goodsid":72,"salesvolume":0,"isself":"1","gname":"富硒蜂蜜","brand":"益众","productarea":"湖北恩施"},{"icon":"http://chinayiz.cn/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","price":"725.00-1450.00","goodsid":73,"salesvolume":0,"isself":"1","gname":"富硒贡芽","brand":"益众","productarea":"湖北恩施"}],"themelist":[{"themename":"推荐","themeid":3,"detaillink":"75","pic":"http://chinayiz.cn/v1/2017/0414/c450aa8f-c6df-4425-9ff8-227a234995cd.png","type":"1"},{"themename":"推荐","themeid":4,"detaillink":"73","pic":"http://chinayiz.cn/v1/2017/0414/1ed5a662-b972-47ba-88ab-e3f892362942.png","type":"1"},{"themename":"推荐","themeid":5,"detaillink":"76","pic":"http://chinayiz.cn/v1/2017/0414/db2e47e9-763a-4573-95b1-30395aede621.png","type":"1"},{"themename":"推荐","themeid":6,"detaillink":"74","pic":"http://chinayiz.cn/v1/2017/0414/a05ec361-48fe-4655-b47b-b277b02c253b.png","type":"1"},{"themename":"推荐","themeid":7,"detaillink":"72","pic":"http://chinayiz.cn/v1/2017/0414/337dc224-ab80-4766-a67c-bb4a4d9f27cd.png","type":"1"}]}
      */
+
     private DataBean data;
 
     public DataBean getData() {
@@ -24,14 +26,7 @@ public class NY_RecommentModel extends BaseResponseModel {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "NY_RecommentModel{" +
-                "data=" + data +
-                '}';
-    }
-
-    public  class DataBean {
+    public static class DataBean {
         private List<RecommentlistBean> recommentlist;
         private List<ThemelistBean> themelist;
 
@@ -51,66 +46,33 @@ public class NY_RecommentModel extends BaseResponseModel {
             this.themelist = themelist;
         }
 
-        @Override
-        public String toString() {
-            return "DataBean{" +
-                    "recommentlist=" + recommentlist +
-                    ", themelist=" + themelist +
-                    '}';
-        }
-
-        public  class RecommentlistBean {
+        public static class RecommentlistBean {
             /**
-             * repertorytotal : 100
-             * productarea : 湖北
-             * goodsid : 1
-             * price : 50-100
-             * icon : http://img4.imgtn.bdimg.com/it/u=2595096625,1878289837&fm=23&gp=0.jpg
-             * salesvolume : 500
-             * gname : 云雾绿茶
-             * brand : 英山云雾
+             * icon : http://chinayiz.cn/m1/2017/0330/4f4797af-0cc8-409d-ae90-399ebd27a9ee.jpg
+             * price : 1125.00-2250.00
+             * goodsid : 71
+             * salesvolume : 0
+             * isself : 1
+             * gname : 富硒纯手工玉露
+             * brand : 益众
+             * productarea : 湖北恩施
              */
 
-            private int repertorytotal;
-            private String productarea;
-            private int goodsid;
-            private String price;
             private String icon;
+            private String price;
+            private int goodsid;
             private int salesvolume;
+            private String isself;
             private String gname;
             private String brand;
-            private String isself;
+            private String productarea;
 
-            public String getIsself() {
-                return isself;
+            public String getIcon() {
+                return icon;
             }
 
-            public void setIsself(String isself) {
-                this.isself = isself;
-            }
-
-            public int getRepertorytotal() {
-                return repertorytotal;
-            }
-
-            public void setRepertorytotal(int repertorytotal) {
-                this.repertorytotal = repertorytotal;
-            }
-
-            public String getProductarea() {
-                return productarea;
-            }
-
-            public void setProductarea(String productarea) {
-                this.productarea = productarea;
-            }
-
-            public int getGoodsid() {
-                return goodsid;
-            }
-
-            public void setGoodsid(int goodsid) {
-                this.goodsid = goodsid;
+            public void setIcon(String icon) {
+                this.icon = icon;
             }
 
             public String getPrice() {
@@ -121,12 +83,12 @@ public class NY_RecommentModel extends BaseResponseModel {
                 this.price = price;
             }
 
-            public String getIcon() {
-                return icon;
+            public int getGoodsid() {
+                return goodsid;
             }
 
-            public void setIcon(String icon) {
-                this.icon = icon;
+            public void setGoodsid(int goodsid) {
+                this.goodsid = goodsid;
             }
 
             public int getSalesvolume() {
@@ -135,6 +97,14 @@ public class NY_RecommentModel extends BaseResponseModel {
 
             public void setSalesvolume(int salesvolume) {
                 this.salesvolume = salesvolume;
+            }
+
+            public String getIsself() {
+                return isself;
+            }
+
+            public void setIsself(String isself) {
+                this.isself = isself;
             }
 
             public String getGname() {
@@ -153,30 +123,27 @@ public class NY_RecommentModel extends BaseResponseModel {
                 this.brand = brand;
             }
 
-            @Override
-            public String toString() {
-                return "RecommentlistBean{" +
-                        "repertorytotal=" + repertorytotal +
-                        ", productarea='" + productarea + '\'' +
-                        ", goodsid=" + goodsid +
-                        ", price='" + price + '\'' +
-                        ", icon='" + icon + '\'' +
-                        ", salesvolume=" + salesvolume +
-                        ", gname='" + gname + '\'' +
-                        ", brand='" + brand + '\'' +
-                        '}';
+            public String getProductarea() {
+                return productarea;
+            }
+
+            public void setProductarea(String productarea) {
+                this.productarea = productarea;
             }
         }
 
-        public  class ThemelistBean {
+        public static class ThemelistBean {
             /**
-             * themename : 打折
+             * themename : 推荐
              * themeid : 3
-             * pic : https://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6d81800a19d8bc3ed69473cb848ba61ea8d34516.jpg
+             * detaillink : 75
+             * pic : http://chinayiz.cn/v1/2017/0414/c450aa8f-c6df-4425-9ff8-227a234995cd.png
              * type : 1
              */
+
             private String themename;
             private int themeid;
+            private String detaillink;
             private String pic;
             private String type;
 
@@ -196,6 +163,14 @@ public class NY_RecommentModel extends BaseResponseModel {
                 this.themeid = themeid;
             }
 
+            public String getDetaillink() {
+                return detaillink;
+            }
+
+            public void setDetaillink(String detaillink) {
+                this.detaillink = detaillink;
+            }
+
             public String getPic() {
                 return pic;
             }
@@ -210,16 +185,6 @@ public class NY_RecommentModel extends BaseResponseModel {
 
             public void setType(String type) {
                 this.type = type;
-            }
-
-            @Override
-            public String toString() {
-                return "ThemelistBean{" +
-                        "themename='" + themename + '\'' +
-                        ", themeid=" + themeid +
-                        ", pic='" + pic + '\'' +
-                        ", type='" + type + '\'' +
-                        '}';
             }
         }
     }

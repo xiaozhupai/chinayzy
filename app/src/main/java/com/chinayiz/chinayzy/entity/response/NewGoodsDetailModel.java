@@ -74,6 +74,7 @@ public class NewGoodsDetailModel extends BaseResponseModel {
         private String salesvolume;
         private String address;
         private String carriage;
+        private String iscollect;
         private String gpic;
         private String gname;
         private String itemcode;
@@ -107,6 +108,13 @@ public class NewGoodsDetailModel extends BaseResponseModel {
         private List<CommentlistBean> commentlist;
         private List<RelateGoodsBean> relateGoods;
 
+        public String getIscollect() {
+            return iscollect;
+        }
+
+        public void setIscollect(String iscollect) {
+            this.iscollect = iscollect;
+        }
         public String getAddress() {
             return address;
         }

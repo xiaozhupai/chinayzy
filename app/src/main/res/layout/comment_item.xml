@@ -28,7 +28,7 @@
         android:layout_below="@id/rb_commentScore"
         android:layout_marginLeft="11dp"
         android:layout_marginTop="12dp"
-        android:src="@mipmap/img_evalue_result"
+        android:src="@mipmap/login_logo_user"
         />
 
     <TextView

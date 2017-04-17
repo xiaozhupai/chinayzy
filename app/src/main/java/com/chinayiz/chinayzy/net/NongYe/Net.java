@@ -101,6 +101,7 @@ public class Net {
 
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i("退间数据"+s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.NY_RECOMMENT

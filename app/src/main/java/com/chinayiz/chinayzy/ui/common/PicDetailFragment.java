@@ -43,10 +43,16 @@ public class PicDetailFragment extends AbsFragment implements RadioGroup.OnCheck
     private WebView wv_view;
     private RelatedGoodsModel mRelatedGoodslist;
     private String goodsid, itemCode;
+    private boolean isSetData = true;
+    private boolean isSetDatas = true;
     private int comitsID = 0;
-
+    private View mView;
 
     public void setGoodsid(String goodsid, String itemcode) {
+        if (!isSetData) {
+            return;
+        }
+        isSetData = false;
         this.goodsid = goodsid;
         this.itemCode = itemcode;
     }
@@ -54,9 +60,9 @@ public class PicDetailFragment extends AbsFragment implements RadioGroup.OnCheck
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods_pic, container, false);
-        initView(view);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_goods_pic, container, false);
+        initView(mView);
+        return mView;
     }
 
     public static PicDetailFragment getInstance() {
@@ -158,6 +164,10 @@ public class PicDetailFragment extends AbsFragment implements RadioGroup.OnCheck
     }
 
     public void setRelatGoodsList(RelatedGoodsModel relatedGoodsModel) {
+        if (!isSetDatas) {
+            return;
+        }
+        isSetDatas = false;
         mRelatedGoodslist = relatedGoodsModel;
         GoodsDetailGridAdpter detailGridAdpter = new GoodsDetailGridAdpter(getActivity());
         detailGridAdpter.setData(mRelatedGoodslist);
