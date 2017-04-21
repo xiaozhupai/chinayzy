@@ -41,48 +41,95 @@ public class LoginNet {
 
     }
 
+//    /**
+//     * 注册
+//     * @param username 手机号	String	是	11位
+//     * @param password 密码	String	是
+//     * @param sendMessage 验证码	String	是	5位
+//     * @param nickname  昵称	String	是
+//     * @param idcard   身份证号	String	是
+//     * @param realname  真实姓名	String	是
+//     * @param pic   身份证照片	String	是
+//     * @param sex   性别	String	是	0.男 1.女
+//     * @param birthday   出生年月	String	是
+//     * @param usualplace  常驻地	String	是
+//     * @param ismarriage  婚姻状况	String	是	0未婚1已婚2离异
+//     * @param height     身高	String	是
+//     * @param weight     体重	String	是
+//     * @param educational   学历	String	是	1高中2大专3本科4研究生
+//     * @param politics    政治面貌	String	是	1团员2党员3群众
+//     * @param recommendcard    推荐码
+//     */
+//    public  void toRegister(String username,String password,String sendMessage,String nickname,String idcard,String realname,String pic,String sex,String birthday,String usualplace,String ismarriage,String height,String weight,String educational,String politics,String recommendcard){
+//        String time=System.currentTimeMillis()+"";
+//        String sing= Md5Untils.getSign(time);
+//        post()
+//                .url(Commons.API + Commons.REGISTER)
+//                .addParams("imei", AppInfo.IMEI)
+//                .addParams("userid","0")
+//                .addParams("phone", username)
+//                .addParams("yzm",sendMessage)
+//                .addParams("password",password)
+//                .addParams("nickname",nickname)
+//                .addParams("idcard",idcard)
+//                .addParams("realname",realname)
+//                .addParams("pic",pic)
+//                .addParams("sex",sex)
+//                .addParams("birthday",birthday)
+//                .addParams("usualplace",usualplace)
+//                .addParams("ismarriage",ismarriage)
+//                .addParams("height",height)
+//                .addParams("weight",weight)
+//                .addParams("educational",educational)
+//                .addParams("politics",politics)
+//                .addParams("recommendcard",recommendcard)
+//                .addParams("sign",sing)
+//                .addParams("time",time)
+//                .tag("login")
+//                .build()
+//                .execute(new StrCallback() {
+//                    @Override
+//                    public void onError(Call call, Exception e, int i) {
+//                        Logger.e("错误信息："+e.toString());
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String s, int i) {
+//                        try {
+//                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+//                                    , Commons.REGISTER
+//                                    ,mGson.fromJson(s,RegisterModel.class)));
+//                        }catch (Exception e){
+//                            onError(null,e,i);
+//                        }
+//                    }
+//                });
+//    }
+
+
+
     /**
-     * 注册
-     * @param username 手机号	String	是	11位
-     * @param password 密码	String	是
-     * @param sendMessage 验证码	String	是	5位
-     * @param nickname  昵称	String	是
-     * @param idcard   身份证号	String	是
-     * @param realname  真实姓名	String	是
-     * @param pic   身份证照片	String	是
-     * @param sex   性别	String	是	0.男 1.女
-     * @param birthday   出生年月	String	是
-     * @param usualplace  常驻地	String	是
-     * @param ismarriage  婚姻状况	String	是	0未婚1已婚2离异
-     * @param height     身高	String	是
-     * @param weight     体重	String	是
-     * @param educational   学历	String	是	1高中2大专3本科4研究生
-     * @param politics    政治面貌	String	是	1团员2党员3群众
-     * @param recommendcard    推荐码
+     *
+     * @param phone   phone	手机号	String	是
+     * @param yzm    yzm	验证码	String	是
+     * @param password  password	密码	String	是
+     * @param recommendcard  recommendcard	推荐码	String	否
+     * @param realname   真实姓名
+     * @param idcard     身份证号码
      */
-    public  void toRegister(String username,String password,String sendMessage,String nickname,String idcard,String realname,String pic,String sex,String birthday,String usualplace,String ismarriage,String height,String weight,String educational,String politics,String recommendcard){
+    public void toRegister(String phone,String yzm,String password,String recommendcard,String realname,String idcard){
         String time=System.currentTimeMillis()+"";
         String sing= Md5Untils.getSign(time);
         post()
                 .url(Commons.API + Commons.REGISTER)
                 .addParams("imei", AppInfo.IMEI)
-                .addParams("userid","0")
-                .addParams("phone", username)
-                .addParams("yzm",sendMessage)
+                .addParams("phone",phone)
+                .addParams("yzm",yzm)
                 .addParams("password",password)
-                .addParams("nickname",nickname)
-                .addParams("idcard",idcard)
-                .addParams("realname",realname)
-                .addParams("pic",pic)
-                .addParams("sex",sex)
-                .addParams("birthday",birthday)
-                .addParams("usualplace",usualplace)
-                .addParams("ismarriage",ismarriage)
-                .addParams("height",height)
-                .addParams("weight",weight)
-                .addParams("educational",educational)
-                .addParams("politics",politics)
+                .addParams("userid","0")
                 .addParams("recommendcard",recommendcard)
+                .addParams("realname",realname)
+                .addParams("idcard",idcard)
                 .addParams("sign",sing)
                 .addParams("time",time)
                 .tag("login")

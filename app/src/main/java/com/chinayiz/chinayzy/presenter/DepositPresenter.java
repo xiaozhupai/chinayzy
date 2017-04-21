@@ -36,6 +36,11 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
        if (message.getEventType()==EventMessage.NET_EVENT){
            disposeNetMsg(message);
        }
+       if (message.getEventType()== EventMessage.ERROR_EVENT){
+           if (loadlingDialog.isShowing()){
+               loadlingDialog.dismiss();
+           }
+       }
     }
 
     @Override

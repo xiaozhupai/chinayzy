@@ -9,7 +9,7 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 public class PersonalModel extends BaseResponseModel {
 
     /**
-     * data : {"sex":0,"waittakecount":0,"waitpaycount":1,"waitdelivercount":1,"aftercount":0,"nickname":"ccc","pic":"http://qzapp.qlogo.cn/qzapp/1105981066/A3CA2E1D16ADDB5EA1AA7C4649E1E426/100","ismember":"1","pid":"1234567"}
+     * data : {"sex":"","nickname":"","waittakecount":0,"waitpaycount":0,"ismember":"1","waitdelivercount":0,"pid":"CNYZ-YUANKUNKUN-80316","pic":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1%2F2017%2F04%2F20%2F03%2F30%2F59.png","aftercount":0}
      */
 
     private DataBean data;
@@ -24,33 +24,41 @@ public class PersonalModel extends BaseResponseModel {
 
     public static class DataBean {
         /**
-         * sex : 0
+         * sex :
+         * nickname :
          * waittakecount : 0
-         * waitpaycount : 1
-         * waitdelivercount : 1
-         * aftercount : 0
-         * nickname : ccc
-         * pic : http://qzapp.qlogo.cn/qzapp/1105981066/A3CA2E1D16ADDB5EA1AA7C4649E1E426/100
+         * waitpaycount : 0
          * ismember : 1
-         * pid : 1234567
+         * waitdelivercount : 0
+         * pid : CNYZ-YUANKUNKUN-80316
+         * pic : http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1%2F2017%2F04%2F20%2F03%2F30%2F59.png
+         * aftercount : 0
          */
 
-        private int sex;
+        private String sex;
+        private String nickname;
         private int waittakecount;
         private int waitpaycount;
-        private int waitdelivercount;
-        private int aftercount;
-        private String nickname;
-        private String pic;
         private String ismember;
+        private int waitdelivercount;
         private String pid;
+        private String pic;
+        private int aftercount;
 
-        public int getSex() {
+        public String getSex() {
             return sex;
         }
 
-        public void setSex(int sex) {
+        public void setSex(String sex) {
             this.sex = sex;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
         }
 
         public int getWaittakecount() {
@@ -69,6 +77,14 @@ public class PersonalModel extends BaseResponseModel {
             this.waitpaycount = waitpaycount;
         }
 
+        public String getIsmember() {
+            return ismember;
+        }
+
+        public void setIsmember(String ismember) {
+            this.ismember = ismember;
+        }
+
         public int getWaitdelivercount() {
             return waitdelivercount;
         }
@@ -77,20 +93,12 @@ public class PersonalModel extends BaseResponseModel {
             this.waitdelivercount = waitdelivercount;
         }
 
-        public int getAftercount() {
-            return aftercount;
+        public String getPid() {
+            return pid;
         }
 
-        public void setAftercount(int aftercount) {
-            this.aftercount = aftercount;
-        }
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
+        public void setPid(String pid) {
+            this.pid = pid;
         }
 
         public String getPic() {
@@ -101,20 +109,12 @@ public class PersonalModel extends BaseResponseModel {
             this.pic = pic;
         }
 
-        public String getIsmember() {
-            return ismember;
+        public int getAftercount() {
+            return aftercount;
         }
 
-        public void setIsmember(String ismember) {
-            this.ismember = ismember;
-        }
-
-        public String getPid() {
-            return pid;
-        }
-
-        public void setPid(String pid) {
-            this.pid = pid;
+        public void setAftercount(int aftercount) {
+            this.aftercount = aftercount;
         }
     }
 }

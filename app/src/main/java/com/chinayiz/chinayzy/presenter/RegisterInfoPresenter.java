@@ -19,7 +19,6 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.RegisterModel;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.fragment.register.RegisterInfoFragment;
 import com.chinayiz.chinayzy.utils.PutObjectSamples;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
@@ -288,7 +287,7 @@ public class RegisterInfoPresenter extends BasePresenter<RegisterInfoFragment> {
         }
 
 
-        LoginNet.getLoginNet().toRegister(mView.phone,mView.password,mView.code,nickname,idcard,username,card+","+card_back,sex_code,birth,address,ismarriage_code,height,weight,education_code,politics_code,mView.recommendcard);
+//        LoginNet.getLoginNet().toRegister(mView.phone,mView.password,mView.code,nickname,idcard,username,card+","+card_back,sex_code,birth,address,ismarriage_code,height,weight,education_code,politics_code,mView.recommendcard);
 
 
     }

@@ -9,16 +9,20 @@ import android.widget.Toast;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.RegisterModel;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.fragment.register.RegisterFragment;
-import com.chinayiz.chinayzy.ui.fragment.register.RegisterInfoFragment;
 import com.chinayiz.chinayzy.utils.TimeUntils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.chinayiz.chinayzy.presenter.RegisterInfoPresenter.REGISTERINFO_BACK;
 
 /**注册
  * Created by Administrator on 2017/3/23.
@@ -31,7 +35,16 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
+         if (message.getDataType()== Commons.REGISTER){
 
+                 RegisterModel model= (RegisterModel) message.getData();
+                 BaseActivity.showToast(mView.getActivity(),model.getMsg());
+                 if (model.getCode().equals("100")){
+                     mView.mActivity.finish();
+                     EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,REGISTERINFO_BACK,""));
+
+                 }
+         }
     }
 
     @Override
@@ -85,6 +98,23 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
             Toast.makeText(mView.getActivity(), "请输入6-12位密码", Toast.LENGTH_SHORT).show();
             return;
         }
+        String truename = mView.et_register_truename.getText().toString().trim();
+        if (TextUtils.isEmpty(truename)) {
+            Toast.makeText(mView.getActivity(), "请输入真实姓名", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String card = mView.et_register_card.getText().toString().trim();
+        if (TextUtils.isEmpty(card)) {
+            Toast.makeText(mView.getActivity(), "请输入身份证号码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Pattern pattern_card= Pattern.compile("^\\d{15}|\\d{18}$");
+        Matcher matcher_card=pattern_card.matcher(card);
+        if (!matcher_card.find()){
+            BaseActivity.showToast(mView.getActivity(),"请输入正确的身份证号码");
+            return;
+        }
+
         Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|17[0-9]|18[0|1|2|3|5|6|7|8|9]|19[0-9])\\d{8}$");
         Matcher matcher=pattern.matcher(phone);
         if (!matcher.find()){
@@ -92,8 +122,7 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
             return;
         }
      String recommendcard=mView.et_register_recommendcard.getText().toString().trim();
-       mView.mActivity.addFragment(new RegisterInfoFragment(message,phone,password,recommendcard));
-
+            LoginNet.getLoginNet().toRegister(phone,message,password,recommendcard,truename,card);
 
     }
 

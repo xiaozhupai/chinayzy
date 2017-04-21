@@ -21,6 +21,7 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
+import com.chinayiz.chinayzy.widget.LoadlingDialog;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -76,6 +77,10 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         if (message.getEventType() == EventMessage.NET_EVENT) {//网络请求回调消息
             Logger.i("网络请求回调消息" + message.toString());
             disposeNetMsg(message);
+        }else if (message.getEventType()==EventMessage.ERROR_EVENT){
+            if (mView.dialog.isShowing()){
+                mView.dialog.dismiss();
+            }
         }
     }
 
@@ -92,6 +97,9 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
             case Commons.LOGIN:  //登录
+                if (mView.dialog.isShowing()){
+                    mView.dialog.dismiss();
+                }
                 LoginModel model= (LoginModel) message.getData();
                 if (model.getCode().equals("100")){
                   int userid=model.getData().getUserid();
@@ -105,8 +113,9 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
              RongModel rongModel= (RongModel) message.getData();
                 if (rongModel.getCode().equals("100")){
                     if (UserSeeion.isMember(mView)){
-                        mView.finish();
+
                     }
+                    mView.finish();
                 }
                 break;
 
@@ -203,6 +212,8 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
             BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
             return;
         }
+        mView.dialog=new LoadlingDialog(mView);
+        mView.dialog.show();
         new LoginNet().toLogin(phone,password);
     }
 

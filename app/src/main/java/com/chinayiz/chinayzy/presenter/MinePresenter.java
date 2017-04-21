@@ -69,7 +69,7 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                     Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);
                 }
 
-                    if (dataBean.getSex()==0){
+                    if (dataBean.getSex().equals("0")){
                         mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_man_sex);
                     }else {
                         mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_woman_sex);

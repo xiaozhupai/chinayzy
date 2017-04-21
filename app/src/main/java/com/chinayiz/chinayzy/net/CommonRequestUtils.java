@@ -796,6 +796,9 @@ public class CommonRequestUtils {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         Logger.e("错误信息：" + e.toString());
+                        EventBus.getDefault().post(new EventMessage(EventMessage.ERROR_EVENT
+                                , Commons.ALIPAYORDER
+                                , ""));
                     }
 
                     @Override

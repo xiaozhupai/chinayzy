@@ -9,7 +9,7 @@ import com.chinayiz.chinayzy.APP;
 
 public class Commons {
     public static final boolean isDebug = APP.APP_DBG;
-    public static final String PAY = isDebug ? "http://192.168.200.132:8081/yzyProduct/v1" : "http://106.14.20.226/yzyProduct/v1/api";
+    public static final String PAY = isDebug ? "http://192.168.200.132:8081/yzyProduct/v1/api" : "http://106.14.20.226/yzyProduct/v1/api";
 
     public static final String HOST = "http://chinayiz.cn";
     //获得accss_token
@@ -141,6 +141,11 @@ public class Commons {
      * 第三方登录
      */
     public static final String THIRD = "/user/third";
+    /**
+     * 会员权益和用户协议
+     */
+    public static final String GETHYQYANDYHXY = "/user/gethyqyandyhxy";
+
 
     /**
      * 发现类型
