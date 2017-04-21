@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.presenter.LoginPresenter;
+import com.chinayiz.chinayzy.widget.LoadlingDialog;
 
 /**
  * 注册登录
@@ -41,6 +42,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
     public ImageView mIvWechat;
     public ImageView mIvWeibo;
     public LinearLayout mLvLogin;
+    public LoadlingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

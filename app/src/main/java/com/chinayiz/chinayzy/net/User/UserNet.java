@@ -6,6 +6,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
 import com.chinayiz.chinayzy.entity.response.ArticleModel;
 import com.chinayiz.chinayzy.entity.response.GoodsCollectModel;
+import com.chinayiz.chinayzy.entity.response.HyqyAndYhxyModel;
 import com.chinayiz.chinayzy.entity.response.MyStepModel;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
 import com.chinayiz.chinayzy.entity.response.ShopCollectModel;
@@ -88,6 +89,41 @@ public class UserNet {
                     }
                 });
     }
+
+    /**
+     * 获取用户信息
+     */
+
+    public void gethyqyandyhxy() {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
+        post()
+                .url(Commons.API + Commons.GETHYQYANDYHXY)
+                .addParams("time", time)
+                .addParams("userid", APP.sUserid)
+                .addParams("sign", sing)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString()+"错误码："+i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.GETHYQYANDYHXY
+                                    ,mGson.fromJson(s,HyqyAndYhxyModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 获取用户信息

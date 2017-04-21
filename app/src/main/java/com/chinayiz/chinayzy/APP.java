@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
@@ -18,9 +17,7 @@ import com.chinayiz.chinayzy.utils.GlideCacheUtil;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
 import com.mob.MobSDK;
 import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
-
 import cn.sharesdk.framework.ShareSDK;
 
 /**
@@ -36,7 +33,6 @@ public class APP extends Application {
     public static APP instance;
     public static String phone;
     public static String Version = "2";
-
     public static GlideCacheUtil cacheUtil;
     private static final ArrayList<Activity> activityLists = new ArrayList<>();
 

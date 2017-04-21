@@ -70,6 +70,11 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
         if (message.getEventType()==EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }
+        if (message.getEventType()==EventMessage .ERROR_EVENT){
+            if (loadlingDialog.isShowing()){
+                loadlingDialog.dismiss();
+            }
+        }
     }
 
     @Override
