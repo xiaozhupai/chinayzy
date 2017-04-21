@@ -8,8 +8,8 @@
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/NongYe_Line"
+        android:layout_height="7dp"
+        android:background="@color/nYline"
         />
     <TextView
         android:id="@+id/tv_ThemTitle"

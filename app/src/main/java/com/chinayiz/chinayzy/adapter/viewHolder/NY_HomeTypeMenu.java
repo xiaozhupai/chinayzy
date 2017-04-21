@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.adapter.viewHolder;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -41,27 +42,32 @@ public class NY_HomeTypeMenu extends RecyclerView.ViewHolder implements View.OnC
             case R.id.ly_type_btn1://野生农业
                 EventBus.getDefault()
                         .post(new EventMessage(EventMessage.INFORM_EVENT,
-                                NongYeHomeRecylAdapter.CLICK_MENU,"-1"));
-                break;
-            case R.id.ly_type_btn2://有机农业
-                EventBus.getDefault()
-                        .post(new EventMessage(EventMessage.INFORM_EVENT,
                                 NongYeHomeRecylAdapter.CLICK_MENU,"1"));
+                Logger.i("野生农业");
                 break;
-            case R.id.ly_type_btn3://地区特产
+            case R.id.ly_type_btn2://富硒农业
                 EventBus.getDefault()
                         .post(new EventMessage(EventMessage.INFORM_EVENT,
-                                NongYeHomeRecylAdapter.CLICK_MENU,"-1"));
+                                NongYeHomeRecylAdapter.CLICK_MENU,"2"));
+                Logger.i("富硒农业");
+                break;
+            case R.id.ly_type_btn3://有机农业
+                EventBus.getDefault()
+                        .post(new EventMessage(EventMessage.INFORM_EVENT,
+                                NongYeHomeRecylAdapter.CLICK_MENU,"3"));
+                Logger.i("有机农业");
                 break;
             case R.id.ly_type_btn4://食品组合
                 EventBus.getDefault()
                         .post(new EventMessage(EventMessage.INFORM_EVENT,
-                                NongYeHomeRecylAdapter.CLICK_MENU,"-1"));
+                                NongYeHomeRecylAdapter.CLICK_MENU,"4"));
+                Logger.i("食品组合");
                 break;
-            case R.id.ly_type_btn5://期货产品
+            case R.id.ly_type_btn5://关于硒
                 EventBus.getDefault()
                         .post(new EventMessage(EventMessage.INFORM_EVENT,
-                                NongYeHomeRecylAdapter.CLICK_MENU,"-1"));
+                                NongYeHomeRecylAdapter.CLICK_MENU,"5"));
+                Logger.i("关于硒");
                 break;
         }
     }

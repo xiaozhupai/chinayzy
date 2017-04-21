@@ -9,7 +9,6 @@ import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -63,7 +62,6 @@ public class ClassifyPresenter extends BasePresenter<ClassifyFragment> {
                 break;
             case Commons.CLASS_CODES://三级分类菜单
                 ClassifyCodesModel codesModel= (ClassifyCodesModel) message.getData();
-                Logger.i("三级分类菜单"+codesModel);
                 mView.mGridAdapter.setModel(codesModel,mView.picUrl);
                 break;
         }

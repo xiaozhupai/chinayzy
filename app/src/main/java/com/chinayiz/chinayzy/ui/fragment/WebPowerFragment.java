@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -22,6 +23,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.Presenter;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,7 +31,7 @@ import org.greenrobot.eventbus.EventBus;
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class WebPowerFragment extends BaseFragment<Presenter> implements View.OnClickListener {
+public class WebPowerFragment extends BaseFragment<Presenter> {
     public static final String SHARE="分享推荐码";
     public WebView wv_view;
     private String titel;
@@ -64,9 +66,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> implements View.On
         activity.mTvActionBarTitle.setText(titel);
         activity.mCbActionBarEdit.setVisibility(View.GONE);
         if (titel.equals(SHARE)) {
-            activity.mIvActionBarMore.setVisibility(View.VISIBLE);
-            activity.mIvActionBarMore.setImageResource(R.mipmap.pic_share);
-            activity.mIvActionBarMore.setOnClickListener(this);
+            activity.mIvActionBarMore.setVisibility(View.GONE);
         }
     }
 
@@ -88,10 +88,11 @@ public class WebPowerFragment extends BaseFragment<Presenter> implements View.On
     @Override
     public void onResume() {
         super.onResume();
-
             wv_view.loadUrl(url);
+
             wv_view.   setScrollbarFadingEnabled(true);
             wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
+            wv_view.addJavascriptInterface(WebPowerFragment.this,"android");
             WebSettings settings = wv_view.getSettings();
             settings.setAllowFileAccess(true);
             settings.setBuiltInZoomControls(false);
@@ -161,10 +162,11 @@ public class WebPowerFragment extends BaseFragment<Presenter> implements View.On
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId()==R.id.iv_more_button){
-            EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,getActivity()));
-        }
+    //由于安全原因 需要加 @JavascriptInterface
+    @JavascriptInterface
+    public void startFunction(){
+        Logger.i("被JS调用");
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,getActivity()));
     }
+
 }

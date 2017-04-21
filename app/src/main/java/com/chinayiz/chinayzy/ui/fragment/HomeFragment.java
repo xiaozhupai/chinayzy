@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.homePresenter;
 import com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.refreshView.PullableRecycleView;
@@ -69,7 +71,25 @@ public class HomeFragment extends BaseFragment<homePresenter> {
      * @param code
      */
     public void openClassify(String code) {
-        Skip.toItemMenu(getActivity(), code);
+        switch (code){
+            case "1"://野生农业
+
+                break;
+            case "2"://富硒农业
+
+                break;
+            case "3"://有机农业
+                Skip.toItemMenu(getActivity(), code);
+                break;
+            case "4"://食品组合
+
+                break;
+            case "5"://关于硒
+            String url=new String(Commons.API+"/h5/aboutxi?userid="+ APP.sUserid);
+                Skip.toWebPage(getActivity(),url,"关于硒");
+                break;
+        }
+
     }
 
 

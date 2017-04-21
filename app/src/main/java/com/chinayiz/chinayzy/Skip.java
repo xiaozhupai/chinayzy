@@ -12,6 +12,7 @@ import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.ui.common.MoreRecommendGoodsFragment;
 import com.chinayiz.chinayzy.ui.common.StoreFragment;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
+import com.chinayiz.chinayzy.ui.fragment.GoodsSetFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
@@ -380,4 +381,17 @@ public class Skip {
       intent.putExtras(bundle);
       skip(context, intent);
   }
+    /**
+     * 分类商品查询结果集
+     * @param context
+     * @param itemcode
+     */
+    public static void toGoodsResult(Context context, String itemcode) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, GoodsSetFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("itemCode", itemcode);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
 }

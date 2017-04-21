@@ -3,7 +3,7 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:background="@color/Background"
-              android:layout_height="90dp">
+              android:layout_height="102dp">
     <LinearLayout
         android:id="@+id/ly_type_btn1"
         style="@style/NongTe_layout_TypeMenu"
@@ -11,7 +11,7 @@
         <ImageView
             android:id="@+id/iv_teaType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/tabbar_compose"
+            android:src="@mipmap/btn_meun1"
             />
         <TextView
             android:id="@+id/tv_teaType"
@@ -26,12 +26,12 @@
         <ImageView
             android:id="@+id/iv_fruitType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/tabbar_tea"
+            android:src="@mipmap/btn_meun2"
             />
         <TextView
             android:id="@+id/tv_fruitType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="有机农业"
+            android:text="富硒农业"
             />
     </LinearLayout>
     <LinearLayout
@@ -41,12 +41,12 @@
         <ImageView
             android:id="@+id/iv_greensType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/tabbar_specialty"
+            android:src="@mipmap/btn_meun3"
             />
         <TextView
             android:id="@+id/tv_greensType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="地区特产"
+            android:text="有机农业"
             />
     </LinearLayout>
 
@@ -57,7 +57,7 @@
         <ImageView
             android:id="@+id/iv_FreshType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/tabbar_group"
+            android:src="@mipmap/btn_meun4"
             />
         <TextView
             android:id="@+id/tv_freshType"
@@ -65,20 +65,17 @@
             android:text="食品组合"
             />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/ly_type_btn5"
-       style="@style/NongTe_layout_TypeMenu"
+        style="@style/NongTe_layout_TypeMenu"
         >
         <ImageView
-            android:id="@+id/iv_moreType_btn"
             style="@style/NongTe_iv_TypeMenu"
-            android:src="@mipmap/tabbar_future"
+            android:src="@mipmap/btn_meun5"
             />
         <TextView
-            android:id="@+id/tv_moreType"
             style="@style/NongYe_tv_TypeMenu"
-            android:text="期货产品"
+            android:text="关于硒"
             />
     </LinearLayout>
 </LinearLayout>

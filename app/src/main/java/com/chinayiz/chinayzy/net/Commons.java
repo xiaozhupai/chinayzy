@@ -11,7 +11,7 @@ public class Commons {
     public static final boolean isDebug = APP.APP_DBG;
     public static final String PAY = isDebug ? "http://192.168.200.132:8081/yzyProduct/v1" : "http://106.14.20.226/yzyProduct/v1/api";
 
-    public static final String HOST = "http://chinayiz.cn";
+    public static final String HOST = "http://yzy-app-img.oss-cn-shanghai.aliyuncs.com";
     //获得accss_token
     public static final String ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token";
     //刷新 refresh_token

@@ -6,46 +6,67 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <include layout="@layout/common_action_bar"/>
-    <com.chinayiz.chinayzy.views.NoScrollViewPager
-        android:id="@+id/vp_nyHome"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="normal"
+            android:id="@+id/normal_button"
         android:layout_weight="1"
-        >
-    </com.chinayiz.chinayzy.views.NoScrollViewPager>
-    <RadioGroup
-        android:id="@+id/rg_nongye_menu"
+        />
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="borderless"
+            android:id="@+id/borderless_button"
+            android:layout_weight="1"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="colored"
+            android:layout_weight="1"
+            android:id="@+id/colored_button"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+    <CheckBox android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="New CheckBox"
+              android:layout_weight="1"
+              android:id="@+id/checkBox" />
+
+    <RadioButton android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:text="New RadioButton"
+                 android:id="@+id/radioButton" />
+<ProgressBar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/view_isSelf"
+    android:layout_weight="1"
+    />
+    <Switch
+        android:id="@+id/switchButton"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:orientation="horizontal"
-        android:background="@color/Background"
-        >
-        <RadioButton
-            android:id="@+id/rb_nongye_home"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_home_btn"
-            android:text="首页"
-            />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="New Switch"/>
 
-        <RadioButton
-            android:id="@+id/rb_nongye_find"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_find_btn"
-            android:text="发现"
-            />
+    <SeekBar android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:id="@+id/seekBar" />
 
-        <RadioButton
-            android:id="@+id/rb_nongye_activi"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_activi_btn"
-            android:text="活动"
-            />
-        <RadioButton
-            android:id="@+id/rb_nongye_cart"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_cart_btn"
-            android:text="购物车"
-            />
-    </RadioGroup>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="New Text"
+              android:id="@+id/textView" />
+
+    <EditText android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:id="@+id/editText"
+              android:hint="Input"
+        android:layout_marginBottom="20dp"
+        />
 </LinearLayout>

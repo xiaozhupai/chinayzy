@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.orhanobut.logger.Logger;
@@ -24,7 +25,15 @@ import okhttp3.Call;
  * Class UpdateService 开始后台下载更新apk服务并写入到SD卡
  */
 public class UpdateService extends IntentService {
-    public static final String UPDATA_APP="UPDATA_APP";
+    /**
+     * 下载完成
+     */
+    public static final String UPDATA_APK_FINISH ="UPDATA_APP_finish";
+    /**
+     * 下载中
+     */
+    public static final String UPDATA_APK_ON="UPDATA_APP_dowload";
+
     private SharedPreferences.Editor mEditer;
 
     public UpdateService() {
@@ -49,23 +58,30 @@ public class UpdateService extends IntentService {
                        @Override
                        public void inProgress(float progress, long total, int id) {
                            super.inProgress(progress, total, id);
+                            float  prs=progress*100;
+                            int ss= (int) prs;
+                           EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,UPDATA_APK_ON,ss));
                        }
                        @Override
                        public void onError(Call call, Exception e, int i) {
                            Logger.i("错误",e.toString());
+                           BaseActivity.showToast(UpdateService.this,"未知更新错误");
                        }
                        @Override
                        public void onResponse(File file, int i) {
                            Logger.i("下载完成，文件地址="+file.getAbsolutePath());
                            mEditer=getSharedPreferences("update", Context.MODE_PRIVATE).edit();
                            mEditer.putString("apkPath",file.getAbsolutePath());
+                           mEditer.commit();
+
+                           mEditer=getSharedPreferences("update", Context.MODE_PRIVATE).edit();
                            mEditer.putBoolean("isLoad",true);
                            mEditer.commit();
-                           EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,UPDATA_APP,""));
+
+                           EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT, UPDATA_APK_FINISH,""));
                        }
                    });
        }
-
         }
 
 

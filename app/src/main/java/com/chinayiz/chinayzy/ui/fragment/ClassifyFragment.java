@@ -36,26 +36,13 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
-        if ("-1".equals(mTypeCode)){
-            view=inflater.inflate(R.layout.fragment_activity,container,false);
-        }else {
             view= inflater.inflate(R.layout.fragment_classify, container, false);
             initViews(view);
-        }
         return view;
     }
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        switch (mTypeCode) {
-            case "1":
-                activity.mTvActionBarTitle.setText("有机农业");
-                break;
-            case "-1":
-                activity.mTvActionBarTitle.setText("敬请期待");
-                break;
-
-        }
         activity.mTvActionBarTitle.setText("");
     }
 

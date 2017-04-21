@@ -49,7 +49,7 @@ public class NY_HomeBanner extends RecyclerView.ViewHolder implements View.OnCli
             mUrls.add(data.getShowlink());
         }
         mBannerNongyeHome.setPages(new CreateBannerHolder(), mUrls);
-        mBannerNongyeHome.startTurning(1500);
+        mBannerNongyeHome.startTurning(2100);
     }
 
     @Override
