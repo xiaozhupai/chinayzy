@@ -14,7 +14,6 @@
         android:layout_height="62dp"
         android:layout_centerVertical="true"
         android:padding="1dp"
-        android:src="@mipmap/btn_fresh"
         android:scaleType="centerCrop"
         />
 
