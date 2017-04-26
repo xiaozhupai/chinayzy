@@ -302,7 +302,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             urls.add(str);
         }
         mViewHolder.vpager_Banner.setPages(new CreatePhotosHolder(), urls);
-
         if ("1".equals(mDetailModel.getIsself())) {//是否自营
             mViewHolder.tv_goodsTitle.setText("\t\t\t\t\t\t" + mDetailModel.getGname());
         } else {

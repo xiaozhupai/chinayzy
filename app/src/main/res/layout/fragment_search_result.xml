@@ -68,7 +68,6 @@
                 android:paddingRight="5dp"
                 />
         </LinearLayout>
-
     </LinearLayout>
    <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
        android:layout_width="match_parent"

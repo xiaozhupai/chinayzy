@@ -67,22 +67,21 @@ public class HomeFragment extends BaseFragment<homePresenter> {
 
     /**
      * 打开二级商品分类
-     *
      * @param code
      */
     public void openClassify(String code) {
         switch (code){
             case "1"://野生农业
-
+                Skip.toSearchResult(getActivity(),"野生");
                 break;
             case "2"://富硒农业
-
+                Skip.toItemGoosd(getActivity(),"015");
                 break;
             case "3"://有机农业
-                Skip.toItemMenu(getActivity(), code);
+                Skip.toItemMenu(getActivity(), "1");
                 break;
             case "4"://食品组合
-
+                Skip.toItemMenu(getActivity(), "-1");
                 break;
             case "5"://关于硒
             String url=new String(Commons.API+"/h5/aboutxi?userid="+ APP.sUserid);

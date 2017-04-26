@@ -5,10 +5,10 @@ import android.os.Bundle;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.net.CommonRequestUtils;
+import com.chinayiz.chinayzy.entity.response.GoodsSteModel;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.GoodsSetFragment;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -20,12 +20,13 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class GoodsSetPresenter extends BasePresenter<GoodsSetFragment> {
-    public CommonRequestUtils mRequestUtils;
+    public Net mRequestUtils;
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Commons.GOODS_RELATED:{
-                Logger.i("二级菜单数据返回="+message.getData().toString());
+            case Commons.GOODS_SET:{
+                GoodsSteModel mGoodsModel= (GoodsSteModel) message.getData();
+                mView.setDataList(mGoodsModel);
                 break;
             }
         }
@@ -38,8 +39,8 @@ public class GoodsSetPresenter extends BasePresenter<GoodsSetFragment> {
 
     @Override
     protected void onCreate() {
-        mRequestUtils=CommonRequestUtils.getRequestUtils();
-        mRequestUtils.getRelatedGoods(mView.itemCode,"1","20");
+        mRequestUtils=Net.getNet();
+        mRequestUtils.getGoosSet("1","30","1",mView.itemCode);
     }
 
     @Override

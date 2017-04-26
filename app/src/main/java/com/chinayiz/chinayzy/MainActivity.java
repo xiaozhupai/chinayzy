@@ -118,9 +118,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 mPresenter.doStartMine();
                 break;
             case R.id.btn_asIm://关于我们
-                String url=new String(Commons.API+"/h5/aboutus");
-                Skip.toWebPage(this,url,"关于我们");
-//                Skip.toGoodsResult(this,"002001,分类菜单");
+//                String url=new String(Commons.API+"/h5/aboutus");
+//                Skip.toWebPage(this,url,"关于我们");
+
+                Skip.toGoodsResult(this,"001004,分类菜单");
+
                 break;
             case R.id.btn_Recommend://分享我的二维码
                 if (UserSeeion.isLogin(this)) {
@@ -135,6 +137,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     public void onItemClick(int position) {
+        if (position==0){
+
+            Logger.i("好友推荐广告图-点击");
+
+            return;
+        }
         if (mModel == null) {
             return;
         }

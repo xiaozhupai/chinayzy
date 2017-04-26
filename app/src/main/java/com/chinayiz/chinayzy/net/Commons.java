@@ -90,6 +90,10 @@ public class Commons {
      */
     public static final String GOODS_DETAIL = "/farm/showGoodsDetail";
     /**
+     * 农业分类二级菜单商品列表
+     */
+    public static final String GOODS_SET = "/farm/showTeaCodeDetail";
+    /**
      * 获取商品图文详情
      */
     public static final String GOODS_PICDETAIL = "/h5/spxqjs";

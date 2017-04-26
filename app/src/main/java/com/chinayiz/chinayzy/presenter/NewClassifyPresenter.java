@@ -6,19 +6,25 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ClassifyCodesModel;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
+import com.chinayiz.chinayzy.entity.response.GoodsSteModel;
+import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
-import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
+import com.chinayiz.chinayzy.ui.fragment.NewClassifyFragment;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * author  by  Canrom7 .
- * CreateDate 2017/2/27 15:54
- * Class ClassifyPresenter   生态农业首页二级分类菜单
+ * CreateDate 2017/4/25 15:41
+ * Class NewClassifyPresenter
  */
-public class ClassifyPresenter extends BasePresenter<ClassifyFragment> {
+
+public class NewClassifyPresenter extends BasePresenter<NewClassifyFragment> {
     public Net mNet = Net.getNet();
     public ClassifyTypesModel typesModel;
     @Override
@@ -55,14 +61,31 @@ public class ClassifyPresenter extends BasePresenter<ClassifyFragment> {
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
-            case Commons.TYPE_CODES://二级分类菜单
-                typesModel=(ClassifyTypesModel) message.getData();
-                mView.picUrl=typesModel.getData().get(0).getPic();
-                mView.mListAdpter.setModel(typesModel.getData());
+            case Commons.GOODS_SET://四级商品集合
+//                typesModel=(ClassifyTypesModel) message.getData();
+//                mView.picUrl=typesModel.getData().get(0).getPic();
+//                mView.mLisAdpter.setModel(typesModel);
+                GoodsSteModel model= (GoodsSteModel) message.getData();
+                List<NY_EatItemModel.DataBean> dataBeanList =new ArrayList<>();
+                NY_EatItemModel.DataBean dataBean;
+                for (GoodsSteModel.DataBean bean : model.getData()) {
+                    dataBean=new NY_EatItemModel.DataBean(bean.getIcon(),bean.getGname()
+                            ,bean.getIsself(),bean.getShopid(),bean.getPrice(),bean.getGoodsid()
+                            ,bean.getBrand(),bean.getBrand(),bean.getPraise(),bean.getCommenttotal());
+                    dataBeanList.add(dataBean);
+                }
+                mView.mGridAdapter.setDataBeanList(dataBeanList,mView.picUrl);
                 break;
             case Commons.CLASS_CODES://三级分类菜单
                 ClassifyCodesModel codesModel= (ClassifyCodesModel) message.getData();
-                mView.mGridAdapter.setModel(codesModel,mView.picUrl);
+                List<ClassifyTypesModel.DataBean> datas=new ArrayList<>();
+                ClassifyTypesModel.DataBean data;
+                for (ClassifyCodesModel.DataBean dataBeans : codesModel.getData()) {
+                    data=new ClassifyTypesModel.DataBean(dataBeans.getItemcode(),0,dataBeans.getItemname()
+                            ,"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0228/645aeb61-7671-48f4-8e65-1d82c99eacd6.png");
+                    datas.add(data);
+                }
+                mView.mListAdpter.setModel(datas);
                 break;
         }
     }

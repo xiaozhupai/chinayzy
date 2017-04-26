@@ -30,7 +30,7 @@ public class NY_EatItemModel extends BaseResponseModel {
                 '}';
     }
 
-    public  class DataBean {
+    public static class DataBean {
         /**
          * icon : http://chinayiz.cn/m1/2017/0328/b981e389-300e-4b2f-85d5-370251e9c6a4.jpg
          * salesvolume : 0
@@ -62,6 +62,19 @@ public class NY_EatItemModel extends BaseResponseModel {
         private String praise;
         private String productarea;
         private String commenttotal;
+
+        public DataBean(String icon,  String gname, String isself,  String shopid, String price, String goodsid, String brand, String comment3, String praise, String commenttotal) {
+            this.icon = icon;
+            this.gname = gname;
+            this.isself = isself;
+            this.shopid = shopid;
+            this.price = price;
+            this.goodsid = goodsid;
+            this.brand = brand;
+            this.comment3 = comment3;
+            this.praise = praise;
+            this.commenttotal = commenttotal;
+        }
 
         public String getIcon() {
             return icon;

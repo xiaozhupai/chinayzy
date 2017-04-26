@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,32 +16,29 @@ import com.chinayiz.chinayzy.adapter.TypeListAdpter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
-import com.chinayiz.chinayzy.presenter.ClassifyPresenter;
+import com.chinayiz.chinayzy.net.NongYe.Net;
+import com.chinayiz.chinayzy.presenter.NewClassifyPresenter;
 import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
- * CreateDate 2017/2/27 15:54
- * Class ClassifyFragment  生态农业首页二级分类菜单
+ * CreateDate 2017/4/25 15:40
+ * Class NewClassifyFragment
  */
-@SuppressLint("ValidFragment")
-public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements TypeListAdpter.OnItemSeletdListener {
+
+public class NewClassifyFragment extends BaseFragment<NewClassifyPresenter> implements TypeListAdpter.OnItemSeletdListener {
     public RecyclerView mRecyclerView;
     public ListView mListView;
-    public String mTypeCode;
     public TypeListAdpter mListAdpter;
+    public String mTypeCode;
     public ClassGridAdapter mGridAdapter;
     public String picUrl;
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
-        if ("-1".equals(mTypeCode)) {
-            view = inflater.inflate(R.layout.fragment_activity, container, false);
-        } else {
-            view = inflater.inflate(R.layout.fragment_classify, container, false);
-            initViews(view);
-        }
+        view = inflater.inflate(R.layout.fragment_classify, container, false);
+        initViews(view);
         return view;
     }
 
@@ -62,9 +58,9 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
         mListView.setAdapter(mListAdpter);
         mListAdpter.setItemSeletdListener(this);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_typeGrid);
-        mGridAdapter = new ClassGridAdapter(this,ClassGridAdapter.ITEM_VIEW);
+        mGridAdapter = new ClassGridAdapter(this,ClassGridAdapter.ITEM_GOODS);
         //设置网格布局管理器
-        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
+        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //添加headview核心代码
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -83,9 +79,11 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     public void onSeletItem(int position, ClassifyTypesModel.DataBean data) {
         ClassifyTypesModel.DataBean dataBean = data;
         picUrl = dataBean.getPic();
-        Logger.i("图片地址="+picUrl);
-        mPresenter.getClassDatas(dataBean.getTypecode());
         mListAdpter.changeSelected(position);
+        Logger.i("选择的条目="+dataBean.getTypecode());
+        Net.getNet().getGoosSet("1","30","1",dataBean.getTypecode());
+//        mPresenter.getClassDatas(dataBean.getTypecode());
+
     }
 
 
@@ -94,7 +92,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
         super.onResume();
         // code不等于空白页，并且code不为空
         if (!("-1".equals(mTypeCode)) && mTypeCode != null) {
-            mPresenter.getTypeDatas(mTypeCode);
+            mPresenter.getClassDatas(mTypeCode);
         }
     }
 
@@ -104,8 +102,8 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     }
 
     @Override
-    public ClassifyPresenter initPresenter() {
-        return new ClassifyPresenter();
+    public NewClassifyPresenter initPresenter() {
+        return new NewClassifyPresenter();
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.chinayiz.chinayzy.ui.common.MoreRecommendGoodsFragment;
 import com.chinayiz.chinayzy.ui.common.StoreFragment;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.GoodsSetFragment;
+import com.chinayiz.chinayzy.ui.fragment.NewClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
@@ -314,7 +315,17 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context, intent);
     }
-
+    /**
+     * 生态农业三级菜单商品
+     */
+    public static void toItemGoosd(Context context, String itemCode) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, NewClassifyFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("itemCode", itemCode);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
     /**
      * 充值1350
      *

@@ -36,7 +36,7 @@ public class RelatedGoodsModel extends BaseResponseModel {
         private String icon;
         private String unit;
         private String price;
-        private int goodsid;
+        private String goodsid;
         private String gname;
         private String brand;
         private String goodsdesc;
@@ -47,7 +47,7 @@ public class RelatedGoodsModel extends BaseResponseModel {
             this.icon = icon;
             this.unit = unit;
             this.price = price;
-            this.goodsid = goodsid;
+            this.goodsid = String.valueOf(goodsid);
             this.gname = gname;
             this.brand = brand;
             this.goodsdesc = goodsdesc;
@@ -87,11 +87,11 @@ public class RelatedGoodsModel extends BaseResponseModel {
             this.price = price;
         }
 
-        public int getGoodsid() {
+        public String getGoodsid() {
             return goodsid;
         }
 
-        public void setGoodsid(int goodsid) {
+        public void setGoodsid(String goodsid) {
             this.goodsid = goodsid;
         }
 

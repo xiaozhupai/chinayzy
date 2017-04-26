@@ -29,7 +29,6 @@ import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.indic
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import com.chinayiz.chinayzy.utils.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -139,7 +138,6 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
             });
             ViewPagerHelper.bind(mView.magic_indicator,mView.vp_find);
             //发现viewpager
-            Logger.i(lists.size()+"listsize------------------");
             adaphter=new PagerAdaphter(mView.getChildFragmentManager(),lists);
             mView.vp_find.setAdapter(adaphter);
             mView.vp_find.setOffscreenPageLimit(lists.size());

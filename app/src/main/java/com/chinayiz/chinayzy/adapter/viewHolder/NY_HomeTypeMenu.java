@@ -67,7 +67,6 @@ public class NY_HomeTypeMenu extends RecyclerView.ViewHolder implements View.OnC
                 EventBus.getDefault()
                         .post(new EventMessage(EventMessage.INFORM_EVENT,
                                 NongYeHomeRecylAdapter.CLICK_MENU,"5"));
-                Logger.i("关于硒");
                 break;
         }
     }

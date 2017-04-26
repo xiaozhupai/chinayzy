@@ -35,8 +35,7 @@ public class NY_HomeBanner extends RecyclerView.ViewHolder implements View.OnCli
         super(itemView);
         mIvSearch = (ImageView) itemView.findViewById(R.id.iv_search);
         mIvSearch.setOnClickListener(this);
-        mBannerNongyeHome = (ConvenientBanner)
-                itemView.findViewById(R.id.banner_nongyeHome);
+        mBannerNongyeHome = (ConvenientBanner) itemView.findViewById(R.id.banner_nongyeHome);
         //设置指示器（小圆点）
         mBannerNongyeHome.setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused});
         mBannerNongyeHome.setOnItemClickListener(this);
