@@ -295,7 +295,7 @@ public class Net {
      * @param credit   信用度  1是  0否
      * @param brands   品牌   用逗号隔开
      */
-    public void getSearchFarm(String title,String page,String size,String type) {
+    public void getSearchFarm(String title,String page,String size,String type,String isself,String credit,String brands) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
         OkHttpUtils
