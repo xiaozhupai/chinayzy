@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.net.NongYe;
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.BrandModel;
 import com.chinayiz.chinayzy.entity.response.ClassifyCodesModel;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
@@ -284,13 +285,16 @@ public class Net {
     }
 
     /**
-     *  搜索结果
+     *搜索结果
      * @param title 关键字
      * @param page 页标
      * @param size 分页数量
      * @param type 类型 1热卖降序2热卖升序3销量降序4销量升序5价格降序6价格升序
+     * @param isself   是否自营 1是 0否
+     * @param credit   信用度  1是  0否
+     * @param brands   品牌   用逗号隔开
      */
-    public void getSearchFarm(String title,String page,String size,String type) {
+    public void getSearchFarm(String title,String page,String size,String type,String isself,String credit,String brands) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
         OkHttpUtils
@@ -303,6 +307,9 @@ public class Net {
                 .addParams("type",type)
                 .addParams("time",time)
                 .addParams("sign",sing)
+                .addParams("isself",isself)
+                .addParams("credit",credit)
+                .addParams("brands",brands)
                 .tag("ny")
                 .build()
                 .execute(new StrCallback(){
@@ -454,6 +461,42 @@ public class Net {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.ISCOLLECTORPRAISE
                                     ,mGson.fromJson(s,KeeporZanModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获取品牌
+     * @param searchkey  搜索关键字
+     */
+
+    public void getbrands( String searchkey) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.GETBRANDS)
+                .addParams("searchkey",searchkey)
+                .addParams("userid",APP.sUserid)
+                .addParams("time",time)
+                .addParams("sign",sing)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,Commons.GETBRANDS
+                                    ,mGson.fromJson(s,BrandModel.class)));
                         }catch (Exception e){
                             onError(null,e,i);
                         }

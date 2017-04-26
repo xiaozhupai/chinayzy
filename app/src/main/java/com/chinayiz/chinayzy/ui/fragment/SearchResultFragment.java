@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
@@ -22,16 +25,17 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.presenter.SearchResultPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.chinayiz.chinayzy.widget.SearchPopuwindow;
 import com.orhanobut.logger.Logger;
 
 /**
  * 搜索结果
  */
 @SuppressLint("ValidFragment")
-public class SearchResultFragment extends BaseFragment<SearchResultPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class SearchResultFragment extends BaseFragment<SearchResultPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
     private TextView tv_hot;
     public GridView gd_list;
-    public CheckBox cb_sale,cb_price;
+    public CheckBox cb_sale,cb_price,cb_brand,tv_self,tv_credit;
     public SearchResultAdaphter adaphter;
     public SearchResultAdaphter adaphter2;
     public PullToRefreshLayout refresh_view;
@@ -42,6 +46,11 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public int page=1;
     public int mPostion;
     public ImageView mIvActionBarCart;
+    public LinearLayout ll_two;
+
+    public String isself="0";
+    public String credit="0";
+    public String brands="";
 
 
     @Override
@@ -105,11 +114,22 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         cb_sale= (CheckBox) view.findViewById(R.id.cb_sale);
         cb_price= (CheckBox) view.findViewById(R.id.cb_price);
         tv_hot = (TextView) view.findViewById(R.id.tv_hot);
+        tv_self= (CheckBox) view.findViewById(R.id.tv_self);
+        tv_credit= (CheckBox) view.findViewById(R.id.tv_credit);
+        cb_brand= (CheckBox) view.findViewById(R.id.cb_brand);
+        ll_two= (LinearLayout) view.findViewById(R.id.ll_two);
+        tv_self.setOnClickListener(this);
+        tv_credit.setOnClickListener(this);
         tv_hot.setOnClickListener(this);
         adaphter.setRefreshLayout(refresh_view);
         adaphter2.setRefreshLayout(refresh_view);
         gd_list.setAdapter(adaphter);
         gd_list.setOnItemClickListener(this);
+        tv_self.setOnCheckedChangeListener(this);
+        tv_credit.setOnCheckedChangeListener(this);
+        cb_brand.setOnCheckedChangeListener(this);
+        cb_price.setOnCheckedChangeListener(this);
+        cb_sale.setOnCheckedChangeListener(this);
         refresh_view.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
@@ -124,51 +144,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                 mPresenter.getData();
             }
         });
-        cb_sale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { //销量
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                page=1;
-                setAll();
-                cb_sale.setTextColor(getResources().getColor(R.color.find_green_text));
-
-                if (b){
-                    index=3;
-                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_down);
-                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
-                    cb_sale.setCompoundDrawables(null, null, nav_up, null);
-                }else {
-                    index=4;
-                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_up);
-                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
-                    cb_sale.setCompoundDrawables(null, null, nav_up, null);
-                }
-                mPresenter.getData();
-            }
-        });
-//价格
-        cb_price.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                page=1;
-                setAll();
-                cb_price.setTextColor(getResources().getColor(R.color.find_green_text));
-                if (b){
-                    index=5;
-                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_down);
-                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
-                    cb_price.setCompoundDrawables(null, null, nav_up, null);
-                }else{
-                    index=6;
-                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_up);
-                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
-                    cb_price.setCompoundDrawables(null, null, nav_up, null);
-                }
-                mPresenter.getData();
-            }
-        });
-
-
-
         return view;
     }
 
@@ -191,25 +166,129 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
         cb_sale.setCompoundDrawables(null, null, nav_up, null);
         cb_price.setCompoundDrawables(null, null, nav_up, null);
+
     }
 
     @Override
     public void onClick(View v) {
-        setAll();
         switch (v.getId()){
             case R.id.tv_hot:
+                setAll();
                 page=1;
                 index=2;
                 tv_hot.setTextColor(getResources().getColor(R.color.find_green_text));
+                mPresenter.getData();
                 break;
         }
-        mPresenter.getData();
+
+    }
+
+    private void setCheck(TextView tv,boolean isChecked){
+        if (isChecked){
+            Drawable nav_up2=getResources().getDrawable(R.mipmap.icon_checked);
+            nav_up2.setBounds(0, 0, nav_up2.getMinimumWidth(), nav_up2.getMinimumHeight());
+            tv.setCompoundDrawables(nav_up2,null,null,null);
+            tv.setTextColor(Color.parseColor("#ff3952"));
+            tv.setBackgroundResource(R.drawable.shape_corner_red_solid);
+        }else {
+//        Drawable down=getResources().getDrawable(R.mipmap.icon_down);
+//        down.setBounds(0, 0, down.getMinimumWidth(), down.getMinimumHeight());
+//        cb_brand.setCompoundDrawables(null,null,down,null);
+            tv.setTextColor(getResources().getColor(R.color.find_text));
+            tv.setBackgroundResource(R.drawable.shape_corner_search);
+            tv.setCompoundDrawables(null,null,null,null);
+        }
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Logger.i("点击每一个商品");
         SearchFarmModel.DataBean bean=mPresenter.data.get(i);
-         Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
+        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
+    }
+
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean b) {
+
+        switch (buttonView.getId()){
+            case R.id.tv_self:   //自营
+                setCheck(tv_self,b);
+                if (b){
+                    isself="1";
+                }else {
+                    isself="0";
+                }
+                mPresenter.getData();
+                break;
+            case R.id.tv_credit:  //信用
+                setCheck(tv_credit,b);
+                if (b){
+                    credit="1";
+                }else {
+                    credit="0";
+                }
+                mPresenter.getData();
+                break;
+            case R.id.cb_price://价格
+                setAll();
+                page=1;
+                cb_price.setTextColor(getResources().getColor(R.color.find_green_text));
+                if (b){
+                    index=5;
+                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_down);
+                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+                    cb_price.setCompoundDrawables(null, null, nav_up, null);
+                }else{
+                    index=6;
+                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_up);
+                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+                    cb_price.setCompoundDrawables(null, null, nav_up, null);
+                }
+                mPresenter.getData();
+                break;
+            case R.id.cb_brand://品牌
+                    cb_brand.setBackgroundResource(R.mipmap.icon_search_brand_selected);
+                    Drawable nav=getResources().getDrawable(R.mipmap.icon_up);
+                    nav.setBounds(0, 0, nav.getMinimumWidth(), nav.getMinimumHeight());
+                    cb_brand.setCompoundDrawables(null, null, nav, null);
+                SearchPopuwindow popupWindow;
+                if (mPresenter.list_brands==null){
+                    popupWindow= new SearchPopuwindow(getActivity(),title);
+                }else {
+                    popupWindow=new SearchPopuwindow(getActivity(),title,mPresenter.list_brands);
+                }
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            Drawable nav_up=getResources().getDrawable(R.mipmap.icon_down);
+                            nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+                            cb_brand.setCompoundDrawables(null, null, nav_up, null);
+                            cb_brand.setBackgroundResource(R.drawable.shape_corner_search);
+                        }
+                    });
+
+                    popupWindow.showAsDropDown(ll_two);
+                break;
+            case R.id.cb_sale:  //销量
+                setAll();
+                page=1;
+                cb_sale.setTextColor(getResources().getColor(R.color.find_green_text));
+                if (b){
+                    index=3;
+                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_down);
+                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+                    cb_sale.setCompoundDrawables(null, null, nav_up, null);
+                }else {
+                    index=4;
+                    Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_up);
+                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+                    cb_sale.setCompoundDrawables(null, null, nav_up, null);
+                }
+                mPresenter.getData();
+                break;
+        }
     }
 }

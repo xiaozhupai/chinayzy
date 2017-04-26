@@ -9,17 +9,20 @@ import android.view.animation.TranslateAnimation;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.BrandModel;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.chinayiz.chinayzy.widget.SearchPopuwindow;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +31,7 @@ import java.util.List;
 
 public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     public List <SearchFarmModel.DataBean> data;
+    public List<BrandModel.DataBean> list_brands;
 
     @Override
     protected void onCreate() {
@@ -109,14 +113,30 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-        if (message.getDataType()== SearchResultAdaphter.JOINCART){
-            SearchFarmModel.DataBean bean= (SearchFarmModel.DataBean) message.getData();
-            CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
+        switch (message.getDataType()){
+            case SearchResultAdaphter.JOINCART:
+                SearchFarmModel.DataBean bean= (SearchFarmModel.DataBean) message.getData();
+                CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
+                break;
+            case SearchPopuwindow.CALL_BACK:
+                String []brand = new String[]{};
+          list_brands= (List<BrandModel.DataBean>) message.getData();
+                for (int i = 0; i <list_brands.size() ; i++) {
+                BrandModel.DataBean beans=list_brands.get(i);
+                    if (beans.isChecked()){
+                    brand[i]=beans.getBrand();
+
+                    }
+                }
+            String b=Arrays.toString(brand);
+                mView.brands=b.subSequence(1,b.length()-1).toString();
+                getData();
+                break;
         }
     }
 
     public void getData(){
-        Net.getNet().getSearchFarm(mView.title,mView.page+"","10",mView.index+"");
+        Net.getNet().getSearchFarm(mView.title,mView.page+"","10",mView.index+"",mView.isself,mView.credit,mView.brands);
     }
 
 }
