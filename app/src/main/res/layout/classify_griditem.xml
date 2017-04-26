@@ -19,7 +19,7 @@
         android:id="@+id/tv_classifyName"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:textSize="10sp"
+        android:textSize="11sp"
         android:gravity="center"
         android:textColor="@color/classifItem"
         android:text="牛肉制品"

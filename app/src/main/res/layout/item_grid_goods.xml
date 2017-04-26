@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/view_goodsItem"
+              android:layout_width="match_parent"
+              android:layout_height="260dp"
+              android:layout_margin="1.5dp"
+              android:background="@color/Background"
+              android:clickable="true"
+              android:orientation="vertical"
+    >
+
+    <ImageView
+        android:id="@+id/iv_goodItemIcon"
+        android:layout_width="match_parent"
+        android:layout_height="186dp"
+        android:padding="1dp"
+        android:src="@color/classifyText_pre"
+        />
+
+    <TextView
+        android:id="@+id/tv_goodItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingLeft="7dp"
+        android:text="前苏联大文豪高尔基看杂志，往往是“几页几页地翻”。经科学地速读训练，其读速更大得惊人"
+        android:textColor="@color/GoodsUserName"
+        android:textSize="13sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="7dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/icon_rmb"
+            />
+
+        <TextView
+            android:id="@+id/tv_goodItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingLeft="8dp"
+            android:text="00."
+            android:textColor="@color/classifyText_pre"
+            android:textSize="17sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_goodItemPrice1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="00"
+            android:textColor="@color/classifyText_pre"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="7dp"
+        >
+
+        <ImageView
+            android:id="@+id/view_isSelf"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/icon_oneself_store"
+            />
+
+        <TextView
+            android:id="@+id/tv_CommentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="4dp"
+            android:text="暂无评论"
+            android:textColor="@color/light"
+            android:textSize="11sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_goodComment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="11dp"
+            android:text="100%好评"
+            android:textColor="@color/light"
+            android:textSize="11sp"
+            />
+    </LinearLayout>
+</LinearLayout>

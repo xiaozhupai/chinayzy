@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/Background"
+                android:id="@+id/view_goodsItem"
+                android:layout_marginTop="1.5dp"
+                android:layout_marginBottom="1.5dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_goodItemIcon"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:padding="5dp"
+        android:src="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/tv_goodItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_toRightOf="@id/iv_goodItemIcon"
+        android:clickable="true"
+        android:lineSpacingMultiplier="1.1"
+        android:maxLength="30"
+        android:padding="8dp"
+        android:text="螺蛳粉广西正宗柳州 嘻螺会螺狮粉特产袋装螺丝粉5包"
+        android:textColor="@color/NongYe_home_goodsText"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/view_isSelf"
+        style="@style/Tv_Self"
+        android:layout_alignBottom="@id/iv_goodItemIcon"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/iv_goodItemIcon"
+        android:layout_marginBottom="8dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_goodItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goodItemTitle"
+        android:layout_toRightOf="@id/iv_goodItemIcon"
+        android:drawableLeft="@mipmap/icon_rmb"
+        android:maxLength="9"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="8dp"
+        android:text="00."
+        android:textColor="@color/NongYe_home_priceText"
+        android:textSize="18sp"
+        />
+    <TextView
+        android:id="@+id/tv_goodItemPrice1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_goodItemPrice"
+        android:layout_toRightOf="@id/tv_goodItemPrice"
+        android:maxLength="9"
+        android:text="00"
+        android:textColor="@color/NongYe_home_priceText"
+        android:textSize="13sp"
+        />
+    <TextView
+        android:id="@+id/tv_CommentCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无评论"
+        android:textSize="12sp"
+        android:textColor="@color/appTextGray"
+        android:layout_alignBottom="@id/view_isSelf"
+        android:layout_marginLeft="7dp"
+        android:layout_toRightOf="@id/view_isSelf"
+        />
+    <TextView
+        android:id="@+id/tv_goodComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100%好评"
+        android:textSize="12sp"
+        android:textColor="@color/appTextGray"
+        android:layout_alignBottom="@id/view_isSelf"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv_CommentCount"
+        />
+
+</RelativeLayout>

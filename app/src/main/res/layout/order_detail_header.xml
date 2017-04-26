@@ -123,7 +123,6 @@
             android:layout_height="20dp"
             android:dividerHeight="0.5dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/btn_fruit"
             />
 
         <TextView

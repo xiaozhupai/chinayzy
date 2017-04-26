@@ -45,7 +45,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     public NyMainPagerAdapter mPagerAdapter;
     private GoodsStandard2 mGoodsStandard2;
     public GoodsDetailModel.DataBean mDataBean;
-    public static int startSum=0;
+    public static int startSum = 0;
     public View mPregess;
     private List<Fragment> mFragments;
     public GoodsDetailFragment mDetailFragment;
@@ -74,7 +74,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
 
         mDetailFragment = GoodsDetailFragment.getInstance();
         mDetailFragment.setGoodsID(goodsID);
-        mPregess=view.findViewById(R.id.ll_progress);
+        mPregess = view.findViewById(R.id.ll_progress);
         mPregess.setVisibility(View.VISIBLE);
         mPicDetailFragment = PicDetailFragment.getInstance();
         mCommentsFragment = CommentsFragment.getInstance();
@@ -98,8 +98,6 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mViewHolder.tv_cart.setOnClickListener(this);
         mViewHolder.tv_addCart.setOnClickListener(this);
         mPresenter.mRequestUtils = CommonRequestUtils.getRequestUtils();
-        Logger.e(++startSum+"次数启动");
-
     }
 
 
@@ -118,7 +116,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
                 break;
             case R.id.tv_store://店铺
                 Logger.i("店铺");
-                if (mPresenter.model!=null){
+                if (mPresenter.model != null) {
                     Skip.toStore(getActivity(), mPresenter.model.getData().getShopid());
                 }
                 break;
@@ -287,11 +285,10 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     }
 
     public void setFavorite(String iscollect) {
-        Logger.i("是否收藏="+iscollect);
-        if ("0".equals(iscollect)) {
-            mViewHolder.cb_favorite.setChecked(false);
-        }else {
+        if ("1".equals(iscollect)) {
             mViewHolder.cb_favorite.setChecked(true);
+        } else {
+            mViewHolder.cb_favorite.setChecked(false);
         }
     }
 

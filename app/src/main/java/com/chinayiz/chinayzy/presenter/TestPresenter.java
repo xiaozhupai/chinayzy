@@ -1,10 +1,7 @@
 package com.chinayiz.chinayzy.presenter;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.chinayiz.chinayzy.MainActivity;
-import com.chinayiz.chinayzy.TestActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 
@@ -17,7 +14,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Class TestPresenter
  */
 
-public class TestPresenter extends BasePresenter<TestActivity> {
+public class TestPresenter extends BasePresenter {
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
@@ -48,7 +45,7 @@ public class TestPresenter extends BasePresenter<TestActivity> {
     }
     @Override
     public void onCreate() {
-        mView.getActivity();
+
     }
 
     @Override
@@ -59,13 +56,6 @@ public class TestPresenter extends BasePresenter<TestActivity> {
     @Override
     public void onSaveInstanceState(Bundle outState) {
 
-    }
-    /**
-     * 启动商城首页
-     */
-    public void doStart_MainPager() {
-        Intent intent = new Intent(mView, MainActivity.class);
-        mView.startActivity(intent);
     }
 
 }

@@ -37,14 +37,13 @@
         />
     <CheckBox
         android:id="@+id/cb_edit_button"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_marginRight="7dp"
         android:button="@null"
         android:gravity="center"
         android:scaleType="centerInside"
-        android:src="@mipmap/more"
         android:text="编辑"
         android:visibility="gone"
         android:textColor="@color/Actionbar_edit"

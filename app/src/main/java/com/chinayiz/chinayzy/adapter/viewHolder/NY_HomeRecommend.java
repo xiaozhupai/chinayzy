@@ -100,7 +100,6 @@ public class NY_HomeRecommend extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View v) {
-        Logger.e("测试="+v.getTag());
         switch (v.getId()) {
             case R.id.iv_recommend_Item1:
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,CLICK_GOODS,v.getTag()));

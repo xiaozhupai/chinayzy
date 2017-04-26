@@ -30,10 +30,11 @@ public class NY_Home_EatTheme extends RecyclerView.ViewHolder implements View.On
     public void setData(NY_EatThemeModel data, Fragment fragment) {
         Glide.with(fragment).load(data.getData().get(0).getPic())
                 .into(mIvFeatureIcon);
+        mIvFeatureIcon.setTag(R.id.tag_click,data.getData().get(0).getDetaillink());
     }
 
     @Override
     public void onClick(View v) {
-        EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,"46"));
+        EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT, NongYeHomeRecylAdapter.CLICK_GOODS,v.getTag(R.id.tag_click)));
     }
 }

@@ -20,7 +20,7 @@ public class BannerHolder implements Holder<String> {
     public View createView(Context context) {
         imageView = new ImageView(context);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         return imageView;
     }
     @Override

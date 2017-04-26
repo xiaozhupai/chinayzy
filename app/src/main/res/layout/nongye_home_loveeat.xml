@@ -21,7 +21,6 @@
         android:id="@+id/iv_themeIcon"
         android:layout_width="match_parent"
         android:layout_height="107dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/tese"
+        android:scaleType="fitXY"
         />
 </LinearLayout>

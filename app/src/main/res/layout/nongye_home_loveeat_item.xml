@@ -3,6 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/Background"
+                android:id="@+id/view_goodsItem"
     >
 
     <ImageView

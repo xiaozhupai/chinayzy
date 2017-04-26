@@ -68,7 +68,6 @@
                 android:paddingRight="5dp"
                 />
         </LinearLayout>
-
     </LinearLayout>
     <View
         style="@style/Divider"/>

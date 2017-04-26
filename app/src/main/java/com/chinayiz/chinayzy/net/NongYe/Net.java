@@ -8,6 +8,7 @@ import com.chinayiz.chinayzy.entity.response.ClassifyCodesModel;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
+import com.chinayiz.chinayzy.entity.response.GoodsSteModel;
 import com.chinayiz.chinayzy.entity.response.KeeporZanModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.entity.response.NY_EatItemModel;
@@ -285,7 +286,7 @@ public class Net {
     }
 
     /**
-     *搜索结果
+     *  搜索结果
      * @param title 关键字
      * @param page 页标
      * @param size 分页数量
@@ -294,7 +295,7 @@ public class Net {
      * @param credit   信用度  1是  0否
      * @param brands   品牌   用逗号隔开
      */
-    public void getSearchFarm(String title,String page,String size,String type,String isself,String credit,String brands) {
+    public void getSearchFarm(String title,String page,String size,String type) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
         OkHttpUtils
@@ -504,6 +505,44 @@ public class Net {
                 });
     }
 
-
+    /**
+     * 二级分类搜索结果
+     * @param page 页标
+     * @param size 分页数量
+     * @param type 类型 1热卖降序2热卖升序3销量降序4销量升序5价格降序6价格升序
+     */
+    public void getGoosSet(String page,String size,String type,String itemcode) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
+        OkHttpUtils
+                .post()
+                .url(Commons.API + Commons.GOODS_SET)
+                .addParams("userid", APP.sUserid)
+                .addParams("page", page)
+                .addParams("size", size)
+                .addParams("type",type)
+                .addParams("itemcode",itemcode)
+                .addParams("time",time)
+                .addParams("sign",sing)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback(){
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息："+e.toString());
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.GOODS_SET
+                                    ,mGson.fromJson(s,GoodsSteModel.class)));
+                        }catch (Exception e){
+                            onError(null,e,i);
+                        }
+                    }
+                });
+    }
 
 }

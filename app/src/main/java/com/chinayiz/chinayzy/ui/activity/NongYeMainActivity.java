@@ -13,6 +13,7 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.NyMainPagerAdapter;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.presenter.NongYeMainPresenter;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
@@ -60,7 +61,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     protected void onCreateActivity(Bundle savedInstanceState) {
         mWebFragment = new WebFragment();
         setStatuBarColor(this, Color.rgb(255, 255, 255));
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_main_nongye);
         initView();
     }
 
@@ -123,8 +124,13 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                 mTvActionBarTitle.setText("活动");
                 break;
             case R.id.rb_nongye_cart://购物车
-                mViewPager.setCurrentItem(3);
-                mTvActionBarTitle.setText("购物车");
+                if (UserSeeion.isLogin(this)) {
+                    mViewPager.setCurrentItem(3);
+                    mTvActionBarTitle.setText("购物车");
+                }else {
+                    showToast(this,"请登录");
+                    mRadioButton.setChecked(true);
+                }
                 break;
         }
     }

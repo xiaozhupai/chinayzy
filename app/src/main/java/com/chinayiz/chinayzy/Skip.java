@@ -12,6 +12,8 @@ import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.ui.common.MoreRecommendGoodsFragment;
 import com.chinayiz.chinayzy.ui.common.StoreFragment;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
+import com.chinayiz.chinayzy.ui.fragment.GoodsSetFragment;
+import com.chinayiz.chinayzy.ui.fragment.NewClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
@@ -313,7 +315,17 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context, intent);
     }
-
+    /**
+     * 生态农业三级菜单商品
+     */
+    public static void toItemGoosd(Context context, String itemCode) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, NewClassifyFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("itemCode", itemCode);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
     /**
      * 充值1350
      *
@@ -380,4 +392,17 @@ public class Skip {
       intent.putExtras(bundle);
       skip(context, intent);
   }
+    /**
+     * 分类商品查询结果集
+     * @param context
+     * @param itemcode
+     */
+    public static void toGoodsResult(Context context, String itemcode) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, GoodsSetFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("itemCode", itemcode);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
 }

@@ -38,10 +38,12 @@ public class ClassifyItemHolder extends RecyclerView.ViewHolder implements View.
                 .into(mImageView);
         mTextView.setText(mDataBean.getItemname());
         mView.setTag(R.id.tag_click,mDataBean.getItemname());
+        mView.setTag(R.id.tag_detailId,mDataBean.getItemcode());
     }
     @Override
     public void onClick(View v) {
-        Logger.i("点击三级="+v.getTag(R.id.tag_click));
+        Logger.i("点击三级="+v.getTag(R.id.tag_detailId));
+
         String titel= (String) v.getTag(R.id.tag_click);
         Skip.toSearchResult(mFragment.getActivity(),titel);
     }

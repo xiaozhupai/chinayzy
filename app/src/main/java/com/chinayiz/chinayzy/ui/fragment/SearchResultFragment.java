@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.presenter.SearchResultPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
@@ -69,7 +70,9 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         activity.mIvActionBarCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Skip.toShopCart(getActivity());
+                if (UserSeeion.isLogin(getActivity())) {
+                    Skip.toShopCart(getActivity());
+                }
             }
         });
         activity.mTvActionBarTitle.setText(title);

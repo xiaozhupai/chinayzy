@@ -18,6 +18,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.ClassifyTypesModel;
 import com.chinayiz.chinayzy.presenter.ClassifyPresenter;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -36,10 +37,10 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
-        if ("-1".equals(mTypeCode)){
-            view=inflater.inflate(R.layout.fragment_activity,container,false);
-        }else {
-            view= inflater.inflate(R.layout.fragment_classify, container, false);
+        if ("-1".equals(mTypeCode)) {
+            view = inflater.inflate(R.layout.fragment_activity, container, false);
+        } else {
+            view = inflater.inflate(R.layout.fragment_classify, container, false);
             initViews(view);
         }
         return view;
@@ -47,16 +48,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        switch (mTypeCode) {
-            case "1":
-                activity.mTvActionBarTitle.setText("有机农业");
-                break;
-            case "-1":
-                activity.mTvActionBarTitle.setText("敬请期待");
-                break;
-
-        }
-        activity.mTvActionBarTitle.setText("");
+        activity.mTvActionBarTitle.setText("分类");
     }
 
     @Override
@@ -70,7 +62,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
         mListView.setAdapter(mListAdpter);
         mListAdpter.setItemSeletdListener(this);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_typeGrid);
-        mGridAdapter = new ClassGridAdapter(this);
+        mGridAdapter = new ClassGridAdapter(this,ClassGridAdapter.ITEM_VIEW);
         //设置网格布局管理器
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -91,6 +83,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     public void onSeletItem(int position, ClassifyTypesModel.DataBean data) {
         ClassifyTypesModel.DataBean dataBean = data;
         picUrl = dataBean.getPic();
+        Logger.i("图片地址="+picUrl);
         mPresenter.getClassDatas(dataBean.getTypecode());
         mListAdpter.changeSelected(position);
     }
@@ -100,7 +93,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     public void onResume() {
         super.onResume();
         // code不等于空白页，并且code不为空
-        if (!("-1".equals(mTypeCode))&&mTypeCode != null) {
+        if (!("-1".equals(mTypeCode)) && mTypeCode != null) {
             mPresenter.getTypeDatas(mTypeCode);
         }
     }

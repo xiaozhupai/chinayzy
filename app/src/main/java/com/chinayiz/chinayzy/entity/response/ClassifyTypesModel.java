@@ -34,6 +34,13 @@ public class ClassifyTypesModel extends BaseResponseModel {
         private String tname;
         private String pic;
 
+        public DataBean(String typecode, int sequencenum, String tname, String pic) {
+            this.typecode = typecode;
+            this.sequencenum = sequencenum;
+            this.tname = tname;
+            this.pic = pic;
+        }
+
         public String getTypecode() {
             return typecode;
         }

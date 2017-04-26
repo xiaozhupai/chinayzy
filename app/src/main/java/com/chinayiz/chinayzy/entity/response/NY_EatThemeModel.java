@@ -40,7 +40,14 @@ public class NY_EatThemeModel extends BaseResponseModel {
         private int themeid;
         private String pic;
         private String type;
+        private String detaillink;
 
+        public String getDetaillink() {
+            return detaillink;
+        }
+        public void setDetaillink(String detaillink) {
+            this.detaillink = detaillink;
+        }
         public String getThemename() {
             return themename;
         }

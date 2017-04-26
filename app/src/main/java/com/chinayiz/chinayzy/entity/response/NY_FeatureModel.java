@@ -56,7 +56,14 @@ public class NY_FeatureModel extends BaseResponseModel {
         private String gname;
         private String brand;
         private String isself;
+        private String detaillink;
 
+        public String getDetaillink() {
+            return detaillink;
+        }
+        public void setDetaillink(String detaillink) {
+            this.detaillink = detaillink;
+        }
         public String getIsself() {
             return isself;
         }

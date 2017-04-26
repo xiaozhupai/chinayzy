@@ -3,7 +3,6 @@ package com.chinayiz.chinayzy.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.MainActivity;
@@ -21,13 +20,10 @@ import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
-import com.chinayiz.chinayzy.utils.NetworkUtils;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.io.File;
 
 /**
  * author  by  Canrom7 .
@@ -57,12 +53,6 @@ public class MainPresenter extends BasePresenter<MainActivity> {
                 AppUpdataModel model = (AppUpdataModel) message.getData();
                 info = model.getData();
                 mView.dowloadUrl = info.getUrl();
-                //  没有下载，并且WiFi处于状态自动下载
-                if (!isLoad && NetworkUtils.isWifiConnected(mView)) {
-                    Intent intent = new Intent(mView, UpdateService.class);
-                    intent.putExtra("downloadURI", info.getUrl());
-                    mView.startService(intent);
-                }
                 switch (info.getNeedupdate()) {
                     case "1": {//需要更新
                         mView.updataVersion(1);
@@ -72,28 +62,27 @@ public class MainPresenter extends BasePresenter<MainActivity> {
                         mView.updataVersion(2);
                         break;
                     }
-                    case "0": {
+                    case "0": {//不需要更新
                         break;
-                    }//不需要更新
-
+                    }
                 }
             }
             break;
-            case UpdateService.UPDATA_APP:{
-                if (mView.isYes) {
-                    isLoad = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getBoolean("isLoad", false);
-                    apkPath = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getString("apkPath", "-1");
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.fromFile(new File(apkPath)), "application/vnd.android.package-archive");
-                    mView.startActivity(intent);
-                }
+            case UpdateService.UPDATA_APK_FINISH: {//下载完成
+                isLoad = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getBoolean("isLoad", false);
+                apkPath = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getString("apkPath", "-1");
+                mView.showProgerss(-10);
+            }
+            case UpdateService.UPDATA_APK_ON: {//下载中
+                int progers = (int) message.getData();
+                mView.showProgerss(progers);
             }
             break;
             case Commons.RECOMMEND_INFO: //推荐好友信息
-                RecommendCodeModel model= (RecommendCodeModel) message.getData();
+                RecommendCodeModel model = (RecommendCodeModel) message.getData();
                 //设置分享内容
-                mShareDialog=new ShareDialog(messageData,model.getData().getImage(),
-                        model.getData().getWebpageUrl(),model.getData().getTitle(),
+                mShareDialog = new ShareDialog(messageData, model.getData().getImage(),
+                        model.getData().getWebpageUrl(), model.getData().getTitle(),
                         model.getData().getContent());
 
                 mShareDialog.show();
@@ -136,7 +125,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
 
     @Override
     public void onDestroy() {
-        mShareDialog=null;
+        mShareDialog = null;
         intent = null;
         mNet = null;
     }

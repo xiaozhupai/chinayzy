@@ -175,7 +175,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 }
             }
         });
-        Logger.i("子类加载数据"+GoodsMainFragment.startSum);
         mRequestUtils.getGoodsDetail(goodsID);
     }
 
@@ -184,7 +183,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     }
 
     public static GoodsDetailFragment getInstance() {
-        Logger.i("子类加载数据getInstance"+GoodsMainFragment.startSum);
         return new GoodsDetailFragment();
     }
 
@@ -304,9 +302,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             urls.add(str);
         }
         mViewHolder.vpager_Banner.setPages(new CreatePhotosHolder(), urls);
-
         if ("1".equals(mDetailModel.getIsself())) {//是否自营
-            Logger.i("是否自营");
             mViewHolder.tv_goodsTitle.setText("\t\t\t\t\t\t" + mDetailModel.getGname());
         } else {
             mViewHolder.view_isSelf.setVisibility(View.GONE);
