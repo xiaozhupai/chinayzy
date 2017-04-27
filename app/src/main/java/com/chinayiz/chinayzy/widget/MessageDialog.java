@@ -13,42 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.chinayiz.chinayzy.widget;
 
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.chinayiz.chinayzy.R;
-import static android.renderscript.Sampler.Value.WRAP;
-import android.view.Gravity;
-
-
-import static android.view.View.VISIBLE;
 
 
 /**
- * @author Luki
+ * @author Yangf
+ * 后台升级的弹出框
  */
+
 public class MessageDialog extends DialogUtils.XDialog implements View.OnClickListener {
 
-	private TextView  vButton1, vButton2;
+	private TextView vTitle, vButton1, vButton2;
 	private View vDivider;
+	private ImageView vImg;
 	public TextView message;
-
 
 	/**
 	 * @param context
 	 */
+
 	public MessageDialog(Context context) {
 		super(context);
-		getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		getWindow().setGravity(Gravity.CENTER);
 		setContentView(R.layout.dialog_message);
-	  message= (TextView) findViewById(R.id.dialog_message);
+
 		vButton1 = (TextView) findViewById(R.id.dialog_button1);
 		vButton2 = (TextView) findViewById(R.id.dialog_button2);
+		message= (TextView) findViewById(R.id.dialog_message);
+//		vImg = (ImageView) findViewById(R.id.dialog_image);
 		vDivider = findViewById(R.id.dialog_divider);
 		vButton1.setOnClickListener(this);
 		vButton2.setOnClickListener(this);
@@ -70,11 +73,24 @@ public class MessageDialog extends DialogUtils.XDialog implements View.OnClickLi
 	public void setButton2(String text, View.OnClickListener listener) {
 		vButton2.setText(text);
 		vButton1.setBackgroundResource(R.drawable.dialog_corner_left);
-		vDivider.setVisibility(VISIBLE);
-		vButton2.setVisibility(VISIBLE);
+		vDivider.setVisibility(View.VISIBLE);
+		vButton2.setVisibility(View.VISIBLE);
 		if (listener != null) {
 			vButton2.setOnClickListener(listener);
 		}
+	}
+
+	public void setImage(int resId) {
+		vImg.setImageResource(resId);
+		vImg.setVisibility(View.VISIBLE);
+	}
+
+	/* (non-Javadoc)
+	 * @see android.app.Dialog#setTitle(java.lang.CharSequence)
+	 */
+	@Override
+	public void setTitle(CharSequence title) {
+		vTitle.setText(title);
 	}
 
 	/* (non-Javadoc)
