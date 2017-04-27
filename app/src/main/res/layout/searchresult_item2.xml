@@ -100,7 +100,7 @@
                 android:id="@+id/iv_join_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_mine_shop_car"
+                android:src="@mipmap/icon_newcar"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:visibility="gone"

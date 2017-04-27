@@ -20,7 +20,7 @@
             android:text="热卖"
             android:textSize="14sp"
             android:gravity="center"
-            android:textColor="@color/find_green_text"
+            android:textColor="@color/search_selected"
             android:padding="10dp"
             android:layout_marginBottom="2dp"
             />
@@ -44,7 +44,7 @@
                 android:padding="10dp"
                 android:gravity="center"
                 android:drawableRight="@mipmap/icon_sort_normal"
-                 android:paddingRight="5dp"
+                android:paddingRight="5dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -69,25 +69,112 @@
                 />
         </LinearLayout>
     </LinearLayout>
-   <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/refresh_view"
-       >
-       <include  layout="@layout/refresh_head"/>
-       <com.chinayiz.chinayzy.views.pullable.PullableGridView
-           android:id="@+id/gd_list"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:background="@color/basecolor"
-           android:numColumns="1"
-           android:verticalSpacing="2dp"
-           android:horizontalSpacing="2dp"
-           android:visibility="visible"
-           android:layout_marginTop="2dp">
-       </com.chinayiz.chinayzy.views.pullable.PullableGridView>
-       <include  layout="@layout/load_more"/>
-   </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
+    <View
+        style="@style/Divider"/>
+    <LinearLayout
+        android:id="@+id/ll_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingTop="9dp"
+        android:paddingBottom="5dp"
+        >
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <CheckBox
+                android:id="@+id/tv_self"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自营"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textColor="#0b1b01"
+                android:button="@null"
+                android:background="@drawable/shape_corner_search"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="22dp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <CheckBox
+                android:id="@+id/tv_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="信用度"
+                android:button="@null"
+                android:textSize="14sp"
+                android:textColor="@color/find_text"
+                android:gravity="center"
+                android:background="@drawable/shape_corner_search"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="22dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+            <CheckBox
+                android:id="@+id/cb_brand"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_sort_down"
+                android:button="@null"
+                android:text="品牌"
+                android:textColor="@color/find_text"
+             android:background="@drawable/shape_corner_search"
+                android:textSize="14sp"
+
+                android:gravity="center"
+                android:drawableRight="@mipmap/icon_down"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="22dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/refresh_view"
+        >
+        <include  layout="@layout/refresh_head"/>
+        <com.chinayiz.chinayzy.views.pullable.PullableGridView
+            android:id="@+id/gd_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/basecolor"
+            android:numColumns="1"
+            android:verticalSpacing="2dp"
+            android:horizontalSpacing="2dp"
+            android:visibility="visible"
+            android:paddingTop="2dp">
+        </com.chinayiz.chinayzy.views.pullable.PullableGridView>
+        <include  layout="@layout/load_more"/>
+    </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
 
 
 </LinearLayout>

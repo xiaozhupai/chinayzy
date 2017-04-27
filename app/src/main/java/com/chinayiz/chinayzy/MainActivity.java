@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 mPresenter.doStartNongye();
                 break;
             case R.id.btn_Store://商城
-                Skip.toItemMenu(this, "-1");
+                Skip.toMail(this, "-1");
                 break;
             case R.id.btn_im://个人中心
                 mPresenter.doStartMine();
@@ -135,7 +135,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     @Override
     public void onItemClick(int position) {
         if (position==0){
-
+            if (UserSeeion.isLogin(this)){
+                if (UserSeeion.isMember(this)){
+                 Logger.i("分享");
+                }
+            }
             Logger.i("好友推荐广告图-点击");
 
             return;

@@ -188,9 +188,15 @@ public class Commons {
      */
     public static final String GETSEARCHKEY = "/farm/getSearchkey";
     /**
+     * 搜索获取品牌
+     */
+    public static final String GETBRANDS = "/farm/getBrands";
+
+    /**
      * 生态农业首页搜索
      */
     public static final String SEARCHFARM = "/farm/searchFarm";
+
 
     /**
      * 获取商品套餐
@@ -383,4 +389,10 @@ public class Commons {
      * 推荐信息
      */
     public static final String RECOMMEND_INFO = "/centre/myRecommendCode";
+
+    /**
+     * 亿众商城
+     */
+    public static final String SEARCHMALLGOODS = "/mall/searchMallGoods";
+
 }

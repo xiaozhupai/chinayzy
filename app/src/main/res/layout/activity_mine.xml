@@ -33,7 +33,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="178dp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
                         android:background="#f52a44"
@@ -87,7 +87,7 @@
                                     android:id="@+id/tv_user_username"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="fdsd"
+                                    android:text=""
                                     android:textColor="#fefefe"
                                     android:textSize="16sp"
                                     android:drawableRight="@mipmap/back_arrow_white"
@@ -104,6 +104,18 @@
                                 <!--/>-->
                             </LinearLayout>
                         </LinearLayout>
+
+              <TextView
+                  android:id="@+id/tv_has_user"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="12sp"
+                  android:textColor="#fefefe"
+                  android:layout_gravity="right"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_marginRight="12dp"
+                  />
 
                     </LinearLayout>
 

@@ -9,12 +9,14 @@ import android.view.animation.TranslateAnimation;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.BrandModel;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.chinayiz.chinayzy.widget.SearchPopuwindow;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -28,6 +30,7 @@ import java.util.List;
 
 public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
     public List <SearchFarmModel.DataBean> data;
+    public List<BrandModel.DataBean> list_brands;
 
     @Override
     protected void onCreate() {
@@ -94,6 +97,33 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
 //                BaseResponseModel model1= (BaseResponseModel) message.getData();
 //                Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
                 break;
+            case Commons.SEARCHMALLGOODS:
+                SearchFarmModel model2= (SearchFarmModel) message.getData();
+                if (mView.page==1){ //下拉刷新
+                    if (mView.type==1){
+                        data=model2.getData();
+                        mView.adaphter.setData(model2.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.setData(model2.getData(),mView.type);
+                    }
+                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+                }else {   //上拉加载
+                    data.addAll(model2.getData());
+                    if (mView.type==1){
+                        mView.adaphter.AddData(model2.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.AddData(model2.getData(),mView.type);
+                    }
+                    mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                }
+                if (model2.getData().size()<10){
+                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
+                    mView.refresh_view.setLoadMoreVisiable(false);
+                }else {
+                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
+                    mView.refresh_view.setLoadMoreVisiable(true);
+                }
+                break;
         }
     }
 
@@ -109,14 +139,34 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-        if (message.getDataType()== SearchResultAdaphter.JOINCART){
-            SearchFarmModel.DataBean bean= (SearchFarmModel.DataBean) message.getData();
-            CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
+        switch (message.getDataType()){
+            case SearchResultAdaphter.JOINCART:
+                SearchFarmModel.DataBean bean= (SearchFarmModel.DataBean) message.getData();
+                CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
+                break;
+            case SearchPopuwindow.CALL_BACK:
+                StringBuilder sb=new StringBuilder();
+          list_brands= (List<BrandModel.DataBean>) message.getData();
+                for (int i = 0; i <list_brands.size() ; i++) {
+                BrandModel.DataBean beans=list_brands.get(i);
+                    if (beans.isChecked()){
+                    sb.append(beans.getBrand());
+                        sb.append(",");
+                    }
+                }
+                mView.brands=sb.toString();
+                getData();
+                break;
         }
     }
 
     public void getData(){
-        Net.getNet().getSearchFarm(mView.title,mView.page+"","10",mView.index+"");
+        Logger.i("brands="+mView.brands);
+        if (mView.isMail){
+            CommonRequestUtils.getRequestUtils().getSearchMallGoods(mView.page+"","10",mView.index+"",mView.isself,mView.credit,mView.brands);
+        }else {
+            Net.getNet().getSearchFarm(mView.title,mView.page+"","10",mView.index+"",mView.isself,mView.credit,mView.brands);
+        }
     }
 
 }

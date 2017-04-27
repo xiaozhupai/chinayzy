@@ -9,7 +9,7 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 public class PersonalModel extends BaseResponseModel {
 
     /**
-     * data : {"sex":"","nickname":"","waittakecount":0,"waitpaycount":0,"ismember":"1","waitdelivercount":0,"pid":"CNYZ-YUANKUNKUN-80316","pic":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1%2F2017%2F04%2F20%2F03%2F30%2F59.png","aftercount":0}
+     * data : {"relationshipcount":0,"sex":"0","nickname":"王先生","waittakecount":0,"waitpaycount":1,"ismember":"1","waitdelivercount":0,"pid":"CNYZ-WANGJIANCHAO-55055","pic":null,"aftercount":0}
      */
 
     private DataBean data;
@@ -24,17 +24,19 @@ public class PersonalModel extends BaseResponseModel {
 
     public static class DataBean {
         /**
-         * sex :
-         * nickname :
+         * relationshipcount : 0
+         * sex : 0
+         * nickname : 王先生
          * waittakecount : 0
-         * waitpaycount : 0
+         * waitpaycount : 1
          * ismember : 1
          * waitdelivercount : 0
-         * pid : CNYZ-YUANKUNKUN-80316
-         * pic : http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1%2F2017%2F04%2F20%2F03%2F30%2F59.png
+         * pid : CNYZ-WANGJIANCHAO-55055
+         * pic : null
          * aftercount : 0
          */
 
+        private int relationshipcount;
         private String sex;
         private String nickname;
         private int waittakecount;
@@ -44,6 +46,14 @@ public class PersonalModel extends BaseResponseModel {
         private String pid;
         private String pic;
         private int aftercount;
+
+        public int getRelationshipcount() {
+            return relationshipcount;
+        }
+
+        public void setRelationshipcount(int relationshipcount) {
+            this.relationshipcount = relationshipcount;
+        }
 
         public String getSex() {
             return sex;
