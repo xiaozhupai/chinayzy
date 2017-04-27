@@ -20,9 +20,8 @@ import java.util.List;
 
 
 
-
 /**
- * 自定义弹出框
+ * 仿照IOS 底部弹出框
  */
 public class ArrayAlertDialog extends Dialog implements View.OnClickListener {
 	private int mGravity;
@@ -49,6 +48,7 @@ public class ArrayAlertDialog extends Dialog implements View.OnClickListener {
 	 * @param gravity 布局文件的对齐方式
 	 * @param data    data
 	 */
+
 	public ArrayAlertDialog(Context context, int gravity, List<String> data) {
 		super(context, R.style.Dialog);
 		this.mContext = context;
@@ -71,7 +71,7 @@ public class ArrayAlertDialog extends Dialog implements View.OnClickListener {
 		cancel.setOnClickListener(this);
 		lv.setAdapter(new ArrayAdapter<>(mContext, R.layout.dialog_array_item, R.id.custom_array_item_name, data));
 		lv.setOnItemClickListener(listener);
-       setCanceledOnTouchOutside(true);
+
 		setContentView(view);
 		getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		getWindow().setGravity(mGravity);

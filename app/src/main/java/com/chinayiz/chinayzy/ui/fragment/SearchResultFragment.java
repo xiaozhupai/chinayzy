@@ -150,7 +150,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 page=1;
                 mPresenter.getData();
-
             }
 
             @Override
@@ -169,7 +168,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
 
     @Override
     public void isNightMode(boolean isNight) {
-
     }
 
     //将所有的设置成不选中状态
