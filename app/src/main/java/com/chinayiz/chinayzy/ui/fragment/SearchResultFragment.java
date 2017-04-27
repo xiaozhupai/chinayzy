@@ -52,6 +52,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public String isself="0";
     public String credit="0";
     public String brands="";
+    public boolean isMail;
 
 
     @Override
@@ -66,44 +67,55 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     @Override
     public void onInitActionBar(final BaseActivity activity) {
         activity.mActionBar.setVisibility(View.VISIBLE);
-        activity.mIvActionBarCart.setVisibility(View.VISIBLE);
-        activity.mIvActionBarCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (UserSeeion.isLogin(getActivity())) {
-                    Skip.toShopCart(getActivity());
+        if (!isMail){
+            activity.mIvActionBarCart.setVisibility(View.VISIBLE);
+            activity.mIvActionBarCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (UserSeeion.isLogin(getActivity())) {
+                        Skip.toShopCart(getActivity());
+                    }
                 }
-            }
-        });
+            });
+            activity.mIvActionBarMore.setVisibility(View.VISIBLE);
+            activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
+            activity.mIvActionBarMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isList){
+                        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
+                        isList=false;
+                        type=2;
+                        gd_list.setNumColumns(2);
+                        adaphter2.setData(mPresenter.data,2);
+                        gd_list.setAdapter(adaphter2);
+                    }else {
+                        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
+                        isList=true;
+                        type=1;
+                        gd_list.setNumColumns(1);
+                        adaphter.setData(mPresenter.data,1);
+                        gd_list.setAdapter(adaphter);
+                    }
+                    mPresenter.getData();
+                }
+            });
+
+        }
+
         activity.mTvActionBarTitle.setText(title);
-        activity.mIvActionBarMore.setVisibility(View.VISIBLE);
-        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
-        activity.mIvActionBarMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isList){
-                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
-                    isList=false;
-                    type=2;
-                    gd_list.setNumColumns(2);
-                    adaphter2.setData(mPresenter.data,2);
-                    gd_list.setAdapter(adaphter2);
-                }else {
-                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
-                    isList=true;
-                    type=1;
-                    gd_list.setNumColumns(1);
-                    adaphter.setData(mPresenter.data,1);
-                    gd_list.setAdapter(adaphter);
-                }
-                mPresenter.getData();
-            }
-        });
+
     }
 
     @Override
     public void onInintData(Bundle bundle) {
-        title=bundle.getString("titel","-1");
+        if (bundle.getString("itemCode")!=null){  //大众商城
+            title="亿众商城";
+            isMail=true;
+        }else {
+            title=bundle.getString("titel","-1");
+            isMail=false;
+        }
         adaphter=new SearchResultAdaphter(null,1,getActivity());
         adaphter2=new SearchResultAdaphter(null,2,getActivity());
 
@@ -179,7 +191,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                 setAll();
                 page=1;
                 index=2;
-                tv_hot.setTextColor(getResources().getColor(R.color.find_green_text));
+                tv_hot.setTextColor(getResources().getColor(R.color.search_selected));
                 mPresenter.getData();
                 break;
         }
@@ -238,7 +250,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
             case R.id.cb_price://价格
                 setAll();
                 page=1;
-                cb_price.setTextColor(getResources().getColor(R.color.find_green_text));
+                cb_price.setTextColor(getResources().getColor(R.color.search_selected));
                 if (b){
                     index=5;
                     Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_down);
@@ -259,9 +271,9 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                     cb_brand.setCompoundDrawables(null, null, nav, null);
                 SearchPopuwindow popupWindow;
                 if (mPresenter.list_brands==null){
-                    popupWindow= new SearchPopuwindow(getActivity(),title);
+                    popupWindow= new SearchPopuwindow(getActivity(),title,isMail);
                 }else {
-                    popupWindow=new SearchPopuwindow(getActivity(),title,mPresenter.list_brands);
+                    popupWindow=new SearchPopuwindow(getActivity(),title,mPresenter.list_brands,isMail);
                 }
                     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                         @Override
@@ -278,7 +290,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
             case R.id.cb_sale:  //销量
                 setAll();
                 page=1;
-                cb_sale.setTextColor(getResources().getColor(R.color.find_green_text));
+                cb_sale.setTextColor(getResources().getColor(R.color.search_selected));
                 if (b){
                     index=3;
                     Drawable nav_up=getResources().getDrawable(R.mipmap.icon_sort_down);

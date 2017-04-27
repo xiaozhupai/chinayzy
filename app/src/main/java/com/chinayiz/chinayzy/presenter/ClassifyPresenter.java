@@ -41,7 +41,9 @@ public class ClassifyPresenter extends BasePresenter<ClassifyFragment> {
      * @param typeCode
      */
     public void getTypeDatas(String typeCode) {
-        mNet.getTypeCodes(typeCode);
+
+            mNet.getTypeCodes(typeCode);
+
     }
 
     /**

@@ -36,27 +36,34 @@ public class SearchPopuwindow extends PopupWindow implements View.OnClickListene
     private TextView tv_reset,tv_submit;
     private LinearLayout ll_bottom;
     private String searchkey;
-    private List<BrandModel.DataBean> lists;
+    private List<BrandModel.DataBean> lists_brands;
     public static final String CALL_BACK="SearchPopuwindow";
-    public SearchPopuwindow(Context context,String searchkey) {
+    public boolean isMail;
+    public SearchPopuwindow(Context context,String searchkey,boolean isMail) {
         super(context);
         this.context=context;
         this.searchkey=searchkey;
+        this.isMail=isMail;
         initView();
         getData();
         EventBus.getDefault().register(this);
     }
 
-    public SearchPopuwindow(Context context,String searchkey,List<BrandModel.DataBean> list){
+    public SearchPopuwindow(Context context,String searchkey,List<BrandModel.DataBean> list,boolean isMail){
         super(context);
         this.context=context;
         this.searchkey=searchkey;
+        this.isMail=isMail;
         initView();
         adaphter.setData(list);
     }
 
     private void getData() {
-        Net.getNet().getbrands(searchkey);
+        if (isMail){
+            Net.getNet().getbrands("");
+        }else {
+            Net.getNet().getbrands(searchkey);
+        }
     }
 
     private void initView() {
@@ -97,7 +104,8 @@ public class SearchPopuwindow extends PopupWindow implements View.OnClickListene
         switch (v.getId()){
             case  R.id.tv_reset:
                 Logger.i("重置");
-                if (lists!=null){
+                List <BrandModel.DataBean> lists=adaphter.lists;
+                if (adaphter.lists!=null){
                     for (BrandModel.DataBean bean: lists) {
                         bean.setChecked(false);
                     }
@@ -120,8 +128,8 @@ public class SearchPopuwindow extends PopupWindow implements View.OnClickListene
     public void runUiThread(EventMessage message) {
         if (message.getDataType()== Commons.GETBRANDS){
          BrandModel model= (BrandModel) message.getData();
-            lists=model.getData();
-            adaphter.setData(lists);
+            lists_brands=model.getData();
+            adaphter.setData(lists_brands);
         }
     }
 

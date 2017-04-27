@@ -20,7 +20,7 @@
             android:text="热卖"
             android:textSize="14sp"
             android:gravity="center"
-            android:textColor="@color/find_green_text"
+            android:textColor="@color/search_selected"
             android:padding="10dp"
             android:layout_marginBottom="2dp"
             />

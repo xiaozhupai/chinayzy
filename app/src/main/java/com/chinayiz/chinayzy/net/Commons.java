@@ -389,4 +389,10 @@ public class Commons {
      * 推荐信息
      */
     public static final String RECOMMEND_INFO = "/centre/myRecommendCode";
+
+    /**
+     * 亿众商城
+     */
+    public static final String SEARCHMALLGOODS = "/mall/searchMallGoods";
+
 }

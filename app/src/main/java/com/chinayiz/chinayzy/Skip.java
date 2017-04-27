@@ -303,6 +303,18 @@ public class Skip {
         skip(context, intent);
     }
 
+    /**
+     * 电商
+     */
+    public static void toMail(Context context, String itemCode) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, SearchResultFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("itemCode", itemCode);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
+
 
     /**
      * 生态农业二级菜单

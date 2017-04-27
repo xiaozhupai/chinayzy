@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 mPresenter.doStartNongye();
                 break;
             case R.id.btn_Store://商城
-                Skip.toItemMenu(this, "-1");
+                Skip.toMail(this, "-1");
                 break;
             case R.id.btn_im://个人中心
                 mPresenter.doStartMine();

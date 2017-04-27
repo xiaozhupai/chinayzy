@@ -22,7 +22,6 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -98,6 +97,33 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
 //                BaseResponseModel model1= (BaseResponseModel) message.getData();
 //                Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
                 break;
+            case Commons.SEARCHMALLGOODS:
+                SearchFarmModel model2= (SearchFarmModel) message.getData();
+                if (mView.page==1){ //下拉刷新
+                    if (mView.type==1){
+                        data=model2.getData();
+                        mView.adaphter.setData(model2.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.setData(model2.getData(),mView.type);
+                    }
+                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+                }else {   //上拉加载
+                    data.addAll(model2.getData());
+                    if (mView.type==1){
+                        mView.adaphter.AddData(model2.getData(),mView.type);
+                    }else {
+                        mView.adaphter2.AddData(model2.getData(),mView.type);
+                    }
+                    mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                }
+                if (model2.getData().size()<10){
+                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
+                    mView.refresh_view.setLoadMoreVisiable(false);
+                }else {
+                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
+                    mView.refresh_view.setLoadMoreVisiable(true);
+                }
+                break;
         }
     }
 
@@ -119,24 +145,28 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                 CommonRequestUtils.getRequestUtils().getJoinCart(bean.getShopid()+"",bean.getGoodsstandardid()+"","1");
                 break;
             case SearchPopuwindow.CALL_BACK:
-                String []brand = new String[]{};
+                StringBuilder sb=new StringBuilder();
           list_brands= (List<BrandModel.DataBean>) message.getData();
                 for (int i = 0; i <list_brands.size() ; i++) {
                 BrandModel.DataBean beans=list_brands.get(i);
                     if (beans.isChecked()){
-                    brand[i]=beans.getBrand();
-
+                    sb.append(beans.getBrand());
+                        sb.append(",");
                     }
                 }
-            String b=Arrays.toString(brand);
-                mView.brands=b.subSequence(1,b.length()-1).toString();
+                mView.brands=sb.toString();
                 getData();
                 break;
         }
     }
 
     public void getData(){
-        Net.getNet().getSearchFarm(mView.title,mView.page+"","10",mView.index+"",mView.isself,mView.credit,mView.brands);
+        Logger.i("brands="+mView.brands);
+        if (mView.isMail){
+            CommonRequestUtils.getRequestUtils().getSearchMallGoods(mView.page+"","10",mView.index+"",mView.isself,mView.credit,mView.brands);
+        }else {
+            Net.getNet().getSearchFarm(mView.title,mView.page+"","10",mView.index+"",mView.isself,mView.credit,mView.brands);
+        }
     }
 
 }
