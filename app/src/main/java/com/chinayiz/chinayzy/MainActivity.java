@@ -118,15 +118,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 mPresenter.doStartMine();
                 break;
             case R.id.btn_asIm://关于我们
-//                String url=new String(Commons.API+"/h5/aboutus");
-//                Skip.toWebPage(this,url,"关于我们");
-
-                Skip.toGoodsResult(this,"001004,分类菜单");
-
+                String url=new String(Commons.API+"/h5/aboutus");
+                Skip.toWebPage(this,url,"关于我们");
                 break;
             case R.id.btn_Recommend://分享我的二维码
                 if (UserSeeion.isLogin(this)) {
-                    String uri = new String(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid);
+                    String uri = new String(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid+"&devicetype=android");
                     Skip.toWebPage(this, uri, WebPowerFragment.SHARE);
                 } else {
                     showToast(this, "请先登录");

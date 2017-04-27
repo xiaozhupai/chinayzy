@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
@@ -48,8 +49,9 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     private NoScrollViewPager mViewPager;
     private List<Fragment> mFragments;
     private RadioButton mRadioButton;
+    private ActivityFragment mActivityFragment;
     private ShopCartFragment mShopCartFragment;
-
+    private int commitID=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,8 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
         mFragments = new ArrayList<>(4);
         mFragments.add(HomeFragment.getInstance());
         mFragments.add(FindFragment.getInstance());
-        mFragments.add(ActivityFragment.getInstance());
+        mActivityFragment=ActivityFragment.getInstance();
+        mFragments.add(mActivityFragment);
         mShopCartFragment = ShopCartFragment.getInstance();
         mFragments.add(mShopCartFragment);
 
@@ -112,18 +115,31 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
         }
         switch (i) {
             case R.id.rb_nongye_home://首页
+                commitID=0;
                 mViewPager.setCurrentItem(0);
                 mTvActionBarTitle.setText("首页");
+                mIvBackButton.setOnClickListener(this);
                 break;
             case R.id.rb_nongye_find://发现
+                commitID=1;
                 mViewPager.setCurrentItem(1);
                 mTvActionBarTitle.setText("发现");
+                mIvBackButton.setOnClickListener(this);
                 break;
             case R.id.rb_nongye_activi://活动
+                commitID=2;
                 mViewPager.setCurrentItem(2);
                 mTvActionBarTitle.setText("活动");
+                mIvBackButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mActivityFragment.webCanback();
+                    }
+                });
                 break;
             case R.id.rb_nongye_cart://购物车
+                commitID=3;
+                mIvBackButton.setOnClickListener(this);
                 if (UserSeeion.isLogin(this)) {
                     mViewPager.setCurrentItem(3);
                     mTvActionBarTitle.setText("购物车");
@@ -132,6 +148,20 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
                     mRadioButton.setChecked(true);
                 }
                 break;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (mActivityFragment.wv_view!=null&&commitID==2){//判断当前是否在活动页面
+            if (keyCode == KeyEvent.KEYCODE_BACK && mActivityFragment.wv_view.canGoBack()) {
+                mActivityFragment.wv_view.goBack();// 返回前一个页面
+                return true;
+            }
+            return super.onKeyDown(keyCode, event);
+        }else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 
