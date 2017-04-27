@@ -118,13 +118,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 mPresenter.doStartMine();
                 break;
             case R.id.btn_asIm://关于我们
-                String url=new String(Commons.API+"/h5/aboutus");
-                Skip.toWebPage(this,url,"关于我们");
+                shareUser(Commons.API + "/h5/aboutus", "关于我们");
                 break;
             case R.id.btn_Recommend://分享我的二维码
                 if (UserSeeion.isLogin(this)) {
-                    String uri = new String(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid+"&devicetype=android");
-                    Skip.toWebPage(this, uri, WebPowerFragment.SHARE);
+                    shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
                 } else {
                     showToast(this, "请先登录");
                 }
@@ -132,16 +130,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         }
     }
 
+    private void shareUser(String original, String share) {
+        String uri = new String(original);
+        Skip.toWebPage(this, uri, share);
+    }
+
     @Override
     public void onItemClick(int position) {
-        if (position==0){
-            if (UserSeeion.isLogin(this)){
-                if (UserSeeion.isMember(this)){
-                 Logger.i("分享");
+        if (position == 0) {
+            if (UserSeeion.isLogin(this)) {
+                if (UserSeeion.isMember(this)) {
+                    shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
                 }
             }
             Logger.i("好友推荐广告图-点击");
-
             return;
         }
         if (mModel == null) {

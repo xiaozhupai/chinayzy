@@ -35,7 +35,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public WebView wv_view;
     private String titel;
     private String url;
-
+    private boolean fristLoad=true;
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
         progressbar = (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view = (WebView) view.findViewById(R.id.wv_view);
         titel = "活动";
-        url = Commons.API+"/h5/activity?devicetype=android";
+        url = Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
         return view;
     }
 
@@ -63,7 +63,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public void webCanback() {
         if (wv_view.canGoBack()) {
             wv_view.goBack();
-        }else {
+        } else {
             getActivity().onBackPressed();
         }
     }
@@ -90,7 +90,10 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     @Override
     public void onResume() {
         super.onResume();
-        wv_view.loadUrl(url);
+        if (fristLoad) {
+            wv_view.loadUrl(url);
+            fristLoad=false;
+        }
         wv_view.setScrollbarFadingEnabled(true);
         wv_view.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
         wv_view.addJavascriptInterface(ActivityFragment.this, "android");
@@ -167,11 +170,20 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     @JavascriptInterface
     public void submitFunction() {
         Logger.i("被JS调用");
-        if (UserSeeion.isLogin(getActivity())) {
-            wv_view.loadUrl("javascript:validate(" + APP.sUserid + ")");
-        }else {
-            BaseActivity.showToast(getActivity(),"请先进行登录");
-        }
+        // 传递参数调用,被JS调用的函数执行在非UI线程内
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (UserSeeion.isLogin(getActivity())) {
+                    wv_view.loadUrl("javascript:validate(" + APP.sUserid + ")");
+                } else {
+                    wv_view.loadUrl("javascript:validate(" + APP.sUserid + ")");
+                    BaseActivity.showToast(getActivity(), "请先进行登录");
+                }
+            }
+        });
+
+
     }
 
 }

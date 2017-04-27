@@ -17,9 +17,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.Presenter;
@@ -33,6 +35,8 @@ import org.greenrobot.eventbus.EventBus;
 @SuppressLint("ValidFragment")
 public class WebPowerFragment extends BaseFragment<Presenter> {
     public static final String SHARE="分享推荐码";
+    public static final String ACTIVITY="活动";
+    private boolean fristLoad=true;
     public WebView wv_view;
     private String titel;
     private String url;
@@ -88,8 +92,10 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     @Override
     public void onResume() {
         super.onResume();
+        if (fristLoad) {
             wv_view.loadUrl(url);
-
+            fristLoad=false;
+        }
             wv_view.   setScrollbarFadingEnabled(true);
             wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
             wv_view.addJavascriptInterface(WebPowerFragment.this,"android");
@@ -163,10 +169,35 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     }
 
     //由于安全原因 需要加 @JavascriptInterface
+
+    /**
+     * 分享
+     */
     @JavascriptInterface
     public void startFunction(){
         Logger.i("被JS调用");
         EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,getActivity()));
     }
 
+    /**
+     * 提交活动奖励表单
+     */
+    @JavascriptInterface
+    public void submitFunction() {
+        Logger.i("被JS调用");
+        // 传递参数调用,被JS调用的函数执行在非UI线程内
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (UserSeeion.isLogin(getActivity())) {
+                    wv_view.loadUrl("javascript:validate(" + APP.sUserid + ")");
+                } else {
+                    wv_view.loadUrl("javascript:validate(" + APP.sUserid + ")");
+                    BaseActivity.showToast(getActivity(), "请先进行登录");
+                }
+            }
+        });
+
+
+    }
 }
