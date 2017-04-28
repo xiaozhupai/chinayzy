@@ -41,6 +41,7 @@ public class Commons {
      * 生态农业首页banner图
      */
     public static final String NY_BANNER = "/farm/showAdvPic";
+
     /**
      * 生态农业首页精选推荐
      */

@@ -114,15 +114,9 @@
         <LinearLayout
             android:id="@+id/btn_asIm"
             android:background="@mipmap/asim_itembg"
-            android:layout_height="95dp"
-            android:gravity="center_horizontal"
-            android:paddingTop="18dp"
-            android:layout_marginRight="3dp"
+            style="@style/Main_itemMenuLayout"
+            android:layout_marginRight="1.5dp"
             android:layout_marginLeft="1.5dp"
-            android:layout_width="0dp"
-            android:clickable="true"
-            android:layout_weight="1"
-            android:orientation="vertical"
             >
             <ImageView
                 android:layout_width="42dp"
@@ -134,10 +128,28 @@
                 android:text="关于我们"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_activity"
+            android:background="@mipmap/store_itembg"
+            style="@style/Main_itemMenuLayout"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="1.5dp"
+            >
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="41dp"
+                android:src="@mipmap/icon_activity"
+                />
+            <TextView
+                style="@style/Main_itemMenuText"
+                android:text="活动中心"
+                />
+        </LinearLayout>
 <View
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:layout_weight="3"
+    android:layout_weight="2"
+    android:layout_marginRight="3dp"
     />
     </LinearLayout>
 </LinearLayout>

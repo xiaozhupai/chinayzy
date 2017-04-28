@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private MaterialDialog mDilog;
     public String dowloadUrl = "-1";
     private boolean isNotify = false;
-    private View mBtnNongYe, mBtn_asIm, mBtnRecommend;
+    private View mBtnNongYe, mBtn_asIm, mBtnRecommend, mBtnActivity;
     private View mBtnStore;
     private View mBtnIm;
     private NY_BannerModel mModel;
@@ -69,11 +69,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         mBtnIm = findViewById(R.id.btn_im);
         mBtn_asIm = findViewById(R.id.btn_asIm);
         mBtnRecommend = findViewById(R.id.btn_Recommend);
+        mBtnActivity = findViewById(R.id.btn_activity);
 
         mBtnNongYe.setOnClickListener(this);
 //        mBtnCityWide.setOnClickListener(this);
 //        mBtnLvYou.setOnClickListener(this);
-//        mBtnZhongChou.setOnClickListener(this);
+        mBtnActivity.setOnClickListener(this);
         mBtnStore.setOnClickListener(this);
         mBtnIm.setOnClickListener(this);
         mBtn_asIm.setOnClickListener(this);
@@ -127,23 +128,28 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                     showToast(this, "请先登录");
                 }
                 break;
+            case R.id.btn_activity://活动中心
+                String uri = Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
+                shareUser(uri, WebPowerFragment.ACTIVITY);
+                break;
         }
     }
 
-    private void shareUser(String original, String share) {
-        String uri = new String(original);
-        Skip.toWebPage(this, uri, share);
+    private void shareUser(String url, String titel) {
+        Skip.toWebPage(this, url, titel);
     }
 
     @Override
     public void onItemClick(int position) {
         if (position == 0) {
-            if (UserSeeion.isLogin(this)) {
-                if (UserSeeion.isMember(this)) {
-                    shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
-                }
-            }
-            Logger.i("好友推荐广告图-点击");
+//            if (UserSeeion.isLogin(this)) {
+//                if (UserSeeion.isMember(this)) {
+//                    shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
+//                }
+//            }
+//            Logger.i("好友推荐广告图-点击");
+            String uri = Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
+            shareUser(uri, WebPowerFragment.ACTIVITY);
             return;
         }
         if (mModel == null) {

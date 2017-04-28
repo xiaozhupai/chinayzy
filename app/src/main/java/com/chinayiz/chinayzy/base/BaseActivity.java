@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.base;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -40,13 +41,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      */
     public CheckBox mCbActionBarEdit;
     protected T mPresenter;
-
+    protected String className="";
 
 
     protected static Toast toast;
     public String TAG;
     public FragmentManager fragmentManager;
     private BaseFragment mCurrentFragment;
+    protected Fragment mFragment;
     /**
      * web Fragment（通用）；
      */
@@ -126,7 +128,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     /**
      * 显示吐司，解决重复延时展示问题
-     *
      * @param context
      * @param content
      */
@@ -148,11 +149,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             fragment.setArguments(intent.getExtras());
             Bundle bundle=intent.getExtras();
             addFragment(fragment);
-//            if (TextUtils.isEmpty(bundle.getString("goodsID"))){
-//
-//            }else {
-//                addFragment(fragment,bundle.getString("goodsID"));
-//            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,26 +162,23 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void addFragment(BaseFragment fragment) {
         Class<?> classz = fragment.getClass();
+        className=classz.getSimpleName();
+        mFragment=fragment;
         try {
             fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment, classz.getSimpleName())
+                    .add(R.id.content_frame, fragment, className)
                     .addToBackStack(classz.getSimpleName())
                     .commit();
 
         } catch (Exception e) {
             e.printStackTrace();
             fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment, classz.getSimpleName())
+                    .add(R.id.content_frame, fragment,className)
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
         }
 
     }
-
-
-
-
-
 
 
 
