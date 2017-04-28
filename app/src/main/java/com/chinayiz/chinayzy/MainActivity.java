@@ -72,8 +72,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         mBtnActivity = findViewById(R.id.btn_activity);
 
         mBtnNongYe.setOnClickListener(this);
-//        mBtnCityWide.setOnClickListener(this);
-//        mBtnLvYou.setOnClickListener(this);
         mBtnActivity.setOnClickListener(this);
         mBtnStore.setOnClickListener(this);
         mBtnIm.setOnClickListener(this);
@@ -90,14 +88,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         }
         mBannerMainPager.setPages(new CreateBannerHolder(), urls);
         mBannerMainPager.setOnItemClickListener(this);
-        mBannerMainPager.startTurning(2000);
+        mBannerMainPager.startTurning(3000);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mBannerMainPager.setcurrentitem(600);
-        mBannerMainPager.startTurning(2000);
+        mBannerMainPager.startTurning(3000);
     }
 
     @Override

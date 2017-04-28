@@ -68,6 +68,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     private boolean isSetData=true;
     private boolean RelatGoodsisSetData=true;
     private String goodsID, address;
+    private boolean selectdAddress=false;
     private View mView;
 
     public void setGoodsID(String goodsID) {
@@ -178,6 +179,8 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         mRequestUtils.getGoodsDetail(goodsID);
     }
 
+
+
     public void setChangeListener(ScrollViewContainer.PageChangeListener changeListener) {
         mChangeListener = changeListener;
     }
@@ -197,6 +200,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 goodsStandard2.show();
                 break;
             case R.id.tv_address://选择地址
+                selectdAddress=true;
                 if ("0".equals(APP.sUserid)) {
                     BaseActivity.showToast(getActivity(), "请先进行登录");
                     Skip.toLogin(getActivity());
@@ -412,7 +416,10 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         if (address != null) {
             mViewHolder.tv_address.setText("    " + address);
         }
-
+        if (selectdAddress){
+            mRequestUtils.getGoodsDetail(goodsID);
+            selectdAddress=false;
+        }
     }
 
     @Override
