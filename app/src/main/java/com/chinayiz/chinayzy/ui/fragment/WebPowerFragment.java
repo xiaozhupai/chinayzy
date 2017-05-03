@@ -53,8 +53,11 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
 
     @Override
     public void onInintData(Bundle bundle) {
-        this.titel=bundle.getString("titel","错误...");
-        this.url=bundle.getString("url","-1");
+        if (bundle.getString("titel")!=null && bundle.getString("url")!=null){
+            this.titel=bundle.getString("titel","错误...");
+            this.url=bundle.getString("url","-1");
+        }
+
     }
 
     @Override
