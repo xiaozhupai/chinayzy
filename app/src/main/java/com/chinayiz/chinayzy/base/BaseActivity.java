@@ -198,6 +198,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mIvActionBarCart.setVisibility(View.GONE);
             mActionBar.setVisibility(View.VISIBLE);
             mCurrentFragment.onInitActionBar(this);
+
         }
     }
 }
