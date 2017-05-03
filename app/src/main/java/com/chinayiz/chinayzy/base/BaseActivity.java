@@ -43,7 +43,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected T mPresenter;
     protected String className="";
 
-
     protected static Toast toast;
     public String TAG;
     public FragmentManager fragmentManager;
@@ -145,6 +144,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void addtoFragment(Intent intent) {
         @SuppressWarnings("unchecked") Class<? extends BaseFragment> clazz = (Class<? extends BaseFragment>) intent.getSerializableExtra(Skip.CLASS);
         try {
+            className=clazz.getSimpleName();
             BaseFragment fragment = clazz.newInstance();
             fragment.setArguments(intent.getExtras());
             Bundle bundle=intent.getExtras();
@@ -162,7 +162,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void addFragment(BaseFragment fragment) {
         Class<?> classz = fragment.getClass();
-        className=classz.getSimpleName();
         mFragment=fragment;
         try {
             fragmentManager.beginTransaction()
