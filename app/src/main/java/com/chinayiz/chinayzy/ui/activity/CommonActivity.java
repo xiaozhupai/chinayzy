@@ -57,8 +57,10 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back_button:
+                Logger.i("onClick=返回");
                 if (WebPowerFragment.CLASS_NAME.equals(className)) {
                     mWebPowerFragment = (WebPowerFragment) mFragment;
+                    Logger.i("onClick=是 WEB 视图");
                     if (mWebPowerFragment.wv_view.canGoBack()) {
                         mWebPowerFragment.wv_view.goBack();
                         return;

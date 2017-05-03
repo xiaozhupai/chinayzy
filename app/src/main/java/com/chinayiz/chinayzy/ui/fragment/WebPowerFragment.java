@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 @SuppressLint("ValidFragment")
 public class WebPowerFragment extends BaseFragment<Presenter> {
-    public static final String CLASS_NAME="WebPowerFragment";
+    public static final String CLASS_NAME=WebPowerFragment.class.getSimpleName();
     public static final String SHARE="分享推荐码";
     public static final String ACTIVITY="活动中心";
     private boolean fristLoad=true;
@@ -109,7 +109,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
             //JS交互
             settings.setJavaScriptEnabled(true);
             //设置缓存
-            settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+            settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
             // 设置是否支持变焦
             settings.setSupportZoom(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

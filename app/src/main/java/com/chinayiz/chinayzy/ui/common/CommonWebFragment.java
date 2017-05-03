@@ -137,6 +137,12 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        wv_view.setVisibility(View.GONE);
+        wv_view=null;
+    }
 
     public boolean canKeyBacck(){
         return  wv_view.canGoBack();
