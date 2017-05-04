@@ -165,14 +165,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mFragment=fragment;
         try {
             fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment, className)
+                    .add(R.id.content_frame, fragment, classz.getSimpleName())
                     .addToBackStack(classz.getSimpleName())
                     .commit();
 
         } catch (Exception e) {
             e.printStackTrace();
             fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment,className)
+                    .add(R.id.content_frame, fragment,classz.getSimpleName())
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
         }
