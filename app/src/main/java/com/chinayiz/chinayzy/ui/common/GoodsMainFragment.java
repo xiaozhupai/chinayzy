@@ -129,7 +129,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
                 }
                 break;
             case R.id.tv_addCart://添加购物车
-                Logger.i("添加购物车");
+                Logger.i("点击添加购物车");
                 if (goodsStandard2 == null) {
                     goodsStandard2 = new GoodsStandard2(getActivity(), goodsID);
                 }
@@ -272,6 +272,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     public void onDetach() {
         super.onDetach();
         startSum--;
+        goodsID="";
     }
 
     @Override
