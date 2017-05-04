@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.entity.response;
 
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,13 +10,13 @@ import java.util.List;
  */
 
 public class ShopCartModel extends BaseResponseModel {
-    private List<DataBean> data;
+    private ArrayList<DataBean> data;
 
-    public List<DataBean> getData() {
+    public ArrayList<DataBean> getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(ArrayList<DataBean> data) {
         this.data = data;
     }
 

@@ -195,7 +195,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             case R.id.ll_goodstype://选择套餐
                 Logger.i("选择套餐");
                 if (goodsStandard2 == null) {
-                    goodsStandard2 = new GoodsStandard2(getActivity(), goodsID);
+                    goodsStandard2 = new GoodsStandard2(getActivity(), goodsID,mDetailModel.getShopid());
                 }
                 goodsStandard2.show();
                 break;

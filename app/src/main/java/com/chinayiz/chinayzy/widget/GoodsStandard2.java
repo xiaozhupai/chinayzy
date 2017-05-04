@@ -49,15 +49,18 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     private TextView tv_num;
     private int num;
 
-    public GoodsStandard2(Context context,String goodsid) {
+    public GoodsStandard2(Context context,String goodsid,String shopid) {
         super(context, R.style.Dialog);
         this.bean=new GoodsDetailModel.DataBean();
         this.bean.setGoodsid(Integer.parseInt(goodsid));
+        this.bean.setShopid(Integer.parseInt(shopid));
         this.context = context;
         EventBus.getDefault().register(this);
         initView();
         getData();
     }
+
+
 
     public void setData(List<GoodStandardModel.DataBean> lists){
         this.lists=lists;
@@ -154,7 +157,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
             case R.id.tv_submit:  //加入购物车
                 if (!"0".equals(APP.sUserid)){//是否登录
                     CommonRequestUtils.getRequestUtils()
-                            .getJoinCart(String.valueOf(bean.getShopid()),String.valueOf(bean.getGoodsstandardid()),String.valueOf(num));
+                            .getJoinCart(bean.getShopid()+"",String.valueOf(bean.getGoodsstandardid()),String.valueOf(num));
                     todismiss();
                 }else {
                     Skip.toLogin(context);
