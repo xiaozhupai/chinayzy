@@ -47,6 +47,8 @@ public class APP extends Application {
     public static final String testBucket = "yzy-app-img";
     public static boolean APP_DBG = false; // 是否是debug模式
 
+
+
     public static void initdebug(Context context) {
         APP_DBG = isApkDebugable(context);
     }

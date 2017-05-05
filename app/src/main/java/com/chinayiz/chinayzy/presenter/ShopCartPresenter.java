@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -34,7 +35,8 @@ import java.util.List;
 
 public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
-    public List<ShopCartModel.DataBean> list;  //购物车数据
+    public ArrayList<ShopCartModel.DataBean> list;  //购物车数据
+    public ArrayList<ShopCartModel.DataBean> list_delete;
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_EDITER = 1;
     private List<ShopCartModel.DataBean.ShoplistBean> list_checked;  //被选中的商品
@@ -83,6 +85,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
                 ShopCartModel model= (ShopCartModel) message.getData();
                 list=model.getData();
+                list_delete=model.getData();
                 mView.adaphter.setData(model.getData(),0);
                 if (list==null || list.size()==0){
                     mView.ll_no_goods.setVisibility(View.VISIBLE);
@@ -90,20 +93,23 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                     mView.ll_no_goods.setVisibility(View.GONE);
                 }
                UpdateBoom();
-
                 if (mView.pullToRefreshLayout!=null){
                     mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 }
                 break;
             case Commons.DELSHOPPINGCAR:   //删除购物车商品
+//                ArrayList<ShopCartModel.DataBean> delete_list=list;
                 BaseResponseModel model2= (BaseResponseModel) message.getData();
                 if (model2.getCode().equals("100")){  //服务器数据库删除成功
-                    for (ShopCartModel.DataBean data:list){
-                        data.getShoplist().removeAll(list_checked);
-                        if (data.getShoplist().size()==0){   //删除头部视图
-                            list.remove(data);
-                        }
-                    }
+                 Iterator<ShopCartModel.DataBean> iterable=  list.iterator();
+                     while (iterable.hasNext()){
+                      ShopCartModel.DataBean data=iterable.next();
+                         data.getShoplist().removeAll(list_checked);
+                         if (data.getShoplist().size()==0){   //删除头部视图
+                             iterable.remove();
+                         }
+                     }
+
                     Logger.i(list.size()+"list size");
                     mView.adaphter.setData(list,type);
                     mView.tv_shopcart_all.setText("全选(0)");
@@ -123,7 +129,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 Logger.i(Commons.SHOWGOODSSTANDARD);
                 GoodStandardModel model4= (GoodStandardModel) message.getData();
                 List<GoodStandardModel.DataBean>  lists=model4.getData();
-                popuWindow.setData(lists);
+                if (popuWindow!=null){
+                    popuWindow.setData(lists);
+                }
                 break;
 
         }
