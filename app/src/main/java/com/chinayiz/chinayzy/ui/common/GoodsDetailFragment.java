@@ -195,7 +195,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             case R.id.ll_goodstype://选择套餐
                 Logger.i("选择套餐");
                 if (goodsStandard2 == null) {
-                    goodsStandard2 = new GoodsStandard2(getActivity(), goodsID,mDetailModel.getShopid());
+                    goodsStandard2 = new GoodsStandard2(getActivity(),mDetailModel.getGoodsstandardid(),mDetailModel.getShopid(),mDetailModel.getGoodsid() );
                 }
                 goodsStandard2.show();
                 break;
@@ -313,7 +313,11 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             mViewHolder.iv_StoreType.setVisibility(View.GONE);
             mViewHolder.tv_goodsTitle.setText(mDetailModel.getGname());
         }
+        /**
+         * 价格处理段
+         */
         String priceInfo = mDetailModel.getPrice();
+        Logger.i("真实价格="+priceInfo);
         if (priceInfo.contains("-")) {
             String[] prices = priceInfo.split("-");
             if (prices[0].contains(".")) {
@@ -328,12 +332,13 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             if (priceInfo.contains(".")) {
                 String[] price = priceInfo.split("\\.");
                 mViewHolder.tv_goodsPrice.setText(price[0]);
-                mViewHolder.tv_dobPrice.setText(price[1]);
+                mViewHolder.tv_dobPrice.setText("."+price[1]);
             } else {
                 mViewHolder.tv_goodsPrice.setText(priceInfo);
                 mViewHolder.tv_dobPrice.setText(".00");
             }
         }
+
         int cnt = 0;
         int offset = 0;
         while ((offset = mDetailModel.getService().indexOf(",", offset)) != -1) {

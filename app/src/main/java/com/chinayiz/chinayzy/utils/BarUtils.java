@@ -29,7 +29,6 @@ public class BarUtils {
         public StatusBarView(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
-
         public StatusBarView(Context context) {
             super(context);
         }
@@ -48,7 +47,6 @@ public class BarUtils {
     }
     /**
      * 设置状态栏颜色
-     *
      * @param activity       需要设置的activity
      * @param color          状态栏颜色值
      * @param statusBarAlpha 状态栏透明度
@@ -69,9 +67,9 @@ public class BarUtils {
                 StatusBarView statusView = createStatusBarView(activity, color, statusBarAlpha);
                 decorView.addView(statusView);
             }
-            setRootView(activity);
         }
     }
+
     /**
      * 为滑动返回界面设置状态栏颜色
      * @param activity 需要设置的activity

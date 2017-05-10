@@ -11,7 +11,7 @@
         android:id="@+id/nongye_home_recyclerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
+        android:scrollbars="none"
         >
     </com.chinayiz.chinayzy.views.refreshView.PullableRecycleView>
     <include layout="@layout/load_more" />

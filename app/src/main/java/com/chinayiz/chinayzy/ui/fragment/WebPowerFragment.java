@@ -39,9 +39,9 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     public static final String ACTIVITY="活动中心";
     private boolean fristLoad=true;
     public WebView wv_view;
+    public ProgressBar progressbar;
     private String titel;
     private String url;
-    public ProgressBar progressbar;
 
     public WebPowerFragment(String title, String url) {
         this.titel = title;

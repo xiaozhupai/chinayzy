@@ -14,6 +14,10 @@ import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
+import com.chinayiz.chinayzy.entity.response.HomeGoodsListModel;
+import com.chinayiz.chinayzy.entity.response.HomeHotGoodsModel;
+import com.chinayiz.chinayzy.entity.response.HomeMenusModel;
+import com.chinayiz.chinayzy.entity.response.HomeThemesModel;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
 import com.chinayiz.chinayzy.entity.response.NewGoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
@@ -1296,4 +1300,130 @@ public class CommonRequestUtils {
                 });
     }
 
+    /**
+     * 请求新首页板块菜单按钮图
+     */
+    public void getHomeModel() {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
+        post()
+                .url(Commons.API + Commons.HOME_MODEL)
+                .addParams("time",time)
+                .addParams("userid",APP.sUserid)
+                .addParams("sign", sing)
+                .tag("content")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.HOME_MODEL
+                                    , mGson.fromJson(s, HomeMenusModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     *  请求新首页广告主题图
+     * @param uir  Commons.HOME_THEME1  Commons.HOME_THEME2
+     */
+    public void getHomeTheme(final String uir) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
+        post()
+                .url(Commons.API + uir)
+                .addParams("time",time)
+                .addParams("userid",APP.sUserid)
+                .addParams("sign", sing)
+                .tag("content")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , uir
+                                    , mGson.fromJson(s, HomeThemesModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     *  请求新首页横向滑动商品集合
+     * @param uir  Commons.HOME_LIST1  Commons.HOME_LIST2
+     */
+    public void getHomeList(final String uir) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
+        post()
+                .url(Commons.API + uir)
+                .addParams("time",time)
+                .addParams("userid",APP.sUserid)
+                .addParams("sign", sing)
+                .tag("content")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , uir
+                                    , mGson.fromJson(s, HomeGoodsListModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+    /**
+     *  请求新首页热销商品
+     */
+    public void getHomeHotGoods(String page,String size) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time);
+        post()
+                .url(Commons.API + Commons.HOME_REXIAO)
+                .addParams("time",time)
+                .addParams("userid",APP.sUserid)
+                .addParams("sign", sing)
+                .addParams("page", page)
+                .addParams("size", size)
+                .tag("content")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                    }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.HOME_REXIAO
+                                    , mGson.fromJson(s, HomeHotGoodsModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
 }

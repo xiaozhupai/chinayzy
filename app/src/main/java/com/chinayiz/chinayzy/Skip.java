@@ -13,6 +13,7 @@ import com.chinayiz.chinayzy.ui.common.MoreRecommendGoodsFragment;
 import com.chinayiz.chinayzy.ui.common.StoreFragment;
 import com.chinayiz.chinayzy.ui.fragment.ClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.GoodsSetFragment;
+import com.chinayiz.chinayzy.ui.fragment.MainFtagment;
 import com.chinayiz.chinayzy.ui.fragment.NewClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
@@ -415,6 +416,15 @@ public class Skip {
         Bundle bundle = new Bundle();
         bundle.putString("itemCode", itemcode);
         intent.putExtras(bundle);
+        skip(context, intent);
+    }
+    /**
+     * 个人设置
+     * @param context
+     */
+    public static void toMainHome(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, MainFtagment.class);
         skip(context, intent);
     }
 }

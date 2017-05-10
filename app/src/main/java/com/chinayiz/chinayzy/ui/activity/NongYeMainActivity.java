@@ -48,9 +48,9 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
     private NoScrollViewPager mViewPager;
     private List<Fragment> mFragments;
     private RadioButton mRadioButton;
+    private int commitID=0;
     private ActivityFragment mActivityFragment;
     private ShopCartFragment mShopCartFragment;
-    private int commitID=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,19 +150,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
         }
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//
-//        if (mActivityFragment.wv_view!=null&&commitID==2){//判断当前是否在活动页面
-//            if (keyCode == KeyEvent.KEYCODE_BACK && mActivityFragment.wv_view.canGoBack()) {
-//                mActivityFragment.wv_view.goBack();// 返回前一个页面
-//                return true;
-//            }
-//            return super.onKeyDown(keyCode, event);
-//        }else {
-//            return super.onKeyDown(keyCode, event);
-//        }
-//    }
+
 
     @Override
     public Activity getActivity() {

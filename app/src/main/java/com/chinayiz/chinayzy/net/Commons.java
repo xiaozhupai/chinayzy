@@ -396,4 +396,28 @@ public class Commons {
      */
     public static final String SEARCHMALLGOODS = "/mall/searchMallGoods";
 
+    /**
+     * 商城首页模块菜单按钮图
+     */
+    public static final String HOME_MODEL= "/shouye/shouyemodule";
+    /**
+     * 商城首页主题一
+     */
+    public static final String HOME_THEME1= "/shouye/showIndexAdTwo";
+    /**
+     * 商城首页主题二
+     */
+    public static final String HOME_THEME2= "/shouye/showIndexAdThree";
+    /**
+     * 商城首页商品集合一
+     */
+    public static final String HOME_LIST1= "/shouye/showGoodsOne";
+    /**
+     * 商城首页商品集合二
+     */
+    public static final String HOME_LIST2= "/shouye/showGoodsTwo";
+    /**
+     * 商城首页热销商品
+     */
+    public static final String HOME_REXIAO= "/shouye/showBestGoods";
 }

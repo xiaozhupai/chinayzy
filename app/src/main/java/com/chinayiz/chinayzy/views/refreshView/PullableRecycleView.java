@@ -36,7 +36,6 @@ public class PullableRecycleView extends RecyclerView implements Pullable {
         super(context, attrs, defStyle);
     }
 
-
     @Override
     public boolean canPullDown() {
         return false;
@@ -44,6 +43,7 @@ public class PullableRecycleView extends RecyclerView implements Pullable {
 
     @Override
     public boolean canPullUp() {
+        if (mListner==null)return false;
         if (mListner.canLoad()){
             View view = getChildAt(getChildCount() - 1);
             if (view.getBottom() == getMeasuredHeight())

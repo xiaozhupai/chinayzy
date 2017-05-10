@@ -48,11 +48,21 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     private ImageView iv_add,iv_decrease;
     private TextView tv_num;
     private int num;
+    private String defaultPrice;
+    private String defaultPid;
 
-    public GoodsStandard2(Context context,String goodsid,String shopid) {
+    /**
+     *
+     * @param context 上下文
+     * @param goodstandardid  商品规格ID
+     * @param shopid    店铺ID
+     * @param goodsid      商品ID
+     */
+    public GoodsStandard2(Context context,String goodstandardid,String shopid,String goodsid) {
         super(context, R.style.Dialog);
         this.bean=new GoodsDetailModel.DataBean();
         this.bean.setGoodsid(Integer.parseInt(goodsid));
+        this.bean.setGoodsstandardid(Integer.parseInt(goodstandardid));
         this.bean.setShopid(Integer.parseInt(shopid));
         this.context = context;
         EventBus.getDefault().register(this);
@@ -71,7 +81,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
             tag.setTitle(data.getStandardname()+data.getStandardvalue());
             if (bean.getGoodsstandardid()==data.getGoodsstandardid()){
                 tag.setChecked(true);
-                 bean.setRepertorytotal(data.getRepertory());
+                bean.setRepertorytotal(data.getRepertory());
                 bean.setIcon(data.getStanderpic());
                 bean.setPrice(data.getPrice()+"");
             }else {
@@ -84,14 +94,17 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
         tv_price.setText(bean.getPrice()+"");
         if (bean.getRepertorytotal()<1 ||bean.getRepertorytotal()==1){
             iv_add.setImageResource(R.mipmap.icon_right_add);
+          isNone();
         }else {
             iv_add.setImageResource(R.mipmap.icon_right_add_clickable);
+
         }
     }
 
     //设置数据
     private void getData() {
         net.getShopGoodStandard(bean.getGoodsid()+"");
+        Logger.i("设置数据");
     }
 
     //布局初始化
@@ -131,20 +144,28 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 Glide.with(context).load(bean.getIcon()).into(iv_goodstandard);
 
                 if (num>data.getRepertory()){  //超出库存
-                    tv_submit.setText("暂无库存");
-                    tv_submit.setBackgroundColor(Color.parseColor("#d9d6d6"));
-                    tv_submit.setEnabled(false);
-                    iv_add.setImageResource(R.mipmap.icon_right_add);
-                    iv_decrease.setImageResource(R.mipmap.icon_left_decrease_clickable);
+                    isNone();
                 }else {
-                    tv_submit.setText("加入购物车");
-                    tv_submit.setBackgroundColor(Color.parseColor("#ff3951"));
-                    tv_submit.setEnabled(true);
-                    iv_add.setImageResource(R.mipmap.icon_right_add_clickable);
-                    iv_decrease.setImageResource(R.mipmap.icon_left_decrease);
+                    isFull();
                 }
             }
         });
+    }
+
+    private void isFull(){
+        tv_submit.setText("加入购物车");
+        tv_submit.setBackgroundColor(Color.parseColor("#ff3951"));
+        tv_submit.setEnabled(true);
+        iv_add.setImageResource(R.mipmap.icon_right_add_clickable);
+        iv_decrease.setImageResource(R.mipmap.icon_left_decrease_clickable);
+    }
+
+    private void isNone(){
+        tv_submit.setText("暂无库存");
+        tv_submit.setBackgroundColor(Color.parseColor("#d9d6d6"));
+        tv_submit.setEnabled(false);
+        iv_add.setImageResource(R.mipmap.icon_right_add);
+        iv_decrease.setImageResource(R.mipmap.icon_left_decrease_clickable);
     }
 
     @Override
@@ -164,6 +185,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 }
                 break;
             case R.id.iv_add:   //数量添加
+                Logger.i("添加");
                 if (num==bean.getRepertorytotal() || num>bean.getRepertorytotal()){
                     return;
                 }
@@ -178,6 +200,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 tv_num.setText(num+"");
                 break;
             case R.id.iv_decrease: //数量减少
+                Logger.i("减少");
                 if (num==1){
                     return;
                 }

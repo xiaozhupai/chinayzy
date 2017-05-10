@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.SettingPresenter;
+import com.chinayiz.chinayzy.utils.AppUtil;
 import com.orhanobut.logger.Logger;
 
 /**  设置
@@ -79,7 +80,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
         rl_two_code = (RelativeLayout)view.findViewById(R.id.rl_two_code);
         rl_two_code.setOnClickListener(this);
         tv_version = (TextView) view.findViewById(R.id.tv_version);
-        tv_version.setOnClickListener(this);
+
         iv_version_imae = (ImageView) view.findViewById(R.id.iv_version_imae);
         iv_version_imae.setOnClickListener(this);
         rl_version = (RelativeLayout) view.findViewById(R.id.rl_version);
@@ -88,6 +89,8 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
         rl_about_us.setOnClickListener(this);
         tv_logout = (TextView) view.findViewById(R.id.tv_logout);
         tv_logout.setOnClickListener(this);
+
+        tv_version.setText(AppUtil.getVersionName(getActivity())+"  检查更新");
         return view;
     }
 
@@ -116,7 +119,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements V
                 mPresenter.tofxcode();
                 break;
             case R.id.rl_version:   //版本更新
-                Logger.i("版本更新");
+                BaseActivity.showToast(getActivity(),"当前已是最新版本");
                 break;
             case R.id.rl_about_us:  //关于我们
                 Logger.i("关于我们");

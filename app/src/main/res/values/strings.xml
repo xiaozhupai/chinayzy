@@ -198,5 +198,11 @@
     <!-- WXPayEntryActivity -->
     <string name="pay_result_tip">这个界面用于显示第三方app通过微信支付的结果</string>
     <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="nav_text_home">首页</string>
+    <string name="nav_text_find">发现</string>
+    <string name="nav_text_activity">活动</string>
+    <string name="nav_text_car">购物车</string>
+    <string name="nav_text_im">我的</string>
+    <string name="thrivingTx">畅销产品</string>
 
 </resources>
