@@ -11,7 +11,7 @@ import java.util.List;
 public class ResultModel extends BaseResponseModel {
 
     /**
-     * data : {"totalmoney":1458,"deductionpoint":0,"isxjjuan":"\u201c1\u201d","carriages":[{"shopid":4,"carriage":8,"shopTatalPrice":1450,"goodsnum":1}],"rebate":"200.77","addressRecord":{"phone":"13871009000","area":"湖北省 武汉市 洪山区","addressid":11,"address":"东湖新技术开发区光谷大道3号未来之光1-502","consignee":"王建超","province":"湖北省"},"coupon":{"couponname":"现金卷","couponprice":1350},"goodmessage":[{"goodmessagelist":[{"icon":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","shopid":4,"num":1,"price":1450,"gname":"富硒贡芽","isself":"1","netcontent":"200g","goodsstandardid":159,"pic":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png","carid":32,"sname":"亿众生态店","standardname":"大气礼盒"}]}]}
+     * data : {"totalmoney":1458,"deductionpoint":0,"isxjjuan":"1","carriages":[{"shopid":4,"carriage":8,"shopTatalPrice":1450,"goodsnum":1}],"addressRecord":{"phone":"13871009000","area":"湖北省武汉市洪山区","addressid":11,"address":"东湖新技术开发区光谷大道3号未来之光1-502","consignee":"王建超","province":"湖北省"},"coupon":{"couponid":1,"couponname":"现金卷","couponprice":1350,"couponremark":"现金卷说明"},"goodmessage":[{"goodmessagelist":[{"icon":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","shopid":4,"num":1,"price":1450,"gname":"富硒贡芽","isself":"1","netcontent":"200g","goodsstandardid":159,"pic":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png","carid":32,"sname":"亿众生态店","standardname":"大气礼盒"}]}]}
      */
 
     private DataBean data;
@@ -28,18 +28,16 @@ public class ResultModel extends BaseResponseModel {
         /**
          * totalmoney : 1458
          * deductionpoint : 0
-         * isxjjuan : “1”
+         * isxjjuan : 1
          * carriages : [{"shopid":4,"carriage":8,"shopTatalPrice":1450,"goodsnum":1}]
-         * rebate : 200.77
-         * addressRecord : {"phone":"13871009000","area":"湖北省 武汉市 洪山区","addressid":11,"address":"东湖新技术开发区光谷大道3号未来之光1-502","consignee":"王建超","province":"湖北省"}
-         * coupon : {"couponname":"现金卷","couponprice":1350}
-         * goodmessage : [{"goodmessagelist":[{"icon":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","shopid":4,"num":1,"price":1450,"gname":"富硒贡芽","isself":"1","netcontent":"200g","goodsstandardid":159,"pic":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png","carid":32,"sname":"亿众生态店","standardname":"大气礼盒"}]}]
+         * addressRecord : {"phone":"13871009000","area":"湖北省武汉市洪山区","addressid":11,"address":"东湖新技术开发区光谷大道3号未来之光1-502","consignee":"王建超","province":"湖北省"}
+         * coupon : {"couponid":1,"couponname":"现金卷","couponprice":1350,"couponremark":"现金卷说明"}
+         * goodmessage : [{"goodmessagelist":[{"icon":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","shopid":4,"num":1,"price":1450,"gname":"富硒贡芽","isself":"1","netcontent":"200g","goodsstandardid":159,"pic":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png","carid":32,"sname":"亿众生态店","standardname":"大气礼盒"}]}]
          */
 
         private int totalmoney;
         private int deductionpoint;
         private String isxjjuan;
-        private String rebate;
         private AddressRecordBean addressRecord;
         private CouponBean coupon;
         private List<CarriagesBean> carriages;
@@ -67,14 +65,6 @@ public class ResultModel extends BaseResponseModel {
 
         public void setIsxjjuan(String isxjjuan) {
             this.isxjjuan = isxjjuan;
-        }
-
-        public String getRebate() {
-            return rebate;
-        }
-
-        public void setRebate(String rebate) {
-            this.rebate = rebate;
         }
 
         public AddressRecordBean getAddressRecord() {
@@ -112,7 +102,7 @@ public class ResultModel extends BaseResponseModel {
         public static class AddressRecordBean {
             /**
              * phone : 13871009000
-             * area : 湖北省 武汉市 洪山区
+             * area : 湖北省武汉市洪山区
              * addressid : 11
              * address : 东湖新技术开发区光谷大道3号未来之光1-502
              * consignee : 王建超
@@ -177,12 +167,24 @@ public class ResultModel extends BaseResponseModel {
 
         public static class CouponBean {
             /**
+             * couponid : 1
              * couponname : 现金卷
              * couponprice : 1350
+             * couponremark : 现金卷说明
              */
 
+            private int couponid;
             private String couponname;
             private int couponprice;
+            private String couponremark;
+
+            public int getCouponid() {
+                return couponid;
+            }
+
+            public void setCouponid(int couponid) {
+                this.couponid = couponid;
+            }
 
             public String getCouponname() {
                 return couponname;
@@ -198,6 +200,14 @@ public class ResultModel extends BaseResponseModel {
 
             public void setCouponprice(int couponprice) {
                 this.couponprice = couponprice;
+            }
+
+            public String getCouponremark() {
+                return couponremark;
+            }
+
+            public void setCouponremark(String couponremark) {
+                this.couponremark = couponremark;
             }
         }
 
@@ -260,7 +270,7 @@ public class ResultModel extends BaseResponseModel {
 
             public static class GoodmessagelistBean {
                 /**
-                 * icon : http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg
+                 * icon : http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg
                  * shopid : 4
                  * num : 1
                  * price : 1450
@@ -268,7 +278,7 @@ public class ResultModel extends BaseResponseModel {
                  * isself : 1
                  * netcontent : 200g
                  * goodsstandardid : 159
-                 * pic : http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png
+                 * pic : http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png
                  * carid : 32
                  * sname : 亿众生态店
                  * standardname : 大气礼盒

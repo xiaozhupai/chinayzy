@@ -8,14 +8,17 @@ import java.util.List;
 
 public class PayModel {
 
+
     /**
      * addressid : 333
      * integration : 44.5
+     * couponid : 1
      * shoplist : [{"shopid":222,"carriage":12.33,"goodstotal":33.22,"goodslist":[{"goodsstandardid":1,"count":2},{"goodsstandardid":2,"count":2}]},{"shopid":222,"carriage":62.33,"goodstotal":83.22,"goodslist":[{"goodsstandardid":3,"count":2},{"goodsstandardid":4,"count":2}]}]
      */
 
     private int addressid;
     private double integration;
+    private int couponid;
     private List<ShoplistBean> shoplist;
 
     public int getAddressid() {
@@ -32,6 +35,14 @@ public class PayModel {
 
     public void setIntegration(double integration) {
         this.integration = integration;
+    }
+
+    public int getCouponid() {
+        return couponid;
+    }
+
+    public void setCouponid(int couponid) {
+        this.couponid = couponid;
     }
 
     public List<ShoplistBean> getShoplist() {

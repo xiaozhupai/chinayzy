@@ -235,6 +235,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             shoplistbean.setGoodslist(list_goods);
             list.add(shoplistbean);
         }
+        if (resultModel.getData().getIsxjjuan().equals("1")){
+            payModel.setCouponid(resultModel.getData().getCoupon().getCouponid());
+        }
 
         payModel.setIntegration(resultModel.getData().getDeductionpoint());
         payModel.setShoplist(list);
