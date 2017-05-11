@@ -176,23 +176,28 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public void UpdateAll(){
         if (mView.iv_shopcart_radio.isCheck){
             mView.iv_shopcart_radio.setCheck(false);
+
         }else {
             mView.iv_shopcart_radio.setCheck(true);
+
         }
-        List<ShopCartModel.DataBean.ShoplistBean> list_selected=new ArrayList<>();
-        for (ShopCartModel.DataBean data:list){
-            for (int i=0;i<data.getShoplist().size();i++){
-                if (!data.getShoplist().get(i).isChecked()){
-                    list_selected.add(data.getShoplist().get(i));
-                }
+       int count=0;  //所有店铺所有商品总和
+        for (ShopCartModel.DataBean data:list){   //遍历所有的商店
+            for (int i=0;i<data.getShoplist().size();i++){    //遍历商店所有的商品
+                count++;
                 data.getShoplist().get(i).setChecked(mView.iv_shopcart_radio.isCheck);
             }
-            data.getShoplist().get(0).setHeadChecked(mView.iv_shopcart_radio.isCheck);
+            data.getShoplist().get(0).setHeadChecked(mView.iv_shopcart_radio.isCheck);  //将所有店铺第一个设置
         }
         mView.adaphter.setData(list,type);
-        double total=mView.adaphter.UpdateTotal();
-        mView.tv_shopcart_price.setText(total+"");
-        mView.tv_shopcart_all.setText("全选("+list_selected.size()+")");
+        double total=mView.adaphter.UpdateTotal();   //更新价格
+        mView.tv_shopcart_price.setText("￥"+total+"");
+          if (mView.iv_shopcart_radio.isCheck){
+              mView.tv_shopcart_all.setText("全选("+count+")");
+          }else {
+              mView.tv_shopcart_all.setText("全选(0)");
+          }
+
     }
 
 

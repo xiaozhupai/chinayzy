@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MineActivity"
+    tools:context=".ui.activity.MineFragment"
     android:background="#efeff4"
     android:orientation="vertical"
     >
 
-    <include layout="@layout/common_action_bar"/>
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -484,13 +483,13 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_shop_car"
+                                        android:src="@mipmap/icon_two_code"
                                         android:layout_marginTop="23dp"
                                         />
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="购物车"
+                                        android:text="二维码"
                                         android:textColor="#505050"
                                         android:textSize="11sp"
                                         android:layout_marginBottom="25dp"
@@ -599,13 +598,13 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_setting"
+                                        android:src="@mipmap/icon_luckly_ticket"
                                         android:layout_marginTop="23dp"
                                         />
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="设置"
+                                        android:text="现金券"
                                         android:textColor="#505050"
                                         android:textSize="11sp"
                                         android:layout_marginBottom="25dp"

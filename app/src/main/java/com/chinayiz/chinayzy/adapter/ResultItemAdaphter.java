@@ -40,7 +40,7 @@ public class ResultItemAdaphter extends BaseInectAdaphter<ResultModel.DataBean.G
        ResultModel.DataBean.GoodmessageBean.GoodmessagelistBean bean=lists.get(i);
         viewHolder.lv_before.setVisibility(View.VISIBLE);
         viewHolder.tv_result_item_num.setText("×" + bean.getNum());
-        viewHolder.tv_result_item_price.setText("￥" + bean.getPrice());
+        viewHolder.tv_result_item_price.setText("¥" + bean.getPrice());
         viewHolder.tv_result_item_title.setText(bean.getGname());
         viewHolder.tv_result_item_kind.setText(bean.getStandardname());
         Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_result_item_img);

@@ -95,7 +95,7 @@
         </activity>
         <!-- 个人中心activity -->
         <activity
-            android:name=".ui.activity.MineActivity"
+            android:name=".ui.activity.MineFragment"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

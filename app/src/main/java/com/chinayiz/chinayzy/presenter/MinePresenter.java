@@ -12,7 +12,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
+import com.chinayiz.chinayzy.ui.activity.MineFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Created by Administrator on 2017/1/9.
  */
 
-public class MinePresenter extends BasePresenter<MineActivity> {
+public class MinePresenter extends BasePresenter<MineFragment> {
     private UserNet net=UserNet.getNet();
     public static final String UPDATEMINE="UPDATEMINE";
     @Override
@@ -70,11 +70,16 @@ public class MinePresenter extends BasePresenter<MineActivity> {
                     Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);
                 }
 
+                if (TextUtils.isEmpty(dataBean.getSex())){
+                    mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_man_sex);
+                }else {
                     if (dataBean.getSex().equals("0")){
                         mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_man_sex);
                     }else {
                         mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_woman_sex);
                     }
+                }
+
 
 
                 Drawable nav_up=mView.getResources().getDrawable(R.mipmap.back_arrow_white);

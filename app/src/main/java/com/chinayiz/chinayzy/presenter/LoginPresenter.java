@@ -144,7 +144,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
 //        if (intent_data.getStringExtra("FindDetailFragment")!=null){
 //            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, FindDetailFragment.FIND_DETAIL,""));
 //        }else {
-////            Intent intent=new Intent(mView, MineActivity.class);
+////            Intent intent=new Intent(mView, MineFragment.class);
 ////            mView.startActivity(intent);
 //            mView.finish();
 //        }

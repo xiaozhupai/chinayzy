@@ -59,10 +59,13 @@ public class SearchPopuwindow extends PopupWindow implements View.OnClickListene
     }
 
     private void getData() {
+        String goodstype;
         if (isMail){
-            Net.getNet().getbrands("");
+            goodstype="2";
+            Net.getNet().getbrands("",goodstype);
         }else {
-            Net.getNet().getbrands(searchkey);
+            goodstype="1";
+            Net.getNet().getbrands(searchkey,goodstype);
         }
     }
 

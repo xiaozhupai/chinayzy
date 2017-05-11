@@ -93,9 +93,9 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                 }
                 break;
             case Commons.ADDSHOPPINGCAR:   //加入购物车
-                animation();
+//                animation();
 //                BaseResponseModel model1= (BaseResponseModel) message.getData();
-//                Toast.makeText(mView.getActivity(),model1.getMsg(),Toast.LENGTH_SHORT).show();
+//                BaseActivity.showToast(mView.getActivity(),model1.getMsg());
                 break;
             case Commons.SEARCHMALLGOODS:
                 SearchFarmModel model2= (SearchFarmModel) message.getData();

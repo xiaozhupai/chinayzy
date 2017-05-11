@@ -396,4 +396,9 @@ public class Commons {
      */
     public static final String SEARCHMALLGOODS = "/mall/searchMallGoods";
 
+    /**
+     * 现金券
+     */
+    public static final String XJJUAN = "/h5/xjjuan";
+
 }

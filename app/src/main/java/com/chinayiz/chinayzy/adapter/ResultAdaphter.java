@@ -7,14 +7,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.utils.Utility;
 import com.orhanobut.logger.Logger;
-
 import java.util.List;
+
 
 /**
  * 结算订单Adaphter
@@ -73,8 +72,8 @@ public class ResultAdaphter extends BaseAdapter {
         Glide.with(context).load(bean.getPic()).into(viewHolder.iv_result_head);
         viewHolder.tv_result_head.setText(bean.getSname());
         ResultModel.DataBean.CarriagesBean carriagesBean=carriages_list.get(i);
-        viewHolder.tv_goods_total.setText("￥"+carriagesBean.getShopTatalPrice());
-        viewHolder.tv_cost.setText("￥"+carriagesBean.getCarriage());
+        viewHolder.tv_goods_total.setText("¥"+carriagesBean.getShopTatalPrice());
+        viewHolder.tv_cost.setText("¥"+carriagesBean.getCarriage());
 
         ResultItemAdaphter   adaphter=new ResultItemAdaphter(context,goodmessageBean.getGoodmessagelist());
 
