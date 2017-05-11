@@ -474,7 +474,7 @@ public class Net {
      * @param searchkey  搜索关键字
      */
 
-    public void getbrands( String searchkey) {
+    public void getbrands( String searchkey,String goodstype) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
         OkHttpUtils
@@ -482,6 +482,7 @@ public class Net {
                 .url(Commons.API + Commons.GETBRANDS)
                 .addParams("searchkey",searchkey)
                 .addParams("userid",APP.sUserid)
+                .addParams("goodstype",goodstype)
                 .addParams("time",time)
                 .addParams("sign",sing)
                 .tag("ny")

@@ -8,6 +8,7 @@ import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
+import com.chinayiz.chinayzy.ui.activity.MineFragment;
 import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.ui.common.MoreRecommendGoodsFragment;
 import com.chinayiz.chinayzy.ui.common.StoreFragment;
@@ -55,6 +56,16 @@ public class Skip {
         } else {
             context.startActivity(intent);
         }
+    }
+    /**
+     * 个人中心
+     *
+     * @param context
+     */
+    public static void toMine(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, MineFragment.class);
+        skip(context, intent);
     }
 
     /**

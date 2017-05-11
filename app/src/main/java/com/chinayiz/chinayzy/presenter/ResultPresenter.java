@@ -38,7 +38,7 @@ import java.util.List;
 
 public class ResultPresenter extends BasePresenter <ResultFragment> implements AlipayHandler.AliPay {
     public static final String RESULT_BACK="RESULT_BACK";
-    private ResultModel resultModel;
+    public ResultModel resultModel;
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_PAY2_FLAG = 2;
     private double carriagestotal;
@@ -46,6 +46,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     private MessageDialog dialog;
     public int status;
     private LoadlingDialog loadlingDialog;
+    private double resulttotal;
 
     @Override
     public void onCreate() {
@@ -90,8 +91,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
         switch (message.getDataType()){
             case Commons.PREVIEWORDER:   //结算订单
                 resultModel= (ResultModel) message.getData();
-                CarriagesTotal();
-               ChangeDeducpoint(false);
+                CarriagesTotal();//计算总运费
+                resulttotal=resultModel.getData().getTotalmoney()+carriagestotal;
+
                 String deducpoint="可用"+resultModel.getData().getDeductionpoint()+"抵积分<font color='#ff3951'> ￥"+resultModel.getData().getDeductionpoint()+"</font>";
                 mView.tv_deducpoint.setText(Html.fromHtml(deducpoint));
                 //运费收货地址
@@ -110,6 +112,17 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     mView.tv_address_text.setVisibility(View.INVISIBLE);
                     mView.tv_no_address.setVisibility(View.VISIBLE);
                 }
+                //现金券
+                if (resultModel.getData().getIsxjjuan().equals("1")){  //可以使用
+                    String luckey_money="可用现金券抵<font color='#ff3951'> ￥"+resultModel.getData().getCoupon().getCouponprice()+"</font>";
+                    mView.tv_luckly_money.setText(Html.fromHtml(luckey_money));
+                    mView.cb_luckey_money.setChecked(true);
+                    ChangeLuckeyMoney(true);
+                }else {
+                    mView.tv_luckly_money.setText("无可用现金券");
+                    ChangeLuckeyMoney(false);
+                }
+                mView.cb_luckey_money.setClickable(false);
                 mView.adaphter.setData(resultModel.getData().getGoodmessage(),resultModel.getData().getCarriages());
                 break;
             case Commons.ALIPAYORDER:  //支付宝支付
@@ -160,14 +173,30 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
         Logger.i("carriagestotal===============总运费"+carriagestotal);
     }
 
+    //修改积分
     public void ChangeDeducpoint(boolean b){
-        double resultTotal;
         if (b){
-             resultTotal=resultModel.getData().getTotalmoney()-resultModel.getData().getDeductionpoint();
-            mView.tv_result_price.setText("总计:￥"+resultTotal+"");
+             resulttotal=resulttotal-resultModel.getData().getDeductionpoint();
+            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
         }else {
-            resultTotal=resultModel.getData().getTotalmoney();
-            mView.tv_result_price.setText("总计:￥"+resultTotal+"");
+            resulttotal=resulttotal+resultModel.getData().getDeductionpoint();
+            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
+        }
+    }
+
+    //修改优惠券
+    public void ChangeLuckeyMoney(boolean b){
+        if (b){
+            resulttotal=resulttotal-resultModel.getData().getCoupon().getCouponprice();
+            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
+        }else{
+            resulttotal=resulttotal+resultModel.getData().getCoupon().getCouponprice();
+            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
+        }
+        if (resulttotal<resultModel.getData().getDeductionpoint()){
+            mView.cb_check.setClickable(false);
+        }else {
+            mView.cb_check.setClickable(true);
         }
     }
 
@@ -206,23 +235,28 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             shoplistbean.setGoodslist(list_goods);
             list.add(shoplistbean);
         }
+        if (resultModel.getData().getIsxjjuan().equals("1")){
+            payModel.setCouponid(resultModel.getData().getCoupon().getCouponid());
+        }
 
         payModel.setIntegration(resultModel.getData().getDeductionpoint());
         payModel.setShoplist(list);
         orderbill=gson.toJson(payModel);
         Logger.i(orderbill);
-        final String total; //总金额=商品金额+运费-积分
+        double total=resultModel.getData().getTotalmoney(); //总金额=商品金额+运费-积分
         if (mView.cb_check.isChecked()){ //判断积分是否被选中
-            double result=resultModel.getData().getTotalmoney()-resultModel.getData().getDeductionpoint();
-          total=result+"";
-        }else {
-            total=resultModel.getData().getTotalmoney()+"";
+           total=total-resultModel.getData().getDeductionpoint();
+        }
+        if (mView.cb_luckey_money.isChecked()){   //判断优惠券是否被选中
+            total=total-resultModel.getData().getCoupon().getCouponprice();
         }
 
         if (resultModel.getData().getAddressRecord() == null) {
             BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
             return;
         }
+        final String result=total+"";
+        Logger.i("实际付款金额"+result);
         if (dialog==null){
             dialog=new MessageDialog(mView.getActivity());
             dialog.message.setText("请核对您的收货地址");
@@ -241,16 +275,15 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     }
                     loadlingDialog.show();
                     if (mView.iv_pay_ali.isCheck){  //支付宝支付
-                        CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total, finalOrderbill);
+                        CommonRequestUtils.getRequestUtils().getAliPayOrder(type,result, finalOrderbill);
                     }else {  //微信支付
-                        CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total, finalOrderbill);
+                        CommonRequestUtils.getRequestUtils().getWxPayOrder(type,result, finalOrderbill);
                     }
                     dialog.dismiss();
                 }
             });
         }
          dialog.show();
-
     }
 
     //支付成功跳转到成功页面

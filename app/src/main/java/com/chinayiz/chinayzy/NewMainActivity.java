@@ -22,8 +22,10 @@ import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.presenter.NewMainPresenter;
+import com.chinayiz.chinayzy.ui.activity.MineFragment;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.MainFtagment;
+import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.utils.NetworkUtils;
 import com.chinayiz.chinayzy.views.NoScrollViewPager;
@@ -63,6 +65,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     private SharedPreferences.Editor mEditer;
     private boolean isNotify = false;
 
+
     @Override
     protected NewMainPresenter initPresenter() {
         return new NewMainPresenter();
@@ -82,6 +85,9 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         mActivityFragment=ActivityFragment.getInstance();
         mFragments.add(mActivityFragment);
         mFragments.add(FindFragment.getInstance());
+        mFragments.add(ShopCartFragment.getInstance());
+        mFragments.add(MineFragment.getInstance());
+
 
         mViewPager = (NoScrollViewPager) findViewById(R.id.vp_main_content);
         //设置缓存其他页面

@@ -227,7 +227,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.lv_before.setVisibility(View.VISIBLE);
                     viewHolder.lv_after.setVisibility(View.GONE);
                     viewHolder.tv_shopcart_item_num.setText("×" + bean.getNum());
-                    viewHolder.tv_shopcart_item_price.setText("￥" + bean.getPrice());
+                    viewHolder.tv_shopcart_item_price.setText("¥" + bean.getPrice());
                     viewHolder.tv_shopcart_item_title.setText(bean.getGname());
                     viewHolder.tv_shopcart_item_kind.setText(bean.getStandardname()+bean.getStandardvalue());
                 }
@@ -263,6 +263,32 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                 break;
         }
         return view;
+    }
+
+    //ITEM更新
+    public void ItemUpdate(int position) {
+        ShopCartModel.DataBean.ShoplistBean shopCartModel = getItem(position);
+        int section = getSectionForPosition(position);
+        ShopCartModel.DataBean head = lists.get(section);
+        List<ShopCartModel.DataBean.ShoplistBean> list_item = head.getShoplist();
+        if (shopCartModel.isChecked()) {  //已经选择
+            list_item.get(0).setHeadChecked(false);
+            shopCartModel.setChecked(false);
+            iv_all.setCheck(false);
+        } else {  //没有选择
+            List<ShopCartModel.DataBean.ShoplistBean> list_selected = new ArrayList<>();     //获得这个组子类所有被选择的对象
+            for (int j = 0; j < list_item.size(); j++) {
+                if (list_item.get(j).isChecked()) {
+                    list_selected.add(list_item.get(j));
+                }
+            }
+            if (list_item.size() == (list_selected.size() + 1)) {
+                list_item.get(0).setHeadChecked(true);
+            }
+            shopCartModel.setChecked(true);
+        }
+        notifyDataSetChanged();
+        UpdateBoomlayout(true);
     }
 
     //头部更新
@@ -335,31 +361,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         iv_all.setCheck(false);
     }
 
-    //ITEM更新
-    public void ItemUpdate(int position) {
-        ShopCartModel.DataBean.ShoplistBean shopCartModel = getItem(position);
-        int section = getSectionForPosition(position);
-        ShopCartModel.DataBean head = lists.get(section);
-        List<ShopCartModel.DataBean.ShoplistBean> list_item = head.getShoplist();
-        if (shopCartModel.isChecked()) {  //已经选择
-            list_item.get(0).setHeadChecked(false);
-            shopCartModel.setChecked(false);
-            iv_all.setCheck(false);
-        } else {  //没有选择
-            List<ShopCartModel.DataBean.ShoplistBean> list_selected = new ArrayList<>();     //获得这个组子类所有被选择的对象
-            for (int j = 0; j < list_item.size(); j++) {
-                if (list_item.get(j).isChecked()) {
-                    list_selected.add(list_item.get(j));
-                }
-            }
-            if (list_item.size() == (list_selected.size() + 1)) {
-                list_item.get(0).setHeadChecked(true);
-            }
-            shopCartModel.setChecked(true);
-        }
-        notifyDataSetChanged();
-        UpdateBoomlayout(true);
-    }
+
 
     public View ItemView(View view) {
         view = View.inflate(context, R.layout.shopcart_item_layout, null);
@@ -385,7 +387,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         int LastPosition = 0;
         for (ShopCartModel.DataBean groups : lists) {
             int size = groups.getShoplist().size() + 1;
-            FirstPostion += LastPosition;
+            FirstPostion=LastPosition;
             LastPosition += size;
             if (position < LastPosition) {
                 if (position > FirstPostion || position == FirstPostion) {

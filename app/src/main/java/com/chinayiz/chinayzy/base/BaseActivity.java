@@ -195,6 +195,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mCurrentFragment = (BaseFragment) fragmentManager.findFragmentByTag(name);
             mCbActionBarEdit.setVisibility(View.GONE);
             mIvActionBarCart.setVisibility(View.GONE);
+            mIvActionBarMore.setVisibility(View.GONE);
+            mIvBackButton.setVisibility(View.VISIBLE);
             mActionBar.setVisibility(View.VISIBLE);
             mCurrentFragment.onInitActionBar(this);
 

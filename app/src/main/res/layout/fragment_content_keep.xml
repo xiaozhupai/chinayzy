@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragment.mine.ContentKeepFragment">
+    tools:context=".ui.fragment.mine.ContentKeepFragment"
+    android:background="@color/white"
+    >
 
     <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
         android:id="@+id/pullrefresh"

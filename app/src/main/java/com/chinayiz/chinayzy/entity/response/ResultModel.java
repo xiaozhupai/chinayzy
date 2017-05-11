@@ -11,7 +11,7 @@ import java.util.List;
 public class ResultModel extends BaseResponseModel {
 
     /**
-     * data : {"totalmoney":1178.5,"deductionpoint":0,"carriages":[{"shopid":1,"carriage":10,"shopTatalPrice":1000.5,"goodsnum":2},{"shopid":3,"carriage":10,"shopTatalPrice":158,"goodsnum":1}],"addressRecord":{"phone":"18736045781","area":"湖北省 武汉市 洪山区","addressid":11,"address":"光谷大道未来之光一栋50009\n","consignee":"袁坤坤"},"goodmessage":[{"goodmessagelist":[{"icon":"http://chinayiz.cn/m1/2017/0222/e1e63f48-8025-467e-aa42-e8ead41cd685.jpg","shopid":1,"num":2,"price":500.25,"gname":"云雾红茶","isself":"1","goodsstandardid":9,"pic":"http://chinayiz.cn/m1/2017/0220/db2e9814-6d52-46bc-b18a-42c60bdb64b1.jpg","carid":129,"sname":"皇家国际西餐厅","standardname":"10只装"}]},{"goodmessagelist":[{"icon":"http://chinayiz.cn/m1/2017/0222/e1e63f48-8025-467e-aa42-e8ead41cd685.jpg","shopid":3,"num":1,"price":158,"gname":"润虎 茶叶 红茶 武夷山金骏眉 大师茶陶瓷罐礼盒装","isself":"1","goodsstandardid":18,"pic":"http://chinayiz.cn/v1/2017/0216/64aae6de-928e-46fe-8f7a-d9571fadab95.png","carid":128,"sname":"亿众自营店","standardname":"福至年年好金骏眉礼盒"}]}]}
+     * data : {"totalmoney":1458,"deductionpoint":0,"isxjjuan":"1","carriages":[{"shopid":4,"carriage":8,"shopTatalPrice":1450,"goodsnum":1}],"addressRecord":{"phone":"13871009000","area":"湖北省武汉市洪山区","addressid":11,"address":"东湖新技术开发区光谷大道3号未来之光1-502","consignee":"王建超","province":"湖北省"},"coupon":{"couponid":1,"couponname":"现金卷","couponprice":1350,"couponremark":"现金卷说明"},"goodmessage":[{"goodmessagelist":[{"icon":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","shopid":4,"num":1,"price":1450,"gname":"富硒贡芽","isself":"1","netcontent":"200g","goodsstandardid":159,"pic":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png","carid":32,"sname":"亿众生态店","standardname":"大气礼盒"}]}]}
      */
 
     private DataBean data;
@@ -26,33 +26,45 @@ public class ResultModel extends BaseResponseModel {
 
     public static class DataBean {
         /**
-         * totalmoney : 1178.5
-         * deductionpoint : 0.0
-         * carriages : [{"shopid":1,"carriage":10,"shopTatalPrice":1000.5,"goodsnum":2},{"shopid":3,"carriage":10,"shopTatalPrice":158,"goodsnum":1}]
-         * addressRecord : {"phone":"18736045781","area":"湖北省 武汉市 洪山区","addressid":11,"address":"光谷大道未来之光一栋50009\n","consignee":"袁坤坤"}
-         * goodmessage : [{"goodmessagelist":[{"icon":"http://chinayiz.cn/m1/2017/0222/e1e63f48-8025-467e-aa42-e8ead41cd685.jpg","shopid":1,"num":2,"price":500.25,"gname":"云雾红茶","isself":"1","goodsstandardid":9,"pic":"http://chinayiz.cn/m1/2017/0220/db2e9814-6d52-46bc-b18a-42c60bdb64b1.jpg","carid":129,"sname":"皇家国际西餐厅","standardname":"10只装"}]},{"goodmessagelist":[{"icon":"http://chinayiz.cn/m1/2017/0222/e1e63f48-8025-467e-aa42-e8ead41cd685.jpg","shopid":3,"num":1,"price":158,"gname":"润虎 茶叶 红茶 武夷山金骏眉 大师茶陶瓷罐礼盒装","isself":"1","goodsstandardid":18,"pic":"http://chinayiz.cn/v1/2017/0216/64aae6de-928e-46fe-8f7a-d9571fadab95.png","carid":128,"sname":"亿众自营店","standardname":"福至年年好金骏眉礼盒"}]}]
+         * totalmoney : 1458
+         * deductionpoint : 0
+         * isxjjuan : 1
+         * carriages : [{"shopid":4,"carriage":8,"shopTatalPrice":1450,"goodsnum":1}]
+         * addressRecord : {"phone":"13871009000","area":"湖北省武汉市洪山区","addressid":11,"address":"东湖新技术开发区光谷大道3号未来之光1-502","consignee":"王建超","province":"湖北省"}
+         * coupon : {"couponid":1,"couponname":"现金卷","couponprice":1350,"couponremark":"现金卷说明"}
+         * goodmessage : [{"goodmessagelist":[{"icon":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","shopid":4,"num":1,"price":1450,"gname":"富硒贡芽","isself":"1","netcontent":"200g","goodsstandardid":159,"pic":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png","carid":32,"sname":"亿众生态店","standardname":"大气礼盒"}]}]
          */
 
-        private double totalmoney;
-        private double deductionpoint;
+        private int totalmoney;
+        private int deductionpoint;
+        private String isxjjuan;
         private AddressRecordBean addressRecord;
+        private CouponBean coupon;
         private List<CarriagesBean> carriages;
         private List<GoodmessageBean> goodmessage;
 
-        public double getTotalmoney() {
+        public int getTotalmoney() {
             return totalmoney;
         }
 
-        public void setTotalmoney(double totalmoney) {
+        public void setTotalmoney(int totalmoney) {
             this.totalmoney = totalmoney;
         }
 
-        public double getDeductionpoint() {
+        public int getDeductionpoint() {
             return deductionpoint;
         }
 
-        public void setDeductionpoint(double deductionpoint) {
+        public void setDeductionpoint(int deductionpoint) {
             this.deductionpoint = deductionpoint;
+        }
+
+        public String getIsxjjuan() {
+            return isxjjuan;
+        }
+
+        public void setIsxjjuan(String isxjjuan) {
+            this.isxjjuan = isxjjuan;
         }
 
         public AddressRecordBean getAddressRecord() {
@@ -61,6 +73,14 @@ public class ResultModel extends BaseResponseModel {
 
         public void setAddressRecord(AddressRecordBean addressRecord) {
             this.addressRecord = addressRecord;
+        }
+
+        public CouponBean getCoupon() {
+            return coupon;
+        }
+
+        public void setCoupon(CouponBean coupon) {
+            this.coupon = coupon;
         }
 
         public List<CarriagesBean> getCarriages() {
@@ -81,12 +101,12 @@ public class ResultModel extends BaseResponseModel {
 
         public static class AddressRecordBean {
             /**
-             * phone : 18736045781
-             * area : 湖北省 武汉市 洪山区
+             * phone : 13871009000
+             * area : 湖北省武汉市洪山区
              * addressid : 11
-             * address : 光谷大道未来之光一栋50009
-
-             * consignee : 袁坤坤
+             * address : 东湖新技术开发区光谷大道3号未来之光1-502
+             * consignee : 王建超
+             * province : 湖北省
              */
 
             private String phone;
@@ -94,6 +114,7 @@ public class ResultModel extends BaseResponseModel {
             private int addressid;
             private String address;
             private String consignee;
+            private String province;
 
             public String getPhone() {
                 return phone;
@@ -134,19 +155,73 @@ public class ResultModel extends BaseResponseModel {
             public void setConsignee(String consignee) {
                 this.consignee = consignee;
             }
+
+            public String getProvince() {
+                return province;
+            }
+
+            public void setProvince(String province) {
+                this.province = province;
+            }
+        }
+
+        public static class CouponBean {
+            /**
+             * couponid : 1
+             * couponname : 现金卷
+             * couponprice : 1350
+             * couponremark : 现金卷说明
+             */
+
+            private int couponid;
+            private String couponname;
+            private int couponprice;
+            private String couponremark;
+
+            public int getCouponid() {
+                return couponid;
+            }
+
+            public void setCouponid(int couponid) {
+                this.couponid = couponid;
+            }
+
+            public String getCouponname() {
+                return couponname;
+            }
+
+            public void setCouponname(String couponname) {
+                this.couponname = couponname;
+            }
+
+            public int getCouponprice() {
+                return couponprice;
+            }
+
+            public void setCouponprice(int couponprice) {
+                this.couponprice = couponprice;
+            }
+
+            public String getCouponremark() {
+                return couponremark;
+            }
+
+            public void setCouponremark(String couponremark) {
+                this.couponremark = couponremark;
+            }
         }
 
         public static class CarriagesBean {
             /**
-             * shopid : 1
-             * carriage : 10.0
-             * shopTatalPrice : 1000.5
-             * goodsnum : 2
+             * shopid : 4
+             * carriage : 8
+             * shopTatalPrice : 1450
+             * goodsnum : 1
              */
 
             private int shopid;
-            private double carriage;
-            private double shopTatalPrice;
+            private int carriage;
+            private int shopTatalPrice;
             private int goodsnum;
 
             public int getShopid() {
@@ -157,19 +232,19 @@ public class ResultModel extends BaseResponseModel {
                 this.shopid = shopid;
             }
 
-            public double getCarriage() {
+            public int getCarriage() {
                 return carriage;
             }
 
-            public void setCarriage(double carriage) {
+            public void setCarriage(int carriage) {
                 this.carriage = carriage;
             }
 
-            public double getShopTatalPrice() {
+            public int getShopTatalPrice() {
                 return shopTatalPrice;
             }
 
-            public void setShopTatalPrice(double shopTatalPrice) {
+            public void setShopTatalPrice(int shopTatalPrice) {
                 this.shopTatalPrice = shopTatalPrice;
             }
 
@@ -193,42 +268,29 @@ public class ResultModel extends BaseResponseModel {
                 this.goodmessagelist = goodmessagelist;
             }
 
-            /**
-             *  获取Item内容
-             *
-             * @param pPosition
-             * @return
-             */
-            public GoodmessageBean.GoodmessagelistBean getItem(int pPosition) {
-                // Category排在第一位
-                if (pPosition == 0) {
-                    return goodmessagelist.get(0);
-                } else {
-                    return goodmessagelist.get(pPosition - 1);
-                }
-            }
-
             public static class GoodmessagelistBean {
                 /**
-                 * icon : http://chinayiz.cn/m1/2017/0222/e1e63f48-8025-467e-aa42-e8ead41cd685.jpg
-                 * shopid : 1
-                 * num : 2
-                 * price : 500.25
-                 * gname : 云雾红茶
+                 * icon : http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg
+                 * shopid : 4
+                 * num : 1
+                 * price : 1450
+                 * gname : 富硒贡芽
                  * isself : 1
-                 * goodsstandardid : 9
-                 * pic : http://chinayiz.cn/m1/2017/0220/db2e9814-6d52-46bc-b18a-42c60bdb64b1.jpg
-                 * carid : 129
-                 * sname : 皇家国际西餐厅
-                 * standardname : 10只装
+                 * netcontent : 200g
+                 * goodsstandardid : 159
+                 * pic : http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png
+                 * carid : 32
+                 * sname : 亿众生态店
+                 * standardname : 大气礼盒
                  */
 
                 private String icon;
                 private int shopid;
                 private int num;
-                private double price;
+                private int price;
                 private String gname;
                 private String isself;
+                private String netcontent;
                 private int goodsstandardid;
                 private String pic;
                 private int carid;
@@ -259,11 +321,11 @@ public class ResultModel extends BaseResponseModel {
                     this.num = num;
                 }
 
-                public double getPrice() {
+                public int getPrice() {
                     return price;
                 }
 
-                public void setPrice(double price) {
+                public void setPrice(int price) {
                     this.price = price;
                 }
 
@@ -281,6 +343,14 @@ public class ResultModel extends BaseResponseModel {
 
                 public void setIsself(String isself) {
                     this.isself = isself;
+                }
+
+                public String getNetcontent() {
+                    return netcontent;
+                }
+
+                public void setNetcontent(String netcontent) {
+                    this.netcontent = netcontent;
                 }
 
                 public int getGoodsstandardid() {

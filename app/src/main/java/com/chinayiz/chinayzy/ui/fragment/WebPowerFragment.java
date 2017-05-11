@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
@@ -39,9 +40,10 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     public static final String ACTIVITY="活动中心";
     private boolean fristLoad=true;
     public WebView wv_view;
-    public ProgressBar progressbar;
     private String titel;
     private String url;
+    public ProgressBar progressbar;
+    private BaseActivity activity;
 
     public WebPowerFragment(String title, String url) {
         this.titel = title;
@@ -71,6 +73,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
+        this.activity=activity;
         activity.mTvActionBarTitle.setText(titel);
         activity.mCbActionBarEdit.setVisibility(View.GONE);
         if (titel.equals(SHARE)) {
@@ -150,6 +153,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
                     msettings.setBlockNetworkImage(false);
+                    activity.mTvActionBarTitle.setText(view.getTitle());
 
                 }
             });
@@ -181,6 +185,12 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     public void startFunction(){
         Logger.i("被JS调用");
         EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,getActivity()));
+    }
+
+    @JavascriptInterface
+    public void toGoodsDetail(String goodsid){
+        Logger.i("商品详情页H5");
+        Skip.toNewGoodsDetail(getActivity(),goodsid);
     }
 
     /**

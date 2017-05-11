@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.MainActivity;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
@@ -17,7 +18,6 @@ import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
-import com.chinayiz.chinayzy.ui.activity.MineActivity;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.widget.ShareDialog;
@@ -149,8 +149,7 @@ public class MainPresenter extends BasePresenter<MainActivity> {
     public void doStartMine() {
         if (UserSeeion.isLogin(mView.getActivity())) {
             if (UserSeeion.isMember(mView.getActivity())) {
-                intent = new Intent(mView, MineActivity.class);
-                mView.startActivity(intent);
+                Skip.toMine(mView);
             }
         }
     }

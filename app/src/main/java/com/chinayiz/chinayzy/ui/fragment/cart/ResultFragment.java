@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -24,6 +25,8 @@ import com.chinayiz.chinayzy.presenter.ResultPresenter;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
+import com.chinayiz.chinayzy.widget.MessageDialog;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -39,8 +42,8 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public RelativeLayout result_list;
     public ResultAdaphter adaphter;
     public TextView tv_goods_total;
-    public TextView tv_cost;
-    public CheckBox cb_check;
+    public TextView tv_cost,tv_luckly_money;
+    public CheckBox cb_check,cb_luckey_money;
     public RelativeLayout rl_payway_boom;
     public CheckImageView iv_pay_ali;
     public CheckImageView iv_pay_wechat;
@@ -50,12 +53,15 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public String params;
     public TextView tv_address_name,tv_address_phone,tv_address_text,tv_deducpoint;
     public int index;
+    public ImageView iv_luckly_money;
     public CommonActivity activity;
     public static final int WECHAR_BACK=1;
+    private MessageDialog dialog;
 
     @Override
     public void onInintData(Bundle bundle) {
         this.params=bundle.getString("params");
+
 
     }
 
@@ -107,6 +113,23 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         iv_pay_ali = (CheckImageView) foot.findViewById(R.id.iv_ali_pay);
         iv_pay_wechat = (CheckImageView) foot.findViewById(R.id.iv_wechat_pay);
         lv_payway = (LinearLayout) foot.findViewById(R.id.lv_payway);
+        tv_luckly_money= (TextView) foot.findViewById(R.id.tv_luckly_money);
+        cb_luckey_money= (CheckBox) foot.findViewById(R.id.cb_luckey_money);
+        iv_luckly_money= (ImageView) foot.findViewById(R.id.iv_luckly_money);
+        iv_luckly_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logger.i("优惠券信息");
+                if (mPresenter.resultModel.getData()!=null){
+//                    if (dialog==null){
+//                        dialog=new MessageDialog(getActivity());
+//                        dialog.setTitle("优惠券使用规则");
+//                        dialog.setMessage(mPresenter.resultModel.getData().getCoupon().getCouponname());
+//                    }
+//                 dialog.show();
+                }
+            }
+        });
         iv_pay_ali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {  //支付宝支付
@@ -134,6 +157,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
                 mPresenter.ChangeDeducpoint(b);
             }
         });
+
         rl_payway_boom.setOnClickListener(this);
         iv_pay_ali.setCheck(true);
         iv_pay_wechat.setCheck(false);

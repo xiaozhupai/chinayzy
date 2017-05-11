@@ -420,4 +420,9 @@ public class Commons {
      * 商城首页热销商品
      */
     public static final String HOME_REXIAO= "/shouye/showBestGoods";
+    /**
+     * 现金券
+     */
+    public static final String XJJUAN = "/h5/xjjuan";
+
 }
