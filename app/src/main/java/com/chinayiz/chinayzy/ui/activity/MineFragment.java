@@ -67,6 +67,10 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         });
     }
 
+
+    public static MineFragment getInstance() {
+        return new MineFragment();
+    }
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_mine,null);
