@@ -64,6 +64,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditer;
     private boolean isNotify = false;
+    private  ShopCartFragment mShopCartFragment;
 
 
     @Override
@@ -74,21 +75,26 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_new);
-        setStatuBarColor(this, Color.rgb(255, 255, 255));
+        setStatuBarColor(this,Color.rgb(218, 22, 47));
         initView();
     }
 
     private void initView() {
         mFragments = new ArrayList<>(5);
-
         mFragments.add(MainFtagment.getInstance());
+        mFragments.add(FindFragment.getInstance());
         mActivityFragment=ActivityFragment.getInstance();
         mFragments.add(mActivityFragment);
-        mFragments.add(FindFragment.getInstance());
-        mFragments.add(ShopCartFragment.getInstance());
+       mShopCartFragment= ShopCartFragment.getInstance();
+        mFragments.add(mShopCartFragment);
         mFragments.add(MineFragment.getInstance());
+         Logger.i("fragments siez="+mFragments.size());
 
-
+        initActionBar();
+        mTvActionBarTitle.setTextColor(Color.rgb(0,0,0));
+        mIvBackButton.setVisibility(View.GONE);
+        mIvActionBarMore.setVisibility(View.GONE);
+        mActionBar.setVisibility(View.GONE);
         mViewPager = (NoScrollViewPager) findViewById(R.id.vp_main_content);
         //设置缓存其他页面
         mViewPager.setOffscreenPageLimit(5);
@@ -103,45 +109,47 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     }
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        if (i != R.id.rb_nongye_cart) {
-            mIvActionBarMore.setVisibility(View.VISIBLE);
-            mCbActionBarEdit.setVisibility(View.GONE);
-        } else {
-            mIvActionBarMore.setVisibility(View.GONE);
-            mCbActionBarEdit.setVisibility(View.VISIBLE);
-        }
-        if (commitID==0){
+        if (R.id.rb_nav_home==i){
             mActionBar.setVisibility(View.GONE);
         }else {
             mActionBar.setVisibility(View.VISIBLE);
         }
-
         switch (i) {
             case R.id.rb_nav_home://首页
                 commitID=0;
                 mViewPager.setCurrentItem(0);
-                break;
-            case R.id.rb_nav_activi://活动
-                commitID=1;
-                mViewPager.setCurrentItem(1);
-                mTvActionBarTitle.setText("活动");
+                setStatuBarColor(this,Color.rgb(218, 22, 47));
+                mActionBar.setBackgroundColor(Color.rgb(218, 22, 47));
                 break;
             case R.id.rb_nav_find://发现
+                commitID=1;
+                mViewPager.setCurrentItem(1);
+                mTvActionBarTitle.setText("发现");
+                setStatuBarColor(this,Color.rgb(255, 255, 255));
+                mActionBar.setBackgroundColor(Color.rgb(255, 255, 255));
+                break;
+            case R.id.rb_nav_activi://活动
                 commitID=2;
                 mViewPager.setCurrentItem(2);
-                mTvActionBarTitle.setText("发现");
+                mTvActionBarTitle.setText("活动");
+                setStatuBarColor(this,Color.rgb(255, 255, 255));
+                mActionBar.setBackgroundColor(Color.rgb(255, 255, 255));
                 break;
-            case R.id.rb_nongye_cart://购物车
+            case R.id.rb_nav_cart://购物车
                 commitID=3;
+                setStatuBarColor(this,Color.rgb(255, 255, 255));
                 if (UserSeeion.isLogin(this)) {
                     mViewPager.setCurrentItem(3);
                     mTvActionBarTitle.setText("购物车");
+                    mActionBar.setBackgroundColor(Color.rgb(255, 255, 255));
                 }else {
                     showToast(this,"请登录");
                     mRadioButton.setChecked(true);
                 }
                 break;
             case R.id.rb_nav_im://我的
+                setStatuBarColor(this,Color.rgb(218, 22, 47));
+                mActionBar.setBackgroundColor(Color.rgb(218, 22, 47));
                 commitID=4;
                 if (UserSeeion.isLogin(this)) {
                     mViewPager.setCurrentItem(4);
@@ -151,6 +159,31 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
                 }
                 break;
 
+        }
+        if (i!= R.id.rb_nav_cart) {
+            mCbActionBarEdit.setVisibility(View.GONE);
+        } else {
+            mCbActionBarEdit.setVisibility(View.VISIBLE);
+            mCbActionBarEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mShopCartFragment.onCheckedChanged(buttonView,isChecked);
+                }
+            });
+        }
+        if (commitID==4){
+            mTvActionBarTitle.setTextColor(Color.rgb(255,255,255));
+            mIvActionBarMore.setVisibility(View.VISIBLE);
+            mIvActionBarMore.setImageResource(R.mipmap.btn_bg_set);
+            mIvActionBarMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Skip.toSetting(getActivity());
+                }
+            });
+        }else {
+            mIvActionBarMore.setVisibility(View.GONE);
+            mTvActionBarTitle.setTextColor(Color.rgb(0,0,0));
         }
     }
 

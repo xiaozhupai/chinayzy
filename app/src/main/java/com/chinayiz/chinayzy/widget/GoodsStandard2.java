@@ -42,6 +42,11 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     public TagListView tlv_list;
     public TextView tv_submit;
     public static final String GOODSTANDS="GoodStands";
+    /**
+     * 选中的套餐信息
+     */
+    public static final String STANDAR_INFO="GoodStands_INFO";
+
     private List<Tag> tagList=new ArrayList<>();
     private List<GoodStandardModel.DataBean> lists;
     private CommonRequestUtils net= CommonRequestUtils.getRequestUtils();
@@ -50,6 +55,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     private int num;
     private String defaultPrice;
     private String defaultPid;
+    public static final String BACK="GoodsStandard2";
 
     /**
      *
@@ -179,7 +185,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 if (!"0".equals(APP.sUserid)){//是否登录
                     CommonRequestUtils.getRequestUtils()
                             .getJoinCart(bean.getShopid()+"",String.valueOf(bean.getGoodsstandardid()),String.valueOf(num));
-                    todismiss();
+
                 }else {
                     Skip.toLogin(context);
                 }
@@ -242,8 +248,9 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 BaseResponseModel model= (BaseResponseModel) message.getData();
                 BaseActivity.showToast(context,model.getMsg());
                 if (model.getCode().equals("100")){
-                    todismiss();
+                   EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,STANDAR_INFO,bean));
                 }
+                todismiss();
                 break;
         }
 

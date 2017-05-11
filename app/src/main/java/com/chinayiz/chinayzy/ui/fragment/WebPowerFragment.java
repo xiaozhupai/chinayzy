@@ -67,7 +67,6 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
         View view=inflater.inflate(R.layout.fragment_web,null);
         progressbar= (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view= (WebView) view.findViewById(R.id.wv_view);
-
         return view;
     }
 

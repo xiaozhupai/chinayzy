@@ -191,7 +191,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         }
         mView.adaphter.setData(list,type);
         double total=mView.adaphter.UpdateTotal();   //更新价格
-        mView.tv_shopcart_price.setText("￥"+total+"");
+        mView.tv_shopcart_price.setText("￥"+String.format("%.2f",total));
           if (mView.iv_shopcart_radio.isCheck){
               mView.tv_shopcart_all.setText("全选("+count+")");
           }else {

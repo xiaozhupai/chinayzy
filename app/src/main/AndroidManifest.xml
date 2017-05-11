@@ -38,7 +38,7 @@
 
         <!-- 应用首页activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".NewMainActivity"
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
@@ -94,11 +94,7 @@
             </intent-filter>
         </activity>
         <!-- 个人中心activity -->
-        <activity
-            android:name=".ui.activity.MineFragment"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity android:name=".ui.activity.Main2Activity" />
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity" />
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity" />

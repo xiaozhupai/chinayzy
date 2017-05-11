@@ -139,15 +139,15 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         mAdapter.setDetailModel(model);
         mViewHolder.lv_orderGoods.setAdapter(mAdapter);
         mViewHolder.tv_yunfei.setText("\t " + model.getData().getCarriage());
-        mViewHolder.tv_sumGolds.setText(model.getData().getPoint());
+        mViewHolder.tv_sumGolds.setText("\t"+model.getData().getPoint());
         mViewHolder.tv_orderNum.setText("共" + mGoodsList.size() + "件商品   总计：");
-        mViewHolder.tv_orderMyone.setText("\t " + model.getData().getTotalmoney());
+        mViewHolder.tv_orderMyone.setText("\t" + model.getData().getTotalmoney());
         if (model.getData().getCouponprice()==null||model.getData().getCouponprice().equals("0")){
             mViewHolder.view_coupons.setVisibility(View.GONE);
         }else {
             mViewHolder.tv_coupons.setText("\t"+model.getData().getCouponprice());
         }
-        mViewHolder.tv_orderSpay.setText("实付：\t " + model.getData().getMoney());
+        mViewHolder.tv_orderSpay.setText("实付: " + model.getData().getMoney()+" ");
         mViewHolder.tv_createDate.setText("下单时间：" + model.getData().getOrdertime());
         mViewHolder.btn_copyId.setTag(R.id.tag_click, model.getData().getCodeX());
         mViewHolder.btn_copyId.setOnClickListener(this);
@@ -184,6 +184,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
                                 .post(new EventMessage(BaseMessage.NET_EVENT,OrderListAdapter.ADAPTER_CLICK, v));
                         break;
                     case "2"://待发货
+
                         BaseActivity.showToast(getActivity(), "提醒成功");
                         break;
                     case "3"://待收货
@@ -215,6 +216,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
                 mViewHolder.btn_order2.setText("付 款");
                 break;
             case "2"://待发货
+                mViewHolder.tv_expressId.setVisibility(View.GONE);
+                mViewHolder.btn_copyId.setVisibility(View.GONE);
                 mViewHolder.tv_orderState.setText("待发货");
                 mViewHolder.btn_order1.setVisibility(View.GONE);
                 mViewHolder.btn_order2.setTextColor(Color.rgb(255,57,81));

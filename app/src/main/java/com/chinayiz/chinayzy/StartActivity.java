@@ -36,7 +36,7 @@ public class StartActivity extends Activity  {
 
     private void enterHomeActivity(String first) {
         if (first.equals("1")){
-            Intent intent=new Intent(this,MainActivity.class);
+            Intent intent=new Intent(this,NewMainActivity.class);
             startActivity(intent);
         }else {
             Intent intent=new Intent(this,ScreenSildeActivity.class);

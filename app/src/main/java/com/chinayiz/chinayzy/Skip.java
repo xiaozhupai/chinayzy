@@ -448,4 +448,5 @@ public class Skip {
         intent.putExtra(CLASS, HomeFragment.class);
         skip(context, intent);
     }
+
 }

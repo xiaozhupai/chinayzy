@@ -33,7 +33,7 @@ import com.chinayiz.chinayzy.R;
 
 public class MessageDialog extends DialogUtils.XDialog implements View.OnClickListener {
 
-	private TextView vTitle, vButton1, vButton2;
+	public TextView vTitle, vButton1, vButton2;
 	private View vDivider;
 	private ImageView vImg;
 	public TextView message;
@@ -51,6 +51,7 @@ public class MessageDialog extends DialogUtils.XDialog implements View.OnClickLi
 		vButton1 = (TextView) findViewById(R.id.dialog_button1);
 		vButton2 = (TextView) findViewById(R.id.dialog_button2);
 		message= (TextView) findViewById(R.id.dialog_message);
+		vTitle= (TextView) findViewById(R.id.vTitle);
 //		vImg = (ImageView) findViewById(R.id.dialog_image);
 		vDivider = findViewById(R.id.dialog_divider);
 		vButton1.setOnClickListener(this);

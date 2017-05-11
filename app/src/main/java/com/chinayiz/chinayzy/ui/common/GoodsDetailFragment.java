@@ -102,6 +102,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
 
         mViewHolder.ll_servicLis = (LinearLayout) view.findViewById(R.id.ll_servicLis);
         mViewHolder.tv_goodstype = (TextView) view.findViewById(R.id.tv_goodstype);
+        mViewHolder.tv_deals= (TextView) view.findViewById(R.id.tv_deals);
         mViewHolder.ll_goodstype = (LinearLayout) view.findViewById(R.id.ll_goodstype);
         mViewHolder.tv_address = (TextView) view.findViewById(R.id.tv_address);
         mViewHolder.tv_yunfei = (TextView) view.findViewById(R.id.tv_yunfei);
@@ -467,6 +468,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         public TextView tv_goodstype;
         public LinearLayout ll_goodstype;
         public TextView tv_address;
+        public TextView tv_deals;
         public TextView tv_yunfei;
         public TextView tv_commentCount;
         public TextView tv_goodComment;

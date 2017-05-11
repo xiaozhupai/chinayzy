@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:background="@color/Background"
+              android:orientation="vertical"
+    >
 
     <include layout="@layout/view_line"/>
 
@@ -10,8 +12,8 @@
         android:id="@+id/rg_orderState"
         android:layout_width="match_parent"
         android:layout_height="43dp"
-        android:orientation="horizontal"
         android:background="@color/Background"
+        android:orientation="horizontal"
         >
 
         <RadioButton
@@ -44,7 +46,9 @@
             android:text="待评价"
             />
     </RadioGroup>
+
     <include layout="@layout/view_line"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_orderContent"
         android:layout_width="match_parent"

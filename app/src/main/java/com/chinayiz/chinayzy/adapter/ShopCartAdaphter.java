@@ -332,6 +332,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
             for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
                 if (bean.isChecked()) {
                     total += bean.getPrice() * bean.getNum();
+                    Logger.i("价格="+bean.getPrice()+"数量="+bean.getNum());
                 }
             }
         }

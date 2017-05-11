@@ -39,7 +39,6 @@
             android:textColor="@color/NongYe_home_goodsText"
             android:textSize="15sp"
             />
-
         <TextView
             android:id="@+id/tv_goodsPrice"
             android:layout_width="wrap_content"
@@ -73,12 +72,38 @@
             android:layout_marginLeft="@dimen/goodsLeftPanding"
             android:src="@mipmap/icon_rmb"
             />
-
+        <View
+            android:id="@+id/iv_lines"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/iv_goodsRMB"
+            android:background="@color/basecolor"
+            />
+        <TextView
+            android:id="@+id/tv_deals"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@mipmap/icon_deal"
+            android:layout_below="@id/iv_lines"
+            android:textColor="@color/classifyText_pre"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:text="   成功购买此商品可获得约 19.27 元分红"
+            />
+        <View
+            android:id="@+id/iv_line11"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_deals"
+            android:background="@color/basecolor"
+            />
         <LinearLayout
             android:id="@+id/ll_servicLis"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:layout_below="@id/tv_goodsPrice"
+            android:layout_below="@id/iv_line11"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:paddingLeft="4dp"

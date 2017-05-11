@@ -131,6 +131,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
             case R.id.tv_addCart://添加购物车
                 Logger.i("点击添加购物车");
                 if (goodsStandard2 == null) {
+                    if (mPresenter.model==null)return;
                     goodsStandard2 = new GoodsStandard2(getActivity(), mPresenter.model.getData().getGoodsstandardid(), mPresenter.model.getData().getShopid(), mPresenter.model.getData().getGoodsid());
                 }
                 goodsStandard2.show();

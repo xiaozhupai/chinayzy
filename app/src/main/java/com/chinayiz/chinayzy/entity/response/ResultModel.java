@@ -35,7 +35,7 @@ public class ResultModel extends BaseResponseModel {
          * goodmessage : [{"goodmessagelist":[{"icon":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/m1/2017/0330/73011f81-fb84-4fb1-b60e-4949d9d444fd.jpg","shopid":4,"num":1,"price":1450,"gname":"富硒贡芽","isself":"1","netcontent":"200g","goodsstandardid":159,"pic":"http: //yzy-app-img.oss-cn-shanghai.aliyuncs.com/v1/2017/0401/9793b104-08ca-41f1-97e2-07e6453a45ac.png","carid":32,"sname":"亿众生态店","standardname":"大气礼盒"}]}]
          */
 
-        private int totalmoney;
+        private String totalmoney;
         private int deductionpoint;
         private String isxjjuan;
         private AddressRecordBean addressRecord;
@@ -43,11 +43,11 @@ public class ResultModel extends BaseResponseModel {
         private List<CarriagesBean> carriages;
         private List<GoodmessageBean> goodmessage;
 
-        public int getTotalmoney() {
+        public String getTotalmoney() {
             return totalmoney;
         }
 
-        public void setTotalmoney(int totalmoney) {
+        public void setTotalmoney(String totalmoney) {
             this.totalmoney = totalmoney;
         }
 
@@ -111,7 +111,7 @@ public class ResultModel extends BaseResponseModel {
 
             private String phone;
             private String area;
-            private int addressid;
+            private String addressid;
             private String address;
             private String consignee;
             private String province;
@@ -132,11 +132,11 @@ public class ResultModel extends BaseResponseModel {
                 this.area = area;
             }
 
-            public int getAddressid() {
+            public String getAddressid() {
                 return addressid;
             }
 
-            public void setAddressid(int addressid) {
+            public void setAddressid(String addressid) {
                 this.addressid = addressid;
             }
 
@@ -173,16 +173,16 @@ public class ResultModel extends BaseResponseModel {
              * couponremark : 现金卷说明
              */
 
-            private int couponid;
+            private String couponid;
             private String couponname;
-            private int couponprice;
+            private String couponprice;
             private String couponremark;
 
-            public int getCouponid() {
+            public String getCouponid() {
                 return couponid;
             }
 
-            public void setCouponid(int couponid) {
+            public void setCouponid(String couponid) {
                 this.couponid = couponid;
             }
 
@@ -194,11 +194,11 @@ public class ResultModel extends BaseResponseModel {
                 this.couponname = couponname;
             }
 
-            public int getCouponprice() {
+            public String getCouponprice() {
                 return couponprice;
             }
 
-            public void setCouponprice(int couponprice) {
+            public void setCouponprice(String couponprice) {
                 this.couponprice = couponprice;
             }
 
@@ -221,7 +221,7 @@ public class ResultModel extends BaseResponseModel {
 
             private int shopid;
             private int carriage;
-            private int shopTatalPrice;
+            private double shopTatalPrice;
             private int goodsnum;
 
             public int getShopid() {
@@ -240,11 +240,11 @@ public class ResultModel extends BaseResponseModel {
                 this.carriage = carriage;
             }
 
-            public int getShopTatalPrice() {
+            public double getShopTatalPrice() {
                 return shopTatalPrice;
             }
 
-            public void setShopTatalPrice(int shopTatalPrice) {
+            public void setShopTatalPrice(double shopTatalPrice) {
                 this.shopTatalPrice = shopTatalPrice;
             }
 
@@ -287,7 +287,7 @@ public class ResultModel extends BaseResponseModel {
                 private String icon;
                 private int shopid;
                 private int num;
-                private int price;
+                private double price;
                 private String gname;
                 private String isself;
                 private String netcontent;
@@ -321,11 +321,11 @@ public class ResultModel extends BaseResponseModel {
                     this.num = num;
                 }
 
-                public int getPrice() {
+                public double getPrice() {
                     return price;
                 }
 
-                public void setPrice(int price) {
+                public void setPrice(double price) {
                     this.price = price;
                 }
 

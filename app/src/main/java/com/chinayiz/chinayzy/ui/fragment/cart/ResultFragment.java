@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,13 +122,18 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
             public void onClick(View v) {
                 Logger.i("优惠券信息");
                 if (mPresenter.resultModel.getData()!=null){
-//                    if (dialog==null){
-//                        dialog=new MessageDialog(getActivity());
-//                        dialog.setTitle("优惠券使用规则");
-//                        dialog.setMessage(mPresenter.resultModel.getData().getCoupon().getCouponname());
-//                    }
-//                 dialog.show();
-                }
+                    if (mPresenter.resultModel.getData().getCoupon()!=null){
+                        if (dialog==null){
+                            dialog=new MessageDialog(getActivity());
+                            dialog.message.setText(mPresenter.resultModel.getData().getCoupon().getCouponremark());
+                            dialog.message.setGravity(Gravity.LEFT);
+                            dialog.vButton1.setVisibility(View.GONE);
+                            dialog.vTitle.setVisibility(View.VISIBLE);
+                            dialog.vTitle.setText("现金券使用规则");
+                        }
+                        dialog.show();
+                    }                    }
+
             }
         });
         iv_pay_ali.setOnClickListener(new View.OnClickListener() {

@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.utils.AliPayUntil;
+import com.chinayiz.chinayzy.utils.DoubleUntil;
 import com.chinayiz.chinayzy.utils.WeChatPayUntil;
 import com.chinayiz.chinayzy.utils.magicindicator.AlipayHandler;
 import com.chinayiz.chinayzy.widget.LoadlingDialog;
@@ -92,7 +93,8 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             case Commons.PREVIEWORDER:   //结算订单
                 resultModel= (ResultModel) message.getData();
                 CarriagesTotal();//计算总运费
-                resulttotal=resultModel.getData().getTotalmoney()+carriagestotal;
+
+                resulttotal=Double.parseDouble(resultModel.getData().getTotalmoney());
 
                 String deducpoint="可用"+resultModel.getData().getDeductionpoint()+"抵积分<font color='#ff3951'> ￥"+resultModel.getData().getDeductionpoint()+"</font>";
                 mView.tv_deducpoint.setText(Html.fromHtml(deducpoint));
@@ -176,22 +178,23 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     //修改积分
     public void ChangeDeducpoint(boolean b){
         if (b){
-             resulttotal=resulttotal-resultModel.getData().getDeductionpoint();
-            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
+             resulttotal= DoubleUntil.sub(resulttotal,resultModel.getData().getDeductionpoint());
+            mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
         }else {
-            resulttotal=resulttotal+resultModel.getData().getDeductionpoint();
-            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
+            resulttotal=DoubleUntil.sum(resulttotal,resultModel.getData().getDeductionpoint());
+            mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
         }
     }
 
     //修改优惠券
     public void ChangeLuckeyMoney(boolean b){
         if (b){
-            resulttotal=resulttotal-resultModel.getData().getCoupon().getCouponprice();
-            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
+
+            resulttotal=DoubleUntil.sub(resulttotal,Double.parseDouble(resultModel.getData().getCoupon().getCouponprice()));
+            mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
         }else{
-            resulttotal=resulttotal+resultModel.getData().getCoupon().getCouponprice();
-            mView.tv_result_price.setText("总计:￥"+resulttotal+"");
+//            resulttotal=resulttotal+Double.parseDouble(resultModel.getData().getCoupon().getCouponprice());
+            mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
         }
         if (resulttotal<resultModel.getData().getDeductionpoint()){
             mView.cb_check.setClickable(false);
@@ -211,7 +214,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
         PayModel payModel=new PayModel();
         if (resultModel!=null)
             if (resultModel.getData().getAddressRecord()!=null){
-                payModel.setAddressid(resultModel.getData().getAddressRecord().getAddressid());
+                payModel.setAddressid(Integer.parseInt(resultModel.getData().getAddressRecord().getAddressid()));
             }
 
 
@@ -236,26 +239,26 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             list.add(shoplistbean);
         }
         if (resultModel.getData().getIsxjjuan().equals("1")){
-            payModel.setCouponid(resultModel.getData().getCoupon().getCouponid());
+            payModel.setCouponid(Integer.parseInt(resultModel.getData().getCoupon().getCouponid()));
         }
 
         payModel.setIntegration(resultModel.getData().getDeductionpoint());
         payModel.setShoplist(list);
         orderbill=gson.toJson(payModel);
         Logger.i(orderbill);
-        double total=resultModel.getData().getTotalmoney(); //总金额=商品金额+运费-积分
-        if (mView.cb_check.isChecked()){ //判断积分是否被选中
-           total=total-resultModel.getData().getDeductionpoint();
-        }
-        if (mView.cb_luckey_money.isChecked()){   //判断优惠券是否被选中
-            total=total-resultModel.getData().getCoupon().getCouponprice();
-        }
+//        double total=Double.parseDouble(resultModel.getData().getTotalmoney()); //总金额=商品金额+运费-积分
+//        if (mView.cb_check.isChecked()){ //判断积分是否被选中
+//           total=total-resultModel.getData().getDeductionpoint();
+//        }
+//        if (mView.cb_luckey_money.isChecked()){   //判断优惠券是否被选中
+//            total=total-Double.parseDouble(resultModel.getData().getCoupon().getCouponprice());
+//        }
 
         if (resultModel.getData().getAddressRecord() == null) {
             BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
             return;
         }
-        final String result=total+"";
+        final String result=String.format("%.2f",resulttotal);
         Logger.i("实际付款金额"+result);
         if (dialog==null){
             dialog=new MessageDialog(mView.getActivity());

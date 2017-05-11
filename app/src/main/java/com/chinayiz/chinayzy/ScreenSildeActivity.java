@@ -77,7 +77,7 @@ public class ScreenSildeActivity extends Activity implements View.OnClickListene
                 editer.putString("isfirst","1");
                 editer.commit();
                 finish();
-                Intent intent=new Intent(this,MainActivity.class);
+                Intent intent=new Intent(this,NewMainActivity.class);
                 startActivity(intent);
                 break;
         }

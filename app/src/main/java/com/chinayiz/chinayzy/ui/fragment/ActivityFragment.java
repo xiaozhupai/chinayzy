@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.ActivityPresenter;
 import com.orhanobut.logger.Logger;
 
@@ -38,13 +39,12 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public WebView wv_view;
     public static final String SHARE="分享推荐码";
     public ProgressBar progressbar;
-    private String url;
+    private String url= Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_web, null);
         progressbar= (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view= (WebView) view.findViewById(R.id.wv_view);
-
         return view;
     }
 
