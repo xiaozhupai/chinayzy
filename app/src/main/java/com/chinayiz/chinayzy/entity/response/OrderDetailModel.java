@@ -50,6 +50,7 @@ public class OrderDetailModel extends BaseResponseModel {
          * money :
          * orderid : 2
          * receivingtime : 2017-02-11 11:49:26
+         * couponprice :1350
          */
 
         private String totalmoney;
@@ -67,6 +68,7 @@ public class OrderDetailModel extends BaseResponseModel {
         private String sname;
         private String paytime;
         private String point;
+        private String couponprice;
         private int num;
         private int shopid;
         private String area;
@@ -75,6 +77,14 @@ public class OrderDetailModel extends BaseResponseModel {
         private int orderid;
         private String receivingtime;
         private List<OmessagesBean> omessages;
+        public String getCouponprice() {
+            return couponprice;
+        }
+
+        public void setCouponprice(String couponprice) {
+            this.couponprice = couponprice;
+        }
+
         public String getTotalmoney() {
             return totalmoney;
         }

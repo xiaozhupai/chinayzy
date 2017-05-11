@@ -76,6 +76,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         mViewHolder.btn_order2 = (Button) view.findViewById(R.id.btn_order2);
         mViewHolder.lv_orderGoods = (ListView) view.findViewById(lv_orderGoods);
 
+        mViewHolder.view_coupons=fooderView.findViewById(R.id.view_coupons);
+        mViewHolder.tv_coupons= (TextView) fooderView.findViewById(R.id.tv_coupons);
         mViewHolder.tv_yunfei = (TextView) fooderView.findViewById(R.id.tv_yunfei);
         mViewHolder.tv_sumGolds = (TextView) fooderView.findViewById(R.id.tv_sumGolds);
         mViewHolder.tv_orderNum = (TextView) fooderView.findViewById(R.id.tv_orderNum);
@@ -136,11 +138,16 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
 
         mAdapter.setDetailModel(model);
         mViewHolder.lv_orderGoods.setAdapter(mAdapter);
-        mViewHolder.tv_yunfei.setText("￥" + model.getData().getCarriage());
+        mViewHolder.tv_yunfei.setText("\t " + model.getData().getCarriage());
         mViewHolder.tv_sumGolds.setText(model.getData().getPoint());
         mViewHolder.tv_orderNum.setText("共" + mGoodsList.size() + "件商品   总计：");
-        mViewHolder.tv_orderMyone.setText("￥" + model.getData().getTotalmoney());
-        mViewHolder.tv_orderSpay.setText("实付：￥" + model.getData().getMoney());
+        mViewHolder.tv_orderMyone.setText("\t " + model.getData().getTotalmoney());
+        if (model.getData().getCouponprice()==null||model.getData().getCouponprice().equals("0")){
+            mViewHolder.view_coupons.setVisibility(View.GONE);
+        }else {
+            mViewHolder.tv_coupons.setText("\t"+model.getData().getCouponprice());
+        }
+        mViewHolder.tv_orderSpay.setText("实付：\t " + model.getData().getMoney());
         mViewHolder.tv_createDate.setText("下单时间：" + model.getData().getOrdertime());
         mViewHolder.btn_copyId.setTag(R.id.tag_click, model.getData().getCodeX());
         mViewHolder.btn_copyId.setOnClickListener(this);
@@ -272,6 +279,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         public TextView tv_storeName;
         public ListView lv_orderGoods;
         public TextView tv_yunfei;
+        public View view_coupons;
+        public TextView tv_coupons;
         public TextView tv_sumGolds;
         public TextView tv_orderNum;
         public TextView tv_orderMyone;

@@ -31,7 +31,8 @@
             android:layout_height="43dp"
             android:gravity="center_vertical"
             android:paddingRight="14dp"
-            android:text="￥0.00"
+            android:text="00.00"
+            android:drawableLeft="@mipmap/icon_rmb"
             android:textColor="@color/NongYe_home_goodsText"
             android:textSize="13sp"
             />
@@ -62,14 +63,46 @@
             android:layout_height="43dp"
             android:gravity="center_vertical"
             android:paddingRight="14dp"
-            android:text="￥0.00"
+            android:text="00.00"
+            android:drawableLeft="@mipmap/icon_rmb"
             android:textColor="@color/classifyText_pre"
             android:textSize="13sp"
             />
     </LinearLayout>
 
     <include layout="@layout/view_line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/Background"
+        android:id="@+id/view_coupons"
+        >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:text="优惠券抵扣："
+            android:textColor="@color/NongYe_home_goodsText"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_coupons"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:gravity="center_vertical"
+            android:paddingRight="14dp"
+            android:text="00.00"
+            android:drawableLeft="@mipmap/icon_rmb"
+            android:textColor="@color/classifyText_pre"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+    <include layout="@layout/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="43dp"
@@ -94,8 +127,9 @@
             android:layout_width="wrap_content"
             android:layout_height="43dp"
             android:layout_weight="1"
+            android:drawableLeft="@mipmap/icon_rmb"
             android:gravity="center_vertical"
-            android:text="￥0.00"
+            android:text="00.00"
             android:textColor="@color/classifyText"
             android:textSize="13sp"
             />
@@ -106,7 +140,8 @@
             android:layout_height="43dp"
             android:layout_weight="1"
             android:gravity="center_vertical|end"
-            android:text="实付：￥0.00"
+            android:text="实付：00.00"
+            android:drawableRight="@mipmap/icon_rmb"
             android:textColor="@color/deep_grey"
             android:textSize="13sp"
             />
