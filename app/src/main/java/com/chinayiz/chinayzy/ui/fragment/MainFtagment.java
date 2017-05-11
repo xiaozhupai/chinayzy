@@ -68,8 +68,7 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
                 Skip.toSearch(getActivity());
                 break;
             case R.id.iv_services:
-                BaseActivity.showToast(getActivity(), "消息");
-                Logger.i("暂无消息");
+                BaseActivity.showToast(getActivity(), "暂无消息");
                 break;
         }
     }
