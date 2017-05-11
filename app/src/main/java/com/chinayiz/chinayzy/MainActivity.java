@@ -33,10 +33,10 @@ import java.util.List;
 public class MainActivity extends BaseActivity<MainPresenter> implements View.OnClickListener, OnItemClickListener {
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditer;
+    private boolean isNotify = false;
     private ConvenientBanner mBannerMainPager;
     private MaterialDialog mDilog;
     public String dowloadUrl = "-1";
-    private boolean isNotify = false;
     private View mBtnNongYe, mBtn_asIm, mBtnRecommend, mBtnActivity;
     private View mBtnStore;
     private View mBtnIm;
@@ -111,7 +111,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 mPresenter.doStartNongye();
                 break;
             case R.id.btn_Store://商城
-                Skip.toMail(this, "-1");
+//                Skip.toMail(this, "-1");
+                Skip.toMainHome(this);
                 break;
             case R.id.btn_im://个人中心
                 mPresenter.doStartMine();
@@ -145,7 +146,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 //                    shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
 //                }
 //            }
-//            Logger.i("好友推荐广告图-点击");
             String uri = Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
             shareUser(uri, WebPowerFragment.ACTIVITY);
             return;

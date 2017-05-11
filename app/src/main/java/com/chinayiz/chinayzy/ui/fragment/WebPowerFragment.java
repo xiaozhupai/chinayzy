@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;

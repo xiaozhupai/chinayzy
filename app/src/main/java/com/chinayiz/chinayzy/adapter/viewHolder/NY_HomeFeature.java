@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.adapter.viewHolder;
 
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +12,6 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NY_FeatureModel;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -70,6 +70,7 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                 } else if (i!=0){//商品类型
                     holder.Title.setText(dataBean.getGname());
                     String price=dataBean.getPrice();
+
                     if (price.contains("-")) {
                         String [] strings=price.split("-");
                         holder.Price.setText(" "+strings[0]);
@@ -77,8 +78,10 @@ public class NY_HomeFeature extends RecyclerView.ViewHolder implements View.OnCl
                         holder.Price.setText(" "+price);
                     }
                     if ("0".equals(dataBean.getIsself())) {
-                        holder.Price.setCompoundDrawables(null,null,null,null);
+                        Drawable[] drawable=holder.Price.getCompoundDrawables();
+                        holder.Price.setCompoundDrawables(drawable[0],null,null,null);
                     }
+
                     Glide.with(fragment).load(dataBean.getIcon()).into(holder.Icon);
                     holder.view.setTag(dataBean.getGoodsid());
                 }
