@@ -12,6 +12,7 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.NongYeHomeRecylAdapter;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.homePresenter;
@@ -63,6 +64,12 @@ public class HomeFragment extends BaseFragment<homePresenter> {
      */
     public void openGoodesDetail(String goodsId) {
         Skip.toNewGoodsDetail(mActivity, goodsId);
+    }
+
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+        super.onInitActionBar(activity);
+        activity.mTvActionBarTitle.setText("生态农业");
     }
 
     /**

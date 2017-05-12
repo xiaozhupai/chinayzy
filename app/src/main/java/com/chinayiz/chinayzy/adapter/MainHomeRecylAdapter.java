@@ -16,12 +16,15 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.viewHolder.CreateBannerHolder;
+import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.response.HomeGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.HomeHotGoodsModel;
 import com.chinayiz.chinayzy.entity.response.HomeMenusModel;
 import com.chinayiz.chinayzy.entity.response.HomeThemesModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -68,14 +71,15 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
     private HomeHotGoodsModel mHotGoodsModel;
     private int mPositions;
 
-    public void addDate(String key,Object object) {
-        mDates.put(key,object);
+    public void addDate(String key, Object object) {
+        mDates.put(key, object);
         notifyDataSetChanged();
     }
 
     public MainHomeRecylAdapter(Fragment fragment) {
         mFragment = fragment;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
@@ -122,59 +126,56 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
         switch (position) {
             case 0:
                 if (holder instanceof HomeBanner) {
-                    Logger.i("广告绑定");
-                    if (mDates.containsKey(Commons.MAIN_BANNER)){
-                        HomeBanner banner= (HomeBanner) holder;
+                    if (mDates.containsKey(Commons.MAIN_BANNER)) {
+                        HomeBanner banner = (HomeBanner) holder;
                         banner.setData((NY_BannerModel) mDates.get(Commons.MAIN_BANNER));
                     }
                 }
                 break;
             case 1:
                 if (holder instanceof HomeMenu) {
-                    Logger.i("板块菜单");
-                    if (mDates.containsKey(Commons.HOME_MODEL)){
-                        HomeMenu menu= (HomeMenu) holder;
-                        HomeMenusModel model= (HomeMenusModel) mDates.get(Commons.HOME_MODEL);
-                        menu.setData(model,mFragment);
+                    if (mDates.containsKey(Commons.HOME_MODEL)) {
+                        HomeMenu menu = (HomeMenu) holder;
+                        HomeMenusModel model = (HomeMenusModel) mDates.get(Commons.HOME_MODEL);
+                        menu.setData(model, mFragment);
                     }
                 }
                 break;
             case 2:
                 if (holder instanceof HomenTheme) {
-                    if (mDates.containsKey(Commons.HOME_THEME1)){
-                        HomenTheme theme= (HomenTheme) holder;
-                        HomeThemesModel model= (HomeThemesModel) mDates.get(Commons.HOME_THEME1);
-                        theme.setData(model,mFragment);
+                    if (mDates.containsKey(Commons.HOME_THEME1)) {
+                        HomenTheme theme = (HomenTheme) holder;
+                        HomeThemesModel model = (HomeThemesModel) mDates.get(Commons.HOME_THEME1);
+                        theme.setData(model, mFragment, 1);
                     }
                 }
                 break;
             case 3:
                 if (holder instanceof HomeList) {
-                    Logger.i("商品集合1");
-                    if (mDates.containsKey(Commons.HOME_LIST1)){
-                        HomeList list= (HomeList) holder;
-                        HomeGoodsListModel model= (HomeGoodsListModel) mDates.get(Commons.HOME_LIST1);
-                        list.setData(mFragment,model.getData(),1);
+                    if (mDates.containsKey(Commons.HOME_LIST1)) {
+                        HomeList list = (HomeList) holder;
+                        HomeGoodsListModel model = (HomeGoodsListModel) mDates.get(Commons.HOME_LIST1);
+                        list.setData(mFragment, model.getData(), 1);
                     }
                 }
                 break;
             case 4:
                 if (holder instanceof HomenTheme) {
                     Logger.i("商品主题2");
-                    if (mDates.containsKey(Commons.HOME_THEME2)){
-                        HomenTheme theme= (HomenTheme) holder;
-                        HomeThemesModel model= (HomeThemesModel) mDates.get(Commons.HOME_THEME2);
-                        theme.setData(model,mFragment);
+                    if (mDates.containsKey(Commons.HOME_THEME2)) {
+                        HomenTheme theme = (HomenTheme) holder;
+                        HomeThemesModel model = (HomeThemesModel) mDates.get(Commons.HOME_THEME2);
+                        theme.setData(model, mFragment, 2);
                     }
                 }
                 break;
             case 5:
                 if (holder instanceof HomeList) {
                     Logger.i("商品集合2");
-                    if (mDates.containsKey(Commons.HOME_LIST2)){
-                        HomeList list= (HomeList) holder;
-                        HomeGoodsListModel model= (HomeGoodsListModel) mDates.get(Commons.HOME_LIST2);
-                        list.setData(mFragment,model.getData(),2);
+                    if (mDates.containsKey(Commons.HOME_LIST2)) {
+                        HomeList list = (HomeList) holder;
+                        HomeGoodsListModel model = (HomeGoodsListModel) mDates.get(Commons.HOME_LIST2);
+                        list.setData(mFragment, model.getData(), 2);
                     }
                 }
                 break;
@@ -185,13 +186,13 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
             default:
                 if (holder instanceof HomeGoods) {
-                    mPositions = position%7;
-                    if (mDates.containsKey(Commons.HOME_REXIAO)){
-                        HomeGoods goods= (HomeGoods) holder;
-                        if (mHotGoodsModel==null){
+                    mPositions = position % 7;
+                    if (mDates.containsKey(Commons.HOME_REXIAO)) {
+                        HomeGoods goods = (HomeGoods) holder;
+                        if (mHotGoodsModel == null) {
                             mHotGoodsModel = (HomeHotGoodsModel) mDates.get(Commons.HOME_REXIAO);
                         }
-                        Logger.i("热销商品位置="+mPositions);
+                        Logger.i("热销商品位置=" + mPositions);
                         goods.setData(mFragment, new HomeHotGoodsModel.DataBean[]{mHotGoodsModel.getData().get(mPositions)
                                 , mHotGoodsModel.getData().get(mPositions + 1)});
                     }
@@ -223,6 +224,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
         ConvenientBanner mBannerNongyeHome;
         List<String> mUrls = new ArrayList<>();
         NY_BannerModel mModel;
+
         public HomeBanner(View itemView) {
             super(itemView);
             mBannerNongyeHome = (ConvenientBanner) itemView.findViewById(R.id.home_banner);
@@ -233,7 +235,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         public void setData(NY_BannerModel model) {
-            mModel=model;
+            mModel = model;
             mUrls.clear();
             for (NY_BannerModel.Data data : mModel.getData()) {
                 mUrls.add(data.getShowlink());
@@ -243,9 +245,9 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onItemClick(int position) {
-            if (position==0){
+            if (position == 0) {
                 String uri = Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
-                Skip.toWebPage(mFragment.getActivity(),uri, "活动中心");
+                Skip.toWebPage(mFragment.getActivity(), uri, "活动中心");
                 return;
             }
             if (mModel == null) {
@@ -261,7 +263,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
      * 板块菜单
      */
     public class HomeMenu extends RecyclerView.ViewHolder implements View.OnClickListener {
-       List<ImageView> menus=new ArrayList<>(4);
+        List<ImageView> menus = new ArrayList<>(4);
 
         public HomeMenu(View itemView) {
             super(itemView);
@@ -270,34 +272,46 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
             menus.add((ImageView) itemView.findViewById(R.id.home_menu3));
             menus.add((ImageView) itemView.findViewById(R.id.home_menu4));
         }
-        public void setData(HomeMenusModel data ,Fragment fragment) {
+
+        public void setData(HomeMenusModel data, Fragment fragment) {
             ImageView img;
             for (int i = 0; i < data.getData().size(); i++) {
-                img=menus.get(i);
+                img = menus.get(i);
                 Glide.with(fragment)
                         .load(data.getData().get(i).getSypic())
                         .into(img);
                 img.setOnClickListener(this);
             }
         }
+
         @Override
         public void onClick(View v) {
             Logger.i("模块点击");
             switch (v.getId()) {
                 case R.id.home_menu1:
-
+                    Skip.toNongYeHome(mFragment.getActivity());
                     break;
                 case R.id.home_menu2:
-
+                    Skip.toMail(mFragment.getActivity(),"");
                     break;
                 case R.id.home_menu3:
-
+                    Logger.i("关于我们");
+                    shareUser(Commons.API + "/h5/aboutus", "关于我们");
                     break;
                 case R.id.home_menu4:
-
+                    Logger.i("我的二维码");
+                    if (UserSeeion.isLogin(mFragment.getActivity())) {
+                        shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
+                    } else {
+                        BaseActivity.showToast(mFragment.getActivity(), "请先登录");
+                    }
                     break;
             }
         }
+    }
+
+    private void shareUser(String url, String titel) {
+        Skip.toWebPage(mFragment.getActivity(), url, titel);
     }
 
     /**
@@ -305,23 +319,39 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     public class HomenTheme extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mThemeImage;
+        int mPosetion = 0;
 
         public HomenTheme(View itemView) {
             super(itemView);
             mThemeImage = (ImageView) itemView.findViewById(R.id.home_themeIcon);
         }
 
-        public void setData(HomeThemesModel model, Fragment fragment) {
+        public void setData(HomeThemesModel model, Fragment fragment, int posetion) {
+            mPosetion = posetion;
             Glide.with(fragment)
                     .load(model.getData().get(0).getShowlink())
                     .into(mThemeImage);
+
             mThemeImage.setOnClickListener(this);
-            mThemeImage.setTag(R.id.tag_click,model.getData().get(0).getDetaillink());
+            mThemeImage.setTag(R.id.tag_click, model.getData().get(0).getDetaillink());
         }
 
         @Override
         public void onClick(View v) {
-            Skip.toNewGoodsDetail(mFragment.getActivity(), v.getTag(R.id.tag_click).toString());
+            switch (mPosetion) {
+                case 0: {
+                    BaseActivity.showToast(mFragment.getActivity(), "未知错误，请重试");
+                    break;
+                }
+                case 1: {
+                    Skip.toNongYeHome(mFragment.getActivity());
+                    break;
+                }
+                case 2: {
+                    Skip.toMail(mFragment.getActivity(),"");
+                    break;
+                }
+            }
         }
     }
 
@@ -331,13 +361,15 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
     public class HomeList extends RecyclerView.ViewHolder implements HomeListRecylAdapter.onItemClickListener {
         RecyclerView mRecyclerView;
         HomeListRecylAdapter mAdapter;
+        int is=0;
 
         public HomeList(View itemView) {
             super(itemView);
             mRecyclerView = (RecyclerView) itemView.findViewById(R.id.home_goodslist);
         }
 
-        public void setData(Fragment fragment, List<HomeGoodsListModel.DataBean> beanList,int posetion) {
+        public void setData(Fragment fragment, List<HomeGoodsListModel.DataBean> beanList, int posetion) {
+            is = posetion;
             LinearLayoutManager layoutManager = new LinearLayoutManager(fragment.getActivity());
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRecyclerView.setLayoutManager(layoutManager);
@@ -349,7 +381,25 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClickItem(String goodsId) {
+            Logger.i("点击了横向商品="+goodsId);
+            if (HomeListRecylAdapter.ListItemAll.CLICK_ALL.equals(goodsId)) {
+                switch (is) {
+                    case 0: {
+                        BaseActivity.showToast(mFragment.getActivity(), "未知错误，请重试");
+                        break;
+                    }
+                    case 1: {
+                        Skip.toNongYeHome(mFragment.getActivity());
+                        break;
+                    }
+                    case 2: {
+                        Skip.toMail(mFragment.getActivity(),"");
+                        break;
+                    }
+                }
+            }else {
             Skip.toNewGoodsDetail(mFragment.getActivity(), goodsId);
+            }
         }
     }
 
@@ -375,6 +425,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView commentCount, commentCount1;
         TextView goodComments, goodComments1;
         Fragment mContext;
+
         public HomeGoods(View itemView) {
             super(itemView);
             root = itemView.findViewById(R.id.item_goods);
@@ -396,52 +447,54 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
             commentCount1 = (TextView) itemView.findViewById(R.id.tv_commentCount1);
             goodComments1 = (TextView) itemView.findViewById(R.id.tv_goodsComment1);
         }
-        public void setData(Fragment fragment, HomeHotGoodsModel.DataBean[] datas){
-            mContext=fragment;
+
+        public void setData(Fragment fragment, HomeHotGoodsModel.DataBean[] datas) {
+            mContext = fragment;
             Glide.with(fragment).load(datas[0].getIcon()).into(goodsPic);
             goodsName.setText(datas[0].getGname());
-            if (datas[0].getPrice().contains(".")){
-                String[] prices=datas[0].getPrice().split("\\.");
-                goodsPrice.setText(prices[0]+".");
+            if (datas[0].getPrice().contains(".")) {
+                String[] prices = datas[0].getPrice().split("\\.");
+                goodsPrice.setText(prices[0] + ".");
                 goodsDubPrice.setText(prices[1]);
-            }else {
-                goodsPrice.setText(datas[0].getPrice()+".");
+            } else {
+                goodsPrice.setText(datas[0].getPrice() + ".");
                 goodsDubPrice.setText("00");
             }
             if ("0".equals(datas[0].getIsself())) {
                 isSelf.setVisibility(View.GONE);
             }
-            if (!"0".equals(datas[0].getCommenttotal())){
-                commentCount.setText(datas[0].getCommenttotal()+"条评论");
+            if (!"0".equals(datas[0].getCommenttotal())) {
+                commentCount.setText(datas[0].getCommenttotal() + "条评论");
             }
-            goodComments.setText(datas[0].getPraise()+"好评");
+            goodComments.setText(datas[0].getPraise() + "好评");
 
             Glide.with(fragment).load(datas[1].getIcon()).into(goodsPic1);
             goodsName1.setText(datas[1].getGname());
-            if (datas[1].getPrice().contains(".")){
-                String[] prices=datas[1].getPrice().split("\\.");
-                goodsPrice1.setText(prices[0]+".");
+            if (datas[1].getPrice().contains(".")) {
+                String[] prices = datas[1].getPrice().split("\\.");
+                goodsPrice1.setText(prices[0] + ".");
                 goodsDubPrice1.setText(prices[1]);
-            }else {
-                goodsPrice1.setText(datas[1].getPrice()+".");
+            } else {
+                goodsPrice1.setText(datas[1].getPrice() + ".");
                 goodsDubPrice1.setText("00");
             }
             if ("0".equals(datas[1].getIsself())) {
                 isSelf1.setVisibility(View.GONE);
             }
-            if (!"0".equals(datas[1].getCommenttotal())){
-                commentCount1.setText(datas[1].getCommenttotal()+"条评论");
+            if (!"0".equals(datas[1].getCommenttotal())) {
+                commentCount1.setText(datas[1].getCommenttotal() + "条评论");
             }
-            goodComments1.setText(datas[1].getPraise()+"好评");
+            goodComments1.setText(datas[1].getPraise() + "好评");
 
-            root.setTag(R.id.tag_click,datas[0].getGoodsid());
-            root1.setTag(R.id.tag_click,datas[1].getGoodsid());
+            root.setTag(R.id.tag_click, datas[0].getGoodsid());
+            root1.setTag(R.id.tag_click, datas[1].getGoodsid());
             root.setOnClickListener(this);
             root1.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
-            Skip.toNewGoodsDetail(mContext.getActivity(),v.getTag(R.id.tag_click).toString());
+            Skip.toNewGoodsDetail(mContext.getActivity(), v.getTag(R.id.tag_click).toString());
         }
     }
 }

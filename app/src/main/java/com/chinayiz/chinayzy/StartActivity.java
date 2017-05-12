@@ -9,6 +9,9 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.chinayiz.chinayzy.utils.AppUtil;
+import com.orhanobut.logger.Logger;
+
 public class StartActivity extends Activity  {
 
     @Override
@@ -20,6 +23,8 @@ public class StartActivity extends Activity  {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
+        APP.Version= String.valueOf(AppUtil.getVersionCode(this));
+        Logger.i("版本号="+APP.Version);
 //        SystemClock.sleep(1000);
         SharedPreferences sp=getSharedPreferences("slide", Context.MODE_PRIVATE);
         final String first=sp.getString("isfirst","");

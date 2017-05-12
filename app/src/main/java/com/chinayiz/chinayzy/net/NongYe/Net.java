@@ -385,7 +385,6 @@ public class Net {
                     }
                     @Override
                     public void onResponse(String s, int i) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FINDTYPE
@@ -421,7 +420,6 @@ public class Net {
                     }
                     @Override
                     public void onResponse(String s, int i) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,type

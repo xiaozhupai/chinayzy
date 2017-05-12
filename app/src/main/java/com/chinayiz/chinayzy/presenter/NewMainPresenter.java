@@ -2,7 +2,6 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.APP;
@@ -27,15 +26,14 @@ import org.greenrobot.eventbus.ThreadMode;
  * CreateDate 2017/5/8 17:12
  * Class NewMainPresenter 新应用首页
  */
-
 public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     public AppUpdataModel.DataBean info;
-    private Intent intent;
     public ShareDialog mShareDialog;
+    private Activity messageData;
     public boolean isLoad;
     public String apkPath;
-    private Activity messageData;
+
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
@@ -90,9 +88,9 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
 
         }
     }
+
     @Override
     public void disposeInfoMsg(EventMessage message) {
-
     }
 
     @Override
@@ -106,9 +104,7 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-    }
+    public void onSaveInstanceState(Bundle outState){}
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
