@@ -201,4 +201,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+       mPresenter.getData();
+    }
 }

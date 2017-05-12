@@ -27,7 +27,7 @@ public class MinePresenter extends BasePresenter<MineFragment> {
     public static final String UPDATEMINE="UPDATEMINE";
     @Override
     public void onCreate() {
-       getData();
+
     }
 
     @Override

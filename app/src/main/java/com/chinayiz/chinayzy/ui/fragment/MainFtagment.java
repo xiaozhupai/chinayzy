@@ -97,7 +97,7 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
         } catch (Exception e) {
             Logger.i("actionbar设置异常" + e);
         }
-
+        super.onInitActionBar(activity);
     }
 
     public static MainFtagment getInstance() {

@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.ui.fragment.find;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -10,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.FindPresenter;
+import com.chinayiz.chinayzy.utils.BarUtils;
 import com.chinayiz.chinayzy.utils.magicindicator.MagicIndicator;
+import com.orhanobut.logger.Logger;
 
 /**
  * 发现
@@ -39,6 +43,18 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     @Override
     public void onInintData(Bundle bundle) {
 
+    }
+
+    @Override
+    public void onInitActionBar(BaseActivity activity) {
+            Logger.i("初始化actionbar");
+            try {
+                activity.mActionBar.setVisibility(View.GONE);
+                BarUtils.setColor(activity,  Color.rgb(255, 255, 255));
+            } catch (Exception e) {
+                Logger.i("actionbar设置异常" + e);
+            }
+        super.onInitActionBar(activity);
     }
 
     @Override
