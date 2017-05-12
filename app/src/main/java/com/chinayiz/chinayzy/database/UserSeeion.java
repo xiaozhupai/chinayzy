@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 
+
 /**
  * Created by Administrator on 2017/2/5.
  */
@@ -49,5 +50,16 @@ public class UserSeeion {
 
     public static int getUserid(Context context){
         return context.getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid",0);
+    }
+
+    public static void setPhone(Context context,String phone){
+        SharedPreferences sp=context.getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString("phone",phone);
+        editor.commit();
+    }
+
+    public static String getPhone(Context context){
+       return context.getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone","");
     }
 }

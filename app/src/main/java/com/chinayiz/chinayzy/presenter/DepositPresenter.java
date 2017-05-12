@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -109,10 +110,16 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
             loadlingDialog=new LoadlingDialog(mView.getActivity());
         }
         loadlingDialog.show();
+        String userid;
+        if (mView.isRegister){
+            userid=mView.userid;
+        }else {
+            userid= APP.sUserid;
+        }
         if (mView.iv_ali_pay.isCheck){  //支付宝支付
-            CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total, "");
+            CommonRequestUtils.getRequestUtils().getAliPayOrder(type,total, "",userid);
         }else {  //微信支付
-            CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total, "");
+            CommonRequestUtils.getRequestUtils().getWxPayOrder(type,total, "",userid);
         }
     }
 

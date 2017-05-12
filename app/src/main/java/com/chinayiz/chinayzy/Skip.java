@@ -356,6 +356,20 @@ public class Skip {
      *
      * @param context
      */
+    public static void toDeposit(Context context,String userid) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, DepositFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("userid",userid);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
+
+    /**
+     * 充值1350
+     *
+     * @param context
+     */
     public static void toDeposit(Context context) {
         Intent intent = new Intent(context, CommonActivity.class);
         intent.putExtra(CLASS, DepositFragment.class);

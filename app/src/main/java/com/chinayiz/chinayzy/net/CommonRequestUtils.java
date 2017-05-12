@@ -819,6 +819,49 @@ public class CommonRequestUtils {
     }
 
     /**
+     * 支付宝支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getAliPayOrder(String type, String total, String orderbill,String userid) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time,userid);
+        post()
+                .url(Commons.PAY + Commons.ALIPAYORDER)
+                .addParams("type", type)
+                .addParams("userid", userid)
+                .addParams("total", total)
+                .addParams("time", time)
+                .addParams("orderbill", orderbill)
+                .addParams("sign", sing)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                        EventBus.getDefault().post(new EventMessage(EventMessage.ERROR_EVENT
+                                , Commons.ALIPAYORDER
+                                , ""));
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ALIPAYORDER
+                                    , mGson.fromJson(s, AlipayModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+
+    /**
      * 微信支付
      *
      * @param type      类型 1充值2购物
@@ -832,6 +875,46 @@ public class CommonRequestUtils {
                 .url(Commons.PAY + Commons.WXPAYORDER)
                 .addParams("type", type)
                 .addParams("userid", APP.sUserid)
+                .addParams("total", total)
+                .addParams("time", time)
+                .addParams("orderbill", orderbill)
+                .addParams("sign", sing)
+                .tag("ny")
+                .build()
+                .execute(new StrCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        Logger.e("错误信息：" + e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.WXPAYORDER
+                                    , mGson.fromJson(s, WxpayModel.class)));
+                        } catch (Exception e) {
+                            onError(null, e, i);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 微信支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getWxPayOrder(String type, String total, String orderbill,String userid) {
+        String time=System.currentTimeMillis()+"";
+        String sing=Md5Untils.getSign(time,userid);
+        post()
+                .url(Commons.PAY + Commons.WXPAYORDER)
+                .addParams("type", type)
+                .addParams("userid", userid)
                 .addParams("total", total)
                 .addParams("time", time)
                 .addParams("orderbill", orderbill)

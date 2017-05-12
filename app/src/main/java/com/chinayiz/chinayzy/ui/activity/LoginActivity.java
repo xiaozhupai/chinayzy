@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.ui.activity;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.presenter.LoginPresenter;
 import com.chinayiz.chinayzy.widget.LoadlingDialog;
 
@@ -137,6 +139,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         mIvBackButton.setImageResource(R.mipmap.back_arrow);
 //        mIvBackButton.setBackgroundColor(Color.parseColor("#f5f5f5"));
         mIvBackButton.setOnClickListener(this);
+         if (!TextUtils.isEmpty(UserSeeion.getPhone(getActivity()))){
+             mEvLoginInputPhone.setText(UserSeeion.getPhone(getActivity()));
+         }
+
     }
 
 

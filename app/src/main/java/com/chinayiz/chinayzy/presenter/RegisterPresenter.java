@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.RegisterModel;
 import com.chinayiz.chinayzy.net.Commons;
@@ -32,17 +33,17 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
     public int num;
     private static final int MSG_NUM=5;
     public Handler handler;
+    private String phone;
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
          if (message.getDataType()== Commons.REGISTER){
-
                  RegisterModel model= (RegisterModel) message.getData();
                  BaseActivity.showToast(mView.getActivity(),model.getMsg());
                  if (model.getCode().equals("100")){
+                     UserSeeion.setPhone(mView.getActivity(),phone);
                      mView.mActivity.finish();
-                     EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,REGISTERINFO_BACK,""));
-
+                     EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,REGISTERINFO_BACK,model.getData().getUserid()+""));
                  }
          }
     }
@@ -81,7 +82,7 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
     //提交
     public void submit() {
 //        // validate
-        String phone = mView.et_register_phone.getText().toString().trim();
+         phone = mView.et_register_phone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
             Toast.makeText(mView.getActivity(), "请输入手机号", Toast.LENGTH_SHORT).show();
             return;

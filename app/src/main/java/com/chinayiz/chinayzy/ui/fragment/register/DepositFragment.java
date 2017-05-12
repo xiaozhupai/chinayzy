@@ -26,6 +26,8 @@ public class DepositFragment extends BaseFragment<DepositPresenter> implements V
     public CheckImageView iv_ali_pay;
     public CheckImageView iv_wechat_pay;
     private TextView tv_deposit_submit;
+    public String userid;
+    public boolean isRegister;
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
@@ -43,13 +45,20 @@ public class DepositFragment extends BaseFragment<DepositPresenter> implements V
     }
 
     @Override
+    public void onInintData(Bundle bundle) {
+        if (bundle.getString("userid")!=null){
+            userid=bundle.getString("userid");
+            isRegister=true;
+        }
+    }
+
+    @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_deposit,null);
         iv_ali_pay = (CheckImageView) view.findViewById(R.id.iv_ali_pay);
         iv_ali_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {  //支付宝支付
-
                 if (iv_wechat_pay.isCheck){
                     iv_wechat_pay.setCheck(false);
                     iv_ali_pay.setCheck(true);

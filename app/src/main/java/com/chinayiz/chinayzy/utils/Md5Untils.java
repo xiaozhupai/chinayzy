@@ -72,4 +72,16 @@ public class Md5Untils {
         String sing=MD5Encode(str.toString());
         return sing;
     }
+
+    public static String getSign(String time,String userid){
+        StringBuffer str=new StringBuffer();
+        str.append("POST");
+        str.append("#");
+        str.append(userid);
+        str.append("#");
+        str.append(time);
+        str.append("#CNYZ");
+        String sing=MD5Encode(str.toString());
+        return sing;
+    }
 }

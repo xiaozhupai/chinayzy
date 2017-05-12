@@ -102,6 +102,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 }
                 LoginModel model= (LoginModel) message.getData();
                 if (model.getCode().equals("100")){
+                    UserSeeion.setPhone(mView.getActivity(),phone);
                   int userid=model.getData().getUserid();
                     String isMember=model.getData().getIsmember();
                     SaveData(userid,isMember);
@@ -155,7 +156,9 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
             case RegisterInfoPresenter.REGISTERINFO_BACK:
-                Skip.toDeposit(mView.getActivity());
+               String userid= (String) message.getData();
+                Logger.i("注册"+userid);
+                Skip.toDeposit(mView.getActivity(),userid);
                 break;
         }
     }
