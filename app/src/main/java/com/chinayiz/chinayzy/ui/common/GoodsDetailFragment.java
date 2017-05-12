@@ -29,6 +29,7 @@ import com.chinayiz.chinayzy.base.AbsFragment;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
+import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.NewGoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.net.Commons;
@@ -65,10 +66,10 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     private int comitsID;
     private RelatedGoodsModel mRelatedGoodslist;
     private GoodsStandard2 goodsStandard2;
-    private boolean isSetData=true;
-    private boolean RelatGoodsisSetData=true;
+    private boolean isSetData = true;
+    private boolean RelatGoodsisSetData = true;
     private String goodsID, address;
-    private boolean selectdAddress=false;
+    private boolean selectdAddress = false;
     private View mView;
 
     public void setGoodsID(String goodsID) {
@@ -79,7 +80,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_goods_detail, container, false);
-        Logger.i("onCreateView="+GoodsMainFragment.startSum);
         initView(mView);
         return mView;
     }
@@ -102,7 +102,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
 
         mViewHolder.ll_servicLis = (LinearLayout) view.findViewById(R.id.ll_servicLis);
         mViewHolder.tv_goodstype = (TextView) view.findViewById(R.id.tv_goodstype);
-        mViewHolder.tv_deals= (TextView) view.findViewById(R.id.tv_deals);
+        mViewHolder.tv_deals = (TextView) view.findViewById(R.id.tv_deals);
         mViewHolder.ll_goodstype = (LinearLayout) view.findViewById(R.id.ll_goodstype);
         mViewHolder.tv_address = (TextView) view.findViewById(R.id.tv_address);
         mViewHolder.tv_yunfei = (TextView) view.findViewById(R.id.tv_yunfei);
@@ -181,7 +181,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
     }
 
 
-
     public void setChangeListener(ScrollViewContainer.PageChangeListener changeListener) {
         mChangeListener = changeListener;
     }
@@ -196,12 +195,12 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             case R.id.ll_goodstype://选择套餐
                 Logger.i("选择套餐");
                 if (goodsStandard2 == null) {
-                    goodsStandard2 = new GoodsStandard2(getActivity(),mDetailModel.getGoodsstandardid(),mDetailModel.getShopid(),mDetailModel.getGoodsid() );
+                    goodsStandard2 = new GoodsStandard2(getActivity(), mDetailModel.getGoodsstandardid(), mDetailModel.getShopid(), mDetailModel.getGoodsid());
                 }
                 goodsStandard2.show();
                 break;
             case R.id.tv_address://选择地址
-                selectdAddress=true;
+                selectdAddress = true;
                 if ("0".equals(APP.sUserid)) {
                     BaseActivity.showToast(getActivity(), "请先进行登录");
                     Skip.toLogin(getActivity());
@@ -225,7 +224,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 break;
             case R.id.tv_moreGoods://更多推荐
                 Logger.i("更多推荐");
-                Skip.toGoodsRecommend(getActivity(),mDetailModel.getItemcode());
+                Skip.toGoodsRecommend(getActivity(), mDetailModel.getItemcode());
                 break;
         }
     }
@@ -252,7 +251,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                 if (mRelatedGoodslist == null) {
                     mViewHolder.mProgerss.setVisibility(View.VISIBLE);
                     mRequestUtils.getRelatedGoods(mDetailModel.getItemcode(), "1", "14");
-                }else {
+                } else {
                     setRelatGoodsList(mRelatedGoodslist);
                 }
                 break;
@@ -287,7 +286,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         if (!RelatGoodsisSetData) {
             return;
         }
-        RelatGoodsisSetData =false;
+        RelatGoodsisSetData = false;
         mRelatedGoodslist = relatedGoodsModel;
         GoodsDetailGridAdpter detailGridAdpter = new GoodsDetailGridAdpter(getActivity());
         detailGridAdpter.setData(mRelatedGoodslist);
@@ -299,7 +298,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         if (!isSetData) {
             return;
         }
-        isSetData=false;
+        isSetData = false;
         mDetailModel = model.getData();
         goodsID = mDetailModel.getGoodsid();
         List<String> urls = new ArrayList<>();
@@ -317,29 +316,9 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         /**
          * 价格处理段
          */
-        String priceInfo = mDetailModel.getPrice();
-        Logger.i("真实价格="+priceInfo);
-        if (priceInfo.contains("-")) {
-            String[] prices = priceInfo.split("-");
-            if (prices[0].contains(".")) {
-                String[] price = prices[0].split("\\.");
-                mViewHolder.tv_goodsPrice.setText(price[0]);
-                mViewHolder.tv_dobPrice.setText("." + price[1]);
-            } else {
-                mViewHolder.tv_goodsPrice.setText(prices[0]);
-                mViewHolder.tv_dobPrice.setText(".00");
-            }
-        } else {
-            if (priceInfo.contains(".")) {
-                String[] price = priceInfo.split("\\.");
-                mViewHolder.tv_goodsPrice.setText(price[0]);
-                mViewHolder.tv_dobPrice.setText("."+price[1]);
-            } else {
-                mViewHolder.tv_goodsPrice.setText(priceInfo);
-                mViewHolder.tv_dobPrice.setText(".00");
-            }
-        }
-
+        setPrice(mDetailModel.getPrice());
+        String deale="\t成功购买此商品可获得约 "+ mDetailModel.getRebate()+ " 元分红";
+        mViewHolder.tv_deals.setText(deale);
         int cnt = 0;
         int offset = 0;
         while ((offset = mDetailModel.getService().indexOf(",", offset)) != -1) {
@@ -422,10 +401,36 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         if (address != null) {
             mViewHolder.tv_address.setText("    " + address);
         }
-        if (selectdAddress){
+        if (selectdAddress) {
             mRequestUtils.getGoodsDetail(goodsID);
-            selectdAddress=false;
+            selectdAddress = false;
         }
+    }
+
+    public void setPrice(String price) {
+        String priceInfo = price;
+        Logger.i("真实价格=" + priceInfo);
+        if (priceInfo.contains("-")) {
+            String[] prices = priceInfo.split("-");
+            if (prices[0].contains(".")) {
+                String[] price1 = prices[0].split("\\.");
+                mViewHolder.tv_goodsPrice.setText(price1[0]);
+                mViewHolder.tv_dobPrice.setText("." + price1[1]);
+            } else {
+                mViewHolder.tv_goodsPrice.setText(prices[0]);
+                mViewHolder.tv_dobPrice.setText(".00");
+            }
+        } else {
+            if (priceInfo.contains(".")) {
+                String[] price1 = priceInfo.split("\\.");
+                mViewHolder.tv_goodsPrice.setText(price1[0]);
+                mViewHolder.tv_dobPrice.setText("." + price1[1]);
+            } else {
+                mViewHolder.tv_goodsPrice.setText(priceInfo);
+                mViewHolder.tv_dobPrice.setText(".00");
+            }
+        }
+
     }
 
     @Override
@@ -434,6 +439,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             address = message.getData().toString();
             getActivity().onBackPressed();
         }
+
     }
 
     @Override
@@ -445,6 +451,13 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         if (message.getEventType() == EventMessage.ERROR_EVENT) {
             BaseActivity.showToast(getActivity(), "未知错误，请重试");
         }
+        if (message.getDataType().equals(GoodsStandard2.STANDAR_INFO)) {
+            GoodsDetailModel.DataBean bean = (GoodsDetailModel.DataBean) message.getData();
+            setPrice(bean.getPrice());
+            Logger.i("更新处理分红信息");
+//            String deale="\t成功购买此商品可获得约 "+ mDetailModel.getRebate()+ "元分红";
+//            mViewHolder.tv_deals.setText(deale);
+        }
     }
 
     @Override
@@ -454,7 +467,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             disposeInfoMsg(message);
         }
     }
-
     public static class ViewHolder {
         public View mProgerss;
         public ConvenientBanner vpager_Banner;

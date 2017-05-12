@@ -12,6 +12,8 @@ import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.widget.MessageDialog;
+
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -21,6 +23,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class SettingPresenter extends BasePresenter<SettingFragment> {
     private MessageDialog dialog;
+    public static final String LOGOUT="LOGOUT";
     @Override
     public void onCreate() {
         mView.tv_cache_data.setText("(有"+ APP.cacheUtil.getCacheSize(mView.getActivity())+"缓存)");
@@ -79,6 +82,7 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
                     APP.sUserid="0";
                     UserSeeion.logout(mView.getActivity());
                   APP.exit();
+                    EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,LOGOUT,""));
                 }
             });
         }

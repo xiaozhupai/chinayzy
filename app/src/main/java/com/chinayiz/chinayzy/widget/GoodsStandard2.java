@@ -247,9 +247,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
             case  Commons.ADDSHOPPINGCAR://加入购物车
                 BaseResponseModel model= (BaseResponseModel) message.getData();
                 BaseActivity.showToast(context,model.getMsg());
-                if (model.getCode().equals("100")){
-                   EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,STANDAR_INFO,bean));
-                }
+                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,STANDAR_INFO,bean));
                 todismiss();
                 break;
         }

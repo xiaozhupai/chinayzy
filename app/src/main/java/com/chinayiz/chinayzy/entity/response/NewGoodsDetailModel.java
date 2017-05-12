@@ -102,12 +102,20 @@ public class NewGoodsDetailModel extends BaseResponseModel {
         private String goodsnum;
         private String service;
         private String brand;
+        private String rebate;
         private String goodsdesc;
         private String praise;
         private String standardvalue;
         private List<CommentlistBean> commentlist;
         private List<RelateGoodsBean> relateGoods;
 
+        public String getRebate() {
+            return rebate;
+        }
+
+        public void setRebate(String rebate) {
+            this.rebate = rebate;
+        }
         public String getIscollect() {
             return iscollect;
         }

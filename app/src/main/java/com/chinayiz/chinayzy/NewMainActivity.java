@@ -56,7 +56,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
      */
     private NoScrollViewPager mViewPager;
     private List<Fragment> mFragments;
-    private RadioButton mRadioButton;
+    public RadioButton mRadioButton;
     private int commitID=0;
     public String dowloadUrl = "-1";
     private MaterialDialog mDilog;

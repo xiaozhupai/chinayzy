@@ -10,6 +10,7 @@ import com.chinayiz.chinayzy.NewMainActivity;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
@@ -82,6 +83,11 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 messageData = (Activity) message.getData();
                 mRequestUtils.getRecommendInfo();
                 break;
+            case SettingPresenter.LOGOUT:
+                UserSeeion.isLogin(mView.getActivity());
+                mView.mRadioButton.setChecked(true);
+                break;
+
         }
     }
     @Override
