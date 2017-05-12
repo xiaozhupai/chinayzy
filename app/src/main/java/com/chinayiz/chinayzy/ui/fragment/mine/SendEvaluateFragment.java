@@ -94,7 +94,7 @@ public class SendEvaluateFragment extends BaseFragment<SendEvaluatePresenter> im
         // validate
         String suggest = et_suggest.getText().toString().trim();
         if (TextUtils.isEmpty(suggest)) {
-            Toast.makeText(getContext(), "发表您对商品的评价,看法和建议", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "发表您对商品的评价,看法和建议", Toast.LENGTH_SHORT).show();
             return;
         }
 

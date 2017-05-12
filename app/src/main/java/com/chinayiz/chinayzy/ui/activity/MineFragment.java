@@ -188,7 +188,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
                 Skip.toSuggest(getActivity());
                 break;
             case R.id.lv_mine_setting:
-                Logger.i("现金券");
                 Skip.toWebPage(getActivity(),Commons.API+Commons.XJJUAN+"?userid="+APP.sUserid+"&devicetype=android","现金券");
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏

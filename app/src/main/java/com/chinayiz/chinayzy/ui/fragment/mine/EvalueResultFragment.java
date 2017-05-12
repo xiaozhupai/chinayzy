@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chinayiz.chinayzy.NewMainActivity;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.EvalueResultPresenter;
-import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -122,7 +122,7 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_to_others:
-                Intent intent=new Intent(getActivity(), NongYeMainActivity.class);
+                Intent intent=new Intent(getActivity(), NewMainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
                 break;
