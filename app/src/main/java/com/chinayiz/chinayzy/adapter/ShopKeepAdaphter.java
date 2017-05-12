@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
@@ -102,7 +103,8 @@ public class ShopKeepAdaphter extends BaseInectAdaphter implements EventBusCallb
     public void onItemClick(int position) {
      BaseActivity activity= (BaseActivity) context;
         Logger.i("点击每一个商品");
-
+        ShopCollectModel.DataBean bean= (ShopCollectModel.DataBean) lists.get(position);
+        Skip.toStore(context,bean.getShopid()+"");
     }
 
     @Override

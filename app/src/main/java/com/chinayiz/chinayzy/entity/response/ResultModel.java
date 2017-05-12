@@ -36,7 +36,7 @@ public class ResultModel extends BaseResponseModel {
          */
 
         private String totalmoney;
-        private int deductionpoint;
+        private double deductionpoint;
         private String isxjjuan;
         private AddressRecordBean addressRecord;
         private CouponBean coupon;
@@ -51,11 +51,11 @@ public class ResultModel extends BaseResponseModel {
             this.totalmoney = totalmoney;
         }
 
-        public int getDeductionpoint() {
+        public double getDeductionpoint() {
             return deductionpoint;
         }
 
-        public void setDeductionpoint(int deductionpoint) {
+        public void setDeductionpoint(double deductionpoint) {
             this.deductionpoint = deductionpoint;
         }
 
