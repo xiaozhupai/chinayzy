@@ -428,3 +428,6 @@ public void xxxxxx(**);
 -keep public class java.nio.* { *; }
 # Retrolambda
 -dontwarn java.lang.invoke.*
+# bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
