@@ -35,7 +35,6 @@ public class HomeHotGoodsModel extends BaseResponseModel {
          * praise : 100%
          * commenttotal : 0
          */
-
         private String icon;
         private String price;
         private String updatetime;
@@ -125,6 +124,22 @@ public class HomeHotGoodsModel extends BaseResponseModel {
 
         public void setCommenttotal(String commenttotal) {
             this.commenttotal = commenttotal;
+        }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "icon='" + icon + '\'' +
+                    ", price='" + price + '\'' +
+                    ", updatetime='" + updatetime + '\'' +
+                    ", goodsid='" + goodsid + '\'' +
+                    ", isself='" + isself + '\'' +
+                    ", gname='" + gname + '\'' +
+                    ", brand='" + brand + '\'' +
+                    ", goodsstandardid='" + goodsstandardid + '\'' +
+                    ", praise='" + praise + '\'' +
+                    ", commenttotal='" + commenttotal + '\'' +
+                    '}';
         }
     }
 }

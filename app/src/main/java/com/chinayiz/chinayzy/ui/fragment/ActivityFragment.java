@@ -39,7 +39,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public WebView wv_view;
     public static final String SHARE="分享推荐码";
     public ProgressBar progressbar;
-    private String url= Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
+    public String url= Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_web, null);
@@ -53,7 +53,6 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public void onResume() {
         super.onResume();
         if (fristLoad) {
-            wv_view.loadUrl(url);
             fristLoad=false;
             wv_view.   setScrollbarFadingEnabled(true);
             wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
@@ -64,7 +63,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
             //JS交互
             settings.setJavaScriptEnabled(true);
             //设置缓存
-            settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
             // 设置是否支持变焦
             settings.setSupportZoom(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -121,7 +120,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
             });
         }
-
+        wv_view.loadUrl(url);
     }
 
     @Override

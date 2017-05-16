@@ -64,7 +64,10 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                 mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 PersonalModel model = (PersonalModel) message.getData();
                 PersonalModel.DataBean dataBean = model.getData();
-                mView.tv_user_username.setText(dataBean.getNickname());
+                if (!TextUtils.isEmpty(dataBean.getNickname())){
+                    mView.tv_user_username.setText(dataBean.getNickname());
+                }
+
                 mView.tv_has_user.setText(String.format("已有%d个用户", dataBean.getRelationshipcount()));
                 if (!TextUtils.isEmpty(dataBean.getPic())) {
                     Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);

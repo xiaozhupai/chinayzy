@@ -30,7 +30,7 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
     public PullToRefreshLayout refresh_view;
     private boolean fristLaod = true;
     public MainHomeRecylAdapter mRecylAdapter;
-
+    public boolean canLoad=true;
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
         home_recyclerLayout = (PullableRecycleView) view.findViewById(R.id.nongye_home_recyclerLayout);
         refresh_view = (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
         refresh_view.setOnRefreshListener(mPresenter);
+
         home_recyclerLayout.setListner(this);
         mRecylAdapter = new MainHomeRecylAdapter(this);
         home_recyclerLayout.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -109,6 +110,17 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
      * 是否可以加载更多
      */
     public boolean canLoad() {
+        return canLoad;
+    }
+
+    @Override
+    /**
+     * 可否下拉刷新
+     */
+    public boolean canRefesh() {
+      if (mRecylAdapter.mDates.size()==0){
+          return true;
+      }
         return false;
     }
 }

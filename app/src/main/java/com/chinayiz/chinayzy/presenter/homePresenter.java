@@ -206,4 +206,9 @@ public class homePresenter extends BasePresenter<HomeFragment> implements PullTo
     public boolean canLoad() {
         return canLoad;
     }
+
+    @Override
+    public boolean canRefesh() {
+        return false;
+    }
 }

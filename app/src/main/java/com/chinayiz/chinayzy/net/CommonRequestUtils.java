@@ -1196,7 +1196,6 @@ public class CommonRequestUtils {
 
     /**
      * 快速支付
-     *
      * @param orderid 订单号
      * @param total   支付价格
      */
@@ -1204,7 +1203,7 @@ public class CommonRequestUtils {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
         post()
-                .url(Commons.API + Commons.FAST_PAY)
+                .url(Commons.PAY + Commons.FAST_PAY)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
                 .addParams("orderid", orderid)
@@ -1221,6 +1220,7 @@ public class CommonRequestUtils {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
+                            Logger.i("支付信息="+s);
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FAST_PAY
                                     , mGson.fromJson(s, PayModel.class)));
@@ -1494,7 +1494,7 @@ public class CommonRequestUtils {
                 .execute(new StrCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息：" + e.toString() + "错误码：" + i);
+                        EventBus.getDefault().post(new EventMessage(EventMessage.ERROR_EVENT,"",e));
                     }
                     @Override
                     public void onResponse(String s, int i) {

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/view_goodsItem"
               android:layout_width="match_parent"
-              android:layout_height="260dp"
+              android:layout_height="wrap_content"
               android:layout_margin="1.5dp"
               android:background="@color/Background"
               android:clickable="true"
@@ -12,8 +12,9 @@
     <ImageView
         android:id="@+id/iv_goodItemIcon"
         android:layout_width="match_parent"
-        android:layout_height="186dp"
+        android:layout_height="156dp"
         android:padding="1dp"
+        android:scaleType="fitXY"
         android:src="@color/classifyText_pre"
         />
 
@@ -21,7 +22,7 @@
         android:id="@+id/tv_goodItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="3dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingLeft="7dp"
@@ -48,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            android:paddingLeft="8dp"
+            android:paddingLeft="1dp"
             android:text="00."
             android:textColor="@color/classifyText_pre"
             android:textSize="17sp"

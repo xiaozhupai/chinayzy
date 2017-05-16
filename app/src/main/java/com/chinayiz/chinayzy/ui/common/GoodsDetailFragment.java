@@ -338,7 +338,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         mCommentCount = Integer.valueOf(mDetailModel.getCommentnum());
         mViewHolder.tv_commentCount.setText("商品评价（" + mCommentCount + "条评论）");
         if (!"暂无".equals(mDetailModel.getPraise())) {
-            mViewHolder.tv_goodComment.setText(mDetailModel.getPraise() + "%");
+            mViewHolder.tv_goodComment.setText(mDetailModel.getPraise() );
         }
         if (mDetailModel.getCommentlist().size() == 0) {//判断有没有评论
             mViewHolder.tv_moreComment.setText("暂时没有评论");
@@ -409,7 +409,6 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
 
     public void setPrice(String price) {
         String priceInfo = price;
-        Logger.i("真实价格=" + priceInfo);
         if (priceInfo.contains("-")) {
             String[] prices = priceInfo.split("-");
             if (prices[0].contains(".")) {

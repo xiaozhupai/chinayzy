@@ -1,9 +1,11 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.HomeHotGoodsModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
@@ -11,6 +13,7 @@ import com.chinayiz.chinayzy.ui.fragment.MainFtagment;
 import com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -21,57 +24,74 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class MainsPresenter extends BasePresenter<MainFtagment> implements PullToRefreshLayout.OnRefreshListener {
+    /**
+     * 加载更多标记
+     */
+    public static final String LOAD_SIGN="MainsPresenter_SIGN";
     public PullToRefreshLayout mToRefreshLayout;
-    public CommonRequestUtils mRequestUtils=CommonRequestUtils.getRequestUtils();
+    public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     public Net mNet = Net.getNet();
-
+    private int pager = 1;
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-    switch (message.getDataType()){
-        case Commons.MAIN_BANNER:{
-            mView.mRecylAdapter.addDate(Commons.MAIN_BANNER,message.getData());
-            mView.mRecylAdapter.notifyItemChanged(0);
-            break;
-        }
-        case Commons.HOME_MODEL:{
-            mView.mRecylAdapter.addDate(Commons.HOME_MODEL,message.getData());
-            mView.mRecylAdapter.notifyDataSetChanged();
-            break;
-        }
-        case Commons.HOME_THEME1:{
-            mView.mRecylAdapter.addDate(Commons.HOME_THEME1,message.getData());
-            mView.mRecylAdapter.notifyItemChanged(2);
-            break;
-        }
-        case Commons.HOME_LIST1:{
-            mView.mRecylAdapter.addDate(Commons.HOME_LIST1,message.getData());
-            mView.mRecylAdapter.notifyItemChanged(3);
-            break;
-        }
-        case Commons.HOME_THEME2:{
-            mView.mRecylAdapter.addDate(Commons.HOME_THEME2,message.getData());
-            mView.mRecylAdapter.notifyDataSetChanged();
-            break;
-        }
-        case Commons.HOME_LIST2:{
-            mView.mRecylAdapter.addDate(Commons.HOME_LIST2,message.getData());
-            mView.mRecylAdapter.notifyItemChanged(5);
-            break;
-        }
-        case Commons.HOME_REXIAO:{
-            mView.mRecylAdapter.addDate(Commons.HOME_REXIAO,message.getData());
-            mView.home_recyclerLayout.scrollToPosition(0);
-            mView.mRecylAdapter.notifyDataSetChanged();
-            break;
-        }
+        switch (message.getDataType()) {
+            case Commons.MAIN_BANNER: {
+                mView.mRecylAdapter.addDate(Commons.MAIN_BANNER, message.getData());
+                mView.mRecylAdapter.notifyItemChanged(0);
+                break;
+            }
+            case Commons.HOME_MODEL: {
+                mView.mRecylAdapter.addDate(Commons.HOME_MODEL, message.getData());
+                mView.mRecylAdapter.notifyDataSetChanged();
+                break;
+            }
+            case Commons.HOME_THEME1: {
+                mView.mRecylAdapter.addDate(Commons.HOME_THEME1, message.getData());
+                mView.mRecylAdapter.notifyItemChanged(2);
+                break;
+            }
+            case Commons.HOME_LIST1: {
+                mView.mRecylAdapter.addDate(Commons.HOME_LIST1, message.getData());
+                mView.mRecylAdapter.notifyItemChanged(3);
+                break;
+            }
+            case Commons.HOME_THEME2: {
+                mView.mRecylAdapter.addDate(Commons.HOME_THEME2, message.getData());
+                mView.mRecylAdapter.notifyDataSetChanged();
+                break;
+            }
+            case Commons.HOME_LIST2: {
+                mView.mRecylAdapter.addDate(Commons.HOME_LIST2, message.getData());
+                mView.mRecylAdapter.notifyItemChanged(5);
+                mView.home_recyclerLayout.scrollToPosition(0);
+                break;
+            }
+            case Commons.HOME_REXIAO: {
+                if (pager==1){
+                    mView.mRecylAdapter.addDate(Commons.HOME_REXIAO, message.getData());
+                }else {
+                    mView.mRecylAdapter.loadData((HomeHotGoodsModel) message.getData());
+                }
+                pager++;
+                break;
+            }
 
-    }
+        }
     }
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-
+        switch (message.getDataType()){
+            case LOAD_SIGN:{
+                try {
+                    Thread.sleep(2500);
+                    mView.canLoad=true;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -82,8 +102,11 @@ public class MainsPresenter extends BasePresenter<MainFtagment> implements PullT
         mRequestUtils.getHomeList(Commons.HOME_LIST1);
         mRequestUtils.getHomeTheme(Commons.HOME_THEME2);
         mRequestUtils.getHomeList(Commons.HOME_LIST2);
-        mRequestUtils.getHomeHotGoods("1","10");
         Logger.i("获取数据");
+    }
+
+    private void loadDatas() {
+        mRequestUtils.getHomeHotGoods(String.valueOf(pager), "10");
     }
 
     @Override
@@ -98,7 +121,7 @@ public class MainsPresenter extends BasePresenter<MainFtagment> implements PullT
 
     @Override
     public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-        mToRefreshLayout=pullToRefreshLayout;
+        mToRefreshLayout = pullToRefreshLayout;
         mNet.getBanner(Commons.MAIN_BANNER);
         mRequestUtils.getHomeModel();
         mRequestUtils.getHomeTheme(Commons.HOME_THEME1);
@@ -106,7 +129,15 @@ public class MainsPresenter extends BasePresenter<MainFtagment> implements PullT
 
     @Override
     public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-        pullToRefreshLayout.loadmoreFinish(1);
+        mToRefreshLayout=pullToRefreshLayout;
+        mView.canLoad=false;
+        if (pager>8){
+            mToRefreshLayout.loadmoreFinish(PullToRefreshLayout.FAIL);
+            Snackbar.make(mView.getView(),"到底啦，没有更多了",Snackbar.LENGTH_LONG).show();
+            return;
+        }
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,LOAD_SIGN,""));
+        loadDatas();
     }
 
     @Override
@@ -114,13 +145,15 @@ public class MainsPresenter extends BasePresenter<MainFtagment> implements PullT
     public void runUiThread(EventMessage message) {
         if (message.getEventType() == EventMessage.NET_EVENT) {
             disposeNetMsg(message);
-            if (mToRefreshLayout!=null) {
-                mToRefreshLayout.refreshFinish(1);
+            if (mToRefreshLayout != null) {
+                mToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                mToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
             }
         }
         if (message.getEventType() == EventMessage.ERROR_EVENT) {
-            if (mToRefreshLayout!=null) {
-                mToRefreshLayout.refreshFinish(1);
+            if (mToRefreshLayout != null) {
+                mToRefreshLayout.refreshFinish(PullToRefreshLayout.FAIL);
+                mToRefreshLayout.loadmoreFinish(PullToRefreshLayout.FAIL);
             }
         }
     }

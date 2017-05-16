@@ -88,6 +88,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
             case Commons.FAST_PAY:{
                   PayModel model= (PayModel) message.getData();
                 if (model==null){ BaseActivity.showToast(mView.getActivity(),"未知错误，请重试");return;};
+                Logger.i("支付类型="+model.getData().getType());
                  if (model.getData().getType().equals("1")){  //支付宝
                      AlipayModel alipayModel=new AlipayModel();
                       alipayModel.setData(model.getData().getLinkString());
@@ -106,7 +107,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
         if (status==1){
             Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.PAY);
             mView.rb_order2.setChecked(true);
-            status=0;
+            status=3;
         }else if (status==0){
             BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
         }
@@ -136,7 +137,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                     Logger.i("微信支付成功");
                 }else {
                     status=0;
-                    Logger.i("微信支付失败");
+                    BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
                 }
             case Commons.CONFIRM_ORDER:{
                Skip.toSucceePage(mView.getActivity(),EvalueResultFragment.TRADE);
@@ -149,7 +150,6 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     protected void onCreate() {
         mRequestUtils.getImOrder(String.valueOf(mView.orderType));
     }
-
 
     @Override
     protected void onDestroy() {
@@ -194,6 +194,6 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     @Override
     public void onAliFail() {
         status=0;
-        Logger.i("支付宝支付失败");
+       BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
     }
 }

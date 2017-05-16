@@ -21,6 +21,7 @@ import com.chinayiz.chinayzy.adapter.NyMainPagerAdapter;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.database.UserSeeion;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.NewMainPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineFragment;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
@@ -90,8 +91,6 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
        mShopCartFragment= ShopCartFragment.getInstance();
         mFragments.add(mShopCartFragment);
         mFragments.add(MineFragment.getInstance());
-         Logger.i("fragments siez="+mFragments.size());
-
         initActionBar();
         mTvActionBarTitle.setTextColor(Color.rgb(0,0,0));
         mIvBackButton.setVisibility(View.GONE);
@@ -116,6 +115,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         }else {
             mActionBar.setVisibility(View.VISIBLE);
         }
+
         switch (i) {
             case R.id.rb_nav_home://首页
                 commitID=0;
@@ -136,6 +136,14 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
                 mTvActionBarTitle.setText("活动");
                 setStatuBarColor(this,Color.rgb(255, 255, 255));
                 mActionBar.setBackgroundColor(Color.rgb(255, 255, 255));
+                mActivityFragment.url= Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
+                if (mActivityFragment!=null&&mActivityFragment.wv_view!=null){
+
+                    if (mActivityFragment.wv_view.canGoBack()){
+                        mActivityFragment.wv_view.goBack();
+                    }
+                    mActivityFragment.wv_view.loadUrl( mActivityFragment.url);
+                }
                 break;
             case R.id.rb_nav_cart://购物车
                 commitID=3;
@@ -191,7 +199,6 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (mActivityFragment.wv_view!=null&&commitID==2){//判断当前是否在活动页面
             if (keyCode == KeyEvent.KEYCODE_BACK && mActivityFragment.wv_view.canGoBack()) {
                 mActivityFragment.wv_view.goBack();// 返回前一个页面
@@ -245,6 +252,8 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         String actionName;
         if (mPresenter.isLoad) {
             actionName = "安装";
+            mEditer=mPreferences.edit();
+            mEditer.putBoolean("isLoad",false);
         } else {
             actionName = "下载更新";
         }

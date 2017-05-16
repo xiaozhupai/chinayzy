@@ -111,7 +111,7 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
             //JS交互
             settings.setJavaScriptEnabled(true);
             //设置缓存
-            settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
             // 设置是否支持变焦
             settings.setSupportZoom(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

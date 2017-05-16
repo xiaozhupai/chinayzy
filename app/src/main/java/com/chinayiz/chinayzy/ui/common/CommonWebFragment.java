@@ -145,10 +145,15 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
     }
 
     public boolean canKeyBacck(){
-        return  wv_view.canGoBack();
+        if (wv_view!=null){
+            return  wv_view.canGoBack();
+        }
+        return false;
     }
     public void goBacck(){
-          wv_view.goBack();
+        if (wv_view!=null){
+            wv_view.goBack();
+        }
     }
     @Override
     public void onResume() {

@@ -67,13 +67,26 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
     /**
      * RecyclerView 填充数据
      */
-    private Map<String, Object> mDates = new HashMap<>();
+    public Map<String, Object> mDates = new HashMap<>();
     private HomeHotGoodsModel mHotGoodsModel;
-    private int mPositions;
+    private int size = 7;
 
     public void addDate(String key, Object object) {
+        if (key.equals(Commons.HOME_REXIAO)) {
+            mHotGoodsModel = (HomeHotGoodsModel) object;
+            notifyDataSetChanged();
+        }
         mDates.put(key, object);
         notifyDataSetChanged();
+    }
+
+    public void loadData(HomeHotGoodsModel data) {
+    if (mHotGoodsModel==null){
+        mHotGoodsModel=data;
+    }else {
+        mHotGoodsModel.getData().addAll(data.getData());
+    }
+    notifyDataSetChanged();
     }
 
     public MainHomeRecylAdapter(Fragment fragment) {
@@ -161,7 +174,6 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
             case 4:
                 if (holder instanceof HomenTheme) {
-                    Logger.i("商品主题2");
                     if (mDates.containsKey(Commons.HOME_THEME2)) {
                         HomenTheme theme = (HomenTheme) holder;
                         HomeThemesModel model = (HomeThemesModel) mDates.get(Commons.HOME_THEME2);
@@ -171,7 +183,6 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
             case 5:
                 if (holder instanceof HomeList) {
-                    Logger.i("商品集合2");
                     if (mDates.containsKey(Commons.HOME_LIST2)) {
                         HomeList list = (HomeList) holder;
                         HomeGoodsListModel model = (HomeGoodsListModel) mDates.get(Commons.HOME_LIST2);
@@ -180,22 +191,17 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
                 break;
             case 6:
-                if (holder instanceof HomeTitle) {
-                    Logger.i("热销标题");
-                }
+
                 break;
             default:
                 if (holder instanceof HomeGoods) {
-                    mPositions = position % 7;
-                    if (mDates.containsKey(Commons.HOME_REXIAO)) {
-                        HomeGoods goods = (HomeGoods) holder;
-                        if (mHotGoodsModel == null) {
-                            mHotGoodsModel = (HomeHotGoodsModel) mDates.get(Commons.HOME_REXIAO);
-                        }
-                        Logger.i("热销商品位置=" + mPositions);
-                        goods.setData(mFragment, new HomeHotGoodsModel.DataBean[]{mHotGoodsModel.getData().get(mPositions)
-                                , mHotGoodsModel.getData().get(mPositions + 1)});
-                    }
+                    int index = position % 7;
+                    int sta = index * 2;
+                    int end = sta + 2;
+                    HomeGoods goods;
+                    goods = (HomeGoods) holder;
+                    List<HomeHotGoodsModel.DataBean> datas = mHotGoodsModel.getData().subList(sta, end);
+                    goods.setData(mFragment, datas);
                 }
                 break;
         }
@@ -203,7 +209,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return 12;
+        return mHotGoodsModel == null ? size : size + (mHotGoodsModel.getData().size() / 2);
     }
 
     /**
@@ -292,7 +298,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                     Skip.toNongYeHome(mFragment.getActivity());
                     break;
                 case R.id.home_menu2:
-                    Skip.toMail(mFragment.getActivity(),"");
+                    Skip.toMail(mFragment.getActivity(), "");
                     break;
                 case R.id.home_menu3:
                     Logger.i("关于我们");
@@ -348,7 +354,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                     break;
                 }
                 case 2: {
-                    Skip.toMail(mFragment.getActivity(),"");
+                    Skip.toMail(mFragment.getActivity(), "");
                     break;
                 }
             }
@@ -361,7 +367,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
     public class HomeList extends RecyclerView.ViewHolder implements HomeListRecylAdapter.onItemClickListener {
         RecyclerView mRecyclerView;
         HomeListRecylAdapter mAdapter;
-        int is=0;
+        int is = 0;
 
         public HomeList(View itemView) {
             super(itemView);
@@ -381,7 +387,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClickItem(String goodsId) {
-            Logger.i("点击了横向商品="+goodsId);
+            Logger.i("点击了横向商品=" + goodsId);
             if (HomeListRecylAdapter.ListItemAll.CLICK_ALL.equals(goodsId)) {
                 switch (is) {
                     case 0: {
@@ -393,12 +399,12 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                         break;
                     }
                     case 2: {
-                        Skip.toMail(mFragment.getActivity(),"");
+                        Skip.toMail(mFragment.getActivity(), "");
                         break;
                     }
                 }
-            }else {
-            Skip.toNewGoodsDetail(mFragment.getActivity(), goodsId);
+            } else {
+                Skip.toNewGoodsDetail(mFragment.getActivity(), goodsId);
             }
         }
     }
@@ -416,85 +422,81 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
      * 畅销商品（两个一组）
      */
     public class HomeGoods extends RecyclerView.ViewHolder implements View.OnClickListener {
-        View root, root1;
-        ImageView goodsPic, goodsPic1;
-        TextView goodsName, goodsName1;
-        TextView goodsPrice, goodsDubPrice;
-        TextView goodsPrice1, goodsDubPrice1;
-        View isSelf, isSelf1;
-        TextView commentCount, commentCount1;
-        TextView goodComments, goodComments1;
+        List<GridGoodsHolder> mGoodsHolders = new ArrayList<>(2);
         Fragment mContext;
 
         public HomeGoods(View itemView) {
             super(itemView);
-            root = itemView.findViewById(R.id.item_goods);
-            root1 = itemView.findViewById(R.id.item_goods1);
+            GridGoodsHolder viewHolder1 = new GridGoodsHolder();
+            GridGoodsHolder viewHolder2 = new GridGoodsHolder();
 
-            goodsPic = (ImageView) itemView.findViewById(R.id.iv_goodsPic);
-            goodsName = (TextView) itemView.findViewById(R.id.tv_goodsName);
-            goodsPrice = (TextView) itemView.findViewById(R.id.tv_price);
-            goodsDubPrice = (TextView) itemView.findViewById(R.id.tv_dobPrice);
-            isSelf = itemView.findViewById(R.id.view_isSelf);
-            commentCount = (TextView) itemView.findViewById(R.id.tv_commentCount);
-            goodComments = (TextView) itemView.findViewById(R.id.tv_goodsComment);
+            viewHolder1.root_goods = itemView.findViewById(R.id.item_goods);
+            viewHolder1.iv_goodsPic = (ImageView) itemView.findViewById(R.id.iv_goodsPic);
+            viewHolder1.tv_goodsName = (TextView) itemView.findViewById(R.id.tv_goodsName);
+            viewHolder1.tv_price = (TextView) itemView.findViewById(R.id.tv_price);
+            viewHolder1.tv_dobPrice = (TextView) itemView.findViewById(R.id.tv_dobPrice);
+            viewHolder1.view_isSelf = itemView.findViewById(R.id.view_isSelf);
+            viewHolder1.tv_commentCount = (TextView) itemView.findViewById(R.id.tv_commentCount);
+            viewHolder1.tv_goodsComment = (TextView) itemView.findViewById(R.id.tv_goodsComment);
 
-            goodsPic1 = (ImageView) itemView.findViewById(R.id.iv_goodsPic1);
-            goodsName1 = (TextView) itemView.findViewById(R.id.tv_goodsName1);
-            goodsPrice1 = (TextView) itemView.findViewById(R.id.tv_price1);
-            goodsDubPrice1 = (TextView) itemView.findViewById(R.id.tv_dobPrice1);
-            isSelf1 = itemView.findViewById(R.id.view_isSelf1);
-            commentCount1 = (TextView) itemView.findViewById(R.id.tv_commentCount1);
-            goodComments1 = (TextView) itemView.findViewById(R.id.tv_goodsComment1);
+            viewHolder2.root_goods = itemView.findViewById(R.id.item_goods1);
+            viewHolder2.iv_goodsPic = (ImageView) itemView.findViewById(R.id.iv_goodsPic1);
+            viewHolder2.tv_goodsName = (TextView) itemView.findViewById(R.id.tv_goodsName1);
+            viewHolder2.tv_price = (TextView) itemView.findViewById(R.id.tv_price1);
+            viewHolder2.tv_dobPrice = (TextView) itemView.findViewById(R.id.tv_dobPrice1);
+            viewHolder2.view_isSelf = itemView.findViewById(R.id.view_isSelf1);
+            viewHolder2.tv_commentCount = (TextView) itemView.findViewById(R.id.tv_commentCount1);
+            viewHolder2.tv_goodsComment = (TextView) itemView.findViewById(R.id.tv_goodsComment1);
+            mGoodsHolders.add(viewHolder1);
+            mGoodsHolders.add(viewHolder2);
         }
 
-        public void setData(Fragment fragment, HomeHotGoodsModel.DataBean[] datas) {
+        public void setData(Fragment fragment, List<HomeHotGoodsModel.DataBean> datas) {
             mContext = fragment;
-            Glide.with(fragment).load(datas[0].getIcon()).into(goodsPic);
-            goodsName.setText(datas[0].getGname());
-            if (datas[0].getPrice().contains(".")) {
-                String[] prices = datas[0].getPrice().split("\\.");
-                goodsPrice.setText(prices[0] + ".");
-                goodsDubPrice.setText(prices[1]);
-            } else {
-                goodsPrice.setText(datas[0].getPrice() + ".");
-                goodsDubPrice.setText("00");
+            GridGoodsHolder viewholder;
+            for (int i = 0; i < datas.size(); i++) {
+                viewholder = mGoodsHolders.get(i);
+                Glide.with(fragment).load(datas.get(i).getIcon()).into(viewholder.iv_goodsPic);
+                viewholder.tv_goodsName.setText(datas.get(i).getGname());
+                if (datas.get(i).getPrice().contains(".")) {
+                    String[] prices = datas.get(i).getPrice().split("\\.");
+                    viewholder.tv_price.setText(prices[0] + ".");
+                    viewholder.tv_dobPrice.setText(prices[1]);
+                } else {
+                    viewholder.tv_price.setText(datas.get(i).getPrice() + ".");
+                    viewholder.tv_dobPrice.setText("00");
+                }
+                if ("0".equals(datas.get(i).getIsself())) {
+                    viewholder.view_isSelf.setVisibility(View.GONE);
+                }
+                if (!"0".equals(datas.get(i).getCommenttotal())) {
+                    viewholder.tv_commentCount.setText(datas.get(i).getCommenttotal() + "条评论");
+                }
+                viewholder.tv_goodsComment.setText(datas.get(i).getPraise() + "好评");
+                viewholder.root_goods.setTag(R.id.tag_click, datas.get(i).getGoodsid());
+                viewholder.root_goods.setOnClickListener(this);
             }
-            if ("0".equals(datas[0].getIsself())) {
-                isSelf.setVisibility(View.GONE);
-            }
-            if (!"0".equals(datas[0].getCommenttotal())) {
-                commentCount.setText(datas[0].getCommenttotal() + "条评论");
-            }
-            goodComments.setText(datas[0].getPraise() + "好评");
 
-            Glide.with(fragment).load(datas[1].getIcon()).into(goodsPic1);
-            goodsName1.setText(datas[1].getGname());
-            if (datas[1].getPrice().contains(".")) {
-                String[] prices = datas[1].getPrice().split("\\.");
-                goodsPrice1.setText(prices[0] + ".");
-                goodsDubPrice1.setText(prices[1]);
-            } else {
-                goodsPrice1.setText(datas[1].getPrice() + ".");
-                goodsDubPrice1.setText("00");
-            }
-            if ("0".equals(datas[1].getIsself())) {
-                isSelf1.setVisibility(View.GONE);
-            }
-            if (!"0".equals(datas[1].getCommenttotal())) {
-                commentCount1.setText(datas[1].getCommenttotal() + "条评论");
-            }
-            goodComments1.setText(datas[1].getPraise() + "好评");
-
-            root.setTag(R.id.tag_click, datas[0].getGoodsid());
-            root1.setTag(R.id.tag_click, datas[1].getGoodsid());
-            root.setOnClickListener(this);
-            root1.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             Skip.toNewGoodsDetail(mContext.getActivity(), v.getTag(R.id.tag_click).toString());
         }
+    }
+
+    /**
+     * 畅销商品的item（单个）
+     */
+    public class GridGoodsHolder {
+        public View root_goods;
+        public ImageView iv_goodsPic;
+        public TextView tv_goodsName;
+        public TextView tv_price;
+        public TextView tv_dobPrice;
+        public View view_isSelf;
+        public TextView tv_commentCount;
+        public TextView tv_goodsComment;
+
     }
 }

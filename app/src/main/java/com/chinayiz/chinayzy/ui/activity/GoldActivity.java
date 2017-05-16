@@ -41,7 +41,7 @@ public class GoldActivity extends AppCompatActivity {
     }
 
     public interface canGoBack{
-        public boolean canKeyBacck();
-        public void goBacck();
+         boolean canKeyBacck();
+         void goBacck();
     }
 }
