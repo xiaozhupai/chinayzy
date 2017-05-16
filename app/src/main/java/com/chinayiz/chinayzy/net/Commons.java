@@ -424,5 +424,10 @@ public class Commons {
      * 现金券
      */
     public static final String XJJUAN = "/h5/xjjuan";
+    /**
+     * 推荐用户列表
+     */
+    public static final String FINDRECOMMENDCOUNT = "/h5/findRecommendCount";
+
 
 }

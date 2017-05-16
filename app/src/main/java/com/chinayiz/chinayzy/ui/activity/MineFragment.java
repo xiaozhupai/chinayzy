@@ -101,6 +101,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         lv_user = (LinearLayout)view. findViewById(R.id.lv_user);
         lv_user.setOnClickListener(this);
         pullToRefreshLayout= (PullToRefreshLayout)view. findViewById(R.id.pullrefresh);
+        tv_has_user.setOnClickListener(this);
         rl_user_all_order.setOnClickListener(this);
         lv_wait_pay.setOnClickListener(this);
         lv_wait_goods.setOnClickListener(this);
@@ -195,6 +196,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
                 break;
             case R.id.lv_user:
                 Skip.toPerson(getActivity());
+                break;
+            case R.id.tv_has_user:
+                Skip.toWebPage(getActivity(),Commons.API+Commons.FINDRECOMMENDCOUNT+"?userid="+APP.sUserid,"");
                 break;
         }
     }

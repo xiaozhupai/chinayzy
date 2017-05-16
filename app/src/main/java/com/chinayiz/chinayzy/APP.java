@@ -18,6 +18,7 @@ import com.chinayiz.chinayzy.utils.GlideCacheUtil;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
 import com.mob.MobSDK;
 import com.orhanobut.logger.Logger;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 
@@ -81,7 +82,8 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MobSDK.init(this);
+        CrashReport.initCrashReport(getApplicationContext(), "a3d9e23cd5", false);  //bugly初始化
+        MobSDK.init(this);   //Share初始化
         cacheUtil = GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);
         ShareSDK.initSDK(this);

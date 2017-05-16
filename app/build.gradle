@@ -79,5 +79,5 @@ dependencies {
     compile 'de.halfbit:pinned-section-listview:1.0.0'
     compile 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
+    compile files('libs/bugly_crash_release.jar')
 }
