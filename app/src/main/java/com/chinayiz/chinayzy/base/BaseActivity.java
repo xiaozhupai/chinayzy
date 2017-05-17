@@ -149,7 +149,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             fragment.setArguments(intent.getExtras());
             Bundle bundle=intent.getExtras();
             addFragment(fragment);
-
         } catch (Exception e) {
             e.printStackTrace();
             finish();
@@ -168,7 +167,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                     .add(R.id.content_frame, fragment, classz.getSimpleName())
                     .addToBackStack(classz.getSimpleName())
                     .commit();
-
         } catch (Exception e) {
             e.printStackTrace();
             fragmentManager.beginTransaction()
@@ -176,7 +174,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
         }
-
     }
 
 

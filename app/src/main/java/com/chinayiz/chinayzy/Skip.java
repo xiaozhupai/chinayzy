@@ -48,7 +48,6 @@ import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.COMMEN
 
 public class Skip {
     public static final String CLASS = "CLASS";
-
     private static void skip(Context context, Intent intent) {
         if (context instanceof CommonActivity) {
             CommonActivity activity = (CommonActivity) context;
@@ -59,7 +58,6 @@ public class Skip {
     }
     /**
      * 个人中心
-     *
      * @param context
      */
     public static void toMine(Context context) {
@@ -225,7 +223,6 @@ public class Skip {
 
     /**
      * 搜索
-     *
      * @param context
      */
     public static void toSearch(Context context) {
