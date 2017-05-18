@@ -53,6 +53,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
         this.bean = bean;
         bid=bean.getBid()+"";
         url= Commons.SHARE+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid+"&type=app";
+        Logger.i("FindDetailFragment url------"+url);
     }
 
     @Override

@@ -28,6 +28,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
 
+import static com.zhy.http.okhttp.OkHttpUtils.post;
+
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/1/18 11:59
@@ -55,8 +57,7 @@ public class Net {
     public void getBanner(final String url) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + url)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -87,8 +88,7 @@ public class Net {
     public void getRecomment() {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.NY_RECOMMENT)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -121,8 +121,7 @@ public class Net {
     public void getFeature() {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.NY_FEATURE)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -154,8 +153,7 @@ public class Net {
     public void getEatTheme() {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.NY_EATTHEME)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -190,8 +188,7 @@ public class Net {
     public void getEatItem(String page, String size) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.NY_EATITEM)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -226,8 +223,7 @@ public class Net {
     public void getTypeCodes(String type) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.TYPE_CODES)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -258,8 +254,7 @@ public class Net {
     public void getClassCodes(String typecode) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.CLASS_CODES)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -298,8 +293,7 @@ public class Net {
     public void getSearchFarm(String title,String page,String size,String type,String isself,String credit,String brands) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.SEARCHFARM)
                 .addParams("userid", APP.sUserid)
                 .addParams("searchkey",title)
@@ -337,8 +331,7 @@ public class Net {
     public void getALLTab() {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GETSEARCHKEY)
                 .addParams("userid", APP.sUserid)
                 .addParams("time",time)
@@ -370,8 +363,7 @@ public class Net {
     public void getFindType() {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.FINDTYPE)
                 .addParams("time", time)
                 .addParams("userid", APP.sUserid)
@@ -385,6 +377,7 @@ public class Net {
                     }
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FINDTYPE
@@ -402,6 +395,7 @@ public class Net {
     public void getFindBlogByType(final String type,String page,String size){
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
+        Logger.i("发现列表  请求地址"+Commons.API + Commons.FINDBLOGBYTYPE);
         OkHttpUtils
                 .post()
                 .url(Commons.API + Commons.FINDBLOGBYTYPE)
@@ -420,6 +414,7 @@ public class Net {
                     }
                     @Override
                     public void onResponse(String s, int i) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,type
@@ -439,8 +434,7 @@ public class Net {
     public void getCollectOrPraise( String bid) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.ISCOLLECTORPRAISE)
                 .addParams("bid",bid)
                 .addParams("userid",APP.sUserid)
@@ -475,8 +469,7 @@ public class Net {
     public void getbrands( String searchkey,String goodstype) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GETBRANDS)
                 .addParams("searchkey",searchkey)
                 .addParams("userid",APP.sUserid)
@@ -513,8 +506,7 @@ public class Net {
     public void getGoosSet(String page,String size,String type,String itemcode) {
         String time=System.currentTimeMillis()+"";
         String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
+        post()
                 .url(Commons.API + Commons.GOODS_SET)
                 .addParams("userid", APP.sUserid)
                 .addParams("page", page)
