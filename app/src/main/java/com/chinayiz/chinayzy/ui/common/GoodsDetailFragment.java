@@ -317,7 +317,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
          * 价格处理段
          */
         setPrice(mDetailModel.getPrice());
-        String deale="\t成功购买此商品可获得约 "+ mDetailModel.getRebate()+ " 元分红";
+        String deale="\t股东会员成功购买此商品可获得约 "+ mDetailModel.getRebate()+ " 元分红";
         mViewHolder.tv_deals.setText(deale);
         int cnt = 0;
         int offset = 0;

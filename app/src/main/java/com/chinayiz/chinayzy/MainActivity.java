@@ -195,16 +195,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                         .onAny(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                if (DialogAction.POSITIVE.toString().equals(which.name())) {  //更新
-                                    mEditer.putBoolean("isWarn", false);
-                                    mEditer.commit();
-                                    if (mPresenter.isLoad) {
+                                if (DialogAction.POSITIVE.toString().equals(which.name())) {
+
+                                    if (mPresenter.isLoad) { //是否下载
+                                        mEditer.putBoolean("isWarn", false);
+                                        mEditer.commit();
                                         Intent intent = new Intent(Intent.ACTION_VIEW);
                                         intent.setDataAndType(Uri.fromFile(new File(mPresenter.apkPath)), "application/vnd.android.package-archive");
                                         startActivity(intent);
                                         finish();
-                                    } else {//开始启动下载的地方
-
+                                    } else {//没有下载开始启动下载
                                         if (NetworkUtils.isWifiConnected(MainActivity.this)) {
                                             Intent intent = new Intent(MainActivity.this, UpdateService.class);
                                             intent.putExtra("downloadURI", dowloadUrl);
@@ -253,6 +253,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             if (DialogAction.POSITIVE.toString().equals(which.name())) {  //更新/下载
                                 if (mPresenter.isLoad) {
+                                    mEditer.putBoolean("isWarn", false);
+                                    mEditer.commit();
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     intent.setDataAndType(Uri.fromFile(new File(mPresenter.apkPath)), "application/vnd.android.package-archive");
                                     startActivity(intent);

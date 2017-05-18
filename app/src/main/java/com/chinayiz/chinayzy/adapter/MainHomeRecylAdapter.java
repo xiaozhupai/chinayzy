@@ -292,7 +292,6 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClick(View v) {
-            Logger.i("模块点击");
             switch (v.getId()) {
                 case R.id.home_menu1:
                     Skip.toNongYeHome(mFragment.getActivity());
@@ -344,13 +343,15 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClick(View v) {
+
             switch (mPosetion) {
                 case 0: {
                     BaseActivity.showToast(mFragment.getActivity(), "未知错误，请重试");
                     break;
                 }
                 case 1: {
-                    Skip.toNongYeHome(mFragment.getActivity());
+//                    Skip.toNongYeHome(mFragment.getActivity());
+                    Skip.toNewGoodsDetail(mFragment.getActivity(),v.getTag(R.id.tag_click).toString());
                     break;
                 }
                 case 2: {
