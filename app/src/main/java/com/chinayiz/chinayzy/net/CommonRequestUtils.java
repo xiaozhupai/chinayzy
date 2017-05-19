@@ -51,7 +51,7 @@ import static com.zhy.http.okhttp.OkHttpUtils.post;
  */
 public class CommonRequestUtils {
     private static CommonRequestUtils sRequestUtils;
-    private static Gson mGson = new Gson();
+    public static Gson mGson = new Gson();
 
     private CommonRequestUtils() {
     }
@@ -77,8 +77,8 @@ public class CommonRequestUtils {
                 .url(Commons.API + Commons.STORE_HOME)
                 .addParams("time",time )
                 .addParams("userid", APP.sUserid)
-                .addParams("shopid", shopID)
                 .addParams("sign", sing)
+                .addParams("shopid", shopID)
                 .tag(Commons.STORE_HOME)
                 .build()
                 .execute(new StrCallback() {

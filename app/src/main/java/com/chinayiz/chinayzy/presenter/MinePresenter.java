@@ -64,7 +64,7 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                 mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 PersonalModel model = (PersonalModel) message.getData();
                 PersonalModel.DataBean dataBean = model.getData();
-                if (!TextUtils.isEmpty(dataBean.getNickname())){
+                if (dataBean!=null&&!TextUtils.isEmpty(dataBean.getNickname())){
                     mView.tv_user_username.setText(dataBean.getNickname());
                 }
 

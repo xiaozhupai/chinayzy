@@ -13,16 +13,26 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.utils.DES3;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
+import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
+import com.chinayiz.chinayzy.utils.StrCallback;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheEntity;
+import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.model.HttpParams;
 import com.mob.MobSDK;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import cn.sharesdk.framework.ShareSDK;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * author  by  Canrom7 .
@@ -94,7 +104,6 @@ public class APP extends Application {
         initdebug(this);
         sUserid = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid", 0) + "";
         phone = getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone", "-1");
-        Logger.i(sUserid);
     }
 
     /**
@@ -102,6 +111,41 @@ public class APP extends Application {
      */
     private void initData() {
 
+        String time=System.currentTimeMillis()+"";
+        String sing= Md5Untils.getSign(time);
+        //param支持中文,直接传,不要自己编码
+        HttpParams params = new HttpParams();
+        params.put("time", time);
+        params.put("userid",APP.sUserid);
+        params.put("sign",sing);
+        OkGo.init(this);
+        try{
+            OkGo.getInstance()
+                    .debug("OkGo", Level.INFO, true)
+                    .setConnectTimeout(OkGo.DEFAULT_MILLISECONDS)  //全局的连接超时时间
+                    .setReadTimeOut(OkGo.DEFAULT_MILLISECONDS)     //全局的读取超时时间
+                    .setWriteTimeOut(OkGo.DEFAULT_MILLISECONDS)    //全局的写入超时时间
+
+                    .setCacheMode(CacheMode.NO_CACHE)
+                    .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
+                    //可以全局统一设置超时重连次数,默认为三次,那么最差的情况会请求4次(一次原始请求,三次重连请求),不需要可以设置为0
+                    .setRetryCount(2)
+                    //可以设置https的证书,以下几种方案根据需要自己设置
+                    //方法一：信任所有证书,不安全有风险
+                    .setCertificates()
+                    .addCommonParams(params);   //设置全局公共参数
+
+        }catch (RuntimeException e){
+            Logger.i("Okhttp初始化失败");
+            e.printStackTrace();
+        }
+        OkGo.post(Commons.API + Commons.HOME_MODEL)
+                .execute(new StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i("测试请求="+s);
+                    }
+                });
     }
 
     /**

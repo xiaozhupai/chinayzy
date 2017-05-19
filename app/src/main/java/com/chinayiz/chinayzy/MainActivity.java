@@ -259,7 +259,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                                     intent.setDataAndType(Uri.fromFile(new File(mPresenter.apkPath)), "application/vnd.android.package-archive");
                                     startActivity(intent);
                                 } else {//开始启动下载的地方
-
                                     if (NetworkUtils.isWifiConnected(MainActivity.this)) {
                                         Intent intent = new Intent(MainActivity.this, UpdateService.class);
                                         intent.putExtra("downloadURI", dowloadUrl);
