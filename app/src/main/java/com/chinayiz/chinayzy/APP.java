@@ -13,12 +13,9 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.utils.DES3;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
-import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
-import com.chinayiz.chinayzy.utils.StrCallback;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -31,8 +28,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import cn.sharesdk.framework.ShareSDK;
-import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * author  by  Canrom7 .
@@ -110,14 +105,8 @@ public class APP extends Application {
      * 应用启动时初始化加载用户设置偏好
      */
     private void initData() {
-
-        String time=System.currentTimeMillis()+"";
-        String sing= Md5Untils.getSign(time);
-        //param支持中文,直接传,不要自己编码
         HttpParams params = new HttpParams();
-        params.put("time", time);
-        params.put("userid",APP.sUserid);
-        params.put("sign",sing);
+        params.put("imei",AppInfo.IMEI);
         OkGo.init(this);
         try{
             OkGo.getInstance()
@@ -136,16 +125,9 @@ public class APP extends Application {
                     .addCommonParams(params);   //设置全局公共参数
 
         }catch (RuntimeException e){
-            Logger.i("Okhttp初始化失败");
+            Logger.e("Okhttp初始化失败");
             e.printStackTrace();
         }
-        OkGo.post(Commons.API + Commons.HOME_MODEL)
-                .execute(new StrCallback() {
-                    @Override
-                    public void onSuccess(String s, Call call, Response response) {
-                        Logger.i("测试请求="+s);
-                    }
-                });
     }
 
     /**
@@ -153,7 +135,6 @@ public class APP extends Application {
      */
     private void initoss() {
         OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(accessKeyId, accessKeySecret);
-
         ClientConfiguration conf = new ClientConfiguration();
         conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
         conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒

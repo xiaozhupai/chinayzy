@@ -14,13 +14,13 @@ import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.presenter.Presenter;
+import com.chinayiz.chinayzy.presenter.CommonPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class PayFragment extends BaseFragment<Presenter> implements View.OnClickListener {
+public class PayFragment extends BaseFragment<CommonPresenter> implements View.OnClickListener {
     private TextView tv_two;
 
     @Override
@@ -38,8 +38,8 @@ public class PayFragment extends BaseFragment<Presenter> implements View.OnClick
     }
 
     @Override
-    public Presenter initPresenter() {
-        return new Presenter();
+    public CommonPresenter initPresenter() {
+        return new CommonPresenter();
     }
 
     @Override

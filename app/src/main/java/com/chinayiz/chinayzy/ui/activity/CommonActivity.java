@@ -29,9 +29,10 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.presenter.Presenter;
+import com.chinayiz.chinayzy.presenter.CommonPresenter;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
+import com.chinayiz.chinayzy.utils.StrCallback;
 import com.jaiky.imagespickers.ImageSelectorActivity;
 import com.orhanobut.logger.Logger;
 
@@ -46,7 +47,7 @@ import static com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment.REQUES
  * @author Luki
  */
 
-public class CommonActivity extends BaseActivity<Presenter> implements FragmentManager.OnBackStackChangedListener {
+public class CommonActivity extends BaseActivity<CommonPresenter> implements FragmentManager.OnBackStackChangedListener {
     public static final String RESULT_BACK = "RESULT_BACK";
     public static final int IMAGE_REQUEST_CODE = 0x00008000;
     public static final int RESIZE_REQUEST_CODE = 0x00008001;
@@ -153,11 +154,15 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
 
     }
 
-
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
-
+        if (login_flag.equals(StrCallback.RESPONSE_CODE_USER_OUT)) {
+            if (mMaterialDialog!=null) {
+                mMaterialDialog.dismiss();
+            }
+            finish();
+        }
     }
 
     @Override
@@ -176,8 +181,8 @@ public class CommonActivity extends BaseActivity<Presenter> implements FragmentM
     }
 
     @Override
-    protected Presenter initPresenter() {
-        return new Presenter();
+    protected CommonPresenter initPresenter() {
+        return new CommonPresenter();
     }
 
     @Override
