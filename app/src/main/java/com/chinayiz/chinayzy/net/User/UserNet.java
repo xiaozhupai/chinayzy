@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.net.User;
 
-import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
@@ -13,17 +12,14 @@ import com.chinayiz.chinayzy.entity.response.ShopCollectModel;
 import com.chinayiz.chinayzy.entity.response.TagsModel;
 import com.chinayiz.chinayzy.entity.response.UserModel;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.net.callback.StrCallback;
-import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.orhanobut.logger.Logger;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
-
-import static com.zhy.http.okhttp.OkHttpUtils.post;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2017/2/22.
@@ -61,29 +57,17 @@ public class UserNet {
      * 个人中心个人信息
      */
     public void getPersonalCenter() {
-        String time=System.currentTimeMillis()+"";
-        String sing= Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.GETPERSONALCENTER)
-                .addParams("time", time)
-                .addParams("userid", APP.sUserid)
-                .addParams("sign", sing)
-                .tag("ny")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.GETPERSONALCENTER)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.GETPERSONALCENTER
                                     ,mGson.fromJson(s,PersonalModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -94,30 +78,17 @@ public class UserNet {
      */
 
     public void gethyqyandyhxy() {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.GETHYQYANDYHXY)
-                .addParams("time", time)
-                .addParams("userid", APP.sUserid)
-                .addParams("sign", sing)
-                .tag("ny")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.GETHYQYANDYHXY)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.GETHYQYANDYHXY
                                     ,mGson.fromJson(s,HyqyAndYhxyModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -128,30 +99,17 @@ public class UserNet {
      * 获取用户信息
      */
     public void getUserInfo() {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.GETUSERINFO)
-                .addParams("time", time)
-                .addParams("userid", APP.sUserid)
-                .addParams("sign", sing)
-                .tag("ny")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.GETUSERINFO)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.GETUSERINFO
                                     ,mGson.fromJson(s,UserModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -212,33 +170,22 @@ public class UserNet {
                 key="educational";
                 break;
         }
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.EDITUSER)
-                .addParams("userid", APP.sUserid)
-                .addParams("time",time)
-                .addParams(key,param)
-                .addParams("sign",sing)
-                .tag("ny")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.EDITUSER)
+                .params(key,param)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,index
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
     }
 
 
@@ -249,35 +196,23 @@ public class UserNet {
      * @param idea  反馈内容
      */
     public void getAddIdea(String theme,String idea) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
-                .url(Commons.API + Commons.ADDIDEA)
-                .addParams("time",time)
-                .addParams("theme", theme)
-                .addParams("idea", idea)
-                .addParams("userid",APP.sUserid)
-                .addParams("sign",sing)
-                .tag("ny")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.EDITUSER)
+                .params("theme",theme)
+                .params("idea",idea)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.ADDIDEA
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
     }
 
 
@@ -285,28 +220,17 @@ public class UserNet {
      *  获取个性标签
      */
     public void getTags() {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.GETTAGS)
-                .tag("ny")
-                .addParams("userid",APP.sUserid)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.GETTAGS)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.GETTAGS
                                     ,mGson.fromJson(s,TagsModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -320,30 +244,19 @@ public class UserNet {
      * @param tagid  系统标签id集合，逗号分隔
      */
     public void getFinishTags(String tag,String tagid) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.FINISHTAGS)
-                .tag("ny")
-                .addParams("userid",APP.sUserid)
-                .addParams("tag",tag)
-                .addParams("tagid",tagid)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.FINISHTAGS)
+                .params("tag",tag)
+                .params("tagid",tagid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.FINISHTAGS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -355,32 +268,19 @@ public class UserNet {
      * @param isdianzan  是否点赞
      */
     public void getDiZan(String bid,String isdianzan) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.DIZAN)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("blogid",bid)
-                .addParams("isdianzan",isdianzan)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.DIZAN)
+                .params("bid",bid)
+                .params("isdianzan",isdianzan)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.DIZAN
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -392,65 +292,41 @@ public class UserNet {
      * @param iscollect  是否收藏
      */
     public void getCollection(String bid,String iscollect) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.CANCELCOLLECT)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("blogid",bid)
-                .addParams("iscollect",iscollect)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.CANCELCOLLECT)
+                .params("bid",bid)
+                .params("iscollect",iscollect)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.CANCELCOLLECT
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
+
     }
 
     /**
      *  获得收货地址列表
      */
     public void getshowAddress() {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.SHOWADDRESS)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.SHOWADDRESS)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.SHOWADDRESS
                                     ,mGson.fromJson(s,AddressListModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -468,41 +344,30 @@ public class UserNet {
      * @param lat  纬度
      */
     public void geteditAddress(String addressid,String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.EDITADDRESS)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("addressid",addressid)
-                .addParams("consignee",consignee)
-                .addParams("phone",phone)
-                .addParams("area",area)
-                .addParams("address",address)
-                .addParams("specificaddress",specificaddress)
-                .addParams("lng",lng)
-                .addParams("lat",lat)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
 
+        OkGo.post(Commons.API + Commons.EDITADDRESS)
+                .params("addressid",addressid)
+                .params("consignee",consignee)
+                .params("phone",phone)
+                .params("area",area)
+                .params("address",address)
+                .params("lng",lng)
+                .params("lat",lat)
+                .params("specificaddress",specificaddress)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.EDITADDRESS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
     }
 
 
@@ -511,34 +376,22 @@ public class UserNet {
      * @param addressid   地址ID
      */
     public void getdefaultAddress(String addressid) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API+Commons.DEFAULTADDRESS)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("addressid",addressid)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.DEFAULTADDRESS)
+                .params("addressid",addressid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.DEFAULTADDRESS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
     }
 
     /**
@@ -546,34 +399,23 @@ public class UserNet {
      * @param addressid   地址ID
      */
     public void getdeleteAddress(String addressid) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.DELETEADDRESS)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("addressid",addressid)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.DELETEADDRESS)
+                .params("addressid",addressid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.DELETEADDRESS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
+
     }
 
     /**
@@ -586,37 +428,24 @@ public class UserNet {
      * @param lat  纬度
      */
     public void getaddAddress(String consignee,String phone,String area,String address,String lng,String lat,String specificaddress) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.ADDADDRESS)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("consignee",consignee)
-                .addParams("phone",phone)
-                .addParams("area",area)
-                .addParams("address",address)
-                .addParams("specificaddress",specificaddress)
-                .addParams("lng",lng)
-                .addParams("lat",lat)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.ADDADDRESS)
+                .params("consignee",consignee)
+                .params("phone",phone)
+                .params("area",area)
+                .params("address",address)
+                .params("lng",lng)
+                .params("lat",lat)
+                .params("specificaddress",specificaddress)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     ,Commons.ADDADDRESS
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -628,35 +457,23 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowGoodsCollect(String page,String size) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.SHOWGOODSCOLLECT)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid", APP.sUserid)
-                .addParams("page",page)
-                .addParams("size",size)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.SHOWGOODSCOLLECT)
+                .params("page",page)
+                .params("size",size)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOWGOODSCOLLECT
                                     ,mGson.fromJson(s,GoodsCollectModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
     }
 
     /**
@@ -665,32 +482,19 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowShopCollect(String page,String size) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.SHOWSHOPCOLLECT)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid", APP.sUserid)
-                .addParams("page",page)
-                .addParams("size",size)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.SHOWSHOPCOLLECT)
+                .params("page",page)
+                .params("size",size)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOWSHOPCOLLECT
                                     ,mGson.fromJson(s,ShopCollectModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -702,35 +506,23 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowBlogCollect(String page,String size) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.SHOWBLOGCOLLECT)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid", APP.sUserid)
-                .addParams("page",page)
-                .addParams("size",size)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.SHOWBLOGCOLLECT)
+                .params("page",page)
+                .params("size",size)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOWBLOGCOLLECT
                                     ,mGson.fromJson(s,ArticleModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
     }
 
     /**
@@ -739,35 +531,24 @@ public class UserNet {
      * @param size    当前页条数
      */
     public void getshowFootMarks(String page,String size) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.SHOWFOOTMARKS)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid", APP.sUserid)
-                .addParams("page",page)
-                .addParams("size",size)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.SHOWFOOTMARKS)
+                .params("page",page)
+                .params("size",size)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOWFOOTMARKS
                                     ,mGson.fromJson(s,MyStepModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
+
     }
 
     /**
@@ -776,34 +557,24 @@ public class UserNet {
      */
 
     public void getdeletefootmark(String goodsid) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.DELETEFOOTMARK)
-                .tag("ny")
-                .addParams("time",time)
-                .addParams("userid", APP.sUserid)
-                .addParams("goodsid",goodsid)
-                .addParams("sign",sing)
-                .build()
-                .execute(new StrCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString()+"错误码："+i);
-                    }
+        OkGo.post(Commons.API + Commons.DELETEFOOTMARK)
+                .params("goodsid",goodsid)
 
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.DELETEFOOTMARK
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
+
     }
 
 

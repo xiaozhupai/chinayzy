@@ -16,7 +16,6 @@ import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.utils.DES3;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
-import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
 import com.chinayiz.chinayzy.utils.StrCallback;
 import com.lzy.okgo.OkGo;
@@ -92,6 +91,7 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initdebug(this);
         CrashReport.initCrashReport(getApplicationContext(), "a3d9e23cd5", false);  //bugly初始化
         MobSDK.init(this);   //Share初始化
         cacheUtil = GlideCacheUtil.getInstance();
@@ -101,7 +101,6 @@ public class APP extends Application {
         AppInfo.init(this);
         initData();
         initoss();
-        initdebug(this);
         sUserid = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid", 0) + "";
         phone = getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone", "-1");
     }
@@ -111,13 +110,8 @@ public class APP extends Application {
      */
     private void initData() {
 
-        String time=System.currentTimeMillis()+"";
-        String sing= Md5Untils.getSign(time);
-        //param支持中文,直接传,不要自己编码
         HttpParams params = new HttpParams();
-        params.put("time", time);
-        params.put("userid",APP.sUserid);
-        params.put("sign",sing);
+        params.put("imei",AppInfo.IMEI);
         OkGo.init(this);
         try{
             OkGo.getInstance()
