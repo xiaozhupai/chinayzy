@@ -20,6 +20,7 @@ import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
+import com.chinayiz.chinayzy.utils.StrCallback;
 import com.chinayiz.chinayzy.views.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -100,6 +101,17 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
             case R.id.iv_more_button://更多
                 showToast(this, "更多");
                 break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (login_flag.equals(StrCallback.RESPONSE_CODE_USER_OUT)) {
+            if (mMaterialDialog!=null) {
+                mMaterialDialog.dismiss();
+            }
+            finish();
         }
     }
 

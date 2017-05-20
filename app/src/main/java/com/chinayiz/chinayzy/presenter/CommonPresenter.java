@@ -4,7 +4,8 @@ import android.os.Bundle;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.net.User.UserNet;
+import com.chinayiz.chinayzy.ui.activity.CommonActivity;
+import com.chinayiz.chinayzy.utils.StrCallback;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -13,7 +14,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Created by Administrator on 2017/3/4.
  */
 
-public class Presenter extends BasePresenter {
+public class CommonPresenter extends BasePresenter<CommonActivity> {
     @Override
     protected void onCreate() {
 
@@ -32,8 +33,9 @@ public class Presenter extends BasePresenter {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-
-
+        if (StrCallback.RESPONSE_CODE_USER_OUT.equals(message.getDataType())){
+            mView.showUserOut();
+        }
     }
 
     @Override

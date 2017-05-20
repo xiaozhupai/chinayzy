@@ -29,6 +29,7 @@ import com.chinayiz.chinayzy.ui.fragment.MainFtagment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.utils.NetworkUtils;
+import com.chinayiz.chinayzy.utils.StrCallback;
 import com.chinayiz.chinayzy.views.NoScrollViewPager;
 import com.orhanobut.logger.Logger;
 
@@ -79,7 +80,19 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     protected void onCreateActivity(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_new);
         setStatuBarColor(this,Color.rgb(218, 22, 47));
+        login_flag="";
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (login_flag.equals(StrCallback.RESPONSE_CODE_USER_OUT)) {
+            if (mMaterialDialog!=null) {
+                mMaterialDialog.dismiss();
+            }
+            finish();
+        }
     }
 
     private void initView() {

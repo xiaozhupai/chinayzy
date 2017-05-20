@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
+import com.chinayiz.chinayzy.utils.StrCallback;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -109,6 +110,9 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
+        if (StrCallback.RESPONSE_CODE_USER_OUT.equals(message.getDataType())){
+            mView.showUserOut();
+        }
         if (message.getEventType() == EventMessage.NET_EVENT) {
             disposeNetMsg(message);
         }

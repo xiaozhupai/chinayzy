@@ -25,7 +25,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.presenter.Presenter;
+import com.chinayiz.chinayzy.presenter.CommonPresenter;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.EventBus;
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class WebPowerFragment extends BaseFragment<Presenter> {
+public class WebPowerFragment extends BaseFragment<CommonPresenter> {
     public static final String CLASS_NAME=WebPowerFragment.class.getSimpleName();
     public static final String SHARE="分享推荐码";
     public static final String ACTIVITY="活动中心";
@@ -81,8 +81,8 @@ public class WebPowerFragment extends BaseFragment<Presenter> {
     }
 
     @Override
-    public Presenter initPresenter() {
-        return new Presenter();
+    public CommonPresenter initPresenter() {
+        return new CommonPresenter();
     }
 
     @Override

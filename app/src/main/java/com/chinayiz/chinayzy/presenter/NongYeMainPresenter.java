@@ -7,6 +7,7 @@ import com.chinayiz.chinayzy.MainActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.ui.activity.NongYeMainActivity;
+import com.chinayiz.chinayzy.utils.StrCallback;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -34,6 +35,9 @@ public class NongYeMainPresenter extends BasePresenter<NongYeMainActivity> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
+        if (StrCallback.RESPONSE_CODE_USER_OUT.equals(message.getDataType())){
+            mView.showUserOut();
+        }
         if (message.getEventType()==EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }

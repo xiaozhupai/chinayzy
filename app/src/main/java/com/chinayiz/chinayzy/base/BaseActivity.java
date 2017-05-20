@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
 import android.view.View;
@@ -16,10 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
+import com.chinayiz.chinayzy.utils.StrCallback;
 
 /**
  * author  by  Canrom7 .
@@ -32,6 +36,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * ActionBar标题
      */
     public TextView mTvActionBarTitle;
+    public MaterialDialog mMaterialDialog;
     /**
      * 返回按钮；购物车按钮；更多按钮
      */
@@ -41,8 +46,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      */
     public CheckBox mCbActionBarEdit;
     protected T mPresenter;
-    protected String className="";
-
+    protected String className = "";
+    public static String login_flag="";
     protected static Toast toast;
     public String TAG;
     public FragmentManager fragmentManager;
@@ -98,6 +103,38 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.onDestroy();
     }
 
+    public void showUserOut() {
+        final Context context = this;
+        login_flag= StrCallback.RESPONSE_CODE_USER_OUT;
+        mMaterialDialog=new MaterialDialog.Builder(context)
+                .limitIconToDefaultSize()
+                .title("下线通知")
+                .titleColor(Color.rgb(209, 97, 88))
+                .content("您的账号在其他设备登录亿众，" +
+                        "如果不是你本人操作，你的密码已泄漏。如果对方登录成功，" +
+                        "本设备将会被强制退出登录。请立刻前往登录页修改密码，慎防盗号。")
+                .negativeText("忽略")
+                .positiveText("修改密码")
+                .contentColor(Color.rgb(43, 43, 43))
+                .backgroundColor(Color.rgb(230, 230, 230))
+                .negativeColor(Color.rgb(214, 101, 88))
+                .positiveColor(Color.rgb(10, 10, 10))
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (DialogAction.POSITIVE.toString().equals(which.name())) {  //忽略
+                            Skip.toLogin(context);
+                        } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //修改密码
+                            dialog.dismiss();
+                            finish();
+                        }
+                    }
+                })
+                .cancelable(false)
+                .build();
+        mMaterialDialog.show();
+    }
+
     /**
      * 创建prensenter
      *
@@ -127,6 +164,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     /**
      * 显示吐司，解决重复延时展示问题
+     *
      * @param context
      * @param content
      */
@@ -144,10 +182,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void addtoFragment(Intent intent) {
         @SuppressWarnings("unchecked") Class<? extends BaseFragment> clazz = (Class<? extends BaseFragment>) intent.getSerializableExtra(Skip.CLASS);
         try {
-            className=clazz.getSimpleName();
+            className = clazz.getSimpleName();
             BaseFragment fragment = clazz.newInstance();
             fragment.setArguments(intent.getExtras());
-            Bundle bundle=intent.getExtras();
+            Bundle bundle = intent.getExtras();
             addFragment(fragment);
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +199,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void addFragment(BaseFragment fragment) {
         Class<?> classz = fragment.getClass();
-        mFragment=fragment;
+        mFragment = fragment;
         try {
             fragmentManager.beginTransaction()
                     .add(R.id.content_frame, fragment, classz.getSimpleName())
@@ -170,13 +208,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         } catch (Exception e) {
             e.printStackTrace();
             fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment,classz.getSimpleName())
+                    .add(R.id.content_frame, fragment, classz.getSimpleName())
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
         }
     }
-
-
 
 
     @Override
