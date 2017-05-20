@@ -22,12 +22,15 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.UserNamePresenter;
+import com.chinayiz.chinayzy.utils.JavaUntil;
+import com.chinayiz.chinayzy.views.PickView.TimePickerView;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.chinayiz.chinayzy.widget.PickView;
 import com.orhanobut.logger.Logger;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -237,13 +240,23 @@ public class UserFragment extends BaseFragment<UserNamePresenter> implements Vie
             case R.id.et_email:
                 switch (index){  //出生日期
                     case 2:
-                        DatePickerDialog dateDlg = new DatePickerDialog(getActivity(),
-                                this,
-                                dateAndTime.get(Calendar.YEAR),
-                                dateAndTime.get(Calendar.MONTH),
-                                dateAndTime.get(Calendar.DAY_OF_MONTH));
+                        TimePickerView pvTime=new TimePickerView(getActivity(), TimePickerView.Type.YEAR_MONTH_DAY);
+                     Calendar calendar=   Calendar.getInstance();
+                        pvTime.setRange(1940,calendar.get(Calendar.YEAR));
+                        pvTime.setTime(new Date());
+                        pvTime.setCyclic(false);
+                        pvTime.setCancelable(true);
+                        // 时间选择后回调
+                        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener()
+                        {
 
-                        dateDlg.show();
+                            @Override
+                            public void onTimeSelect(Date date)
+                            {
+                                et_birthday.setText(JavaUntil.getTime(date));
+                            }
+                        });
+                     pvTime.show();
                         break;
                     case 3:
                         PickView pickView=new PickView(getActivity());

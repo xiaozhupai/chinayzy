@@ -1,8 +1,6 @@
 package com.chinayiz.chinayzy.net.Login;
 
 
-import com.chinayiz.chinayzy.APP;
-import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
@@ -13,17 +11,14 @@ import com.chinayiz.chinayzy.entity.response.ThirdModel;
 import com.chinayiz.chinayzy.entity.response.WechatAccessModel;
 import com.chinayiz.chinayzy.entity.response.WechatInfoModel;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.net.callback.StrCallback;
-import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.orhanobut.logger.Logger;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
-
-import static com.zhy.http.okhttp.OkHttpUtils.post;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2017/2/4.
@@ -118,36 +113,23 @@ public class LoginNet {
      * @param idcard     身份证号码
      */
     public void toRegister(String phone,String yzm,String password,String recommendcard,String realname,String idcard){
-        String time=System.currentTimeMillis()+"";
-        String sing= Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.REGISTER)
-                .addParams("imei", AppInfo.IMEI)
-                .addParams("phone",phone)
-                .addParams("yzm",yzm)
-                .addParams("password",password)
-                .addParams("userid","0")
-                .addParams("recommendcard",recommendcard)
-                .addParams("realname",realname)
-                .addParams("idcard",idcard)
-                .addParams("sign",sing)
-                .addParams("time",time)
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.REGISTER).
+                params("phone",phone)
+                .params("yzm",yzm)
+                .params("password",password)
+                .params("recommendcard",recommendcard)
+                .params("realname",realname)
+                .params("idcard",idcard)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.REGISTER
                                     ,mGson.fromJson(s,RegisterModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -158,36 +140,22 @@ public class LoginNet {
      */
 
     public void toLogin(String username,String password) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.LOGIN)
-                .addParams("userid","0")
-                .addParams("phone", username)
-                .addParams("password",password)
-                .addParams("time",time)
-                .addParams("sign",sing)
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.LOGIN).
+                params("phone",username)
+                .params("password",password)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.LOGIN
                                     ,mGson.fromJson(s,LoginModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
-
     }
 
     /**
@@ -195,34 +163,20 @@ public class LoginNet {
      */
 
     public void getToken() {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.TOKEN)
-                .addParams("userid", APP.sUserid)
-                .addParams("time",time)
-                .addParams("sign",sing)
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.TOKEN)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.TOKEN
                                     ,mGson.fromJson(s,RongModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
-
     }
 
     /**
@@ -230,32 +184,20 @@ public class LoginNet {
      */
 
     public void toBackpwd(String username,String newpassword,String sendMessage) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.BACKPWD)
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("phone", username)
-                .addParams("newpwd",newpassword)
-                .addParams("yzm",sendMessage)
-                .addParams("sign",sing)
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.BACKPWD)
+                .params("phone",username)
+                .params("yzm",sendMessage)
+                .params("newpwd",newpassword)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.BACKPWD
                                     ,mGson.fromJson(s,BaseResponseModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -265,30 +207,18 @@ public class LoginNet {
      * 发送验证码
      */
     public void toSendMessage(String  phone) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        post()
-                .url(Commons.API + Commons.SRYCODE)
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("phone", phone)
-                .addParams("sign",sing)
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.SRYCODE)
+                .params("phone",phone)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SRYCODE
                                     ,mGson.fromJson(s,StringModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -305,39 +235,26 @@ public class LoginNet {
      * @param sex  性别 0.男 1.女
      */
     public void toThird(String thirdid,String logintype,String pic,String nickname,String sex) {
-        String time=System.currentTimeMillis()+"";
-        String sing=Md5Untils.getSign(time);
-        OkHttpUtils
-                .post()
-                .url(Commons.API + Commons.THIRD)
-                .addParams("time",time)
-                .addParams("userid",APP.sUserid)
-                .addParams("imei", AppInfo.IMEI)
-                .addParams("thirdid",thirdid)
-                .addParams("logintype",logintype)
-                .addParams("pic",pic)
-                .addParams("nickname",nickname)
-                .addParams("sex",sex)
-                .addParams("sign",sing)
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.THIRD)
+                .params("thirdid",thirdid)
+                .params("logintype",logintype)
+                .params("pic",pic)
+                .params("nickname",nickname)
+                .params("sex",sex)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.THIRD
                                     ,mGson.fromJson(s,ThirdModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
+
     }
 
     /**
@@ -345,30 +262,21 @@ public class LoginNet {
      * @param code
      */
     public void togetAccessToken(String code){
-        OkHttpUtils
-                .get()
-                .url(Commons.ACCESS_TOKEN)
-                .addParams("appid", "")
-                .addParams("secret","")
-                .addParams("code",code)
-                .addParams("grant_type","grant_type")
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.ACCESS_TOKEN)
+                .params("code",code)
+                .params("appid","")
+                .params("secret","")
+                .params("grant_type","grant_type")
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ACCESS_TOKEN
                                     ,mGson.fromJson(s,WechatAccessModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
@@ -379,33 +287,25 @@ public class LoginNet {
      * @param refresh_token  刷新token的唯一标识符
      */
     public void toRefreshToken(String refresh_token){
-        OkHttpUtils
-                .get()
-                .url(Commons.REFRESH_TOKEN)
-                .addParams("appid", "")
-                .addParams("refresh_token",refresh_token)
-                .addParams("grant_type","refresh_token")
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.REFRESH_TOKEN)
+                .params("refresh_token","refresh_token")
+                .params("appid","")
+                .params("grant_type","refresh_token")
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.REFRESH_TOKEN
                                     ,mGson.fromJson(s,WechatAccessModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
     }
+
 
     /**
      * 获得微信用户信息
@@ -413,35 +313,21 @@ public class LoginNet {
      * @param openid
      */
     public void togetWechatUserInfo(String access_token,String openid){
-        OkHttpUtils
-                .get()
-                .url(Commons.REFRESH_TOKEN)
-                .addParams("access_token",access_token)
-                .addParams("openid",openid)
-                .tag("login")
-                .build()
-                .execute(new StrCallback() {
+        OkGo.post(Commons.API + Commons.REFRESH_TOKEN)
+                .params("access_token",access_token)
+                .params("openid",openid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int i) {
-                        Logger.e("错误信息："+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
+                    public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.REFRESH_TOKEN
                                     ,mGson.fromJson(s,WechatInfoModel.class)));
                         }catch (Exception e){
-                            onError(null,e,i);
+                            onError(null,response,e);
                         }
                     }
                 });
-
     }
-
-
-
-
 }

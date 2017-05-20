@@ -13,9 +13,12 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.utils.DES3;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
+import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
+import com.chinayiz.chinayzy.utils.StrCallback;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import cn.sharesdk.framework.ShareSDK;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * author  by  Canrom7 .
@@ -87,6 +92,7 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initdebug(this);
         CrashReport.initCrashReport(getApplicationContext(), "a3d9e23cd5", false);  //bugly初始化
         MobSDK.init(this);   //Share初始化
         cacheUtil = GlideCacheUtil.getInstance();
@@ -96,7 +102,6 @@ public class APP extends Application {
         AppInfo.init(this);
         initData();
         initoss();
-        initdebug(this);
         sUserid = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid", 0) + "";
         phone = getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone", "-1");
     }
@@ -105,6 +110,7 @@ public class APP extends Application {
      * 应用启动时初始化加载用户设置偏好
      */
     private void initData() {
+
         HttpParams params = new HttpParams();
         params.put("imei",AppInfo.IMEI);
         OkGo.init(this);

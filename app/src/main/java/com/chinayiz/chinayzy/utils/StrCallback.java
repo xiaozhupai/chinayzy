@@ -1,6 +1,5 @@
 package com.chinayiz.chinayzy.utils;
 
-import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
@@ -44,6 +43,7 @@ public abstract class StrCallback extends AbsCallback<String>{
         }
         return s;
     }
+
     @Override
     public void onBefore(BaseRequest request) {
         super.onBefore(request);
@@ -55,6 +55,8 @@ public abstract class StrCallback extends AbsCallback<String>{
         params.put("sign",sing);
         request.params(params);
     }
+
+
 
     @Override
     public void onError(Call call, Response response, Exception e) {
