@@ -128,6 +128,7 @@ public class APP extends Application {
             Logger.e("Okhttp初始化失败");
             e.printStackTrace();
         }
+
     }
 
     /**

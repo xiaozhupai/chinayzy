@@ -56,7 +56,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
      */
     private NyMainPagerAdapter mPagerAdapter;
     /**
-     * 禁止左右滑动的viewPager
+     *  禁止左右滑动的viewPager
      */
     private NoScrollViewPager mViewPager;
     private List<Fragment> mFragments;

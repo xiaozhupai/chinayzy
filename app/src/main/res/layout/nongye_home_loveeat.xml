@@ -5,6 +5,12 @@
               android:layout_width="match_parent"
               android:background="@color/Background"
               android:layout_height="wrap_content">
+    <View
+        android:id="@+id/view_line1"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@color/nYline"
+        />
     <!--生态农业首页爱吃主题-->
     <TextView
         android:id="@+id/tv_ThemTitle"

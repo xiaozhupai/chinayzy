@@ -8,6 +8,7 @@ import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.StringConvert;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.request.BaseRequest;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,7 +44,6 @@ public abstract class StrCallback extends AbsCallback<String>{
         }
         return s;
     }
-
     @Override
     public void onBefore(BaseRequest request) {
         super.onBefore(request);
@@ -53,11 +53,14 @@ public abstract class StrCallback extends AbsCallback<String>{
         params.put("time", time);
         params.put("userid", APP.sUserid);
         params.put("sign",sing);
+        request.params(params);
     }
 
     @Override
     public void onError(Call call, Response response, Exception e) {
         super.onError(call, response, e);
+        Logger.e("请求失败="+e);
         EventBus.getDefault().post(new EventMessage(EventMessage.ERROR_EVENT,"",e));
     }
+
 }

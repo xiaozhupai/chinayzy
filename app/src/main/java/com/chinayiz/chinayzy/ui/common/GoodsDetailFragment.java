@@ -317,7 +317,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
          * 价格处理段
          */
         setPrice(mDetailModel.getPrice());
-        mViewHolder.tv_deals.setText(mDetailModel.getRebate());
+        mViewHolder.tv_deals.setText("\t"+mDetailModel.getRebate());
         int cnt = 0;
         int offset = 0;
         while ((offset = mDetailModel.getService().indexOf(",", offset)) != -1) {
