@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.ui.fragment.WebFragment;
 import com.chinayiz.chinayzy.utils.BarUtils;
 import com.chinayiz.chinayzy.utils.StrCallback;
@@ -105,6 +107,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void showUserOut() {
         final Context context = this;
+        UserSeeion.logout(context);
+        APP.sUserid="0";
         login_flag= StrCallback.RESPONSE_CODE_USER_OUT;
         mMaterialDialog=new MaterialDialog.Builder(context)
                 .limitIconToDefaultSize()

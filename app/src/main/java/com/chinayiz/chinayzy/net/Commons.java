@@ -9,8 +9,12 @@ import com.chinayiz.chinayzy.APP;
 
 public class Commons {
     public static final boolean isDebug = APP.APP_DBG;
+    /**
+     * 主机地址 http://106.14.20.226/yzyProduct/v1/api
+     */
+    public static final String API = isDebug ? "http://192.168.1.8:8081/yzyProduct/v1/api" : "http://106.14.20.226/yzyProduct/v1/api";
     public static final String PAY = isDebug ? "http://192.168.200.132:8081/yzyProduct/v1/api" : "http://106.14.20.226/yzyProduct/v1/api";
-
+    public static final String SHARE =isDebug?"http://192.168.1.8:8081/yzyProduct/v1/api":"http://www.chinayiz.cn/yzyProduct/v1/api";
     public static final String HOST = "http://yzy-app-img.oss-cn-shanghai.aliyuncs.com";
     //获得accss_token
     public static final String ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token";
@@ -18,11 +22,6 @@ public class Commons {
     public static final String REFRESH_TOKEN = "https://api.weixin.qq.com/sns/oauth2/refresh_token";
     //微信获得用户信息
     public static final String WECHAT_USERINFO = "https://api.weixin.qq.com/sns/userinfo";
-    public static final String SHARE =isDebug?"http://192.168.1.8:8081/yzyProduct/v1/api":"http://www.chinayiz.cn/yzyProduct/v1/api";
-    /**
-     * 主机地址 http://106.14.20.226/yzyProduct/v1/api
-     */
-    public static final String API = isDebug ? "http://192.168.1.8:8081/yzyProduct/v1/api" : "http://106.14.20.226/yzyProduct/v1/api";
     /**
      * 添加购物车
      */

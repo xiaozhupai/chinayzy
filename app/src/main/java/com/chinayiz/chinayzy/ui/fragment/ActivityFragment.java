@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.model.ShareVipModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.ActivityPresenter;
 import com.orhanobut.logger.Logger;
@@ -38,6 +39,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     private boolean fristLoad=true;
     public WebView wv_view;
     public static final String SHARE="分享推荐码";
+    public static final String SHARE_VIP="分享vip";
     public ProgressBar progressbar;
     public String url= Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
     @Override
@@ -151,8 +153,17 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     }
 
     /**
-     * 提交活动奖励表单
+     * 分享
      */
+    @JavascriptInterface
+    public void startFunction(String theme,String introduce,String icon,String url){
+        ShareVipModel model=new ShareVipModel(theme,introduce,icon,url);
+        Logger.i("被jiS 调用了 数据="+model.toString());
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE_VIP,model));
+    }
+    /**
+     * 提交活动奖励表单
+     */ 
     @JavascriptInterface
     public void submitFunction() {
         Logger.i("被JS调用");

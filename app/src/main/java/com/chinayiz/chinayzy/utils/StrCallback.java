@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.utils;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;

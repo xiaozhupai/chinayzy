@@ -20,7 +20,6 @@ public class UserSeeion {
             context.startActivity(intent);
             return false;
         }
-
         return true;
     }
 

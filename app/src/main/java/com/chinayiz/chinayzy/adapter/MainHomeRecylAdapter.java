@@ -209,7 +209,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return mHotGoodsModel == null ? size : size + (mHotGoodsModel.getData().size() / 2);
+        return mHotGoodsModel == null||mHotGoodsModel.getData()==null ? size : size + (mHotGoodsModel.getData().size() / 2);
     }
 
     /**
@@ -242,6 +242,9 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public void setData(NY_BannerModel model) {
             mModel = model;
+            if (mModel==null) {
+                return;
+            }
             mUrls.clear();
             for (NY_BannerModel.Data data : mModel.getData()) {
                 mUrls.add(data.getShowlink());

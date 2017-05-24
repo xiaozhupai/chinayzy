@@ -11,10 +11,12 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.model.ShareVipModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.utils.StrCallback;
 import com.chinayiz.chinayzy.widget.ShareDialog;
@@ -75,7 +77,6 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 mShareDialog = new ShareDialog(messageData, model.getData().getImage(),
                         model.getData().getWebpageUrl(), model.getData().getTitle(),
                         model.getData().getContent());
-
                 mShareDialog.show();
                 break;
             case WebPowerFragment.SHARE://分享点击
@@ -86,7 +87,15 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 UserSeeion.isLogin(mView.getActivity());
                 mView.mRadioButton.setChecked(true);
                 break;
+            case ActivityFragment.SHARE_VIP:
+                ShareVipModel shareVipModel= (ShareVipModel) message.getData();
+                //设置分享内容
+                mShareDialog = new ShareDialog(mView, shareVipModel.getIcon(),
+                        shareVipModel.getUrl(), shareVipModel.getTheme(),
+                        shareVipModel.getIntroduce());
+                mShareDialog.show();
 
+                break;
         }
     }
 

@@ -45,7 +45,11 @@ public class MinePresenter extends BasePresenter<MineFragment> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
         if (message.getEventType()==EventMessage.NET_EVENT){
-            disposeNetMsg(message);
+            try {
+                disposeNetMsg(message);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

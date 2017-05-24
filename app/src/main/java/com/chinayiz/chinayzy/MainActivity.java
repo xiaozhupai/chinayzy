@@ -214,7 +214,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                                             ensureDowload();
                                             dialog.dismiss();
                                         }
-
                                     }
                                 } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //取消更新
                                     Logger.i("取消");

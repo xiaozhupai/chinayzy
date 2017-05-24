@@ -13,12 +13,9 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.utils.DES3;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
-import com.chinayiz.chinayzy.utils.Md5Untils;
 import com.chinayiz.chinayzy.utils.SDCardUtil;
-import com.chinayiz.chinayzy.utils.StrCallback;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -31,8 +28,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import cn.sharesdk.framework.ShareSDK;
-import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * author  by  Canrom7 .
@@ -113,6 +108,7 @@ public class APP extends Application {
 
         HttpParams params = new HttpParams();
         params.put("imei",AppInfo.IMEI);
+        Logger.i("设备唯一标识="+AppInfo.IMEI);
         OkGo.init(this);
         try{
             OkGo.getInstance()
