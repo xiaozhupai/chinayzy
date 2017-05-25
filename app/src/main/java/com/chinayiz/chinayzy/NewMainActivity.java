@@ -328,6 +328,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
             }
         }
         if (type == 2) {//强制更新
+
             new MaterialDialog.Builder(this)
                     .iconRes(R.mipmap.ic_launcher)
                     .limitIconToDefaultSize()

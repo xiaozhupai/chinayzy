@@ -25,6 +25,7 @@ import com.chinayiz.chinayzy.entity.response.PayModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
+import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
@@ -942,7 +943,7 @@ public class CommonRequestUtils {
      * @param brands   品牌   用逗号隔开
      */
     public void getSearchMallGoods(String page,String size,String type,String isself,String credit,String brands) {
-        OkGo.post(Commons.API + Commons.RECOMMEND_INFO)
+        OkGo.post(Commons.API + Commons.SEARCHMALLGOODS)
                 .params("page",page)
                 .params("size",size)
                 .params("type",type)
@@ -955,8 +956,8 @@ public class CommonRequestUtils {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.RECOMMEND_INFO
-                                    , mGson.fromJson(s, RecommendCodeModel.class)));
+                                    , Commons.SEARCHMALLGOODS
+                                    , mGson.fromJson(s, SearchFarmModel.class)));
                         }catch (Exception e){
                             onError(null,response,e);
                         }
