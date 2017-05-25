@@ -1,10 +1,13 @@
 package com.chinayiz.chinayzy.utils;
 
+import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.StringConvert;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.request.BaseRequest;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,16 +44,7 @@ public abstract class StrCallback extends AbsCallback<String>{
         return s;
     }
 
-    @Override
-    public void onBefore(BaseRequest request) {
-        super.onBefore(request);
-        String time=System.currentTimeMillis()+"";
-        String sing= Md5Untils.getSign(time);
-        HttpParams params = new HttpParams();
-        params.put("time", time);
-        params.put("userid", APP.sUserid);
-        params.put("sign",sing);
-    }
+
 
     @Override
     public void onBefore(BaseRequest request) {

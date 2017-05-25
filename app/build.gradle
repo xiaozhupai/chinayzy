@@ -15,7 +15,7 @@ android {
         applicationId "com.chinayiz.chinayzy"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 6
+        versionCode 7
         versionName "2.0.1"
 
     }

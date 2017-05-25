@@ -88,6 +88,8 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
             return;
         }
 
+
+
         String message = mView.et_register_message.getText().toString().trim();
         if (TextUtils.isEmpty(message)) {
             Toast.makeText(mView.getActivity(), "请输入验证码", Toast.LENGTH_SHORT).show();
@@ -116,12 +118,6 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
             return;
         }
 
-        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|17[0-9]|18[0|1|2|3|5|6|7|8|9]|19[0-9])\\d{8}$");
-        Matcher matcher=pattern.matcher(phone);
-        if (!matcher.find()){
-            BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
-            return;
-        }
      String recommendcard=mView.et_register_recommendcard.getText().toString().trim();
             LoginNet.getLoginNet().toRegister(phone,message,password,recommendcard,truename,card);
 

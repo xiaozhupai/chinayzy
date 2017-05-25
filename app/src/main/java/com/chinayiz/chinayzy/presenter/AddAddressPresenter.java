@@ -22,8 +22,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2017/1/13.
@@ -166,6 +164,8 @@ public class AddAddressPresenter extends BasePresenter<AddAddressFragment> {
             return;
         }
 
+
+
         String address =mView.  et_address.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             Toast.makeText(mView.getActivity(), "收货地址不能为空", Toast.LENGTH_SHORT).show();
@@ -174,13 +174,6 @@ public class AddAddressPresenter extends BasePresenter<AddAddressFragment> {
         String parter=mView.tv_part.getText().toString().trim();
         if (parter.equals("请选择")) {
             Toast.makeText(mView.getActivity(), "地区不能为空", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Pattern pattern=Pattern.compile("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$");
-        Matcher matcher=pattern.matcher(phone);
-        if (!matcher.find()){
-            BaseActivity.showToast(mView.getActivity(),"请输入正确的手机号码");
             return;
         }
 

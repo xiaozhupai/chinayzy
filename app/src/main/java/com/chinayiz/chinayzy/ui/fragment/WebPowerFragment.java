@@ -26,9 +26,14 @@ import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.presenter.CommonPresenter;
+import com.chinayiz.chinayzy.utils.JavaUntil;
+import com.chinayiz.chinayzy.views.PickView.TimePickerView;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -190,6 +195,35 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
     public void toGoodsDetail(String goodsid){
         Logger.i("商品详情页H5");
         Skip.toNewGoodsDetail(getActivity(),goodsid);
+    }
+
+    @JavascriptInterface
+    public void toPickView(){
+        Logger.i("PickView");
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TimePickerView pvTime=new TimePickerView(getActivity(), TimePickerView.Type.YEAR_MONTH_DAY);
+                Calendar calendar=   Calendar.getInstance();
+                pvTime.setRange(1940,calendar.get(Calendar.YEAR));
+                pvTime.setTime(new Date());
+                pvTime.setCyclic(false);
+                pvTime.setCancelable(true);
+                // 时间选择后回调
+                pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener()
+                {
+                    @Override
+                    public void onTimeSelect(Date date)
+                    {
+                        Logger.i("回调的时间"+JavaUntil.getTime(date));
+//                et_birthday.setText(JavaUntil.getTime(date));
+                        wv_view.loadUrl("javascript:callbackbirthday("+ JavaUntil.getTime(date)+")");
+                    }
+                });
+                pvTime.show();
+            }
+        });
+
     }
 
     /**
