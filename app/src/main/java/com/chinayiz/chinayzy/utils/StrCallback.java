@@ -1,14 +1,10 @@
 package com.chinayiz.chinayzy.utils;
 
-import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.StringConvert;
-import com.lzy.okgo.model.HttpParams;
-import com.lzy.okgo.request.BaseRequest;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -65,5 +61,4 @@ public abstract class StrCallback extends AbsCallback<String>{
         Logger.e("请求失败="+e);
         EventBus.getDefault().post(new EventMessage(EventMessage.ERROR_EVENT,"",e));
     }
-
 }

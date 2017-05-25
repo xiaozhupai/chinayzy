@@ -55,6 +55,7 @@ public class HomeFragment extends BaseFragment<homePresenter> {
         mRecylAdapter = new NongYeHomeRecylAdapter( this);
         mNongyeHomeRecyclerLayout.setListner(mPresenter);
         mNongyeHomeRecyclerLayout.setAdapter(mRecylAdapter);
+
     }
 
     /**
