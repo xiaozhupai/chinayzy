@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.MyStepModel;
@@ -17,6 +16,7 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -33,7 +33,7 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
     private static final int TYPE_ITEM = 1;
     private TextView tv_title;
     public static final String DELETE="DELETE";
-    private int deletePosition;
+    private int deletePosition;   //需要删除的位置
     private MyStepModel.DataBean.FootmarklistBean deleteBean;
 
     public MyStepAdaphter(Context context, List<MyStepModel.DataBean> list) {
@@ -70,6 +70,7 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
             case Commons.DELETEFOOTMARK:
             BaseResponseModel model1= (BaseResponseModel) message.getData();
                 if (model1.getCode().equals("100")){
+                    Logger.i("删除成功");
                     delete();
                 }
                 break;
@@ -183,7 +184,7 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
         int LastPosition = 0;
         for (MyStepModel.DataBean groups : lists) {
             int size = groups.getFootmarklist().size() + 1;
-            FirstPostion += LastPosition;
+            FirstPostion = LastPosition;
             LastPosition += size;
             if (position < LastPosition) {
                 if (position > FirstPostion || position == FirstPostion) {
@@ -225,10 +226,11 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
                 viewHolder.iv_mystep_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        UserNet.getNet().getdeletefootmark(bean.getGoodsid()+"");
-//                       listener.delete(i,bean);
                         deletePosition=i;
                         deleteBean=bean;
+                        UserNet.getNet().getdeletefootmark(bean.getGoodsid()+"");
+//                       listener.delete(i,bean);
+
                     }
                 });
                 break;
@@ -238,7 +240,11 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
 
     public void delete(){
         int section=getSectionForPosition(deletePosition);
-        lists.get(section).getFootmarklist().remove(deleteBean);
+        MyStepModel.DataBean  lists_shop=lists.get(section);
+        lists_shop.getFootmarklist().remove(deleteBean);
+        if (lists_shop.getFootmarklist().size()==0){  //如果组中没有元素  将这个组给移除掉
+            lists.remove(section);
+        }
         setData(lists);
     }
 

@@ -196,7 +196,7 @@ public class UserNet {
      * @param idea  反馈内容
      */
     public void getAddIdea(String theme,String idea) {
-        OkGo.post(Commons.API + Commons.EDITUSER)
+        OkGo.post(Commons.API + Commons.ADDIDEA)
                 .params("theme",theme)
                 .params("idea",idea)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
@@ -269,7 +269,7 @@ public class UserNet {
      */
     public void getDiZan(String bid,String isdianzan) {
         OkGo.post(Commons.API + Commons.DIZAN)
-                .params("bid",bid)
+                .params("blogid",bid)
                 .params("isdianzan",isdianzan)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
@@ -293,7 +293,7 @@ public class UserNet {
      */
     public void getCollection(String bid,String iscollect) {
         OkGo.post(Commons.API + Commons.CANCELCOLLECT)
-                .params("bid",bid)
+                .params("blogid",bid)
                 .params("iscollect",iscollect)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
