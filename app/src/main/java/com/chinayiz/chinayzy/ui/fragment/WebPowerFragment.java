@@ -60,11 +60,8 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
 
     @Override
     public void onInintData(Bundle bundle) {
-        if (bundle.getString("titel")!=null && bundle.getString("url")!=null){
             this.titel=bundle.getString("titel","错误...");
             this.url=bundle.getString("url","-1");
-        }
-
     }
 
     @Override
@@ -79,6 +76,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
     public void onInitActionBar(BaseActivity activity) {
         this.activity=activity;
         activity.mTvActionBarTitle.setText(titel);
+        Logger.i("设置标题");
         activity.mCbActionBarEdit.setVisibility(View.GONE);
         if (titel.equals(SHARE)) {
             activity.mIvActionBarMore.setVisibility(View.GONE);
@@ -157,7 +155,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
                     msettings.setBlockNetworkImage(false);
-                    activity.mTvActionBarTitle.setText(view.getTitle());
+                    activity.mTvActionBarTitle.setText(titel);
 
                 }
             });
