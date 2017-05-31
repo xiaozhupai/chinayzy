@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.SearchResultAdaphter;
@@ -48,7 +47,6 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public int mPostion;
     public ImageView mIvActionBarCart;
     public LinearLayout ll_two;
-
     public String isself="0";
     public String credit="0";
     public String brands="";
@@ -102,15 +100,13 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
             });
 
         }
-
         activity.mTvActionBarTitle.setText(title);
-
     }
 
     @Override
     public void onInintData(Bundle bundle) {
         if (bundle.getString("itemCode")!=null){  //大众商城
-            title="亿众商城";
+            title="商城购物";
             isMail=true;
         }else {
             title=bundle.getString("titel","-1");
