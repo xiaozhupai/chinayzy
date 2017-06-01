@@ -106,8 +106,26 @@ public class NewGoodsDetailModel extends BaseResponseModel {
         private String goodsdesc;
         private String praise;
         private String standardvalue;
+        private String cost;
+        private String zhekou;
         private List<CommentlistBean> commentlist;
         private List<RelateGoodsBean> relateGoods;
+
+        public String getCost() {
+            return cost;
+        }
+
+        public void setCost(String cost) {
+            this.cost = cost;
+        }
+
+        public String getZhekou() {
+            return zhekou;
+        }
+
+        public void setZhekou(String zhekou) {
+            this.zhekou = zhekou;
+        }
 
         public String getRebate() {
             return rebate;
