@@ -242,14 +242,13 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public void setData(NY_BannerModel model) {
             mModel = model;
-            if (mModel==null) {
-                return;
-            }
             mUrls.clear();
-            for (NY_BannerModel.Data data : mModel.getData()) {
-                mUrls.add(data.getShowlink());
+            if (mModel!=null) {
+                for (NY_BannerModel.Data data : mModel.getData()) {
+                    mUrls.add(data.getShowlink());
+                }
+                mBannerNongyeHome.setPages(new CreateBannerHolder(), mUrls);
             }
-            mBannerNongyeHome.setPages(new CreateBannerHolder(), mUrls);
         }
 
         @Override
@@ -309,7 +308,11 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 case R.id.home_menu4:
                     Logger.i("我的二维码");
                     if (UserSeeion.isLogin(mFragment.getActivity())) {
-                        shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
+                        if (UserSeeion.isMember(mFragment.getActivity())){
+                            shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
+                        }else {
+
+                        }
                     } else {
                         BaseActivity.showToast(mFragment.getActivity(), "请先登录");
                     }

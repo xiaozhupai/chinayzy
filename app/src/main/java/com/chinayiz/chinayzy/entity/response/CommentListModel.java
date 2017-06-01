@@ -75,7 +75,13 @@ public class CommentListModel extends BaseResponseModel {
             private String cid;
             private String deliverypoint;
 
-            public CommentlistBean(String isanonymity, String createtime, String servicepoint, String commentscontent, String nickname, String cpic, String descpoint, String pic, String cid, String deliverypoint) {
+            private String ismember;
+
+            public CommentlistBean(String isanonymity, String createtime, String servicepoint,
+                                   String commentscontent, String nickname, String cpic,
+                                   String descpoint, String pic, String cid, String deliverypoint,
+                                    String isVip
+            ) {
                 this.isanonymity = isanonymity;
                 this.createtime = createtime;
                 this.servicepoint = servicepoint;
@@ -86,6 +92,14 @@ public class CommentListModel extends BaseResponseModel {
                 this.pic = pic;
                 this.cid = cid;
                 this.deliverypoint = deliverypoint;
+            }
+
+            public String getIsmember() {
+                return ismember;
+            }
+
+            public void setIsmember(String ismember) {
+                this.ismember = ismember;
             }
 
             public String getIsanonymity() {

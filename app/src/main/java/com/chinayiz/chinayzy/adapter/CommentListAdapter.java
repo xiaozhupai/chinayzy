@@ -61,6 +61,7 @@ public class CommentListAdapter extends BaseAdapter {
             mHolder.mUserIcon = (ImageView) view.findViewById(R.id.iv_userIcon);
             mHolder.mUserName = (TextView) view.findViewById(R.id.tv_userName);
             mHolder.mCreateDate = (TextView) view.findViewById(R.id.tv_createDate);
+            mHolder.mIsVip=view.findViewById(R.id.iv_isVip);
             mHolder.mCommentContent = (TextView) view.findViewById(R.id.tv_commentContent);
             mHolder.mCommentPics = view.findViewById(R.id.ll_commentPics);
             mHolder.mCommentImages.add((ImageView) view.findViewById(R.id.iv_commentPic1));
@@ -81,11 +82,14 @@ public class CommentListAdapter extends BaseAdapter {
         mHolder.mRatingBar.setStar(5 );
         mHolder.mCommentContent.setText(data.getCommentscontent());
         mHolder.mCreateDate.setText(data.getCreatetime());
+        //是否是会员
+        if (!"1".equals(data.getIsmember())){
+            mHolder.mIsVip.setVisibility(View.GONE);
+        }
         char[] chars;
         if (data.getNickname() != null) {//名字是否为空
             if ("1".equals(data.getIsanonymity())) {//是否匿名
                 if (data.getNickname() != null) {
-
                 }
                 chars = data.getNickname().toCharArray();
                 mHolder.mUserName.setText(chars[0] + "***" + chars[chars.length - 1]);
@@ -113,6 +117,7 @@ public class CommentListAdapter extends BaseAdapter {
     private class ViewHolder {
         RatingBar mRatingBar;
         ImageView mUserIcon;
+        View mIsVip;
         List<ImageView> mCommentImages = new ArrayList<>(4);
         TextView mUserName, mCommentContent, mCreateDate;
         View mCommentPics;

@@ -41,6 +41,7 @@ public abstract class StrCallback extends AbsCallback<String>{
         BaseResponseModel model=CommonRequestUtils.mGson.fromJson(s,BaseResponseModel.class);
         if (RESPONSE_CODE_USER_OUT.equals(model.getCode())){
             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,RESPONSE_CODE_USER_OUT,""));
+            return "-1";
         }
         return s;
     }

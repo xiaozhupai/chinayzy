@@ -317,7 +317,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
          * 价格处理段
          */
         setPrice(mDetailModel.getPrice());
-        mViewHolder.tv_deals.setText("\t"+mDetailModel.getRebate());
+        mViewHolder.tv_deals.setText("\t" + mDetailModel.getRebate());
         int cnt = 0;
         int offset = 0;
         while ((offset = mDetailModel.getService().indexOf(",", offset)) != -1) {
@@ -337,7 +337,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         mCommentCount = Integer.valueOf(mDetailModel.getCommentnum());
         mViewHolder.tv_commentCount.setText("商品评价（" + mCommentCount + "条评论）");
         if (!"暂无".equals(mDetailModel.getPraise())) {
-            mViewHolder.tv_goodComment.setText(mDetailModel.getPraise() );
+            mViewHolder.tv_goodComment.setText(mDetailModel.getPraise());
         }
         if (mDetailModel.getCommentlist().size() == 0) {//判断有没有评论
             mViewHolder.tv_moreComment.setText("暂时没有评论");
@@ -348,7 +348,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
                         new CommentListModel.DataBean.CommentlistBean(bean.getIsanonymity(), bean.getCreatetime(),
                                 bean.getServicepoint(), bean.getCommentscontent(), bean.getNickname()
                                 , bean.getCpic(), bean.getDescpoint(), bean.getPic(), bean.getCid()
-                                , bean.getDeliverypoint());
+                                , bean.getDeliverypoint(),bean.getIsmember());
                 mDataList.add(comment);
             }
             CommentListAdapter mCommentListAdapter = new CommentListAdapter(this);
@@ -452,7 +452,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         if (message.getDataType().equals(GoodsStandard2.STANDAR_INFO)) {
             GoodsDetailModel.DataBean bean = (GoodsDetailModel.DataBean) message.getData();
             setPrice(bean.getPrice());
-            Logger.i("更新处理分红信息");
+
 //            String deale="\t成功购买此商品可获得约 "+ mDetailModel.getRebate()+ "元分红";
 //            mViewHolder.tv_deals.setText(deale);
         }
@@ -465,6 +465,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             disposeInfoMsg(message);
         }
     }
+
     public static class ViewHolder {
         public View mProgerss;
         public ConvenientBanner vpager_Banner;

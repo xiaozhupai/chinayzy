@@ -147,10 +147,10 @@ public class UserNamePresenter extends BasePresenter<UserFragment> {
                     Toast.makeText(mView.getActivity(), "用户名不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (username.length()<6){
-                    Toast.makeText(mView.getActivity(), "用户名6-18位数", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (username.length()>18 || username.length()<1){
+//                    Toast.makeText(mView.getActivity(), "用户名1-18位数", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 net.getEditerUser(UserNet.NICKNAME,username);
                 break;
             case 1:

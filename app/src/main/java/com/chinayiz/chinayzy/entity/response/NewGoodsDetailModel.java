@@ -443,6 +443,15 @@ public class NewGoodsDetailModel extends BaseResponseModel {
             private String cid;
             private String deliverypoint;
 
+            private String ismember;
+
+            public String getIsmember() {
+                return ismember;
+            }
+
+            public void setIsmember(String ismember) {
+                this.ismember = ismember;
+            }
             public String getIsanonymity() {
                 return isanonymity;
             }
