@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BasePresenter;
@@ -77,15 +76,9 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                     Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);
                 }
 
-                if (TextUtils.isEmpty(dataBean.getSex())) {
-                    mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_man_sex);
-                } else {
-                    if (dataBean.getSex().equals("0")) {
-                        mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_man_sex);
-                    } else {
-                        mView.iv_mine_user_sex.setImageResource(R.mipmap.icon_woman_sex);
-                    }
-
+                 if (dataBean.getIsmember().equals("1")){
+                     mView.iv_mine_user_sex.setImageResource(R.mipmap.ic_vip);
+                 }
 
                     Drawable nav_up = mView.getResources().getDrawable(R.mipmap.back_arrow_white);
                     nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
@@ -116,14 +109,13 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                     mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                     break;
                 }
-        }
     }
 
 
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
             case UPDATEMINE:
-                getData();
+//                getData();
                 break;
         }
     }

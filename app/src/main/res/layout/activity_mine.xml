@@ -63,7 +63,7 @@
                                     android:id="@+id/iv_mine_user_sex"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_man_sex"
+
                                     android:layout_gravity="right|bottom"
                                     />
                             </FrameLayout>
