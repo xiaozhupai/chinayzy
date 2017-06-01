@@ -62,6 +62,30 @@
             android:textColor="@color/NongYe_home_priceText"
             android:textSize="15sp"
             />
+        <TextView
+            android:id="@+id/tv_rePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/appTextGray"
+            android:layout_alignBottom="@id/tv_goodsPrice"
+            android:layout_toRightOf="@id/tv_dobPrice"
+            android:text="￥00.00"
+            android:layout_marginLeft="8dp"
+            android:maxLines="1"
+            />
+        <TextView
+            android:id="@+id/tv_zhekou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/appTextGray"
+            android:layout_alignBottom="@id/tv_goodsPrice"
+            android:layout_toRightOf="@id/tv_rePrice"
+            android:text="0折"
+            android:layout_marginLeft="8dp"
+            android:maxLines="1"
+            />
 
         <ImageView
             android:id="@+id/iv_goodsRMB"
@@ -84,7 +108,7 @@
             android:id="@+id/tv_deals"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="12dp"
+            android:paddingLeft="12dp"
             android:drawableLeft="@mipmap/icon_deal"
             android:layout_below="@id/iv_lines"
             android:textColor="@color/classifyText_pre"

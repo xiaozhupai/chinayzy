@@ -1,6 +1,7 @@
 package com.chinayiz.chinayzy.ui.common;
 
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -94,6 +95,8 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         mViewHolder.tv_goodsTitle = (TextView) view.findViewById(R.id.tv_goodsTitle);
         mViewHolder.tv_goodsPrice = (TextView) view.findViewById(R.id.tv_goodsPrice);
         mViewHolder.tv_dobPrice = (TextView) view.findViewById(R.id.tv_dobPrice);
+        mViewHolder.tv_RePrice= (TextView) view.findViewById(R.id.tv_rePrice);
+        mViewHolder.tv_Zhekou= (TextView) view.findViewById(R.id.tv_zhekou);
         mViewHolder.iv_goodsRMB = (ImageView) view.findViewById(R.id.iv_goodsRMB);
 
         mViewHolder.services.add((TextView) view.findViewById(R.id.tv_service1));
@@ -313,6 +316,13 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
             mViewHolder.iv_StoreType.setVisibility(View.GONE);
             mViewHolder.tv_goodsTitle.setText(mDetailModel.getGname());
         }
+
+        Logger.i("设置原价与折扣"+mDetailModel.getCost()+"折扣"+mDetailModel.getZhekou());
+        mViewHolder.tv_RePrice.setText("￥"+mDetailModel.getCost());
+        mViewHolder.tv_RePrice.getPaint().setAntiAlias(true);//抗锯齿
+        mViewHolder.tv_RePrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
+        mViewHolder.tv_Zhekou.setText(mDetailModel.getZhekou());
+
         /**
          * 价格处理段
          */
@@ -473,6 +483,8 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         public TextView tv_goodsTitle;
         public TextView tv_goodsPrice;
         public TextView tv_dobPrice;
+        public TextView tv_Zhekou;
+        public TextView tv_RePrice;
         public ImageView iv_goodsRMB;
         public List<TextView> services = new ArrayList<>(4);
         public LinearLayout ll_servicLis;
