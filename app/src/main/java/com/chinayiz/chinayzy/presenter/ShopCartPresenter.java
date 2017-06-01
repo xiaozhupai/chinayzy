@@ -9,7 +9,6 @@ import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
-import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
@@ -208,10 +207,10 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public void submit(){
         switch (type){
             case TYPE_NORMAL:
-              boolean isMember=UserSeeion.isMember(mView.getActivity());
-                if (!isMember){  //是会员才能结算订单
-                    return;
-                }
+//              boolean isMember=UserSeeion.isMember(mView.getActivity());
+//                if (!isMember){  //是会员才能结算订单
+//                    return;
+//                }
                 itemChecked();
                 if (list_checked.size()==0){
                     BaseActivity.showToast(mView.getActivity(),"请选择要结算的商品");
