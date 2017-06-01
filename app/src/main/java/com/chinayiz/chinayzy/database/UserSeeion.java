@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.database;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.ui.activity.LoginActivity;
@@ -32,7 +33,7 @@ public class UserSeeion {
 
     public static boolean isMember(Context context){
         String isMember=context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("ismember","");
-        if (isMember.equals("0")){
+        if (isMember.equals("0") || TextUtils.isEmpty(isMember)){
             Skip.toDeposit(context);
             return false;
         }else {
