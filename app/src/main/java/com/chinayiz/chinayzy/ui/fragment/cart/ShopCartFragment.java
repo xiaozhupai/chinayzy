@@ -40,7 +40,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public LinearLayout lv_boom,ll_no_goods;
     public PullToRefreshLayout pullToRefreshLayout;
     public ShopCartAdaphter adaphter;
-
     public TextView tv_shopcart_all;
     public boolean isClick=true;
     public GoodsStandardPopuWindow popuWindow;

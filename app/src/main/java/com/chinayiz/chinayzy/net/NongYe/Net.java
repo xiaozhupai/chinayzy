@@ -209,7 +209,7 @@ public class Net {
      */
     public void getSearchFarm(String title,String page,String size,String type,String isself,String credit,String brands) {
         OkGo.post(Commons.API + Commons.SEARCHFARM)
-                .params("title",title)
+                .params("searchkey",title)
                 .params("page",page)
                 .params("size",size)
                 .params("type",type)

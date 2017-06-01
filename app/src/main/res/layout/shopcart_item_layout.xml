@@ -39,7 +39,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginRight="13dp"
             android:layout_marginLeft="5dp"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <TextView
                 android:id="@+id/tv_shopcart_item_title"
@@ -97,7 +97,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginRight="13dp"
             android:layout_marginLeft="5dp"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +127,6 @@
                         android:gravity="center"
                         android:background="@mipmap/img_bg_center"
                         />
-
 
                 <ImageView
                     android:id="@+id/iv_right"
