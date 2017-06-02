@@ -144,7 +144,11 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 mView.UpdateShopCart();
 
                 break;
-
+            case ShopCartAdaphter.POPUWINDOW:  //弹出商品规格页面
+                ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
+                popuWindow=new GoodsStandardPopuWindow(mView.getActivity(),bean);
+                popuWindow.show();
+                break;
         }
     }
 
@@ -153,11 +157,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     @Override
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
-            case ShopCartAdaphter.POPUWINDOW:  //弹出商品规格页面
-                ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
-                popuWindow=new GoodsStandardPopuWindow(mView.getActivity(),bean);
-                popuWindow.show();
-                break;
+
             case  GoodsStandardPopuWindow.GOODSTANDS:  //商品规格回调给当前页面的数据
                 Logger.i("确定套餐选择");
                 ShopCartModel.DataBean.ShoplistBean goods_bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
