@@ -42,6 +42,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     private GoodsStandardPopuWindow popuWindow;
     public int type;
 
+
     @Override
     public void onCreate() {
 
@@ -64,6 +65,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
+
         if (message.getEventType()== EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }else if (message.getEventType()== EventMessage.INFORM_EVENT){
@@ -79,6 +81,12 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
+        if (mView.loadlingDialog!=null){
+            if (mView.loadlingDialog.isShowing()){
+                mView.loadlingDialog.dismiss();
+            }
+        }
+
         switch (message.getDataType()){
             case Commons.SHOPCART:  //购物车商品列表
 
@@ -132,9 +140,15 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                     popuWindow.setData(lists);
                 }
                 break;
+            case ShopCartAdaphter.UPDATE:
+                mView.UpdateShopCart();
+
+                break;
 
         }
     }
+
+
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
@@ -189,8 +203,8 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
             data.getShoplist().get(0).setHeadChecked(mView.iv_shopcart_radio.isCheck);  //将所有店铺第一个设置
         }
         mView.adaphter.setData(list,type);
-        double total=mView.adaphter.UpdateTotal();   //更新价格
-        mView.tv_shopcart_price.setText("￥"+String.format("%.2f",total));
+        mView.adaphter.UpdateTotal();   //更新价格
+
           if (mView.iv_shopcart_radio.isCheck){
               mView.tv_shopcart_all.setText("全选("+count+")");
           }else {

@@ -25,6 +25,7 @@ import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
+import com.chinayiz.chinayzy.widget.LoadlingDialog;
 
 /**
  * 购物车
@@ -47,6 +48,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_EDITER = 1;
+    public LoadlingDialog loadlingDialog;
 
     public static ShopCartFragment getInstance() {
         return new ShopCartFragment();
@@ -152,8 +154,8 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         mPresenter.type=type;
         adaphter.setData(mPresenter.list,type);
         if (type==TYPE_NORMAL){
-            double total=adaphter.UpdateTotal();
-            tv_shopcart_price.setText(total+"");
+          adaphter.UpdateTotal();
+
         }
     }
 
@@ -168,12 +170,16 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
                 sb.append(bean.getNum()+"");
                 sb.append("/");
                 sb.append(bean.getGoodsstandardid());
-                if (i!=data.getShoplist().size()-1){
                     sb.append(",");
-                }
+
             }
         }
+        if (loadlingDialog==null){
+            loadlingDialog=new LoadlingDialog(getActivity());
+        }
+        loadlingDialog.show();
         CommonRequestUtils.getRequestUtils().getUpdateCart(sb.toString());
+
     }
 
     @Override

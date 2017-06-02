@@ -37,6 +37,8 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
     public static final int TYPE_EDITER = 1;
     public int layout_type;
     public static final String POPUWINDOW="POPUWINDOW";
+    public static final String UPDATE="ShopCartAdaphter";
+
 
     public ShopCartAdaphter(Context context, List<ShopCartModel.DataBean> list, CheckImageView iv_all, TextView tv_shopcart_price, TextView tv_shopcart_all, int layout_type) {
         this.context = context;
@@ -218,7 +220,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.rl_standard.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,POPUWINDOW,bean));
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,POPUWINDOW,bean));
                             Logger.i("修改规格");
 
                         }
@@ -226,10 +228,58 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                 } else { //编辑前页面
                     viewHolder.lv_before.setVisibility(View.VISIBLE);
                     viewHolder.lv_after.setVisibility(View.GONE);
-                    viewHolder.tv_shopcart_item_num.setText("×" + bean.getNum());
+                    viewHolder.tv_center_b.setText(bean.getNum()+"");
+//                    viewHolder.tv_shopcart_item_num.setText("×" + bean.getNum());
                     viewHolder.tv_shopcart_item_price.setText("¥" + bean.getPrice());
                     viewHolder.tv_shopcart_item_title.setText(bean.getGname());
                     viewHolder.tv_shopcart_item_kind.setText(bean.getStandardname()+bean.getStandardvalue());
+                    final ViewHolder finalViewHolder1 = viewHolder;
+                    viewHolder.iv_left_b.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (finalViewHolder1.iv_left_b.isClickable()){
+                                if (bean.getNum()==1){
+                                    return;
+                                }
+                                if (bean.getNum()==2){
+                                    finalViewHolder1.iv_left_b.setBackgroundResource(R.mipmap.img_bg_left_unclickable);
+                                    finalViewHolder1.iv_left_b.setClickable(false);
+                                }
+                                if (bean.getNum()==bean.getRepertory()){
+                                    finalViewHolder1.iv_left_b.setBackgroundResource(R.mipmap.img_bg_right);
+                                }
+                                Logger.i("数量减少");
+                                bean.setNum(bean.getNum()-1);
+                                finalViewHolder1.tv_center_b.setText(bean.getNum()+"");
+                                Logger.i("num-----------------------"+bean.getNum());
+                                UpdateTotal();
+                                EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,UPDATE,""));
+                            }
+                        }
+                    });
+                    viewHolder.iv_right_b.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (bean.getNum()==bean.getRepertory()){
+                                return;
+                            }
+                            if (bean.getNum()==1){
+                                finalViewHolder1.iv_left_b.setBackgroundResource(R.mipmap.img_bg_left);
+                                finalViewHolder1.iv_left_b.setClickable(true);
+                            }
+                            if (bean.getNum()==(bean.getRepertory()-1)){
+                                finalViewHolder1.iv_right_b.setBackgroundResource(R.mipmap.img_bg_right_unclickable);
+//                                finalViewHolder.iv_left.setClickable(false);
+                            }
+
+                            Logger.i("数量增加");
+                            bean.setNum(bean.getNum()+1);
+                            finalViewHolder1.tv_center_b.setText(bean.getNum()+"");
+                            Logger.i("num-----------------------"+bean.getNum());
+                            UpdateTotal();
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,UPDATE,""));
+                        }
+                    });
                 }
                 Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_shopcart_item_img);
                 break;
@@ -312,8 +362,8 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
     //更新底部布局
     public void UpdateBoomlayout(boolean isChecked) {
         AllUpdate(isChecked);
-        double total = UpdateTotal();
-        tv_shopcart_price.setText(total + "");
+        UpdateTotal();
+
         List<ShopCartModel.DataBean.ShoplistBean> list_selected = new ArrayList<>();
         for (ShopCartModel.DataBean data : lists) {
             for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
@@ -326,7 +376,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
     }
 
     //更新总价格
-    public double UpdateTotal() {
+    public void UpdateTotal() {
         double total = 0.00;
         for (ShopCartModel.DataBean data : lists) {
             for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
@@ -336,7 +386,8 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                 }
             }
         }
-        return total;
+        tv_shopcart_price.setText("￥"+String.format("%.2f",total));
+
     }
 
     //更新所有的check
@@ -422,7 +473,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         public TextView tv_shopcart_item_title;
         public TextView tv_shopcart_item_kind;
         public TextView tv_shopcart_item_price;
-        public TextView tv_shopcart_item_num;
+//        public TextView tv_shopcart_item_num;
         public LinearLayout lv_before;
         public ImageView iv_left;
         public TextView tv_center;
@@ -430,7 +481,9 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         public TextView tv_standard;
         public RelativeLayout rl_standard;
         public LinearLayout lv_after;
-
+        public ImageView iv_left_b;
+        public ImageView iv_right_b;
+        public TextView tv_center_b;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -439,7 +492,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
             this.tv_shopcart_item_title = (TextView) rootView.findViewById(R.id.tv_shopcart_item_title);
             this.tv_shopcart_item_kind = (TextView) rootView.findViewById(R.id.tv_shopcart_item_kind);
             this.tv_shopcart_item_price = (TextView) rootView.findViewById(R.id.tv_shopcart_item_price);
-            this.tv_shopcart_item_num = (TextView) rootView.findViewById(R.id.tv_shopcart_item_num);
+//            this.tv_shopcart_item_num = (TextView) rootView.findViewById(R.id.tv_shopcart_item_num);
             this.lv_before = (LinearLayout) rootView.findViewById(R.id.lv_before);
             this.iv_left = (ImageView) rootView.findViewById(R.id.iv_left);
             this.tv_center = (TextView) rootView.findViewById(R.id.tv_center);
@@ -447,7 +500,9 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
             this.tv_standard = (TextView) rootView.findViewById(R.id.tv_standard);
             this.rl_standard = (RelativeLayout) rootView.findViewById(R.id.rl_standard);
             this.lv_after = (LinearLayout) rootView.findViewById(R.id.lv_after);
-
+         this.iv_left_b= (ImageView) rootView.findViewById(R.id.iv_left_b);
+         this.iv_right_b= (ImageView) rootView.findViewById(R.id.iv_right_b);
+          this.tv_center_b= (TextView) rootView.findViewById(R.id.tv_center_b);
         }
 
     }
