@@ -754,7 +754,7 @@ public class CommonRequestUtils {
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
+                        Logger.i("订单详情数据="+s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ORDER_DETAIL

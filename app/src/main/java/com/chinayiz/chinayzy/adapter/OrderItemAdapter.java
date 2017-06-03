@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -77,7 +76,6 @@ public class OrderItemAdapter extends BaseAdapter implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Logger.i("点击了事件商品"+v.getTag(R.id.tag_click));
         Skip.toOrderDetail(mFragment.getActivity(),v.getTag(R.id.tag_click).toString());
     }
 

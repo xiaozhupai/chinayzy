@@ -271,6 +271,7 @@ public class OrderDetailModel extends BaseResponseModel {
              * goodsdesc : 好吃
              * standardvalue : 2只装
              * standardname : 2只装
+             * goodsid
              * goodscount : 2
              * iscomment : 0
              */
@@ -285,6 +286,15 @@ public class OrderDetailModel extends BaseResponseModel {
             private String standardname;
             private int goodscount;
             private String iscomment;
+            private String goodsid;
+
+            public String getGoodsid() {
+                return goodsid;
+            }
+
+            public void setGoodsid(String goodsid) {
+                this.goodsid = goodsid;
+            }
 
             public int getOrderdetailid() {
                 return orderdetailid;

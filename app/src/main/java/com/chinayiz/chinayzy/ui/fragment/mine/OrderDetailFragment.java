@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -41,7 +40,8 @@ import static com.chinayiz.chinayzy.R.id.lv_orderGoods;
  * Class OrderDetailFragment  订单详情
  */
 @SuppressLint("ValidFragment")
-public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
+        implements View.OnClickListener, OrderDetailAdapter.OnOrderClicListener {
     public ViewHolder mViewHolder;
     private List<OrderDetailModel.DataBean.OmessagesBean> mGoodsList;
     public OrderDetailModel mOrderDetailModel;
@@ -76,7 +76,6 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
         mViewHolder.btn_order1 = (Button) view.findViewById(R.id.btn_order1);
         mViewHolder.btn_order2 = (Button) view.findViewById(R.id.btn_order2);
         mViewHolder.lv_orderGoods = (ListView) view.findViewById(lv_orderGoods);
-        mViewHolder.lv_orderGoods.setOnItemClickListener(this);
 
         mViewHolder.view_coupons=fooderView.findViewById(R.id.view_coupons);
         mViewHolder.tv_coupons= (TextView) fooderView.findViewById(R.id.tv_coupons);
@@ -140,7 +139,9 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
 
         mAdapter.setDetailModel(model);
         mViewHolder.lv_orderGoods.setAdapter(mAdapter);
-        mViewHolder.tv_yunfei.setText("\t " + model.getData().getCarriage());
+        mAdapter.setOrderClicListener(this);
+
+        mViewHolder.tv_yunfei.setText("￥\t " + model.getData().getCarriage());
         mViewHolder.tv_sumGolds.setText("\t"+model.getData().getPoint());
         mViewHolder.tv_orderNum.setText("共" + mGoodsList.size() + "件商品   总计：");
         mViewHolder.tv_orderMyone.setText("\t" + model.getData().getTotalmoney());
@@ -273,10 +274,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter> impl
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mGoodsList!=null) {
-            mGoodsList.get(position).getStandardname();
-        }
+    public void onClicOrder(String goodsId) {
+      Skip.toNewGoodsDetail(getActivity(),goodsId);
     }
 
     public class ViewHolder {
