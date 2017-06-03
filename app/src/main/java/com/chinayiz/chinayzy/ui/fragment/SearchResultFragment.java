@@ -75,31 +75,31 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                     }
                 }
             });
-            activity.mIvActionBarMore.setVisibility(View.VISIBLE);
-            activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
-            activity.mIvActionBarMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isList){
-                        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
-                        isList=false;
-                        type=2;
-                        gd_list.setNumColumns(2);
-                        adaphter2.setData(mPresenter.data,2);
-                        gd_list.setAdapter(adaphter2);
-                    }else {
-                        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
-                        isList=true;
-                        type=1;
-                        gd_list.setNumColumns(1);
-                        adaphter.setData(mPresenter.data,1);
-                        gd_list.setAdapter(adaphter);
-                    }
-                    mPresenter.getData();
-                }
-            });
-
         }
+
+        activity.mIvActionBarMore.setVisibility(View.VISIBLE);
+        activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
+        activity.mIvActionBarMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isList){
+                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_listview);
+                    isList=false;
+                    type=2;
+                    gd_list.setNumColumns(2);
+                    adaphter2.setData(mPresenter.data,2);
+                    gd_list.setAdapter(adaphter2);
+                }else {
+                    activity.mIvActionBarMore.setImageResource(R.mipmap.icon_gridview);
+                    isList=true;
+                    type=1;
+                    gd_list.setNumColumns(1);
+                    adaphter.setData(mPresenter.data,1);
+                    gd_list.setAdapter(adaphter);
+                }
+                mPresenter.getData();
+            }
+        });
         activity.mTvActionBarTitle.setText(title);
     }
 
