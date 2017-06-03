@@ -161,6 +161,11 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.iv_shopcart_item_radio.setImageResource(R.mipmap.radio_normal);
                 }
 
+                if (bean.getNum()>= bean.getRepertory()){
+                    viewHolder.iv_left_b.setBackgroundResource(R.mipmap.img_bg_right_unclickable);
+                }else {
+                    viewHolder.iv_left_b.setBackgroundResource(R.mipmap.img_bg_right);
+                }
                 if (layout_type == TYPE_EDITER) { //编辑后页面
                     viewHolder.lv_before.setVisibility(View.GONE);
                     viewHolder.lv_after.setVisibility(View.VISIBLE);
@@ -173,6 +178,11 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                         finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left_unclickable);
                     }else {
                         finalViewHolder.iv_left.setBackgroundResource(R.mipmap.img_bg_left);
+                    }
+                    if (bean.getNum()>= bean.getRepertory()){
+                        finalViewHolder.iv_right.setBackgroundResource(R.mipmap.img_bg_right_unclickable);
+                    }else {
+                        finalViewHolder.iv_right.setBackgroundResource(R.mipmap.img_bg_right);
                     }
                     viewHolder.iv_left.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -226,6 +236,16 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                         }
                     });
                 } else { //编辑前页面
+                    if (bean.getNum()==1){
+                        viewHolder.iv_left_b.setBackgroundResource(R.mipmap.img_bg_left_unclickable);
+                    }else {
+                        viewHolder.iv_left_b.setBackgroundResource(R.mipmap.img_bg_left);
+                    }
+                    if (bean.getNum()>= bean.getRepertory()){
+                        viewHolder.iv_right_b.setBackgroundResource(R.mipmap.img_bg_right_unclickable);
+                    }else {
+                        viewHolder.iv_right_b.setBackgroundResource(R.mipmap.img_bg_right);
+                    }
                     viewHolder.lv_before.setVisibility(View.VISIBLE);
                     viewHolder.lv_after.setVisibility(View.GONE);
                     viewHolder.tv_center_b.setText(bean.getNum()+"");
@@ -233,6 +253,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.tv_shopcart_item_price.setText("¥" + bean.getPrice());
                     viewHolder.tv_shopcart_item_title.setText(bean.getGname());
                     viewHolder.tv_shopcart_item_kind.setText(bean.getStandardname()+bean.getStandardvalue());
+
                     final ViewHolder finalViewHolder1 = viewHolder;
                     viewHolder.iv_left_b.setOnClickListener(new View.OnClickListener() {
                         @Override

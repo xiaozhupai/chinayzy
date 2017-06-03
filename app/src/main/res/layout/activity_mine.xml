@@ -63,7 +63,6 @@
                                     android:id="@+id/iv_mine_user_sex"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-
                                     android:layout_gravity="right|bottom"
                                     />
                             </FrameLayout>
@@ -404,13 +403,13 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_keep"
+                                        android:src="@mipmap/btn_recharge"
                                         android:layout_marginTop="23dp"
                                         />
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="宝贝收藏"
+                                        android:text="充值"
                                         android:textColor="#505050"
                                         android:textSize="11sp"
                                         android:layout_marginBottom="25dp"

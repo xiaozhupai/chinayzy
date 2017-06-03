@@ -37,7 +37,6 @@ public class HomeFragment extends BaseFragment<homePresenter> {
     private PullToRefreshLayout mRefreshLayout;
 
     @Override
-
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.nongye_fragment_home, container, false);
         initWidget(view);

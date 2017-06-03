@@ -17,6 +17,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.MinePresenter;
 import com.chinayiz.chinayzy.views.CircleImageView;
@@ -66,7 +67,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
             }
         });
     }
-
 
     public static MineFragment getInstance() {
         return new MineFragment();
@@ -168,15 +168,17 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
             case R.id.lv_after_sale:   //售后
                 Skip.toWebPage(getActivity(), Commons.API+Commons.AFTER_LIST+"?userid="+APP.sUserid,"售后");
                 break;
-            case R.id.lv_mine_keep:   //宝贝收藏
-           Skip.toGoodsCollection(getActivity());
+            case R.id.lv_mine_keep:   //充值
+                Skip.toDeposit(getActivity());
                 break;
             case R.id.lv_mine_step:   //我的足迹
                 Skip.toMyStep(getActivity());
                 break;
             case R.id.lv_mine_shop_car:
                 Logger.i("分享二维码");
-                Skip.toWebPage(getActivity(), Commons.API+Commons.FXCODE+"?type=android","分享二维码");
+                if (UserSeeion.isMember(getActivity())){
+                    Skip.toWebPage(getActivity(), Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android","分享二维码");
+                }
                 break;
             case R.id.lv_mine_scores:   //我的积分
                 Intent intent =new Intent(getActivity(),GoldActivity.class);
