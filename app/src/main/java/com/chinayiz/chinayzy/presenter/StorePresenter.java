@@ -41,7 +41,7 @@ public class StorePresenter extends BasePresenter<StoreFragment> {
                 mView.mGoodsTypeMeunAdapter.notifyDataSetChanged();
                 if (!mView.mStoreInfoModel.getData().getTypecodelist().isEmpty()) {
                     mRequestUtils.getGoodsListByPosition(mView.mStoreID
-                            , mView.mGoodsTypeMeunAdapter.getTypecodeList().get(0).getTypecode(), "1", "16");
+                            , mView.mGoodsTypeMeunAdapter.getTypecodeList().get(0).getTypecode(), "1", "30");
                 }
                 mView.mStoreInfo = new StoreInfo(mView.mStoreInfoModel.getData().getIsself()
                         , mView.mStoreInfoModel.getData().getIsattention()

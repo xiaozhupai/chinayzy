@@ -67,7 +67,6 @@ public class StoreFragment extends BaseFragment<StorePresenter> implements View.
         mAdapter = new StoreHomeAdapter();
         mAdapter.setOnItemClickListener(this);
 
-
         mProgress =  view.findViewById(R.id.ll_progress);
         mTvSort = (TextView)  view.findViewById(R.id.tv_sort);
         mTvGoodsType = (TextView)  view.findViewById(R.id.tv_goodsType);
@@ -223,6 +222,6 @@ public class StoreFragment extends BaseFragment<StorePresenter> implements View.
         mAdapter.getHomeHead().setType(textView.getText().toString());
         //请求不同类型
         mPresenter.mRequestUtils.getGoodsListByPosition(mStoreID
-                , mGoodsTypeMeunAdapter.getTypecodeList().get(position).getTypecode(), "1", "16");
+                , mGoodsTypeMeunAdapter.getTypecodeList().get(position).getTypecode(), "1", "30");
     }
 }

@@ -37,16 +37,20 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
     public static final String ORDER_COMMENT="OrderDetailAdapter_COMMENT";
 
     private OrderDetailModel mDetailModel;
-
+    private OnOrderClicListener mOrderClicListener;
     private List<OrderDetailModel.DataBean.OmessagesBean> goodsList;
     private Fragment mFragment;
     private ViewHolder mHolder;
     private String orderState;
     private String orderID;
     private CommentGoodsModel model;
+
     public OrderDetailAdapter( Fragment fragment,String orderID) {
         mFragment = fragment;
         this.orderID=orderID;
+    }
+    public void setOrderClicListener(OnOrderClicListener orderClicListener) {
+        mOrderClicListener = orderClicListener;
     }
 
     public void setDetailModel(OrderDetailModel detailModel) {
@@ -74,7 +78,7 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         model=new CommentGoodsModel();
         if (convertView==null){
             mHolder=new ViewHolder();
@@ -82,6 +86,7 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
             mHolder.iv_goodsPic = (ImageView) convertView.findViewById(R.id.iv_goodsPic);
             mHolder.tv_goodsPrice = (TextView) convertView.findViewById(R.id.tv_goodsPrice);
             mHolder.tv_goodsName = (TextView) convertView.findViewById(R.id.tv_goodsName);
+            mHolder.layout_order=convertView.findViewById(R.id.layout_order);
             mHolder.tv_goodsCount = (TextView) convertView.findViewById(R.id.tv_goodsCount);
             mHolder.tv_goodsGroup = (TextView) convertView.findViewById(R.id.tv_goodsGroup);
             mHolder.btn_action1= (Button) convertView.findViewById(R.id.btn_action1);
@@ -97,6 +102,14 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
         mHolder.tv_goodsCount.setText("x"+goodsList.get(position).getGoodscount());
         mHolder.tv_goodsPrice.setText("￥"+goodsList.get(position).getPrice());
         mHolder.tv_goodsGroup.setText(goodsList.get(position).getStandardname());
+        mHolder.layout_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOrderClicListener!=null) {
+                    mOrderClicListener.onClicOrder(goodsList.get(position).getGoodsid());
+                }
+            }
+        });
         switch (orderState) {
             case "1"://待付款
                 mHolder.btn_action1.setVisibility(View.GONE);
@@ -149,9 +162,7 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
     }
     @Override
     public void onClick(View v) {
-
     switch (v.getId()){
-
         case R.id.btn_action1:
             model= (CommentGoodsModel) v.getTag(R.id.tag_orderInfo);
             Logger.i("btn_action1售后");
@@ -169,10 +180,13 @@ public class OrderDetailAdapter extends BaseAdapter implements View.OnClickListe
             break;
     }
     }
-
+    public interface OnOrderClicListener{
+        void onClicOrder(String goodsId);
+    }
     public static class ViewHolder {
         public ImageView iv_goodsPic;
         public TextView tv_goodsPrice;
+        public View layout_order;
         public TextView tv_goodsName;
         public TextView tv_goodsCount;
         public TextView tv_goodsGroup;

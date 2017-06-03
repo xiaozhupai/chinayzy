@@ -28,6 +28,12 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+<style name="orderSet_Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">43dp</item>
+        <item name="android:background">@color/Background</item>
+    </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>

@@ -138,15 +138,6 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         editor.commit();//提交修改
         APP.sUserid=userid+"";
 
-//       Intent intent_data=mView.getIntent();
-//        if (intent_data.getStringExtra("FindDetailFragment")!=null){
-//            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, FindDetailFragment.FIND_DETAIL,""));
-//        }else {
-////            Intent intent=new Intent(mView, MineFragment.class);
-////            mView.startActivity(intent);
-//            mView.finish();
-//        }
-
     }
 
     @Override

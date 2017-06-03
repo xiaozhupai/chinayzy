@@ -126,11 +126,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 .onAny(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (DialogAction.POSITIVE.toString().equals(which.name())) {  //忽略
+                        if (DialogAction.POSITIVE.toString().equals(which.name())) {  //修改密码
                             Skip.toLogin(context);
-                        } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //修改密码
+                        } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //忽略
                             dialog.dismiss();
-                            finish();
                         }
                     }
                 })
