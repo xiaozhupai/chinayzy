@@ -212,6 +212,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
     private void setOrderAction(String state) {
         switch (state) {
             case "1"://待付款
+                mViewHolder.btn_copyId.setVisibility(View.GONE);
+                mViewHolder.tv_expressId.setVisibility(View.GONE);
                 mViewHolder.tv_orderState.setText("待付款");
                 mViewHolder.btn_order1.setText("取消订单");
                 mViewHolder.btn_order2.setTextColor(Color.rgb(255,57,81));

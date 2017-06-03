@@ -16,7 +16,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.presenter.FrgOrderPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
-import com.chinayiz.chinayzy.views.pullable.PullableListView;
+import com.chinayiz.chinayzy.views.refreshView.PullableListView;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +38,7 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
     private OrderListModel mOrderListModel;
     private OrderListAdapter mOrderListAdapter;
     private String orderType ;
+
     public static OrderFragment newInstance(String type) {
         return new OrderFragment(type);
     }

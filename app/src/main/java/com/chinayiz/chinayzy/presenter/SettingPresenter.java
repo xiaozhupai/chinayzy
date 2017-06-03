@@ -3,12 +3,13 @@ package com.chinayiz.chinayzy.presenter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
 import com.chinayiz.chinayzy.APP;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.widget.MessageDialog;
@@ -104,7 +105,6 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
      * 去个人资料
      */
     public void toPerson(){
-
        mView.mActivity.addFragment(new PersonFragment());
     }
 
@@ -112,11 +112,10 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
      * 关于我们
      */
     public void toAboutUs() {
-
-     mView.mActivity.addFragment(new WebPowerFragment("关于我们", Commons.API+Commons.ABOUTUS));
+        Skip.toWebPage(mView.getActivity(), Commons.API+Commons.ABOUTUS,"关于我们");
     }
 
     public void tofxcode() {
-        mView.mActivity.addFragment(new WebPowerFragment("分享二维码", Commons.API+Commons.FXCODE+"?type=android"));
+        Skip.toWebPage(mView.getActivity(), Commons.API+Commons.FXCODE+"?type=android","分享二维码");
     }
 }

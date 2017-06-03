@@ -101,7 +101,7 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Fra
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && WebPowerFragment.CLASS_NAME.equals(className)) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && mFragment instanceof WebPowerFragment) {
             mWebPowerFragment = (WebPowerFragment) mFragment;
             if (mWebPowerFragment.wv_view.canGoBack()) {
                 mWebPowerFragment.wv_view.goBack();

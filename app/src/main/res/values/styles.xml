@@ -27,6 +27,7 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
 <style name="orderSet_Item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">43dp</item>

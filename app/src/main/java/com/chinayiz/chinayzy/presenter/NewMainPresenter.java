@@ -121,6 +121,7 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     public void runUiThread(EventMessage message) {
         if (StrCallback.RESPONSE_CODE_USER_OUT.equals(message.getDataType())){
             mView.showUserOut();
+            return;
         }
         if (message.getEventType() == EventMessage.NET_EVENT) {
             disposeNetMsg(message);

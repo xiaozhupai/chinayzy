@@ -35,6 +35,7 @@ public class CommonPresenter extends BasePresenter<CommonActivity> {
     public void runUiThread(EventMessage message) {
         if (StrCallback.RESPONSE_CODE_USER_OUT.equals(message.getDataType())){
             mView.showUserOut();
+            return;
         }
     }
 
