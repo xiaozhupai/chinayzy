@@ -80,4 +80,10 @@ public class ListFragment extends BaseFragment<ListPresenter> {
         adapter.onDestory();
         super.onDestroy();
     }
+
+    @Override
+    public void onResume() {
+        adapter.onRefresh();
+        super.onResume();
+    }
 }

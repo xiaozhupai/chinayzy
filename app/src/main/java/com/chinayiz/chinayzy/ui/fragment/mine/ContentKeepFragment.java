@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.ArticleAdaphter;
+import com.chinayiz.chinayzy.adapter.GoodsKeepAdaphter;
 import com.chinayiz.chinayzy.adapter.PagerAdaphter;
 import com.chinayiz.chinayzy.adapter.ShopKeepAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -45,10 +46,8 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     private MagicIndicator magic_indicator;
     private PullableListView pull_listview;
     private PullToRefreshLayout pullrefresh;
-    private String [] titles=new String[]{"店铺","博文"};
-    private int type=0;   //0  店铺收藏 1博文收藏
-    private ArticleAdaphter articleAdaphter;
-    private ShopKeepAdaphter shopKeepAdaphter;
+    private String [] titles=new String[]{"商品","店铺","博文"};
+    private int type=0;   //0  店铺收藏 1博文收藏 2商品
     public XViewPager v_pager;
 
     @Override
@@ -68,13 +67,12 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        activity.mTvActionBarTitle.setText("内容收藏");
+        activity.mTvActionBarTitle.setText("我的收藏");
     }
 
     @Override
     public void onInintData(Bundle bundle) {
-        articleAdaphter=new ArticleAdaphter(mActivity,null);
-        shopKeepAdaphter=new ShopKeepAdaphter(mActivity,null);
+
     }
 
     @Override
@@ -83,6 +81,7 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
         magic_indicator = (MagicIndicator) view.findViewById(R.id.magic_indicator);
         v_pager= (XViewPager) view.findViewById(R.id.v_pager);
         List<BaseFragment> fragments=new ArrayList<>();
+        fragments.add(new ListFragment(new GoodsKeepAdaphter(getActivity(),null)));
         fragments.add(new ListFragment(new ShopKeepAdaphter(getActivity(),null)));
          fragments.add(new ListFragment(new ArticleAdaphter(getActivity(),null)));
         v_pager.setAdapter(new PagerAdaphter(getChildFragmentManager(),fragments));

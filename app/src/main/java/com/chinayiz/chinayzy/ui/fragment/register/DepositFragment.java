@@ -8,12 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.chinayiz.chinayzy.R;
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
-import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.presenter.DepositPresenter;
 import com.chinayiz.chinayzy.views.CheckImageView;
 
@@ -32,16 +29,16 @@ public class DepositFragment extends BaseFragment<DepositPresenter> implements V
     @Override
     public void onInitActionBar(BaseActivity activity) {
         activity.mTvActionBarTitle.setText("充值");
-        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
-        activity.mCbActionBarEdit.setText("切换\n账号");
-        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserSeeion.logout(getActivity());
-                Skip.toLogin(getActivity());
-                mActivity.onBackPressed();
-            }
-        });
+//        activity.mCbActionBarEdit.setVisibility(View.VISIBLE);
+//        activity.mCbActionBarEdit.setText("切换\n账号");
+//        activity.mCbActionBarEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                UserSeeion.logout(getActivity());
+//                Skip.toLogin(getActivity());
+//                mActivity.onBackPressed();
+//            }
+//        });
     }
 
     @Override
