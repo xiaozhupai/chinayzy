@@ -488,7 +488,7 @@ public class PullToRefreshLayout extends RelativeLayout {
             int bottom = sum + pullableView.getMeasuredHeight();
 
             refreshView.layout(0, top, refreshView.getMeasuredWidth(), sum);
-            Logger.i("宽度=" + pullableView.getMeasuredWidth() + "\t\t\t高度=" + pullableView.getMeasuredHeight());
+//            Logger.i("宽度=" + pullableView.getMeasuredWidth() + "\t\t\t高度=" + pullableView.getMeasuredHeight());
 
             pullableView.layout(0, sum, pullableView.getMeasuredWidth(), bottom);
 

@@ -94,7 +94,7 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                         mView.tv_wait_accept_goods_count.setVisibility(View.GONE);
                     }
                     if (dataBean.getWaitpaycount() > 0) {   //待付款
-
+                        mView.tv_wait_pay_count.setVisibility(View.VISIBLE);
                         mView.tv_wait_pay_count.setText(dataBean.getWaitpaycount() + "");
                     }else {
                         mView.tv_wait_pay_count.setVisibility(View.GONE);
