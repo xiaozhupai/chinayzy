@@ -17,6 +17,12 @@ android {
         targetSdkVersion 21
         versionCode 7
         versionName "2.0.2"
+        multiDexEnabled true
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
 
     }
     lintOptions {
@@ -77,7 +83,17 @@ dependencies {
     compile 'de.halfbit:pinned-section-listview:1.0.0'
     compile 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile files('libs/bugly_crash_release.jar')
+
     compile files('libs/okgo-2.1.4.jar')
     compile files('libs/okhttp-3.8.0.jar')
+
+
+    compile "com.android.support:multidex:1.0.1" // 多dex配置
+    //注释掉原有bugly的仓库
+//    compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+
+
 }
+// 依赖插件脚本
+apply from: 'tinker-support.gradle'

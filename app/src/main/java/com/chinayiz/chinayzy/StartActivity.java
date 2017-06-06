@@ -28,7 +28,7 @@ public class StartActivity extends Activity  {
 //        SystemClock.sleep(1000);
         SharedPreferences sp=getSharedPreferences("slide", Context.MODE_PRIVATE);
         final String first=sp.getString("isfirst","");
-
+        Logger.i("热更新修复");
       new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {

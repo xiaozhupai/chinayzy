@@ -1,0 +1,4 @@
+热更新步骤
+基类包  tinker-support.gradle 中修改tinkerId    "1.0.1-base"  打包基类包
+补丁包  1.修改tinkerId  "1.0.1-patch"        2.baseApkDir 修改为你打的基类包的目录 bakApk目录复制过来     3.修改你需要改变的文件
+上传补丁包在bugly的时候先运行基类包  上传基类的信息给Bugly
