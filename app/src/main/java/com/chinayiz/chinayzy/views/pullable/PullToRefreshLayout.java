@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
-import com.orhanobut.logger.Logger;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -287,13 +286,13 @@ public class PullToRefreshLayout extends RelativeLayout {
                 loadStateTextView.setText(R.string.pullup_to_load);
                 pullUpView.clearAnimation();
                 pullUpView.setVisibility(View.VISIBLE);
-                Logger.i("INIT");
+//                Logger.i("INIT");
                 break;
             case RELEASE_TO_REFRESH:
                 // 释放刷新状态
                 refreshStateTextView.setText(R.string.release_to_refresh);
                 pullView.startAnimation(rotateAnimation);
-                Logger.i("释放刷新状态");
+//                Logger.i("释放刷新状态");
                 break;
             case REFRESHING:
                 // 正在刷新状态
@@ -302,7 +301,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                 pullView.setVisibility(View.INVISIBLE);
                 refreshingView.startAnimation(refreshingAnimation);
                 refreshStateTextView.setText(R.string.refreshing);
-                Logger.i("正在刷新状态");
+//                Logger.i("正在刷新状态");
                 break;
             case RELEASE_TO_LOAD:
                 // 释放加载状态
@@ -488,7 +487,7 @@ public class PullToRefreshLayout extends RelativeLayout {
             int bottom = sum + pullableView.getMeasuredHeight();
 
             refreshView.layout(0, top, refreshView.getMeasuredWidth(), sum);
-            Logger.i("宽度=" + pullableView.getMeasuredWidth() + "\t\t\t高度=" + pullableView.getMeasuredHeight());
+//            Logger.i("宽度=" + pullableView.getMeasuredWidth() + "\t\t\t高度=" + pullableView.getMeasuredHeight());
 
             pullableView.layout(0, sum, pullableView.getMeasuredWidth(), bottom);
 

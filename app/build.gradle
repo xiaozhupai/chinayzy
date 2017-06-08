@@ -15,8 +15,8 @@ android {
         applicationId "com.chinayiz.chinayzy"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 7
-        versionName "2.0.2"
+        versionCode 8
+        versionName "2.0.3"
         multiDexEnabled true
         ndk {
             //选择要添加的对应cpu类型的.so库。

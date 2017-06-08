@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.multidex.MultiDex;
-import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
@@ -44,14 +43,15 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         // 设置是否自动下载补丁，默认为true
         Beta.canAutoDownloadPatch = true;
         // 设置是否自动合成补丁，默认为true
-        Beta.canAutoPatch = false;
+        Beta.canAutoPatch = true;
         // 设置是否提示用户重启，默认为false
         Beta.canNotifyUserRestart = true;
         // 补丁回调接口
         Beta.betaPatchListener = new BetaPatchListener() {
             @Override
             public void onPatchReceived(String patchFile) {
-                Toast.makeText(getApplication(), "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
+                Logger.i("补丁下载地址" + patchFile);
+
             }
 
             @Override
@@ -65,7 +65,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
             @Override
             public void onDownloadSuccess(String msg) {
                 Logger.i("补丁下载成功");
-
+//                Beta.applyTinkerPatch(getApplication(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
             }
 
             @Override
