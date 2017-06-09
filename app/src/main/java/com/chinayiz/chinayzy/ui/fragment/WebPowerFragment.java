@@ -2,6 +2,9 @@ package com.chinayiz.chinayzy.ui.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -56,6 +59,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
 import static com.chinayiz.chinayzy.APP.oss;
 
 /**
@@ -315,6 +319,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
         super.onResume();
         if (fristLoad) {
             wv_view.loadUrl(url);
+            Logger.i("打印提交地址="+url);
             fristLoad = false;
         }
     }
@@ -324,8 +329,44 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
         i.addCategory(Intent.CATEGORY_OPENABLE);
         i.setType("image/*");
         startActivityForResult(Intent.createChooser(i, "Image Chooser"), REQUEST_USER_IMG);
+
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == WebPowerFragment.REQUEST_USER_IMG) {
+            Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
+            if (Build.VERSION.SDK_INT >= 21) {//5.0以上版本处理
+                onActivityResultAboveL(requestCode, resultCode, data);
+
+            }else {
+                mUploadMessage.onReceiveValue(result);
+            }
+
+        }
+    }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void onActivityResultAboveL(int requestCode, int resultCode, Intent intent) {
+        if (requestCode != WebPowerFragment.REQUEST_USER_IMG ) return;
+        Uri[] results = null;
+        if (resultCode == Activity.RESULT_OK) {
+            if (intent != null) {
+                String dataString = intent.getDataString();
+                ClipData clipData = intent.getClipData();
+                if (clipData != null) {
+                    results = new Uri[clipData.getItemCount()];
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        results[i] = item.getUri();
+                    }
+                }
+                if (dataString != null)
+                    results = new Uri[]{Uri.parse(dataString)};
+            }
+        }
+       mUploadCallbackAboveL.onReceiveValue(results);
+    }
     @Override
     public void isNightMode(boolean isNight) {
 
