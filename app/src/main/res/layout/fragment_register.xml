@@ -169,78 +169,30 @@
                     />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="13dp"
-                android:background="@color/divider" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+            <com.chinayiz.chinayzy.views.CheckImageView
+                android:id="@+id/civ_check"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="真实姓名"
-                    android:textColor="#1c1c1c"
-                    android:textSize="15sp" />
-                <EditText
-                    android:id="@+id/et_register_truename"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="9dp"
-                    android:background="@null"
-                    android:hint="请输入真实姓名"
-                    android:paddingTop="0dp"
-                    android:textColorHint="#cecece"
-                    android:textSize="15sp"
-                    android:maxLines="1"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="13dp"
-                android:background="@color/divider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:src="@mipmap/radio_normal"
+                />
+            <TextView
+                android:id="@+id/tv_member"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="身份证    "
-                    android:textColor="#1c1c1c"
-                    android:textSize="15sp" />
-                <EditText
-                    android:id="@+id/et_register_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="9dp"
-                    android:background="@null"
-                    android:hint="请输入身份证"
-                    android:paddingTop="0dp"
-                    android:textColorHint="#cecece"
-                    android:textSize="15sp"
-                    android:maxLines="1"
-                    android:inputType="number"
-                    android:maxLength="18"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="13dp"
-                android:background="@color/divider" />
-
+                android:text="会员须知"
+              android:layout_marginLeft="10dp"
+                />
         </LinearLayout>
 
 

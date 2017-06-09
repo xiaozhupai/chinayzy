@@ -26,32 +26,32 @@
                 android:textSize="14sp"
                 android:layout_marginTop="24dp"
                 />
-            <TextView
-                android:id="@+id/tv_member_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/radio_normal"
-                android:drawablePadding="10dp"
-                android:text="会员须知"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_member_check"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:drawableLeft="@mipmap/radio_normal"-->
+                <!--android:drawablePadding="10dp"-->
+                <!--android:text="会员须知"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="24dp"-->
+                <!--/>-->
 
-            <TextView
-                android:id="@+id/tv_member_submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:text="下一步"
-                android:gravity="center"
-                android:background="@drawable/shape_corner_gray"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:layout_alignParentBottom="true"
+            <!--<TextView-->
+                <!--android:id="@+id/tv_member_submit"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="24dp"-->
+                <!--android:layout_marginRight="24dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:text="下一步"-->
+                <!--android:gravity="center"-->
+                <!--android:background="@drawable/shape_corner_gray"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:padding="16dp"-->
+                <!--android:layout_alignParentBottom="true"-->
                 />
         </LinearLayout>
     </ScrollView>

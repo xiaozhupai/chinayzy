@@ -1,11 +1,9 @@
 package com.chinayiz.chinayzy.ui.fragment.register;
 
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,7 @@ import com.chinayiz.chinayzy.presenter.MemberProtocolPresenter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MemberProtocolFragment extends BaseFragment<MemberProtocolPresenter> implements View.OnClickListener {
+public class MemberProtocolFragment extends BaseFragment<MemberProtocolPresenter> {
     public TextView tv_content;
     private TextView tv_member_check;
     private TextView tv_member_submit;
@@ -34,11 +32,11 @@ public class MemberProtocolFragment extends BaseFragment<MemberProtocolPresenter
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_member_protocol, null);
         tv_content = (TextView) view.findViewById(R.id.tv_content);
-        tv_member_check = (TextView) view.findViewById(R.id.tv_member_check);
-        tv_member_submit = (TextView) view.findViewById(R.id.tv_member_submit);
-        tv_member_submit.setOnClickListener(this);
-        tv_member_check.setOnClickListener(this);
-        tv_member_check.setText(Html.fromHtml("同意 <font color='#ff3952'>《用户协议》</font>"));
+//        tv_member_check = (TextView) view.findViewById(R.id.tv_member_check);
+//        tv_member_submit = (TextView) view.findViewById(R.id.tv_member_submit);
+//        tv_member_submit.setOnClickListener(this);
+//        tv_member_check.setOnClickListener(this);
+//        tv_member_check.setText(Html.fromHtml("同意 <font color='#ff3952'>《用户协议》</font>"));
 //        String content = "【关于注册会员】\n" +
 //                "注册会员自愿成为中国亿众的一员，按照中国亿众会员进入标准成功注册后，其享受中国亿众的一切服务。对于本服务的约定，注册会员将自动遵守中国亿众的一切法规，如利用中国亿众生态系统谋取其他私利，对平台造成损失，该会员视为自动与平台解除合约，对于丢失的亿众虚拟币中国亿众将不承担一切后果。\n" +
 //                "为了便于区分，中国亿众简称甲方，注册会员简称乙方。\n" +
@@ -74,31 +72,6 @@ public class MemberProtocolFragment extends BaseFragment<MemberProtocolPresenter
     }
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_member_submit:
-                if (isCheck) {
-                    mActivity.addFragment(new RegisterFragment());
-                }
-                break;
-            case R.id.tv_member_check:
-                if (isCheck) {
-                    isCheck = false;
-                    tv_member_submit.setBackgroundResource(R.drawable.shape_corner_gray);
-                    Drawable drawable = getResources().getDrawable(R.mipmap.radio_normal);
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                    tv_member_check.setCompoundDrawables(drawable, null, null, null);
-                } else {
-                    Drawable drawable = getResources().getDrawable(R.mipmap.radio_selected);
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                    tv_member_check.setCompoundDrawables(drawable, null, null, null);
-                    isCheck = true;
-                    tv_member_submit.setBackgroundResource(R.drawable.shape_corner_red);
-                }
-                break;
-        }
-    }
 
 
 }

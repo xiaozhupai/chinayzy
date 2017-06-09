@@ -4,6 +4,7 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.AddressListModel;
 import com.chinayiz.chinayzy.entity.response.ArticleModel;
+import com.chinayiz.chinayzy.entity.response.AuthModel;
 import com.chinayiz.chinayzy.entity.response.GoodsCollectModel;
 import com.chinayiz.chinayzy.entity.response.HyqyAndYhxyModel;
 import com.chinayiz.chinayzy.entity.response.MyStepModel;
@@ -577,6 +578,33 @@ public class UserNet {
 
     }
 
+
+    /**
+     * 完善个人资料
+     * @param idcard    身份证
+     * @param realname  真实姓名
+     */
+
+    public void getAuthidcard(String idcard,String realname) {
+        OkGo.post(Commons.API + Commons.AUTHIDCARD)
+                .params("idcard",idcard)
+                .params("realname",realname)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.AUTHIDCARD
+                                    ,mGson.fromJson(s,AuthModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+
+
+    }
 
 
 

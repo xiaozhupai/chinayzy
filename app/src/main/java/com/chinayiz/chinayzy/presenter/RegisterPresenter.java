@@ -34,6 +34,8 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
     private static final int MSG_NUM=5;
     public Handler handler;
     private String phone;
+
+
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
@@ -101,25 +103,29 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
             Toast.makeText(mView.getActivity(), "请输入6-12位密码", Toast.LENGTH_SHORT).show();
             return;
         }
-        String truename = mView.et_register_truename.getText().toString().trim();
-        if (TextUtils.isEmpty(truename)) {
-            Toast.makeText(mView.getActivity(), "请输入真实姓名", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String card = mView.et_register_card.getText().toString().trim();
-        if (TextUtils.isEmpty(card)) {
-            Toast.makeText(mView.getActivity(), "请输入身份证号码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Pattern pattern_card= Pattern.compile("^\\d{15}|\\d{18}$");
-        Matcher matcher_card=pattern_card.matcher(card);
-        if (!matcher_card.find()){
-            BaseActivity.showToast(mView.getActivity(),"请输入正确的身份证号码");
+//        String truename = mView.et_register_truename.getText().toString().trim();
+//        if (TextUtils.isEmpty(truename)) {
+//            Toast.makeText(mView.getActivity(), "请输入真实姓名", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        String card = mView.et_register_card.getText().toString().trim();
+//        if (TextUtils.isEmpty(card)) {
+//            Toast.makeText(mView.getActivity(), "请输入身份证号码", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        Pattern pattern_card= Pattern.compile("^\\d{15}|\\d{18}$");
+//        Matcher matcher_card=pattern_card.matcher(card);
+//        if (!matcher_card.find()){
+//            BaseActivity.showToast(mView.getActivity(),"请输入正确的身份证号码");
+//            return;
+//        }
+        if (!mView.civ_check.isCheck){
+            Toast.makeText(mView.getActivity(), "请确认用户协议", Toast.LENGTH_SHORT).show();
             return;
         }
 
      String recommendcard=mView.et_register_recommendcard.getText().toString().trim();
-            LoginNet.getLoginNet().toRegister(phone,message,password,recommendcard,truename,card);
+            LoginNet.getLoginNet().toRegister(phone,message,password,recommendcard);
 
     }
 

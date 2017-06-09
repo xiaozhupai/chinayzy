@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.APP;
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -102,7 +101,8 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                     UserSeeion.setPhone(mView.getActivity(),phone);
                   int userid=model.getData().getUserid();
                     String isMember=model.getData().getIsmember();
-                    SaveData(userid,isMember);
+                    String sys_auth=model.getData().getSys_auth();
+                    SaveData(userid,isMember,sys_auth);
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
                 LoginNet.getLoginNet().getToken();
@@ -110,9 +110,6 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
             case Commons.TOKEN:
              RongModel rongModel= (RongModel) message.getData();
                 if (rongModel.getCode().equals("100")){
-                    if (UserSeeion.isMember(mView)){
-
-                    }
                     mView.finish();
                 }
                 break;
@@ -129,12 +126,13 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
      *  本地存储
      * @param userid   用户登录成功后的ID
      */
-    private void SaveData(int userid,String isMember){
+    private void SaveData(int userid,String isMember,String sys_auth){
         SharedPreferences sharedPreferences = mView.getSharedPreferences("login", Context.MODE_PRIVATE); //私有数据
         SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
         editor.putInt("userid",userid);
         editor.putString("ismember",isMember);
         editor.putString("phone",phone);
+        editor.putString("sys_auth",sys_auth);
         editor.commit();//提交修改
         APP.sUserid=userid+"";
 
@@ -146,7 +144,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
             case RegisterInfoPresenter.REGISTERINFO_BACK:
                String userid= (String) message.getData();
                 Logger.i("注册"+userid);
-                Skip.toDeposit(mView.getActivity(),userid);
+//                Skip.toDeposit(mView.getActivity(),userid);
                 break;
         }
     }

@@ -35,8 +35,10 @@ import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
 import com.chinayiz.chinayzy.ui.fragment.register.DepositFragment;
 import com.chinayiz.chinayzy.ui.fragment.register.MemberRuleFragment;
+import com.chinayiz.chinayzy.ui.fragment.register.RegisterFragment;
 
 import java.io.Serializable;
 
@@ -460,4 +462,19 @@ public class Skip {
         skip(context, intent);
     }
 
+    /**
+     * 注册
+     * @param context
+     */
+    public static void toRegister(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, RegisterFragment.class);
+        skip(context, intent);
+    }
+
+    public static void toPerfestData(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, TrueNameFragment.class);
+        skip(context, intent);
+    }
 }

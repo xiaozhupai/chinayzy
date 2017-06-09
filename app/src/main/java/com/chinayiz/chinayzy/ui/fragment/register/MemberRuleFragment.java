@@ -2,10 +2,8 @@ package com.chinayiz.chinayzy.ui.fragment.register;
 
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,7 @@ import com.chinayiz.chinayzy.presenter.MemberRulePresenter;
  * 会员须知
  */
 @SuppressLint("ValidFragment")
-public class MemberRuleFragment extends BaseFragment<MemberRulePresenter> implements View.OnClickListener {
+public class MemberRuleFragment extends BaseFragment<MemberRulePresenter>  {
 
     public TextView tv_content;
     private TextView tv_member_check;
@@ -36,11 +34,11 @@ public class MemberRuleFragment extends BaseFragment<MemberRulePresenter> implem
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_member_rule, null);
         tv_content = (TextView) view.findViewById(R.id.tv_content);
-        tv_member_check = (TextView) view.findViewById(R.id.tv_member_check);
-        tv_member_submit = (TextView) view.findViewById(R.id.tv_member_submit);
-        tv_member_submit.setOnClickListener(this);
-        tv_member_check.setOnClickListener(this);
-        tv_member_check.setText(Html.fromHtml("同意<font color='#ff3952'>《会员权益》</font>"));
+//        tv_member_check = (TextView) view.findViewById(R.id.tv_member_check);
+//        tv_member_submit = (TextView) view.findViewById(R.id.tv_member_submit);
+//        tv_member_submit.setOnClickListener(this);
+//        tv_member_check.setOnClickListener(this);
+//        tv_member_check.setText(Html.fromHtml("同意<font color='#ff3952'>《会员权益》</font>"));
 //        String content = "1、申请人须仔细阅读本须知，您点击同意按钮后即表示完全接受本协议项下的全部条款，" +
 //                "一旦注册即视为用户确认自己享有相关民事权利能力和行为能力并能够独立承担法律责任。\n\n 2、" +
 //                "申请会员资格须一次性向商城“我的钱包”充值1350元人民币消费益众品牌的商品和标有自营标签的商品，" +
@@ -69,29 +67,5 @@ public class MemberRuleFragment extends BaseFragment<MemberRulePresenter> implem
     }
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_member_submit:
-                if (isCheck) {
-                    mActivity.addFragment(new MemberProtocolFragment());
-                }
-                break;
-            case R.id.tv_member_check:
-                if (isCheck) {
-                    isCheck = false;
-                    tv_member_submit.setBackgroundResource(R.drawable.shape_corner_gray);
-                    Drawable drawable = getResources().getDrawable(R.mipmap.radio_normal);
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                    tv_member_check.setCompoundDrawables(drawable, null, null, null);
-                } else {
-                    Drawable drawable = getResources().getDrawable(R.mipmap.radio_selected);
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                    tv_member_check.setCompoundDrawables(drawable, null, null, null);
-                    isCheck = true;
-                    tv_member_submit.setBackgroundResource(R.drawable.shape_corner_red);
-                }
-                break;
-        }
-    }
+
 }

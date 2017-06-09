@@ -427,6 +427,11 @@ public class Commons {
      * 推荐用户列表
      */
     public static final String FINDRECOMMENDCOUNT = "/h5/findRecommendCount";
+    /**
+     * 完善个人资料
+     */
+    public static final String AUTHIDCARD = "/centre/authIdCard";
+
 
 
 }

@@ -23,19 +23,19 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
-
     }
+
     lintOptions {
         abortOnError false
         checkReleaseBuilds false
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
-
     }
 }
 

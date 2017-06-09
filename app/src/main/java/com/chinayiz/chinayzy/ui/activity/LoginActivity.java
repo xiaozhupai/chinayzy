@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
                 mPresenter.login();
                 break;
             case R.id.tv_register_submit:   //注册提交
-                Skip.toMemberRuleFragment(getActivity());
+                Skip.toRegister(getActivity());
                 break;
             case R.id.iv_back_button:
                 onBackPressed();

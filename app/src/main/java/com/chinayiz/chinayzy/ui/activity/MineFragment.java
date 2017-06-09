@@ -71,6 +71,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
     public static MineFragment getInstance() {
         return new MineFragment();
     }
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_mine,null);
@@ -115,7 +116,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         lv_mine_suggest.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
-     Logger.i("Android---------------------------  热修复 success");
+
 
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
@@ -169,7 +170,17 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
                 Skip.toWebPage(getActivity(), Commons.API+Commons.AFTER_LIST+"?userid="+APP.sUserid,"售后");
                 break;
             case R.id.lv_mine_keep:   //充值
-                Skip.toDeposit(getActivity());
+
+                if (UserSeeion.isMember(getActivity())){
+                    Skip.toDeposit(getActivity());  //充值
+                }else {
+                    if (UserSeeion.getSys_auth(getActivity()).equals("1")){
+                        Skip.toPerfestData(getActivity());  //完善资料
+                    }else {
+                        Skip.toDeposit(getActivity());  //充值
+                    }
+                }
+
                 break;
             case R.id.lv_mine_step:   //我的足迹
                 Skip.toMyStep(getActivity());

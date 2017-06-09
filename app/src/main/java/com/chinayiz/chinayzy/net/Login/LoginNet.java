@@ -109,17 +109,13 @@ public class LoginNet {
      * @param yzm    yzm	验证码	String	是
      * @param password  password	密码	String	是
      * @param recommendcard  recommendcard	推荐码	String	否
-     * @param realname   真实姓名
-     * @param idcard     身份证号码
      */
-    public void toRegister(String phone,String yzm,String password,String recommendcard,String realname,String idcard){
+    public void toRegister(String phone,String yzm,String password,String recommendcard){
         OkGo.post(Commons.API + Commons.REGISTER).
                 params("phone",phone)
                 .params("yzm",yzm)
                 .params("password",password)
                 .params("recommendcard",recommendcard)
-                .params("realname",realname)
-                .params("idcard",idcard)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {

@@ -230,7 +230,7 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
     }
 
     private void todismiss(){
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         dismiss();
     }
 

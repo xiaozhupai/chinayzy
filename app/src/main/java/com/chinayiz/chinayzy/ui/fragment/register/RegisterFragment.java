@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.RegisterPresenter;
 import com.chinayiz.chinayzy.utils.SoftKeyboardStateHelper;
+import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -31,8 +33,11 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
     public EditText et_register_message;
     public TextView tv_register_sendmessage;
     public View v_register_line;
-    public EditText et_register_password,et_register_recommendcard,et_register_card,et_register_truename;
+    public EditText et_register_password,et_register_recommendcard;
     public TextView tv_register_submit;
+    public TextView tv_member;
+    public CheckImageView civ_check;
+
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
@@ -50,11 +55,16 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
         et_register_password = (EditText)view.findViewById(R.id.et_register_password);
         tv_register_submit = (TextView)view.findViewById(R.id.tv_register_submit);
         et_register_recommendcard= (EditText) view.findViewById(R.id.et_register_recommendcard);
-        et_register_card= (EditText) view.findViewById(R.id.et_register_card);
-        et_register_truename= (EditText) view.findViewById(R.id.et_register_truename);
+//        et_register_card= (EditText) view.findViewById(R.id.et_register_card);
+//        et_register_truename= (EditText) view.findViewById(R.id.et_register_truename);
+        tv_member= (TextView) view.findViewById(R.id.tv_member);
+        civ_check= (CheckImageView) view.findViewById(R.id.civ_check);
+
         tv_register_submit.setOnClickListener(this);
         tv_register_sendmessage.setOnClickListener(this);
-
+        tv_member.setOnClickListener(this);
+        civ_check.setOnClickListener(this);
+        tv_member.setText(Html.fromHtml("同意 <font color='#ff3952'>《用户协议》</font>"));
         SoftKeyboardStateHelper softKeyboardStateHelper=new SoftKeyboardStateHelper(view);
         softKeyboardStateHelper.addSoftKeyboardStateListener(this);
         return view;
@@ -87,6 +97,16 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
                 break;
             case R.id.tv_register_sendmessage:
               mPresenter.sendMessage();
+                break;
+            case R.id.tv_member:
+                mActivity.addFragment(new MemberProtocolFragment());
+                break;
+            case R.id.civ_check:
+                if (civ_check.isCheck){
+                    civ_check.setCheck(false);
+                }else {
+                    civ_check.setCheck(true);
+                }
                 break;
         }
     }

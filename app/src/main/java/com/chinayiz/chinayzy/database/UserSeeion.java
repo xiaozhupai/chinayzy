@@ -95,4 +95,25 @@ public class UserSeeion {
     public static String getPhone(Context context){
        return context.getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone","");
     }
+
+    /**
+     * 获得认证状态
+     * @param context
+     * @return
+     */
+    public static String getSys_auth(Context context){
+        return context.getSharedPreferences("login", Context.MODE_PRIVATE).getString("sys_auth","");
+    }
+
+    /**
+     * 设置认证状态
+     * @param context
+     * @param sys_auth   认证状态
+     */
+    public static void setSys_auth(Context context,String sys_auth){
+        SharedPreferences sp=context.getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString("sys_auth",sys_auth);
+        editor.commit();
+    }
 }
