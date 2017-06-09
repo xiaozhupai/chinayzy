@@ -25,10 +25,8 @@ public class StartActivity extends Activity  {
         setContentView(R.layout.activity_start);
         APP.Version= String.valueOf(AppUtil.getVersionCode(this));
         Logger.i("版本号="+APP.Version);
-//        SystemClock.sleep(1000);
         SharedPreferences sp=getSharedPreferences("slide", Context.MODE_PRIVATE);
         final String first=sp.getString("isfirst","");
-
       new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {

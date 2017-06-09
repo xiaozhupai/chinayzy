@@ -115,7 +115,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         lv_mine_suggest.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
-
+     Logger.i("Android---------------------------  热修复 success");
 
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override

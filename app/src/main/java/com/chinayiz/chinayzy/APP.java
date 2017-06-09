@@ -1,7 +1,6 @@
 package com.chinayiz.chinayzy;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
@@ -22,7 +21,8 @@ import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.model.HttpParams;
 import com.mob.MobSDK;
 import com.orhanobut.logger.Logger;
-import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.tinker.loader.app.TinkerApplication;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -34,7 +34,7 @@ import cn.sharesdk.framework.ShareSDK;
  * CreateDate 2016/12/28 11:46
  * Class APP
  */
-public class APP extends Application {
+public class APP extends TinkerApplication {
     /**
      * 全局用户ID
      */
@@ -53,6 +53,16 @@ public class APP extends Application {
     public static final String testBucket = "yzy-app-img";
     public static boolean APP_DBG = false; // 是否是debug模式
 
+    /**
+     * 参数1：tinkerFlags 表示Tinker支持的类型 dex only、library only or all suuport，default: TINKER_ENABLE_ALL
+     参数2：delegateClassName Application代理类 这里填写你自定义的ApplicationLike
+     参数3：loaderClassName Tinker的加载器，使用默认即可
+     参数4：tinkerLoadVerifyFlag 加载dex或者lib是否验证md5，默认为false
+     */
+    public  APP(){
+        super(ShareConstants.TINKER_ENABLE_ALL, "com.chinayiz.chinayzy.SampleApplicationLike",
+                "com.tencent.tinker.loader.TinkerLoader", false);
+    }
 
 
     public static void initdebug(Context context) {
@@ -88,7 +98,7 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         initdebug(this);
-        CrashReport.initCrashReport(getApplicationContext(), "a3d9e23cd5", false);  //bugly初始化
+//        CrashReport.initCrashReport(getApplicationContext(), "a3d9e23cd5", false);  //bugly初始化
         MobSDK.init(this);   //Share初始化
         cacheUtil = GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);

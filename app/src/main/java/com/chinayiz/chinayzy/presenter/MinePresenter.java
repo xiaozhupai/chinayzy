@@ -74,17 +74,24 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                 mView.tv_has_user.setText(String.format("已有%d个用户", dataBean.getRelationshipcount()));
                 if (!TextUtils.isEmpty(dataBean.getPic())) {
                     Glide.with(mView.getActivity()).load(dataBean.getPic()).into(mView.iv_mine_user_logo);
+                }else {
+                    mView.iv_mine_user_logo.setImageResource(R.mipmap.img_user);
                 }
 
                  if (dataBean.getIsmember().equals("1")){
+                     mView.iv_mine_user_sex.setVisibility(View.VISIBLE);
                      mView.iv_mine_user_sex.setImageResource(R.mipmap.ic_vip);
+                 }else {
+                     mView.iv_mine_user_sex.setVisibility(View.GONE);
                  }
 
                     Drawable nav_up = mView.getResources().getDrawable(R.mipmap.back_arrow_white);
                     nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
                     if (TextUtils.isEmpty(dataBean.getNickname())) {
+                        mView.tv_user_username.setVisibility(View.GONE);
                         mView.tv_user_username.setCompoundDrawables(null, null, null, null);
                     } else {
+                        mView.tv_user_username.setVisibility(View.VISIBLE);
                         mView.tv_user_username.setCompoundDrawables(null, null, nav_up, null);
                     }
                     if (dataBean.getWaittakecount() > 0) {  //待收货
