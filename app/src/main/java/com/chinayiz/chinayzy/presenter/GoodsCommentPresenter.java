@@ -64,6 +64,7 @@ public class GoodsCommentPresenter extends BasePresenter<GoodsCommentFragment> {
                 mBuffer=new StringBuffer();
                 mView.path.clear();
                 mView.path.addAll((List<String>) message.getData());
+
                 imagesCount=mView.path.size();
                 int i=0;
                 for (String str : mView.path) {
@@ -72,6 +73,7 @@ public class GoodsCommentPresenter extends BasePresenter<GoodsCommentFragment> {
                     int year=calendar.get(Calendar.YEAR);
                     String date= DateFormat.format("MMdd",Calendar.getInstance(Locale.CHINA))+"";
                     String lastname= UUID.randomUUID()+".png";
+
                     uploadObject="v1/"+year+"/"+date+"/"+lastname;
                     i++;
                     if (i==imagesCount){

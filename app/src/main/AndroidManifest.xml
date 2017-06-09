@@ -55,23 +55,37 @@
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <!-- 商城公共activity -->
+        <activity
+            android:name=".ui.activity.StoreMainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+
+        </activity>
         <!-- 下载更新应用service -->
-        <service android:name=".autoUpdate.UpdateService" />
+        <service android:name=".autoUpdate.UpdateService"/>
         <!-- 商品详情activity -->
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity
             android:name=".ui.activity.ForgotActivity"
-            android:label="@string/title_activity_forgot"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_forgot"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <!-- MobUIshell -->
 
         <activity

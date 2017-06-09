@@ -94,12 +94,10 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
             CommonNavigator commonNavigator = new CommonNavigator(mView.getActivity());
             commonNavigator.setAdjustMode(true);
             commonNavigator.setAdapter(new CommonNavigatorAdapter() {
-
                 @Override
                 public int getCount() {
                     return titles.size();
                 }
-
                 @Override
                 public IPagerTitleView getTitleView(Context context, final int index) {
                     BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);

@@ -553,7 +553,7 @@ public class CommonRequestUtils {
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
     public void getAliPayOrder(String type, String total, String orderbill) {
-        OkGo.post(Commons.API + Commons.ALIPAYORDER)
+        OkGo.post(Commons.PAY + Commons.ALIPAYORDER)
                 .params("type",type)
                 .params("total",total)
                 .params("orderbill",orderbill)
@@ -581,7 +581,7 @@ public class CommonRequestUtils {
      */
     public void getAliPayOrder(String type, String total, String orderbill,String userid) {
 
-        OkGo.post(Commons.API + Commons.ALIPAYORDER)
+        OkGo.post(Commons.PAY + Commons.ALIPAYORDER)
                 .params("type",type)
                 .params("total",total)
                 .params("orderbill",orderbill)
@@ -610,7 +610,7 @@ public class CommonRequestUtils {
      */
     public void getWxPayOrder(String type, String total, String orderbill) {
 
-        OkGo.post(Commons.API + Commons.WXPAYORDER)
+        OkGo.post(Commons.PAY + Commons.WXPAYORDER)
                 .params("type",type)
                 .params("total",total)
                 .params("orderbill",orderbill)
@@ -639,7 +639,7 @@ public class CommonRequestUtils {
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
     public void getWxPayOrder(String type, String total, String orderbill,String userid) {
-        OkGo.post(Commons.API + Commons.WXPAYORDER)
+        OkGo.post(Commons.PAY + Commons.WXPAYORDER)
                 .params("type",type)
                 .params("total",total)
                 .params("orderbill",orderbill)
@@ -845,7 +845,7 @@ public class CommonRequestUtils {
      * @param total   支付价格
      */
     public void fastPay(String orderid, String total) {
-        OkGo.post(Commons.API + Commons.FAST_PAY)
+        OkGo.post(Commons.PAY + Commons.FAST_PAY)
                 .params("orderid",orderid)
                 .params("total",total)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {

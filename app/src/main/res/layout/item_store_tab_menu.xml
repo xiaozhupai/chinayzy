@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="167dp"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/iv_tab_menu1"
+            style="@style/iv_tab_menu"
+            />
+        <ImageView
+            android:id="@+id/iv_tab_menu2"
+            style="@style/iv_tab_menu"
+            />
+        <ImageView
+            android:id="@+id/iv_tab_menu3"
+            style="@style/iv_tab_menu"
+            />
+
+        <ImageView
+            android:id="@+id/iv_tab_menu4"
+            style="@style/iv_tab_menu"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/iv_tab_menu5"
+            style="@style/iv_tab_menu"
+            />
+        <ImageView
+            android:id="@+id/iv_tab_menu6"
+            style="@style/iv_tab_menu"
+            />
+        <ImageView
+            android:id="@+id/iv_tab_menu7"
+            style="@style/iv_tab_menu"
+            />
+        <ImageView
+            android:id="@+id/iv_tab_menu8"
+            style="@style/iv_tab_menu"
+            />
+    </LinearLayout>
+</LinearLayout>

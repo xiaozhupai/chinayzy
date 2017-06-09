@@ -32,7 +32,8 @@ import com.chinayiz.chinayzy.utils.StrCallback;
  * CreateDate 2016/12/27 9:59
  * Class BaseActivity
  */
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView, View.OnClickListener, CompoundButton.OnCheckedChangeListener, FragmentManager.OnBackStackChangedListener {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseActivityView, View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener, FragmentManager.OnBackStackChangedListener {
     public View mActionBar;
     /**
      * ActionBar标题

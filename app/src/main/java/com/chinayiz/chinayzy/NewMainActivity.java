@@ -271,84 +271,91 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
             actionName = "下载更新";
         }
         if (type == 1) {//普通更新
-            if (!isNotify) {//是否提示更新
-                new MaterialDialog.Builder(this)
-                        .iconRes(R.mipmap.ic_launcher)
-                        .limitIconToDefaultSize()
-                        .title("更新提示")
-                        .content(mPresenter.info.getVersiondesc())
-                        .positiveText(actionName)
-                        .negativeText("取消")
-                        .titleColor(Color.rgb(0, 0, 0))
-                        .contentColor(Color.rgb(43, 43, 43))
-                        .backgroundColor(Color.rgb(230, 230, 230))
-                        .negativeColor(Color.rgb(0, 0, 0))
-                        .positiveColor(Color.rgb(53, 181, 74))
-                        .onAny(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                if (DialogAction.POSITIVE.toString().equals(which.name())) {  //更新
-                                    mEditer.putBoolean("isWarn", false);
-                                    mEditer.commit();
-                                    if (mPresenter.isLoad) {
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setDataAndType(Uri.fromFile(new File(mPresenter.apkPath)), "application/vnd.android.package-archive");
-                                        startActivity(intent);
-                                        finish();
-                                    } else {//开始启动下载的地方
-
-                                        if (NetworkUtils.isWifiConnected(NewMainActivity.this)) {
-                                            Intent intent = new Intent(NewMainActivity.this, UpdateService.class);
-                                            intent.putExtra("downloadURI", dowloadUrl);
-                                            startService(intent);
-                                            dialog.dismiss();
-                                        } else {
-                                            ensureDowload();
-                                            dialog.dismiss();
-                                        }
-
-                                    }
-                                } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //取消更新
-                                    Logger.i("取消");
-                                }
-                            }
-                        })
-                        .checkBoxPrompt("不再提示", false, new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                Logger.i("是否提醒");
-                                mEditer.putBoolean("isWarn", b);
-                                mEditer.commit();
-                            }
-                        })
-                        .build()
-                        .show();
-            } else {
-                return;
-            }
+            if (normalUpdata(actionName)) return;
         }
         if (type == 2) {//强制更新
 
+            forceUpdata(actionName);
+        }
+    }
+
+    /**
+     * 强制更新
+     * @param actionName
+     */
+    private void forceUpdata(String actionName) {
+        new MaterialDialog.Builder(this)
+                .iconRes(R.mipmap.ic_launcher)
+                .limitIconToDefaultSize()
+                .title("更新提示")
+                .titleColor(Color.rgb(209, 97, 88))
+                .content(mPresenter.info.getVersiondesc())
+                .negativeText("退出应用")
+                .positiveText(actionName)
+                .contentColor(Color.rgb(43, 43, 43))
+                .backgroundColor(Color.rgb(230, 230, 230))
+                .negativeColor(Color.rgb(214, 101, 88))
+                .positiveColor(Color.rgb(57, 181, 74))
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (DialogAction.POSITIVE.toString().equals(which.name())) {  //更新/下载
+                            if (mPresenter.isLoad) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setDataAndType(Uri.fromFile(new File(mPresenter.apkPath)), "application/vnd.android.package-archive");
+                                startActivity(intent);
+                            } else {//开始启动下载的地方
+                                if (NetworkUtils.isWifiConnected(NewMainActivity.this)) {
+                                    Intent intent = new Intent(NewMainActivity.this, UpdateService.class);
+                                    intent.putExtra("downloadURI", dowloadUrl);
+                                    startService(intent);
+                                    dialog.dismiss();
+                                } else {
+                                    ensureDowload();
+                                    dialog.dismiss();
+                                }
+
+                            }
+                        } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //取消更新/安装
+                            Logger.i("退出应用");
+                            dialog.dismiss();
+                            finish();
+                        }
+                    }
+                })
+                .cancelable(false)
+                .build()
+                .show();
+    }
+    /**
+     * 正常更新
+     * @param actionName
+     */
+    private boolean normalUpdata(String actionName) {
+        if (!isNotify) {//是否提示更新
             new MaterialDialog.Builder(this)
                     .iconRes(R.mipmap.ic_launcher)
                     .limitIconToDefaultSize()
                     .title("更新提示")
-                    .titleColor(Color.rgb(209, 97, 88))
                     .content(mPresenter.info.getVersiondesc())
-                    .negativeText("退出应用")
                     .positiveText(actionName)
+                    .negativeText("取消")
+                    .titleColor(Color.rgb(0, 0, 0))
                     .contentColor(Color.rgb(43, 43, 43))
                     .backgroundColor(Color.rgb(230, 230, 230))
-                    .negativeColor(Color.rgb(214, 101, 88))
-                    .positiveColor(Color.rgb(57, 181, 74))
+                    .negativeColor(Color.rgb(0, 0, 0))
+                    .positiveColor(Color.rgb(53, 181, 74))
                     .onAny(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            if (DialogAction.POSITIVE.toString().equals(which.name())) {  //更新/下载
+                            if (DialogAction.POSITIVE.toString().equals(which.name())) {  //更新
+                                mEditer.putBoolean("isWarn", false);
+                                mEditer.commit();
                                 if (mPresenter.isLoad) {
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     intent.setDataAndType(Uri.fromFile(new File(mPresenter.apkPath)), "application/vnd.android.package-archive");
                                     startActivity(intent);
+                                    finish();
                                 } else {//开始启动下载的地方
 
                                     if (NetworkUtils.isWifiConnected(NewMainActivity.this)) {
@@ -362,17 +369,25 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
                                     }
 
                                 }
-                            } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //取消更新/安装
-                                Logger.i("退出应用");
-                                dialog.dismiss();
-                                finish();
+                            } else if (DialogAction.NEGATIVE.toString().equals(which.name())) { //取消更新
+                                Logger.i("取消");
                             }
                         }
                     })
-                    .cancelable(false)
+                    .checkBoxPrompt("不再提示", false, new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            Logger.i("是否提醒");
+                            mEditer.putBoolean("isWarn", b);
+                            mEditer.commit();
+                        }
+                    })
                     .build()
                     .show();
+        } else {
+            return true;
         }
+        return false;
     }
 
     /**

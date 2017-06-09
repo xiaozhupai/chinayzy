@@ -23,19 +23,20 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
-    }
 
+        vectorDrawables.useSupportLibrary = true
+    }
     lintOptions {
         abortOnError false
         checkReleaseBuilds false
     }
-
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
+
     }
 }
 
@@ -83,7 +84,10 @@ dependencies {
     compile 'de.halfbit:pinned-section-listview:1.0.0'
     compile 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:recyclerview-v7:1.1.7'
+    compile 'com.android.support:appcompat-v7:1.1.7'
+    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7'
     compile files('libs/okgo-2.1.4.jar')
     compile files('libs/okhttp-3.8.0.jar')
 

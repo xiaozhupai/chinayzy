@@ -15,6 +15,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class CommonPresenter extends BasePresenter<CommonActivity> {
+
     @Override
     protected void onCreate() {
 
@@ -31,6 +32,11 @@ public class CommonPresenter extends BasePresenter<CommonActivity> {
     }
 
     @Override
+    public void disposeInfoMsg(EventMessage message) {
+
+    }
+
+    @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
         if (StrCallback.RESPONSE_CODE_USER_OUT.equals(message.getDataType())){
@@ -42,16 +48,13 @@ public class CommonPresenter extends BasePresenter<CommonActivity> {
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-
+        if (EventMessage.INFORM_EVENT==message.getEventType()){
+            disposeInfoMsg(message);
+        }
     }
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-
-    }
-
-    @Override
-    public void disposeInfoMsg(EventMessage message) {
 
     }
 }

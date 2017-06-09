@@ -37,6 +37,9 @@ import java.util.ArrayList;
 @SuppressLint("ValidFragment")
 public class GoodsCommentFragment extends BaseFragment<GoodsCommentPresenter>
         implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, RatingBar.OnRatingChangeListener {
+    /**
+     * 选择评论图片
+     */
     public static final int REQUEST_CODE = 0x0001;
     public CommentGoodsModel mRequestModel;
     private ImageConfig imageConfig;

@@ -104,7 +104,7 @@ public class TakeFragment extends AbsFragment implements View.OnClickListener {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     if (DialogAction.POSITIVE.toString().equals(which.name())){  //更新/下载
-                                        String url=new String(Commons.API+EDIE_USERINFO+"?userid="+ APP.sUserid+"&type=android");
+                                        String url=Commons.API+EDIE_USERINFO+"?userid="+ APP.sUserid+"&type=android";
                                         Skip.toWebPage(getActivity(),url,"完善资料");
                                     }else if (DialogAction.NEGATIVE.toString().equals(which.name())){ //取消更新/安装
                                        dialog.dismiss();
