@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bigkoo.convenientbanner.ConvenientBanner
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_banner"
+    android:layout_width="match_parent"
+    android:layout_height="194dp"
+    android:background="@color/backgroundgray"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:canLoop="true"
+    >
+</com.bigkoo.convenientbanner.ConvenientBanner>

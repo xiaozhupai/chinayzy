@@ -9,76 +9,20 @@
 
     <Button
         android:id="@+id/normal_button"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:onClick="onTest"
-        android:text="normal"
+        android:text="开始请求"
         />
 
     <Button
-        android:id="@+id/borderless_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        android:id="@+id/normal_button1"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="borderless"/>
-
-    <Button
-        android:id="@+id/colored_button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="colored"/>
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="New CheckBox"/>
-
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="New RadioButton"/>
-
-    <ProgressBar
-        android:id="@+id/view_isSelf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:onClick="onTest1"
+        android:text="action"
         />
 
-    <Switch
-        android:id="@+id/switchButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="New Switch"/>
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="New Text"/>
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:hint="Input"
-        />
 </LinearLayout>

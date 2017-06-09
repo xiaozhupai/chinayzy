@@ -18,7 +18,22 @@
     <style name="Dialog.White" parent="Dialog">
         <item name="android:windowContentOverlay">@null</item>
     </style>
+<style name="iv_tab_menu">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
 
+    <style name="tab_menus">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 
     <style name="Dialog.Transparent" parent="Dialog">
         <item name="android:windowContentOverlay">@null</item>
@@ -28,7 +43,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-<style name="orderSet_Item">
+    <style name="orderSet_Item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">43dp</item>
         <item name="android:background">@color/Background</item>
@@ -424,8 +439,6 @@
         <!--是否模糊-->
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-
-
 
 
 </resources>

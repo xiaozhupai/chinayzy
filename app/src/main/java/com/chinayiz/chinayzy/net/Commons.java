@@ -428,5 +428,24 @@ public class Commons {
      */
     public static final String FINDRECOMMENDCOUNT = "/h5/findRecommendCount";
 
-
+    /**
+     * 亿众商城商品搜索接口
+     */
+    public static final String STORE_HOME_SEARCH = "/mall/searchMallGoods";
+    /**
+     * 商品板块名称
+     */
+    public static final String STORE_HOME_TABS = "/mall/showMallType";
+    /**
+     * 亿众商城首页广告图
+     */
+    public static final String STORE_HOME_BANNER = "/mall/showMallAd";
+    /**
+     * 商城商品主题集合
+     */
+    public static final String STORE_HOME_THEME = "/mall/malltheme";
+    /**
+     * 根据板块itemcode查询商品
+     */
+    public static final String STORE_HOME_GOODSS = "/mall/showMallGoods";
 }

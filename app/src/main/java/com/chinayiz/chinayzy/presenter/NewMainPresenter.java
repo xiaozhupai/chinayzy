@@ -41,7 +41,7 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
             case Commons.UPDATA: {
-                isLoad = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getBoolean("isLoad", false);
+                isLoad = false;
                 apkPath = mView.getSharedPreferences("update", Context.MODE_PRIVATE).getString("apkPath", "-1");
                 AppUpdataModel model = (AppUpdataModel) message.getData();
                 info = model.getData();

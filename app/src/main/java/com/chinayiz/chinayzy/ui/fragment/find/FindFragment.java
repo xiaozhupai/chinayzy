@@ -61,7 +61,6 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     protected void onInvisible() {
     }
 
-
     @Override
     protected void lazyLoad() {
     }
