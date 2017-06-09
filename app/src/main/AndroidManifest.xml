@@ -78,11 +78,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity
             android:name=".ui.activity.ForgotActivity"
-            android:label="@string/title_activity_forgot"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_forgot"
             android:screenOrientation="portrait"
