@@ -176,6 +176,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
                     }else {
                         Skip.toPerfestData(getActivity());  //完善资料
                     }
+                }else {
+                    Skip.toDeposit(getActivity());
                 }
 
                 break;
