@@ -4,8 +4,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
@@ -131,6 +133,9 @@ public class MinePresenter extends BasePresenter<MineFragment> {
         switch (message.getDataType()){
             case UPDATEMINE:
 //                getData();
+                break;
+            case TrueNamePresenter.BACK:
+                Skip.toDeposit(mView.getActivity());
                 break;
         }
     }

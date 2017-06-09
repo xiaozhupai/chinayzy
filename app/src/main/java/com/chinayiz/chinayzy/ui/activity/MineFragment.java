@@ -170,14 +170,11 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
                 Skip.toWebPage(getActivity(), Commons.API+Commons.AFTER_LIST+"?userid="+APP.sUserid,"售后");
                 break;
             case R.id.lv_mine_keep:   //充值
-
-                if (UserSeeion.isMember(getActivity())){
-                    Skip.toDeposit(getActivity());  //充值
-                }else {
-                    if (UserSeeion.getSys_auth(getActivity()).equals("1")){
-                        Skip.toPerfestData(getActivity());  //完善资料
-                    }else {
+                if (!UserSeeion.isMember(getActivity(),"")){
+                    if (UserSeeion.getSys_auth(getActivity()).equals("1")){  //已经认证成功
                         Skip.toDeposit(getActivity());  //充值
+                    }else {
+                        Skip.toPerfestData(getActivity());  //完善资料
                     }
                 }
 
