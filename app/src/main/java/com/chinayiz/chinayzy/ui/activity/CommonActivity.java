@@ -12,14 +12,10 @@
  */
 package com.chinayiz.chinayzy.ui.activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -199,6 +195,7 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Fra
         if (requestCode == IMAGE_REQUEST_CODE || requestCode == RESIZE_REQUEST_CODE || requestCode == CAMERA_REQUEST_CODE) {
             EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, requestCode + "", data));
         }
+
         if (requestCode == GoodsCommentFragment.REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
             EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,
@@ -215,62 +212,8 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Fra
                         WebPowerFragment.USER_INFO_DATA, path));
             }
         }
-        /**
-         *  WebView JS选择图片
-         */
-        if (requestCode == WebPowerFragment.REQUEST_USER_IMG) {
-            showToast(this,"选择图片返回");
-            Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
-            if (Build.VERSION.SDK_INT >= 21) {//5.0以上版本处理
-                onActivityResultAboveL(requestCode, resultCode, data);
-                }else {
-                EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
-                        WebPowerFragment.USER_INFO_IMG, result));
-            }
 
-        }
-//        if (requestCode==WebPowerFragment.REQUEST_USER_IMG&&resultCode==RESULT_OK&&data != null){
-//            if (Build.VERSION.SDK_INT >= 21) {//5.0以上版本处理
-//                Uri uri = data.getData();
-//                Uri[] uris = new Uri[]{uri};
-//                EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,
-//                        WebPowerFragment.USER_INFO_IMG, uris));
-//                   /* ClipData clipData = data.getClipData();  //选择多张
-//                    if (clipData != null) {
-//                        for (int i = 0; i < clipData.getItemCount(); i++) {
-//                            ClipData.Item item = clipData.getItemAt(i);
-//                            Uri uri = item.getUri();
-//                            uris[i]=uri;
-//                        }
-//                    }*/
-//            } else {//4.4以下处理
-//                Uri uri = data.getData();
-//                EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,
-//                        WebPowerFragment.USER_INFO_IMG, uri));
-//            }
-//        }
     }
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void onActivityResultAboveL(int requestCode, int resultCode, Intent intent) {
-        if (requestCode != WebPowerFragment.REQUEST_USER_IMG ) return;
-        Uri[] results = null;
-        if (resultCode == Activity.RESULT_OK) {
-            if (intent != null) {
-                String dataString = intent.getDataString();
-                ClipData clipData = intent.getClipData();
-                if (clipData != null) {
-                    results = new Uri[clipData.getItemCount()];
-                    for (int i = 0; i < clipData.getItemCount(); i++) {
-                        ClipData.Item item = clipData.getItemAt(i);
-                        results[i] = item.getUri();
-                    }
-                }
-                if (dataString != null)
-                    results = new Uri[]{Uri.parse(dataString)};
-            }
-        }
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,
-                WebPowerFragment.USER_INFO_IMG, results));
-    }
+
 
 }

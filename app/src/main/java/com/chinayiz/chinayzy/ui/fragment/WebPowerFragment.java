@@ -125,7 +125,6 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
         progressbar = (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view = (WebView) view.findViewById(R.id.wv_view);
         initWebView();
-        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -402,6 +401,12 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
         }
     }
 
+    @JavascriptInterface
+    public void successFunction() {
+        Logger.i("资料提交完毕");
+    getActivity().finish();
+    }
+
     public void openImagSelect(){
         imageConfig = new ImageConfig.Builder(
                 new GlideLoader())
@@ -484,6 +489,5 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
     public void onDestroyView() {
         super.onDestroyView();
         Logger.i("移除WEB视图");
-        EventBus.getDefault().unregister(this);
     }
 }

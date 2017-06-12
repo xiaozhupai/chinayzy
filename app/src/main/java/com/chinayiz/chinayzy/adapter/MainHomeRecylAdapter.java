@@ -24,7 +24,6 @@ import com.chinayiz.chinayzy.entity.response.HomeMenusModel;
 import com.chinayiz.chinayzy.entity.response.HomeThemesModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -308,10 +307,12 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 case R.id.home_menu4:
                     Logger.i("我的二维码");
                     if (UserSeeion.isLogin(mFragment.getActivity())) {
-                        if (UserSeeion.isMember(mFragment.getActivity())){
-                            shareUser(Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android", WebPowerFragment.SHARE);
+                        if (UserSeeion.getSys_auth(mFragment.getActivity()).equals("1")){   //已经完善资料
+                            if (UserSeeion.isMember(mFragment.getActivity())){
+                                Skip.toWebPage(mFragment.getActivity(), Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android","分享二维码");
+                            }
                         }else {
-
+                            Skip.toPerfestData(mFragment.getActivity());
                         }
                     } else {
                         BaseActivity.showToast(mFragment.getActivity(), "请先登录");

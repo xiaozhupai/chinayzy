@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class TrueNameFragment extends BaseFragment<TrueNamePresenter> implements
     @Override
     public void onInitActionBar(BaseActivity activity) {
         activity.mTvActionBarTitle.setText("完善个人资料");
+
     }
 
     @Override
@@ -64,6 +66,7 @@ public class TrueNameFragment extends BaseFragment<TrueNamePresenter> implements
         mTvMember.setOnClickListener(this);
         mTvSubmit = (TextView) view.findViewById(R.id.tv_submit);
         mTvSubmit.setOnClickListener(this);
+        mTvMember.setText(Html.fromHtml("同意<font color='#ff3952'>《会员权益》</font>"));
         return view;
     }
 
