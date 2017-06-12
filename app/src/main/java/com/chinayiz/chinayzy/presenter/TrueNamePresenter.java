@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
@@ -13,7 +12,9 @@ import com.chinayiz.chinayzy.entity.response.AuthModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
+import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -24,6 +25,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
     public UserNet net=UserNet.getNet();
     public       String truename;
+    public static final String  BACK="TrueNamePresenter";
     @Override
     protected void onCreate() {
 
@@ -60,8 +62,11 @@ public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
             AuthModel model= (AuthModel) message.getData();
             BaseActivity.showToast(mView.getActivity(),model.getMsg());
             if (model.getCode().equals("100")){
+                Logger.i("sys_auth="+model.getData().getSys_auth());
                 UserSeeion.setSys_auth(mView.getActivity(),model.getData().getSys_auth());
-                Skip.toDeposit(mView.getActivity());
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,BACK,""));
+                mView.mActivity.onBackPressed();
+
             }
         }
     }
@@ -86,7 +91,7 @@ public class TrueNamePresenter extends BasePresenter<TrueNameFragment> {
         }
 
         if (!mView.mCivCheck.isCheck){
-            Toast.makeText(mView.getActivity(), "请", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mView.getActivity(), "请确认会员权益", Toast.LENGTH_SHORT).show();
             return;
         }
         // TODO validate success, do something

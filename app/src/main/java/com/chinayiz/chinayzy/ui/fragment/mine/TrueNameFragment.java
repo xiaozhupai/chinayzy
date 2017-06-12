@@ -23,6 +23,7 @@ import com.orhanobut.logger.Logger;
 /**
  * A simple {@link Fragment} subclass. 完善个人资料
  */
+
 @SuppressLint("ValidFragment")
 public class TrueNameFragment extends BaseFragment<TrueNamePresenter> implements View.OnClickListener {
     public EditText mEtRegisterTruename;

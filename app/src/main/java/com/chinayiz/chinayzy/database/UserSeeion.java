@@ -55,6 +55,15 @@ public class UserSeeion {
         }
     }
 
+    public static boolean isMember(Context context,String a){
+        String isMember=context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("ismember","");
+        if (isMember.equals("0") || TextUtils.isEmpty(isMember)){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
     /**
      * 登出
      * @param context
