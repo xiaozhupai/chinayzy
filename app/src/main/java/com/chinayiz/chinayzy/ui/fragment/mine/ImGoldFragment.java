@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
 
     @Override
     protected void initView(View view) {
-        mNotData=view.findViewById(R.id.view_notEarnings);
+        mNotData = view.findViewById(R.id.view_notEarnings);
         mProgress = view.findViewById(R.id.ll_progress);
         iv_back_button = (ImageView) view.findViewById(R.id.iv_back_button);
         iv_back_button.setOnClickListener(this);
@@ -86,23 +87,24 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
                 break;
             case R.id.tv_outMoneys:
             case R.id.tv_outMoney:
-                addFragment(new TakeFragment(goldNum),"TakeFragment");
+                addFragment(new TakeFragment(goldNum), "TakeFragment");
                 break;
             case R.id.tv_dealLog:
-                addFragment(new DealListFragment(),"DealListFragment");
+                addFragment(new DealListFragment(), "DealListFragment");
                 break;
             case R.id.tv_getGold:
-                addFragment(new CommonWebFragment("亿众币规则",Commons.API+Commons.GOLD_RULE),"CommonWebFragment");
+                addFragment(new CommonWebFragment("亿众币规则", Commons.API + Commons.GOLD_RULE), "CommonWebFragment");
                 break;
         }
     }
+
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
             case Commons.IM_GOLD: {
-                ImGoldModel model= (ImGoldModel) message.getData();
+                ImGoldModel model = (ImGoldModel) message.getData();
                 mProgress.setVisibility(View.GONE);
-                if (model.getData().getEarningslist()!=null&&model.getData().getEarningslist().size()>0){
+                if (model.getData().getEarningslist() != null && model.getData().getEarningslist().size() > 0) {
                     mNotData.setVisibility(View.GONE);
                 }
                 setGold(model);
@@ -110,12 +112,19 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
             }
         }
     }
+
     private void setGold(ImGoldModel model) {
         Logger.i("处理科学计数法");
+        if (!TextUtils.isEmpty(model.getData().getTotalpoints() )) {
+            mTvSumGolds.setText("00.00");
+        } else {
+            mTvSumGolds.setText(model.getData().getTotalpoints() );
+        }
 
-        mTvSumGolds.setText(model.getData().getTotalpoints()+"");
-        mTvOutMoneys.setText(model.getData().getCancarrypoints()+"");
-        mAdapter=new ScreListAdapter(getActivity(),model.getData().getEarningslist());
+        if (!TextUtils.isEmpty(model.getData().getCancarrypoints())) {
+            mTvOutMoneys.setText(model.getData().getCancarrypoints());
+        }
+        mAdapter = new ScreListAdapter(getActivity(), model.getData().getEarningslist());
         mLvAccrualLog.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }

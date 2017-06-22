@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,9 @@ public class TakeFragment extends AbsFragment implements View.OnClickListener {
         view.findViewById(R.id.iv_more_button).setVisibility(View.GONE);
 
         tv_canTakeNum = (TextView) view.findViewById(R.id.tv_canTakeNum);
-        tv_canTakeNum.setText(goldNum);
+        if (!TextUtils.isEmpty(goldNum)){
+            tv_canTakeNum.setText(goldNum);
+        }
         tv_goldRule = (TextView) view.findViewById(R.id.tv_goldRule);
         bt_inPut = (Button) view.findViewById(R.id.bt_inPut);
         bt_outPut = (Button) view.findViewById(R.id.bt_outPut);
