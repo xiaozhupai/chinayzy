@@ -31,6 +31,9 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     public MagicIndicator magic_indicator;
     private static final String[] CHANNELS = new String[]{"CUPCAKE", "DONUT"};
 
+    public FindFragment() {
+    }
+
 
     @Override
     protected void onVisible() {

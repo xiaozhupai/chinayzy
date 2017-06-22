@@ -308,7 +308,11 @@
                 />
             <ImageView
                 android:id="@+id/iv_factname_arrow"
-                style="@style/Image_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
                 />
         </RelativeLayout>
         <View

@@ -42,6 +42,10 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public static final String SHARE_VIP="分享vip";
     public ProgressBar progressbar;
     public String url= Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
+
+    public ActivityFragment() {
+    }
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_web, null);

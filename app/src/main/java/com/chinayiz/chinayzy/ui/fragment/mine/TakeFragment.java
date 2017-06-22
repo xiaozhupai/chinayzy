@@ -19,6 +19,7 @@ import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.AbsFragment;
 import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
 import com.chinayiz.chinayzy.net.Commons;
@@ -152,7 +153,11 @@ public class TakeFragment extends AbsFragment implements View.OnClickListener {
                 break;
             }
             case R.id.bt_inPut: {
-                addFragment(new PrestoreFragment(), "PrestoreFragment");
+                if (UserSeeion.getSys_auth(getActivity()).equals("1")){   //已经完善资料
+                    addFragment(new PrestoreFragment(), "PrestoreFragment");
+                }else {
+                    Skip.toPerfestData(getActivity());
+                }
                 break;
             }
             case R.id.bt_outPut: {

@@ -52,7 +52,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
      */
     protected RadioGroup mRgNongyeMenu;
     /**
-     * 适配器
+     *  适配器
      */
     private NyMainPagerAdapter mPagerAdapter;
     /**

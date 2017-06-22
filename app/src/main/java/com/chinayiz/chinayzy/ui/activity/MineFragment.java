@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import com.orhanobut.logger.Logger;
 /**
  * 个人中心
  */
-
+@SuppressLint("ValidFragment")
 public class MineFragment extends BaseFragment<MinePresenter> implements View.OnClickListener {
     public CircleImageView iv_mine_user_logo;
     public ImageView iv_mine_user_sex;
@@ -51,6 +52,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
     public PullToRefreshLayout pullToRefreshLayout;
     public LinearLayout lv_user;
     public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count,tv_recommend;
+
+    public MineFragment() {
+    }
 
     @Override
     public void onInitActionBar(BaseActivity activity) {

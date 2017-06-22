@@ -223,6 +223,8 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
                 }
                 if (bean.getSys_auth().equals("1")){
                     mView.tv_person_factname.setText("认证成功");
+                }else {
+                    mView.tv_person_factname.setText("未认证");
                 }
 
 //                if (!TextUtils.isEmpty(bean.getIdcard())){

@@ -239,4 +239,5 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         }
     }
+
 }

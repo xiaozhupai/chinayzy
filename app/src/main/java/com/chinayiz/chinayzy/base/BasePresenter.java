@@ -13,7 +13,6 @@ import org.greenrobot.eventbus.EventBus;
  */
 public abstract class BasePresenter<T extends BaseView> implements EventBusCallback {
     protected T mView;
-
     /**
      * 绑定View
      */
@@ -51,6 +50,7 @@ public abstract class BasePresenter<T extends BaseView> implements EventBusCallb
     public void onDetach() {
         mView = null;
     }
+
     /**
      * 被回收掉时保存数据
      */

@@ -32,7 +32,7 @@ public class SPUtils {
      *
      * @param spName  spName
      */
-    public static SPUtils getInsance(Context context,String spName){
+    public  synchronized static SPUtils getInsance(Context context,String spName){
         if (mSputils==null){
            mSputils=new SPUtils(context,spName);
         }

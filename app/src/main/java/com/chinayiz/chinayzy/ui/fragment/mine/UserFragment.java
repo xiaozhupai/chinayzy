@@ -139,17 +139,19 @@ public class UserFragment extends BaseFragment<UserNamePresenter> implements Vie
             case 4:
                 view =inflater.inflate(R.layout.fragment_email, null);
                 et_marriage= (EditText) view.findViewById(R.id.et_email);
+                    if (!TextUtils.isEmpty(param)){
+                        switch (param){
+                            case NO_MARRIAGE:
+                                et_marriage.setText("未婚");
+                                break;
+                            case MARRIAGE:
+                                et_marriage.setText("已婚");
+                                break;
+                            case DIVORCED:
+                                et_marriage.setText("离异");
+                                break;
+                    }
 
-                    switch (param){
-                        case NO_MARRIAGE:
-                            et_marriage.setText("未婚");
-                            break;
-                        case MARRIAGE:
-                            et_marriage.setText("已婚");
-                            break;
-                        case DIVORCED:
-                            et_marriage.setText("离异");
-                            break;
 
                 }
                 et_marriage.setFocusable(false);
@@ -168,37 +170,43 @@ public class UserFragment extends BaseFragment<UserNamePresenter> implements Vie
             case 7:
                 view =inflater.inflate(R.layout.fragment_email, null);
                 et_education= (EditText) view.findViewById(R.id.et_email);
-                switch (param){
-                    case HIGJT:
-                        et_education.setText("中专");
-                        break;
-                    case JUNIOR:
-                        et_education.setText("大专");
-                        break;
-                    case UNDERGRADUATE:
-                        et_education.setText("本科");
-                        break;
-                    case GRADUATE:
-                        et_education.setText("研究生");
-                        break;
+                if (!TextUtils.isEmpty(param)){
+                    switch (param){
+                        case HIGJT:
+                            et_education.setText("中专");
+                            break;
+                        case JUNIOR:
+                            et_education.setText("大专");
+                            break;
+                        case UNDERGRADUATE:
+                            et_education.setText("本科");
+                            break;
+                        case GRADUATE:
+                            et_education.setText("研究生");
+                            break;
+                    }
                 }
+
                 et_education.setFocusable(false);
                 et_education.setOnClickListener(this);
                 break;
             case 8:
                 view =inflater.inflate(R.layout.fragment_email, null);
                 et_policatical= (EditText) view.findViewById(R.id.et_email);
-                switch (param){
-                    case MEMBER:
-                        et_policatical.setText("团员");
-                        break;
-                    case PARTY_MEMBER:
-                        et_policatical.setText("党员");
-                        break;
-                    case MASSES:
-                        et_policatical.setText("群众");
-                        break;
+                if (!TextUtils.isEmpty(param)){
+                    switch (param){
+                        case MEMBER:
+                            et_policatical.setText("团员");
+                            break;
+                        case PARTY_MEMBER:
+                            et_policatical.setText("党员");
+                            break;
+                        case MASSES:
+                            et_policatical.setText("群众");
+                            break;
+                    }
                 }
+
                 et_policatical.setFocusable(false);
                 et_policatical.setOnClickListener(this);
                 break;

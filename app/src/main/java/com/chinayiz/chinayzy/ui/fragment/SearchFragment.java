@@ -87,7 +87,9 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Vie
             public void onTagClick(TagView tagView, Tag tag) {
                 if (!SearchDao.findTitle(tag.getTitle())){
                     SearchDao.add(tag.getTitle());
-                    data_search.add(tag);
+                    Tag tag1=new Tag();
+                    tag1.setTitle(tag.getTitle());
+                    data_search.add(tag1);
                     tagview2.setTags(data_search);
                 }
                 mPresenter.toResult(tag.getTitle());

@@ -50,6 +50,9 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public static final int TYPE_EDITER = 1;
     public LoadlingDialog loadlingDialog;
 
+    public ShopCartFragment() {
+    }
+
     public static ShopCartFragment getInstance() {
         return new ShopCartFragment();
     }

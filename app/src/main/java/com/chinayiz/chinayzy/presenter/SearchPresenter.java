@@ -26,6 +26,7 @@ public class SearchPresenter extends BasePresenter<SearchFragment> {
     public static final String TITLE="TITLE";
     @Override
     public void onCreate() {
+        SearchDao.getInstance(mView.getActivity());
         net.getALLTab();
         List<String> data= SearchDao.findall();
         for (int i=0;i<data.size();i++){

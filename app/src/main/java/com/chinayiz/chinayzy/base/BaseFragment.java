@@ -22,14 +22,14 @@ import com.orhanobut.logger.Logger;
  */
 @SuppressLint("ValidFragment")
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseFragmentView {
+    public String TAG;
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     protected T mPresenter;
+    protected Bundle mBundle;
     public FragmentManager mFragmentManager;
     public BaseActivity mActivity;
     //fragment 懒加载标志位
     protected boolean isVisible;
-    protected Bundle mBundle;
-    public String TAG;
     //ui是否初始化
     public boolean isInit = true;
 
@@ -43,7 +43,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     /**
      * 创建prensenter
-     *
      * @return <T extends BasePresenter> 必须是BasePresenter的子类
      */
     public abstract T initPresenter();

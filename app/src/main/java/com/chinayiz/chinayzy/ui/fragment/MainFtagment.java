@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,13 +25,16 @@ import com.orhanobut.logger.Logger;
  * CreateDate 2017/5/9 9:35
  * Class MainFtagment
  */
-
+@SuppressLint("ValidFragment")
 public class MainFtagment extends BaseFragment<MainsPresenter> implements View.OnClickListener, PullableRecycleView.RefreshListner {
     public PullableRecycleView home_recyclerLayout;
     public PullToRefreshLayout refresh_view;
     private boolean fristLaod = true;
     public MainHomeRecylAdapter mRecylAdapter;
     public boolean canLoad=true;
+
+    public MainFtagment() {
+    }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

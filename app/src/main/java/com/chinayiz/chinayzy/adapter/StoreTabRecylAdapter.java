@@ -14,7 +14,10 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.adapter.viewHolder.CreateBannerHolder;
+import com.chinayiz.chinayzy.base.BaseActivity;
+import com.chinayiz.chinayzy.entity.response.HomeHotGoodsModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
+import com.chinayiz.chinayzy.entity.response.NY_EatThemeModel;
 import com.chinayiz.chinayzy.entity.response.StoreHomeTabModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.StoreTabFragment;
@@ -24,30 +27,55 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.chinayiz.chinayzy.adapter.StoreTabRecylAdapter.ViewHolder.VIEW_HOLDER_BANNER;
-import static com.chinayiz.chinayzy.adapter.StoreTabRecylAdapter.ViewHolder.VIEW_HOLDER_MENU;
-import static com.chinayiz.chinayzy.adapter.StoreTabRecylAdapter.ViewHolder.VIEW_HOLDER_THEME_HOME;
+import static com.chinayiz.chinayzy.net.Commons.STORE_HOME_TABS;
 
 /**
  * author  by  Canrom7 .
  * CreateDate 2017/6/7 11:40
- * Class StoreTabRecylAdapter
+ * Class StoreTabRecylAdapter  商城TAB页数据适配器
  */
 
-public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdapter.ViewHolder> {
+public class StoreTabRecylAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    /**
+     * 滚动广告图 0
+     */
+    public static final int VIEW_HOLDER_BANNER = 0;
+    /**
+     * 类型菜单 1
+     */
+    public static final int VIEW_HOLDER_MENU = VIEW_HOLDER_BANNER + 1;
+    /**
+     * Home页主题活动 2
+     */
+    public static final int VIEW_HOLDER_THEME_HOME = VIEW_HOLDER_MENU + 1;
+    /**
+     * 商品列表 3
+     */
+    public static final int VIEW_HOLDER_GOODS = VIEW_HOLDER_THEME_HOME + 1;
+
+    /**
+     * 固定主题 4
+     */
+    public static final int VIEW_HOLDER_IMG = VIEW_HOLDER_GOODS + 1;
+    /**
+     * Tab页主题活动 5
+     */
+    public static final int VIEW_HOLDER_THEME_TAB = VIEW_HOLDER_IMG + 1;
+
     List<Integer> viewHolderTypes = new ArrayList<>();
     private Fragment mFragment;
     SparseArrayCompat<Integer> titleIndexs = new SparseArrayCompat<>();
     private HashMap<String, Object> datas = new HashMap<>();
-    private int tabType=-1;
+    private int tabType = -1;
 
-    public StoreTabRecylAdapter(Fragment fragment,int tbType) {
+    public StoreTabRecylAdapter(Fragment fragment, int tbType) {
         this.tabType = tbType;
-        this.mFragment=fragment;
+        this.mFragment = fragment;
     }
 
     public void addVieHolderData(String key, Object valeu) {
         datas.put(key, valeu);
+        notifyDataSetChanged();
     }
 
     public void addViewHolderType(int... type) {
@@ -58,135 +86,145 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return ViewHolder.create(parent, viewType);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Logger.i("获取具体的ViewHolder" + viewType);
+        switch (viewType) {
+            case VIEW_HOLDER_BANNER:
+                return new ViewHolderBanner(getViewType(parent, R.layout.home_item_banner));
+            case VIEW_HOLDER_MENU:
+                return new ViewHolderMenu(getViewType(parent, R.layout.item_store_tab_menu));
+            case VIEW_HOLDER_THEME_HOME:
+                return new ViewHolderHomeTheme(getViewType(parent, R.layout.item_store_tab_theme_home));
+            case VIEW_HOLDER_GOODS:
+                return new ViewHolderGoods(getViewType(parent, R.layout.home_item_thriving_goods));
+            case VIEW_HOLDER_IMG:
+                return new ViewHolderImgTheme(getViewType(parent, R.layout.item_store_tab_img));
+            case VIEW_HOLDER_THEME_TAB:
+                return new ViewHolderTabTheme(getViewType(parent, R.layout.item_store_tab_theme_tab));
+            default:
+                return null;
+        }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Logger.i("绑定ViewHolder的数据" + position);
         switch (position) {
             case VIEW_HOLDER_BANNER: {// 0
-                if (tabType== StoreTabFragment.TAB_TYPE_HOME){
-                    if (datas.containsKey(Commons.STORE_HOME_BANNER)){
-                        if (holder instanceof ViewHolderBanner){
-                            ViewHolderBanner viewHolderBanner= (ViewHolderBanner) holder;
+                if (tabType == StoreTabFragment.TAB_TYPE_HOME) {
+                    if (datas.containsKey(Commons.STORE_HOME_BANNER)) {
+                        if (holder instanceof ViewHolderBanner) {
+                            ViewHolderBanner viewHolderBanner = (ViewHolderBanner) holder;
                             viewHolderBanner.setData((NY_BannerModel) datas.get(Commons.STORE_HOME_BANNER));
                         }
                     }
-                }else {
-                    if (datas.containsKey(Commons.STORE_HOME_TABS)){
-                        if (holder instanceof ViewHolderImgTheme){
-                            ViewHolderImgTheme viewHolderImgTheme= (ViewHolderImgTheme) holder;
-                            String[] url_goodsis= ((String) datas.get(Commons.STORE_HOME_TABS)).split(",");
-                            viewHolderImgTheme.setData(mFragment,url_goodsis[0],url_goodsis[1]);
+                } else {
+                    if (datas.containsKey(STORE_HOME_TABS)) {
+                        if (holder instanceof ViewHolderImgTheme) {
+                            ViewHolderImgTheme viewHolderImgTheme = (ViewHolderImgTheme) holder;
+                            String[] url_goodsis = ((String) datas.get(STORE_HOME_TABS)).split(",");
+                            viewHolderImgTheme.setData(mFragment, url_goodsis[0], url_goodsis[1]);
                         }
                     }
                 }
                 break;
             }
             case VIEW_HOLDER_MENU: {// 1
-                if (tabType== StoreTabFragment.TAB_TYPE_HOME){
+                if (tabType == StoreTabFragment.TAB_TYPE_HOME) {
+                    if (datas.containsKey(Commons.STORE_HOME_TABS)) {
+                        if (holder instanceof ViewHolderMenu) {
+                            ViewHolderMenu viewHolderMenu = (ViewHolderMenu) holder;
+                            List<StoreHomeTabModel.DataBean.TubiaolistBean> tubiaolist =
+                                    (List<StoreHomeTabModel.DataBean.TubiaolistBean>) datas.get(STORE_HOME_TABS);
+                            viewHolderMenu.setData(mFragment, tubiaolist);
+                        }
+                    }
+                } else {
+                    if (datas.containsKey(Commons.STORE_HOME_TABS)) {
+                        if (tabType == StoreTabFragment.TAB_TYPE_HOME) {
+                            if (holder instanceof ViewHolderTabTheme) {
+                                ViewHolderTabTheme viewHolderTabTheme = (ViewHolderTabTheme) holder;
+                                NY_EatThemeModel model = (NY_EatThemeModel) datas.get(Commons.STORE_HOME_TABS);
+                                viewHolderTabTheme.setData(mFragment, model.getData());
+                            }
+                        }
 
-                }else {
-
+                    }
                 }
                 break;
             }
             case VIEW_HOLDER_THEME_HOME: {// 2
-                if (tabType== StoreTabFragment.TAB_TYPE_HOME){
-
-                }else {
-
+                if (tabType == StoreTabFragment.TAB_TYPE_HOME) {
+                    if (datas.containsKey(Commons.STORE_HOME_THEME)) {
+                        if (tabType == StoreTabFragment.TAB_TYPE_HOME) {
+                            if (holder instanceof ViewHolderHomeTheme) {
+                                ViewHolderHomeTheme viewHolderHomeTheme = (ViewHolderHomeTheme) holder;
+                                NY_EatThemeModel model = (NY_EatThemeModel) datas.get(Commons.STORE_HOME_THEME);
+                                viewHolderHomeTheme.setData(mFragment, model.getData());
+                            }
+                        }
+                    }
+                } else {
+                    if (datas.containsKey(Commons.STORE_HOME_GOODSS)) {
+                        if (holder instanceof ViewHolderGoods) {
+                            ViewHolderGoods viewHolderGoods = (ViewHolderGoods) holder;
+                            HomeHotGoodsModel model = (HomeHotGoodsModel) datas.get(Commons.STORE_HOME_GOODSS);
+                            Logger.i("商品集合数量="+model.getData().size());
+                            int index = position % 2;
+                            int sta = index * 2;
+                            int end = sta + 2;
+                            List<HomeHotGoodsModel.DataBean> datas = model.getData().subList(sta, end);
+                            viewHolderGoods.setData(mFragment, datas);
+                        }
+                    }
                 }
                 break;
             }
-           default:{
-
-               break;
-           }
+            default: {// 3
+                if (datas.containsKey(Commons.STORE_HOME_GOODSS)) {
+                    if (holder instanceof ViewHolderGoods) {
+                        ViewHolderGoods viewHolderGoods = (ViewHolderGoods) holder;
+                        HomeHotGoodsModel model = (HomeHotGoodsModel) datas.get(Commons.STORE_HOME_GOODSS);
+                        int index = position % 3;
+                        int sta = index * 2;
+                        int end = sta + 2;
+                        List<HomeHotGoodsModel.DataBean> datas = model.getData().subList(sta, end);
+                        viewHolderGoods.setData(mFragment, datas);
+                    }
+                }
+                break;
+            }
         }
     }
 
     @Override
     public int getItemCount() {
+        Logger.i("获取适配器数据量" + viewHolderTypes.size());
         return viewHolderTypes.size();
     }
 
     @Override
     public int getItemViewType(int position) {
+        Logger.i("获取item类型" + position);
         return viewHolderTypes.get(position);
     }
 
 
-    public abstract static class ViewHolder extends RecyclerView.ViewHolder {
-        /**
-         * 滚动广告图 0
-         */
-        public static final int VIEW_HOLDER_BANNER = 0;
-        /**
-         * 类型菜单 1
-         */
-        public static final int VIEW_HOLDER_MENU = VIEW_HOLDER_BANNER + 1;
-        /**
-         * Home页主题活动 2
-         */
-        public static final int VIEW_HOLDER_THEME_HOME = VIEW_HOLDER_MENU + 1;
-        /**
-         * 商品列表 3
-         */
-        public static final int VIEW_HOLDER_GOODS = VIEW_HOLDER_THEME_HOME + 1;
-
-        /**
-         * 固定主题 4
-         */
-        public static final int VIEW_HOLDER_IMG = VIEW_HOLDER_GOODS + 1;
-        /**
-         * Tab页主题活动 5
-         */
-        public static final int VIEW_HOLDER_THEME_TAB = VIEW_HOLDER_IMG + 1;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        public static ViewHolder create(ViewGroup viewHolder, int type) {
-            switch (type) {
-                case VIEW_HOLDER_BANNER:
-                    return ViewHolderBanner.create(viewHolder);
-                case VIEW_HOLDER_MENU:
-                    return ViewHolderMenu.create(viewHolder);
-                case VIEW_HOLDER_THEME_HOME:
-                    return ViewHolderHomeTheme.create(viewHolder);
-                case VIEW_HOLDER_GOODS:
-                    return ViewHolderGoods.create(viewHolder);
-                case VIEW_HOLDER_IMG:
-                    return ViewHolderImgTheme.create(viewHolder);
-                case VIEW_HOLDER_THEME_TAB:
-                    return ViewHolderTabTheme.create(viewHolder);
-                default:
-                    return null;
-            }
-
-        }
-
-        /**
-         * 填充不同类型 item 布局
-         *
-         * @param parent
-         * @param resource R资源
-         * @return
-         */
-        public static View getViewType(ViewGroup parent, int resource) {
-            return LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-        }
-
-
+    /**
+     * 填充不同类型 item 布局
+     *
+     * @param parent
+     * @param resource R资源
+     * @return
+     */
+    public static View getViewType(ViewGroup parent, int resource) {
+        return LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
     }
 
     /**
      * 滚动广告图 0
      */
-    public static class ViewHolderBanner extends ViewHolder implements OnItemClickListener {
+    public class ViewHolderBanner extends RecyclerView.ViewHolder implements OnItemClickListener {
         ConvenientBanner mBannerNongyeHome;
         List<String> mUrls = new ArrayList<>();
 
@@ -211,18 +249,15 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
 
         @Override
         public void onItemClick(int position) {
-
+            Logger.i("点击了广告图" + position);
         }
 
-        public static ViewHolderBanner create(ViewGroup parent) {
-            return new ViewHolderBanner(getViewType(parent, R.layout.home_item_banner));
-        }
     }
 
     /**
      * 类型菜单 1
      */
-    public static class ViewHolderMenu extends ViewHolder implements View.OnClickListener {
+    public class ViewHolderMenu extends RecyclerView.ViewHolder implements View.OnClickListener {
         List<ImageView> menus = new ArrayList<>(8);
 
         public ViewHolderMenu(View itemView) {
@@ -237,19 +272,16 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
             menus.add((ImageView) itemView.findViewById(R.id.iv_tab_menu8));
         }
 
-        public static ViewHolderBanner create(ViewGroup parent) {
-            return new ViewHolderBanner(getViewType(parent, R.layout.item_store_tab_menu));
-        }
-        public void setData(Fragment fram,List<StoreHomeTabModel.DataBean.TubiaolistBean>  icons){
-            StoreHomeTabModel.DataBean.TubiaolistBean bean=null;
-            ImageView img=null;
 
+        public void setData(Fragment fram, List<StoreHomeTabModel.DataBean.TubiaolistBean> icons) {
+            StoreHomeTabModel.DataBean.TubiaolistBean bean = null;
+            ImageView img = null;
             for (int i = 0; i < icons.size(); i++) {
-                bean=icons.get(i);
-                img=menus.get(i);
-                if (img!=null){
+                bean = icons.get(i);
+                img = menus.get(i);
+                if (img != null) {
                     Glide.with(fram).load(bean.getTypepic()).into(img);
-                    img.setTag(R.id.tag_click,bean.getItemcode());
+                    img.setTag(R.id.tag_click, bean.getItemcode());
                     img.setOnClickListener(this);
                 }
             }
@@ -257,14 +289,14 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
 
         @Override
         public void onClick(View v) {
-            Logger.i("点击了商城首页按钮菜单="+v.getTag(R.id.tag_click).toString());
+            Logger.i("点击了商城首页按钮菜单=" + v.getTag(R.id.tag_click).toString());
         }
     }
 
     /**
      * Home页主题活动 2
      */
-    public static class ViewHolderHomeTheme extends ViewHolder {
+    public class ViewHolderHomeTheme extends RecyclerView.ViewHolder {
         List<ImageView> themes = new ArrayList<>(3);
 
         public ViewHolderHomeTheme(View itemView) {
@@ -274,15 +306,23 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
             themes.add((ImageView) itemView.findViewById(R.id.iv_theme3));
         }
 
-        public static ViewHolderHomeTheme create(ViewGroup parent) {
-            return new ViewHolderHomeTheme(getViewType(parent, R.layout.item_store_tab_theme_home));
+
+        public void setData(Fragment fragment, List<NY_EatThemeModel.DataBean> datas) {
+            ImageView img;
+            for (int i = 0; i < datas.size(); i++) {
+                img = themes.get(i);
+                if (img == null) return;
+                Glide.with(fragment)
+                        .load(datas.get(i).getPic())
+                        .into(img);
+            }
         }
     }
 
     /**
      * 商品列表 3
      */
-    public static class ViewHolderGoods extends ViewHolder {
+    public class ViewHolderGoods extends RecyclerView.ViewHolder implements View.OnClickListener {
         List<GridGoodsHolder> mGoodsHolders = new ArrayList<>(2);
         Fragment mContext;
 
@@ -312,16 +352,47 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
             mGoodsHolders.add(viewHolder2);
         }
 
-        public static ViewHolderGoods create(ViewGroup parent) {
-            return new ViewHolderGoods(getViewType(parent, R.layout.home_item_thriving_goods));
+
+        public void setData(Fragment fragment, List<HomeHotGoodsModel.DataBean> datas) {
+            mContext = fragment;
+            GridGoodsHolder viewholder;
+            for (int i = 0; i < datas.size(); i++) {
+                viewholder = mGoodsHolders.get(i);
+                Glide.with(fragment).load(datas.get(i).getIcon()).into(viewholder.iv_goodsPic);
+                viewholder.tv_goodsName.setText(datas.get(i).getGname());
+                Logger.i("打印价格="+datas.get(i).getPrice());
+                if (datas.get(i).getPrice().contains(".")) {
+                    String[] prices = datas.get(i).getPrice().split("\\.");
+                    viewholder.tv_price.setText(prices[0] + ".");
+                    viewholder.tv_dobPrice.setText(prices[1]);
+                } else {
+                    viewholder.tv_price.setText(datas.get(i).getPrice() + ".");
+                    viewholder.tv_dobPrice.setText("00");
+                }
+                if ("0".equals(datas.get(i).getIsself())) {
+                    viewholder.view_isSelf.setVisibility(View.GONE);
+                }
+                if (!"0".equals(datas.get(i).getCommenttotal())) {
+                    viewholder.tv_commentCount.setText(datas.get(i).getCommenttotal() + "条评论");
+                }
+                viewholder.tv_goodsComment.setText(datas.get(i).getPraise() + "好评");
+                viewholder.root_goods.setTag(R.id.tag_click, datas.get(i).getGoodsid());
+                viewholder.root_goods.setOnClickListener(this);
+            }
+
         }
 
+        @Override
+        public void onClick(View v) {
+            Logger.i("点击了商城商品" + v.getTag(R.id.tag_click));
+            BaseActivity.showToast(mContext.getActivity(), "点击了商品" + v.getTag(R.id.tag_click));
+        }
     }
 
     /**
      * 固定主题 4
      */
-    public static class ViewHolderImgTheme extends ViewHolder {
+    public class ViewHolderImgTheme extends RecyclerView.ViewHolder {
         private ImageView theme;
 
         public ViewHolderImgTheme(View itemView) {
@@ -329,10 +400,15 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
             theme = (ImageView) itemView.findViewById(R.id.iv_tab_theme);
         }
 
-        public static ViewHolderImgTheme create(ViewGroup parent) {
-            return new ViewHolderImgTheme(getViewType(parent, R.layout.item_store_tab_img));
-        }
-        public  void setData(Fragment fragment,String url,String data){
+
+        /**
+         * 设置图片Tab主题信息
+         *
+         * @param fragment
+         * @param url      主题图片
+         * @param data     数据
+         */
+        public void setData(Fragment fragment, String url, String data) {
             Glide.with(fragment)
                     .load(url)
                     .into(theme);
@@ -342,7 +418,7 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
     /**
      * Tab页主题活动 5
      */
-    public static class ViewHolderTabTheme extends ViewHolder {
+    public class ViewHolderTabTheme extends RecyclerView.ViewHolder {
         List<ImageView> themes = new ArrayList<>(4);
 
         public ViewHolderTabTheme(View itemView) {
@@ -353,8 +429,15 @@ public class StoreTabRecylAdapter extends RecyclerView.Adapter<StoreTabRecylAdap
             themes.add((ImageView) itemView.findViewById(R.id.iv_theme4));
         }
 
-        public static ViewHolderTabTheme create(ViewGroup parent) {
-            return new ViewHolderTabTheme(getViewType(parent, R.layout.item_store_tab_theme_tab));
+        public void setData(Fragment fragment, List<NY_EatThemeModel.DataBean> datas) {
+            ImageView img;
+            for (int i = 0; i < datas.size(); i++) {
+                img = themes.get(i);
+                if (img == null) return;
+                Glide.with(fragment)
+                        .load(datas.get(i).getPic())
+                        .into(img);
+            }
         }
     }
 

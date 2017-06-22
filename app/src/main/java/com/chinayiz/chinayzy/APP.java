@@ -10,7 +10,6 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
-import com.chinayiz.chinayzy.database.SearchDao;
 import com.chinayiz.chinayzy.entity.AppInfo;
 import com.chinayiz.chinayzy.utils.DES3;
 import com.chinayiz.chinayzy.utils.GlideCacheUtil;
@@ -103,7 +102,7 @@ public class APP extends TinkerApplication {
         cacheUtil = GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);
         ShareSDK.initSDK(this);
-        SearchDao.getInstance(this);
+
         AppInfo.init(this);
         initData();
         initoss();
