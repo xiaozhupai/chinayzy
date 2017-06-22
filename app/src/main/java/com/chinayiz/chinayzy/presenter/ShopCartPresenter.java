@@ -157,7 +157,6 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     @Override
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
-
             case  GoodsStandardPopuWindow.GOODSTANDS:  //商品规格回调给当前页面的数据
                 Logger.i("确定套餐选择");
                 ShopCartModel.DataBean.ShoplistBean goods_bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
@@ -174,7 +173,8 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 mView.adaphter.setData(list,type);
                 break;
             case ResultPresenter.RESULT_BACK:
-                Skip.toPayResult(mView.getActivity());
+             int type= (int) message.getData();
+                Skip.toSucceePage(mView.getActivity(),type);
                 break;
         }
     }

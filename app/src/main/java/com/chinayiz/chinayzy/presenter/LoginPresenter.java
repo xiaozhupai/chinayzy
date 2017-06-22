@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.ui.activity.LoginActivity;
 import com.chinayiz.chinayzy.widget.LoadlingDialog;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -51,6 +52,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
     public String logintype;
     private String registerphone;
     public static final int RESULT_DETAIL=1;
+    public static final String GET_AWARD="AWARD";
 
     @Override
     public void onCreate() {
@@ -109,6 +111,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 break;
             case Commons.TOKEN:
              RongModel rongModel= (RongModel) message.getData();
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,GET_AWARD,""));
                 if (rongModel.getCode().equals("100")){
                     mView.finish();
                 }
@@ -135,7 +138,6 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         editor.putString("sys_auth",sys_auth);
         editor.commit();//提交修改
         APP.sUserid=userid+"";
-
     }
 
     @Override

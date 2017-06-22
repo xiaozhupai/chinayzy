@@ -20,11 +20,15 @@ import com.chinayiz.chinayzy.ui.fragment.NewClassifyFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
+import com.chinayiz.chinayzy.ui.fragment.flexible.ActivityDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.flexible.ActivityResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.flexible.ActivitySuccessFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.AwardRecordFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.ContentKeepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.EvalueResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.GoodsCommentFragment;
@@ -472,9 +476,61 @@ public class Skip {
         skip(context, intent);
     }
 
+    /**
+     * 完善资料
+     * @param context
+     */
     public static void toPerfestData(Context context) {
         Intent intent = new Intent(context, CommonActivity.class);
         intent.putExtra(CLASS, TrueNameFragment.class);
         skip(context, intent);
     }
+
+    /**
+     * 获奖记录
+     * @param context
+     */
+    public static void toAward(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, AwardRecordFragment.class);
+        skip(context, intent);
+    }
+
+    public static void toActivityResult(Context context,String crowdfid){
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, ActivityResultFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("crowdfid",crowdfid);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
+
+    /**
+     * 活动详情页
+     * @param context
+     */
+    public static void toActivityDetail(Context context,String crowdfid) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, ActivityDetailFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("crowdfid",crowdfid);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
+
+
+    /**
+     *  活动成功
+     * @param context
+     */
+    public static void toActivitySuccess(Context context,String crowdfid) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, ActivitySuccessFragment.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("crowdfid",crowdfid);
+        intent.putExtras(bundle);
+        skip(context, intent);
+    }
+
+
 }

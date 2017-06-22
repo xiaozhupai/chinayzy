@@ -483,13 +483,13 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_two_code"
+                                        android:src="@mipmap/icon_award_record"
                                         android:layout_marginTop="23dp"
                                         />
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="二维码"
+                                        android:text="获奖记录"
                                         android:textColor="#505050"
                                         android:textSize="11sp"
                                         android:layout_marginBottom="25dp"

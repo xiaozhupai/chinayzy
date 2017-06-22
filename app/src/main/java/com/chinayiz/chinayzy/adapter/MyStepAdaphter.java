@@ -15,6 +15,8 @@ import com.chinayiz.chinayzy.entity.response.MyStepModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
+import com.chinayiz.chinayzy.ui.fragment.ListFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 
@@ -266,6 +268,12 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
 
     }
 
+
+    public void onNone(MyStepFragment fragment) {
+        fragment.iv_none.setImageResource(R.mipmap.img_none_award);
+        fragment.tv_none.setText("您还没有以查看的商品");
+    }
+
     @Override
     public void onResult(List<MyStepModel.DataBean> lists) {
         if (page>1){  //上拉加载
@@ -288,6 +296,17 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
         }
         pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
         pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+
+        MyStepFragment listFragment = null;
+        if (fragment instanceof MyStepFragment){
+            listFragment= (MyStepFragment) fragment;
+        }
+        if (lists.size()==0){
+            listFragment.ll_none.setVisibility(View.VISIBLE);
+            onNone(listFragment);
+        }else {
+            listFragment.ll_none.setVisibility(View.GONE);
+        }
     }
 
     @Override

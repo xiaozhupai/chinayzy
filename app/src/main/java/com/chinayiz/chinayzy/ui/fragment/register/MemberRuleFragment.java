@@ -25,6 +25,8 @@ public class MemberRuleFragment extends BaseFragment<MemberRulePresenter>  {
     private TextView tv_member_submit;
     private boolean isCheck;
 
+
+
     @Override
     public void onInitActionBar(BaseActivity activity) {
         activity.mTvActionBarTitle.setText("会员权益");

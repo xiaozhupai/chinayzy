@@ -279,8 +279,10 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     loadlingDialog.show();
                     if (mView.iv_pay_ali.isCheck){  //支付宝支付
                         CommonRequestUtils.getRequestUtils().getAliPayOrder(type,result, finalOrderbill);
-                    }else {  //微信支付
+                    }else if (mView.iv_pay_wechat.isCheck){  //微信支付
                         CommonRequestUtils.getRequestUtils().getWxPayOrder(type,result, finalOrderbill);
+                    }else {  //亿众币支付
+
                     }
                     dialog.dismiss();
                 }
@@ -293,7 +295,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     public void success(){
 
         mView.mActivity.onBackPressed();
-        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,""));
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,4));
     }
 
        //支付宝支付成功

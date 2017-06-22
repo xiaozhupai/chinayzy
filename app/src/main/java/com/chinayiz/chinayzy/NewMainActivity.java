@@ -21,6 +21,7 @@ import com.chinayiz.chinayzy.adapter.NyMainPagerAdapter;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.database.UserSeeion;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.NewMainPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineFragment;
@@ -87,6 +88,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     @Override
     protected void onResume() {
         super.onResume();
+
         if (login_flag.equals(StrCallback.RESPONSE_CODE_USER_OUT)) {
             if (mMaterialDialog!=null) {
                 mMaterialDialog.dismiss();
@@ -423,6 +425,8 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
                 .build()
                 .show();
     }
+
+
 
     /**
      * 显示正在下载的进度

@@ -104,7 +104,13 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
 
     //确定支付
     public void submit() {
-        String type="3";
+        String type="";
+        if (UserSeeion.isMember(mView.getActivity(),"")){
+            type="1";
+        }else {
+            type="3";
+        }
+
         String total="1350";
         if (loadlingDialog==null){
             loadlingDialog=new LoadlingDialog(mView.getActivity());
@@ -137,6 +143,6 @@ public class DepositPresenter extends BasePresenter<DepositFragment> implements 
     public void success(){
         UserSeeion.setMember(mView.getActivity());
         mView.mActivity.onBackPressed();
-        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,""));
+//        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,2));
     }
 }

@@ -32,23 +32,23 @@ public class ImGoldModel extends BaseResponseModel {
          * cancarrypoints : 2260
          */
 
-        private double totalpoints;
-        private int cancarrypoints;
+        private String totalpoints;
+        private String cancarrypoints;
         private List<EarningslistBean> earningslist;
 
-        public double getTotalpoints() {
+        public String getTotalpoints() {
             return totalpoints;
         }
 
-        public void setTotalpoints(double totalpoints) {
+        public void setTotalpoints(String totalpoints) {
             this.totalpoints = totalpoints;
         }
 
-        public int getCancarrypoints() {
+        public String getCancarrypoints() {
             return cancarrypoints;
         }
 
-        public void setCancarrypoints(int cancarrypoints) {
+        public void setCancarrypoints(String cancarrypoints) {
             this.cancarrypoints = cancarrypoints;
         }
 

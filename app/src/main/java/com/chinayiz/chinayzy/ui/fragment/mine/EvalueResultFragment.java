@@ -27,7 +27,7 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
 
     private ImageView iv_result;
     private TextView tv_result;
-    private TextView tv_to_others;
+    private TextView tv_to_others,tv_to_others2;
     private String title;
     private int type;
     /**
@@ -43,6 +43,17 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
      * 支付订单成功
      */
     public static final int PAY=2;
+
+    /**
+     * 充值成功
+     */
+    public static final int DEPOSIT=3;
+
+    /**
+     * 支付购物成功
+     */
+    public static final int  RESULT=4;
+
 
     /**
      *
@@ -80,7 +91,9 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
         iv_result = (ImageView)view.findViewById(R.id.iv_result);
         tv_result = (TextView) view.findViewById(R.id.tv_result);
         tv_to_others = (TextView)view.findViewById(R.id.tv_to_others);
+        tv_to_others2 = (TextView)view.findViewById(R.id.tv_to_others2);
         tv_to_others.setOnClickListener(this);
+        tv_to_others2.setOnClickListener(this);
         switch (type){
             case EVALUE:
                 mActivity.mTvActionBarTitle.setText("评价成功");
@@ -97,6 +110,13 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
                 tv_result.setText("付款成功，等待卖家发货");
                 iv_result.setImageResource(R.mipmap.img_trade_success);
                 break;
+            case DEPOSIT:
+                mActivity.mTvActionBarTitle.setText("充值成功");
+                tv_result.setText("充值成功");
+                iv_result.setImageResource(R.mipmap.img_activity_success);
+                break;
+
+
         }
         return view;
     }
@@ -122,9 +142,11 @@ public class EvalueResultFragment extends BaseFragment<EvalueResultPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_to_others:
-                Intent intent=new Intent(getActivity(), NewMainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+
+                    Intent intent=new Intent(getActivity(), NewMainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+
                 break;
         }
     }

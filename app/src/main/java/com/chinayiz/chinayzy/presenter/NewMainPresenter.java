@@ -12,6 +12,7 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ShareVipModel;
+import com.chinayiz.chinayzy.entity.response.ActivityMainModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
@@ -19,6 +20,7 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.utils.StrCallback;
+import com.chinayiz.chinayzy.widget.MainActivityDialog;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -96,16 +98,29 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 mShareDialog.show();
 
                 break;
+            case Commons.OPENWINNER:
+              ActivityMainModel model4= (ActivityMainModel) message.getData();
+                if (model4.getData().getCrowdfid()!=null){
+                    MainActivityDialog dialog=new MainActivityDialog(mView.getActivity(),model4.getData().getGname(),model4.getData().getCrowdfid());
+                    dialog.show();
+                }
+                break;
         }
     }
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
+        switch (message.getDataType()){
+            case LoginPresenter.GET_AWARD:
+                CommonRequestUtils.getRequestUtils().getActivityMain();
+                break;
+        }
     }
 
     @Override
     protected void onCreate() {
       mRequestUtils.getCanUpdata(APP.Version);
+        CommonRequestUtils.getRequestUtils().getActivityMain();
     }
 
     @Override

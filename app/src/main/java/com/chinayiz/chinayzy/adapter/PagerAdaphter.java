@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-
 import com.chinayiz.chinayzy.base.BaseFragment;
 
 import java.util.List;
@@ -14,11 +13,13 @@ import java.util.List;
  */
 
 public class PagerAdaphter extends FragmentStatePagerAdapter {
-    private List<BaseFragment> lists;
-    public PagerAdaphter(FragmentManager fm,List<BaseFragment> lists) {
+    private List<? extends  BaseFragment> lists;
+    public PagerAdaphter(FragmentManager fm,List<? extends BaseFragment> lists) {
         super(fm);
         this.lists=lists;
     }
+
+
 
     @Override
     public Fragment getItem(int position) {

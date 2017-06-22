@@ -29,7 +29,6 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
     public PullableGridView gd_find_list;
-
     public PullToRefreshLayout pullToRefreshLayout;
     public static final String DATA_TYPE="DATA_TYPE";
     public static final String TO_FINDDETAIL="TO_FINDDETAIL";
@@ -113,7 +112,6 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
       List <FindListModel.DataBean> lists=adaphter.getData();
       FindListModel.DataBean dataBean=lists.get(position);
         EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,TO_FINDDETAIL,dataBean));

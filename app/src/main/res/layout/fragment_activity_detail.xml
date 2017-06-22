@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chinayiz.chinayzy.ui.fragment.flexible.ActivityDetailFragment"
+     android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <include layout="@layout/flexible_item_layout"/>
+
+         <View
+             style="@style/Divider"
+             android:layout_marginTop="16dp"
+             />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="10dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentRight="true"
+                >
+                <TextView
+                    android:id="@+id/tv_btn1"
+                    android:layout_width="74dp"
+                    android:layout_height="29dp"
+                    android:text="兑换亿众币"
+                    android:textSize="12sp"
+                    android:textColor="@color/red"
+                    android:background="@drawable/shape_corner_red_solid"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_btn2"
+                    android:layout_width="74dp"
+                    android:layout_height="29dp"
+                    android:text="领取奖品"
+                    android:textSize="12sp"
+                    android:textColor="@color/red"
+                    android:background="@drawable/shape_corner_red_solid"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

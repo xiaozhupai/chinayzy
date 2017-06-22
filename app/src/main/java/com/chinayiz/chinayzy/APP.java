@@ -108,6 +108,7 @@ public class APP extends TinkerApplication {
         initoss();
         sUserid = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("userid", 0) + "";
         phone = getSharedPreferences("login", Context.MODE_PRIVATE).getString("phone", "-1");
+        Logger.i("userid="+sUserid);
     }
 
     /**

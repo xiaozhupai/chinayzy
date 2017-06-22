@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.mine.TrueNameFragment"
     android:orientation="vertical"
-    android:background="@color/basecolor"
+    android:background="@color/white"
     >
 
 

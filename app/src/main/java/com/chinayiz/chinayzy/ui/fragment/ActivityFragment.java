@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
@@ -87,7 +88,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
             //JS交互
             msettings.setJavaScriptEnabled(true);
             //设置缓存
-            msettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            msettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
             // 设置是否支持变焦
             msettings.setSupportZoom(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -126,7 +127,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
             });
         }
-        wv_view.loadUrl(url);
+//        wv_view.loadUrl(url);
     }
 
     @Override
@@ -145,7 +146,15 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
     }
 
+
+
     //由于安全原因 需要加 @JavascriptInterface
+
+    @JavascriptInterface
+    public void backAndroid(String link){
+        Skip.toWebPage(getActivity(),link,"活动详情");
+    }
+
 
     /**
      * 分享

@@ -48,18 +48,7 @@ public class GoodsKeepPresenter extends BasePresenter<GoodsKeepFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        switch (message.getDataType()){
-            case Commons.SHOWGOODSCOLLECT:  //展示宝贝收藏列表
-                GoodsCollectModel model= (GoodsCollectModel) message.getData();
-                mView.adaphter.onResult(model.getData());
-                break;
-            case Commons.GOODS_UNCOLLECT:  //取消宝贝收藏
-                ResponseModel model1= (ResponseModel) message.getData();
-                if (model1.getCode().equals("100")){
-                    mView.adaphter.delete();
-                }
-                break;
-        }
+
 
     }
 

@@ -131,6 +131,10 @@ public class PersonPresenter extends BasePresenter<PersonFragment> {
     public void runUiThread(EventMessage message) {
         if (message.getEventType()== EventMessage.NET_EVENT){
             disposeNetMsg(message);
+        }else if (message.getEventType()== EventMessage.ERROR_EVENT){
+            if (mView.refresh_view!=null){
+                mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+            }
         }
 
     }
