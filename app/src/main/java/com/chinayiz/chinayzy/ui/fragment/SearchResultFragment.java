@@ -51,6 +51,9 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public String credit="0";
     public String brands="";
     public boolean isMail;
+    public LinearLayout ll_none;
+    public TextView tv_none;
+    public ImageView iv_none;
 
 
     @Override
@@ -129,6 +132,9 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         tv_credit= (CheckBox) view.findViewById(R.id.tv_credit);
         cb_brand= (CheckBox) view.findViewById(R.id.cb_brand);
         ll_two= (LinearLayout) view.findViewById(R.id.ll_two);
+        ll_none= (LinearLayout) view.findViewById(R.id.ll_none);
+        tv_none= (TextView) view.findViewById(R.id.tv_none);
+        iv_none= (ImageView) view.findViewById(R.id.iv_none);
         tv_self.setOnClickListener(this);
         tv_credit.setOnClickListener(this);
         tv_hot.setOnClickListener(this);

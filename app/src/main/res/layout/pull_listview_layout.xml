@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,8 +18,33 @@
             >
 
         </com.chinayiz.chinayzy.views.pullable.PullableListView>
+
         <include  layout="@layout/load_more"
             android:visibility="gone"
             />
     </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="45dp"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:id="@+id/iv_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            />
+        <TextView
+            android:id="@+id/tv_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#a6a6a6"
+            android:layout_marginTop="19dp"
+            />
+    </LinearLayout>
+</FrameLayout>

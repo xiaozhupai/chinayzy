@@ -91,6 +91,7 @@ public class MessageDialog extends DialogUtils.XDialog implements View.OnClickLi
 	 */
 	@Override
 	public void setTitle(CharSequence title) {
+		vTitle.setVisibility(View.VISIBLE);
 		vTitle.setText(title);
 	}
 

@@ -91,6 +91,12 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                     mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
                     mView.refresh_view.setLoadMoreVisiable(true);
                 }
+
+                if (model.getData().size()==0){
+                    mView.ll_none.setVisibility(View.VISIBLE);
+                }else {
+                    mView.ll_none.setVisibility(View.GONE);
+                }
                 break;
             case Commons.ADDSHOPPINGCAR:   //加入购物车
 //                animation();
@@ -122,6 +128,12 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                 }else {
                     mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
                     mView.refresh_view.setLoadMoreVisiable(true);
+                }
+
+                if (model2.getData().size()==0){
+                    mView.ll_none.setVisibility(View.VISIBLE);
+                }else {
+                    mView.ll_none.setVisibility(View.GONE);
                 }
                 break;
         }

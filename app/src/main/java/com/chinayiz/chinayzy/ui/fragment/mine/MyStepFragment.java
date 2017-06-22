@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
@@ -29,6 +32,10 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
     public PullableListView pull_listview;
     public PullToRefreshLayout pullrefresh;
     public MyStepAdaphter adapter;
+    public LinearLayout ll_none;
+    public TextView tv_none;
+    public ImageView iv_none;
+
     @Override
     protected void onVisible() {
     }
@@ -58,8 +65,11 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
         View view=inflater.inflate(R.layout.fragment_my_step,null);
         pull_listview = (PullableListView) view.findViewById(R.id.pull_listview);
         pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+        ll_none= (LinearLayout) view.findViewById(R.id.ll_none);
+        iv_none= (ImageView) view.findViewById(R.id.iv_none);
+        tv_none= (TextView) view.findViewById(R.id.tv_none);
         pull_listview.setAdapter(adapter);
-
+        adapter.setFragment(this);
         adapter.setRefreshLayout(pullrefresh);
         pull_listview.setOnItemClickListener(this);
         pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {

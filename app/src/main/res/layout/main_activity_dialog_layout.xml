@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/ll_center"
+        android:layout_width="wrap_content"
+        android:layout_height="387dp"
+        android:background="@mipmap/img_get_award"
+        android:layout_centerHorizontal="true"
+      android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <ImageView
+            android:id="@+id/iv_right_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_right_cancel"
+            android:layout_alignParentRight="true"
+            />
+        <TextView
+            android:id="@+id/tv_goods_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#95270e"
+            android:textSize="13sp"
+            android:layout_marginBottom="60dp"
+            android:layout_centerHorizontal="true"
+            android:text="dsdsdsds"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/btn_submit"
+        android:layout_below="@id/ll_center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        />
+</RelativeLayout>

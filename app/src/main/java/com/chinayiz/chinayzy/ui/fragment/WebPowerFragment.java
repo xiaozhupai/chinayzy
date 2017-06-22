@@ -13,19 +13,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.ServiceException;
@@ -42,11 +47,16 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.presenter.CommonPresenter;
 import com.chinayiz.chinayzy.utils.JavaUntil;
+import com.chinayiz.chinayzy.utils.ShareUtils;
 import com.chinayiz.chinayzy.views.GlideLoader;
 import com.chinayiz.chinayzy.views.PickView.TimePickerView;
+import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.orhanobut.logger.Logger;
@@ -57,7 +67,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 
 import static android.app.Activity.RESULT_OK;
 import static com.chinayiz.chinayzy.APP.oss;
@@ -66,10 +80,11 @@ import static com.chinayiz.chinayzy.APP.oss;
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class WebPowerFragment extends BaseFragment<CommonPresenter> {
+public class WebPowerFragment extends BaseFragment<CommonPresenter> implements EventBusCallback {
     public static final String CLASS_NAME = WebPowerFragment.class.getSimpleName();
     public static final String SHARE = "分享推荐码";
     public static final String ACTIVITY = "活动中心";
+
     /**
      * 请求身份证图片
      */
@@ -104,6 +119,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
     private BaseActivity activity;
     private ValueCallback<Uri[]> mUploadCallbackAboveL;
     private ValueCallback<Uri> mUploadMessage;
+    private String newurl;
 
     public WebPowerFragment(String title, String url) {
         this.titel = title;
@@ -117,6 +133,10 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
     public void onInintData(Bundle bundle) {
         this.titel = bundle.getString("titel", "错误...");
         this.url = bundle.getString("url", "-1");
+        newurl=url;
+      if (titel.equals("活动详情")){
+          url=url+"&userid="+APP.sUserid;
+      }
     }
 
     @Override
@@ -125,8 +145,11 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
         progressbar = (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view = (WebView) view.findViewById(R.id.wv_view);
         initWebView();
+        EventBus.getDefault().register(this);
         return view;
     }
+
+
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
@@ -149,31 +172,34 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
 
     }
 
+    @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void runUiThread(EventMessage message) {
+        if (message.getEventType()==EventMessage.NET_EVENT){
+            disposeNetMsg(message);
+        }
+    }
+
+    @Override
+    @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
         if (EventMessage.NET_EVENT==message.getEventType()){
             switch (message.getDataType()){
-                case WebPowerFragment.USER_INFO_DATA:{
-                    /**
-                     * 上传身份证图片
-                     */
-                    upDataImag(message);
-                    break;
-                }
-                case WebPowerFragment.USER_INFO_IMG:{
-                    Logger.i("图片传回WebView");
-                    if (Build.VERSION.SDK_INT >= 21) {//5.0以上版本处理
-                        Uri[] uris = (Uri[]) message.getData();
-                        mUploadCallbackAboveL.onReceiveValue(uris);
-                    } else {//4.4以下处理
-                        Uri uri = (Uri) message.getData();
-                        mUploadMessage.onReceiveValue(uri);
-                    }
-                    break;
-                }
+
 
             }
         }
+    }
+
+    @Override
+    public void disposeNetMsg(EventMessage message) {
+         switch (message.getDataType()){
+         }
+    }
+
+    @Override
+    public void disposeInfoMsg(EventMessage message) {
+
     }
 
     /**
@@ -295,7 +321,16 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
                 return true;
             }
         });
+
         wv_view.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
+                super.doUpdateVisitedHistory(view, url, isReload);
+                if (view.getTitle().equals("活动详情")){
+                    wv_view.clearHistory();//清除历史记录
+                }
+            }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -308,14 +343,23 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 settings.setBlockNetworkImage(false);
-                activity.mTvActionBarTitle.setText(titel);
-
+//                activity.mTvActionBarTitle.setText(view.getTitle());
             }
         });
     }
+
     @Override
     public void onResume() {
         super.onResume();
+            if (titel.equals("活动详情")){
+                   String cur_url;
+                cur_url=newurl+"&userid="+APP.sUserid;
+                Logger.i(cur_url);
+                wv_view.loadUrl(cur_url);
+                Logger.i("活动详情");
+             return;
+        }
+
         if (fristLoad) {
             wv_view.loadUrl(url);
             Logger.i("打印提交地址="+url);
@@ -328,7 +372,6 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
         i.addCategory(Intent.CATEGORY_OPENABLE);
         i.setType("image/*");
         startActivityForResult(Intent.createChooser(i, "Image Chooser"), REQUEST_USER_IMG);
-
     }
 
     @Override
@@ -435,6 +478,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
             }
         });
     }
+
     @JavascriptInterface
     public void toPickView() {
         Logger.i("PickView");
@@ -459,13 +503,32 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
                 pvTime.show();
             }
         });
+    }
 
+    /**
+     *  活动页面立即参与  判断是否登录
+     */
+    @JavascriptInterface
+    public void gotoLoginAndroid(){
+//        Logger.i("crowdfid="+crowdfid);
+        UserSeeion.isLogin(getActivity());
+    }
+
+    @JavascriptInterface
+    public void gotoPayAndroid(String crowdfid){
+        Logger.i("crowdfid="+crowdfid);
+         Skip.toActivityResult(getActivity(),crowdfid);
+    }
+
+    @JavascriptInterface
+    public void gotoShareAndroid(String crowdfid){
+        Logger.i("活动分享crowdfid="+crowdfid);
+        CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(crowdfid);
     }
 
     /**
      * 提交活动奖励表单
      */
-
     @JavascriptInterface
     public void submitFunction() {
         Logger.i("被JS调用");
@@ -488,6 +551,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         Logger.i("移除WEB视图");
     }
 }

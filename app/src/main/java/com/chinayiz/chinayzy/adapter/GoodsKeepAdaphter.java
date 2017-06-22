@@ -18,6 +18,8 @@ import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
+import com.chinayiz.chinayzy.ui.fragment.ListFragment;
+import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -89,7 +91,11 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
         notifyDataSetChanged();
     }
 
-
+    @Override
+    public void onNone(ListFragment fragment) {
+         fragment.iv_none.setImageResource(R.mipmap.bg_no_goods);
+        fragment.tv_none.setText("您还没有收藏过宝贝");
+    }
 
     @Override
     public void onGetData(int pageindex) {
@@ -112,6 +118,10 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
     public void runUiThread(EventMessage message) {
         if (message.getEventType()== EventMessage.NET_EVENT){
             disposeNetMsg(message);
+        }else if (message.getEventType()== EventMessage.ERROR_EVENT){
+            if (pullrefresh!=null){
+                pullResult();
+            }
         }
     }
 
@@ -136,6 +146,8 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
                 break;
         }
     }
+
+
 
     @Override
     public void disposeInfoMsg(EventMessage message) {

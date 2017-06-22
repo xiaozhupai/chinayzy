@@ -7,10 +7,15 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ResponseModel;
 import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
+import com.chinayiz.chinayzy.entity.response.ActivityDetailModel;
+import com.chinayiz.chinayzy.entity.response.ActivityMainModel;
+import com.chinayiz.chinayzy.entity.response.ActivityResultModel;
 import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
+import com.chinayiz.chinayzy.entity.response.AwardRecodModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
+import com.chinayiz.chinayzy.entity.response.DefaultAddressModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.HomeGoodsListModel;
@@ -26,9 +31,11 @@ import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
+import com.chinayiz.chinayzy.entity.response.StringModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.ui.fragment.mine.ResuestTakeFragment;
 import com.google.gson.Gson;
@@ -545,6 +552,56 @@ public class CommonRequestUtils {
                 });
     }
 
+
+    /**
+     *   预览订单
+     * @param crowdfid   活动ID
+     */
+
+    public void getPreviewCrowdfOrder(String crowdfid) {
+        OkGo.post(Commons.API + Commons.PREVIEWCROWDFORDER)
+                .params("crowdfid",crowdfid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.PREVIEWCROWDFORDER
+                                    , mGson.fromJson(s, ActivityResultModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+
+    /**
+     *   亿众币支付
+     * @param total  总价
+     * @param crowdfid   活动ID
+     */
+    public void getYzbPayOrder(String total,String crowdfid) {
+        OkGo.post(Commons.PAY + Commons.YZBPAYORDER)
+                .params("total",total)
+                .params("crowdfid",crowdfid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.YZBPAYORDER
+                                    , mGson.fromJson(s, StringModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+
     /**
      * 支付宝支付
      *
@@ -557,6 +614,32 @@ public class CommonRequestUtils {
                 .params("type",type)
                 .params("total",total)
                 .params("orderbill",orderbill)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ALIPAYORDER
+                                    , mGson.fromJson(s, AlipayModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 支付宝支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     */
+    public void getAliPay(String type, String total,String crowdfid) {
+        OkGo.post(Commons.PAY + Commons.ALIPAYORDER)
+                .params("type",type)
+                .params("total",total)
+                .params("crowdfid",crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -614,6 +697,35 @@ public class CommonRequestUtils {
                 .params("type",type)
                 .params("total",total)
                 .params("orderbill",orderbill)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.WXPAYORDER
+                                    , mGson.fromJson(s, WxpayModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+
+
+    }
+
+    /**
+     * 微信支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     */
+    public void getWxPay(String type, String total, String crowdfid) {
+
+        OkGo.post(Commons.PAY + Commons.WXPAYORDER)
+                .params("type",type)
+                .params("total",total)
+                .params("crowdfid",crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1051,7 +1163,185 @@ public class CommonRequestUtils {
                         }
                     }
                 });
-
-
     }
+
+    /**
+     *  请求新首页热销商品
+     */
+    public void getActivityMain() {
+        OkGo.post(Commons.API + Commons.OPENWINNER)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.OPENWINNER
+                                    , mGson.fromJson(s, ActivityMainModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     *  获奖详情
+     */
+    public void getActivityDetail(String crowdfid) {
+        OkGo.post(Commons.API + Commons.WINNERDETAIL)
+                .params("crowdfid",crowdfid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.WINNERDETAIL
+                                    , mGson.fromJson(s, ActivityDetailModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+
+    /**
+     *   兑换亿众币
+     * @param crowdfid   活动ID
+     * @param total    兑换金额
+     */
+    public void getChangeyzb(String crowdfid,String total) {
+        OkGo.post(Commons.API + Commons.CHANGEYZB)
+                .params("crowdfid",crowdfid)
+                .params("total",total)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.CHANGEYZB
+                                    , mGson.fromJson(s, StringModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+
+
+    /**
+     *   确认收货地址
+     * @param crowdfid   活动ID
+     * @param addressid    地址ID
+     */
+    public void getConfirmAddress(String crowdfid,String addressid) {
+        OkGo.post(Commons.API + Commons.CONFIRMADDRESS)
+                .params("crowdfid",crowdfid)
+                .params("addressid",addressid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.CONFIRMADDRESS
+                                    , mGson.fromJson(s, StringModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+    /**
+     *   获得默认收货地址
+     */
+    public void getdefaultaddress() {
+        OkGo.post(Commons.API + Commons.GETDEFAULTADDRESS)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.GETDEFAULTADDRESS
+                                    , mGson.fromJson(s, DefaultAddressModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获得默认收货地址
+     * @param type  1.全部 2.进行中3.已揭晓
+     */
+    public void getCrowdfrecord(final String type) {
+        OkGo.post(Commons.API + Commons.CROWDFRECORD)
+                .params("type",type)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , type
+                                    , mGson.fromJson(s, AwardRecodModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     *  获取分享众筹活动
+     * @param crowdfid  活动ID
+     */
+    public void getSharecrowdfmessage(String crowdfid) {
+        OkGo.post(Commons.API + Commons.SHARECROWDFMESSAGE)
+                .params("crowdfid",crowdfid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHARECROWDFMESSAGE
+                                    , mGson.fromJson(s, ShareCrowdModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     *  确认收货
+     * @param crowdfid  活动ID
+     */
+    public void getConfirmshouhuo(String crowdfid) {
+        OkGo.post(Commons.API + Commons.CONFIRMSHOUHUO)
+                .params("crowdfid",crowdfid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.CONFIRMSHOUHUO
+                                    , mGson.fromJson(s, StringModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+
+
 }

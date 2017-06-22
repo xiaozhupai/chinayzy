@@ -6,11 +6,13 @@ import android.support.design.widget.Snackbar;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.HomeHotGoodsModel;
+import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.MainFtagment;
 import com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout;
+import com.chinayiz.chinayzy.widget.ShareDialog2;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,6 +38,14 @@ public class MainsPresenter extends BasePresenter<MainFtagment> implements PullT
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
+            case Commons.SHARECROWDFMESSAGE:  //活动分享
+            {
+                ShareCrowdModel model2= (ShareCrowdModel) message.getData();
+                final ShareCrowdModel.DataBean bean= model2.getData();
+                ShareDialog2 dialog2=new ShareDialog2(mView.getActivity(),bean.getImage(),bean.getWebpageUrl(),bean.getTitle(),bean.getContent());
+                dialog2.show();
+                break;
+            }
             case Commons.MAIN_BANNER: {
                 mView.mRecylAdapter.addDate(Commons.MAIN_BANNER, message.getData());
                 mView.mRecylAdapter.notifyItemChanged(0);
@@ -75,6 +85,8 @@ public class MainsPresenter extends BasePresenter<MainFtagment> implements PullT
                 }
                 pager++;
                 break;
+
+
             }
 
         }

@@ -7,6 +7,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.ui.fragment.ListFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 
@@ -22,7 +24,7 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     public List<T> lists;
     public Context context;
     public ListView listView;
-
+   public BaseFragment fragment;
     public PullToRefreshLayout pullrefresh;
     public int page=1;
 
@@ -121,6 +123,27 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
         }
         pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
         pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+        ListFragment listFragment = null;
+        if (fragment instanceof ListFragment){
+             listFragment= (ListFragment) fragment;
+        }
+        if (lists.size()==0){
+            listFragment.ll_none.setVisibility(View.VISIBLE);
+            onNone(listFragment);
+        }else {
+            listFragment.ll_none.setVisibility(View.GONE);
+        }
+    }
+
+   //没有数据的时候
+    public void onNone(ListFragment fragment) {
+
+    }
+
+    public void pullResult(){
+        if (pullrefresh!=null){
+            pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+        }
     }
 
     //设置下拉刷新布局
@@ -133,5 +156,9 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         return true;
+    }
+
+    public void setFragment(BaseFragment fragment) {
+        this.fragment=fragment;
     }
 }

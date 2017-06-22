@@ -8,7 +8,7 @@ import com.chinayiz.chinayzy.APP;
  */
 
 public class Commons {
-    public static final boolean isDebug = APP.APP_DBG;
+    public static final boolean isDebug =true;
     /**
      * 主机地址
      */
@@ -240,6 +240,11 @@ public class Commons {
      */
     public static final String PREVIEWORDER = "/centre/previewOrder";
     /**
+     * 活动预览订单
+     */
+    public static final String PREVIEWCROWDFORDER = "/crowdf/previewCrowdfOrder";
+
+    /**
      * 支付宝支付
      */
     public static final String ALIPAYORDER = "/pay/aliPayOrder";
@@ -247,6 +252,10 @@ public class Commons {
      * 微信支付支付
      */
     public static final String WXPAYORDER = "/pay/wxPayOrder";
+    /**
+     * 亿众币支付
+     */
+    public static final String YZBPAYORDER = "/pay/yzbPayOrder";
 
     /**
      * 博文点赞
@@ -453,4 +462,46 @@ public class Commons {
      * 根据板块itemcode查询商品
      */
     public static final String STORE_HOME_GOODSS = "/mall/showMallGoods";
+
+    /**
+     * 首页弹出框
+     */
+    public static final String OPENWINNER = "/crowdf/openWinner";
+
+    /**
+     * 获奖详情
+     */
+    public static final String WINNERDETAIL = "/crowdf/winnerdetail";
+
+    /**
+     *  兑换亿众币
+     */
+    public static final String CHANGEYZB = "/crowdf/changeYzb";
+    /**
+     *  确认收货地址
+     */
+    public static final String CONFIRMADDRESS = "/crowdf/confirmAddress";
+    /**
+     *  获得默认的收货地址
+     */
+    public static final String GETDEFAULTADDRESS = "/crowdf/getdefaultAddress";
+    /**
+     *  获奖记录
+     */
+    public static final String CROWDFRECORD = "/crowdf/crowdfRecord";
+    /**
+     *  获取分享众筹活动
+     */
+    public static final String SHARECROWDFMESSAGE = "/crowdf/shareCrowdfMessage";
+    /**
+     *
+     * 活动物流信息
+     */
+    public static final String CROWDFWLXX = "/h5/crowdfwlxx";
+    /**
+     *
+     *  活动确认收货
+     */
+    public static final String CONFIRMSHOUHUO = "/crowdf/confirmShouhuo";
+
 }

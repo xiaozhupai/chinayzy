@@ -46,7 +46,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public TextView tv_cost,tv_luckly_money;
     public CheckBox cb_check,cb_luckey_money;
     public RelativeLayout rl_payway_boom;
-    public CheckImageView iv_pay_ali;
+    public CheckImageView iv_pay_ali,iv_pay_yzb;
     public CheckImageView iv_pay_wechat;
     public LinearLayout lv_payway;
     public TextView tv_pay_way;
@@ -57,7 +57,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public ImageView iv_luckly_money;
     public CommonActivity activity;
     public static final int WECHAR_BACK=1;
-    private MessageDialog dialog;
+
 
     @Override
     public void onInintData(Bundle bundle) {
@@ -117,20 +117,20 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         tv_luckly_money= (TextView) foot.findViewById(R.id.tv_luckly_money);
         cb_luckey_money= (CheckBox) foot.findViewById(R.id.cb_luckey_money);
         iv_luckly_money= (ImageView) foot.findViewById(R.id.iv_luckly_money);
+
         iv_luckly_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Logger.i("优惠券信息");
                 if (mPresenter.resultModel.getData()!=null){
                     if (mPresenter.resultModel.getData().getCoupon()!=null){
-                        if (dialog==null){
-                            dialog=new MessageDialog(getActivity());
+                        MessageDialog dialog=new MessageDialog(getActivity());
                             dialog.message.setText(mPresenter.resultModel.getData().getCoupon().getCouponremark());
                             dialog.message.setGravity(Gravity.LEFT);
                             dialog.vButton1.setVisibility(View.GONE);
                             dialog.vTitle.setVisibility(View.VISIBLE);
                             dialog.vTitle.setText("现金券使用规则");
-                        }
+
                         dialog.show();
                     }                    }
 
@@ -140,9 +140,10 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
             @Override
             public void onClick(View v) {  //支付宝支付
                 tv_pay_way.setText("支付宝");
-                if (iv_pay_wechat.isCheck){
-                    iv_pay_wechat.setCheck(false);
+                if (!iv_pay_ali.isCheck){
                     iv_pay_ali.setCheck(true);
+                    iv_pay_wechat.setCheck(false);
+
                 }
             }
         });
@@ -150,12 +151,14 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
             @Override
             public void onClick(View v) {  //微信支付
                 tv_pay_way.setText("微信");
-                if (iv_pay_ali.isCheck){
+                if (!iv_pay_wechat.isCheck){
                     iv_pay_ali.setCheck(false);
                     iv_pay_wechat.setCheck(true);
+
                 }
             }
         });
+
 
         cb_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

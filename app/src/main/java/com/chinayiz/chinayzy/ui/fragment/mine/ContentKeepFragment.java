@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     private PullToRefreshLayout pullrefresh;
     private String [] titles=new String[]{"商品","店铺","博文"};
     private int type=0;   //0  店铺收藏 1博文收藏 2商品
-    public XViewPager v_pager;
+    public ViewPager v_pager;
 
     @Override
     protected void onVisible() {
@@ -79,7 +80,7 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods_keep, container, false);
         magic_indicator = (MagicIndicator) view.findViewById(R.id.magic_indicator);
-        v_pager= (XViewPager) view.findViewById(R.id.v_pager);
+        v_pager= (ViewPager) view.findViewById(R.id.v_pager);
         List<BaseFragment> fragments=new ArrayList<>();
         fragments.add(new ListFragment(new GoodsKeepAdaphter(getActivity(),null)));
         fragments.add(new ListFragment(new ShopKeepAdaphter(getActivity(),null)));

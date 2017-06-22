@@ -9,12 +9,15 @@ import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.PersonalModel;
+import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.activity.MineFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.chinayiz.chinayzy.widget.ShareDialog2;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -26,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class MinePresenter extends BasePresenter<MineFragment> {
     private UserNet net=UserNet.getNet();
     public static final String UPDATEMINE="UPDATEMINE";
+    public static final String MINE_SHARE="MINE_SHARE";
     @Override
     public void onCreate() {
 
@@ -50,6 +54,10 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                 disposeNetMsg(message);
             }catch (Exception e){
                 e.printStackTrace();
+            }
+        }else if (message.getEventType()== EventMessage.ERROR_EVENT){
+            if (mView.pullToRefreshLayout!=null){
+                mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
             }
         }
     }

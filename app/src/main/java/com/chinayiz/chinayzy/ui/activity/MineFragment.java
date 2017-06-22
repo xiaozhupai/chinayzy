@@ -182,14 +182,15 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
                 Skip.toMyStep(getActivity());
                 break;
             case R.id.lv_mine_shop_car:
-                Logger.i("分享二维码");
-                if (UserSeeion.getSys_auth(getActivity()).equals("1")){   //已经完善资料
-                    if (UserSeeion.isMember(getActivity())){
-                        Skip.toWebPage(getActivity(), Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android","分享二维码");
-                    }
-                }else {
-                    Skip.toPerfestData(getActivity());
-                }
+                Logger.i("获奖记录");
+                Skip.toAward(getActivity());
+//                if (UserSeeion.getSys_auth(getActivity()).equals("1")){   //已经完善资料
+//                    if (UserSeeion.isMember(getActivity())){
+//                        Skip.toWebPage(getActivity(), Commons.API + "/h5/tuijianma?userid=" + APP.sUserid + "&devicetype=android","分享二维码");
+//                    }
+//                }else {
+//                    Skip.toPerfestData(getActivity());
+//                }
                 break;
             case R.id.lv_mine_scores:   //我的积分
                 Intent intent =new Intent(getActivity(),GoldActivity.class);
