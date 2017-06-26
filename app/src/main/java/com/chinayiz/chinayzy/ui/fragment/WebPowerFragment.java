@@ -13,24 +13,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.ServiceException;
@@ -53,10 +48,9 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.presenter.CommonPresenter;
 import com.chinayiz.chinayzy.utils.JavaUntil;
-import com.chinayiz.chinayzy.utils.ShareUtils;
 import com.chinayiz.chinayzy.views.GlideLoader;
 import com.chinayiz.chinayzy.views.PickView.TimePickerView;
-import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
+import com.chinayiz.chinayzy.widget.ShareDialog2;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.orhanobut.logger.Logger;
@@ -67,11 +61,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 
 import static android.app.Activity.RESULT_OK;
 import static com.chinayiz.chinayzy.APP.oss;
@@ -84,6 +74,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
     public static final String CLASS_NAME = WebPowerFragment.class.getSimpleName();
     public static final String SHARE = "分享推荐码";
     public static final String ACTIVITY = "活动中心";
+    public static final String GOTOSHAREANDROID="GOTOSHAREANDROID";
 
     /**
      * 请求身份证图片
@@ -194,6 +185,13 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
     @Override
     public void disposeNetMsg(EventMessage message) {
          switch (message.getDataType()){
+             case GOTOSHAREANDROID:
+                 Logger.i(GOTOSHAREANDROID);
+                 ShareCrowdModel model2= (ShareCrowdModel) message.getData();
+                 final ShareCrowdModel.DataBean bean= model2.getData();
+                 ShareDialog2 dialog2=new ShareDialog2(getActivity(),bean.getImage(),bean.getWebpageUrl(),bean.getTitle(),bean.getContent());
+                 dialog2.show();
+                 break;
          }
     }
 
@@ -523,7 +521,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
     @JavascriptInterface
     public void gotoShareAndroid(String crowdfid){
         Logger.i("活动分享crowdfid="+crowdfid);
-        CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(crowdfid);
+        CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(crowdfid,GOTOSHAREANDROID);
     }
 
     /**

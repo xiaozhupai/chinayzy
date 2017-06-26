@@ -79,7 +79,7 @@ public class ActivitySuccessFragment extends BaseFragment<ActivitySuccessPresent
         switch (v.getId()) {
             case R.id.tv_to_others:
                 Logger.i("立即邀请");
-                CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(crowdfid);
+                CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(crowdfid,mPresenter.ActivitySuccess_SHARE);
                 break;
             case R.id.tv_to_others2:
                 Logger.i("返回首页");

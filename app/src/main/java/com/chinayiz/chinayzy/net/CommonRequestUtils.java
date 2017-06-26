@@ -1302,7 +1302,7 @@ public class CommonRequestUtils {
      *  获取分享众筹活动
      * @param crowdfid  活动ID
      */
-    public void getSharecrowdfmessage(String crowdfid) {
+    public void getSharecrowdfmessage(String crowdfid, final String id) {
         OkGo.post(Commons.API + Commons.SHARECROWDFMESSAGE)
                 .params("crowdfid",crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
@@ -1311,7 +1311,7 @@ public class CommonRequestUtils {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.SHARECROWDFMESSAGE
+                                    , id
                                     , mGson.fromJson(s, ShareCrowdModel.class)));
                         }catch (Exception e){
                             onError(null,response,e);

@@ -4,15 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.APP;
@@ -30,22 +27,14 @@ import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.ui.fragment.ListFragment;
 import com.chinayiz.chinayzy.ui.fragment.flexible.AddressResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.flexible.ExchangeYzbFragment;
-import com.chinayiz.chinayzy.utils.ShareUtils;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.chinayiz.chinayzy.widget.ShareDialog2;
 import com.orhanobut.logger.Logger;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.HashMap;
-import java.util.List;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 
 /**
  * 获奖记录
@@ -61,6 +50,7 @@ public class AwardRecordAdaphter extends BaseInectAdaphter implements EventBusCa
     public static final String GET_AWARD = "5";
     public static final String FINISH="6";
     private  ArrayAlertDialog dialog;
+    public static final String AwardRecordAdaphter_SHARE="AwardRecordAdaphter_SHARE";
 
 
 
@@ -127,7 +117,7 @@ public class AwardRecordAdaphter extends BaseInectAdaphter implements EventBusCa
                     @Override
                     public void onClick(View v) {
                         Logger.i("立即邀请");
-                        CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(bean.getCrowdfid());
+                        CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(bean.getCrowdfid(),AwardRecordAdaphter_SHARE);
                     }
                 });
                 break;
@@ -309,6 +299,12 @@ public class AwardRecordAdaphter extends BaseInectAdaphter implements EventBusCa
                     onRefresh();
                 }
                 break;
+            case AwardRecordAdaphter_SHARE:
+                Logger.i(AwardRecordAdaphter_SHARE);
+                ShareCrowdModel model2= (ShareCrowdModel) message.getData();
+                final ShareCrowdModel.DataBean bean= model2.getData();
+                ShareDialog2 dialog2=new ShareDialog2(context,bean.getImage(),bean.getWebpageUrl(),bean.getTitle(),bean.getContent());
+                dialog2.show();
 
         }
     }

@@ -1,26 +1,17 @@
 package com.chinayiz.chinayzy.presenter;
 
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.flexible.ActivitySuccessFragment;
-import com.chinayiz.chinayzy.utils.ShareUtils;
 import com.chinayiz.chinayzy.widget.ArrayAlertDialog;
+import com.chinayiz.chinayzy.widget.ShareDialog2;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.HashMap;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 
 /**
  * Created by Administrator on 2017/6/21.
@@ -28,6 +19,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 
 public class ActivitySuccessPresenter extends BasePresenter<ActivitySuccessFragment>{
     private  ArrayAlertDialog dialog;
+    public static final String  ActivitySuccess_SHARE="ActivitySuccess_SHARE";
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
@@ -44,7 +36,15 @@ public class ActivitySuccessPresenter extends BasePresenter<ActivitySuccessFragm
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-
+    switch (message.getDataType()){
+        case ActivitySuccess_SHARE:
+            Logger.i(ActivitySuccess_SHARE);
+            ShareCrowdModel model2= (ShareCrowdModel) message.getData();
+            final ShareCrowdModel.DataBean bean= model2.getData();
+            ShareDialog2 dialog2=new ShareDialog2(mView.getActivity(),bean.getImage(),bean.getWebpageUrl(),bean.getTitle(),bean.getContent());
+            dialog2.show();
+            break;
+    }
     }
 
     @Override

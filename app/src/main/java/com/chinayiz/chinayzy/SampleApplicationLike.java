@@ -70,7 +70,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
 
             @Override
             public void onDownloadFailure(String msg) {
-                Logger.i("补丁下载失败");
+                Logger.i("补丁下载失败"+msg);
 
 
             }
@@ -83,7 +83,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
 
             @Override
             public void onApplyFailure(String msg) {
-                Logger.i("补丁应用失败");
+                Logger.i("补丁应用失败"+msg);
             }
 
             @Override
