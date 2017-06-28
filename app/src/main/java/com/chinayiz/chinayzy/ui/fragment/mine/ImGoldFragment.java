@@ -114,13 +114,13 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
     }
 
     private void setGold(ImGoldModel model) {
+        Logger.i("积分数据返回可提现="+model.getData().getCancarrypoints()+"总数="+model.getData().getTotalpoints());
         Logger.i("处理科学计数法");
         if (!TextUtils.isEmpty(model.getData().getTotalpoints() )) {
-            mTvSumGolds.setText("00.00");
-        } else {
             mTvSumGolds.setText(model.getData().getTotalpoints() );
+        } else {
+            mTvSumGolds.setText("00.00");
         }
-
         if (!TextUtils.isEmpty(model.getData().getCancarrypoints())) {
             mTvOutMoneys.setText(model.getData().getCancarrypoints());
         }

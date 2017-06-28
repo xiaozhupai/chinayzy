@@ -63,8 +63,8 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                         mView.showDilog(0, goods);
                         break;
                     case OrderListAdapter.PAY_ORDER:
-                        Logger.i("快速支付订单");
-                        mRequestUtils.fastPay(String.valueOf(goods.getOrderid()), goods.getTotalmoney());
+                        Logger.i("快速支付订单"+goods.getMoney());
+                        mRequestUtils.fastPay(String.valueOf(goods.getOrderid()), goods.getMoney());
                         break;
                     case OrderListAdapter.CANCEL_ORDER:
                         mView.showDilog(1, goods);
