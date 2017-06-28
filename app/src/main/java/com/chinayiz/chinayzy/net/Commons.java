@@ -8,7 +8,7 @@ import com.chinayiz.chinayzy.APP;
  */
 
 public class Commons {
-    public static final boolean isDebug =true;
+    public static final boolean isDebug =APP.APP_DBG;
     /**
      * 主机地址
      */

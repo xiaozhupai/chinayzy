@@ -48,10 +48,12 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     public int status;
     private LoadlingDialog loadlingDialog;
     private double resulttotal;
+    private String result;
+    private String finalOrderbill;
 
     @Override
     public void onCreate() {
-      getData();
+        getData();
     }
 
 
@@ -82,9 +84,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     @Override
     @Subscribe (threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-           if (message.getEventType()==EventMessage.INFORM_EVENT){
-               disposeInfoMsg(message);
-           }
+        if (message.getEventType()==EventMessage.INFORM_EVENT){
+            disposeInfoMsg(message);
+        }
     }
 
     @Override
@@ -152,7 +154,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
             case AddressListFragment.ADDRESS_BACK:
-                 getData();
+                getData();
                 break;
             case WXPayEntryActivity.WECHAT_BACK:
                 BaseResp resp= (BaseResp) message.getData();
@@ -163,7 +165,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
         }
     }
 
-    private void getData(){
+    public void getData(){
         CommonRequestUtils.getRequestUtils().getPreviewOrder(mView.params);
     }
 
@@ -178,9 +180,11 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     //修改积分
     public void ChangeDeducpoint(boolean b){
         if (b){
-             resulttotal= DoubleUntil.sub(resulttotal,resultModel.getData().getDeductionpoint());
+            Logger.i("抵用积分resulttotal="+resulttotal);
+            resulttotal= DoubleUntil.sub(resulttotal,resultModel.getData().getDeductionpoint());
             mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
         }else {
+            Logger.i("没有抵用积分resulttotal="+resulttotal);
             resulttotal=DoubleUntil.sum(resulttotal,resultModel.getData().getDeductionpoint());
             mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
         }
@@ -209,7 +213,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             return;
         }
         final String type="2";
-        String orderbill=null;
+
         Gson gson=new Gson();
         PayModel payModel=new PayModel();
         if (resultModel!=null)
@@ -242,10 +246,17 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             payModel.setCouponid(Integer.parseInt(resultModel.getData().getCoupon().getCouponid()));
         }
 
-        payModel.setIntegration(resultModel.getData().getDeductionpoint());
+        double jifen;
+        if (mView.cb_check.isChecked()){
+            jifen=resultModel.getData().getDeductionpoint();
+        }else {
+            jifen=0.00;
+        }
+        Logger.i("jifen="+jifen);
+        payModel.setIntegration(jifen);
         payModel.setShoplist(list);
-        orderbill=gson.toJson(payModel);
-        Logger.i(orderbill);
+        finalOrderbill=gson.toJson(payModel);
+
 //        double total=Double.parseDouble(resultModel.getData().getTotalmoney()); //总金额=商品金额+运费-积分
 //        if (mView.cb_check.isChecked()){ //判断积分是否被选中
 //           total=total-resultModel.getData().getDeductionpoint();
@@ -253,12 +264,12 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
 //        if (mView.cb_luckey_money.isChecked()){   //判断优惠券是否被选中
 //            total=total-Double.parseDouble(resultModel.getData().getCoupon().getCouponprice());
 //        }
-
+     Logger.i("orderbill="+finalOrderbill);
         if (resultModel.getData().getAddressRecord() == null) {
             BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
             return;
         }
-        final String result=String.format("%.2f",resulttotal);
+          result=String.format("%.2f",resulttotal);
         Logger.i("实际付款金额"+result);
         if (dialog==null){
             dialog=new MessageDialog(mView.getActivity());
@@ -269,7 +280,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     dialog.dismiss();
                 }
             });
-            final String finalOrderbill = orderbill;
+
             dialog.setButton2("确定", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -288,8 +299,10 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                 }
             });
         }
-         dialog.show();
+        dialog.show();
     }
+
+
 
     //支付成功跳转到成功页面
     public void success(){
@@ -298,7 +311,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
         EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,4));
     }
 
-       //支付宝支付成功
+    //支付宝支付成功
     @Override
     public void onAliSuccess() {
         Logger.i("onAliSuccess");

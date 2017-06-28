@@ -208,6 +208,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     @Override
     public void onResume() {
         super.onResume();
+
         if (mPresenter.status==1){
             mPresenter.success();
         }

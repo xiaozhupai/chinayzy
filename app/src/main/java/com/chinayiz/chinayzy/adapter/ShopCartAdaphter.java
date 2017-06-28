@@ -11,6 +11,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.views.CheckImageView;
@@ -189,6 +190,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                         public void onClick(View v) {
                             if (finalViewHolder.iv_left.isClickable()){
                                 if (bean.getNum()==1){
+                                    BaseActivity.showToast(context,"宝贝数量不能低于一个");
                                     return;
                                 }
                                 if (bean.getNum()==2){
@@ -209,7 +211,8 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.iv_right.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (bean.getNum()==bean.getRepertory()){
+                            if (bean.getNum()>=bean.getRepertory()){
+                                BaseActivity.showToast(context,"库存不足");
                                 return;
                             }
                             if (bean.getNum()==1){
@@ -260,6 +263,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                         public void onClick(View v) {
                             if (finalViewHolder1.iv_left_b.isClickable()){
                                 if (bean.getNum()==1){
+                                    BaseActivity.showToast(context,"宝贝数量不能低于一个");
                                     return;
                                 }
                                 if (bean.getNum()==2){
@@ -267,7 +271,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                                     finalViewHolder1.iv_left_b.setClickable(false);
                                 }
                                 if (bean.getNum()==bean.getRepertory()){
-                                    finalViewHolder1.iv_left_b.setBackgroundResource(R.mipmap.img_bg_right);
+                                    finalViewHolder1.iv_right_b.setBackgroundResource(R.mipmap.img_bg_right);
                                 }
                                 Logger.i("数量减少");
                                 bean.setNum(bean.getNum()-1);
@@ -281,7 +285,8 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     viewHolder.iv_right_b.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (bean.getNum()==bean.getRepertory()){
+                            if (bean.getNum()>=bean.getRepertory()){
+                                BaseActivity.showToast(context,"库存不足");
                                 return;
                             }
                             if (bean.getNum()==1){

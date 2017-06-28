@@ -57,11 +57,16 @@ public class SearchResultAdaphter extends BaseInectAdaphter<SearchFarmModel.Data
         viewHolder.tv_price_pre.setText(price.substring(0,price.length()-3));
         viewHolder.tv_price_after.setText(price.substring(price.length()-3,price.length()));
         viewHolder.tv_title.setText(bean.getGname());
-        if (bean.getIsself().equals("1")) {   //是否自营
-            viewHolder.iv_oneselft.setVisibility(View.VISIBLE);
-        } else {
+        if (bean.getIsself()!=null){
+            if (bean.getIsself().equals("1")) {   //是否自营
+                viewHolder.iv_oneselft.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.iv_oneselft.setVisibility(View.GONE);
+            }
+        }else {
             viewHolder.iv_oneselft.setVisibility(View.GONE);
         }
+
         viewHolder.iv_join_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
