@@ -49,6 +49,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_EDITER = 1;
     public LoadlingDialog loadlingDialog;
+    public boolean isCheck;
 
     public ShopCartFragment() {
     }
@@ -139,8 +140,10 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) adapterView.getItemAtPosition(i);
-        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
+        if (!isCheck){
+            ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) adapterView.getItemAtPosition(i);
+            Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
+        }
     }
 
     @Override
@@ -187,6 +190,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        this.isCheck=isChecked;
         if (isChecked) {
             buttonView.setText("完成");
             tv_shopcart_submit.setText("删除");

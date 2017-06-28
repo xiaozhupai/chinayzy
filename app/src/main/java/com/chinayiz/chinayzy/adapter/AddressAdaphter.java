@@ -107,3 +107,5 @@ public class AddressAdaphter extends BaseInectAdaphter<AddressListModel.DataBean
 
     }
 }
+
+
