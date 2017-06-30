@@ -110,12 +110,13 @@ public class LoginNet {
      * @param password  password	密码	String	是
      * @param recommendcard  recommendcard	推荐码	String	否
      */
-    public void toRegister(String phone,String yzm,String password,String recommendcard){
+    public void toRegister(String phone,String yzm,String password,String recommendcard,String wxcode){
         OkGo.post(Commons.API + Commons.REGISTER).
                 params("phone",phone)
                 .params("yzm",yzm)
                 .params("password",password)
                 .params("recommendcard",recommendcard)
+                .params("wxcode",wxcode)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {

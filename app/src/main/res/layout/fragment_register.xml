@@ -168,7 +168,37 @@
                     android:maxLines="1"
                     />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="13dp"
+                android:background="@color/divider" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信号    "
+                    android:textColor="#1c1c1c"
+                    android:textSize="15sp" />
+                <EditText
+                    android:id="@+id/et_register_wechat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:background="@null"
+                    android:hint="请输入微信号(选填)"
+                    android:paddingTop="0dp"
+                    android:textColorHint="#cecece"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    />
+            </LinearLayout>
 
 
         </LinearLayout>

@@ -28,7 +28,7 @@ import com.orhanobut.logger.Logger;
 public class RegisterFragment extends BaseFragment<RegisterPresenter> implements View.OnClickListener, SoftKeyboardStateHelper.SoftKeyboardStateListener {
 
 
-    public EditText et_register_phone;
+    public EditText et_register_phone,et_register_wechat;
     public TextView tv_register_lock;
     public EditText et_register_message;
     public TextView tv_register_sendmessage;
@@ -55,6 +55,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
         et_register_password = (EditText)view.findViewById(R.id.et_register_password);
         tv_register_submit = (TextView)view.findViewById(R.id.tv_register_submit);
         et_register_recommendcard= (EditText) view.findViewById(R.id.et_register_recommendcard);
+        et_register_wechat= (EditText) view.findViewById(R.id.et_register_wechat);
 //        et_register_card= (EditText) view.findViewById(R.id.et_register_card);
 //        et_register_truename= (EditText) view.findViewById(R.id.et_register_truename);
         tv_member= (TextView) view.findViewById(R.id.tv_member);

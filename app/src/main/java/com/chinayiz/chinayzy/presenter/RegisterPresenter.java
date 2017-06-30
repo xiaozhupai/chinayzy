@@ -125,7 +125,8 @@ public class RegisterPresenter extends BasePresenter<RegisterFragment> implement
         }
 
      String recommendcard=mView.et_register_recommendcard.getText().toString().trim();
-            LoginNet.getLoginNet().toRegister(phone,message,password,recommendcard);
+       String  wxcode=mView.et_register_wechat.getText().toString().trim();
+            LoginNet.getLoginNet().toRegister(phone,message,password,recommendcard,wxcode);
 
     }
 
