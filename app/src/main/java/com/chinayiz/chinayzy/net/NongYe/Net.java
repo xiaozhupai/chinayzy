@@ -288,7 +288,7 @@ public class Net {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,type
+                                    ,"Find"+type
                                     ,mGson.fromJson(s,FindListModel.class)));
                         }catch (Exception e){
                             onError(null,response,e);

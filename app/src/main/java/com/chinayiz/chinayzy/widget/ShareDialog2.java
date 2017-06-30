@@ -1,5 +1,6 @@
 package com.chinayiz.chinayzy.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.utils.ShareUtils;
 
 import java.util.HashMap;
@@ -113,11 +115,16 @@ public class ShareDialog2 extends DialogUtils.XDialog implements View.OnClickLis
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
                 Toast.makeText(context, "分享错误", Toast.LENGTH_LONG).show();
+              BaseActivity activity= (BaseActivity) context;
+                activity.finish();
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
+
                 Toast.makeText(context, "分享失败", Toast.LENGTH_LONG).show();
+                BaseActivity activity= (BaseActivity) context;
+                activity.finish();
             }
         };
         ShareUtils.turnToShare(position, dis, title, shareImageUrl, url, pl, context);
