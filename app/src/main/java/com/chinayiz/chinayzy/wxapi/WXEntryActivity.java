@@ -166,7 +166,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler,Even
 			if (resp instanceof  SendAuth.Resp){  //登录成功的回调
 				LoginNet.getLoginNet().togetAccessToken(((SendAuth.Resp) resp).code);
 			}else {  //分享成功的回调
-				finish();
+
 			}
 			result = R.string.errcode_success;
 
@@ -181,7 +181,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler,Even
 			result = R.string.errcode_unknown;
 			break;
 		}
-		
+		finish();
 //		Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 	}
 	

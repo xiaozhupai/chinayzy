@@ -891,7 +891,7 @@ public class CommonRequestUtils {
                     public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
-                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     , Commons.DELETE_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
                         }catch (Exception e){
@@ -915,7 +915,7 @@ public class CommonRequestUtils {
                     public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
-                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     , Commons.CANCEL_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
                         }catch (Exception e){

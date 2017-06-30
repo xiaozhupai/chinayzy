@@ -132,7 +132,7 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.mRequestUtils.deleteOrder(String.valueOf(goods.getOrderid()));
-                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
+//                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
                                 Logger.i("删除订单成功");
                             }
                         }).create();
@@ -152,7 +152,7 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.mRequestUtils.cancelOrder(String.valueOf(goods.getOrderid()));
-                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
+//                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
                                 Logger.i("取消订单成功");
                             }
                         }).create();
@@ -173,7 +173,7 @@ public class OrderFrameworkFragment extends BaseFragment<OrderFrameworkPresenter
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.mRequestUtils.recognizelOrder(String.valueOf(goods.getOrderid()));
-                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
+//                                mPresenter.doGteOrderList(String.valueOf(mPresenter.state),mPresenter.state);
                             }
                         }).create();
 
