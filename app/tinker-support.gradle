@@ -33,7 +33,7 @@ tinkerSupport {
     // 对应tinker插件applyResourceMapping
     baseApkResourceMapping = "${bakPath}/${baseApkDir}/app-release-R.txt"
 
-    tinkerId = "2.5.1-base"
+    tinkerId = "2.5.3-base"
 
 //    buildAllFlavorsDir = "${bakPath}/${baseApkDir}"
 
