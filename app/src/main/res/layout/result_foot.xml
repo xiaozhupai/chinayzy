@@ -35,9 +35,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_coupon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="5dp"
         android:background="@color/white"
         >
@@ -45,7 +45,7 @@
             android:id="@+id/tv_luckly_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="可用现金券抵"
+            android:text="优惠券"
             android:textColor="#161616"
             android:textSize="13sp"
             android:layout_marginLeft="12dp"
@@ -61,6 +61,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:padding="5dp"
+            android:visibility="gone"
             />
         <CheckBox
             android:id="@+id/cb_luckey_money"
@@ -72,6 +73,29 @@
             android:background="@drawable/checked_selector"
             android:button="@null"
             android:checked="false"
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/tv_coupon_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1张可用"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_toLeftOf="@+id/iv_right"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/shape_corner_red"
+            android:padding="5dp"
+            />
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_back_arrow"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
             />
     </RelativeLayout>
 

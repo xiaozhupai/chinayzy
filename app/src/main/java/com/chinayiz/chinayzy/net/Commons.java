@@ -504,4 +504,11 @@ public class Commons {
      */
     public static final String CONFIRMSHOUHUO = "/crowdf/confirmShouhuo";
 
+    /**
+     *
+     *  可用优惠券列表
+     */
+    public static final String CANUSECOUPON ="/centre/canUseCoupon";
+
+
 }

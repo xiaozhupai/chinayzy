@@ -194,6 +194,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
             mView.iv_shopcart_radio.setCheck(true);
 
         }
+        if (list==null){
+            return;
+        }
        int count=0;  //所有店铺所有商品总和
         for (ShopCartModel.DataBean data:list){   //遍历所有的商店
             for (int i=0;i<data.getShoplist().size();i++){    //遍历商店所有的商品
@@ -225,6 +228,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 //                if (!isMember){  //是会员才能结算订单
 //                    return;
 //                }
+                if (list==null){
+                    return;
+                }
                 itemChecked();
                 if (list_checked.size()==0){
                     BaseActivity.showToast(mView.getActivity(),"请选择要结算的商品");

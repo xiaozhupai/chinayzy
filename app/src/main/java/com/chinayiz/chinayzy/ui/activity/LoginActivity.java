@@ -25,8 +25,6 @@ import com.chinayiz.chinayzy.widget.LoadlingDialog;
  */
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements View.OnClickListener {
-
-
     public ImageView mIvBackButton;
     public TextView mTvActionbarTitle;
     public ImageView mIvMoreButton;
@@ -52,7 +50,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements View.
         setContentView(R.layout.acitivity_login);
         initView();
         setStatuBarColor(LoginActivity.this, Color.parseColor("#eb5c70"));
-
     }
 
 

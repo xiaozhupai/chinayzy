@@ -43,6 +43,7 @@ public class ResultModel extends BaseResponseModel {
         private List<CarriagesBean> carriages;
         private List<GoodmessageBean> goodmessage;
 
+
         public String getTotalmoney() {
             return totalmoney;
         }
@@ -98,6 +99,8 @@ public class ResultModel extends BaseResponseModel {
         public void setGoodmessage(List<GoodmessageBean> goodmessage) {
             this.goodmessage = goodmessage;
         }
+
+
 
         public static class AddressRecordBean {
             /**
@@ -177,6 +180,24 @@ public class ResultModel extends BaseResponseModel {
             private String couponname;
             private String couponprice;
             private String couponremark;
+            private int count;
+            private String couponlogids;
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+
+            public String getCouponlogids() {
+                return couponlogids;
+            }
+
+            public void setCouponlogids(String couponlogids) {
+                this.couponlogids = couponlogids;
+            }
 
             public String getCouponid() {
                 return couponid;
