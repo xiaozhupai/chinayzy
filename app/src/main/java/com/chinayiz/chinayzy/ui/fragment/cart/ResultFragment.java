@@ -26,6 +26,7 @@ import com.chinayiz.chinayzy.presenter.ResultPresenter;
 import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
+import com.chinayiz.chinayzy.widget.CouponDialog;
 import com.chinayiz.chinayzy.widget.MessageDialog;
 import com.orhanobut.logger.Logger;
 
@@ -57,6 +58,8 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public ImageView iv_luckly_money;
     public CommonActivity activity;
     public static final int WECHAR_BACK=1;
+    public RelativeLayout rl_coupon;
+    public TextView tv_coupon_num;
 
 
     @Override
@@ -117,25 +120,36 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         tv_luckly_money= (TextView) foot.findViewById(R.id.tv_luckly_money);
         cb_luckey_money= (CheckBox) foot.findViewById(R.id.cb_luckey_money);
         iv_luckly_money= (ImageView) foot.findViewById(R.id.iv_luckly_money);
+        rl_coupon= (RelativeLayout) foot.findViewById(R.id.rl_coupon);
+        tv_coupon_num= (TextView) foot.findViewById(R.id.tv_coupon_num);
 
-        iv_luckly_money.setOnClickListener(new View.OnClickListener() {
+
+        rl_coupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logger.i("优惠券信息");
-                if (mPresenter.resultModel.getData()!=null){
-                    if (mPresenter.resultModel.getData().getCoupon()!=null){
-                        MessageDialog dialog=new MessageDialog(getActivity());
-                            dialog.message.setText(mPresenter.resultModel.getData().getCoupon().getCouponremark());
-                            dialog.message.setGravity(Gravity.LEFT);
-                            dialog.vButton1.setVisibility(View.GONE);
-                            dialog.vTitle.setVisibility(View.VISIBLE);
-                            dialog.vTitle.setText("现金券使用规则");
-
-                        dialog.show();
-                    }                    }
-
+                CouponDialog dialog=new CouponDialog(getActivity(),mPresenter.couponlogids);
+                dialog.show();
             }
         });
+
+//        iv_luckly_money.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Logger.i("优惠券信息");
+//                if (mPresenter.resultModel.getData()!=null){
+//                    if (mPresenter.resultModel.getData().getCoupon()!=null){
+//                        MessageDialog dialog=new MessageDialog(getActivity());
+//                            dialog.message.setText(mPresenter.resultModel.getData().getCoupon().getCouponremark());
+//                            dialog.message.setGravity(Gravity.LEFT);
+//                            dialog.vButton1.setVisibility(View.GONE);
+//                            dialog.vTitle.setVisibility(View.VISIBLE);
+//                            dialog.vTitle.setText("现金券使用规则");
+//
+//                        dialog.show();
+//                    }                    }
+//
+//            }
+//        });
         iv_pay_ali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {  //支付宝支付

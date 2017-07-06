@@ -14,6 +14,7 @@ import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.AwardRecodModel;
 import com.chinayiz.chinayzy.entity.response.CommentListModel;
+import com.chinayiz.chinayzy.entity.response.CouponModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.DefaultAddressModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
@@ -534,9 +535,10 @@ public class CommonRequestUtils {
      *
      * @param carids 购物车id数组
      */
-    public void getPreviewOrder(String carids) {
+    public void getPreviewOrder(String carids,String couponlogid) {
         OkGo.post(Commons.API + Commons.PREVIEWORDER)
                 .params("carids",carids)
+                .params("couponlogid",couponlogid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1335,6 +1337,29 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CONFIRMSHOUHUO
                                     , mGson.fromJson(s, StringModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+
+    /**
+     *  优惠券列表
+     * @param couponlogids  可用优惠券ids
+     */
+    public void getCanUseCoupon(String couponlogids) {
+        OkGo.post(Commons.API + Commons.CANUSECOUPON)
+                .params("couponlogids",couponlogids)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.CANUSECOUPON
+                                    , mGson.fromJson(s, CouponModel.class)));
                         }catch (Exception e){
                             onError(null,response,e);
                         }
