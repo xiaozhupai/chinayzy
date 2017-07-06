@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.ui.activity.GoldActivity;
+import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -30,6 +33,7 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
     private ImageView iv_back_button;
     private TextView tv_actionbar_title;
     private ImageView iv_more_button;
+    private View netErrorView;
     private ProgressBar progressbar;
     private WebView wv_view;
     private String title;
@@ -49,9 +53,7 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_common_web,null);
-
         ((GoldActivity)getActivity()).setBack(this);
-
         initview(view);
         return view;
     }
@@ -67,6 +69,13 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
         view.findViewById(R.id.iv_more_button).setVisibility(View.GONE);
         progressbar= (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view= (WebView) view.findViewById(R.id.wv_view);
+        netErrorView=view.findViewById(R.id.view_netWorkError);
+        netErrorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wv_view.reload();
+            }
+        });
         wv_view.   setScrollbarFadingEnabled(true);
         wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
         final WebSettings settings = wv_view.getSettings();
@@ -75,7 +84,7 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
         //JS交互
         settings.setJavaScriptEnabled(true);
         //设置缓存
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         // 设置是否支持变焦
         settings.setSupportZoom(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -84,27 +93,11 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
         }
         settings.setUseWideViewPort(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
-
+        settings.setAllowFileAccess(true);
+        settings.setBuiltInZoomControls(false);
         wv_view.   setScrollbarFadingEnabled(true);
         wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
-        final WebSettings msettings = wv_view.getSettings();
-        msettings.setAllowFileAccess(true);
-        msettings.setBuiltInZoomControls(false);
-        //JS交互
-        msettings.setJavaScriptEnabled(true);
-        //设置缓存
-        msettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        // 设置是否支持变焦
-        msettings.setSupportZoom(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 让网页自适应屏幕宽度
-            msettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        }
-        msettings.setUseWideViewPort(true);
-        msettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        //设置WebViewClient
         wv_view.setWebViewClient(new WebViewClient(){
-
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 view.loadUrl(url);
@@ -114,14 +107,19 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                msettings.setBlockNetworkImage(true);
+                settings.setBlockNetworkImage(true);
 
             }
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                msettings.setBlockNetworkImage(false);
+                settings.setBlockNetworkImage(false);
 
+            }
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                netErrorView.setVisibility(View.VISIBLE);
             }
         });
         wv_view.setWebChromeClient(new WebChromeClient(){
@@ -133,6 +131,18 @@ public class CommonWebFragment extends Fragment implements View.OnClickListener,
                     progressbar.setProgress(newProgress);
                     progressbar.setVisibility(View.VISIBLE);
                 }
+            }
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+
+                //判断标题 title 中是否包含有“error”字段，如果包含“error”字段，则设置加载失败，显示加载失败的视图
+                if (title.contains(ActivityFragment.ERROR_TITLE)){
+                    Logger.i("网页访问错误=" + title);
+                    netErrorView.setVisibility(View.VISIBLE);
+                }else {
+                    netErrorView.setVisibility(View.GONE);
+                }
+
             }
         });
     }

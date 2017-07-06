@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -106,6 +108,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
     private String titel;
     private int flga=0;
     private String url;
+    private View netErrorView;
     public ProgressBar progressbar;
     private BaseActivity activity;
     private ValueCallback<Uri[]> mUploadCallbackAboveL;
@@ -135,6 +138,13 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
         View view = inflater.inflate(R.layout.fragment_web, null);
         progressbar = (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view = (WebView) view.findViewById(R.id.wv_view);
+        netErrorView=view.findViewById(R.id.view_netWorkError);
+        netErrorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wv_view.reload();
+            }
+        });
         initWebView();
         EventBus.getDefault().register(this);
         return view;
@@ -292,7 +302,17 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
                     progressbar.setVisibility(View.VISIBLE);
                 }
             }
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                //判断标题 title 中是否包含有“error”字段，如果包含“error”字段，则设置加载失败，显示加载失败的视图
+                if (title.contains(ActivityFragment.ERROR_TITLE)){
+                    Logger.i("网页访问错误=" + title);
+                    netErrorView.setVisibility(View.VISIBLE);
+                }else {
+                    netErrorView.setVisibility(View.GONE);
+                }
 
+            }
             // For Android < 3.0
             public void openFileChooser(ValueCallback<Uri> valueCallback) {
                 mUploadMessage = valueCallback;
@@ -342,6 +362,12 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
                 super.onPageFinished(view, url);
                 settings.setBlockNetworkImage(false);
 //                activity.mTvActionBarTitle.setText(view.getTitle());
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                netErrorView.setVisibility(View.VISIBLE);
             }
         });
     }

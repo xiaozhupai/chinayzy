@@ -1,25 +1,33 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/Background"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
     >
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:id="@+id/progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:max="100"
-        android:visibility="gone"
-     android:background="@drawable/progressbar"
-        />
-   <WebView
-       android:id="@+id/wv_view"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:focusable="true"
-       android:focusableInTouchMode="true"
-       android:background="@color/Background"
-       />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/Background"
+        android:orientation="vertical"
+        >
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/progressbar"
+            android:max="100"
+            android:visibility="gone"
+            />
+
+        <WebView
+            android:id="@+id/wv_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/Background"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            />
+    </LinearLayout>
+    <include layout="@layout/view_network_error"/>
+</FrameLayout>

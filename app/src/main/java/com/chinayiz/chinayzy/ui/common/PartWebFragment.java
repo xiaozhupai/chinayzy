@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.chinayiz.chinayzy.R;
+import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
+import com.orhanobut.logger.Logger;
 
 /**
  * author  by  Canrom7 .
@@ -20,7 +23,7 @@ import com.chinayiz.chinayzy.R;
 public class PartWebFragment extends Fragment{
     private WebView wv_view;
     private String  goodsid="-1";
-
+    private View netErrorView;
     public void setUrl(String url,String goodsid) {
         this.url = url;
         this.goodsid=goodsid;
@@ -78,6 +81,13 @@ public class PartWebFragment extends Fragment{
                              Bundle savedInstanceState) {
         final View view=inflater.inflate(R.layout.fragment_web,null);
         wv_view= (WebView) view.findViewById(R.id.wv_view);
+        netErrorView=view.findViewById(R.id.view_netWorkError);
+        netErrorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wv_view.reload();
+            }
+        });
         wv_view.loadUrl(url+"?goodsid="+goodsid);
         wv_view.   setScrollbarFadingEnabled(true);
         wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
@@ -94,6 +104,21 @@ public class PartWebFragment extends Fragment{
             // 让网页自适应屏幕宽度
             settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         }
+        wv_view.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+
+                //判断标题 title 中是否包含有“error”字段，如果包含“error”字段，则设置加载失败，显示加载失败的视图
+                if (title.contains(ActivityFragment.ERROR_TITLE)){
+                    Logger.i("网页访问错误=" + title);
+                    netErrorView.setVisibility(View.VISIBLE);
+                }else {
+                    netErrorView.setVisibility(View.GONE);
+                }
+
+            }
+
+        });
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
