@@ -122,11 +122,11 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
         isLoad = false;
         mOrderDetailModel = model;
         mGoodsList = mOrderDetailModel.getData().getOmessages();
-        mViewHolder.tv_orderId.setText("订单编号：" + model.getData().getOrderid());
+        mViewHolder.tv_orderId.setText("订单编号：" + model.getData().getCodeX());
         orderState = model.getData().getState();
         setOrderAction(orderState);
-        mViewHolder.tv_expressId.setText("物流单号：" + model.getData().getCodeX());
-        mViewHolder.tv_name.setText(model.getData().getConsignee() + "   " + model.getData().getPhone());
+//        mViewHolder.tv_expressId.setText("物流单号：" + model.getData().getCodeX());
+        mViewHolder.tv_name.setText(model.getData().getConsignee() + "\t\t\t\t" + model.getData().getPhone());
         mViewHolder.tv_address.setText(model.getData().getArea() + model.getData().getAddress());
         Glide.with(this)
                 .load(model.getData().getPic())
@@ -150,7 +150,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
         }else {
             mViewHolder.tv_coupons.setText("\t"+model.getData().getCouponprice());
         }
-        mViewHolder.tv_orderSpay.setText("实付: " + model.getData().getMoney()+" ");
+        mViewHolder.tv_orderSpay.setText("实付: ￥\t" + model.getData().getMoney());
         mViewHolder.tv_createDate.setText("下单时间：" + model.getData().getOrdertime());
         mViewHolder.btn_copyId.setTag(R.id.tag_click, model.getData().getCodeX());
         mViewHolder.btn_copyId.setOnClickListener(this);

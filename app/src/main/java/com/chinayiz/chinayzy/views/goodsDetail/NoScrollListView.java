@@ -15,11 +15,9 @@ public class NoScrollListView extends ListView {
     public NoScrollListView(Context context) {
         super(context);
     }
-
     public NoScrollListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
     public NoScrollListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -37,12 +39,14 @@ import org.greenrobot.eventbus.EventBus;
  */
 @SuppressLint("ValidFragment")
 public class ActivityFragment extends BaseFragment<ActivityPresenter> {
-    private boolean fristLoad=true;
+    private boolean fristLoad = true;
     public WebView wv_view;
-    public static final String SHARE="分享推荐码";
-    public static final String SHARE_VIP="分享vip";
+    public static final String SHARE = "分享推荐码";
+    public static final String SHARE_VIP = "分享vip";
+    public static final String ERROR_TITLE="网页";
     public ProgressBar progressbar;
-    public String url= Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
+    private View netErrorView;
+    public String url = Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
 
     public ActivityFragment() {
     }
@@ -50,8 +54,15 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_web, null);
-        progressbar= (ProgressBar) view.findViewById(R.id.progressbar);
-        wv_view= (WebView) view.findViewById(R.id.wv_view);
+        progressbar = (ProgressBar) view.findViewById(R.id.progressbar);
+        wv_view = (WebView) view.findViewById(R.id.wv_view);
+        netErrorView=view.findViewById(R.id.view_netWorkError);
+        netErrorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wv_view.reload();
+            }
+        });
         return view;
     }
 
@@ -60,11 +71,11 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public void onResume() {
         super.onResume();
         if (fristLoad) {
-            fristLoad=false;
-            wv_view.   setScrollbarFadingEnabled(true);
-            wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
-            wv_view.addJavascriptInterface(ActivityFragment.this,"android");
-            WebSettings settings = wv_view.getSettings();
+            fristLoad = false;
+            wv_view.setScrollbarFadingEnabled(true);
+            wv_view.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
+            wv_view.addJavascriptInterface(ActivityFragment.this, "android");
+            final WebSettings settings = wv_view.getSettings();
             settings.setAllowFileAccess(true);
             settings.setBuiltInZoomControls(false);
             //JS交互
@@ -79,55 +90,62 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
             }
             settings.setUseWideViewPort(true);
             settings.setJavaScriptCanOpenWindowsAutomatically(true);
+            settings.setAllowFileAccess(true);
+            settings.setBuiltInZoomControls(false);
+            settings.setUseWideViewPort(true);
+            settings.setJavaScriptCanOpenWindowsAutomatically(true);
+            wv_view.setScrollbarFadingEnabled(true);
+            wv_view.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
 
-            wv_view.   setScrollbarFadingEnabled(true);
-            wv_view.   setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
-            final WebSettings msettings = wv_view.getSettings();
-            msettings.setAllowFileAccess(true);
-            msettings.setBuiltInZoomControls(false);
-            //JS交互
-            msettings.setJavaScriptEnabled(true);
-            //设置缓存
-            msettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-            // 设置是否支持变焦
-            msettings.setSupportZoom(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                // 让网页自适应屏幕宽度
-                msettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-            }
-            msettings.setUseWideViewPort(true);
-            msettings.setJavaScriptCanOpenWindowsAutomatically(true);
             //设置WebViewClient
-            wv_view.setWebViewClient(new WebViewClient(){
+            wv_view.setWebViewClient(new WebViewClient() {
 
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
-                    msettings.setBlockNetworkImage(true);
+                    settings.setBlockNetworkImage(true);
 
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
-                    msettings.setBlockNetworkImage(false);
-
+                    settings.setBlockNetworkImage(false);
                 }
+
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    super.onReceivedError(view, request, error);
+                    netErrorView.setVisibility(View.VISIBLE);
+                }
+
             });
-            wv_view.setWebChromeClient(new WebChromeClient(){
+            wv_view.setWebChromeClient(new WebChromeClient() {
                 @Override
                 public void onProgressChanged(WebView view, int newProgress) {
-                    if (newProgress==100){
+                    if (newProgress == 100) {
                         progressbar.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         progressbar.setProgress(newProgress);
                         progressbar.setVisibility(View.VISIBLE);
                     }
                 }
 
+                @Override
+                public void onReceivedTitle(WebView view, String title) {
+
+                    //判断标题 title 中是否包含有“error”字段，如果包含“error”字段，则设置加载失败，显示加载失败的视图
+                    if (title.contains(ActivityFragment.ERROR_TITLE)){
+                         Logger.i("网页访问错误=" + title);
+                        netErrorView.setVisibility(View.VISIBLE);
+                    }else {
+                        netErrorView.setVisibility(View.GONE);
+                    }
+
+                }
+
             });
         }
-//        wv_view.loadUrl(url);
     }
 
     @Override
@@ -147,12 +165,11 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     }
 
 
-
     //由于安全原因 需要加 @JavascriptInterface
 
     @JavascriptInterface
-    public void backAndroid(String link){
-        Skip.toWebPage(getActivity(),link,"活动详情");
+    public void backAndroid(String link) {
+        Skip.toWebPage(getActivity(), link, "活动详情");
     }
 
 
@@ -160,23 +177,24 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
      * 分享
      */
     @JavascriptInterface
-    public void startFunction(){
+    public void startFunction() {
         Logger.i("被JS调用");
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE,getActivity()));
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT, SHARE, getActivity()));
     }
 
     /**
      * 分享
      */
     @JavascriptInterface
-    public void startFunction(String theme,String introduce,String icon,String url){
-        ShareVipModel model=new ShareVipModel(theme,introduce,icon,url);
-        Logger.i("被jiS 调用了 数据="+model.toString());
-        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,SHARE_VIP,model));
+    public void startFunction(String theme, String introduce, String icon, String url) {
+        ShareVipModel model = new ShareVipModel(theme, introduce, icon, url);
+        Logger.i("被jiS 调用了 数据=" + model.toString());
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT, SHARE_VIP, model));
     }
+
     /**
      * 提交活动奖励表单
-     */ 
+     */
     @JavascriptInterface
     public void submitFunction() {
         Logger.i("被JS调用");
@@ -195,6 +213,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
 
     }
+
     public static ActivityFragment getInstance() {
         return new ActivityFragment();
     }

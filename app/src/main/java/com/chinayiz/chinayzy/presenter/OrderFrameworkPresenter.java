@@ -9,6 +9,7 @@ import com.chinayiz.chinayzy.adapter.OrderListAdapter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.model.ResponseModel;
 import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.entity.response.PayModel;
@@ -104,12 +105,13 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     }
     public void onResume(){
         Logger.i("onResume,界面重新可见");
-        if (status==1){
+        if (status==1){//支付成功
             Skip.toSucceePage(mView.getActivity(), EvalueResultFragment.PAY);
             mView.rb_order2.setChecked(true);
             status=3;
-        }else if (status==0){
+        }else if (status==0){//支付失败
             BaseActivity.showToast(mView.getActivity(),"支付失败，请重试");
+
         }
     }
 
@@ -126,6 +128,14 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 doGteOrderList(message.getData().toString(), state);
                 break;
             }
+            case Commons.DELETE_ORDER:{//删除订单的成功回调
+                orderChangeCallBack(message);
+                break;
+            }
+            case Commons.CANCEL_ORDER:{//取消订单回调
+                orderChangeCallBack(message);
+                break;
+            }
             case OrderListAdapter.CLICK_STORE: {
                 Skip.toStore(mView.getActivity(),message.getData().toString());
                 break;
@@ -134,6 +144,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 BaseResp resp= (BaseResp) message.getData();
                 if (resp.errCode==0){
                     status=1;
+                    initData();
                     Logger.i("微信支付成功");
                 }else {
                     status=0;
@@ -141,16 +152,26 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
                 }
             case Commons.CONFIRM_ORDER:{
                Skip.toSucceePage(mView.getActivity(),EvalueResultFragment.TRADE);
+                orderChangeCallBack(message);
             }
                 break;
         }
     }
-
+    private void orderChangeCallBack(EventMessage message){
+        ResponseModel model= (ResponseModel) message.getData();
+        if ("100".equals(model.getCode())){
+            initData();
+        }else {
+            BaseActivity.showToast(mView.getActivity(),"操作失败请重试");
+        }
+    }
     @Override
     protected void onCreate() {
-        mRequestUtils.getImOrder(String.valueOf(mView.orderType));
+        initData();
     }
-
+   private void initData(){
+       mRequestUtils.getImOrder(String.valueOf(mView.orderType));
+   }
     @Override
     protected void onDestroy() {
 
@@ -188,6 +209,7 @@ public class OrderFrameworkPresenter extends BasePresenter<OrderFrameworkFragmen
     @Override
     public void onAliSuccess() {
          status=1;
+        initData();
         Logger.i("支付宝支付成功");
     }
 
