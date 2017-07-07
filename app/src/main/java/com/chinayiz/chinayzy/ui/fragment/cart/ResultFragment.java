@@ -132,7 +132,6 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
                     CouponDialog dialog=new CouponDialog(getActivity(),mPresenter.couponlogids);
                     dialog.show();
                 }
-
             }
         });
 

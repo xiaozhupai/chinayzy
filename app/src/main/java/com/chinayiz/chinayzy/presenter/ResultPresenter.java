@@ -122,12 +122,14 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     mView.tv_no_address.setVisibility(View.VISIBLE);
                 }
 
-                //判断有没有使用优惠券
-                if (couponlogid.equals("0")){
-                    mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
-                }else {
-                    mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resultTotal_coupon));
-                }
+//                    ChangeDeducpoint(mView.cb_check.isChecked());
+//                //判断有没有使用优惠券
+//                if (couponlogid.equals("0")){
+//                    mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
+//                }else {
+//
+//                    mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resultTotal_coupon));
+//                }
 
                 //优惠券
               ResultModel.DataBean.CouponBean couponBean= resultModel.getData().getCoupon();
@@ -154,6 +156,26 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     mView.tv_coupon_num.setText(resultModel.getData().getCoupon().getCount()+"张可用");
                     couponlogids=couponBean.getCouponlogids();
                 }
+
+
+                if (mView.cb_check.isChecked()){  //积分被选中
+                    if (couponlogid.equals("0")){   //没有选中优惠券
+
+                    }else {  //选中优惠券
+                        resulttotal= DoubleUntil.sub(resulttotal,resultModel.getData().getDeductionpoint());
+                        resulttotal=DoubleUntil.sub(resulttotal,Double.valueOf(couponBean.getCouponprice()));
+                        mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
+                    }
+                }else {  //积分没有被选中
+                    if (couponlogid.equals("0")){  //没有选中优惠券
+                        mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
+                    }else {  //有优惠券
+                        resulttotal=DoubleUntil.sub(resulttotal,Double.valueOf(couponBean.getCouponprice()));
+                        mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
+                    }
+                }
+
+
                 mView.cb_luckey_money.setClickable(false);
                 mView.adaphter.setData(resultModel.getData().getGoodmessage(),resultModel.getData().getCarriages());
                 break;
@@ -179,7 +201,6 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                 CouponModel.DataBean dataBean= (CouponModel.DataBean) message.getData();
                 Logger.i("优惠券ID"+couponlogid);
                 couponlogid=dataBean.getCouponlogid();
-                resultTotal_coupon=DoubleUntil.sub(resulttotal,dataBean.getCouponprice());
 
                 getData(couponlogid);
 
@@ -220,25 +241,14 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     //修改积分
     public void ChangeDeducpoint(boolean b){
         if (b){   //被选中  减积分
-            if (couponlogid.equals("0")){   //没有选中优惠券
                 Logger.i("抵用积分resulttotal="+resulttotal);
                 resulttotal= DoubleUntil.sub(resulttotal,resultModel.getData().getDeductionpoint());
                 mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
-            }else {  //选中优惠券
-                Logger.i("抵用积分resulttotal="+resultTotal_coupon);
-                resultTotal_coupon= DoubleUntil.sub(resultTotal_coupon,resultModel.getData().getDeductionpoint());
-                mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resultTotal_coupon));
-            }
         }else {   //加积分
-            if (couponlogid.equals("0")){
                 Logger.i("没有抵用积分resulttotal="+resulttotal);
                 resulttotal=DoubleUntil.sum(resulttotal,resultModel.getData().getDeductionpoint());
                 mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
-            }else {
-                Logger.i("没有抵用积分resulttotal="+resulttotal);
-                resultTotal_coupon=DoubleUntil.sum(resultTotal_coupon,resultModel.getData().getDeductionpoint());
-                mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resultTotal_coupon));
-            }
+
         }
     }
 
@@ -307,11 +317,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
             BaseActivity.showToast(mView.getActivity(),"请填写收获信息");
             return;
         }
-        if (couponlogid.equals("0")){  //没有使用优惠券
+
             result=String.format("%.2f",resulttotal);
-        }else {
-            result=String.format("%.2f",resultTotal_coupon);
-        }
+
 
         Logger.i("实际付款金额"+result);
         if (dialog==null){
@@ -347,8 +355,8 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
 
     //支付成功跳转到成功页面
     public void success(){
-        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,4));
         mView.mActivity.onBackPressed();
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,2));
     }
 
     //支付失败跳转

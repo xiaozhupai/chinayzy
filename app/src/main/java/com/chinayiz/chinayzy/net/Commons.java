@@ -238,7 +238,7 @@ public class Commons {
     /**
      * 结算购物车选中的订单，预览订单
      */
-    public static final String PREVIEWORDER = "/centre/previewOrder";
+    public static final String PREVIEWORDER = "/centre/previewOrder1";
     /**
      * 活动预览订单
      */
