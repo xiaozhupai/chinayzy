@@ -89,6 +89,7 @@ public class AwardRecordFragment extends BaseFragment<CardPresenter> {
             ListFragment fragment=new ListFragment(new AwardRecordAdaphter(getActivity(),i+""));
             lists.add(fragment);
         }
+        //指示器
         CommonNavigator commonNavigator = new CommonNavigator(getActivity());
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {

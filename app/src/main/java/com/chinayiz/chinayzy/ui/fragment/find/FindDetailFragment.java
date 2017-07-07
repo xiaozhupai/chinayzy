@@ -52,7 +52,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
         FindListModel.DataBean bean= (FindListModel.DataBean) bundle.getSerializable("bean");
         this.bean = bean;
         bid=bean.getBid()+"";
-        url= Commons.SHARE+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid+"&type=app";
+        url= Commons.SHARE+Commons.FXXQ+"?bid="+bid+"&userid="+ APP.sUserid+"&type=app";  //发现详情地址
         Logger.i("FindDetailFragment url------"+url);
     }
 
@@ -117,7 +117,7 @@ public class FindDetailFragment extends BaseFragment<FindDetailPresenter> implem
         //JS交互
         msettings.setJavaScriptEnabled(true);
         //设置缓存
-        msettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        msettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         // 设置是否支持变焦
         msettings.setSupportZoom(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

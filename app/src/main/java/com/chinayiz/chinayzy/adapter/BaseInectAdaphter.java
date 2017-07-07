@@ -32,10 +32,13 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
         return lists;
     }
 
+    //设置数据
     public   void  setData(List<T> lists){
         this.lists=lists;
         notifyDataSetChanged();
     }
+
+    //添加数据  上拉刷新使用
     public void AddData(List<T> lists){
         this.lists.addAll(lists);
         notifyDataSetChanged();
@@ -68,10 +71,13 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
         onGetData(pageindex);
     }
 
+
     public void onDestory(){
         EventBus.getDefault().unregister(this);
     }
 
+
+    //调用数据
     public void onGetData(int pageindex){
     }
 
@@ -87,6 +93,7 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     }
 
 
+    //设置listview
     public  void setListview(ListView listview){
         this.listView=listView;
         listview.setOnItemClickListener(this);
@@ -94,6 +101,7 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
         listview.setOnItemLongClickListener(this);
     }
 
+    //点击事件
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         onItemClick(i);

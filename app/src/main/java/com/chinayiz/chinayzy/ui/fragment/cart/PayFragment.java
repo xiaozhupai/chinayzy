@@ -16,7 +16,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.CommonPresenter;
 
-/**
+/**     购物车支付成功页面
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
@@ -61,7 +61,7 @@ public class PayFragment extends BaseFragment<CommonPresenter> implements View.O
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_two:
-                APP.exit();
+               mActivity.finish();
                 break;
         }
     }

@@ -63,7 +63,7 @@ public class ForgotPresenter extends BasePresenter<ForgotActivity> implements Ha
     @Override
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()){
-            case Commons.BACKPWD:
+            case Commons.BACKPWD:  //找回密码
                 BaseResponseModel model= (BaseResponseModel) message.getData();
                 if (model.getCode().equals("100")){
                     mView.finish();

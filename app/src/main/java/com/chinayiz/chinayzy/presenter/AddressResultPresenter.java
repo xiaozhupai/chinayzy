@@ -128,6 +128,7 @@ public class AddressResultPresenter extends BasePresenter<AddressResultFragment>
     }
 
 
+    //提交数据
     public void submit() {
         if (addresssid==null){
             BaseActivity.showToast(mView.getActivity(),"请输入收货地址");

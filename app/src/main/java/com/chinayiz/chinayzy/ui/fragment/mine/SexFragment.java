@@ -117,11 +117,11 @@ public class SexFragment extends BaseFragment<SexPresenter> implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_sex_man:
+            case R.id.rl_sex_man:  //男
                 iv_sex_man.setVisibility(View.VISIBLE);
                 iv_sex_woman.setVisibility(View.GONE);
                 break;
-            case R.id.rl_sex_woman:
+            case R.id.rl_sex_woman:   //女
                 iv_sex_man.setVisibility(View.GONE);
                 iv_sex_woman.setVisibility(View.VISIBLE);
                 break;

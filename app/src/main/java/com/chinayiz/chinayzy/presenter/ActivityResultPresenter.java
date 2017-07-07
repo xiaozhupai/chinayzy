@@ -101,7 +101,7 @@ public class ActivityResultPresenter extends BasePresenter<ActivityResultFragmen
                 mView.tv_price.setText("￥"+resultModel.getData().getPrice());
                 mView.tv_result_price.setText("总计:￥"+resulttotal);
 
-            if (resultModel.getData().getStatus().equals("1")){
+            if (resultModel.getData().getStatus().equals("1")){   //亿众币 是否可用
                 mView.rl_yzb.setVisibility(View.VISIBLE);
             }else {
                 mView.rl_yzb.setVisibility(View.GONE);

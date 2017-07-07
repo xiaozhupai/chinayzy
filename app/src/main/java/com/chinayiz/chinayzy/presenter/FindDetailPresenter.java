@@ -82,7 +82,7 @@ public class FindDetailPresenter extends BasePresenter<FindDetailFragment> {
                       }
                       break;
 
-                  case Commons.ISCOLLECTORPRAISE:
+                  case Commons.ISCOLLECTORPRAISE:  //是否点赞 是否收藏
                       KeeporZanModel keeporZanModel= (KeeporZanModel) message.getData();
                       setData(keeporZanModel.getData());
                       break;
@@ -92,19 +92,19 @@ public class FindDetailPresenter extends BasePresenter<FindDetailFragment> {
     private void setData(KeeporZanModel.DataBean bean){
         if (bean!=null){
             if (bean.getIscollect()!=null){
-                if (bean.getIscollect().equals("0")){
+                if (bean.getIscollect().equals("0")){    //没有收藏
                     mView.iv_keep.setImageResource(R.mipmap.icon_keep);
                     mView.isKeep=false;
-                }else {
+                }else {  //收藏
                     mView.iv_keep.setImageResource(R.mipmap.icon_keep_selected);
                     mView.isKeep=true;
                 }
             }
             if (bean.getIscollect()!=null){
-                if (bean.getIspraise().equals("0")){
+                if (bean.getIspraise().equals("0")){   //没有点赞
                     mView.iv_love.setImageResource(R.mipmap.icon_love_normal);
                     mView.isLove=false;
-                }else {
+                }else {  //点赞
                     mView.iv_love.setImageResource(R.mipmap.icon_love_selected);
                     mView.isLove=true;
                 }
@@ -115,7 +115,7 @@ public class FindDetailPresenter extends BasePresenter<FindDetailFragment> {
     @Override
     public void disposeInfoMsg(EventMessage message) {
               switch (message.getDataType()){
-                  case FindDetailFragment.FIND_DETAIL:
+                  case FindDetailFragment.FIND_DETAIL:  //发现详情
                         Logger.i("FIND_DETAIL");
                       Net.getNet().getCollectOrPraise(mView.bean.getBid()+"");
                       break;
