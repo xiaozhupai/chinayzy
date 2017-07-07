@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.chinayiz.chinayzy.R;
 
-/**
+/**  加载球
  * Created by Administrator on 2017/3/28.
  */
 

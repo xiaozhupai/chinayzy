@@ -44,8 +44,8 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 
 
-/**
- * @author Luki
+/**  分享弹框
+ * @author yangf
  */
 
 public class ShareDialog extends DialogUtils.XDialog implements View.OnClickListener, OnItemClickListener {

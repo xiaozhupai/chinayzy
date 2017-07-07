@@ -123,12 +123,16 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         rl_coupon= (RelativeLayout) foot.findViewById(R.id.rl_coupon);
         tv_coupon_num= (TextView) foot.findViewById(R.id.tv_coupon_num);
 
-
         rl_coupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CouponDialog dialog=new CouponDialog(getActivity(),mPresenter.couponlogids);
-                dialog.show();
+                if (mPresenter.count==0){
+                    BaseActivity.showToast(getActivity(),"无可用优惠券");
+                }else {
+                    CouponDialog dialog=new CouponDialog(getActivity(),mPresenter.couponlogids);
+                    dialog.show();
+                }
+
             }
         });
 
@@ -222,9 +226,10 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     @Override
     public void onResume() {
         super.onResume();
-
-        if (mPresenter.status==1){
+        if (mPresenter.status==1){    //支付成功
             mPresenter.success();
+        }else {   //支付失败
+            mPresenter.fail();
         }
     }
 }

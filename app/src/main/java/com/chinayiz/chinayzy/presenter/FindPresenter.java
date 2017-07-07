@@ -81,7 +81,7 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        if (message.getDataType()== Commons.FINDTYPE){
+        if (message.getDataType()== Commons.FINDTYPE){   //发现的类型
             FindTypeModel model= (FindTypeModel) message.getData();
             titles.clear();
             //发现指示器
@@ -145,7 +145,7 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
     @Override
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
-            case FindListFragment.TO_FINDDETAIL:
+            case FindListFragment.TO_FINDDETAIL:  //跳转到发现详情
                 FindListModel.DataBean dataBean= (FindListModel.DataBean) message.getData();
                 Skip.toFindDetail(mView.getActivity(),dataBean);
                 break;

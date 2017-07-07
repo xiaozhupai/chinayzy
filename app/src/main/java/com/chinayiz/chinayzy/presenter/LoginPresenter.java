@@ -109,7 +109,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
                 LoginNet.getLoginNet().getToken();
                 break;
-            case Commons.TOKEN:
+            case Commons.TOKEN:  //获取融云TOKEN
              RongModel rongModel= (RongModel) message.getData();
                 EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,GET_AWARD,""));
                 if (rongModel.getCode().equals("100")){

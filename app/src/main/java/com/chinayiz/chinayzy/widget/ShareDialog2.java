@@ -26,7 +26,7 @@ import java.util.HashMap;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 
-/**
+/**   分享弹框2
  * Created by Administrator on 2017/6/22.
  */
 

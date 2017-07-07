@@ -43,6 +43,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
     public int type;
 
 
+
     @Override
     public void onCreate() {
 
@@ -89,7 +90,6 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
         switch (message.getDataType()){
             case Commons.SHOPCART:  //购物车商品列表
-
                 ShopCartModel model= (ShopCartModel) message.getData();
                 list=model.getData();
                 list_delete=model.getData();
@@ -98,8 +98,9 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                     mView.ll_no_goods.setVisibility(View.VISIBLE);
                 }else {
                     mView.ll_no_goods.setVisibility(View.GONE);
+                    mView.adaphter.HeadUpdate(0,true); //第一个店铺全选
                 }
-               UpdateBoom();
+
                 if (mView.pullToRefreshLayout!=null){
                     mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 }
@@ -140,7 +141,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                     popuWindow.setData(lists);
                 }
                 break;
-            case ShopCartAdaphter.UPDATE:
+            case ShopCartAdaphter.UPDATE:  //更新购物车
                 mView.UpdateShopCart();
 
                 break;
@@ -179,23 +180,18 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         }
     }
 
-    public void UpdateBoom(){
-        mView.tv_shopcart_all.setText("全选(0)");
-        mView.iv_shopcart_radio.setCheck(false);
-        mView.tv_shopcart_price.setText("￥0.00");
-    }
+
 
     //更新底部布局
     public void UpdateAll(){
+        if (list==null){
+            return;
+        }
         if (mView.iv_shopcart_radio.isCheck){
             mView.iv_shopcart_radio.setCheck(false);
 
         }else {
             mView.iv_shopcart_radio.setCheck(true);
-
-        }
-        if (list==null){
-            return;
         }
        int count=0;  //所有店铺所有商品总和
         for (ShopCartModel.DataBean data:list){   //遍历所有的商店

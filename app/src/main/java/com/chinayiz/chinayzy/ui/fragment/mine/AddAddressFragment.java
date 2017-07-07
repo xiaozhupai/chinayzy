@@ -133,10 +133,10 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_delete:
+            case R.id.tv_delete:  //删除
                 mPresenter.delete();
                 break;
-            case R.id.tv_part:
+            case R.id.tv_part:   //弹出地址
                 if (pickView==null){
                     pickView=new PickView(getActivity());
                 }

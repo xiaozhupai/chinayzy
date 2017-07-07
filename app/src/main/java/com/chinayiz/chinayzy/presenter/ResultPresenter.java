@@ -56,6 +56,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     public String couponlogid="0";
     public String couponlogids;
     public double resultTotal_coupon;
+    public int count;
 
     @Override
     public void onCreate() {
@@ -121,6 +122,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     mView.tv_no_address.setVisibility(View.VISIBLE);
                 }
 
+                //判断有没有使用优惠券
                 if (couponlogid.equals("0")){
                     mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
                 }else {
@@ -145,6 +147,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                     mView.tv_luckly_money.setText(Html.fromHtml(html_coupon));
                     mView.tv_coupon_num.setVisibility(View.GONE);
                 }
+                count=couponBean.getCount();  //优惠券数量
                 if (couponBean.getCount()==0){
                     mView.tv_coupon_num.setText("无可用优惠券");
                 }else {
@@ -187,14 +190,15 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     @Override
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
-            case AddressListFragment.ADDRESS_BACK:
+            case AddressListFragment.ADDRESS_BACK:   //修改地址返回
                 getData(couponlogid);
                 break;
-            case WXPayEntryActivity.WECHAT_BACK:
+            case WXPayEntryActivity.WECHAT_BACK:   //微信支付返回
                 BaseResp resp= (BaseResp) message.getData();
                 if (resp.errCode==0){
                     status=1;
-
+                }else {
+                    status=0;
                 }
                 break;
 
@@ -215,17 +219,17 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
 
     //修改积分
     public void ChangeDeducpoint(boolean b){
-        if (b){
-            if (couponlogid.equals("0")){
+        if (b){   //被选中  减积分
+            if (couponlogid.equals("0")){   //没有选中优惠券
                 Logger.i("抵用积分resulttotal="+resulttotal);
                 resulttotal= DoubleUntil.sub(resulttotal,resultModel.getData().getDeductionpoint());
                 mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
-            }else {
+            }else {  //选中优惠券
                 Logger.i("抵用积分resulttotal="+resultTotal_coupon);
                 resultTotal_coupon= DoubleUntil.sub(resultTotal_coupon,resultModel.getData().getDeductionpoint());
                 mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resultTotal_coupon));
             }
-        }else {
+        }else {   //加积分
             if (couponlogid.equals("0")){
                 Logger.i("没有抵用积分resulttotal="+resulttotal);
                 resulttotal=DoubleUntil.sum(resulttotal,resultModel.getData().getDeductionpoint());
@@ -235,25 +239,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                 resultTotal_coupon=DoubleUntil.sum(resultTotal_coupon,resultModel.getData().getDeductionpoint());
                 mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resultTotal_coupon));
             }
-
         }
     }
 
-    //修改优惠券
-    public void ChangeLuckeyMoney(boolean b){
-        if (b){
-            resulttotal=DoubleUntil.sub(resulttotal,Double.parseDouble(resultModel.getData().getCoupon().getCouponprice()));
-            mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
-        }else{
-//            resulttotal=resulttotal+Double.parseDouble(resultModel.getData().getCoupon().getCouponprice());
-            mView.tv_result_price.setText("总计:￥"+String.format("%.2f",resulttotal));
-        }
-        if (resulttotal<resultModel.getData().getDeductionpoint()){
-            mView.cb_check.setClickable(false);
-        }else {
-            mView.cb_check.setClickable(true);
-        }
-    }
 
     //提交结算订单
     public void submit(){
@@ -347,8 +335,6 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                         CommonRequestUtils.getRequestUtils().getAliPayOrder(type,result, finalOrderbill);
                     }else if (mView.iv_pay_wechat.isCheck){  //微信支付
                         CommonRequestUtils.getRequestUtils().getWxPayOrder(type,result, finalOrderbill);
-                    }else {  //亿众币支付
-
                     }
                     dialog.dismiss();
                 }
@@ -361,9 +347,13 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
 
     //支付成功跳转到成功页面
     public void success(){
-
-        mView.mActivity.onBackPressed();
         EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,4));
+        mView.mActivity.onBackPressed();
+    }
+
+    //支付失败跳转
+    public void fail(){
+     Logger.i("支付失败");
     }
 
     //支付宝支付成功
@@ -376,6 +366,8 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     //支付宝支付失败
     @Override
     public void onAliFail() {
-
+        status=0;
     }
+
+
 }
