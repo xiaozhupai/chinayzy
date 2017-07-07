@@ -194,6 +194,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                 BaseResp resp= (BaseResp) message.getData();
                 if (resp.errCode==0){
                     status=1;
+
                 }
                 break;
 

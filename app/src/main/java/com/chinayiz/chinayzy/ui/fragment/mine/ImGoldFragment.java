@@ -122,7 +122,8 @@ public class ImGoldFragment extends AbsFragment implements View.OnClickListener 
             mTvSumGolds.setText("00.00");
         }
         if (!TextUtils.isEmpty(model.getData().getCancarrypoints())) {
-            mTvOutMoneys.setText(model.getData().getCancarrypoints());
+            goldNum=model.getData().getCancarrypoints();
+            mTvOutMoneys.setText(goldNum);
         }
         mAdapter = new ScreListAdapter(getActivity(), model.getData().getEarningslist());
         mLvAccrualLog.setAdapter(mAdapter);

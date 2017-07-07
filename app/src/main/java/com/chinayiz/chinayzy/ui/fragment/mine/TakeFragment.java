@@ -67,6 +67,7 @@ public class TakeFragment extends AbsFragment implements View.OnClickListener {
         view.findViewById(R.id.iv_more_button).setVisibility(View.GONE);
 
         tv_canTakeNum = (TextView) view.findViewById(R.id.tv_canTakeNum);
+        Logger.i("可提现数量="+goldNum);
         if (!TextUtils.isEmpty(goldNum)){
             tv_canTakeNum.setText(goldNum);
         }
