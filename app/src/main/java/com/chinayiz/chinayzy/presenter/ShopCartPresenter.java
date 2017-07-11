@@ -100,6 +100,15 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                     mView.ll_no_goods.setVisibility(View.GONE);
                     mView.adaphter.HeadUpdate(0,true); //第一个店铺全选
                 }
+                if (list.size()==mView.adaphter.getAllHead()){
+                    mView.iv_shopcart_radio.setCheck(true);
+                }else {
+                    mView.iv_shopcart_radio.setCheck(false);
+
+                }
+
+
+                mView.adaphter.UpdateBottomLayout();
 
                 if (mView.pullToRefreshLayout!=null){
                     mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
@@ -150,9 +159,14 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 popuWindow=new GoodsStandardPopuWindow(mView.getActivity(),bean);
                 popuWindow.show();
                 break;
+
         }
     }
 
+    private void updataBottom() {
+         mView.tv_shopcart_all.setText("全选("+list.size()+")");
+
+    }
 
 
     @Override

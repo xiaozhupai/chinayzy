@@ -136,10 +136,15 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
              listFragment= (ListFragment) fragment;
         }
         if (lists.size()==0){
-            listFragment.ll_none.setVisibility(View.VISIBLE);
-            onNone(listFragment);
+            if (listFragment!=null){
+                listFragment.ll_none.setVisibility(View.VISIBLE);
+                onNone(listFragment);
+            }
         }else {
-            listFragment.ll_none.setVisibility(View.GONE);
+            if (listFragment!=null){
+                listFragment.ll_none.setVisibility(View.GONE);
+
+            }
         }
     }
 

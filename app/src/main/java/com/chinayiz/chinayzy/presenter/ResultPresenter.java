@@ -42,6 +42,7 @@ import java.util.List;
 
 public class ResultPresenter extends BasePresenter <ResultFragment> implements AlipayHandler.AliPay {
     public static final String RESULT_BACK="RESULT_BACK";
+    public static final String RESULT_TO_SHOPCART="RESULT_TO_SHOPCART";
     public ResultModel resultModel;
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_PAY2_FLAG = 2;
@@ -103,7 +104,7 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
 
                 resulttotal=Double.parseDouble(resultModel.getData().getTotalmoney());
 
-                String deducpoint="可用"+resultModel.getData().getDeductionpoint()+"抵积分<font color='#ff3951'> ￥"+resultModel.getData().getDeductionpoint()+"</font>";
+                String deducpoint="可用"+resultModel.getData().getDeductionpoint()+"亿众币抵<font color='#ff3951'> ￥"+resultModel.getData().getDeductionpoint()+"</font>";
                 mView.tv_deducpoint.setText(Html.fromHtml(deducpoint));
                 //运费收货地址
                 if (resultModel.getData().getAddressRecord()!=null){
@@ -219,7 +220,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
                 if (resp.errCode==0){
                     status=1;
                 }else {
-                    status=0;
+                    status=2;
+                    fail();
+                    Logger.i("微信支付失败了000000");
                 }
                 break;
 
@@ -357,11 +360,17 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     public void success(){
         mView.mActivity.onBackPressed();
         EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,RESULT_BACK,2));
-    }
+}
 
     //支付失败跳转
     public void fail(){
-     Logger.i("支付失败");
+        Logger.i("7777777777777777777777777777777777777777777");
+        BaseActivity.showToast(mView.getActivity(),"订单支付失败");
+        mView.mActivity.onBackPressed();
+//        EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,RESULT_TO_SHOPCART,""));
+
+
+
     }
 
     //支付宝支付成功
@@ -374,7 +383,9 @@ public class ResultPresenter extends BasePresenter <ResultFragment> implements A
     //支付宝支付失败
     @Override
     public void onAliFail() {
-        status=0;
+        status=2;
+        Logger.i("支付宝支付失败了000000");
+        fail();
     }
 
 

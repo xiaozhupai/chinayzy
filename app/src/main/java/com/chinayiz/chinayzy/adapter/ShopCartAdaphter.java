@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -16,7 +17,9 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
     public int layout_type;
     public static final String POPUWINDOW="POPUWINDOW";
     public static final String UPDATE="ShopCartAdaphter";
+    public  double total;
 
 
     public ShopCartAdaphter(Context context, List<ShopCartModel.DataBean> list, CheckImageView iv_all, TextView tv_shopcart_price, TextView tv_shopcart_all, int layout_type) {
@@ -341,6 +345,18 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         return view;
     }
 
+    public int getAllHead(){   //获得选中头部的个数
+        List<ShopCartModel.DataBean.ShoplistBean> list_selected = new ArrayList<>();
+        for (ShopCartModel.DataBean data : lists) {
+            for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
+                if (bean.isHeadChecked()) {
+                    list_selected.add(bean);
+                }
+            }
+        }
+        return  list_selected.size();
+    }
+
     //ITEM更新
     public void ItemUpdate(int position) {
         ShopCartModel.DataBean.ShoplistBean shopCartModel = getItem(position);
@@ -383,6 +399,20 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         }
         notifyDataSetChanged();
         UpdateBoomlayout(isChecked);
+    }
+
+    public void UpdateBottomLayout(){
+        double total;
+        List<ShopCartModel.DataBean.ShoplistBean> list_selected = new ArrayList<>();
+        for (ShopCartModel.DataBean data : lists) {
+            for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
+                if (bean.isChecked()) {
+                    list_selected.add(bean);
+                }
+            }
+        }
+           UpdateTotal();
+        tv_shopcart_all.setText("全选(" + list_selected.size() + ")");
     }
 
     //更新底部布局
