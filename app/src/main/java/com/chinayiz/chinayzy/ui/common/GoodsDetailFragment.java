@@ -61,6 +61,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
      * 点击进入切换到评论列表
      */
     public static final String CLICK_COMMENTS = "tv_moreComment";
+
     private NewGoodsDetailModel.DataBean mDetailModel;
     private ViewHolder mViewHolder;
     private int mCommentCount;
