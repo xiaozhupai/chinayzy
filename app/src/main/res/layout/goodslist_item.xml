@@ -38,6 +38,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="8dp"
         android:text="168"
+        android:maxLines="1"
         android:textColor="@color/NongYe_home_priceText"
         android:drawableRight="@mipmap/icon_oneself_store"
         android:textSize="16sp"

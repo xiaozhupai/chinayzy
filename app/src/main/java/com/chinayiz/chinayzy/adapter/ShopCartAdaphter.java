@@ -1,14 +1,18 @@
 package com.chinayiz.chinayzy.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
@@ -16,7 +20,9 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.orhanobut.logger.Logger;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +45,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
     public int layout_type;
     public static final String POPUWINDOW="POPUWINDOW";
     public static final String UPDATE="ShopCartAdaphter";
+    public  double total;
 
 
     public ShopCartAdaphter(Context context, List<ShopCartModel.DataBean> list, CheckImageView iv_all, TextView tv_shopcart_price, TextView tv_shopcart_all, int layout_type) {
@@ -251,12 +258,11 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                     }
                     viewHolder.lv_before.setVisibility(View.VISIBLE);
                     viewHolder.lv_after.setVisibility(View.GONE);
-                    viewHolder.tv_center_b.setText(bean.getNum()+"");
+                    viewHolder.et_center_b.setText(bean.getNum()+"");
 //                    viewHolder.tv_shopcart_item_num.setText("×" + bean.getNum());
                     viewHolder.tv_shopcart_item_price.setText("¥" + bean.getPrice());
                     viewHolder.tv_shopcart_item_title.setText(bean.getGname());
                     viewHolder.tv_shopcart_item_kind.setText(bean.getStandardname()+bean.getStandardvalue());
-
                     final ViewHolder finalViewHolder1 = viewHolder;
                     viewHolder.iv_left_b.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -275,7 +281,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                                 }
                                 Logger.i("数量减少");
                                 bean.setNum(bean.getNum()-1);
-                                finalViewHolder1.tv_center_b.setText(bean.getNum()+"");
+                                finalViewHolder1.et_center_b.setText(bean.getNum()+"");
                                 Logger.i("num-----------------------"+bean.getNum());
                                 UpdateTotal();
                                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,UPDATE,""));
@@ -297,16 +303,43 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                                 finalViewHolder1.iv_right_b.setBackgroundResource(R.mipmap.img_bg_right_unclickable);
 //                                finalViewHolder.iv_left.setClickable(false);
                             }
-
                             Logger.i("数量增加");
                             bean.setNum(bean.getNum()+1);
-                            finalViewHolder1.tv_center_b.setText(bean.getNum()+"");
+                            finalViewHolder1.et_center_b.setText(bean.getNum()+"");
+
                             Logger.i("num-----------------------"+bean.getNum());
                             UpdateTotal();
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,UPDATE,""));
                         }
                     });
+                    finalViewHolder1.et_center_b.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if (hasFocus){
+                               Logger.i("开始编辑数量");
+                            }else {
+                                Logger.i("取消编辑数量");
+                            }
+                        }
+                    });
+                    finalViewHolder1.et_center_b.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            finalViewHolder1.et_center_b.clearComposingText();
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            Logger.i("正在修改数量="+s);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            Logger.i("修改数量完成="+s);
+                        }
+                    });
                 }
+
                 Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_shopcart_item_img);
                 break;
             case TYPE_CATEGORY_ITEM: //头部视图
@@ -339,6 +372,18 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                 break;
         }
         return view;
+    }
+
+    public int getAllHead(){   //获得选中头部的个数
+        List<ShopCartModel.DataBean.ShoplistBean> list_selected = new ArrayList<>();
+        for (ShopCartModel.DataBean data : lists) {
+            for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
+                if (bean.isHeadChecked()) {
+                    list_selected.add(bean);
+                }
+            }
+        }
+        return  list_selected.size();
     }
 
     //ITEM更新
@@ -383,6 +428,20 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         }
         notifyDataSetChanged();
         UpdateBoomlayout(isChecked);
+    }
+
+    public void UpdateBottomLayout(){
+        double total;
+        List<ShopCartModel.DataBean.ShoplistBean> list_selected = new ArrayList<>();
+        for (ShopCartModel.DataBean data : lists) {
+            for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
+                if (bean.isChecked()) {
+                    list_selected.add(bean);
+                }
+            }
+        }
+           UpdateTotal();
+        tv_shopcart_all.setText("全选(" + list_selected.size() + ")");
     }
 
     //更新底部布局
@@ -509,7 +568,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         public LinearLayout lv_after;
         public ImageView iv_left_b;
         public ImageView iv_right_b;
-        public TextView tv_center_b;
+        public EditText et_center_b;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -528,7 +587,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
             this.lv_after = (LinearLayout) rootView.findViewById(R.id.lv_after);
          this.iv_left_b= (ImageView) rootView.findViewById(R.id.iv_left_b);
          this.iv_right_b= (ImageView) rootView.findViewById(R.id.iv_right_b);
-          this.tv_center_b= (TextView) rootView.findViewById(R.id.tv_center_b);
+          this.et_center_b= (EditText) rootView.findViewById(R.id.et_center_b);
         }
 
     }

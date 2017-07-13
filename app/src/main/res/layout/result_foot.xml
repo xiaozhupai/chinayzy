@@ -10,17 +10,19 @@
         android:layout_marginBottom="5dp"
         android:background="@color/white"
         >
+
         <TextView
             android:id="@+id/tv_deducpoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="可用10积分抵 ￥10"
-            android:textColor="#161616"
-            android:textSize="13sp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:text="可用10亿众币抵 ￥10"
+            android:textColor="#161616"
+            android:textSize="13sp"
             />
+
         <CheckBox
             android:id="@+id/cb_check"
             android:layout_width="51dp"
@@ -161,42 +163,49 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            >
-            <ImageView
-                android:id="@+id/iv_pay_ali"
-                android:layout_width="wrap_content"
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:src="@mipmap/icon_pay_ali"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="支付宝"
-                android:layout_toRightOf="@+id/iv_pay_ali"
-                android:textColor="#161616"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                />
-            <com.chinayiz.chinayzy.views.CheckImageView
-                android:id="@+id/iv_ali_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/radio_selected"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="13dp"
-                android:layout_marginRight="12dp"
-                android:clickable="true"
-                />
-        </RelativeLayout>
-        <View
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_pay_ali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@mipmap/icon_pay_ali"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toRightOf="@+id/iv_pay_ali"
+                    android:text="支付宝"
+                    android:textColor="#161616"
+                    android:textSize="12sp"
+                    />
+
+                <com.chinayiz.chinayzy.views.CheckImageView
+                    android:id="@+id/iv_ali_pay"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="3dp"
+                    android:clickable="true"
+                    android:scaleType="center"
+                    android:src="@mipmap/radio_selected"
+                    />
+            </RelativeLayout>
+
+            <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#dee2e4"
@@ -227,13 +236,14 @@
                 />
             <com.chinayiz.chinayzy.views.CheckImageView
                 android:id="@+id/iv_wechat_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:src="@mipmap/radio_normal"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="13dp"
                 android:layout_marginRight="12dp"
+                android:layout_marginTop="3dp"
                 android:clickable="true"
+                android:scaleType="center"
                 />
         </RelativeLayout>
         <View

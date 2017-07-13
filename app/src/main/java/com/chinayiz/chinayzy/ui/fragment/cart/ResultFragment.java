@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +26,6 @@ import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.widget.CouponDialog;
-import com.chinayiz.chinayzy.widget.MessageDialog;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -227,7 +224,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         super.onResume();
         if (mPresenter.status==1){    //支付成功
             mPresenter.success();
-        }else {   //支付失败
+        }else if (mPresenter.status==2){   //支付失败
             mPresenter.fail();
         }
     }

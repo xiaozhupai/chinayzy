@@ -88,6 +88,9 @@ public class GoodsDetailGridAdpter extends BaseAdapter implements View.OnClickLi
         }else {
             mHoder.mPrice.setText(mBeanList.get(position).getPrice());
         }
+        if ("0".equals(mBeanList.get(position).getIsself())){
+            mHoder.mPrice.setCompoundDrawables(null,null,null,null);
+        }
         return view;
     }
 

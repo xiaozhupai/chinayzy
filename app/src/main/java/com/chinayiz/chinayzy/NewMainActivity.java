@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -21,7 +22,6 @@ import com.chinayiz.chinayzy.adapter.NyMainPagerAdapter;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.database.UserSeeion;
-import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.NewMainPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineFragment;
@@ -116,10 +116,24 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         mViewPager.setOffscreenPageLimit(5);
         mPagerAdapter = new NyMainPagerAdapter(getFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
-
         mRgNongyeMenu = (RadioGroup) findViewById(R.id.rg_nongye_menu);
         mRadioButton = (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_home);
         mRgNongyeMenu.setOnCheckedChangeListener(this);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+               commitID=position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         //默认选中农业首页
         mRadioButton.setChecked(true);
     }
@@ -214,9 +228,14 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Logger.i("返回键监听"+commitID);
         if (mActivityFragment.wv_view!=null&&commitID==2){//判断当前是否在活动页面
             if (keyCode == KeyEvent.KEYCODE_BACK && mActivityFragment.wv_view.canGoBack()) {
                 mActivityFragment.wv_view.goBack();// 返回前一个页面
+                return true;
+            }
+            if (commitID==3){
+                Logger.i("当前页面是购物车");
                 return true;
             }
             exitBy2Click();
