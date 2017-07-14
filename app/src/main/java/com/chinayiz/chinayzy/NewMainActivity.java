@@ -495,3 +495,4 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         return this;
     }
 }
+

@@ -6,7 +6,9 @@
               android:background="@color/Background"
               android:orientation="vertical"
     >
-    <include layout="@layout/common_action_bar"/>
+
+    <include layout="@layout/common_action_bar" />
+
     <com.chinayiz.chinayzy.views.NoScrollViewPager
         android:id="@+id/vp_main_content"
         android:layout_width="match_parent"
@@ -31,10 +33,9 @@
         <RadioButton
             android:id="@+id/rb_nav_home"
             style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_home_btn"
-            android:text="@string/nav_text_home"
             android:checked="true"
-            />
+            android:drawableTop="@drawable/nav_home_btn"
+            android:text="@string/nav_text_home" />
 
         <RadioButton
             android:id="@+id/rb_nav_find"

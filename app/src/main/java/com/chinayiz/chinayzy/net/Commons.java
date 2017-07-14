@@ -149,6 +149,10 @@ public class Commons {
      * 会员权益和用户协议
      */
     public static final String GETHYQYANDYHXY = "/user/gethyqyandyhxy";
+    /**
+     * 获取用户基础数据
+     */
+    public static final String BASEDATA = "/user/basedata";
 
 
     /**
