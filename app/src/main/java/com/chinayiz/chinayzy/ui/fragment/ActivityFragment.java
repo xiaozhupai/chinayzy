@@ -161,9 +161,13 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
     @Override
     protected void onVisible() {
-
+        Logger.i("ActivityFragment可见");
     }
 
+    @Override
+    protected void onInvisible() {
+        Logger.i("ActivityFragment不可见");
+    }
 
     //由于安全原因 需要加 @JavascriptInterface
 
@@ -218,10 +222,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
         return new ActivityFragment();
     }
 
-    @Override
-    protected void onInvisible() {
 
-    }
 
     @Override
     public void isNightMode(boolean isNight) {

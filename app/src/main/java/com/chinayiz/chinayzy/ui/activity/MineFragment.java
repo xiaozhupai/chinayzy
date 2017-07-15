@@ -146,12 +146,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
 
     @Override
     protected void onVisible() {
-
+        Logger.i("MineFragment 可见");
     }
 
     @Override
     protected void onInvisible() {
-
+        Logger.i("MineFragment 不可见");
     }
 
 

@@ -330,12 +330,12 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
 
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            Logger.i("正在修改数量="+s);
+//                            Logger.i("正在修改数量="+s);
                         }
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            Logger.i("修改数量完成="+s);
+//                            Logger.i("修改数量完成="+s);
                         }
                     });
                 }

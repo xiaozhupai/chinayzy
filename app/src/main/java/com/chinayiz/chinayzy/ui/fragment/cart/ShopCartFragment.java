@@ -26,6 +26,7 @@ import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 import com.chinayiz.chinayzy.widget.LoadlingDialog;
+import com.orhanobut.logger.Logger;
 
 /**
  * 购物车
@@ -63,10 +64,12 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     protected void onVisible() {
+        Logger.i("ShopCartFragment 可见");
     }
 
     @Override
     protected void onInvisible() {
+        Logger.i("ShopCartFragment 不可见");
     }
 
     @Override

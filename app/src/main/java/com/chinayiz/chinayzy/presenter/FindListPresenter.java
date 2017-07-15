@@ -39,7 +39,6 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
     public void runUiThread(EventMessage message) {
         if (message.getEventType() == EventMessage.NET_EVENT) {
             if (message.getDataType().equals("Find"+mView.type)) {
-                Logger.i("Findlist"+mView.type);
                 FindListModel model = (FindListModel) message.getData();
                 if (message.getData()!=null){
                     mView.adaphter.onResult(model.getData());

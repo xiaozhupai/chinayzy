@@ -35,10 +35,6 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     }
 
 
-    @Override
-    protected void onVisible() {
-
-    }
 
     public static FindFragment getInstance() {
         return new FindFragment();
@@ -61,7 +57,13 @@ public class FindFragment extends BaseFragment<FindPresenter> {
     }
 
     @Override
+    protected void onVisible() {
+        Logger.i("FindFragment可见");
+    }
+
+    @Override
     protected void onInvisible() {
+        Logger.i("FindFragment不可见");
     }
 
     @Override

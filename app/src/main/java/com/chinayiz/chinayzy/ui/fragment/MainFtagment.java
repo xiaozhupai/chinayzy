@@ -87,12 +87,12 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
 
     @Override
     protected void onVisible() {
-
+Logger.i("MainFtagment 可见");
     }
 
     @Override
     protected void onInvisible() {
-
+        Logger.i("MainFtagment 不可见");
     }
 
     @Override
