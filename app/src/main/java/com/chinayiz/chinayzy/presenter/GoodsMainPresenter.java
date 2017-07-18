@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.NewGoodsDetailModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
+import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.common.GoodsDetailFragment;
@@ -29,6 +30,7 @@ public class GoodsMainPresenter extends BasePresenter<GoodsMainFragment> {
     public CommonRequestUtils mRequestUtils;
     public NewGoodsDetailModel model = null;
     private RelatedGoodsModel mRelatedGoodsModel;
+    public int count;
 
     @Override
     public void disposeNetMsg(EventMessage message) {
@@ -58,6 +60,11 @@ public class GoodsMainPresenter extends BasePresenter<GoodsMainFragment> {
                 mView.onCheckedChanged(null, R.id.rb_tabComments);
                 break;
             }
+            case Commons.SHOPPINGCARTCOUNT:
+                ShoppingCarCountModel model5= (ShoppingCarCountModel) message.getData();
+                count= model5.getData();
+                mView.getCount(count);
+                break;
         }
     }
 
@@ -69,7 +76,6 @@ public class GoodsMainPresenter extends BasePresenter<GoodsMainFragment> {
                 Skip.toNewGoodsDetail(mView.getActivity(), goodsID);
                 break;
             }
-
         }
     }
 

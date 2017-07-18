@@ -15,6 +15,7 @@ import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
 import com.chinayiz.chinayzy.entity.response.RongModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.activity.ForgotActivity;
@@ -107,6 +108,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
                     SaveData(userid,isMember,sys_auth);
                 }
                 Toast.makeText(mView,model.getMsg(),Toast.LENGTH_LONG).show();
+                CommonRequestUtils.getRequestUtils().getShoppingCarCount();
                 LoginNet.getLoginNet().getToken();
                 break;
             case Commons.TOKEN:  //获取融云TOKEN
@@ -205,6 +207,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Plat
         mView.dialog=new LoadlingDialog(mView);
         mView.dialog.show();
         new LoginNet().toLogin(phone,password);
+
     }
 
 

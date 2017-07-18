@@ -3,6 +3,7 @@ package com.chinayiz.chinayzy.net.Login;
 
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.BasedataModel;
 import com.chinayiz.chinayzy.entity.response.LoginModel;
 import com.chinayiz.chinayzy.entity.response.RegisterModel;
 import com.chinayiz.chinayzy.entity.response.RongModel;
@@ -11,6 +12,7 @@ import com.chinayiz.chinayzy.entity.response.ThirdModel;
 import com.chinayiz.chinayzy.entity.response.WechatAccessModel;
 import com.chinayiz.chinayzy.entity.response.WechatInfoModel;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.utils.StrCallback;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.orhanobut.logger.Logger;
@@ -321,6 +323,25 @@ public class LoginNet {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.REFRESH_TOKEN
                                     ,mGson.fromJson(s,WechatInfoModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获取用户基础数据
+     */
+    public void toGetBasedata(){
+        OkGo.post(Commons.API+Commons.BASEDATA)
+                .execute(new StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
+                                    ,Commons.BASEDATA
+                                    ,mGson.fromJson(s, BasedataModel.class)));
                         }catch (Exception e){
                             onError(null,response,e);
                         }

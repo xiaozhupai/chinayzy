@@ -6,7 +6,9 @@
               android:background="@color/Background"
               android:orientation="vertical"
     >
-    <include layout="@layout/common_action_bar"/>
+
+    <include layout="@layout/common_action_bar" />
+
     <com.chinayiz.chinayzy.views.NoScrollViewPager
         android:id="@+id/vp_main_content"
         android:layout_width="match_parent"
@@ -14,54 +16,62 @@
         android:layout_weight="1"
         >
     </com.chinayiz.chinayzy.views.NoScrollViewPager>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="#dddddd"
         />
-    <RadioGroup
-        android:id="@+id/rg_nongye_menu"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:background="@color/Background"
-        android:orientation="horizontal"
-        >
+        android:layout_height="wrap_content">
+        <RadioGroup
+            android:id="@+id/rg_nongye_menu"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@color/Background"
+            android:orientation="horizontal"
+            >
+            <RadioButton
+                android:id="@+id/rb_nav_home"
+                style="@style/nav_rb_style"
+                android:checked="true"
+                android:drawableTop="@drawable/nav_home_btn"
+                android:text="@string/nav_text_home" />
 
-        <RadioButton
-            android:id="@+id/rb_nav_home"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_home_btn"
-            android:text="@string/nav_text_home"
-            android:checked="true"
-            />
+            <RadioButton
+                android:id="@+id/rb_nav_find"
+                style="@style/nav_rb_style"
+                android:drawableTop="@drawable/nav_find_btn"
+                android:text="@string/nav_text_find"
+                />
 
-        <RadioButton
-            android:id="@+id/rb_nav_find"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_find_btn"
-            android:text="@string/nav_text_find"
+            <RadioButton
+                android:id="@+id/rb_nav_activi"
+                style="@style/nav_rb_style"
+                android:drawableTop="@drawable/nav_activi_btn"
+                android:text="@string/nav_text_activity"
+                />
+            <RadioButton
+                android:id="@+id/rb_nav_cart"
+                style="@style/nav_rb_style"
+                android:drawableTop="@drawable/nav_cart_btn"
+                android:text="@string/nav_text_car"
+                />
+            <RadioButton
+                android:id="@+id/rb_nav_im"
+                style="@style/nav_rb_style"
+                android:drawableTop="@drawable/nav_im_btn"
+                android:text="@string/nav_text_im"
+                />
+        </RadioGroup>
+        <Button
+            android:id="@+id/bt_shopcart"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="265dp"
+            android:text="提示数量"
+            android:visibility="gone"
             />
+    </FrameLayout>
 
-        <RadioButton
-            android:id="@+id/rb_nav_activi"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_activi_btn"
-            android:text="@string/nav_text_activity"
-            />
-
-        <RadioButton
-            android:id="@+id/rb_nav_cart"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_cart_btn"
-            android:text="@string/nav_text_car"
-            />
-
-        <RadioButton
-            android:id="@+id/rb_nav_im"
-            style="@style/nav_rb_style"
-            android:drawableTop="@drawable/nav_im_btn"
-            android:text="@string/nav_text_im"
-            />
-    </RadioGroup>
 </LinearLayout>

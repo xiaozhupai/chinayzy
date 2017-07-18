@@ -26,6 +26,7 @@ import com.chinayiz.chinayzy.ui.activity.CommonActivity;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.views.CheckImageView;
 import com.chinayiz.chinayzy.widget.CouponDialog;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -125,6 +126,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
             public void onClick(View v) {
                 if (mPresenter.count==0){
                     BaseActivity.showToast(getActivity(),"无可用优惠券");
+                    Logger.i("512");
                 }else {
                     CouponDialog dialog=new CouponDialog(getActivity(),mPresenter.couponlogids);
                     dialog.show();

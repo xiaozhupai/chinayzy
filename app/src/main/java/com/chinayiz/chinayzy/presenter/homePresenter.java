@@ -34,6 +34,9 @@ import java.util.List;
 public class homePresenter extends BasePresenter<HomeFragment> implements PullToRefreshLayout.OnRefreshListener, PullableRecycleView.RefreshListner {
     public int count = 0;
     private Net mNet = Net.getNet();
+
+
+
     private List<NY_EatItemModel.DataBean> eatList = new ArrayList<>(5);
     private NY_EatItemModel model;
     private Thread mThread;

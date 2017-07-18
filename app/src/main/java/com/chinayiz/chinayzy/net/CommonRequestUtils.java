@@ -38,11 +38,13 @@ import com.chinayiz.chinayzy.entity.response.ResultModel;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
+import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.entity.response.StringModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.ui.fragment.mine.ResuestTakeFragment;
+import com.chinayiz.chinayzy.utils.StrCallback;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.orhanobut.logger.Logger;
@@ -107,7 +109,6 @@ public class CommonRequestUtils {
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.UPDATA
@@ -400,7 +401,6 @@ public class CommonRequestUtils {
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOPCART
@@ -1092,7 +1092,6 @@ public class CommonRequestUtils {
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.HOME_MODEL
@@ -1113,7 +1112,6 @@ public class CommonRequestUtils {
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , uir
@@ -1136,7 +1134,6 @@ public class CommonRequestUtils {
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , uir
@@ -1453,6 +1450,24 @@ public class CommonRequestUtils {
                 });
     }
 
+    /**
+     * 获取购物车数量
+     */
+    public void getShoppingCarCount(){
+        OkGo.post(Commons.API+Commons.SHOPPINGCARTCOUNT)
+                .execute(new StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOPPINGCARTCOUNT
+                                    , mGson.fromJson(s, ShoppingCarCountModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
 
 
 }

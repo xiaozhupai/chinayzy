@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.chinayiz.chinayzy.APP;
@@ -14,9 +15,13 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ShareVipModel;
 import com.chinayiz.chinayzy.entity.response.ActivityMainModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
+import com.chinayiz.chinayzy.entity.response.BasedataModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
+import com.chinayiz.chinayzy.entity.response.ShopCartModel;
+import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.Login.LoginNet;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.utils.StrCallback;
@@ -24,8 +29,11 @@ import com.chinayiz.chinayzy.widget.MainActivityDialog;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 /**
  * author  by  Canrom7 .
@@ -42,7 +50,9 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     public ShareDialog mShareDialog;
     private Activity messageData;
     public boolean isLoad;
-    public String apkPath;
+    public String apkPath,isMember,sys_auth,isresearch;
+    public BasedataModel model;
+    public int count;
 
     @Override
     public void disposeNetMsg(EventMessage message) {
@@ -112,6 +122,7 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                     break;
                 }
                 ShareVipModel shareVipModel= (ShareVipModel) message.getData();
+                //设置分享内容
                 mShareDialog = new ShareDialog(mView, shareVipModel.getIcon(),
                         shareVipModel.getUrl(), shareVipModel.getTheme(),
                         shareVipModel.getIntroduce());
@@ -136,6 +147,12 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 int postion=Integer.parseInt(message.getData().toString());
                 mView.selectTab(postion);
             }
+            case Commons.SHOPPINGCARTCOUNT://获取购物车数量
+                ShoppingCarCountModel model5= (ShoppingCarCountModel) message.getData();
+                count= model5.getData();
+                Logger.i("购物车数量="+count);
+                mView.getCount(count);
+                break;
         }
     }
 
@@ -145,13 +162,31 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
             case LoginPresenter.GET_AWARD:
                 CommonRequestUtils.getRequestUtils().getActivityMain();
                 break;
+            case Commons.BASEDATA: //更新用户基础数据
+                model= (BasedataModel) message.getData();
+                isMember=model.getData().getIsmember();
+                sys_auth=model.getData().getSys_auth();
+                isresearch=model.getData().getIsresearch();
+                Update();
+                break;
         }
+    }
+    private void Update() {
+        SharedPreferences sharedPreferences = mView.getSharedPreferences("login", Context.MODE_PRIVATE); //私有数据
+        SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.putString("ismember",isMember);
+        editor.putString("sys_auth",sys_auth);
+        editor.putString("isresearch",isresearch);
+        editor.commit();//提交修改
+        Logger.i("更新用户数据",model.getMsg());
     }
 
     @Override
     protected void onCreate() {
       mRequestUtils.getCanUpdata(APP.Version);
         CommonRequestUtils.getRequestUtils().getActivityMain();
+        LoginNet.getLoginNet().toGetBasedata();
+        CommonRequestUtils.getRequestUtils().getShoppingCarCount();
     }
 
     @Override
@@ -184,4 +219,5 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
             disposeInfoMsg(message);
         }
     }
+
 }
