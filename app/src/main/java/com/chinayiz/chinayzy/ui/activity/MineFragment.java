@@ -60,7 +60,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
     public void onInitActionBar(BaseActivity activity) {
         activity.mIvBackButton.setVisibility(View.GONE);
         activity.mTvActionBarTitle.setText("个人中心");
-//        activity.mTvActionBarTitle.setTextColor(Color.WHITE);
         activity.mActionBar.setBackgroundColor(Color.parseColor("#f52a44"));
         activity.mIvActionBarMore.setVisibility(View.VISIBLE);
         activity.mIvActionBarMore.setImageResource(R.mipmap.btn_bg_set);
@@ -126,8 +125,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 mPresenter.getData();
-
-
             }
 
             @Override
@@ -146,7 +143,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
 
     @Override
     protected void onVisible() {
-
+        mPresenter.getData();
     }
 
     @Override

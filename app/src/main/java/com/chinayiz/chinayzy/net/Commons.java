@@ -417,15 +417,31 @@ public class Commons {
      */
     public static final String HOME_THEME2 = "/shouye/showIndexAdThree";
     /**
-     * 商城首页商品集合一
+     * 商城首页商品集合一(原生态)
      */
     public static final String HOME_LIST1 = "/shouye/showGoodsOne";
     /**
-     * 商城首页商品集合二
+     * 商城首页商品集合二（吃货必备）
      */
     public static final String HOME_LIST2 = "/shouye/showGoodsTwo";
     /**
-     * 商城首页热销商品
+     * 商城首页主题商品（1 爱时尚，2 世界硒都，3 奢侈品）
+     */
+    public static final String HOME_THEME_GOODS="/shouye/showGoodsThree";
+    /**
+     * 首页主要活动主题
+     */
+    public static final String HONE_ACTIVITYS="/shouye/shouyeactivity";
+    /**
+     * 首页倒计时抢购(众筹)商品橱窗
+     */
+    public static final String HOME_ZHONGCHOU="/shouye/shouyecrowdfund";
+    /**
+     * 首页亿众头条新闻
+     */
+    public static final String HOME_NEWS="/shouye/newsflash";
+    /**
+     * 商城首页主题商品（为你推荐）
      */
     public static final String HOME_REXIAO = "/shouye/showBestGoods";
     /**
@@ -464,7 +480,7 @@ public class Commons {
     public static final String STORE_HOME_GOODSS = "/mall/showMallGoods";
 
     /**
-     * 首页弹出框
+     * 首页中奖弹出框
      */
     public static final String OPENWINNER = "/crowdf/openWinner";
 
@@ -509,6 +525,5 @@ public class Commons {
      *  可用优惠券列表
      */
     public static final String CANUSECOUPON ="/centre/canUseCoupon";
-
 
 }

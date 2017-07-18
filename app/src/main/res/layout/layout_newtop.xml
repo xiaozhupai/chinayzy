@@ -50,7 +50,6 @@
             android:textColor="@color/NongYe_home_priceText"
             android:textSize="20sp"
             />
-
         <TextView
             android:id="@+id/tv_dobPrice"
             android:layout_width="wrap_content"
@@ -86,7 +85,19 @@
             android:layout_marginLeft="8dp"
             android:maxLines="1"
             />
-
+        <TextView
+            android:id="@+id/tv_monthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_goodsPrice"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="12dp"
+            android:textColor="@color/appTextGray"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="月销量66笔"
+            android:textSize="13sp"
+            />
         <ImageView
             android:id="@+id/iv_goodsRMB"
             android:layout_width="10dp"
@@ -112,7 +123,7 @@
             android:drawableLeft="@mipmap/icon_deal"
             android:layout_below="@id/iv_lines"
             android:textColor="@color/classifyText_pre"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:gravity="center_vertical"
             android:text="   成功购买此商品可获得约 19.27 元分红"
             />

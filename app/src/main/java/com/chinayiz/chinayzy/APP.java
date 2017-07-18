@@ -115,10 +115,7 @@ public class APP extends TinkerApplication {
      * 应用启动时初始化加载用户设置偏好
      */
     private void initData() {
-
         HttpParams params = new HttpParams();
-        params.put("imei",AppInfo.IMEI);
-        Logger.i("设备唯一标识="+AppInfo.IMEI);
         OkGo.init(this);
         try{
             OkGo.getInstance()

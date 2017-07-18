@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.utils.StrCallback;
 import com.chinayiz.chinayzy.widget.MainActivityDialog;
 import com.chinayiz.chinayzy.widget.ShareDialog;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -32,6 +33,10 @@ import org.greenrobot.eventbus.ThreadMode;
  * Class NewMainPresenter 新应用首页
  */
 public class NewMainPresenter extends BasePresenter<NewMainActivity> {
+    /**
+     * 控制主页TAB页面
+     */
+    public static final String EVENT_SELECT="NewMainPresenter_SELECT";
     public CommonRequestUtils mRequestUtils = CommonRequestUtils.getRequestUtils();
     public AppUpdataModel.DataBean info;
     public ShareDialog mShareDialog;
@@ -73,7 +78,12 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 mView.showProgerss(progers);
             }
             break;
-            case Commons.RECOMMEND_INFO: //推荐好友信息
+            case Commons.RECOMMEND_INFO: {
+                if (mView.isPause){
+                    break;
+                }
+                Logger.i("NewMainPresenter 设置分享内容");
+                //推荐好友信息
                 RecommendCodeModel model = (RecommendCodeModel) message.getData();
                 //设置分享内容
                 mShareDialog = new ShareDialog(messageData, model.getData().getImage(),
@@ -81,30 +91,51 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                         model.getData().getContent());
                 mShareDialog.show();
                 break;
-            case WebPowerFragment.SHARE://分享点击
+            }
+            case WebPowerFragment.SHARE:{ //分享点击
+                if (mView.isPause){
+                    break;
+                }
+                Logger.i("NewMainPresenter 分享点击");
                 messageData = (Activity) message.getData();
                 mRequestUtils.getRecommendInfo();
                 break;
-            case SettingPresenter.LOGOUT:
+            }
+            case SettingPresenter.LOGOUT:{
                 UserSeeion.isLogin(mView.getActivity());
                 mView.mRadioButton.setChecked(true);
                 break;
-            case ActivityFragment.SHARE_VIP:
+            }
+
+            case ActivityFragment.SHARE_VIP:{ //设置分享内容
+                if (mView.isPause){
+                    break;
+                }
                 ShareVipModel shareVipModel= (ShareVipModel) message.getData();
-                //设置分享内容
                 mShareDialog = new ShareDialog(mView, shareVipModel.getIcon(),
                         shareVipModel.getUrl(), shareVipModel.getTheme(),
                         shareVipModel.getIntroduce());
                 mShareDialog.show();
 
                 break;
-            case Commons.OPENWINNER:
-              ActivityMainModel model4= (ActivityMainModel) message.getData();
+            }
+
+            case Commons.OPENWINNER:{//显示活动dilog
+                if (mView.isPause){
+                    break;
+                }
+
+                ActivityMainModel model4= (ActivityMainModel) message.getData();
                 if (model4.getData().getCrowdfid()!=null){
                     MainActivityDialog dialog=new MainActivityDialog(mView.getActivity(),model4.getData().getGname(),model4.getData().getCrowdfid());
                     dialog.show();
                 }
                 break;
+            }
+            case EVENT_SELECT:{//选择TAB页
+                int postion=Integer.parseInt(message.getData().toString());
+                mView.selectTab(postion);
+            }
         }
     }
 

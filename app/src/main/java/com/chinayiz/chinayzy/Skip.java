@@ -17,15 +17,16 @@ import com.chinayiz.chinayzy.ui.fragment.GoodsSetFragment;
 import com.chinayiz.chinayzy.ui.fragment.HomeFragment;
 import com.chinayiz.chinayzy.ui.fragment.MainFtagment;
 import com.chinayiz.chinayzy.ui.fragment.NewClassifyFragment;
+import com.chinayiz.chinayzy.ui.fragment.NewUerActivityFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchFragment;
 import com.chinayiz.chinayzy.ui.fragment.SearchResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
-import com.chinayiz.chinayzy.ui.fragment.flexible.ActivityDetailFragment;
-import com.chinayiz.chinayzy.ui.fragment.flexible.ActivityResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.PayFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.flexible.ActivityDetailFragment;
+import com.chinayiz.chinayzy.ui.fragment.flexible.ActivityResultFragment;
 import com.chinayiz.chinayzy.ui.fragment.flexible.ActivitySuccessFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.AddressListFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.AwardRecordFragment;
@@ -475,7 +476,15 @@ public class Skip {
         intent.putExtra(CLASS, RegisterFragment.class);
         skip(context, intent);
     }
-
+    /**
+     * 去注册账号
+     * @param context
+     */
+    public static void gotoRegister(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, NewUerActivityFragment.class);
+        skip(context, intent);
+    }
     /**
      * 完善资料
      * @param context

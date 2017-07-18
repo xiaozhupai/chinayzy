@@ -16,7 +16,6 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
 import com.chinayiz.chinayzy.net.Commons;
-import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
 import com.chinayiz.chinayzy.utils.magicindicator.ViewPagerHelper;
@@ -48,9 +47,6 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
     @Override
     public void onCreate() {
 
-
-
-        Net.getNet().getFindType();
     }
 
     @Override

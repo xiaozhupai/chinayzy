@@ -44,6 +44,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.model.ShareVipModel;
 import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
@@ -67,6 +68,7 @@ import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static com.chinayiz.chinayzy.APP.oss;
+import static com.chinayiz.chinayzy.ui.fragment.ActivityFragment.SHARE_VIP;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -156,7 +158,6 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
     public void onInitActionBar(BaseActivity activity) {
         this.activity = activity;
         activity.mTvActionBarTitle.setText(titel);
-        Logger.i("设置标题");
         activity.mCbActionBarEdit.setVisibility(View.GONE);
         if (titel.equals(SHARE)) {
             activity.mIvActionBarMore.setVisibility(View.GONE);
@@ -386,7 +387,6 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
 
         if (fristLoad) {
             wv_view.loadUrl(url);
-            Logger.i("打印提交地址="+url);
             fristLoad = false;
         }
     }
@@ -550,6 +550,25 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
         CommonRequestUtils.getRequestUtils().getSharecrowdfmessage(crowdfid,GOTOSHAREANDROID);
     }
 
+
+    //由于安全原因 需要加 @JavascriptInterface
+
+    @JavascriptInterface
+    public void backAndroid(String link) {
+        Skip.toWebPage(getActivity(), link, "活动详情");
+    }
+
+
+    /**
+     * 分享
+     */
+    @JavascriptInterface
+    public void startFunction(String theme, String introduce, String icon, String url) {
+        ShareVipModel model = new ShareVipModel(theme, introduce, icon, url);
+        Logger.i("被jiS 调用了 数据=" + model.toString());
+        EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT, SHARE_VIP, model));
+    }
+
     /**
      * 提交活动奖励表单
      */
@@ -569,9 +588,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
             }
         });
 
-
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

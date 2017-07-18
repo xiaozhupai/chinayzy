@@ -63,6 +63,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     protected void onVisible() {
+        mPresenter.getData();
     }
 
     @Override
@@ -146,11 +147,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         }
     }
 
-    @Override
-    public void onResume() {
-       mPresenter.getData();
-        super.onResume();
-    }
 
     /**
      * 更新adaphter

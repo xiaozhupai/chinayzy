@@ -43,7 +43,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
     public WebView wv_view;
     public static final String SHARE = "分享推荐码";
     public static final String SHARE_VIP = "分享vip";
-    public static final String ERROR_TITLE="网页";
+    public static final String ERROR_TITLE = "网页";
     public ProgressBar progressbar;
     private View netErrorView;
     public String url = Commons.API + "/h5/activity?devicetype=android&userid=" + APP.sUserid;
@@ -56,21 +56,22 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
         View view = inflater.inflate(R.layout.fragment_web, null);
         progressbar = (ProgressBar) view.findViewById(R.id.progressbar);
         wv_view = (WebView) view.findViewById(R.id.wv_view);
-        netErrorView=view.findViewById(R.id.view_netWorkError);
+        netErrorView = view.findViewById(R.id.view_netWorkError);
         netErrorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wv_view.reload();
+                Logger.i("重新加载");
             }
         });
+
         return view;
     }
 
     @SuppressLint("JavascriptInterface")
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void initWebView() {
         if (fristLoad) {
+            Logger.i("重新加载");
             fristLoad = false;
             wv_view.setScrollbarFadingEnabled(true);
             wv_view.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
@@ -135,17 +136,19 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
                 public void onReceivedTitle(WebView view, String title) {
 
                     //判断标题 title 中是否包含有“error”字段，如果包含“error”字段，则设置加载失败，显示加载失败的视图
-                    if (title.contains(ActivityFragment.ERROR_TITLE)){
-                         Logger.i("网页访问错误=" + title);
+                    if (title.contains(ActivityFragment.ERROR_TITLE)) {
+                        Logger.i("网页访问错误=" + title);
                         netErrorView.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         netErrorView.setVisibility(View.GONE);
                     }
 
                 }
 
-            });
+           });
         }
+        Logger.i("开始加载:"+url);
+        wv_view.loadUrl(url);
     }
 
     @Override
@@ -161,7 +164,7 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
 
     @Override
     protected void onVisible() {
-
+        initWebView();
     }
 
 
@@ -210,7 +213,6 @@ public class ActivityFragment extends BaseFragment<ActivityPresenter> {
                 }
             }
         });
-
 
     }
 

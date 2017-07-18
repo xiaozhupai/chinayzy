@@ -109,7 +109,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
                 getActivity().onBackPressed();
                 break;
             case R.id.iv_more_btn://更多
-                Logger.i("更多");
+                Logger.i("分享");
                 break;
             case R.id.iv_share://分享
                 Logger.i("分享");

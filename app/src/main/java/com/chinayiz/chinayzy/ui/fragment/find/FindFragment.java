@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.chinayiz.chinayzy.R;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.presenter.FindPresenter;
 import com.chinayiz.chinayzy.utils.BarUtils;
 import com.chinayiz.chinayzy.utils.magicindicator.MagicIndicator;
@@ -37,7 +38,7 @@ public class FindFragment extends BaseFragment<FindPresenter> {
 
     @Override
     protected void onVisible() {
-
+        Net.getNet().getFindType();
     }
 
     public static FindFragment getInstance() {
@@ -59,7 +60,6 @@ public class FindFragment extends BaseFragment<FindPresenter> {
             }
         super.onInitActionBar(activity);
     }
-
     @Override
     protected void onInvisible() {
     }

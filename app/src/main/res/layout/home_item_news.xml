@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="42dp"
+              android:background="@color/Background"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:gravity="center_vertical"
+        android:text="亿众"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@mipmap/pic_news_bg"
+        android:gravity="center_vertical"
+        android:text="快讯"
+        android:textColor="@color/Background"
+        android:textSize="13sp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:src="@mipmap/pic_hot"
+        />
+
+    <com.sunfusheng.marqueeview.MarqueeView
+        android:id="@+id/marqueeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:paddingEnd="12dp"
+        app:mvAnimDuration="1000"
+        android:ellipsize="end"
+        app:mvInterval="3000"
+        app:mvGravity="center"
+        app:mvSingleLine="true"
+        app:mvTextColor="@color/black"
+        app:mvTextSize="13sp"/>
+</LinearLayout>

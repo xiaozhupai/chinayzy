@@ -4,12 +4,12 @@ import android.os.Bundle;
 
 import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
-import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
-import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.ActivityFragment;
-import com.chinayiz.chinayzy.widget.ShareDialog2;
+import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -19,7 +19,10 @@ import org.greenrobot.eventbus.ThreadMode;
  * Class ActivityPresenter 生态农业活动presenter
  */
 public class ActivityPresenter extends BasePresenter<ActivityFragment> {
-
+    /**
+     * 接受到新的Url地址
+     */
+    public static final String NEW_URL="ActivityPresenter_URL";
 
     @Override
     protected void onCreate() {
@@ -39,7 +42,9 @@ public class ActivityPresenter extends BasePresenter<ActivityFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-
+        if (message.getEventType()==EventMessage.NET_EVENT){
+            disposeNetMsg(message);
+        }
     }
 
     @Override
@@ -52,17 +57,26 @@ public class ActivityPresenter extends BasePresenter<ActivityFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
+        switch (message.getDataType()){
 
+        }
     }
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
         switch (message.getDataType()){
-            case ActivityResultPresenter.ACTIVITY_REUSLT_BACK:
-             String crowid= (String) message.getData();
-             Skip.toActivitySuccess(mView.getActivity(),crowid);
-                break;
+            case ActivityResultPresenter.ACTIVITY_REUSLT_BACK:{
 
+                String crowid= (String) message.getData();
+                Skip.toActivitySuccess(mView.getActivity(),crowid);
+                break;
+            }
+            case NEW_URL:{
+                mView.url=message.getData().toString();
+                Logger.i("wbv新地址="+mView.url);
+                EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT,NewMainPresenter.EVENT_SELECT,"2"));
+                break;
+            }
         }
 
     }

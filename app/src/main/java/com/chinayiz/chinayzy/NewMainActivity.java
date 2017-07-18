@@ -65,6 +65,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     private int commitID=0;
     public String dowloadUrl = "-1";
     private MaterialDialog mDilog;
+    public boolean isPause=false;
     private ActivityFragment mActivityFragment;
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditer;
@@ -88,13 +89,20 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     @Override
     protected void onResume() {
         super.onResume();
-
+        isPause=false;
         if (login_flag.equals(StrCallback.RESPONSE_CODE_USER_OUT)) {
             if (mMaterialDialog!=null) {
                 mMaterialDialog.dismiss();
             }
             finish();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        isPause=true;
+        Logger.i("NewMainActivity切到后台了");
+        super.onPause();
     }
 
     private void initView() {
@@ -136,6 +144,32 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         });
         //默认选中农业首页
         mRadioButton.setChecked(true);
+    }
+    public void selectTab(int pistion){
+        RadioButton radioButton=null;
+        switch (pistion){
+            case 0:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_home);
+                break;
+            }
+            case 1:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_find);
+                break;
+            }
+            case 2:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_activi);
+                break;
+            }
+            case 3:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_cart);
+                break;
+            }
+            case 4:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_im);
+                break;
+            }
+        }
+        radioButton.setChecked(true);
     }
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -228,7 +262,6 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Logger.i("返回键监听"+commitID);
         if (mActivityFragment.wv_view!=null&&commitID==2){//判断当前是否在活动页面
             if (keyCode == KeyEvent.KEYCODE_BACK && mActivityFragment.wv_view.canGoBack()) {
                 mActivityFragment.wv_view.goBack();// 返回前一个页面
@@ -245,6 +278,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
             return false;
         }
     }
+
     private static Boolean mIsExit = false;
     private void exitBy2Click() {
         Timer tExit;

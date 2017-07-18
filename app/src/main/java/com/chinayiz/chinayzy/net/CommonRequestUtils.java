@@ -2,6 +2,7 @@ package com.chinayiz.chinayzy.net;
 
 import android.text.TextUtils;
 
+import com.chinayiz.chinayzy.adapter.MainHomeRecylAdapter;
 import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
@@ -19,9 +20,12 @@ import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.DefaultAddressModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
+import com.chinayiz.chinayzy.entity.response.HomeActivitysModel;
 import com.chinayiz.chinayzy.entity.response.HomeGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.HomeHotGoodsModel;
+import com.chinayiz.chinayzy.entity.response.HomeMainActivitysModel;
 import com.chinayiz.chinayzy.entity.response.HomeMenusModel;
+import com.chinayiz.chinayzy.entity.response.HomeNewsModel;
 import com.chinayiz.chinayzy.entity.response.HomeThemesModel;
 import com.chinayiz.chinayzy.entity.response.ImGoldModel;
 import com.chinayiz.chinayzy.entity.response.NewGoodsDetailModel;
@@ -1146,7 +1150,7 @@ public class CommonRequestUtils {
 
     }
     /**
-     *  请求新首页热销商品
+     *  请求新首页(为你推荐)
      */
     public void getHomeHotGoods(String page,String size) {
         OkGo.post(Commons.API + Commons.HOME_REXIAO)
@@ -1166,9 +1170,91 @@ public class CommonRequestUtils {
                     }
                 });
     }
-
     /**
-     *  请求新首页热销商品
+     *  请求商城首页主题商品（1 爱时尚，2 世界硒都，3 奢侈品）
+     */
+    public void getHomeThemeGoods(final String type) {
+        String code="";
+        switch (type){
+            case MainHomeRecylAdapter.TYPE_LOVEFS:{code="1";break;}
+            case MainHomeRecylAdapter.TYPE_XIINFO:{code="2";break;}
+            case MainHomeRecylAdapter.TYPE_LUXURY:{code="3";break;}
+        }
+        OkGo.post(Commons.API + Commons.HOME_THEME_GOODS)
+                .params("type",code)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    ,type
+                                    , mGson.fromJson(s, HomeHotGoodsModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+    /**
+     *  首页亿众头条
+     */
+    public void getHomeNews() {
+        OkGo.post(Commons.API + Commons.HOME_NEWS)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.HOME_NEWS
+                                    , mGson.fromJson(s, HomeNewsModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+    /**
+     *  首页主要活动(新人)
+     */
+    public void getHomeMainActivitys() {
+        OkGo.post(Commons.API + Commons.HONE_ACTIVITYS)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.HONE_ACTIVITYS
+                                    , mGson.fromJson(s, HomeMainActivitysModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+    /**
+     *  首页倒计时（众筹活动）商品
+     */
+    public void getHomeZhongChuo() {
+        OkGo.post(Commons.API + Commons.HOME_ZHONGCHOU)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.HOME_ZHONGCHOU
+                                    , mGson.fromJson(s, HomeActivitysModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
+    /**
+     *  首页中奖商品弹窗
      */
     public void getActivityMain() {
         OkGo.post(Commons.API + Commons.OPENWINNER)
