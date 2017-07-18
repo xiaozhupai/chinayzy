@@ -9,6 +9,8 @@ import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
+import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
@@ -43,7 +45,7 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-
+        disposeNetMsg(message);
     }
 
     @Override
@@ -54,7 +56,6 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-
     }
 
     @Override
@@ -84,6 +85,7 @@ public class SettingPresenter extends BasePresenter<SettingFragment> {
                     UserSeeion.logout(mView.getActivity());
                   APP.exit();
                     EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,LOGOUT,""));
+                    CommonRequestUtils.getRequestUtils().getShoppingCarCount();
                 }
             });
         }

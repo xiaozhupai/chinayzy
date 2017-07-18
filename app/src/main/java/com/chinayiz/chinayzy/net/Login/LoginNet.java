@@ -338,7 +338,6 @@ public class LoginNet {
                 .execute(new StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i("获取用户基础数据",s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     ,Commons.BASEDATA

@@ -1,13 +1,16 @@
 package com.chinayiz.chinayzy.ui.common;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -25,6 +28,7 @@ import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.presenter.GoodsMainPresenter;
+import com.chinayiz.chinayzy.views.BadgeView;
 import com.chinayiz.chinayzy.views.goodsDetail.ScrollViewContainer;
 import com.chinayiz.chinayzy.widget.GoodsStandard2;
 import com.orhanobut.logger.Logger;
@@ -56,11 +60,14 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     private int pegerIdex = 0;
     private int mOnwPager = 0;
     private GoodsStandard2 goodsStandard2;
+    public BadgeView badge1;
+    private View v_view;
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_goods_main, container, false);
         mFragments = new ArrayList<>(3);
+        CommonRequestUtils.getRequestUtils().getShoppingCarCount();
         initViews(mView);
         return mView;
     }
@@ -98,6 +105,10 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mViewHolder.tv_cart.setOnClickListener(this);
         mViewHolder.tv_addCart.setOnClickListener(this);
         mPresenter.mRequestUtils = CommonRequestUtils.getRequestUtils();
+
+
+        v_view= view.findViewById(R.id.v_view);
+        remind(v_view);
     }
 
 
@@ -343,5 +354,35 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
             this.tv_addCart = (TextView) rootView.findViewById(R.id.tv_addCart);
         }
 
+    }
+
+    /**
+     * 购物车小红点
+     *
+     */
+    public void remind(View view) { //BadgeView的具体使用
+        badge1= new BadgeView(getActivity(),view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
+        badge1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
+        badge1.setTextColor(Color.WHITE); // 文本颜色
+        badge1.setBadgeBackgroundColor(ContextCompat.getColor(getActivity(),R.color.classifyText_pre)); // 提醒信息的背景颜色，自己设置
+        badge1.setTextSize(10); // 文本大小
+        //badge1.setBadgeMargin(3, 3); // 水平和竖直方向的间距
+        badge1.setBadgeMargin(5); //各边间隔
+    }
+
+    /**
+     * 购物车的数量
+     */
+    public void getCount(int count){
+        // badge1.toggle(); //显示效果，如果已经显示，则影藏，如果影藏，则显示
+        if (count==0){
+            badge1.hide();//影藏显示
+        }else if (count>99){
+            badge1.setText("99+");
+        }else {
+            badge1.setText( ""+mPresenter.count); // 需要显示的提醒类容
+            Logger.i("购物车数量........."+mPresenter.count);
+            badge1.show();// 只有显示
+        }
     }
 }

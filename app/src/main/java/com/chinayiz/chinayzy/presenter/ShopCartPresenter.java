@@ -9,6 +9,7 @@ import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.ShopCartAdaphter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BasePresenter;
+import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
@@ -20,6 +21,7 @@ import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -107,7 +109,6 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
                 }
 
-
                 mView.adaphter.UpdateBottomLayout();
 
                 if (mView.pullToRefreshLayout!=null){
@@ -126,7 +127,7 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                              iterable.remove();
                          }
                      }
-
+                    CommonRequestUtils.getRequestUtils().getShoppingCarCount();
                     Logger.i(list.size()+"list size");
                     mView.adaphter.setData(list,type);
                     mView.tv_shopcart_all.setText("全选(0)");
@@ -152,7 +153,6 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
                 break;
             case ShopCartAdaphter.UPDATE:  //更新购物车
                 mView.UpdateShopCart();
-
                 break;
             case ShopCartAdaphter.POPUWINDOW:  //弹出商品规格页面
                 ShopCartModel.DataBean.ShoplistBean bean= (ShopCartModel.DataBean.ShoplistBean) message.getData();
@@ -283,6 +283,4 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         }
         list_checked=list_selected;
     }
-
-
 }

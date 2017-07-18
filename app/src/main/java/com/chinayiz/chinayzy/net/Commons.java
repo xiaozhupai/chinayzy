@@ -514,5 +514,9 @@ public class Commons {
      */
     public static final String CANUSECOUPON ="/centre/canUseCoupon";
 
-
+    /**
+     *
+     *  获取购物车数量
+     */
+    public static final String SHOPPINGCARTCOUNT ="/user/shoppingCarCount";
 }

@@ -103,7 +103,6 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
           isNone();
         }else {
             iv_add.setImageResource(R.mipmap.icon_right_add_clickable);
-
         }
     }
 
@@ -249,6 +248,8 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 BaseActivity.showToast(context,model.getMsg());
                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,STANDAR_INFO,bean));
                 todismiss();
+                CommonRequestUtils.getRequestUtils().getShoppingCarCount();
+                Logger.i("点击获取购物车数量请求");
                 break;
         }
 

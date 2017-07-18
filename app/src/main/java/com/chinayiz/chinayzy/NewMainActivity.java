@@ -9,9 +9,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,6 +24,7 @@ import com.chinayiz.chinayzy.adapter.NyMainPagerAdapter;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.database.UserSeeion;
+import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.NewMainPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineFragment;
@@ -31,6 +34,7 @@ import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.utils.NetworkUtils;
 import com.chinayiz.chinayzy.utils.StrCallback;
+import com.chinayiz.chinayzy.views.BadgeView;
 import com.chinayiz.chinayzy.views.NoScrollViewPager;
 import com.orhanobut.logger.Logger;
 
@@ -70,6 +74,8 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     private SharedPreferences.Editor mEditer;
     private boolean isNotify = false;
     private  ShopCartFragment mShopCartFragment;
+    private Button bt_shopcart;
+    private BadgeView badge1;
 
 
     @Override
@@ -118,6 +124,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         mViewPager.setAdapter(mPagerAdapter);
         mRgNongyeMenu = (RadioGroup) findViewById(R.id.rg_nongye_menu);
         mRadioButton = (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_home);
+        bt_shopcart= (Button) findViewById(R.id.bt_shopcart);
         mRgNongyeMenu.setOnCheckedChangeListener(this);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -136,7 +143,13 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         });
         //默认选中农业首页
         mRadioButton.setChecked(true);
+
+        //购物车提示数量
+        remind(bt_shopcart);
     }
+
+
+
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         if (R.id.rb_nav_home==i){
@@ -493,6 +506,36 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    /**
+     * 购物车小红点
+     *
+     */
+    public void remind(View view) { //BadgeView的具体使用
+        badge1= new BadgeView(this,view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
+        badge1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
+        badge1.setTextColor(Color.WHITE); // 文本颜色
+        badge1.setBadgeBackgroundColor(ContextCompat.getColor(this,R.color.classifyText_pre)); // 提醒信息的背景颜色，自己设置
+        badge1.setTextSize(10); // 文本大小
+        //badge1.setBadgeMargin(3, 3); // 水平和竖直方向的间距
+        badge1.setBadgeMargin(5); //各边间隔
+    }
+
+    /**
+     * 购物车的数量
+     */
+    public void getCount(int count){
+        // badge1.toggle(); //显示效果，如果已经显示，则影藏，如果影藏，则显示
+        if (count==0){
+            badge1.hide();//影藏显示
+        }else if (count>99){
+            badge1.setText("99+");
+        }else {
+            badge1.setText( ""+mPresenter.count); // 需要显示的提醒类容
+            Logger.i("购物车数量........."+mPresenter.count);
+            badge1.show();// 只有显示
+        }
     }
 }
 

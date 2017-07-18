@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.chinayiz.chinayzy.APP;
 import com.chinayiz.chinayzy.NewMainActivity;
@@ -18,6 +17,8 @@ import com.chinayiz.chinayzy.entity.response.ActivityMainModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.BasedataModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
+import com.chinayiz.chinayzy.entity.response.ShopCartModel;
+import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.Login.LoginNet;
@@ -28,8 +29,11 @@ import com.chinayiz.chinayzy.widget.MainActivityDialog;
 import com.chinayiz.chinayzy.widget.ShareDialog;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 /**
  * author  by  Canrom7 .
@@ -44,6 +48,7 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     public boolean isLoad;
     public String apkPath,isMember,sys_auth,isresearch;
     public BasedataModel model;
+    public int count;
 
     @Override
     public void disposeNetMsg(EventMessage message) {
@@ -111,6 +116,12 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                     dialog.show();
                 }
                 break;
+            case Commons.SHOPPINGCARTCOUNT://获取购物车数量
+                ShoppingCarCountModel model5= (ShoppingCarCountModel) message.getData();
+                count= model5.getData();
+                Logger.i("购物车数量="+count);
+                mView.getCount(count);
+                break;
         }
     }
 
@@ -126,7 +137,6 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 sys_auth=model.getData().getSys_auth();
                 isresearch=model.getData().getIsresearch();
                 Update();
-                Logger.i("更新用户数据",model.getMsg());
                 break;
         }
     }
@@ -145,6 +155,7 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
       mRequestUtils.getCanUpdata(APP.Version);
         CommonRequestUtils.getRequestUtils().getActivityMain();
         LoginNet.getLoginNet().toGetBasedata();
+        CommonRequestUtils.getRequestUtils().getShoppingCarCount();
     }
 
     @Override
@@ -177,4 +188,5 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
             disposeInfoMsg(message);
         }
     }
+
 }
