@@ -140,6 +140,10 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 break;
         }
     }
+
+    /**
+     * 更新用户基础数据
+     */
     private void Update() {
         SharedPreferences sharedPreferences = mView.getSharedPreferences("login", Context.MODE_PRIVATE); //私有数据
         SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
@@ -147,15 +151,14 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
         editor.putString("sys_auth",sys_auth);
         editor.putString("isresearch",isresearch);
         editor.commit();//提交修改
-        Logger.i("更新用户数据",model.getMsg());
     }
 
     @Override
     protected void onCreate() {
-      mRequestUtils.getCanUpdata(APP.Version);
-        CommonRequestUtils.getRequestUtils().getActivityMain();
+        mRequestUtils.getCanUpdata(APP.Version);
+        mRequestUtils.getActivityMain();
         LoginNet.getLoginNet().toGetBasedata();
-        CommonRequestUtils.getRequestUtils().getShoppingCarCount();
+        mRequestUtils.getShoppingCarCount();
     }
 
     @Override

@@ -11,7 +11,9 @@ import com.chinayiz.chinayzy.entity.model.BaseResponseModel;
 public class AppUpdataModel extends BaseResponseModel {
 
     /**
-     * data : {"createtime":"2017-03-30 15:34:44","isforce":"0","needupdate":1,"versiondesc":"【更新说明】 \n- 聊天时点击图片可直接编辑并发送，无需保存到本地；\n- 可将手机中的连拍照片生成动态图，发表到说说；\n- 短视频拍摄时间延长至10秒，精彩场景记录更完整；\n- 选择多条消息进行转发时，可逐条转发或合并转发。","buildcode":2,"versioncode":"1.1","url":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/chinayzy.apk"}
+     * data : {"createtime":"2017-03-30 15:34:44","isforce":"0","needupdate":1,"versiondesc":"【更新说明】 \n- 聊天时点击图片可直接编辑并发送，无需保存到本地；
+     * \n- 可将手机中的连拍照片生成动态图，发表到说说；\n- 短视频拍摄时间延长至10秒，精彩场景记录更完整；\n- 选择多条消息进行转发时，
+     * 可逐条转发或合并转发。","buildcode":2,"versioncode":"1.1","url":"http://yzy-app-img.oss-cn-shanghai.aliyuncs.com/chinayzy.apk"}
      */
 
     private DataBean data;

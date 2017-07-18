@@ -101,7 +101,6 @@ public class CommonRequestUtils {
     public void getCanUpdata(String buildcode) {
         OkGo.post(Commons.API + Commons.UPDATA)
                 .params("buildcode",buildcode)
-
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
