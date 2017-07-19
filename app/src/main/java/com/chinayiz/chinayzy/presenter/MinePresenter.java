@@ -14,6 +14,7 @@ import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.ui.activity.MineFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -73,6 +74,9 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                 mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 PersonalModel model = (PersonalModel) message.getData();
                 PersonalModel.DataBean dataBean = model.getData();
+                if (dataBean==null) {
+                    return;
+                }
                 mView.tv_has_user.setText(String.format("已有%d个用户", dataBean.getRelationshipcount()));
                 //判断图片是否为空
                 if (!TextUtils.isEmpty(dataBean.getPic())) {

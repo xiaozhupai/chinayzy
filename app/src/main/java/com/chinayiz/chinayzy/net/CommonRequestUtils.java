@@ -20,6 +20,7 @@ import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.DefaultAddressModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
+import com.chinayiz.chinayzy.entity.response.GoodsShareInfoModel;
 import com.chinayiz.chinayzy.entity.response.HomeActivitysModel;
 import com.chinayiz.chinayzy.entity.response.HomeGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.HomeHotGoodsModel;
@@ -1469,5 +1470,24 @@ public class CommonRequestUtils {
                 });
     }
 
-
+    /**
+     *  获取分享商品信息
+     */
+    public void getGoodsShareInfo(String goodsid) {
+        OkGo.post(Commons.API + Commons.SHARE_GOODS_INFO)
+                .params("goodsid",goodsid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHARE_GOODS_INFO
+                                    , mGson.fromJson(s, GoodsShareInfoModel.class)));
+                        }catch (Exception e){
+                            onError(null,response,e);
+                        }
+                    }
+                });
+    }
 }

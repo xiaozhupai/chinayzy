@@ -392,7 +392,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(itemView);
             mBannerNongyeHome = (ConvenientBanner) itemView.findViewById(R.id.home_banner);
             //设置指示器（小圆点）
-            mBannerNongyeHome.setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused});
+            mBannerNongyeHome.setPageIndicator(new int[]{R.mipmap.pager_indx1, R.mipmap.pager_indx2});
             mBannerNongyeHome.setOnItemClickListener(this);
             mBannerNongyeHome.startTurning(3000);
         }

@@ -6,6 +6,7 @@ import com.chinayiz.chinayzy.base.BasePresenter;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.model.ShareVipModel;
 import com.chinayiz.chinayzy.entity.response.ActivityMainModel;
+import com.chinayiz.chinayzy.entity.response.GoodsShareInfoModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
@@ -86,6 +87,17 @@ public class CommonPresenter extends BasePresenter<CommonActivity> {
                     mShareDialog = new ShareDialog(mView, model.getData().getImage(),
                             model.getData().getWebpageUrl(), model.getData().getTitle(),
                             model.getData().getContent());
+                }
+                break;
+            }
+            case Commons.SHARE_GOODS_INFO: {
+                Logger.i("商品 设置分享内容");
+                GoodsShareInfoModel model = (GoodsShareInfoModel) message.getData();
+                mShareDialog = new ShareDialog(mView, model.getData().getImage(),
+                        model.getData().getWebpageUrl(), model.getData().getTitle(),
+                        model.getData().getContent());
+                if (!mShareDialog.isShowing()) {
+                    mShareDialog.show();
                 }
                 break;
             }

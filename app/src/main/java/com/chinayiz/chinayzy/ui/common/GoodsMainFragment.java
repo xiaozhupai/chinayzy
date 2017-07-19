@@ -7,10 +7,10 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -98,7 +98,9 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mDetailFragment.setChangeListener(this);
 
         mViewHolder.iv_back_btn.setOnClickListener(this);
-        mViewHolder.iv_more_btn.setOnClickListener(this);
+//        mViewHolder.iv_more_btn.setOnClickListener(this);
+        mViewHolder.iv_more_btn.setVisibility(View.VISIBLE);
+        Logger.i("分享键隐藏");
         mViewHolder.iv_share.setOnClickListener(this);
         mViewHolder.tv_store.setOnClickListener(this);
         mViewHolder.cb_favorite.setOnCheckedChangeListener(this);
@@ -107,7 +109,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mPresenter.mRequestUtils = CommonRequestUtils.getRequestUtils();
 
 
-        v_view= view.findViewById(R.id.v_view);
+        v_view = view.findViewById(R.id.v_view);
         remind(v_view);
     }
 
@@ -121,6 +123,9 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
                 break;
             case R.id.iv_more_btn://更多
                 Logger.i("分享");
+                if (!TextUtils.isEmpty(goodsID)) {
+                    mPresenter.mRequestUtils.getGoodsShareInfo(goodsID);
+                }
                 break;
             case R.id.iv_share://分享
                 Logger.i("分享");
@@ -142,7 +147,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
             case R.id.tv_addCart://添加购物车
                 Logger.i("点击添加购物车");
                 if (goodsStandard2 == null) {
-                    if (mPresenter.model==null)return;
+                    if (mPresenter.model == null) return;
                     goodsStandard2 = new GoodsStandard2(getActivity(), mPresenter.model.getData().getGoodsstandardid(), mPresenter.model.getData().getShopid(), mPresenter.model.getData().getGoodsid());
                 }
                 goodsStandard2.show();
@@ -284,7 +289,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     public void onDetach() {
         super.onDetach();
         startSum--;
-        goodsID="";
+        goodsID = "";
     }
 
     @Override
@@ -344,6 +349,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
             this.rb_tabComments = (RadioButton) rootView.findViewById(R.id.rb_tabComments);
 
             this.iv_more_btn = (ImageView) rootView.findViewById(R.id.iv_more_btn);
+
             this.tv_title = rootView.findViewById(R.id.tv_title);
             this.iv_share = (ImageView) rootView.findViewById(R.id.iv_share);
             this.view_menuLine = (View) rootView.findViewById(R.id.view_menuLine);
@@ -358,13 +364,12 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
 
     /**
      * 购物车小红点
-     *
      */
     public void remind(View view) { //BadgeView的具体使用
-        badge1= new BadgeView(getActivity(),view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
+        badge1 = new BadgeView(getActivity(), view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
         badge1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
         badge1.setTextColor(Color.WHITE); // 文本颜色
-        badge1.setBadgeBackgroundColor(ContextCompat.getColor(getActivity(),R.color.classifyText_pre)); // 提醒信息的背景颜色，自己设置
+        badge1.setBadgeBackgroundColor(ContextCompat.getColor(getActivity(), R.color.classifyText_pre)); // 提醒信息的背景颜色，自己设置
         badge1.setTextSize(10); // 文本大小
         //badge1.setBadgeMargin(3, 3); // 水平和竖直方向的间距
         badge1.setBadgeMargin(5); //各边间隔
@@ -373,15 +378,15 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     /**
      * 购物车的数量
      */
-    public void getCount(int count){
+    public void getCount(int count) {
         // badge1.toggle(); //显示效果，如果已经显示，则影藏，如果影藏，则显示
-        if (count==0){
+        if (count == 0) {
             badge1.hide();//影藏显示
-        }else if (count>99){
+        } else if (count > 99) {
             badge1.setText("99+");
-        }else {
-            badge1.setText( ""+mPresenter.count); // 需要显示的提醒类容
-            Logger.i("购物车数量........."+mPresenter.count);
+        } else {
+            badge1.setText("" + mPresenter.count); // 需要显示的提醒类容
+            Logger.i("购物车数量........." + mPresenter.count);
             badge1.show();// 只有显示
         }
     }

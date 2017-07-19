@@ -535,4 +535,8 @@ public class Commons {
      *  获取购物车数量
      */
     public static final String SHOPPINGCARTCOUNT ="/user/shoppingCarCount";
+    /**
+     *  分享商品信息
+     */
+    public static final String SHARE_GOODS_INFO ="/centre/shareGoods";
 }

@@ -73,7 +73,7 @@ public class HomeActivitysRecylAdapter extends RecyclerView.Adapter {
             if (holder instanceof ListItemGoods) {
                 ListItemGoods listItemGoods = (ListItemGoods) holder;
                 listItemGoods.dobPrice.setText("￥"+mDataBeanList.get(position).getPrice());
-                listItemGoods.goodsPrice.setText(mDataBeanList.get(position).getCost());
+                listItemGoods.goodsPrice.setText("￥"+mDataBeanList.get(position).getCost());
                 Glide.with(mContext).load(mDataBeanList.get(position).getIcon()).into(listItemGoods.goodsPic);
                 listItemGoods.root.setOnClickListener(new View.OnClickListener() {
                     @Override

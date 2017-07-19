@@ -9,9 +9,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,6 +33,7 @@ import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.utils.NetworkUtils;
 import com.chinayiz.chinayzy.utils.StrCallback;
+import com.chinayiz.chinayzy.views.BadgeView;
 import com.chinayiz.chinayzy.views.NoScrollViewPager;
 import com.orhanobut.logger.Logger;
 
@@ -83,7 +86,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_new);
-        setStatuBarColor(this,Color.rgb(218, 22, 47));
+        setStatuBarColor(this,Color.rgb(255, 255, 255));
         login_flag="";
         initView();
     }
@@ -192,7 +195,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
             case R.id.rb_nav_home://首页
                 commitID=0;
                 mViewPager.setCurrentItem(0);
-                setStatuBarColor(this,Color.rgb(218, 22, 47));
+                setStatuBarColor(this,Color.rgb(255, 255, 255));
                 mActionBar.setBackgroundColor(Color.rgb(218, 22, 47));
                 break;
             case R.id.rb_nav_find://发现
