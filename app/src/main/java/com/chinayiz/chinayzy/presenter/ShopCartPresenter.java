@@ -93,26 +93,28 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
         switch (message.getDataType()){
             case Commons.SHOPCART:  //购物车商品列表
                 ShopCartModel model= (ShopCartModel) message.getData();
-                list=model.getData();
-                list_delete=model.getData();
-                mView.adaphter.setData(model.getData(),0);
-                if (list==null || list.size()==0){
-                    mView.ll_no_goods.setVisibility(View.VISIBLE);
-                }else {
-                    mView.ll_no_goods.setVisibility(View.GONE);
-                    mView.adaphter.HeadUpdate(0,true); //第一个店铺全选
-                }
-                if (list.size()==mView.adaphter.getAllHead()){
-                    mView.iv_shopcart_radio.setCheck(true);
-                }else {
-                    mView.iv_shopcart_radio.setCheck(false);
+                if (model.getCode().equals("100")){
+                    list=model.getData();
+                    list_delete=model.getData();
+                    mView.adaphter.setData(model.getData(),0);
+                    if (list==null || list.size()==0){
+                        mView.ll_no_goods.setVisibility(View.VISIBLE);
+                    }else {
+                        mView.ll_no_goods.setVisibility(View.GONE);
+                        mView.adaphter.HeadUpdate(0,true); //第一个店铺全选
+                    }
+                    if (list.size()==mView.adaphter.getAllHead()){
+                        mView.iv_shopcart_radio.setCheck(true);
+                    }else {
+                        mView.iv_shopcart_radio.setCheck(false);
 
-                }
+                    }
 
-                mView.adaphter.UpdateBottomLayout();
+                    mView.adaphter.UpdateBottomLayout();
 
-                if (mView.pullToRefreshLayout!=null){
-                    mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    if (mView.pullToRefreshLayout!=null){
+                        mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    }
                 }
                 break;
             case Commons.DELSHOPPINGCAR:   //删除购物车商品

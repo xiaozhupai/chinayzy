@@ -150,7 +150,6 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
             case Commons.SHOPPINGCARTCOUNT://获取购物车数量
                 ShoppingCarCountModel model5= (ShoppingCarCountModel) message.getData();
                 count= model5.getData();
-                Logger.i("购物车数量="+count);
                 mView.getCount(count);
                 break;
         }
@@ -164,13 +163,22 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 break;
             case Commons.BASEDATA: //更新用户基础数据
                 model= (BasedataModel) message.getData();
-                isMember=model.getData().getIsmember();
-                sys_auth=model.getData().getSys_auth();
-                isresearch=model.getData().getIsresearch();
-                Update();
+                Logger.i("用户数据:msg="+model.getMsg());
+                Logger.i("用户数据:getCode="+model.getCode());
+                if (model.getCode().equals("100")){
+                    isMember=model.getData().getIsmember();
+                    Logger.i("用户数据:isMember="+isMember);
+                    sys_auth=model.getData().getSys_auth();
+                    isresearch=model.getData().getIsresearch();
+                    Update();
+                }
                 break;
         }
     }
+
+    /**
+     * 更新用户基础数据
+     */
     private void Update() {
         SharedPreferences sharedPreferences = mView.getSharedPreferences("login", Context.MODE_PRIVATE); //私有数据
         SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
@@ -178,15 +186,14 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
         editor.putString("sys_auth",sys_auth);
         editor.putString("isresearch",isresearch);
         editor.commit();//提交修改
-        Logger.i("更新用户数据",model.getMsg());
     }
 
     @Override
     protected void onCreate() {
-      mRequestUtils.getCanUpdata(APP.Version);
-        CommonRequestUtils.getRequestUtils().getActivityMain();
+        mRequestUtils.getCanUpdata(APP.Version);
+        mRequestUtils.getActivityMain();
+        mRequestUtils.getShoppingCarCount();
         LoginNet.getLoginNet().toGetBasedata();
-        CommonRequestUtils.getRequestUtils().getShoppingCarCount();
     }
 
     @Override

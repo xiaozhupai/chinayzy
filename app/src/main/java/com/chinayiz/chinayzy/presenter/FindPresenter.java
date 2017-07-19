@@ -88,7 +88,7 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
                 titles.add(bean.getTypename());
             }
             CommonNavigator commonNavigator = new CommonNavigator(mView.getActivity());
-            commonNavigator.setAdjustMode(true);
+            commonNavigator.setAdjustMode(true);//自适应，title 均分宽度
             commonNavigator.setAdapter(new CommonNavigatorAdapter() {
                 @Override
                 public int getCount() {
@@ -134,6 +134,7 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
             //发现viewpager
             adaphter=new PagerAdaphter(mView.getChildFragmentManager(),lists);
             mView.vp_find.setAdapter(adaphter);
+            //缓存所有页面
             mView.vp_find.setOffscreenPageLimit(lists.size());
         }
     }

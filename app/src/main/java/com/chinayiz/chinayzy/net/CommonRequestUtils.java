@@ -106,7 +106,6 @@ public class CommonRequestUtils {
     public void getCanUpdata(String buildcode) {
         OkGo.post(Commons.API + Commons.UPDATA)
                 .params("buildcode",buildcode)
-
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1259,7 +1258,6 @@ public class CommonRequestUtils {
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.OPENWINNER
