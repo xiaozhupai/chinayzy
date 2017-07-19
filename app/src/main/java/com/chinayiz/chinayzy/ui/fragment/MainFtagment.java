@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,16 @@ import com.chinayiz.chinayzy.Skip;
 import com.chinayiz.chinayzy.adapter.MainHomeRecylAdapter;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
+import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.MainsPresenter;
 import com.chinayiz.chinayzy.utils.BarUtils;
-import com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout;
-import com.chinayiz.chinayzy.views.refreshView.PullableRecycleView;
+import com.chinayiz.chinayzy.utils.DynamicTimeFormat;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * author  by  Canrom7 .
@@ -26,12 +32,14 @@ import com.orhanobut.logger.Logger;
  * Class MainFtagment
  */
 @SuppressLint("ValidFragment")
-public class MainFtagment extends BaseFragment<MainsPresenter> implements View.OnClickListener, PullableRecycleView.RefreshListner {
-    public PullableRecycleView home_recyclerLayout;
-    public PullToRefreshLayout refresh_view;
+public class MainFtagment extends BaseFragment<MainsPresenter> implements View.OnClickListener {
+    public RecyclerView home_recyclerLayout;
+    public SmartRefreshLayout mSmartRefreshLayout;
+    public ClassicsHeader mClassicsHeader;
     private boolean fristLaod = true;
     public MainHomeRecylAdapter mRecylAdapter;
-    public boolean canLoad=true;
+    public View mSarechBar;
+
 
     public MainFtagment() {
     }
@@ -43,22 +51,19 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (fristLaod) {
-            fristLaod = false;
-        }
-    }
 
     private void initWidget(View view) {
         View iv_seek = view.findViewById(R.id.iv_seek);
         View iv_services = view.findViewById(R.id.iv_services);
-        home_recyclerLayout = (PullableRecycleView) view.findViewById(R.id.nongye_home_recyclerLayout);
-        refresh_view = (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
-        refresh_view.setOnRefreshListener(mPresenter);
+        mSarechBar = view.findViewById(R.id.main_searchBar);
+        home_recyclerLayout = (RecyclerView) view.findViewById(R.id.nongye_home_recyclerLayout);
+        mSmartRefreshLayout = (SmartRefreshLayout) view.findViewById(R.id.refreshLayout);
+        mSmartRefreshLayout.getLayout().setBackgroundResource(android.R.color.transparent);
+        mSmartRefreshLayout.setPrimaryColorsId(android.R.color.transparent, android.R.color.tertiary_text_dark);
+        mClassicsHeader = (ClassicsHeader)mSmartRefreshLayout.getRefreshHeader();
+        mClassicsHeader.setTimeFormat(new SimpleDateFormat("更新于 MM-dd HH:mm", Locale.CHINA));
+        mClassicsHeader.setTimeFormat(new DynamicTimeFormat("更新于 %s"));
 
-        home_recyclerLayout.setListner(this);
         mRecylAdapter = new MainHomeRecylAdapter(this);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         home_recyclerLayout.setLayoutManager(layoutManager);
@@ -87,12 +92,20 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
 
     @Override
     protected void onVisible() {
-Logger.i("MainFtagment 可见");
+        if (fristLaod) {
+            mPresenter.mNet.getBanner(Commons.MAIN_BANNER);
+            mPresenter.mRequestUtils.getHomeModel();
+            mPresenter.mRequestUtils.getHomeMainActivitys();
+            mPresenter.mRequestUtils.getHomeNews();
+            mPresenter.mRequestUtils.getHomeZhongChuo();
+            Logger.i("获取数据");
+            fristLaod=false;
+        }
     }
 
     @Override
     protected void onInvisible() {
-        Logger.i("MainFtagment 不可见");
+
     }
 
     @Override
@@ -111,22 +124,4 @@ Logger.i("MainFtagment 可见");
         return new MainFtagment();
     }
 
-    @Override
-    /**
-     * 是否可以加载更多
-     */
-    public boolean canLoad() {
-        return canLoad;
-    }
-
-    @Override
-    /**
-     * 可否下拉刷新
-     */
-    public boolean canRefesh() {
-      if (mRecylAdapter.mDates.size()==0){
-          return true;
-      }
-        return false;
-    }
 }

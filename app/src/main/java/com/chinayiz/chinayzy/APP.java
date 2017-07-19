@@ -18,6 +18,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.model.HttpParams;
+import com.microquation.linkedme.android.LinkedME;
 import com.mob.MobSDK;
 import com.orhanobut.logger.Logger;
 import com.tencent.tinker.loader.app.TinkerApplication;
@@ -98,6 +99,12 @@ public class APP extends TinkerApplication {
         super.onCreate();
         initdebug(this);
 //        CrashReport.initCrashReport(getApplicationContext(), "a3d9e23cd5", false);  //bugly初始化
+        if (BuildConfig.DEBUG) {
+            //设置debug模式下打印LinkedME日志
+            LinkedME.getInstance(this).setDebug();
+        } else {
+            LinkedME.getInstance(this);
+        }
         MobSDK.init(this);   //Share初始化
         cacheUtil = GlideCacheUtil.getInstance();
         SDCardUtil.getInstance(this);
@@ -115,10 +122,7 @@ public class APP extends TinkerApplication {
      * 应用启动时初始化加载用户设置偏好
      */
     private void initData() {
-
         HttpParams params = new HttpParams();
-        params.put("imei",AppInfo.IMEI);
-        Logger.i("设备唯一标识="+AppInfo.IMEI);
         OkGo.init(this);
         try{
             OkGo.getInstance()

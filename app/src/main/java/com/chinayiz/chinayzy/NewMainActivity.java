@@ -24,7 +24,6 @@ import com.chinayiz.chinayzy.adapter.NyMainPagerAdapter;
 import com.chinayiz.chinayzy.autoUpdate.UpdateService;
 import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.database.UserSeeion;
-import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.NewMainPresenter;
 import com.chinayiz.chinayzy.ui.activity.MineFragment;
@@ -69,6 +68,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     private int commitID=0;
     public String dowloadUrl = "-1";
     private MaterialDialog mDilog;
+    public boolean isPause=false;
     private ActivityFragment mActivityFragment;
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditer;
@@ -86,7 +86,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_new);
-        setStatuBarColor(this,Color.rgb(218, 22, 47));
+        setStatuBarColor(this,Color.rgb(255, 255, 255));
         login_flag="";
         initView();
     }
@@ -94,13 +94,20 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
     @Override
     protected void onResume() {
         super.onResume();
-
+        isPause=false;
         if (login_flag.equals(StrCallback.RESPONSE_CODE_USER_OUT)) {
             if (mMaterialDialog!=null) {
                 mMaterialDialog.dismiss();
             }
             finish();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        isPause=true;
+        Logger.i("NewMainActivity切到后台了");
+        super.onPause();
     }
 
     private void initView() {
@@ -147,6 +154,32 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         //购物车提示数量
         remind(bt_shopcart);
     }
+    public void selectTab(int pistion){
+        RadioButton radioButton=null;
+        switch (pistion){
+            case 0:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_home);
+                break;
+            }
+            case 1:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_find);
+                break;
+            }
+            case 2:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_activi);
+                break;
+            }
+            case 3:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_cart);
+                break;
+            }
+            case 4:{
+                radioButton= (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_im);
+                break;
+            }
+        }
+        radioButton.setChecked(true);
+    }
 
 
     @Override
@@ -161,7 +194,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
             case R.id.rb_nav_home://首页
                 commitID=0;
                 mViewPager.setCurrentItem(0);
-                setStatuBarColor(this,Color.rgb(218, 22, 47));
+                setStatuBarColor(this,Color.rgb(255, 255, 255));
                 mActionBar.setBackgroundColor(Color.rgb(218, 22, 47));
                 break;
             case R.id.rb_nav_find://发现
@@ -240,7 +273,6 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Logger.i("返回键监听"+commitID);
         if (mActivityFragment.wv_view!=null&&commitID==2){//判断当前是否在活动页面
             if (keyCode == KeyEvent.KEYCODE_BACK && mActivityFragment.wv_view.canGoBack()) {
                 mActivityFragment.wv_view.goBack();// 返回前一个页面
@@ -257,6 +289,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
             return false;
         }
     }
+
     private static Boolean mIsExit = false;
     private void exitBy2Click() {
         Timer tExit;

@@ -1,43 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="130dp"
+              android:layout_width="149dp"
               android:layout_height="match_parent"
-              android:layout_marginLeft="6dp"
-              android:layout_marginRight="6dp"
+              android:paddingStart="12dp"
+              android:paddingEnd="12dp"
     >
 <ImageView
     android:id="@+id/iv_goodsPic"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
     android:layout_weight="1"
     android:scaleType="fitXY"
     android:padding="0.5dp"
     android:src="@mipmap/ic_launcher"
     />
-
     <TextView
         android:id="@+id/tv_goodsName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8.5dp"
-        android:ellipsize="end"
-        android:lines="2"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:maxLines="2"
+        android:lines="2"
+        android:ellipsize="end"
+        android:textSize="12sp"
         android:textColor="@color/blacktext"
-        android:textSize="12sp" />
+        android:layout_marginTop="8.5dp"
+        />
 
     <TextView
         android:id="@+id/tv_goodsPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:drawableLeft="@mipmap/icon_rmb"
-        android:maxLines="1"
-        android:lines="1"
         android:ellipsize="end"
-        android:textSize="15sp"
+        android:lines="1"
+        android:maxLines="1"
         android:textColor="@color/classifyText_pre"
-        android:layout_marginTop="10dp"
+        android:textSize="15sp"
         />
 </LinearLayout>

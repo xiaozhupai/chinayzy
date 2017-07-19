@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chinayiz.chinayzy">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+          package="com.chinayiz.chinayzy">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <!-- 从sdcard中读取数据的权限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
 
     <!-- 往sdcard中写入数据的权限 -->
     <application
@@ -22,38 +21,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- 测试Activity -->
-        <activity
-            android:name=".TestActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme"
-            >
-
-             <!--<intent-filter>-->
-             <!--<action android:name="android.intent.action.MAIN"/>-->
-
-
-             <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-             <!--</intent-filter>-->
-
-        </activity>
-
+        <!-- LinkedME官网注册应用后,从"设置"页面获取该Key -->
+        <meta-data
+            android:name="linkedme.sdk.key"
+            android:value="c97dadf53b53999a0a326f209d6abed8"/>
         <!-- 应用首页activity -->
         <activity
             android:name=".NewMainActivity"
-            android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
 
         </activity>
         <!-- 生态农业公共activity -->
         <activity
             android:name=".ui.activity.NongYeMainActivity"
-            android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <!-- 商城公共activity -->
@@ -65,8 +50,8 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
 
         </activity>
@@ -75,9 +60,9 @@
         <!-- 商品详情activity -->
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity
             android:name=".ui.activity.ForgotActivity"
@@ -95,61 +80,61 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <data android:scheme="tencent1105835965" />
+                <data android:scheme="tencent1105835965"/>
 
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
 
             <!-- 调用新浪原生SDK，需要注册的回调activity -->
             <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <!-- 个人中心activity -->
 
-        <activity android:name=".ui.activity.Main2Activity" />
-        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity" />
-        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity" />
-        <activity android:name=".imageSelected.SelectActivity" />
-        <activity android:name=".GenerateLayoutActivity" />
+        <activity android:name=".ui.activity.Main2Activity"/>
+        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"/>
+        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"/>
+        <activity android:name=".imageSelected.SelectActivity"/>
+        <activity android:name=".GenerateLayoutActivity"/>
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" />
+            android:screenOrientation="behind"/>
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" />
+            android:screenOrientation="behind"/>
         <activity
             android:name=".ui.common.PictureActivity"
-            android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".ui.activity.GoldActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".ui.activity.CommonActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <receiver android:name=".utils.AppRegister">
             <intent-filter>
-                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP"/>
             </intent-filter>
         </receiver>
 
@@ -158,23 +143,55 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
-        <activity android:name=".StartActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".StartActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:noHistory="true"
             >
-
+            <meta-data android:name="linkedme.sdk.auto_link_keys" android:value="linkedme"/>
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            <!-- URI Scheme方式 在dashboard配置中,请保持与ios的URI Scheme相同 -->
+            <!--
+            如果程序已存在与此完全相同的data配置,即只包含scheme并且值完全相同,
+            则需要考虑发起的intent会出现相同应用图标的选择对话框的情况
+            -->
+            <intent-filter>
+                <data android:scheme="com.chinayiz.app"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+            <!-- APP Links方式,Android 23版本及以后支持 -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="lkme.cc"
+                    android:pathPrefix="/AfC"
+                    android:scheme="https"/>
+                <data
+                    android:host="lkme.cc"
+                    android:pathPrefix="/AfC"
+                    android:scheme="http"/>
             </intent-filter>
 
         </activity>
-        <activity android:name=".ScreenSildeActivity"
+        <activity
+            android:name=".ScreenSildeActivity"
             android:screenOrientation="portrait"
             >
 

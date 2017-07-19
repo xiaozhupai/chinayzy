@@ -306,38 +306,12 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
                             Logger.i("数量增加");
                             bean.setNum(bean.getNum()+1);
                             finalViewHolder1.et_center_b.setText(bean.getNum()+"");
-
-                            Logger.i("num-----------------------"+bean.getNum());
+                            Logger.i("商品数量="+bean.getNum());
                             UpdateTotal();
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,UPDATE,""));
                         }
                     });
-                    finalViewHolder1.et_center_b.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View v, boolean hasFocus) {
-                            if (hasFocus){
-                               Logger.i("开始编辑数量");
-                            }else {
-                                Logger.i("取消编辑数量");
-                            }
-                        }
-                    });
-                    finalViewHolder1.et_center_b.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                            finalViewHolder1.et_center_b.clearComposingText();
-                        }
 
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                            Logger.i("正在修改数量="+s);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-//                            Logger.i("修改数量完成="+s);
-                        }
-                    });
                 }
 
                 Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_shopcart_item_img);
@@ -467,6 +441,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
             for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
                 if (bean.isChecked()) {
                     total += bean.getPrice() * bean.getNum();
+                    Logger.i("价格="+bean.getPrice()+"数量="+bean.getNum());
                 }
             }
         }
@@ -567,7 +542,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
         public LinearLayout lv_after;
         public ImageView iv_left_b;
         public ImageView iv_right_b;
-        public EditText et_center_b;
+        public TextView et_center_b;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -586,7 +561,7 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
             this.lv_after = (LinearLayout) rootView.findViewById(R.id.lv_after);
          this.iv_left_b= (ImageView) rootView.findViewById(R.id.iv_left_b);
          this.iv_right_b= (ImageView) rootView.findViewById(R.id.iv_right_b);
-          this.et_center_b= (EditText) rootView.findViewById(R.id.et_center_b);
+          this.et_center_b= (TextView) rootView.findViewById(R.id.et_center_b);
         }
 
     }

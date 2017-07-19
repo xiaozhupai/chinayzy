@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="199dp"
+              android:orientation="vertical">
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/nYline"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:background="@color/Background"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/str_activity_title"
+            android:textColor="@color/classifyText_pre"
+            android:textSize="15sp"
+            />
+
+        <cn.iwgang.countdownview.CountdownView
+            android:id="@+id/countDownView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            app:isHideTimeBackground="false"
+            app:isShowHour="false"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isShowMillisecond="true"
+            app:isTimeTextBold="true"
+            app:suffix=":"
+            app:timeBgRadius="3dp"
+            app:suffixGravity="center"
+            app:suffixTextColor="#000000"
+            app:suffixTextSize="15sp"
+            app:timeBgColor="@color/black"
+            app:timeTextColor="@color/Background"
+            app:timeTextSize="15sp"
+            />
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_more_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@mipmap/pic_more_activity"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_list"
+        android:background="@color/Background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="2dp"
+        >
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

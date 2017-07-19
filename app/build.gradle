@@ -15,8 +15,8 @@ android {
         applicationId "com.chinayiz.chinayzy"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode  14
-        versionName "2.5.4"
+        versionCode  15
+        versionName "2.6.0"
         multiDexEnabled true
         ndk {
             //选择要添加的对应cpu类型的.so库。
@@ -72,13 +72,13 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Moments-2.8.2.jar')
     compile files('libs/okgo-2.1.4.jar')
     compile files('libs/okhttp-3.8.0.jar')
-
     // 多dex配置
+
     //注释掉原有bugly的仓库
-//    compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
+
+    //    compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
+
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
-
-
     compile 'com.jude:utils:1.2.1'
     compile 'com.orhanobut:logger:1.15'
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -98,6 +98,10 @@ dependencies {
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.sunfusheng:marqueeview:1.2.0'
+    compile 'com.github.iwgang:countdownview:2.1.6'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-6'
+    compile files('libs/LinkedME-Android-Deep-Linking-SDK-V1.0.10.jar')
 }
 // 依赖插件脚本
 apply from: 'tinker-support.gradle'

@@ -64,6 +64,7 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
 
     @Override
     protected void onVisible() {
+        mPresenter.getData();
         Logger.i("ShopCartFragment 可见");
     }
 
@@ -149,11 +150,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         }
     }
 
-    @Override
-    public void onResume() {
-       mPresenter.getData();
-        super.onResume();
-    }
 
     /**
      * 更新adaphter

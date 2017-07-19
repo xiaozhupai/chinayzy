@@ -1,6 +1,6 @@
 package com.chinayiz.chinayzy.adapter;
 
-import android.app.Fragment;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +31,10 @@ public class HomeListRecylAdapter extends RecyclerView.Adapter {
      */
     public static final int ITEM_ALL=2;
     List<HomeGoodsListModel.DataBean> mBeanList=new ArrayList<>();
-    Fragment mFragment;
+    Context mContext;
     onItemClickListener mItemClickListener;
-    public HomeListRecylAdapter(List<HomeGoodsListModel.DataBean> beanList, Fragment fragment) {
+    public HomeListRecylAdapter(List<HomeGoodsListModel.DataBean> beanList) {
         mBeanList = beanList;
-        mFragment = fragment;
     }
 
     public void setItemClickListener(onItemClickListener itemClickListener) {
@@ -44,6 +43,7 @@ public class HomeListRecylAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mContext=parent.getContext();
         switch (viewType){
             case ITEM_GOODS :
                 return new ListItemGoods(getItemView(parent,R.layout.home_item_list_goods));
@@ -70,7 +70,7 @@ public class HomeListRecylAdapter extends RecyclerView.Adapter {
         }else {
             if (holder instanceof ListItemGoods){
                 ListItemGoods listItemGoods= (ListItemGoods) holder;
-                listItemGoods.setData(mBeanList.get(position),mFragment);
+                listItemGoods.setData(mBeanList.get(position),mContext);
                 listItemGoods.root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -126,8 +126,8 @@ public class HomeListRecylAdapter extends RecyclerView.Adapter {
             goodsName= (TextView) itemView.findViewById(R.id.tv_goodsName);
             goodsPrice= (TextView) itemView.findViewById(R.id.tv_goodsPrice);
         }
-        public void setData(HomeGoodsListModel.DataBean data, Fragment fragment){
-            Glide.with(fragment)
+        public void setData(HomeGoodsListModel.DataBean data, Context context){
+            Glide.with(context)
                     .load(data.getIcon())
                     .into(goodsPic);
             goodsName.setText(data.getGname());

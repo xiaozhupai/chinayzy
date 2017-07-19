@@ -97,6 +97,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         mViewHolder.tv_goodsPrice = (TextView) view.findViewById(R.id.tv_goodsPrice);
         mViewHolder.tv_dobPrice = (TextView) view.findViewById(R.id.tv_dobPrice);
         mViewHolder.tv_RePrice= (TextView) view.findViewById(R.id.tv_rePrice);
+        mViewHolder.tv_monthly= (TextView) view.findViewById(R.id.tv_monthly);
         mViewHolder.tv_Zhekou= (TextView) view.findViewById(R.id.tv_zhekou);
         mViewHolder.iv_goodsRMB = (ImageView) view.findViewById(R.id.iv_goodsRMB);
 
@@ -319,6 +320,11 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         }
 
         Logger.i("设置原价与折扣"+mDetailModel.getCost()+"折扣"+mDetailModel.getZhekou());
+        if (TextUtils.isEmpty(mDetailModel.getSalesvolume())){
+            mViewHolder.tv_monthly.setText("月销量 0 笔");
+        }else {
+            mViewHolder.tv_monthly.setText("月销量"+mDetailModel.getSalesvolume()+"笔");
+        }
         mViewHolder.tv_RePrice.setText("￥"+mDetailModel.getCost());
         mViewHolder.tv_RePrice.getPaint().setAntiAlias(true);//抗锯齿
         mViewHolder.tv_RePrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
@@ -495,6 +501,7 @@ public class GoodsDetailFragment extends AbsFragment implements View.OnClickList
         public TextView tv_deals;
         public TextView tv_yunfei;
         public TextView tv_commentCount;
+        public TextView tv_monthly;
         public TextView tv_goodComment;
         public LinearLayout tv_goodsComments;
         public NoScrollListView lv_comments;

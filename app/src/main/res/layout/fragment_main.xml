@@ -1,42 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/backgroundgray"
-              android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:background="@color/backgroundgray"
+             android:orientation="vertical"
     >
-
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnableHeaderTranslationContent="true"
+        app:srlEnableLoadmore="true">
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlClassicsSpinnerStyle="FixedBehind"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/nongye_home_recyclerLayout"
+            android:background="@color/backgroundgray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            />
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     <LinearLayout
+        android:id="@+id/main_searchBar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/classifyText_pre"
+        android:background="@drawable/actionbar_bg"
         android:orientation="horizontal"
         >
-
         <FrameLayout
             android:id="@+id/iv_seek"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:layout_weight="1"
-            android:background="@color/classifyText_pre"
+            android:background="@android:color/transparent"
             android:clickable="true"
             >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="9dp"
-                android:src="@mipmap/ic_sousuo"
+                android:layout_marginTop="9.5dp"
+                android:background="@drawable/search_shapebg"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="45dp"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@mipmap/main_sousuo"
                 android:gravity="center_vertical"
-                android:text="搜索"
-                android:textColor="@color/Background"
+                android:text="  搜索"
+                android:textColor="@color/appTextGray"
                 android:textSize="13sp"
                 />
         </FrameLayout>
@@ -51,6 +73,4 @@
             android:src="@mipmap/ic_services"
             />
     </LinearLayout>
-
-    <include layout="@layout/nongye_fragment_home"/>
-</LinearLayout>
+</FrameLayout>
