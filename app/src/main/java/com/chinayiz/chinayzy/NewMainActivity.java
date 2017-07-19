@@ -118,7 +118,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         mIvActionBarMore.setVisibility(View.GONE);
         mActionBar.setVisibility(View.GONE);
         mViewPager = (NoScrollViewPager) findViewById(R.id.vp_main_content);
-        //设置缓存其他页面
+        //设置缓存其他页面，默认是缓存1个页面
         mViewPager.setOffscreenPageLimit(5);
         mPagerAdapter = new NyMainPagerAdapter(getFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
@@ -147,7 +147,6 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         //购物车提示数量
         remind(bt_shopcart);
     }
-
 
 
     @Override
@@ -533,7 +532,6 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
             badge1.setText("99+");
         }else {
             badge1.setText( ""+mPresenter.count); // 需要显示的提醒类容
-            Logger.i("购物车数量........."+mPresenter.count);
             badge1.show();// 只有显示
         }
     }

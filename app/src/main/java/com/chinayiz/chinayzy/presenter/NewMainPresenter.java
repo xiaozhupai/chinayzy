@@ -119,7 +119,6 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
             case Commons.SHOPPINGCARTCOUNT://获取购物车数量
                 ShoppingCarCountModel model5= (ShoppingCarCountModel) message.getData();
                 count= model5.getData();
-                Logger.i("购物车数量="+count);
                 mView.getCount(count);
                 break;
         }
@@ -133,10 +132,15 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 break;
             case Commons.BASEDATA: //更新用户基础数据
                 model= (BasedataModel) message.getData();
-                isMember=model.getData().getIsmember();
-                sys_auth=model.getData().getSys_auth();
-                isresearch=model.getData().getIsresearch();
-                Update();
+                Logger.i("用户数据:msg="+model.getMsg());
+                Logger.i("用户数据:getCode="+model.getCode());
+                if (model.getCode().equals("100")){
+                    isMember=model.getData().getIsmember();
+                    Logger.i("用户数据:isMember="+isMember);
+                    sys_auth=model.getData().getSys_auth();
+                    isresearch=model.getData().getIsresearch();
+                    Update();
+                }
                 break;
         }
     }
@@ -157,8 +161,8 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
     protected void onCreate() {
         mRequestUtils.getCanUpdata(APP.Version);
         mRequestUtils.getActivityMain();
-        LoginNet.getLoginNet().toGetBasedata();
         mRequestUtils.getShoppingCarCount();
+        LoginNet.getLoginNet().toGetBasedata();
     }
 
     @Override

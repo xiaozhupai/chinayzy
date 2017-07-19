@@ -104,7 +104,6 @@ public class MainsPresenter extends BasePresenter<MainFtagment> implements PullT
         mRequestUtils.getHomeList(Commons.HOME_LIST1);
         mRequestUtils.getHomeTheme(Commons.HOME_THEME2);
         mRequestUtils.getHomeList(Commons.HOME_LIST2);
-        Logger.i("获取数据");
     }
 
     private void loadDatas() {

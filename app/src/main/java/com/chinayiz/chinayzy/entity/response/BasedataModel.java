@@ -56,5 +56,21 @@ public class BasedataModel extends BaseResponseModel {
         public void setSys_auth(String sys_auth) {
             this.sys_auth = sys_auth;
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "ismember='" + ismember + '\'' +
+                    ", isresearch='" + isresearch + '\'' +
+                    ", sys_auth='" + sys_auth + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "BasedataModel{" +
+                "data=" + data +
+                '}';
     }
 }
