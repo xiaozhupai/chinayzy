@@ -48,7 +48,6 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
     @Override
     public void onCreate() {
-
     }
 
     public void getData(){

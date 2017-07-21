@@ -18,82 +18,83 @@
         <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
             android:id="@+id/pullrefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <include layout="@layout/refresh_head"/>
+            android:layout_height="match_parent">
+
+            <include layout="@layout/refresh_head" />
+
             <com.chinayiz.chinayzy.views.pullable.PullableScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
                     android:id="@+id/layout_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
                         android:background="#f52a44"
                         android:clickable="true"
-                        >
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
                         <LinearLayout
                             android:id="@+id/lv_user"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:layout_marginTop="27dp"
                             android:gravity="center"
-                            >
+                            android:orientation="vertical">
+
                             <FrameLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
                                 >
+
                                 <com.chinayiz.chinayzy.views.CircleImageView
                                     android:id="@+id/iv_mine_user_logo"
-                                    android:layout_centerInParent="true"
                                     android:layout_width="73dp"
                                     android:layout_height="73dp"
-                                    android:src="@mipmap/img_user"
-                                    />
+                                    android:layout_centerInParent="true"
+                                    android:src="@mipmap/img_user" />
+
                                 <ImageView
                                     android:id="@+id/iv_mine_user_sex"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="right|bottom"
-                                    />
+                                    android:layout_gravity="right|bottom" />
                             </FrameLayout>
+
                             <TextView
                                 android:id="@+id/tv_recommend"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="#fefefe"
-                                android:textSize="16sp"
                                 android:layout_gravity="center"
-                                android:singleLine="true"
                                 android:layout_marginTop="15dp"
-                                />
+                                android:singleLine="true"
+                                android:textColor="#fefefe"
+                                android:textSize="16sp" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:gravity="center"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/tv_user_username"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=""
-                                    android:textColor="#fefefe"
-                                    android:textSize="16sp"
-                                    android:drawableRight="@mipmap/back_arrow_white"
                                     android:layout_gravity="center_horizontal"
                                     android:drawablePadding="5dp"
+                                    android:drawableRight="@mipmap/back_arrow_white"
                                     android:singleLine="true"
-                                    />
+                                    android:text=""
+                                    android:textColor="#fefefe"
+                                    android:textSize="16sp" />
                                 <!--<ImageView-->
                                 <!--android:id="@+id/iv_username_right"-->
                                 <!--android:layout_width="wrap_content"-->
@@ -104,75 +105,70 @@
                             </LinearLayout>
                         </LinearLayout>
 
-              <TextView
-                  android:id="@+id/tv_has_user"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="12sp"
-                  android:textColor="#fefefe"
-                  android:layout_gravity="right"
-                  android:layout_marginTop="10dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_marginRight="12dp"
-                  />
+                        <TextView
+                            android:id="@+id/tv_has_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#fefefe"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginTop="5dp"
-                        >
+                        android:orientation="vertical">
+
                         <RelativeLayout
                             android:id="@+id/rl_user_all_order"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:paddingTop="15dp"
-                            android:paddingLeft="12dp"
-                            android:paddingBottom="15dp"
                             android:background="@color/white"
-                            >
+                            android:clickable="true"
+                            android:paddingBottom="15dp"
+                            android:paddingLeft="12dp"
+                            android:paddingTop="15dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="全部订单"
                                 android:textColor="#051b28"
-                                android:textSize="14sp"
-                                />
+                                android:textSize="14sp" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="6dp"
+                                android:layout_toLeftOf="@+id/iv_arrow_right"
                                 android:text="查看全部订单"
                                 android:textColor="#a6a6a6"
-                                android:textSize="11sp"
-                                android:layout_toLeftOf="@+id/iv_arrow_right"
-                                android:layout_marginRight="6dp"
-                                />
+                                android:textSize="11sp" />
+
                             <ImageView
                                 android:id="@+id/iv_arrow_right"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_back_arrow"
                                 android:layout_alignParentRight="true"
                                 android:paddingRight="12dp"
-                                />
+                                android:src="@mipmap/icon_back_arrow" />
                         </RelativeLayout>
 
-                        <View
-                            style="@style/Divider"
-                            />
+                        <View style="@style/Divider" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-
-                        android:paddingBottom="14dp"
                         android:background="@color/white"
-                        >
+
+                        android:orientation="vertical"
+                        android:paddingBottom="14dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -184,441 +180,438 @@
 
                             <RelativeLayout
                                 android:id="@+id/lv_wait_pay"
-                                android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center_horizontal"
-                                android:clickable="true"
                                 android:layout_gravity="center"
-                                >
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
                                 <ImageView
                                     android:id="@+id/iv_wait_pay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_wait_pay"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="10dp"
-                                    />
+                                    android:src="@mipmap/icon_wait_pay" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="待付款"
-                                    android:textColor="#505050"
-                                    android:textSize="11sp"
-                                    android:layout_marginTop="9dp"
                                     android:layout_below="@+id/iv_wait_pay"
                                     android:layout_centerHorizontal="true"
-                                    />
+                                    android:layout_marginTop="9dp"
+                                    android:text="待付款"
+                                    android:textColor="#505050"
+                                    android:textSize="11sp" />
+
                                 <TextView
                                     android:id="@+id/tv_wait_pay_count"
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
-                                    android:text="99"
-                                    android:textColor="@color/white"
-                                    android:background="@mipmap/icon_red_point"
-                                    android:gravity="center"
-                                    android:layout_toRightOf="@+id/iv_wait_pay"
                                     android:layout_marginLeft="-8dp"
                                     android:layout_marginTop="2dp"
+                                    android:layout_toRightOf="@+id/iv_wait_pay"
+                                    android:background="@mipmap/icon_red_point"
+                                    android:gravity="center"
+                                    android:text="99"
+                                    android:textColor="@color/white"
                                     android:textSize="10sp"
-                                    android:visibility="invisible"
-                                    />
+                                    android:visibility="invisible" />
                             </RelativeLayout>
-
-
 
 
                             <RelativeLayout
                                 android:id="@+id/lv_wait_goods"
-                                android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center_horizontal"
+                                android:layout_weight="1"
                                 android:clickable="true"
-                                >
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
                                 <ImageView
                                     android:id="@+id/iv_wait_goods"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_wait_goods"
-                                    android:layout_marginTop="10dp"
                                     android:layout_centerHorizontal="true"
-                                    />
+                                    android:layout_marginTop="10dp"
+                                    android:src="@mipmap/icon_wait_goods" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="待发货"
-                                    android:textColor="#505050"
-                                    android:textSize="11sp"
-                                    android:layout_marginTop="9dp"
                                     android:layout_below="@+id/iv_wait_goods"
                                     android:layout_centerHorizontal="true"
-                                    />
+                                    android:layout_marginTop="9dp"
+                                    android:text="待发货"
+                                    android:textColor="#505050"
+                                    android:textSize="11sp" />
+
                                 <TextView
                                     android:id="@+id/tv_wait_goods_count"
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
-                                    android:text="1"
-                                    android:textColor="@color/white"
-                                    android:background="@mipmap/icon_red_point"
-                                    android:gravity="center"
-                                    android:layout_toRightOf="@+id/iv_wait_goods"
                                     android:layout_marginLeft="-8dp"
                                     android:layout_marginTop="2dp"
+                                    android:layout_toRightOf="@+id/iv_wait_goods"
+                                    android:background="@mipmap/icon_red_point"
+                                    android:gravity="center"
+                                    android:text="1"
+                                    android:textColor="@color/white"
                                     android:textSize="10sp"
-                                    android:visibility="invisible"
-                                    />
+                                    android:visibility="invisible" />
                             </RelativeLayout>
+
                             <RelativeLayout
                                 android:id="@+id/lv_wait_accept_goods"
-                                android:clickable="true"
-                                android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:clickable="true"
                                 android:gravity="center_horizontal"
-                                >
+                                android:orientation="vertical">
+
                                 <ImageView
                                     android:id="@+id/iv_wait_accept_goods"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_wait_accept_goods"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="10dp"
-                                    />
+                                    android:src="@mipmap/icon_wait_accept_goods" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_below="@+id/iv_wait_accept_goods"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="9dp"
                                     android:text="待收货"
                                     android:textColor="#505050"
                                     android:textSize="11sp"
-                                    android:layout_marginTop="9dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_below="@+id/iv_wait_accept_goods"
 
                                     />
+
                                 <TextView
                                     android:id="@+id/tv_wait_accept_goods_count"
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
-                                    android:text="1"
-                                    android:textColor="@color/white"
-                                    android:background="@mipmap/icon_red_point"
-                                    android:gravity="center"
-                                    android:layout_toRightOf="@+id/iv_wait_accept_goods"
                                     android:layout_marginLeft="-8dp"
                                     android:layout_marginTop="2dp"
+                                    android:layout_toRightOf="@+id/iv_wait_accept_goods"
+                                    android:background="@mipmap/icon_red_point"
+                                    android:gravity="center"
+                                    android:text="1"
+                                    android:textColor="@color/white"
                                     android:textSize="10sp"
-                                    android:visibility="invisible"
-                                    />
+                                    android:visibility="invisible" />
                             </RelativeLayout>
+
                             <RelativeLayout
                                 android:id="@+id/lv_after_sale"
-                                android:clickable="true"
-                                android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:clickable="true"
                                 android:gravity="center_horizontal"
-                                >
+                                android:orientation="vertical">
+
                                 <ImageView
                                     android:id="@+id/iv_after_sale"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_after_sale"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="10dp"
-                                    />
+                                    android:src="@mipmap/icon_after_sale" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_below="@+id/iv_after_sale"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="9dp"
                                     android:text="售后"
                                     android:textColor="#505050"
-                                    android:textSize="11sp"
-                                    android:layout_marginTop="9dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_below="@+id/iv_after_sale"
-                                    />
+                                    android:textSize="11sp" />
+
                                 <TextView
                                     android:id="@+id/tv_after_sale_count"
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
-                                    android:text="1"
-                                    android:textColor="@color/white"
-                                    android:background="@mipmap/icon_red_point"
-                                    android:gravity="center"
                                     android:layout_marginLeft="-8dp"
                                     android:layout_marginTop="2dp"
-                                    android:textSize="10sp"
                                     android:layout_toEndOf="@+id/iv_after_sale"
-                                    android:visibility="invisible"
-                                    />
+                                    android:background="@mipmap/icon_red_point"
+                                    android:gravity="center"
+                                    android:text="1"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:visibility="invisible" />
                             </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginBottom="83dp"
                         android:layout_marginTop="5dp"
                         android:background="@color/white"
-                        android:layout_marginBottom="83dp"
-                        >
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="15dp"
                             android:text="我的工具"
                             android:textColor="#051b28"
-                            android:textSize="14sp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginBottom="15dp"
-                            />
+                            android:textSize="14sp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:background="#efeff4"
-                            >
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_marginTop="1dp"
-                                >
+                                android:orientation="horizontal">
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_keep"
-                                    android:clickable="true"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:clickable="true"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/btn_recharge"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/btn_recharge" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginBottom="25dp"
+                                        android:layout_marginTop="13dp"
                                         android:text="充值"
                                         android:textColor="#505050"
-                                        android:textSize="11sp"
-                                        android:layout_marginBottom="25dp"
-                                        android:layout_marginTop="13dp"
-                                        />
+                                        android:textSize="11sp" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_content_keep"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
                                     android:layout_marginLeft="1dp"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_content_keep"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/icon_mine_content_keep" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginBottom="25dp"
+                                        android:layout_marginTop="13dp"
                                         android:text="内容收藏"
                                         android:textColor="#505050"
-                                        android:textSize="11sp"
-                                        android:layout_marginBottom="25dp"
-                                        android:layout_marginTop="13dp"
-                                        />
+                                        android:textSize="11sp" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_step"
-                                    android:clickable="true"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
                                     android:layout_marginLeft="1dp"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:clickable="true"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_step"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/icon_mine_step" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginBottom="25dp"
+                                        android:layout_marginTop="13dp"
                                         android:text="我的足迹"
                                         android:textColor="#505050"
-                                        android:textSize="11sp"
-                                        android:layout_marginBottom="25dp"
-                                        android:layout_marginTop="13dp"
-                                        />
+                                        android:textSize="11sp" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_shop_car"
-                                    android:clickable="true"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
                                     android:layout_marginLeft="1dp"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:clickable="true"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_award_record"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/icon_award_record" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="获奖记录"
-                                        android:textColor="#505050"
-                                        android:textSize="11sp"
                                         android:layout_marginBottom="25dp"
                                         android:layout_marginTop="13dp"
-                                        />
+                                        android:text="获奖记录"
+                                        android:textColor="#505050"
+                                        android:textSize="11sp" />
                                 </LinearLayout>
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_marginTop="1dp"
-                                >
+                                android:orientation="horizontal">
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_scores"
-                                    android:clickable="true"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:clickable="true"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_scores"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/icon_mine_scores" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginBottom="25dp"
+                                        android:layout_marginTop="13dp"
                                         android:text="我的账户"
                                         android:textColor="#505050"
-                                        android:textSize="11sp"
-                                        android:layout_marginBottom="25dp"
-                                        android:layout_marginTop="13dp"
-                                        />
+                                        android:textSize="11sp" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_server"
-                                    android:clickable="true"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
                                     android:layout_marginLeft="1dp"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:clickable="true"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_server"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/icon_mine_server" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginBottom="25dp"
+                                        android:layout_marginTop="13dp"
                                         android:text="消息中心"
                                         android:textColor="#505050"
-                                        android:textSize="11sp"
-                                        android:layout_marginBottom="25dp"
-                                        android:layout_marginTop="13dp"
-                                        />
+                                        android:textSize="11sp" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_suggest"
-                                    android:clickable="true"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
                                     android:layout_marginLeft="1dp"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:clickable="true"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_mine_suggest"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/icon_mine_suggest" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginBottom="25dp"
+                                        android:layout_marginTop="13dp"
                                         android:text="意见反馈"
                                         android:textColor="#505050"
-                                        android:textSize="11sp"
-                                        android:layout_marginBottom="25dp"
-                                        android:layout_marginTop="13dp"
-                                        />
+                                        android:textSize="11sp" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/lv_mine_setting"
-                                    android:clickable="true"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:gravity="center_horizontal"
                                     android:layout_marginLeft="1dp"
+                                    android:layout_weight="1"
                                     android:background="@color/white"
-                                    >
+                                    android:clickable="true"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/icon_luckly_ticket"
                                         android:layout_marginTop="23dp"
-                                        />
+                                        android:src="@mipmap/icon_luckly_ticket" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="现金券"
-                                        android:textColor="#505050"
-                                        android:textSize="11sp"
                                         android:layout_marginBottom="25dp"
                                         android:layout_marginTop="13dp"
-                                        />
+                                        android:text="现金券"
+                                        android:textColor="#505050"
+                                        android:textSize="11sp" />
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </com.chinayiz.chinayzy.views.pullable.PullableScrollView>
+
             <include
                 android:id="@+id/loadlayout"
-                layout="@layout/load_more"/>
+                layout="@layout/load_more" />
         </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
     </FrameLayout>
 </LinearLayout>

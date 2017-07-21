@@ -50,9 +50,9 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
         Net.getNet().getFindType();
     }
 
+
     @Override
     public void onDestroy() {
-
     }
 
     @Override
