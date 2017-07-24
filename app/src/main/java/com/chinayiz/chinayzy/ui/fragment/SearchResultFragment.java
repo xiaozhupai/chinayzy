@@ -27,6 +27,12 @@ import com.chinayiz.chinayzy.presenter.SearchResultPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.SearchPopuwindow;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 /**
  * 搜索结果
@@ -38,7 +44,9 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public CheckBox cb_sale,cb_price,cb_brand,tv_self,tv_credit;
     public SearchResultAdaphter adaphter;
     public SearchResultAdaphter adaphter2;
-    public PullToRefreshLayout refresh_view;
+//    public PullToRefreshLayout refresh_view;
+    public SmartRefreshLayout mSmartRefresh;
+
     public String title;
     public int index=2;
     public boolean isList=true;  //是否是列表排列
@@ -123,7 +131,9 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_result, null);
-        refresh_view= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
+//        refresh_view= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
+        mSmartRefresh= (SmartRefreshLayout) view.findViewById(R.id.refresh_view);
+
         gd_list= (GridView) view.findViewById(R.id.gd_list);
         cb_sale= (CheckBox) view.findViewById(R.id.cb_sale);
         cb_price= (CheckBox) view.findViewById(R.id.cb_price);
@@ -138,8 +148,11 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         tv_self.setOnClickListener(this);
         tv_credit.setOnClickListener(this);
         tv_hot.setOnClickListener(this);
-        adaphter.setRefreshLayout(refresh_view);
-        adaphter2.setRefreshLayout(refresh_view);
+//        adaphter.setRefreshLayout(refresh_view);
+//        adaphter2.setRefreshLayout(refresh_view);
+        adaphter.setRefreshLayout(mSmartRefresh);
+        adaphter2.setRefreshLayout(mSmartRefresh);
+
         gd_list.setAdapter(adaphter);
         gd_list.setOnItemClickListener(this);
         tv_self.setOnCheckedChangeListener(this);
@@ -147,7 +160,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
         cb_brand.setOnCheckedChangeListener(this);
         cb_price.setOnCheckedChangeListener(this);
         cb_sale.setOnCheckedChangeListener(this);
-        refresh_view.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+        /*refresh_view.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 page=1;
@@ -159,7 +172,25 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                 page++;
                 mPresenter.getData();
             }
+        });*/
+        mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page=1;
+                mPresenter.getData();
+            }
         });
+        mSmartRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page++;
+                mPresenter.getData();
+            }
+        });
+
+        mSmartRefresh.setRefreshHeader(new ClassicsHeader(getActivity()));
+        mSmartRefresh.setRefreshFooter(new ClassicsFooter(getActivity()));
+
         return view;
     }
 

@@ -97,7 +97,10 @@ public class ShopKeepAdaphter extends BaseInectAdaphter implements EventBusCallb
         if (message.getEventType()==EventMessage.NET_EVENT){
             disposeNetMsg(message);
         }else if (message.getEventType()== EventMessage.ERROR_EVENT){
-            if (pullrefresh!=null){
+//            if (pullrefresh!=null){
+//                pullResult();
+//            }
+            if (mSmartRefresh!=null){
                 pullResult();
             }
         }

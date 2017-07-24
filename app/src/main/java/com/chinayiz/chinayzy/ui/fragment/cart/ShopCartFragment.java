@@ -27,6 +27,11 @@ import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.chinayiz.chinayzy.widget.GoodsStandardPopuWindow;
 import com.chinayiz.chinayzy.widget.LoadlingDialog;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 /**
  * 购物车
@@ -40,7 +45,8 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public TextView tv_shopcart_price;
     public TextView tv_shopcart_submit;
     public LinearLayout lv_boom,ll_no_goods;
-    public PullToRefreshLayout pullToRefreshLayout;
+//    public PullToRefreshLayout pullToRefreshLayout;
+    public SmartRefreshLayout smartRefreshLayout;
     public ShopCartAdaphter adaphter;
     public TextView tv_shopcart_all;
     public boolean isClick=true;
@@ -90,7 +96,9 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_shop_cart, null);
         rl_shopcart= (RelativeLayout) view.findViewById(R.id.rl_shopcart);
-        pullToRefreshLayout=(PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+//        pullToRefreshLayout=(PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+        smartRefreshLayout= (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
+
         listv_shopcart = (PullableListView) view.findViewById(R.id.listv_shopcart);
         iv_shopcart_radio = (CheckImageView) view.findViewById(R.id.iv_shopcart_radio);
         tv_shopcart_price = (TextView) view.findViewById(R.id.tv_shopcart_price);
@@ -101,8 +109,9 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         tv_shopcart_submit.setOnClickListener(this);
         iv_shopcart_radio.setOnClickListener(this);
         listv_shopcart.setOnItemClickListener(this);
-        view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
-        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+//        view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
+
+        /*pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                              mPresenter.getData();
@@ -112,7 +121,16 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
             }
+        });*/
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                mPresenter.getData();
+            }
         });
+        smartRefreshLayout.setEnableLoadmore(false);
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+
         adaphter=new ShopCartAdaphter(getActivity(),null,iv_shopcart_radio,tv_shopcart_price,tv_shopcart_all,0);
         listv_shopcart.setAdapter(adaphter);
         return view;

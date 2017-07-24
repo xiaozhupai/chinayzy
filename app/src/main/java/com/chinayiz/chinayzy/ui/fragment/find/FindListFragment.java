@@ -18,6 +18,12 @@ import com.chinayiz.chinayzy.presenter.FindListPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableGridView;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,7 +35,8 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
     public PullableGridView gd_find_list;
-    public PullToRefreshLayout pullToRefreshLayout;
+//    public PullToRefreshLayout pullToRefreshLayout;
+    public SmartRefreshLayout smartRefreshLayout;
     public static final String DATA_TYPE="DATA_TYPE";
     public static final String TO_FINDDETAIL="TO_FINDDETAIL";
     public String type;
@@ -82,22 +89,44 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_find_list,container,false);
         lv_list= (PullableGridView) view.findViewById(R.id.lv_list);
-        pullToRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
-        adaphter.setRefreshLayout(pullToRefreshLayout);
+
+//        pullToRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
+
+        smartRefreshLayout= (SmartRefreshLayout) view.findViewById(R.id.refresh_view);
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+//        smartRefreshLayout.setEnableLoadmore(false);
+        adaphter.setRefreshLayout(smartRefreshLayout);
+
         lv_list.setAdapter(adaphter);
         lv_list.setOnItemClickListener(this);
-        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+        /*pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-             getData();
-               adaphter.onRefresh();
+                getData();
+                adaphter.onRefresh();
             }
 
             @Override
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 adaphter.LoadMore();
             }
+        });*/
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                getData();
+                adaphter.onRefresh();
+            }
         });
+        smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                adaphter.LoadMore();
+            }
+        });
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         return view;
     }
 

@@ -133,7 +133,6 @@ public class AwardRecordFragment extends BaseFragment<CardPresenter> {
                 return UIUtil.dip2px(getActivity(), 15);
             }
         });
-
         //viewpager
         adaphter=new PagerAdaphter(getChildFragmentManager(),lists);
         mVpRecord.setAdapter(adaphter);

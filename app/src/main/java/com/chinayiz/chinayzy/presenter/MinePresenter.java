@@ -53,8 +53,8 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                 e.printStackTrace();
             }
         }else if (message.getEventType()== EventMessage.ERROR_EVENT){
-            if (mView.pullToRefreshLayout!=null){
-                mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+            if (mView.smartRefreshLayout!=null){
+                mView.smartRefreshLayout.finishRefresh();
             }
         }
     }
@@ -71,7 +71,8 @@ public class MinePresenter extends BasePresenter<MineFragment> {
     public void disposeNetMsg(EventMessage message) {
         switch (message.getDataType()) {
             case Commons.GETPERSONALCENTER:   //个人中心接口
-                mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+//                mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                mView.smartRefreshLayout.finishRefresh();
                 PersonalModel model = (PersonalModel) message.getData();
                 PersonalModel.DataBean dataBean = model.getData();
                 if (dataBean==null) {
@@ -133,7 +134,7 @@ public class MinePresenter extends BasePresenter<MineFragment> {
                     if (!TextUtils.isEmpty(dataBean.getPid())) {
                         mView.tv_recommend.setText(dataBean.getPid());
                     }
-                    mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    mView.smartRefreshLayout.finishRefresh();
                     break;
                 }
     }

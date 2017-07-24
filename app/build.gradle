@@ -72,6 +72,10 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Moments-2.8.2.jar')
     compile files('libs/okgo-2.1.4.jar')
     compile files('libs/okhttp-3.8.0.jar')
+    //上下拉刷新SmartRefresh
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-8'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-8'//If you use the special Header
     // 多dex配置
 
     //注释掉原有bugly的仓库

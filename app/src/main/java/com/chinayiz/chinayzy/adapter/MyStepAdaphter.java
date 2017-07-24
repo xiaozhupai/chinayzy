@@ -288,14 +288,22 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
         }
 
         if (count<10){
-            pullrefresh.loadmoreView.setVisibility(View.GONE);
-            pullrefresh.setLoadMoreVisiable(false);
+//            pullrefresh.loadmoreView.setVisibility(View.GONE);
+//            pullrefresh.setLoadMoreVisiable(false);
+
+            mSmartRefresh.setEnableLoadmore(false);
         }else {
-            pullrefresh.loadmoreView.setVisibility(View.VISIBLE);
-            pullrefresh.setLoadMoreVisiable(true);
+//            pullrefresh.loadmoreView.setVisibility(View.VISIBLE);
+//            pullrefresh.setLoadMoreVisiable(true);
+
+            mSmartRefresh.setEnableLoadmore(true);
         }
-        pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-        pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+
+//        pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+//        pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+        mSmartRefresh.finishRefresh();
+        mSmartRefresh.finishLoadmore();
+
 
         MyStepFragment listFragment = null;
         if (fragment instanceof MyStepFragment){

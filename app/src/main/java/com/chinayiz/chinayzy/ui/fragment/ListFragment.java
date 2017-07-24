@@ -20,6 +20,12 @@ import com.chinayiz.chinayzy.presenter.ListPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 /**
  * A simple {@link Fragment} subclass.  列表通用布局
@@ -27,7 +33,8 @@ import com.orhanobut.logger.Logger;
 @SuppressLint("ValidFragment")
 public class ListFragment extends BaseFragment<ListPresenter> {
     private PullableListView pull_listview;
-    private PullToRefreshLayout pullrefresh;
+//    private PullToRefreshLayout pullrefresh;
+    private SmartRefreshLayout smartRefresh;
     public BaseInectAdaphter adapter;
     public LinearLayout ll_none;
     public TextView tv_none;
@@ -41,15 +48,18 @@ public class ListFragment extends BaseFragment<ListPresenter> {
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, null);
         pull_listview = (PullableListView) view.findViewById(R.id.pull_listview);
-        pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+//        pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+
+        smartRefresh= (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
         ll_none= (LinearLayout) view.findViewById(R.id.ll_none);
         tv_none= (TextView) view.findViewById(R.id.tv_none);
         iv_none= (ImageView) view.findViewById(R.id.iv_none);
         pull_listview.setAdapter(adapter);
         adapter.setListview(pull_listview);
-        adapter.setRefreshLayout(pullrefresh);
+//        adapter.setRefreshLayout(pullrefresh);
+        adapter.setRefreshLayout(smartRefresh);
         adapter.setFragment(this);
-        pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+        /*pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                  adapter.onRefresh();
@@ -59,7 +69,21 @@ public class ListFragment extends BaseFragment<ListPresenter> {
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                  adapter.LoadMore();
             }
+        });*/
+        smartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                adapter.onRefresh();
+            }
         });
+        smartRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                adapter.LoadMore();
+            }
+        });
+        smartRefresh.setRefreshHeader(new ClassicsHeader(getActivity()));
+        smartRefresh.setRefreshFooter(new ClassicsFooter(getActivity()));
 
         return view;
     }

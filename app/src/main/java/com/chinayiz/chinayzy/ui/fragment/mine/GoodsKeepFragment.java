@@ -16,6 +16,10 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.presenter.GoodsKeepPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 
 /**   宝贝收藏
@@ -24,7 +28,8 @@ import com.chinayiz.chinayzy.views.pullable.PullableListView;
 @SuppressLint("ValidFragment")
 public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
     public PullableListView lv_list;
-    public PullToRefreshLayout pullrefresh;
+//    public PullToRefreshLayout pullrefresh;
+    public SmartRefreshLayout mSmartRefresh;
     public GoodsKeepAdaphter adaphter;
     public int page=1;
 
@@ -61,11 +66,15 @@ public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_content_keep,null);
-        pullrefresh= (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+//        pullrefresh= (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+        mSmartRefresh= (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
+
         lv_list   =(PullableListView) view.findViewById(R.id.lv_list);
-        adaphter.setRefreshLayout(pullrefresh);
+//        adaphter.setRefreshLayout(pullrefresh);
+        adaphter.setRefreshLayout(mSmartRefresh);
+
        adaphter.setListview(lv_list);
-        pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+        /*pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 adaphter.onRefresh();
@@ -75,8 +84,20 @@ public class GoodsKeepFragment extends BaseFragment<GoodsKeepPresenter> {
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 adaphter.LoadMore();
             }
-        });
+        });*/
 
+        mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                adaphter.onRefresh();
+            }
+        });
+        mSmartRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                adaphter.LoadMore();
+            }
+        });
 
         lv_list.setAdapter(adaphter);
 

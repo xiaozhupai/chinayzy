@@ -111,8 +111,8 @@ public class ShopCartPresenter extends BasePresenter<ShopCartFragment> {
 
                     mView.adaphter.UpdateBottomLayout();
 
-                    if (mView.pullToRefreshLayout!=null){
-                        mView.pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    if (mView.smartRefreshLayout!=null){
+                        mView.smartRefreshLayout.finishRefresh();
                     }
                 }
                 break;

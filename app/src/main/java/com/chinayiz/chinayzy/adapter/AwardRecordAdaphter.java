@@ -262,7 +262,10 @@ public class AwardRecordAdaphter extends BaseInectAdaphter implements EventBusCa
         if (message.getEventType() == EventMessage.NET_EVENT) {
             disposeNetMsg(message);
         }else if (message.getEventType()== EventMessage.ERROR_EVENT){
-            if (pullrefresh!=null){
+//            if (pullrefresh!=null){
+//                pullResult();
+//            }
+            if (mSmartRefresh!=null){
                 pullResult();
             }
         }
@@ -280,9 +283,12 @@ public class AwardRecordAdaphter extends BaseInectAdaphter implements EventBusCa
             AwardRecodModel model = (AwardRecodModel) message.getData();
             lists=model.getData();
             setData(lists);
-            pullrefresh.loadmoreView.setVisibility(View.GONE);
-            pullrefresh.setLoadMoreVisiable(false);
-            pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+
+//            pullrefresh.loadmoreView.setVisibility(View.GONE);
+//            pullrefresh.setLoadMoreVisiable(false);
+//            pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+            
+            mSmartRefresh.finishRefresh();
             if (lists.size()==0){
                ListFragment listFragment= (ListFragment) fragment;
                 listFragment.ll_none.setVisibility(View.VISIBLE);
