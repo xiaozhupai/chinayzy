@@ -1,12 +1,9 @@
 package com.chinayiz.chinayzy.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -437,16 +434,17 @@ public class ShopCartAdaphter extends BaseAdapter implements SectionIndexer {
     //更新总价格
     public void UpdateTotal() {
         double total = 0.00;
-        for (ShopCartModel.DataBean data : lists) {
-            for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
-                if (bean.isChecked()) {
-                    total += bean.getPrice() * bean.getNum();
-                    Logger.i("价格="+bean.getPrice()+"数量="+bean.getNum());
+        if (lists!=null&&lists.size()>0) {
+            for (ShopCartModel.DataBean data : lists) {
+                for (ShopCartModel.DataBean.ShoplistBean bean : data.getShoplist()) {
+                    if (bean.isChecked()) {
+                        total += bean.getPrice() * bean.getNum();
+                        Logger.i("价格="+bean.getPrice()+"数量="+bean.getNum());
+                    }
                 }
             }
         }
         tv_shopcart_price.setText("￥"+String.format("%.2f",total));
-
     }
 
     //更新所有的check

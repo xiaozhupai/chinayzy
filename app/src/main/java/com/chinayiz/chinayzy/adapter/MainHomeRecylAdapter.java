@@ -60,6 +60,10 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     public static final String TYPE_LUXURY = "shechiping";
     /**
+     * 分类title
+     */
+    public static final String TYPE_TITLE = "typefenlei";
+    /**
      * 首页广告banner图
      */
     public static final int ITEM_BANNER = 10;
@@ -96,12 +100,13 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     public static final int ITEM_GOODS = 15;
 
-    private int itemSize = 23;
+    private int itemSize = 18;
     /**
      * RecyclerView 填充数据
      */
     public Map<String, Object> mDates = new HashMap<>();
     private HomeHotGoodsModel mHotGoodsModel;
+    private HomeMenusModel mMenusModel;
     private Context mContext;
     private Fragment mFragment;
 
@@ -171,13 +176,11 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 return ITEM_THEME;
             case 8://横向商品2
                 return ITEM_LIST;
-            case 9://爱时尚
+            case 9://吃货必备
                 return ITEM_TITLE;
-            case 13://世界硒都
+            case 13://爱时尚
                 return ITEM_TITLE;
-            case 17://奢侈品
-                return ITEM_TITLE;
-            case 22://为你推荐
+            case 17://为你推荐
                 return ITEM_TITLE;
             default://两个横向商品
                 return ITEM_GOODS;
@@ -207,8 +210,9 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof HomeMenu) {
             if (mDates.containsKey(Commons.HOME_MODEL)) {
                 HomeMenu menu = (HomeMenu) holder;
-                HomeMenusModel model = (HomeMenusModel) mDates.get(Commons.HOME_MODEL);
-                menu.setData(model, mContext);
+                mMenusModel= (HomeMenusModel) mDates.get(Commons.HOME_MODEL);
+                menu.setData(mMenusModel, mContext);
+
             } else {
                 Logger.i("没有首页板块菜单=" + position);
             }
@@ -237,6 +241,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (position == 5) {
                 if (mDates.containsKey(Commons.HOME_THEME1)) {
                     HomenTheme theme = (HomenTheme) holder;
+                    Glide.with(mContext).load(mMenusModel.getData().getLanweilist().get(0).getSypic()).into(theme.mThemeTitle);
                     HomeThemesModel model = (HomeThemesModel) mDates.get(Commons.HOME_THEME1);
                     theme.setData(model, mContext, 1);
                 } else {
@@ -246,6 +251,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
             } else {
                 if (mDates.containsKey(Commons.HOME_THEME2)) {
                     HomenTheme theme = (HomenTheme) holder;
+                    Glide.with(mContext).load(mMenusModel.getData().getLanweilist().get(1).getSypic()).into(theme.mThemeTitle);
                     HomeThemesModel model = (HomeThemesModel) mDates.get(Commons.HOME_THEME2);
                     theme.setData(model, mContext, 2);
                 } else {
@@ -280,20 +286,16 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof HomeTitle) {
             HomeTitle hometitle = (HomeTitle) holder;
             switch (position) {
-                case 9: {
-                    hometitle.mImageView.setImageResource(R.mipmap.pic_lovess);
+                case 9: {//吃货必备
+                    Glide.with(mContext).load(mMenusModel.getData().getLanweilist().get(2).getSypic()).into(hometitle.mImageView);
                     break;
                 }
-                case 13: {
-                    hometitle.mImageView.setImageResource(R.mipmap.pic_xiinfo);
+                case 13: {//爱时尚
+                    Glide.with(mContext).load(mMenusModel.getData().getLanweilist().get(3).getSypic()).into(hometitle.mImageView);
                     break;
                 }
-                case 17: {
-                    hometitle.mImageView.setImageResource(R.mipmap.pic_shechi);
-                    break;
-                }
-                case 22: {
-                    hometitle.mImageView.setImageResource(R.mipmap.pic_common);
+                case 17: {//为你推荐
+                    Glide.with(mContext).load(mMenusModel.getData().getLanweilist().get(4).getSypic()).into(hometitle.mImageView);
                     break;
                 }
             }
@@ -307,7 +309,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
             switch (position) {
                 case 10:
                 case 11:
-                case 12: {//爱时尚
+                case 12: {//吃货必备
                     if (mDates.containsKey(TYPE_LOVEFS)) {
                         index = position % 10;
                         goodsModel = (HomeHotGoodsModel) mDates.get(TYPE_LOVEFS);
@@ -319,7 +321,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
                 case 14:
                 case 15:
-                case 16: {//世界硒都
+                case 16: {//爱时尚
                     if (mDates.containsKey(TYPE_XIINFO)) {
                         index = position % 14;
                         goodsModel = (HomeHotGoodsModel) mDates.get(TYPE_XIINFO);
@@ -329,22 +331,22 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                     }
                     break;
                 }
-                case 18:
-                case 19:
-                case 20:
-                case 21: {//奢侈品
-                    if (mDates.containsKey(TYPE_LUXURY)) {
-                        index = position % 18;
-                        goodsModel = (HomeHotGoodsModel) mDates.get(TYPE_LUXURY);
-                    } else {
-                        CommonRequestUtils.getRequestUtils().getHomeThemeGoods(TYPE_LUXURY);
-                        Logger.i("没有首页奢侈品商品集合=" + position);
-                    }
-                    break;
-                }
-                default: {
+//                case 18:
+//                case 19:
+//                case 20:
+//                case 21: {//奢侈品
+//                    if (mDates.containsKey(TYPE_LUXURY)) {
+//                        index = position % 18;
+//                        goodsModel = (HomeHotGoodsModel) mDates.get(TYPE_LUXURY);
+//                    } else {
+//                        CommonRequestUtils.getRequestUtils().getHomeThemeGoods(TYPE_LUXURY);
+//                        Logger.i("没有首页奢侈品商品集合=" + position);
+//                    }
+//                    break;
+//                }
+                default: {//为你推荐
                     if (mHotGoodsModel != null) {
-                        index = position % 23;
+                        index = position % 18;
                         goodsModel = mHotGoodsModel;
                         Logger.i("推荐商品集合=" + goodsModel.getData().size());
                     } else {
@@ -440,10 +442,10 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public void setData(HomeMenusModel data, Context fragment) {
             ImageView img;
-            for (int i = 0; i < data.getData().size(); i++) {
+            for (int i = 0; i < data.getData().getTubiaolist().size(); i++) {
                 img = menus.get(i);
                 Glide.with(fragment)
-                        .load(data.getData().get(i).getSypic())
+                        .load(data.getData().getTubiaolist().get(i).getSypic())
                         .into(img);
                 img.setOnClickListener(this);
             }
@@ -505,11 +507,9 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                     break;
                 }
                 case 1: {
-                    mThemeTitle.setImageResource(R.mipmap.pic_yuanshengtai);
                     break;
                 }
                 case 2: {
-                    mThemeTitle.setImageResource(R.mipmap.pic_chihuo);
                     break;
                 }
             }
@@ -522,23 +522,25 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClick(View v) {
-
             switch (mPosetion) {
                 case -1: {
                     BaseActivity.showToast(mFragment.getActivity(), "未知错误，请重试");
                     break;
                 }
-//                case 1: {
-////                    Skip.toNongYeHome(mFragment.getActivity());
-//                    Skip.toNewGoodsDetail(mFragment.getActivity(), v.getTag(R.id.tag_click).toString());
-//                    break;
-//                }
-//                case 2: {
+                case 1: {
+//                    Skip.toNongYeHome(mFragment.getActivity());
+                    //富硒农业
+                    Skip.toItemGoosd(mFragment.getActivity(),"015");
+                    break;
+                }
+                case 2: {
 //                    Skip.toMail(mFragment.getActivity(), "");
-//                    break;
-//                }
+                    //有机农业
+                    Skip.toItemMenu(mFragment.getActivity(), "1");
+                    break;
+                }
                 default: {
-                    Skip.toNongYeHome(mFragment.getActivity());
+//                    Skip.toNongYeHome(mFragment.getActivity());
                 }
             }
 
@@ -579,11 +581,13 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                         break;
                     }
                     case 1: {
-                        Skip.toNongYeHome(mFragment.getActivity());
+                        //富硒农业
+                        Skip.toItemGoosd(mFragment.getActivity(),"015");
                         break;
                     }
                     case 2: {
-                        Skip.toNongYeHome(mFragment.getActivity());
+                        //有机农业
+                        Skip.toItemMenu(mFragment.getActivity(), "1");
                         break;
                     }
                 }
@@ -639,22 +643,25 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
      * 亿众新闻快讯
      */
     public class News extends RecyclerView.ViewHolder implements MarqueeView.OnItemClickListener {
+        HomeNewsModel mNewsModel;
         MarqueeView mMarqueeView;
         List<String> mNews = new ArrayList<>();
 
         public News(View itemView) {
             super(itemView);
             mMarqueeView = (MarqueeView) itemView.findViewById(R.id.marqueeView);
-//            mMarqueeView.setOnItemClickListener(this);
+            mMarqueeView.setOnItemClickListener(this);
         }
 
         @Override
         public void onItemClick(int position, TextView textView) {
-
+            HomeNewsModel.DataBean dataBean=mNewsModel.getData().get(position);
+            Skip.toWebPage(mContext,dataBean.getLink(),"亿众快讯");
         }
-
         public void setData(HomeNewsModel homeNewsModel) {
-            for (HomeNewsModel.DataBean bean : homeNewsModel.getData()) {
+            mNewsModel=homeNewsModel;
+            mNews.clear();
+            for (HomeNewsModel.DataBean bean : mNewsModel.getData()) {
                 mNews.add(bean.getTheme());
             }
             mMarqueeView.startWithList(mNews);

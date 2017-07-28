@@ -288,6 +288,6 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="webLoadErrorTx">加载失败，请检查网络 轻触重新加载</string>
-    <string name="str_activity_title"><b>限时抢购</b></string>
+    <string name="str_activity_title"><b>人气购</b></string>
 
 </resources>

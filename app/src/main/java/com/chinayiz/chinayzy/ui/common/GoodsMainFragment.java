@@ -100,8 +100,8 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mDetailFragment.setChangeListener(this);
 
         mViewHolder.iv_back_btn.setOnClickListener(this);
-//        mViewHolder.iv_more_btn.setOnClickListener(this);
-        mViewHolder.iv_more_btn.setVisibility(View.VISIBLE);
+        mViewHolder.iv_more_btn.setOnClickListener(this);
+//        mViewHolder.iv_more_btn.setVisibility(View.VISIBLE);
         Logger.i("分享键隐藏");
         mViewHolder.iv_share.setOnClickListener(this);
         mViewHolder.tv_store.setOnClickListener(this);
@@ -123,7 +123,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
                 Logger.i("返回");
                 getActivity().onBackPressed();
                 break;
-            case R.id.iv_more_btn://更多
+            case R.id.iv_more_btn://分享
                 Logger.i("分享");
                 if (!TextUtils.isEmpty(goodsID)) {
                     mPresenter.mRequestUtils.getGoodsShareInfo(goodsID);

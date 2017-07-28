@@ -411,7 +411,7 @@ public class Commons {
     /**
      * 商城首页模块菜单按钮图
      */
-    public static final String HOME_MODEL = "/shouye/shouyemodule";
+    public static final String HOME_MODEL = "/shouye/shouyemodule1";
     /**
      * 商城首页主题一
      */

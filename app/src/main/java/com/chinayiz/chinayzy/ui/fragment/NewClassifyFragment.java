@@ -44,7 +44,17 @@ public class NewClassifyFragment extends BaseFragment<NewClassifyPresenter> impl
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        activity.mTvActionBarTitle.setText("分类");
+        switch (mTypeCode) {
+            case "015": {
+                activity.mTvActionBarTitle.setText("富硒农业");
+                break;
+            }
+            default: {
+                activity.mTvActionBarTitle.setText("分类");
+                break;
+            }
+        }
+
     }
 
     @Override
@@ -58,7 +68,7 @@ public class NewClassifyFragment extends BaseFragment<NewClassifyPresenter> impl
         mListView.setAdapter(mListAdpter);
         mListAdpter.setItemSeletdListener(this);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_typeGrid);
-        mGridAdapter = new ClassGridAdapter(this,ClassGridAdapter.ITEM_GOODS);
+        mGridAdapter = new ClassGridAdapter(this, ClassGridAdapter.ITEM_GOODS);
         //设置网格布局管理器
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -80,8 +90,8 @@ public class NewClassifyFragment extends BaseFragment<NewClassifyPresenter> impl
         ClassifyTypesModel.DataBean dataBean = data;
         picUrl = dataBean.getPic();
         mListAdpter.changeSelected(position);
-        Logger.i("选择的条目="+dataBean.getTypecode());
-        Net.getNet().getGoosSet("1","30","1",dataBean.getTypecode());
+        Logger.i("选择的条目=" + dataBean.getTypecode());
+        Net.getNet().getGoosSet("1", "30", "1", dataBean.getTypecode());
 //        mPresenter.getClassDatas(dataBean.getTypecode());
 
     }

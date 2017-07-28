@@ -131,7 +131,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         mViewPager.setAdapter(mPagerAdapter);
         mRgNongyeMenu = (RadioGroup) findViewById(R.id.rg_nongye_menu);
         mRadioButton = (RadioButton) mRgNongyeMenu.findViewById(R.id.rb_nav_home);
-        bt_shopcart= (Button) findViewById(R.id.bt_shopcart);
+        bt_shopcart=(Button)findViewById(R.id.bt_shopcart);
         mRgNongyeMenu.setOnCheckedChangeListener(this);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -542,7 +542,6 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
 
     /**
      * 购物车小红点
-     *
      */
     public void remind(View view) { //BadgeView的具体使用
         badge1= new BadgeView(this,view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
@@ -550,6 +549,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         badge1.setTextColor(Color.WHITE); // 文本颜色
         badge1.setBadgeBackgroundColor(ContextCompat.getColor(this,R.color.classifyText_pre)); // 提醒信息的背景颜色，自己设置
         badge1.setTextSize(10); // 文本大小
+//        badge1.setBadgeMargin(20);
         //badge1.setBadgeMargin(3, 3); // 水平和竖直方向的间距
         badge1.setBadgeMargin(5); //各边间隔
     }

@@ -48,7 +48,18 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
 
     @Override
     public void onInitActionBar(BaseActivity activity) {
-        activity.mTvActionBarTitle.setText("分类");
+        switch (mTypeCode){
+            case "1":{
+                activity.mTvActionBarTitle.setText("有机农业");
+                break;
+            }
+            default:{
+                activity.mTvActionBarTitle.setText("分类");
+                break;
+            }
+        }
+
+
     }
 
     @Override

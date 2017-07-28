@@ -1472,7 +1472,7 @@ public class CommonRequestUtils {
      *  获取分享商品信息
      */
     public void getGoodsShareInfo(String goodsid) {
-        OkGo.post(Commons.API + Commons.SHARE_GOODS_INFO)
+        OkGo.post(Commons.API+ Commons.SHARE_GOODS_INFO)
                 .params("goodsid",goodsid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
