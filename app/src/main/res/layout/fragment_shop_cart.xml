@@ -11,22 +11,22 @@
         android:background="#f4f8fb"
         android:id="@+id/rl_shopcart"
         >
-    <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lv_boom"
         >
-        <include layout="@layout/refresh_head"/>
+       <!-- <include layout="@layout/refresh_head"/>-->
         <com.chinayiz.chinayzy.views.pullable.PullableListView
             android:id="@+id/listv_shopcart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/basecolor"
             ></com.chinayiz.chinayzy.views.pullable.PullableListView>
-        <include layout="@layout/load_more" android:id="@+id/loadlayout"
-            />
-    </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
+        <!--<include layout="@layout/load_more" android:id="@+id/loadlayout"
+            />-->
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     <LinearLayout
         android:id="@+id/lv_boom"
         android:layout_width="match_parent"

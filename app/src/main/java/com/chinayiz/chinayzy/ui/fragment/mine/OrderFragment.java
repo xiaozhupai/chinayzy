@@ -18,6 +18,11 @@ import com.chinayiz.chinayzy.presenter.FrgOrderPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.refreshView.PullableListView;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,6 +39,7 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
      */
     public static final String GET_DATA="OrderFragment_GET";
     private PullToRefreshLayout mPullrefresh;
+    private SmartRefreshLayout mSmartRefresh;
     private View mLlProgress,mNullOrder;
     private OrderListModel mOrderListModel;
     private OrderListAdapter mOrderListAdapter;
@@ -54,8 +60,10 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
 
     private void initView(View view) {
         mLvOrder = (PullableListView) view.findViewById(R.id.lv_order);
-        mPullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
-        mPullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+//        mPullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+        mSmartRefresh = (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
+
+        /* mPullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                Logger.i("准备刷新");
@@ -66,13 +74,32 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 pullToRefreshLayout.loadmoreFinish(0);
             }
+        });*/
+
+        mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                mSmartRefresh= (SmartRefreshLayout) refreshlayout;
+                EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,GET_DATA,orderType));
+            }
         });
+        mSmartRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(0);
+            }
+        });
+        mSmartRefresh.setRefreshHeader(new ClassicsHeader(getActivity()));
+        mSmartRefresh.setEnableLoadmore(false);
         mLlProgress = view.findViewById(R.id.ll_progress);
         mNullOrder=view.findViewById(R.id.view_nullOrder);
     }
     public void setOrderListModel(OrderListModel orderListModel) {
-        if (mPullrefresh!=null) {
+        /*if (mPullrefresh!=null) {
             mPullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+        }*/
+        if (mSmartRefresh!=null) {
+            mSmartRefresh.finishRefresh();
         }
         mOrderListModel = orderListModel;
         mLlProgress.setVisibility(View.GONE);

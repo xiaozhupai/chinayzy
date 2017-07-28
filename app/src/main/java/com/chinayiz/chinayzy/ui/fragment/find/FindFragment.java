@@ -26,7 +26,6 @@ import com.orhanobut.logger.Logger;
 @SuppressLint("ValidFragment")
 public class FindFragment extends BaseFragment<FindPresenter> {
     public ViewPager vp_find;
-
 //    public LinearLayout ll_top;
     private static final int SLIDE=123;
     public MagicIndicator magic_indicator;

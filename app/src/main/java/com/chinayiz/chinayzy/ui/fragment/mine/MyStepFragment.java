@@ -23,6 +23,12 @@ import com.chinayiz.chinayzy.presenter.MyStepPresenter;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 /**我的足迹
  * A simple {@link Fragment} subclass.
@@ -30,7 +36,8 @@ import com.orhanobut.logger.Logger;
 @SuppressLint("ValidFragment")
 public class MyStepFragment extends BaseFragment<MyStepPresenter> implements AdapterView.OnItemClickListener {
     public PullableListView pull_listview;
-    public PullToRefreshLayout pullrefresh;
+//    public PullToRefreshLayout pullrefresh;
+    public SmartRefreshLayout mSmartRefresh;
     public MyStepAdaphter adapter;
     public LinearLayout ll_none;
     public TextView tv_none;
@@ -64,15 +71,19 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_my_step,null);
         pull_listview = (PullableListView) view.findViewById(R.id.pull_listview);
-        pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+//        pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
+
+        mSmartRefresh = (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
+
         ll_none= (LinearLayout) view.findViewById(R.id.ll_none);
         iv_none= (ImageView) view.findViewById(R.id.iv_none);
         tv_none= (TextView) view.findViewById(R.id.tv_none);
         pull_listview.setAdapter(adapter);
         adapter.setFragment(this);
-        adapter.setRefreshLayout(pullrefresh);
+        adapter.setRefreshLayout(mSmartRefresh);
         pull_listview.setOnItemClickListener(this);
-        pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+
+        /*pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 adapter.onRefresh();
@@ -82,7 +93,21 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 adapter.LoadMore();
             }
+        });*/
+        mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                adapter.onRefresh();
+            }
         });
+        mSmartRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                adapter.LoadMore();
+            }
+        });
+        mSmartRefresh.setRefreshHeader(new ClassicsHeader(getActivity()));
+        mSmartRefresh.setRefreshFooter(new ClassicsFooter(getActivity()));
         return view;
     }
 
@@ -103,14 +128,10 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
         Logger.i("点击每一个商品");
     }
 
-
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         adapter.onDestory();
     }
-
 
 }

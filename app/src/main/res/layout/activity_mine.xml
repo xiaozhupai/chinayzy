@@ -15,12 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/pullrefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/refresh_head" />
+            <!--<include layout="@layout/refresh_head" />-->
 
             <com.chinayiz.chinayzy.views.pullable.PullableScrollView
                 android:layout_width="match_parent"
@@ -551,7 +551,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:id="@+id/lv_mine_suggest"
+                                    android:id="@+id/lv_mine_customer"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="1dp"
@@ -565,14 +565,14 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="23dp"
-                                        android:src="@mipmap/icon_mine_suggest" />
+                                        android:src="@mipmap/icon_mine_customer" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="25dp"
                                         android:layout_marginTop="13dp"
-                                        android:text="意见反馈"
+                                        android:text="客户服务"
                                         android:textColor="#505050"
                                         android:textSize="11sp" />
                                 </LinearLayout>
@@ -609,9 +609,9 @@
                 </LinearLayout>
             </com.chinayiz.chinayzy.views.pullable.PullableScrollView>
 
-            <include
+           <!-- <include
                 android:id="@+id/loadlayout"
-                layout="@layout/load_more" />
-        </com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout>
+                layout="@layout/load_more" />-->
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </FrameLayout>
 </LinearLayout>

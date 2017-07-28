@@ -74,7 +74,9 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                     }else {
                         mView.adaphter2.setData(model.getData(),mView.type);
                     }
-                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+//                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    mView.mSmartRefresh.finishRefresh();
+
                 }else {   //上拉加载
                     data.addAll(model.getData());
                     if (mView.type==1){
@@ -82,14 +84,20 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                     }else {
                         mView.adaphter2.AddData(model.getData(),mView.type);
                     }
-                    mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+//                    mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                    mView.mSmartRefresh.finishLoadmore();
                 }
                 if (model.getData().size()<10){
-                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
-                    mView.refresh_view.setLoadMoreVisiable(false);
+//                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
+//                    mView.refresh_view.setLoadMoreVisiable(false);
+
+                    mView.mSmartRefresh.setEnableLoadmore(false);
+
                 }else {
-                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
-                    mView.refresh_view.setLoadMoreVisiable(true);
+//                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
+//                    mView.refresh_view.setLoadMoreVisiable(true);
+
+                    mView.mSmartRefresh.setEnableLoadmore(true);
                 }
 
                 if (model.getData().size()==0){
@@ -112,7 +120,9 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                     }else {
                         mView.adaphter2.setData(model2.getData(),mView.type);
                     }
-                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+//                    mView.refresh_view.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    mView.mSmartRefresh.finishRefresh();
+
                 }else {   //上拉加载
                     data.addAll(model2.getData());
                     if (mView.type==1){
@@ -120,14 +130,18 @@ public class SearchResultPresenter extends BasePresenter<SearchResultFragment> {
                     }else {
                         mView.adaphter2.AddData(model2.getData(),mView.type);
                     }
-                    mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+//                    mView.refresh_view.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                    mView.mSmartRefresh.finishLoadmore();
                 }
                 if (model2.getData().size()<10){
-                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
-                    mView.refresh_view.setLoadMoreVisiable(false);
+//                    mView.refresh_view.loadmoreView.setVisibility(View.GONE);
+//                    mView.refresh_view.setLoadMoreVisiable(false);
+
+                    mView.mSmartRefresh.setEnableLoadmore(false);
                 }else {
-                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
-                    mView.refresh_view.setLoadMoreVisiable(true);
+//                    mView.refresh_view.loadmoreView.setVisibility(View.VISIBLE);
+//                    mView.refresh_view.setLoadMoreVisiable(true);
+                    mView.mSmartRefresh.setEnableLoadmore(true);
                 }
 
                 if (model2.getData().size()==0){

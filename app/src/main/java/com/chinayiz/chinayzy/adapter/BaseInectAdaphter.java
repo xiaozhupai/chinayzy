@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.ui.fragment.ListFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,7 +26,9 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     public Context context;
     public ListView listView;
    public BaseFragment fragment;
-    public PullToRefreshLayout pullrefresh;
+
+//    public PullToRefreshLayout pullrefresh;
+    public SmartRefreshLayout mSmartRefresh;
     public int page=1;
 
     public List<T> getData(){
@@ -123,14 +126,26 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
               setData(lists);
           }
         if (lists.size()<10){
-            pullrefresh.loadmoreView.setVisibility(View.GONE);
-            pullrefresh.setLoadMoreVisiable(false);
+
+//            pullrefresh.loadmoreView.setVisibility(View.GONE);
+//            pullrefresh.setLoadMoreVisiable(false);
+
+            mSmartRefresh.setEnableLoadmore(false);
         }else {
-            pullrefresh.loadmoreView.setVisibility(View.VISIBLE);
-            pullrefresh.setLoadMoreVisiable(true);
+
+//            pullrefresh.loadmoreView.setVisibility(View.VISIBLE);
+//            pullrefresh.setLoadMoreVisiable(true);
+
+            mSmartRefresh.setEnableLoadmore(true);
+
         }
-        pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-        pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+
+//        pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+//        pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+
+        mSmartRefresh.finishRefresh();
+        mSmartRefresh.finishLoadmore();
+
         ListFragment listFragment = null;
         if (fragment instanceof ListFragment){
              listFragment= (ListFragment) fragment;
@@ -154,16 +169,22 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     }
 
     public void pullResult(){
-        if (pullrefresh!=null){
-            pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+//        if (pullrefresh!=null){
+//            pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
+//        }
+        if (mSmartRefresh!=null){
+            mSmartRefresh.finishRefresh();
         }
     }
 
     //设置下拉刷新布局
-    public void setRefreshLayout(PullToRefreshLayout pullrefresh) {
+  /*  public void setRefreshLayout(PullToRefreshLayout pullrefresh) {
         this.pullrefresh=pullrefresh;
-    }
+    }*/
 
+    public void setRefreshLayout( SmartRefreshLayout smartRefreshLayout) {
+        this.mSmartRefresh=smartRefreshLayout;
+    }
 
 
     @Override

@@ -539,4 +539,8 @@ public class Commons {
      *  分享商品信息
      */
     public static final String SHARE_GOODS_INFO ="/centre/shareGoods";
+    /**
+     * 客户服务
+     */
+    public static final String KEFU = "/h5/kefu";
 }

@@ -24,6 +24,13 @@ import com.chinayiz.chinayzy.presenter.MinePresenter;
 import com.chinayiz.chinayzy.views.CircleImageView;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import static com.chinayiz.chinayzy.R.id.pullrefresh;
 
 
 /**
@@ -46,10 +53,14 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
     public LinearLayout lv_mine_shop_car;
     public LinearLayout lv_mine_scores;
     public LinearLayout lv_mine_server;
-    public LinearLayout lv_mine_suggest;
+//    public LinearLayout lv_mine_suggest;
+    public LinearLayout lv_mine_customer;
+
     public LinearLayout lv_mine_setting;
     public LinearLayout layout_content;
-    public PullToRefreshLayout pullToRefreshLayout;
+//    public PullToRefreshLayout pullToRefreshLayout;
+    public SmartRefreshLayout smartRefreshLayout;
+
     public LinearLayout lv_user;
     public TextView tv_wait_pay_count,tv_wait_goods_count,tv_wait_accept_goods_count,tv_after_sale_count,tv_recommend;
 
@@ -95,7 +106,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         lv_mine_shop_car = (LinearLayout) view.findViewById(R.id.lv_mine_shop_car);
         lv_mine_scores = (LinearLayout)view. findViewById(R.id.lv_mine_scores);
         lv_mine_server = (LinearLayout) view.findViewById(R.id.lv_mine_server);
-        lv_mine_suggest = (LinearLayout) view.findViewById(R.id.lv_mine_suggest);
+//        lv_mine_suggest = (LinearLayout) view.findViewById(R.id.lv_mine_suggest);
+        lv_mine_customer= (LinearLayout) view.findViewById(R.id.lv_mine_customer);
         lv_mine_setting = (LinearLayout)view. findViewById(R.id.lv_mine_setting);
         tv_recommend= (TextView) view.findViewById(R.id.tv_recommend);
         tv_has_user= (TextView) view.findViewById(R.id.tv_has_user);
@@ -105,7 +117,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         tv_after_sale_count= (TextView)view. findViewById(R.id.tv_after_sale_count);
         lv_user = (LinearLayout)view. findViewById(R.id.lv_user);
         lv_user.setOnClickListener(this);
-        pullToRefreshLayout= (PullToRefreshLayout)view. findViewById(R.id.pullrefresh);
+//        pullToRefreshLayout= (PullToRefreshLayout)view. findViewById(pullrefresh);
+        smartRefreshLayout= (SmartRefreshLayout) view.findViewById(pullrefresh);
         tv_has_user.setOnClickListener(this);
         rl_user_all_order.setOnClickListener(this);
         lv_wait_pay.setOnClickListener(this);
@@ -117,11 +130,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         lv_mine_shop_car.setOnClickListener(this);
         lv_mine_scores.setOnClickListener(this);
         lv_mine_server.setOnClickListener(this);
-        lv_mine_suggest.setOnClickListener(this);
+//        lv_mine_suggest.setOnClickListener(this);
+        lv_mine_customer.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
 
-        pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
+        /*  pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 mPresenter.getData();
@@ -131,8 +145,19 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
             }
+        });*/
+
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                mPresenter.getData();
+            }
         });
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        smartRefreshLayout.setEnableLoadmore(false);
+//        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         return view;
+
     }
 
     @Override
@@ -182,8 +207,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
             case R.id.lv_mine_step:   //我的足迹
                 Skip.toMyStep(getActivity());
                 break;
-            case R.id.lv_mine_shop_car:
-                Logger.i("获奖记录");
+            case R.id.lv_mine_shop_car://获奖记录
                 Skip.toAward(getActivity());
 //                if (UserSeeion.getSys_auth(getActivity()).equals("1")){   //已经完善资料
 //                    if (UserSeeion.isMember(getActivity())){
@@ -200,16 +224,19 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
             case R.id.lv_mine_server:   //消息
                 Skip.toItemMenu(getActivity(),"-1");
                 break;
-            case R.id.lv_mine_suggest:  //我的建议
+           /* case R.id.lv_mine_suggest:  //意见反馈
                 Skip.toSuggest(getActivity());
+                break;*/
+            case R.id.lv_mine_customer:  //客户服务
+                Skip.toWebPage(getActivity(),Commons.API+Commons.KEFU,"客户服务");
                 break;
-            case R.id.lv_mine_setting:
+            case R.id.lv_mine_setting://现金券
                 Skip.toWebPage(getActivity(),Commons.API+Commons.XJJUAN+"?userid="+APP.sUserid+"&devicetype=android","现金券");
                 break;
             case R.id.lv_mine_content_keep:  //内容收藏
                 Skip.toContentCollection(getActivity());
                 break;
-            case R.id.lv_user:
+            case R.id.lv_user://个人资料
                 Skip.toPerson(getActivity());
                 break;
             case R.id.tv_has_user:
