@@ -163,11 +163,8 @@ public class NewMainPresenter extends BasePresenter<NewMainActivity> {
                 break;
             case Commons.BASEDATA: //更新用户基础数据
                 model= (BasedataModel) message.getData();
-                Logger.i("用户数据:msg="+model.getMsg());
-                Logger.i("用户数据:getCode="+model.getCode());
                 if (model.getCode().equals("100")){
                     isMember=model.getData().getIsmember();
-                    Logger.i("用户数据:isMember="+isMember);
                     sys_auth=model.getData().getSys_auth();
                     isresearch=model.getData().getIsresearch();
                     Update();

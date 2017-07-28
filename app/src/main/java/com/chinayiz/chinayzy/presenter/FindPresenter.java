@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.FindListModel;
 import com.chinayiz.chinayzy.entity.response.FindTypeModel;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.net.NongYe.Net;
 import com.chinayiz.chinayzy.ui.fragment.find.FindFragment;
 import com.chinayiz.chinayzy.ui.fragment.find.FindListFragment;
 import com.chinayiz.chinayzy.utils.magicindicator.ViewPagerHelper;
@@ -46,12 +47,12 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
     private PagerAdaphter adaphter;
     @Override
     public void onCreate() {
-
+        Net.getNet().getFindType();
     }
+
 
     @Override
     public void onDestroy() {
-
     }
 
     @Override
@@ -87,8 +88,9 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
                 lists.add(fragment);
                 titles.add(bean.getTypename());
             }
+            //viiewpager的设置
             CommonNavigator commonNavigator = new CommonNavigator(mView.getActivity());
-            commonNavigator.setAdjustMode(true);//自适应，title 均分宽度
+            commonNavigator.setAdjustMode(true);//自适应，title 均分宽度，适合固定或少量的title时使用
             commonNavigator.setAdapter(new CommonNavigatorAdapter() {
                 @Override
                 public int getCount() {
@@ -102,7 +104,6 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
                     simplePagerTitleView.setNormalColor(Color.parseColor("#0b1b01"));
                     simplePagerTitleView.setSelectedColor(Color.parseColor("#6db430"));
                     simplePagerTitleView.setText(titles.get(index));
-
                     simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -134,7 +135,7 @@ public class FindPresenter  extends BasePresenter<FindFragment> {
             //发现viewpager
             adaphter=new PagerAdaphter(mView.getChildFragmentManager(),lists);
             mView.vp_find.setAdapter(adaphter);
-            //缓存所有页面
+            //缓存所有findlistfragment页面
             mView.vp_find.setOffscreenPageLimit(lists.size());
         }
     }

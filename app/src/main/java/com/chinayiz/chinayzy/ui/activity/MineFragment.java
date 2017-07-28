@@ -121,13 +121,10 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
 
-
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 mPresenter.getData();
-
-
             }
 
             @Override

@@ -249,7 +249,6 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT,STANDAR_INFO,bean));
                 todismiss();
                 CommonRequestUtils.getRequestUtils().getShoppingCarCount();
-                Logger.i("点击获取购物车数量请求");
                 break;
         }
 
