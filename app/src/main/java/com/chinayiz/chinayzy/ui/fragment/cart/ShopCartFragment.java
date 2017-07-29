@@ -98,7 +98,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         rl_shopcart= (RelativeLayout) view.findViewById(R.id.rl_shopcart);
 //        pullToRefreshLayout=(PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
         smartRefreshLayout= (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
-
         listv_shopcart = (PullableListView) view.findViewById(R.id.listv_shopcart);
         iv_shopcart_radio = (CheckImageView) view.findViewById(R.id.iv_shopcart_radio);
         tv_shopcart_price = (TextView) view.findViewById(R.id.tv_shopcart_price);
@@ -110,7 +109,6 @@ public class ShopCartFragment extends BaseFragment<ShopCartPresenter> implements
         iv_shopcart_radio.setOnClickListener(this);
         listv_shopcart.setOnItemClickListener(this);
 //        view.findViewById(R.id.loadlayout).setVisibility(View.GONE);
-
         /*pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {

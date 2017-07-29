@@ -36,7 +36,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 @SuppressLint("ValidFragment")
 public class MyStepFragment extends BaseFragment<MyStepPresenter> implements AdapterView.OnItemClickListener {
     public PullableListView pull_listview;
-//    public PullToRefreshLayout pullrefresh;
     public SmartRefreshLayout mSmartRefresh;
     public MyStepAdaphter adapter;
     public LinearLayout ll_none;
@@ -71,10 +70,7 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_my_step,null);
         pull_listview = (PullableListView) view.findViewById(R.id.pull_listview);
-//        pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
-
         mSmartRefresh = (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
-
         ll_none= (LinearLayout) view.findViewById(R.id.ll_none);
         iv_none= (ImageView) view.findViewById(R.id.iv_none);
         tv_none= (TextView) view.findViewById(R.id.tv_none);
@@ -82,18 +78,6 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
         adapter.setFragment(this);
         adapter.setRefreshLayout(mSmartRefresh);
         pull_listview.setOnItemClickListener(this);
-
-        /*pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                adapter.onRefresh();
-            }
-
-            @Override
-            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                adapter.LoadMore();
-            }
-        });*/
         mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {

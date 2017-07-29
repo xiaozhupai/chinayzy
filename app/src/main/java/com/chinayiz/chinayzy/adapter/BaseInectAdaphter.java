@@ -26,8 +26,6 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     public Context context;
     public ListView listView;
    public BaseFragment fragment;
-
-//    public PullToRefreshLayout pullrefresh;
     public SmartRefreshLayout mSmartRefresh;
     public int page=1;
 
@@ -126,23 +124,11 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
               setData(lists);
           }
         if (lists.size()<10){
-
-//            pullrefresh.loadmoreView.setVisibility(View.GONE);
-//            pullrefresh.setLoadMoreVisiable(false);
-
             mSmartRefresh.setEnableLoadmore(false);
         }else {
-
-//            pullrefresh.loadmoreView.setVisibility(View.VISIBLE);
-//            pullrefresh.setLoadMoreVisiable(true);
-
             mSmartRefresh.setEnableLoadmore(true);
 
         }
-
-//        pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-//        pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
-
         mSmartRefresh.finishRefresh();
         mSmartRefresh.finishLoadmore();
 
@@ -151,10 +137,8 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
              listFragment= (ListFragment) fragment;
         }
         if (lists.size()==0){
-            if (listFragment!=null){
                 listFragment.ll_none.setVisibility(View.VISIBLE);
                 onNone(listFragment);
-            }
         }else {
             if (listFragment!=null){
                 listFragment.ll_none.setVisibility(View.GONE);
@@ -167,20 +151,14 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     public void onNone(ListFragment fragment) {
 
     }
-
+        //dismiss刷新界面
     public void pullResult(){
-//        if (pullrefresh!=null){
-//            pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-//        }
         if (mSmartRefresh!=null){
             mSmartRefresh.finishRefresh();
         }
     }
 
     //设置下拉刷新布局
-  /*  public void setRefreshLayout(PullToRefreshLayout pullrefresh) {
-        this.pullrefresh=pullrefresh;
-    }*/
 
     public void setRefreshLayout( SmartRefreshLayout smartRefreshLayout) {
         this.mSmartRefresh=smartRefreshLayout;

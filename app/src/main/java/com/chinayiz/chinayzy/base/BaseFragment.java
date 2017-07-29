@@ -161,7 +161,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             }
         });
         return view;
-
     }
 
     /**

@@ -224,9 +224,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
             case R.id.lv_mine_server:   //消息
                 Skip.toItemMenu(getActivity(),"-1");
                 break;
-           /* case R.id.lv_mine_suggest:  //意见反馈
-                Skip.toSuggest(getActivity());
-                break;*/
             case R.id.lv_mine_customer:  //客户服务
                 Skip.toWebPage(getActivity(),Commons.API+Commons.KEFU,"客户服务");
                 break;

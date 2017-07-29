@@ -21,6 +21,17 @@ public class ShopCartModel extends BaseResponseModel {
     }
 
     public static class DataBean {
+
+        private List<ShoplistBean> shoplist;
+
+        public List<ShoplistBean> getShoplist() {
+            return shoplist;
+        }
+
+        public void setShoplist(List<ShoplistBean> shoplist) {
+            this.shoplist = shoplist;
+        }
+
         public void addItem(ShoplistBean pItemName) {
             shoplist.add(pItemName);
         }
@@ -39,17 +50,6 @@ public class ShopCartModel extends BaseResponseModel {
                 return shoplist.get(pPosition - 1);
             }
         }
-
-        private List<ShoplistBean> shoplist;
-
-        public List<ShoplistBean> getShoplist() {
-            return shoplist;
-        }
-
-        public void setShoplist(List<ShoplistBean> shoplist) {
-            this.shoplist = shoplist;
-        }
-
         public static class ShoplistBean {
             /**
              * icon : https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1484978891802&di=0503356ebe895df517add71013824e36&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F94%2F51%2F89Y58PICVMa_1024.jpg

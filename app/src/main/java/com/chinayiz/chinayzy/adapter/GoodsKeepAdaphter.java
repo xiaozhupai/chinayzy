@@ -27,31 +27,31 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-/**宝贝收藏
+/**
+ * 宝贝收藏
  * Created by Administrator on 2017/1/12.
  */
 
 public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCallback {
     private int deleteposition;
-    public GoodsKeepAdaphter(Context context, List <GoodsCollectModel.DataBean> lists) {
-        this.context=context;
-        this.lists=lists;
+
+    public GoodsKeepAdaphter(Context context, List<GoodsCollectModel.DataBean> lists) {
+        this.context = context;
+        this.lists = lists;
     }
-
-
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        ViewHolder viewHolder=null;
+        ViewHolder viewHolder = null;
         if (view == null) {
             view = View.inflate(context, R.layout.goodskeep_list_item, null);
-            viewHolder=new ViewHolder(view);
+            viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {
-            viewHolder= (ViewHolder) view.getTag();
+            viewHolder = (ViewHolder) view.getTag();
         }
-        GoodsCollectModel.DataBean bean= (GoodsCollectModel.DataBean) lists.get(i);
-        Glide.with(context).load(bean.getIcon()).into( viewHolder.iv_goodskeep_imag);
+        GoodsCollectModel.DataBean bean = (GoodsCollectModel.DataBean) lists.get(i);
+        Glide.with(context).load(bean.getIcon()).into(viewHolder.iv_goodskeep_imag);
         viewHolder.tv_goodskeep_title.setText(bean.getGoodsdesc());
         viewHolder.tv_goodskeep_price.setText(bean.getPrice());
         return view;
@@ -59,15 +59,15 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
 
     @Override
     public void onItemClick(int position) {
-      GoodsCollectModel.DataBean bean= (GoodsCollectModel.DataBean) lists.get(position);
-        Skip.toNewGoodsDetail(context,bean.getGoodsid()+"");
+        GoodsCollectModel.DataBean bean = (GoodsCollectModel.DataBean) lists.get(position);
+        Skip.toNewGoodsDetail(context, bean.getGoodsid() + "");
     }
 
     @Override
     public boolean onItemLongClick(AdapterView adapterView, View view, final int i, long l) {
-        deleteposition=i;
-        final GoodsCollectModel.DataBean bean= (GoodsCollectModel.DataBean) lists.get(i);
-        final MessageDialog dialog=new MessageDialog(context);
+        deleteposition = i;
+        final GoodsCollectModel.DataBean bean = (GoodsCollectModel.DataBean) lists.get(i);
+        final MessageDialog dialog = new MessageDialog(context);
         dialog.message.setText("是否取消商品收藏");
         dialog.setButton1("取消", new View.OnClickListener() {
             @Override
@@ -78,7 +78,7 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
         dialog.setButton2("确定", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonRequestUtils.getRequestUtils().doUnCollectGoods(bean.getGoodsid()+"");
+                CommonRequestUtils.getRequestUtils().doUnCollectGoods(bean.getGoodsid() + "");
                 dialog.dismiss();
             }
         });
@@ -86,20 +86,20 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
         return true;
     }
 
-    public void delete(){
-         lists.remove(deleteposition);
+    public void delete() {
+        lists.remove(deleteposition);
         notifyDataSetChanged();
     }
 
     @Override
     public void onNone(ListFragment fragment) {
-         fragment.iv_none.setImageResource(R.mipmap.bg_no_goods);
+        fragment.iv_none.setImageResource(R.mipmap.bg_no_goods);
         fragment.tv_none.setText("您还没有收藏过宝贝");
     }
 
     @Override
     public void onGetData(int pageindex) {
-        UserNet.getNet().getshowGoodsCollect(pageindex+"","10");
+        UserNet.getNet().getshowGoodsCollect(pageindex + "", "10");
     }
 
     @Override
@@ -109,48 +109,42 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
 
     @Override
     public int getItemViewType(int position) {
-        return position%2;
+        return position % 2;
     }
-
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void runUiThread(EventMessage message) {
-        if (message.getEventType()== EventMessage.NET_EVENT){
+        if (message.getEventType() == EventMessage.NET_EVENT) {
             disposeNetMsg(message);
-        }else if (message.getEventType()== EventMessage.ERROR_EVENT){
-//            if (pullrefresh!=null){
-//                pullResult();
-//            }
-            if (mSmartRefresh!=null){
+        } else if (message.getEventType() == EventMessage.ERROR_EVENT) {
+            if (mSmartRefresh != null) {
                 pullResult();
             }
         }
     }
 
     @Override
-    @Subscribe (threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
 
     }
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        switch (message.getDataType()){
+        switch (message.getDataType()) {
             case Commons.SHOWGOODSCOLLECT:  //展示宝贝收藏列表
-                GoodsCollectModel model= (GoodsCollectModel) message.getData();
+                GoodsCollectModel model = (GoodsCollectModel) message.getData();
                 onResult(model.getData());
                 break;
             case Commons.GOODS_UNCOLLECT:  //取消宝贝收藏
-                ResponseModel model1= (ResponseModel) message.getData();
-                if (model1.getCode().equals("100")){
-                 delete();
+                ResponseModel model1 = (ResponseModel) message.getData();
+                if (model1.getCode().equals("100")) {
+                    delete();
                 }
                 break;
         }
     }
-
-
 
     @Override
     public void disposeInfoMsg(EventMessage message) {

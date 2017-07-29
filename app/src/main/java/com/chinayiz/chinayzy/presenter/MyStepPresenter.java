@@ -16,7 +16,6 @@ import org.greenrobot.eventbus.ThreadMode;
 public class MyStepPresenter extends BasePresenter<MyStepFragment> {
     @Override
     public void onCreate() {
-
         mView.adapter.getdata(1);
     }
 
