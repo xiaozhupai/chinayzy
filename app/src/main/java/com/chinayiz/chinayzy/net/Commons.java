@@ -543,4 +543,29 @@ public class Commons {
      * 客户服务
      */
     public static final String KEFU = "/h5/kefu";
+    /**
+     * 红包专场自营商品分类
+     */
+    public static final String SHOWCLASSIFYCODE = "/redPacket/showClassifyCode";
+    /**
+     * 红包专场分类查询自营产品
+     */
+    public static final String SHOWCLASSIFYCODEDETAIL = "/redPacket/showClassifyCode";
+    /**
+     * 红包专场商品加入购物车
+     */
+    public static final String ADDREDPACKETCAR = "/redPacket/addRedPacketCar";
+    /**
+     * 红包专场商品加入购物车
+     */
+    public static final String SHOWREDPACKETCAR = "/edPacket/showRedPacketCar";
+    /**
+     * 删除红包专场购物车商品
+     */
+    public static final String DELREDPACKETCAR = "/redPacket/delRedPacketCar";
+    /**
+     * 编辑红包专场购物车点击列表完成
+     */
+    public static final String UPDATEREDPACKETCAR = "/redPacket/updateRedPacketCar";
+
 }

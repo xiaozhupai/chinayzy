@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ActivityDetailModel;
 import com.chinayiz.chinayzy.entity.response.ActivityMainModel;
 import com.chinayiz.chinayzy.entity.response.ActivityResultModel;
+import com.chinayiz.chinayzy.entity.response.AddRedPacketCarModel;
 import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.AwardRecodModel;
@@ -18,6 +19,7 @@ import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.CouponModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.DefaultAddressModel;
+import com.chinayiz.chinayzy.entity.response.DelRedPacketCarModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.GoodsShareInfoModel;
@@ -40,9 +42,13 @@ import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
+import com.chinayiz.chinayzy.entity.response.ShowClassifyCodeDetailModel;
+import com.chinayiz.chinayzy.entity.response.ShowClassifyCodeModel;
+import com.chinayiz.chinayzy.entity.response.ShowRedPacketCarmodel;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.entity.response.StringModel;
+import com.chinayiz.chinayzy.entity.response.UpdateRedPacketCarModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.ui.fragment.mine.ResuestTakeFragment;
 import com.chinayiz.chinayzy.utils.StrCallback;
@@ -82,7 +88,7 @@ public class CommonRequestUtils {
      */
     public void getStoerInfo(String shopID) {
         OkGo.post(Commons.API + Commons.STORE_HOME)
-                .params("shopid",shopID)
+                .params("shopid", shopID)
 
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
@@ -92,20 +98,22 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.STORE_HOME
                                     , mGson.fromJson(s, StoreInfoModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
 
     }
+
     /**
      * 获取APP更新信息
+     *
      * @param buildcode 本地版本号
      */
     public void getCanUpdata(String buildcode) {
         OkGo.post(Commons.API + Commons.UPDATA)
-                .params("buildcode",buildcode)
+                .params("buildcode", buildcode)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -113,8 +121,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.UPDATA
                                     , mGson.fromJson(s, AppUpdataModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -129,7 +137,7 @@ public class CommonRequestUtils {
      */
     public void doAttentionStore(String storeID) {
         OkGo.post(Commons.API + Commons.ATTENTION_STORE)
-                .params("shopid",storeID)
+                .params("shopid", storeID)
 
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
@@ -137,8 +145,8 @@ public class CommonRequestUtils {
                         Logger.i(s);
                         try {
                             Logger.i(mGson.fromJson(s, ResponseModel.class).toString());
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -151,7 +159,7 @@ public class CommonRequestUtils {
      */
     public void doUnAttentionStore(String storeID) {
         OkGo.post(Commons.API + Commons.UNATTENTION_STORE)
-                .params("shopid",storeID)
+                .params("shopid", storeID)
 
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
@@ -162,8 +170,8 @@ public class CommonRequestUtils {
                                     , Commons.UNATTENTION_STORE
                                     , mGson.fromJson(s, ResponseModel.class)));
                             Logger.i(mGson.fromJson(s, ResponseModel.class).toString());
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -179,10 +187,10 @@ public class CommonRequestUtils {
      */
     public void getGoodsListByPosition(String storeID, String typecode, String page, String size) {
         OkGo.post(Commons.API + Commons.FORTYPEBY_GOODSS)
-                .params("shopid",storeID)
-                .params("typecode",typecode)
-                .params("page",page)
-                .params("size",size)
+                .params("shopid", storeID)
+                .params("typecode", typecode)
+                .params("page", page)
+                .params("size", size)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -191,8 +199,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FORTYPEBY_GOODSS
                                     , mGson.fromJson(s, StoreGoodsListModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -205,7 +213,7 @@ public class CommonRequestUtils {
      */
     public void getGoodsDetail(String goodsId) {
         OkGo.post(Commons.API + Commons.GOODS_DETAIL)
-                .params("goodsid",goodsId)
+                .params("goodsid", goodsId)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -214,8 +222,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_DETAIL
                                     , mGson.fromJson(s, NewGoodsDetailModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -230,7 +238,7 @@ public class CommonRequestUtils {
      */
     public void getGoodsGroup(String goodsId) {
         OkGo.post(Commons.API + Commons.GOODS_GROUP)
-                .params("goodsid",goodsId)
+                .params("goodsid", goodsId)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -239,8 +247,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_GROUP
                                     , mGson.fromJson(s, GoodsGroupModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -259,8 +267,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.IM_GOLD
                                     , mGson.fromJson(s, ImGoldModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -274,7 +282,7 @@ public class CommonRequestUtils {
      */
     public void getDealList(String tradetype) {
         OkGo.post(Commons.API + Commons.DEAL_LIST)
-                .params("tradetype",tradetype)
+                .params("tradetype", tradetype)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -283,8 +291,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.DEAL_LIST
                                     , mGson.fromJson(s, DealListModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -300,9 +308,9 @@ public class CommonRequestUtils {
      */
     public void getRelatedGoods(String itemcode, String page, String size) {
         OkGo.post(Commons.API + Commons.GOODS_RELATED)
-                .params("itemcode",itemcode)
-                .params("page",page)
-                .params("size",size)
+                .params("itemcode", itemcode)
+                .params("page", page)
+                .params("size", size)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -311,8 +319,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_RELATED
                                     , mGson.fromJson(s, RelatedGoodsModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -326,14 +334,14 @@ public class CommonRequestUtils {
      */
     public void doCollectGoods(String goodsID) {
         OkGo.post(Commons.API + Commons.GOODS_COLLECT)
-                .params("goodsid",goodsID)
+                .params("goodsid", goodsID)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -347,7 +355,7 @@ public class CommonRequestUtils {
      */
     public void doUnCollectGoods(String goodsID) {
         OkGo.post(Commons.API + Commons.GOODS_UNCOLLECT)
-                .params("goodsid",goodsID)
+                .params("goodsid", goodsID)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -357,8 +365,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GOODS_UNCOLLECT
                                     , mGson.fromJson(s, ResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -374,9 +382,9 @@ public class CommonRequestUtils {
      */
     public void getCommentList(String goodsid, String page, String size) {
         OkGo.post(Commons.API + Commons.COMMENT_LIST)
-                .params("goodsid",goodsid)
-                .params("page",page)
-                .params("size",size)
+                .params("goodsid", goodsid)
+                .params("page", page)
+                .params("size", size)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -385,8 +393,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.COMMENT_LIST
                                     , mGson.fromJson(s, CommentListModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -405,14 +413,15 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOPCART
                                     , mGson.fromJson(s, ShopCartModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
 
 
     }
+
     /**
      * 是否已经完善资料
      */
@@ -426,14 +435,15 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.USERINFO_ISOK
                                     , mGson.fromJson(s, ResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
 
 
     }
+
     /**
      * 加入购物车
      *
@@ -443,9 +453,9 @@ public class CommonRequestUtils {
      */
     public void getJoinCart(String shopid, String goodsstandardid, String count) {
         OkGo.post(Commons.API + Commons.ADDSHOPPINGCAR)
-                .params("shopid",shopid)
-                .params("goodsstandardid",goodsstandardid)
-                .params("count",count)
+                .params("shopid", shopid)
+                .params("goodsstandardid", goodsstandardid)
+                .params("count", count)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -454,8 +464,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ADDSHOPPINGCAR
                                     , mGson.fromJson(s, BaseResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -468,7 +478,7 @@ public class CommonRequestUtils {
      */
     public void getDelCart(String carids) {
         OkGo.post(Commons.API + Commons.DELSHOPPINGCAR)
-                .params("carids",carids)
+                .params("carids", carids)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -477,8 +487,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.DELSHOPPINGCAR
                                     , mGson.fromJson(s, BaseResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -492,7 +502,7 @@ public class CommonRequestUtils {
      */
     public void getUpdateCart(String caridandcounts) {
         OkGo.post(Commons.API + Commons.UPDATESHOPPINGCAR)
-                .params("caridandcounts",caridandcounts)
+                .params("caridandcounts", caridandcounts)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -501,8 +511,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.UPDATESHOPPINGCAR
                                     , mGson.fromJson(s, BaseResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -518,7 +528,7 @@ public class CommonRequestUtils {
      */
     public void getShopGoodStandard(String goodsid) {
         OkGo.post(Commons.API + Commons.SHOWGOODSSTANDARD)
-                .params("goodsid",goodsid)
+                .params("goodsid", goodsid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -527,8 +537,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOWGOODSSTANDARD
                                     , mGson.fromJson(s, GoodStandardModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -539,10 +549,10 @@ public class CommonRequestUtils {
      *
      * @param carids 购物车id数组
      */
-    public void getPreviewOrder(String carids,String couponlogid) {
+    public void getPreviewOrder(String carids, String couponlogid) {
         OkGo.post(Commons.API + Commons.PREVIEWORDER)
-                .params("carids",carids)
-                .params("couponlogid",couponlogid)
+                .params("carids", carids)
+                .params("couponlogid", couponlogid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -551,8 +561,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.PREVIEWORDER
                                     , mGson.fromJson(s, ResultModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -560,13 +570,14 @@ public class CommonRequestUtils {
 
 
     /**
-     *   预览订单
-     * @param crowdfid   活动ID
+     * 预览订单
+     *
+     * @param crowdfid 活动ID
      */
 
     public void getPreviewCrowdfOrder(String crowdfid) {
         OkGo.post(Commons.API + Commons.PREVIEWCROWDFORDER)
-                .params("crowdfid",crowdfid)
+                .params("crowdfid", crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -575,8 +586,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.PREVIEWCROWDFORDER
                                     , mGson.fromJson(s, ActivityResultModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -584,14 +595,15 @@ public class CommonRequestUtils {
 
 
     /**
-     *   亿众币支付
-     * @param total  总价
-     * @param crowdfid   活动ID
+     * 亿众币支付
+     *
+     * @param total    总价
+     * @param crowdfid 活动ID
      */
-    public void getYzbPayOrder(String total,String crowdfid) {
+    public void getYzbPayOrder(String total, String crowdfid) {
         OkGo.post(Commons.PAY + Commons.YZBPAYORDER)
-                .params("total",total)
-                .params("crowdfid",crowdfid)
+                .params("total", total)
+                .params("crowdfid", crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -600,8 +612,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.YZBPAYORDER
                                     , mGson.fromJson(s, StringModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -617,9 +629,9 @@ public class CommonRequestUtils {
      */
     public void getAliPayOrder(String type, String total, String orderbill) {
         OkGo.post(Commons.PAY + Commons.ALIPAYORDER)
-                .params("type",type)
-                .params("total",total)
-                .params("orderbill",orderbill)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -628,8 +640,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ALIPAYORDER
                                     , mGson.fromJson(s, AlipayModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -638,14 +650,14 @@ public class CommonRequestUtils {
     /**
      * 支付宝支付
      *
-     * @param type      类型 1充值2购物
-     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param type  类型 1充值2购物
+     * @param total 支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
      */
-    public void getAliPay(String type, String total,String crowdfid) {
+    public void getAliPay(String type, String total, String crowdfid) {
         OkGo.post(Commons.PAY + Commons.ALIPAYORDER)
-                .params("type",type)
-                .params("total",total)
-                .params("crowdfid",crowdfid)
+                .params("type", type)
+                .params("total", total)
+                .params("crowdfid", crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -654,8 +666,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ALIPAYORDER
                                     , mGson.fromJson(s, AlipayModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -668,13 +680,13 @@ public class CommonRequestUtils {
      * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
-    public void getAliPayOrder(String type, String total, String orderbill,String userid) {
+    public void getAliPayOrder(String type, String total, String orderbill, String userid) {
 
         OkGo.post(Commons.PAY + Commons.ALIPAYORDER)
-                .params("type",type)
-                .params("total",total)
-                .params("orderbill",orderbill)
-                .params("userid",userid)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
+                .params("userid", userid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -683,8 +695,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ALIPAYORDER
                                     , mGson.fromJson(s, AlipayModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -700,9 +712,9 @@ public class CommonRequestUtils {
     public void getWxPayOrder(String type, String total, String orderbill) {
 
         OkGo.post(Commons.PAY + Commons.WXPAYORDER)
-                .params("type",type)
-                .params("total",total)
-                .params("orderbill",orderbill)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -711,8 +723,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.WXPAYORDER
                                     , mGson.fromJson(s, WxpayModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -723,15 +735,15 @@ public class CommonRequestUtils {
     /**
      * 微信支付
      *
-     * @param type      类型 1充值2购物
-     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param type  类型 1充值2购物
+     * @param total 支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
      */
     public void getWxPay(String type, String total, String crowdfid) {
 
         OkGo.post(Commons.PAY + Commons.WXPAYORDER)
-                .params("type",type)
-                .params("total",total)
-                .params("crowdfid",crowdfid)
+                .params("type", type)
+                .params("total", total)
+                .params("crowdfid", crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -740,8 +752,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.WXPAYORDER
                                     , mGson.fromJson(s, WxpayModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -756,12 +768,12 @@ public class CommonRequestUtils {
      * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
      * @param orderbill 订单内容json		json格式，购物的时候传入
      */
-    public void getWxPayOrder(String type, String total, String orderbill,String userid) {
+    public void getWxPayOrder(String type, String total, String orderbill, String userid) {
         OkGo.post(Commons.PAY + Commons.WXPAYORDER)
-                .params("type",type)
-                .params("total",total)
-                .params("orderbill",orderbill)
-                .params("userid",userid)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
+                .params("userid", userid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -770,8 +782,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.WXPAYORDER
                                     , mGson.fromJson(s, WxpayModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -786,7 +798,7 @@ public class CommonRequestUtils {
      */
     public void getVerifyCode(String phone) {
         OkGo.post(Commons.API + Commons.SRYCODE)
-                .params("phone",phone)
+                .params("phone", phone)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -795,8 +807,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(BaseMessage.NET_EVENT
                                     , ResuestTakeFragment.SEND_CODE, mGson.
                                     fromJson(s, ResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -815,11 +827,11 @@ public class CommonRequestUtils {
      */
     public void requestTake(String phone, String sprice, String code, String account, String dealthird) {
         OkGo.post(Commons.API + Commons.GET_GOLD)
-                .params("phone",phone)
-                .params("sprice",sprice)
-                .params("code",code)
-                .params("account",account)
-                .params("dealthird",dealthird)
+                .params("phone", phone)
+                .params("sprice", sprice)
+                .params("code", code)
+                .params("account", account)
+                .params("dealthird", dealthird)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -828,8 +840,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault()
                                     .post(new EventMessage(EventMessage.NET_EVENT
                                             , Commons.GET_GOLD, mGson.fromJson(s, ResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -844,7 +856,7 @@ public class CommonRequestUtils {
      */
     public void getImOrder(String type) {
         OkGo.post(Commons.API + Commons.ORDER_STATE)
-                .params("type",type)
+                .params("type", type)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -853,8 +865,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ORDER_STATE
                                     , mGson.fromJson(s, OrderListModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -868,17 +880,17 @@ public class CommonRequestUtils {
      */
     public void getOrderDetail(String orderId) {
         OkGo.post(Commons.API + Commons.ORDER_DETAIL)
-                .params("orderid",orderId)
+                .params("orderid", orderId)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i("订单详情数据="+s);
+                        Logger.i("订单详情数据=" + s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.ORDER_DETAIL
                                     , mGson.fromJson(s, OrderDetailModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -891,7 +903,7 @@ public class CommonRequestUtils {
      */
     public void deleteOrder(String orderId) {
         OkGo.post(Commons.API + Commons.DELETE_ORDER)
-                .params("orderid",orderId)
+                .params("orderid", orderId)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -900,8 +912,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     , Commons.DELETE_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -915,7 +927,7 @@ public class CommonRequestUtils {
      */
     public void cancelOrder(String orderId) {
         OkGo.post(Commons.API + Commons.CANCEL_ORDER)
-                .params("orderid",orderId)
+                .params("orderid", orderId)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -924,8 +936,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     , Commons.CANCEL_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -940,7 +952,7 @@ public class CommonRequestUtils {
      */
     public void recognizelOrder(String orderId) {
         OkGo.post(Commons.API + Commons.CONFIRM_ORDER)
-                .params("orderid",orderId)
+                .params("orderid", orderId)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -949,8 +961,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT
                                     , Commons.CONFIRM_ORDER
                                     , mGson.fromJson(s, ResponseModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -959,13 +971,14 @@ public class CommonRequestUtils {
 
     /**
      * 快速支付
+     *
      * @param orderid 订单号
      * @param total   支付价格
      */
     public void fastPay(String orderid, String total) {
         OkGo.post(Commons.PAY + Commons.FAST_PAY)
-                .params("orderid",orderid)
-                .params("total",total)
+                .params("orderid", orderid)
+                .params("total", total)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -974,8 +987,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.FAST_PAY
                                     , mGson.fromJson(s, PayModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -990,11 +1003,11 @@ public class CommonRequestUtils {
     public void commentGoods(CommentGoodsModel model) {
         if (TextUtils.isEmpty(model.getPic())) {
             OkGo.post(Commons.API + Commons.COMMENT_ORDER)
-                    .params("orderid",model.getOrderid())
+                    .params("orderid", model.getOrderid())
                     .params("isanonymity", model.getIsanonymity())
-                    .params("descpoint",model.getDescpoint())
-                    .params("commentscontent",model.getCommentscontent())
-                    .params("orderdetailid",model.getOrderdetailid())
+                    .params("descpoint", model.getDescpoint())
+                    .params("commentscontent", model.getCommentscontent())
+                    .params("orderdetailid", model.getOrderdetailid())
                     .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                         @Override
                         public void onSuccess(String s, Call call, Response response) {
@@ -1003,19 +1016,19 @@ public class CommonRequestUtils {
                                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                         , Commons.COMMENT_ORDER
                                         , mGson.fromJson(s, ResponseModel.class)));
-                            }catch (Exception e){
-                                onError(null,response,e);
+                            } catch (Exception e) {
+                                onError(null, response, e);
                             }
                         }
                     });
-        }else {
+        } else {
             OkGo.post(Commons.API + Commons.COMMENT_ORDER)
-                    .params("orderid",model.getOrderid())
+                    .params("orderid", model.getOrderid())
                     .params("isanonymity", model.getIsanonymity())
-                    .params("descpoint",model.getDescpoint())
-                    .params("commentscontent",model.getCommentscontent())
-                    .params("orderdetailid",model.getOrderdetailid())
-                    .params("pic",model.getPic())
+                    .params("descpoint", model.getDescpoint())
+                    .params("commentscontent", model.getCommentscontent())
+                    .params("orderdetailid", model.getOrderdetailid())
+                    .params("pic", model.getPic())
                     .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                         @Override
                         public void onSuccess(String s, Call call, Response response) {
@@ -1024,13 +1037,14 @@ public class CommonRequestUtils {
                                 EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                         , Commons.COMMENT_ORDER
                                         , mGson.fromJson(s, ResponseModel.class)));
-                            }catch (Exception e){
-                                onError(null,response,e);
+                            } catch (Exception e) {
+                                onError(null, response, e);
                             }
                         }
                     });
         }
     }
+
     /**
      * 获取推荐信息
      */
@@ -1044,30 +1058,31 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.RECOMMEND_INFO
                                     , mGson.fromJson(s, RecommendCodeModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 
     /**
-     *  亿众商城
-     * @param page 页标
-     * @param size 分页数量
-     * @param type 类型 1热卖降序2热卖升序3销量降序4销量升序5价格降序6价格升序
-     * @param isself   是否自营 1是 0否
-     * @param credit   信用度  1是  0否
-     * @param brands   品牌   用逗号隔开
+     * 亿众商城
+     *
+     * @param page   页标
+     * @param size   分页数量
+     * @param type   类型 1热卖降序2热卖升序3销量降序4销量升序5价格降序6价格升序
+     * @param isself 是否自营 1是 0否
+     * @param credit 信用度  1是  0否
+     * @param brands 品牌   用逗号隔开
      */
-    public void getSearchMallGoods(String page,String size,String type,String isself,String credit,String brands) {
+    public void getSearchMallGoods(String page, String size, String type, String isself, String credit, String brands) {
         OkGo.post(Commons.API + Commons.SEARCHMALLGOODS)
-                .params("page",page)
-                .params("size",size)
-                .params("type",type)
-                .params("isself",isself)
-                .params("credit",credit)
-                .params("brands",brands)
+                .params("page", page)
+                .params("size", size)
+                .params("type", type)
+                .params("isself", isself)
+                .params("credit", credit)
+                .params("brands", brands)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1076,8 +1091,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SEARCHMALLGOODS
                                     , mGson.fromJson(s, SearchFarmModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -1096,16 +1111,17 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.HOME_MODEL
                                     , mGson.fromJson(s, HomeMenusModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 
     /**
-     *  请求新首页广告主题图
-     * @param uir  Commons.HOME_THEME1  Commons.HOME_THEME2
+     * 请求新首页广告主题图
+     *
+     * @param uir Commons.HOME_THEME1  Commons.HOME_THEME2
      */
     public void getHomeTheme(final String uir) {
         OkGo.post(Commons.API + uir)
@@ -1116,8 +1132,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , uir
                                     , mGson.fromJson(s, HomeThemesModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -1126,8 +1142,9 @@ public class CommonRequestUtils {
     }
 
     /**
-     *  请求新首页横向滑动商品集合
-     * @param uir  Commons.HOME_LIST1  Commons.HOME_LIST2
+     * 请求新首页横向滑动商品集合
+     *
+     * @param uir Commons.HOME_LIST1  Commons.HOME_LIST2
      */
     public void getHomeList(final String uir) {
         OkGo.post(Commons.API + uir)
@@ -1138,21 +1155,22 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , uir
                                     , mGson.fromJson(s, HomeGoodsListModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
 
 
     }
+
     /**
-     *  请求新首页(为你推荐)
+     * 请求新首页(为你推荐)
      */
-    public void getHomeHotGoods(String page,String size) {
+    public void getHomeHotGoods(String page, String size) {
         OkGo.post(Commons.API + Commons.HOME_REXIAO)
-                .params("page",page)
-                .params("size",size)
+                .params("page", page)
+                .params("size", size)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1161,40 +1179,51 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.HOME_REXIAO
                                     , mGson.fromJson(s, HomeHotGoodsModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
+
     /**
-     *  请求商城首页主题商品（1 爱时尚，2 世界硒都，3 奢侈品）
+     * 请求商城首页主题商品（1 爱时尚，2 世界硒都，3 奢侈品）
      */
     public void getHomeThemeGoods(final String type) {
-        String code="";
-        switch (type){
-            case MainHomeRecylAdapter.TYPE_LOVEFS:{code="1";break;}
-            case MainHomeRecylAdapter.TYPE_XIINFO:{code="2";break;}
-            case MainHomeRecylAdapter.TYPE_LUXURY:{code="3";break;}
+        String code = "";
+        switch (type) {
+            case MainHomeRecylAdapter.TYPE_LOVEFS: {
+                code = "1";
+                break;
+            }
+            case MainHomeRecylAdapter.TYPE_XIINFO: {
+                code = "2";
+                break;
+            }
+            case MainHomeRecylAdapter.TYPE_LUXURY: {
+                code = "3";
+                break;
+            }
         }
         OkGo.post(Commons.API + Commons.HOME_THEME_GOODS)
-                .params("type",code)
+                .params("type", code)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                         Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    ,type
+                                    , type
                                     , mGson.fromJson(s, HomeHotGoodsModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
+
     /**
-     *  首页亿众头条
+     * 首页亿众头条
      */
     public void getHomeNews() {
         OkGo.post(Commons.API + Commons.HOME_NEWS)
@@ -1206,14 +1235,15 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.HOME_NEWS
                                     , mGson.fromJson(s, HomeNewsModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
+
     /**
-     *  首页主要活动(新人)
+     * 首页主要活动(新人)
      */
     public void getHomeMainActivitys() {
         OkGo.post(Commons.API + Commons.HONE_ACTIVITYS)
@@ -1225,14 +1255,15 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.HONE_ACTIVITYS
                                     , mGson.fromJson(s, HomeMainActivitysModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
+
     /**
-     *  首页倒计时（众筹活动）商品
+     * 首页倒计时（众筹活动）商品
      */
     public void getHomeZhongChuo() {
         OkGo.post(Commons.API + Commons.HOME_ZHONGCHOU)
@@ -1244,14 +1275,15 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.HOME_ZHONGCHOU
                                     , mGson.fromJson(s, HomeActivitysModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
+
     /**
-     *  首页中奖商品弹窗
+     * 首页中奖商品弹窗
      */
     public void getActivityMain() {
         OkGo.post(Commons.API + Commons.OPENWINNER)
@@ -1262,19 +1294,19 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.OPENWINNER
                                     , mGson.fromJson(s, ActivityMainModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 
     /**
-     *  获奖详情
+     * 获奖详情
      */
     public void getActivityDetail(String crowdfid) {
         OkGo.post(Commons.API + Commons.WINNERDETAIL)
-                .params("crowdfid",crowdfid)
+                .params("crowdfid", crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1283,8 +1315,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.WINNERDETAIL
                                     , mGson.fromJson(s, ActivityDetailModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -1292,14 +1324,15 @@ public class CommonRequestUtils {
 
 
     /**
-     *   兑换亿众币
-     * @param crowdfid   活动ID
+     * 兑换亿众币
+     *
+     * @param crowdfid 活动ID
      * @param total    兑换金额
      */
-    public void getChangeyzb(String crowdfid,String total) {
+    public void getChangeyzb(String crowdfid, String total) {
         OkGo.post(Commons.API + Commons.CHANGEYZB)
-                .params("crowdfid",crowdfid)
-                .params("total",total)
+                .params("crowdfid", crowdfid)
+                .params("total", total)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1308,24 +1341,24 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CHANGEYZB
                                     , mGson.fromJson(s, StringModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 
 
-
     /**
-     *   确认收货地址
-     * @param crowdfid   活动ID
-     * @param addressid    地址ID
+     * 确认收货地址
+     *
+     * @param crowdfid  活动ID
+     * @param addressid 地址ID
      */
-    public void getConfirmAddress(String crowdfid,String addressid) {
+    public void getConfirmAddress(String crowdfid, String addressid) {
         OkGo.post(Commons.API + Commons.CONFIRMADDRESS)
-                .params("crowdfid",crowdfid)
-                .params("addressid",addressid)
+                .params("crowdfid", crowdfid)
+                .params("addressid", addressid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1334,14 +1367,15 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CONFIRMADDRESS
                                     , mGson.fromJson(s, StringModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
+
     /**
-     *   获得默认收货地址
+     * 获得默认收货地址
      */
     public void getdefaultaddress() {
         OkGo.post(Commons.API + Commons.GETDEFAULTADDRESS)
@@ -1353,8 +1387,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.GETDEFAULTADDRESS
                                     , mGson.fromJson(s, DefaultAddressModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -1362,11 +1396,12 @@ public class CommonRequestUtils {
 
     /**
      * 获得默认收货地址
-     * @param type  1.全部 2.进行中3.已揭晓
+     *
+     * @param type 1.全部 2.进行中3.已揭晓
      */
     public void getCrowdfrecord(final String type) {
         OkGo.post(Commons.API + Commons.CROWDFRECORD)
-                .params("type",type)
+                .params("type", type)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1375,20 +1410,21 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , type
                                     , mGson.fromJson(s, AwardRecodModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 
     /**
-     *  获取分享众筹活动
-     * @param crowdfid  活动ID
+     * 获取分享众筹活动
+     *
+     * @param crowdfid 活动ID
      */
     public void getSharecrowdfmessage(String crowdfid, final String id) {
         OkGo.post(Commons.API + Commons.SHARECROWDFMESSAGE)
-                .params("crowdfid",crowdfid)
+                .params("crowdfid", crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1397,20 +1433,21 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , id
                                     , mGson.fromJson(s, ShareCrowdModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 
     /**
-     *  确认收货
-     * @param crowdfid  活动ID
+     * 确认收货
+     *
+     * @param crowdfid 活动ID
      */
     public void getConfirmshouhuo(String crowdfid) {
         OkGo.post(Commons.API + Commons.CONFIRMSHOUHUO)
-                .params("crowdfid",crowdfid)
+                .params("crowdfid", crowdfid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1419,8 +1456,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CONFIRMSHOUHUO
                                     , mGson.fromJson(s, StringModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -1428,12 +1465,13 @@ public class CommonRequestUtils {
 
 
     /**
-     *  优惠券列表
-     * @param couponlogids  可用优惠券ids
+     * 优惠券列表
+     *
+     * @param couponlogids 可用优惠券ids
      */
     public void getCanUseCoupon(String couponlogids) {
         OkGo.post(Commons.API + Commons.CANUSECOUPON)
-                .params("couponlogids",couponlogids)
+                .params("couponlogids", couponlogids)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1442,8 +1480,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.CANUSECOUPON
                                     , mGson.fromJson(s, CouponModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -1452,8 +1490,8 @@ public class CommonRequestUtils {
     /**
      * 获取购物车数量
      */
-    public void getShoppingCarCount(){
-        OkGo.post(Commons.API+Commons.SHOPPINGCARTCOUNT)
+    public void getShoppingCarCount() {
+        OkGo.post(Commons.API + Commons.SHOPPINGCARTCOUNT)
                 .execute(new StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1461,19 +1499,19 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHOPPINGCARTCOUNT
                                     , mGson.fromJson(s, ShoppingCarCountModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 
     /**
-     *  获取分享商品信息
+     * 获取分享商品信息
      */
     public void getGoodsShareInfo(String goodsid) {
         OkGo.post(Commons.API + Commons.SHARE_GOODS_INFO)
-                .params("goodsid",goodsid)
+                .params("goodsid", goodsid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -1482,10 +1520,161 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHARE_GOODS_INFO
                                     , mGson.fromJson(s, GoodsShareInfoModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场自营商品分类
+     */
+    public void getShowClassifyCode() {
+        OkGo.post(Commons.API + Commons.SHOWCLASSIFYCODE)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWCLASSIFYCODE
+                                    , mGson.fromJson(s, ShowClassifyCodeModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场分类查询自营产品
+     */
+    public void showClassifyCodeDetail(int page, int size, String itemcode) {
+        OkGo.post(Commons.API + Commons.SHOWCLASSIFYCODEDETAIL)
+                .params("page", page)
+                .params("size", size)
+                .params("itemcode", itemcode)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWCLASSIFYCODEDETAIL
+                                    , mGson.fromJson(s, ShowClassifyCodeDetailModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场商品加入购物车
+     */
+    public void addRedPacketCar(Long userid, long shopid, long goodsstandardid, int count) {
+        OkGo.post(Commons.API + Commons.ADDREDPACKETCAR)
+                .params("userid", userid)
+                .params("shopid", shopid)
+                .params("goodsstandardid", goodsstandardid)
+                .params("count", count)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ADDREDPACKETCAR
+                                    , mGson.fromJson(s, AddRedPacketCarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场购物车列表
+     */
+    public void showRedPacketCar() {
+        OkGo.post(Commons.API + Commons.SHOWREDPACKETCAR)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWREDPACKETCAR
+                                    , mGson.fromJson(s, ShowRedPacketCarmodel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 删除红包专场购物车商品
+     */
+    public void delRedPacketCar(String carids) {
+        OkGo.post(Commons.API + Commons.DELREDPACKETCAR)
+                .params("carids", carids)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.DELREDPACKETCAR
+                                    , mGson.fromJson(s, DelRedPacketCarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+    /**
+     * 编辑红包专场购物车点击列表完成
+     */
+    public void updateRedPacketCar(String caridandcounts) {
+        OkGo.post(Commons.API + Commons.UPDATEREDPACKETCAR)
+                .params("caridandcounts", caridandcounts)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.UPDATEREDPACKETCAR
+                                    , mGson.fromJson(s, UpdateRedPacketCarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
