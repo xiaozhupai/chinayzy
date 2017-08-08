@@ -211,6 +211,14 @@ public class OrderListAdapter extends BaseAdapter implements View.OnClickListene
                 mHolder.btn_order2.setTag(R.id.click_type, DELETE_ORDER);
                 mHolder.btn_order2.setText("删除订单");
                 break;
+            case "7"://已分红
+                mHolder.tv_orderState.setText("已分红");
+                mHolder.btn_order1.setVisibility(View.GONE);
+                mHolder.btn_order2.setTextColor(Color.rgb(11, 27, 1));
+                mHolder.btn_order2.setBackground(mFragment.getResources().getDrawable(R.drawable.btn_shape));
+                mHolder.btn_order2.setTag(R.id.click_type, DELETE_ORDER);
+                mHolder.btn_order2.setText("删除订单");
+                break;
         }
     }
 

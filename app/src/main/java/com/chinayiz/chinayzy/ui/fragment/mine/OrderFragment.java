@@ -15,7 +15,6 @@ import com.chinayiz.chinayzy.entity.model.BaseMessage;
 import com.chinayiz.chinayzy.entity.model.EventMessage;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.presenter.FrgOrderPresenter;
-import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.refreshView.PullableListView;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -23,8 +22,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
 import org.greenrobot.eventbus.EventBus;
+
 
 /**
  * author  by  Canrom7 .
@@ -38,7 +37,6 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
      * 订单页请求订单数据
      */
     public static final String GET_DATA="OrderFragment_GET";
-    private PullToRefreshLayout mPullrefresh;
     private SmartRefreshLayout mSmartRefresh;
     private View mLlProgress,mNullOrder;
     private OrderListModel mOrderListModel;
@@ -63,19 +61,6 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
 //        mPullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
         mSmartRefresh = (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
 
-        /* mPullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-               Logger.i("准备刷新");
-                mPullrefresh=pullToRefreshLayout;
-                EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,GET_DATA,orderType));
-            }
-            @Override
-            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.loadmoreFinish(0);
-            }
-        });*/
-
         mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -95,9 +80,7 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
         mNullOrder=view.findViewById(R.id.view_nullOrder);
     }
     public void setOrderListModel(OrderListModel orderListModel) {
-        /*if (mPullrefresh!=null) {
-            mPullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-        }*/
+
         if (mSmartRefresh!=null) {
             mSmartRefresh.finishRefresh();
         }

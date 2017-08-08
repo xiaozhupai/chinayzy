@@ -235,7 +235,6 @@ public class GoodsStandard2 extends DialogUtils.XDialog implements View.OnClickL
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
-
     public void runUiThread(EventMessage message) {
         switch (message.getDataType()){
             case Commons.SHOWGOODSSTANDARD://商品套餐
