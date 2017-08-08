@@ -16,6 +16,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.homePresenter;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.views.refreshView.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.refreshView.PullableRecycleView;
 import com.orhanobut.logger.Logger;
@@ -63,7 +64,7 @@ public class HomeFragment extends BaseFragment<homePresenter> {
      * @param goodsId 商品ID
      */
     public void openGoodesDetail(String goodsId) {
-        Skip.toNewGoodsDetail(mActivity, goodsId);
+        Skip.toNewGoodsDetail(mActivity, goodsId, GoodsMainFragment.COMMON);
     }
 
     @Override

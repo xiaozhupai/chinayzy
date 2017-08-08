@@ -67,7 +67,6 @@ public class MainFtagment extends BaseFragment<MainsPresenter> implements View.O
         mRecylAdapter = new MainHomeRecylAdapter(this);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         home_recyclerLayout.setLayoutManager(layoutManager);
-
         home_recyclerLayout.setAdapter(mRecylAdapter);
         iv_seek.setOnClickListener(this);
         iv_services.setOnClickListener(this);

@@ -73,7 +73,7 @@ public class NongYeMainActivity extends BaseActivity<NongYeMainPresenter> implem
         mFragments.add(FindFragment.getInstance());
         mActivityFragment=ActivityFragment.getInstance();
         mFragments.add(mActivityFragment);
-        mShopCartFragment = ShopCartFragment.getInstance();
+        mShopCartFragment = ShopCartFragment.getInstance(1);
         mFragments.add(mShopCartFragment);
 
         initActionBar();

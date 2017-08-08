@@ -14,6 +14,7 @@ import java.util.Map;
  */
 
 public class AlipayHandler extends Handler {
+
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_PAY2_FLAG = 2;
     public static final String RESULT_BACK="RESULT_BACK";

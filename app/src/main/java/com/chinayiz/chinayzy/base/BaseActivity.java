@@ -59,6 +59,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     /**
      * web Fragment（通用）；
      */
+
     public WebFragment mWebFragment;
 
 

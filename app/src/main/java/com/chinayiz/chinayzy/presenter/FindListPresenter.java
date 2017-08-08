@@ -41,7 +41,6 @@ public class FindListPresenter extends BasePresenter<FindListFragment> {
                 FindListModel model = (FindListModel) message.getData();
                 if (message.getData()!=null){
                     mView.adaphter.onResult(model.getData());
-
                 }
             }
         }

@@ -141,16 +141,7 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Fra
         super.onRestoreInstanceState(savedInstanceState);
     }
 
-	/* (non-Javadoc)
-	 * @see
-	 */
 
-    @Override
-    public void onBackPressed() {
-
-        super.onBackPressed();
-
-    }
 
     @Override
     protected void onResume() {

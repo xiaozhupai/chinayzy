@@ -44,6 +44,7 @@
         >
 
         <TextView
+            android:id="@+id/tv_point"
             android:layout_width="wrap_content"
             android:layout_height="43dp"
             android:layout_weight="1"
@@ -99,7 +100,6 @@
     </LinearLayout>
 
     <include layout="@layout/view_line"/>
-
     <LinearLayout
         style="@style/orderSet_Item"
         android:orientation="horizontal"

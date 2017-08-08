@@ -58,7 +58,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
 
     public LinearLayout lv_mine_setting;
     public LinearLayout layout_content;
-//    public PullToRefreshLayout pullToRefreshLayout;
     public SmartRefreshLayout smartRefreshLayout;
 
     public LinearLayout lv_user;
@@ -117,7 +116,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         tv_after_sale_count= (TextView)view. findViewById(R.id.tv_after_sale_count);
         lv_user = (LinearLayout)view. findViewById(R.id.lv_user);
         lv_user.setOnClickListener(this);
-//        pullToRefreshLayout= (PullToRefreshLayout)view. findViewById(pullrefresh);
         smartRefreshLayout= (SmartRefreshLayout) view.findViewById(pullrefresh);
         tv_has_user.setOnClickListener(this);
         rl_user_all_order.setOnClickListener(this);
@@ -134,18 +132,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
         lv_mine_customer.setOnClickListener(this);
         lv_mine_setting.setOnClickListener(this);
         lv_mine_content_keep.setOnClickListener(this);
-
-        /*  pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                mPresenter.getData();
-            }
-
-            @Override
-            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
-            }
-        });*/
 
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -221,12 +207,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements View.On
                 Intent intent =new Intent(getActivity(),GoldActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.lv_mine_server:   //消息
-                Skip.toItemMenu(getActivity(),"-1");
+            case R.id.lv_mine_server:   //消息//红包专场
+//                Skip.toItemMenu(getActivity(),"-1");
+//                Skip.toRedpacketRecord(getActivity());
+                Skip.toRedpacket(getActivity());
+
                 break;
-           /* case R.id.lv_mine_suggest:  //意见反馈
-                Skip.toSuggest(getActivity());
-                break;*/
             case R.id.lv_mine_customer:  //客户服务
                 Skip.toWebPage(getActivity(),Commons.API+Commons.KEFU,"客户服务");
                 break;

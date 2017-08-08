@@ -18,6 +18,7 @@ public class PayModel {
 
     private int addressid;
     private double integration;
+    private double vippoint;
     private String couponlogid;
     private List<ShoplistBean> shoplist;
 
@@ -45,7 +46,13 @@ public class PayModel {
         this.integration = integration;
     }
 
+    public double getVippoint() {
+        return vippoint;
+    }
 
+    public void setVippoint(double vippoint) {
+        this.vippoint = vippoint;
+    }
 
     public List<ShoplistBean> getShoplist() {
         return shoplist;

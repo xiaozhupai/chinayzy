@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_goods"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@color/Background"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_goodsPic"
+        android:layout_width="match_parent"
+        android:layout_height="163.5dp"
+        android:padding="0.5dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_goodsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="11dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="如果你还没想好怎么开始,就不要先焦虑如何结束白日梦 "
+        android:textColor="@color/dark_gray"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:orientation="horizontal"
+        android:paddingLeft="7dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@mipmap/icon_rmb" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="bottom"
+            android:text="00."
+            android:textColor="@color/classifyText_pre"
+            android:textSize="17sp" />
+
+        <!--<TextView
+            android:id="@+id/tv_dobPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:text="00"
+            android:textColor="@color/classifyText_pre"
+            android:textSize="13sp" />-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5.5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/view_isSelf"
+            style="@style/Tv_Self"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dp" />
+
+        <TextView
+            android:id="@+id/tv_commentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4.5dp"
+            android:maxLines="1"
+            android:text="暂无评论"
+            android:textColor="@color/light"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_goodsComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:text="100%好评"
+            android:textColor="@color/light"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

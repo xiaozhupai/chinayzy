@@ -30,11 +30,11 @@ import java.util.List;
  * Created by Administrator on 2017/1/12.
  */
 
-public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> implements SectionIndexer,EventBusCallback {
+public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> implements SectionIndexer, EventBusCallback {
     private static final int TYPE_CATEGORY_ITEM = 0;
     private static final int TYPE_ITEM = 1;
     private TextView tv_title;
-    public static final String DELETE="DELETE";
+    public static final String DELETE = "DELETE";
     private int deletePosition;   //需要删除的位置
     private MyStepModel.DataBean.FootmarklistBean deleteBean;
 
@@ -44,50 +44,87 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
     }
 
     @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void runUiThread(EventMessage message) {
-        if (message.getEventType()== EventMessage.NET_EVENT){
-            disposeNetMsg(message);
-        }
-
+    public void onGetData(int pageindex) {
+        UserNet.getNet().getshowFootMarks(pageindex + "", "10");
     }
 
     @Override
-    @Subscribe (threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void runUiThread(EventMessage message) {
+        if (message.getEventType() == EventMessage.NET_EVENT) {
+            disposeNetMsg(message);
+        }
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void runBgThread(EventMessage message) {
-        if (message.getEventType()== EventMessage.INFORM_EVENT){
+        if (message.getEventType() == EventMessage.INFORM_EVENT) {
             disposeInfoMsg(message);
         }
-
-
     }
 
     @Override
     public void disposeNetMsg(EventMessage message) {
-        switch (message.getDataType()){
+        switch (message.getDataType()) {
             case Commons.SHOWFOOTMARKS:
-                MyStepModel model= (MyStepModel) message.getData();
+                MyStepModel model = (MyStepModel) message.getData();
                 onResult(model.getData());
                 break;
             case Commons.DELETEFOOTMARK:
-            BaseResponseModel model1= (BaseResponseModel) message.getData();
-                if (model1.getCode().equals("100")){
+                BaseResponseModel model1 = (BaseResponseModel) message.getData();
+                if (model1.getCode().equals("100")) {
                     Logger.i("删除成功");
                     delete();
                 }
                 break;
-
         }
     }
 
     @Override
     public void disposeInfoMsg(EventMessage message) {
-        if (message.getDataType()== MyStepAdaphter.DELETE){
-            MyStepModel.DataBean.FootmarklistBean bean= (MyStepModel.DataBean.FootmarklistBean) message.getData();
+        if (message.getDataType() == MyStepAdaphter.DELETE) {
+            MyStepModel.DataBean.FootmarklistBean bean = (MyStepModel.DataBean.FootmarklistBean) message.getData();
 
         }
     }
 
+    @Override
+    public void onResult(List<MyStepModel.DataBean> lists) {
+        if (page > 1) {  //上拉加载
+            AddData(lists);
+        } else {  //下拉刷新
+            setData(lists);
+        }
+        int count = 0;
+        //  所有分类中item的总和是ListVIew  Item的总个数
+        for (MyStepModel.DataBean groups : lists) {
+            count += groups.getFootmarklist().size();
+        }
+
+        if (count < 10) {
+
+            mSmartRefresh.setEnableLoadmore(false);
+        } else {
+
+            mSmartRefresh.setEnableLoadmore(true);
+        }
+
+        mSmartRefresh.finishRefresh();
+        mSmartRefresh.finishLoadmore();
+
+
+        MyStepFragment listFragment = null;
+        if (fragment instanceof MyStepFragment) {
+            listFragment = (MyStepFragment) fragment;
+        }
+        if (lists.size() == 0) {
+            listFragment.ll_none.setVisibility(View.VISIBLE);
+            onNone(listFragment);
+        } else {
+            listFragment.ll_none.setVisibility(View.GONE);
+        }
+    }
     @Override
     public int getCount() {
         int count = 0;
@@ -200,7 +237,7 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        final MyStepModel.DataBean.FootmarklistBean bean=getItem(i);
+        final MyStepModel.DataBean.FootmarklistBean bean = getItem(i);
         switch (getItemViewType(i)) {
             case TYPE_CATEGORY_ITEM:
                 ViewHeadHolder viewHeadHolder = null;
@@ -228,11 +265,10 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
                 viewHolder.iv_mystep_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        deletePosition=i;
-                        deleteBean=bean;
-                        UserNet.getNet().getdeletefootmark(bean.getGoodsid()+"");
+                        deletePosition = i;
+                        deleteBean = bean;
+                        UserNet.getNet().getdeletefootmark(bean.getGoodsid() + "");
 //                       listener.delete(i,bean);
-
                     }
                 });
                 break;
@@ -240,25 +276,24 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
         return view;
     }
 
-    public void delete(){
-        int section=getSectionForPosition(deletePosition);
-        MyStepModel.DataBean  lists_shop=lists.get(section);
+    public void delete() {
+        int section = getSectionForPosition(deletePosition);
+        MyStepModel.DataBean lists_shop = lists.get(section);
         lists_shop.getFootmarklist().remove(deleteBean);
-        if (lists_shop.getFootmarklist().size()==0){  //如果组中没有元素  将这个组给移除掉
+        if (lists_shop.getFootmarklist().size() == 0) {  //如果组中没有元素  将这个组给移除掉
             lists.remove(section);
         }
         setData(lists);
     }
 
 
-
     @Override
     public void AddData(List<MyStepModel.DataBean> lists) {
-        MyStepModel.DataBean newgroup=lists.get(0);
-        MyStepModel.DataBean.FootmarklistBean bean=newgroup.getFootmarklist().get(0);
-        MyStepModel.DataBean group=this.lists.get(this.lists.size()-1);
-        MyStepModel.DataBean.FootmarklistBean newbean=group.getFootmarklist().get(0);
-        if (newbean.getLt().equals(bean.getLt())){  //如果上拉加载的数据是上一页的组的数组
+        MyStepModel.DataBean newgroup = lists.get(0);
+        MyStepModel.DataBean.FootmarklistBean bean = newgroup.getFootmarklist().get(0);
+        MyStepModel.DataBean group = this.lists.get(this.lists.size() - 1);
+        MyStepModel.DataBean.FootmarklistBean newbean = group.getFootmarklist().get(0);
+        if (newbean.getLt().equals(bean.getLt())) {  //如果上拉加载的数据是上一页的组的数组
             group.getFootmarklist().addAll(newgroup.getFootmarklist());
             lists.remove(newgroup);
         }
@@ -274,60 +309,13 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
         fragment.tv_none.setText("您还没有以查看的商品");
     }
 
-    @Override
-    public void onResult(List<MyStepModel.DataBean> lists) {
-        if (page>1){  //上拉加载
-            AddData(lists);
-        }else {  //下拉刷新
-            setData(lists);
-        }
-        int count = 0;
-        //  所有分类中item的总和是ListVIew  Item的总个数
-        for (MyStepModel.DataBean groups : lists) {
-            count += groups.getFootmarklist().size();
-        }
-
-        if (count<10){
-//            pullrefresh.loadmoreView.setVisibility(View.GONE);
-//            pullrefresh.setLoadMoreVisiable(false);
-
-            mSmartRefresh.setEnableLoadmore(false);
-        }else {
-//            pullrefresh.loadmoreView.setVisibility(View.VISIBLE);
-//            pullrefresh.setLoadMoreVisiable(true);
-
-            mSmartRefresh.setEnableLoadmore(true);
-        }
-
-//        pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-//        pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
-        mSmartRefresh.finishRefresh();
-        mSmartRefresh.finishLoadmore();
-
-
-        MyStepFragment listFragment = null;
-        if (fragment instanceof MyStepFragment){
-            listFragment= (MyStepFragment) fragment;
-        }
-        if (lists.size()==0){
-            listFragment.ll_none.setVisibility(View.VISIBLE);
-            onNone(listFragment);
-        }else {
-            listFragment.ll_none.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onGetData(int pageindex) {
-        UserNet.getNet().getshowFootMarks(pageindex + "", "10");
-    }
-
-    public static class ViewHeadHolder{
+    public static class ViewHeadHolder {
         public View rootView;
         public TextView tv_title;
-        public ViewHeadHolder(View rootView){
-            this.rootView=rootView;
-            this.tv_title= (TextView) rootView.findViewById(R.id.tv_title);
+
+        public ViewHeadHolder(View rootView) {
+            this.rootView = rootView;
+            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
         }
     }
 
@@ -349,6 +337,5 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
         }
 
     }
-
 
 }

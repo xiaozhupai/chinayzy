@@ -36,6 +36,7 @@ public class ResultModel extends BaseResponseModel {
          */
 
         private String totalmoney;
+        private double vippoint;
         private double deductionpoint;
         private String isxjjuan;
         private AddressRecordBean addressRecord;
@@ -50,6 +51,14 @@ public class ResultModel extends BaseResponseModel {
 
         public void setTotalmoney(String totalmoney) {
             this.totalmoney = totalmoney;
+        }
+
+        public double getVippoint() {
+            return vippoint;
+        }
+
+        public void setVippoint(double vippoint) {
+            this.vippoint = vippoint;
         }
 
         public double getDeductionpoint() {

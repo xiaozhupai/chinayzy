@@ -33,7 +33,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 @SuppressLint("ValidFragment")
 public class ListFragment extends BaseFragment<ListPresenter> {
     private PullableListView pull_listview;
-//    private PullToRefreshLayout pullrefresh;
+    //    private PullToRefreshLayout pullrefresh;
     private SmartRefreshLayout smartRefresh;
     public BaseInectAdaphter adapter;
     public LinearLayout ll_none;
@@ -41,35 +41,22 @@ public class ListFragment extends BaseFragment<ListPresenter> {
     public ImageView iv_none;
 
     public ListFragment(BaseInectAdaphter adapter) {
-        this.adapter=adapter;
+        this.adapter = adapter;
     }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, null);
+//        View view = inflater.inflate(R.layout.fragment_list, null);
+        View view = inflater.inflate(R.layout.pull_listview_layout, null);
         pull_listview = (PullableListView) view.findViewById(R.id.pull_listview);
-//        pullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
-
-        smartRefresh= (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
-        ll_none= (LinearLayout) view.findViewById(R.id.ll_none);
-        tv_none= (TextView) view.findViewById(R.id.tv_none);
-        iv_none= (ImageView) view.findViewById(R.id.iv_none);
+        smartRefresh = (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
+        ll_none = (LinearLayout) view.findViewById(R.id.ll_none);
+        tv_none = (TextView) view.findViewById(R.id.tv_none);
+        iv_none = (ImageView) view.findViewById(R.id.iv_none);
         pull_listview.setAdapter(adapter);
         adapter.setListview(pull_listview);
-//        adapter.setRefreshLayout(pullrefresh);
         adapter.setRefreshLayout(smartRefresh);
         adapter.setFragment(this);
-        /*pullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                 adapter.onRefresh();
-            }
-
-            @Override
-            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                 adapter.LoadMore();
-            }
-        });*/
         smartRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -89,7 +76,6 @@ public class ListFragment extends BaseFragment<ListPresenter> {
     }
 
 
-
     @Override
     public ListPresenter initPresenter() {
         return new ListPresenter();
@@ -97,10 +83,10 @@ public class ListFragment extends BaseFragment<ListPresenter> {
 
     @Override
     protected void onVisible() {
-    if (isInit){
-        adapter.getdata(1);
-    }
-        isInit=false;
+        if (isInit) {
+            adapter.getdata(1);
+        }
+        isInit = false;
     }
 
     @Override

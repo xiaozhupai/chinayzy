@@ -25,31 +25,29 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     public List<T> lists;
     public Context context;
     public ListView listView;
-   public BaseFragment fragment;
-
-//    public PullToRefreshLayout pullrefresh;
+    public BaseFragment fragment;
     public SmartRefreshLayout mSmartRefresh;
-    public int page=1;
+    public int page = 1;
 
-    public List<T> getData(){
+    public List<T> getData() {
         return lists;
     }
 
     //设置数据
-    public   void  setData(List<T> lists){
-        this.lists=lists;
+    public void setData(List<T> lists) {
+        this.lists = lists;
         notifyDataSetChanged();
     }
 
     //添加数据  上拉刷新使用
-    public void AddData(List<T> lists){
+    public void AddData(List<T> lists) {
         this.lists.addAll(lists);
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return lists==null?0:lists.size();
+        return lists == null ? 0 : lists.size();
     }
 
     @Override
@@ -68,37 +66,38 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     }
 
     //注册EventBus调用的数据请求
-    public void getdata(int pageindex){
-        this.page=1;
+    public void getdata(int pageindex) {
+        this.page = 1;
         EventBus.getDefault().register(this);
         onGetData(pageindex);
     }
 
 
-    public void onDestory(){
+    public void onDestory() {
         EventBus.getDefault().unregister(this);
     }
 
 
     //调用数据
-    public void onGetData(int pageindex){
+    public void onGetData(int pageindex) {
     }
 
     //下拉刷新
-    public void onRefresh(){
-        this.page=1;
+    public void onRefresh() {
+        this.page = 1;
         onGetData(1);
     }
+
     //上拉加载
-    public void LoadMore(){
+    public void LoadMore() {
         this.page++;
         onGetData(page);
     }
 
 
     //设置listview
-    public  void setListview(ListView listview){
-        this.listView=listView;
+    public void setListview(ListView listview) {
+        this.listView = listView;
         listview.setOnItemClickListener(this);
 
         listview.setOnItemLongClickListener(this);
@@ -112,78 +111,60 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
 
     /**
      * 设置item点击事件
+     *
      * @param position
      */
-    public void onItemClick(int position){
-        Logger.e("地址列表点击="+lists.get(position).toString());
+    public void onItemClick(int position) {
+        Logger.e("地址列表点击=" + lists.get(position).toString());
     }
 
     //结束加载 刷新
-    public void onResult(List<T> lists){
-          if (page>1){  //上拉加载
-              AddData(lists);
-          }else {  //下拉刷新
-              setData(lists);
-          }
-        if (lists.size()<10){
-
-//            pullrefresh.loadmoreView.setVisibility(View.GONE);
-//            pullrefresh.setLoadMoreVisiable(false);
-
+    public void onResult(List<T> lists) {
+        if (page > 1) {  //上拉加载
+            AddData(lists);
+        } else {  //下拉刷新
+            setData(lists);
+        }
+        if (lists.size() < 10) {
             mSmartRefresh.setEnableLoadmore(false);
-        }else {
-
-//            pullrefresh.loadmoreView.setVisibility(View.VISIBLE);
-//            pullrefresh.setLoadMoreVisiable(true);
-
+        } else {
             mSmartRefresh.setEnableLoadmore(true);
 
         }
-
-//        pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-//        pullrefresh.loadmoreFinish(PullToRefreshLayout.SUCCEED);
-
         mSmartRefresh.finishRefresh();
         mSmartRefresh.finishLoadmore();
 
         ListFragment listFragment = null;
-        if (fragment instanceof ListFragment){
-             listFragment= (ListFragment) fragment;
+        if (fragment instanceof ListFragment) {
+            listFragment = (ListFragment) fragment;
         }
-        if (lists.size()==0){
-            if (listFragment!=null){
-                listFragment.ll_none.setVisibility(View.VISIBLE);
-                onNone(listFragment);
-            }
-        }else {
-            if (listFragment!=null){
+        if (lists.size() == 0) {
+            listFragment.ll_none.setVisibility(View.VISIBLE);
+            onNone(listFragment);
+        } else {
+            if (listFragment != null) {
                 listFragment.ll_none.setVisibility(View.GONE);
 
             }
         }
     }
 
-   //没有数据的时候
+    //没有数据的时候
     public void onNone(ListFragment fragment) {
 
     }
 
-    public void pullResult(){
-//        if (pullrefresh!=null){
-//            pullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-//        }
-        if (mSmartRefresh!=null){
+    //dismiss刷新界面
+    public void pullResult() {
+        if (mSmartRefresh != null) {
             mSmartRefresh.finishRefresh();
         }
     }
 
     //设置下拉刷新布局
-  /*  public void setRefreshLayout(PullToRefreshLayout pullrefresh) {
-        this.pullrefresh=pullrefresh;
-    }*/
 
-    public void setRefreshLayout( SmartRefreshLayout smartRefreshLayout) {
-        this.mSmartRefresh=smartRefreshLayout;
+    public void setRefreshLayout(SmartRefreshLayout smartRefreshLayout) {
+        this.mSmartRefresh = smartRefreshLayout;
     }
 
 
@@ -193,6 +174,6 @@ public class BaseInectAdaphter<T> extends BaseAdapter implements AdapterView.OnI
     }
 
     public void setFragment(BaseFragment fragment) {
-        this.fragment=fragment;
+        this.fragment = fragment;
     }
 }

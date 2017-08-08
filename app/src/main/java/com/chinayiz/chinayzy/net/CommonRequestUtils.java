@@ -11,6 +11,7 @@ import com.chinayiz.chinayzy.entity.request.CommentGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ActivityDetailModel;
 import com.chinayiz.chinayzy.entity.response.ActivityMainModel;
 import com.chinayiz.chinayzy.entity.response.ActivityResultModel;
+import com.chinayiz.chinayzy.entity.response.AddRedPacketCarModel;
 import com.chinayiz.chinayzy.entity.response.AlipayModel;
 import com.chinayiz.chinayzy.entity.response.AppUpdataModel;
 import com.chinayiz.chinayzy.entity.response.AwardRecodModel;
@@ -18,6 +19,8 @@ import com.chinayiz.chinayzy.entity.response.CommentListModel;
 import com.chinayiz.chinayzy.entity.response.CouponModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.DefaultAddressModel;
+import com.chinayiz.chinayzy.entity.response.DelRedPacketCarModel;
+import com.chinayiz.chinayzy.entity.response.ExpenseCalendarModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.GoodsShareInfoModel;
@@ -36,13 +39,19 @@ import com.chinayiz.chinayzy.entity.response.PayModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
+import com.chinayiz.chinayzy.entity.response.ResultRedModel;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.entity.response.SettleAccountsModel;
 import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
+import com.chinayiz.chinayzy.entity.response.ShowClassifyCodeDetailModel;
+import com.chinayiz.chinayzy.entity.response.ShowClassifyCodeModel;
+import com.chinayiz.chinayzy.entity.response.ShowRedPacketCarmodel;
 import com.chinayiz.chinayzy.entity.response.StoreGoodsListModel;
 import com.chinayiz.chinayzy.entity.response.StoreInfoModel;
 import com.chinayiz.chinayzy.entity.response.StringModel;
+import com.chinayiz.chinayzy.entity.response.UpdateRedPacketCarModel;
 import com.chinayiz.chinayzy.entity.response.WxpayModel;
 import com.chinayiz.chinayzy.ui.fragment.mine.ResuestTakeFragment;
 import com.chinayiz.chinayzy.utils.StrCallback;
@@ -82,7 +91,7 @@ public class CommonRequestUtils {
      */
     public void getStoerInfo(String shopID) {
         OkGo.post(Commons.API + Commons.STORE_HOME)
-                .params("shopid",shopID)
+                .params("shopid", shopID)
 
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
@@ -92,20 +101,22 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.STORE_HOME
                                     , mGson.fromJson(s, StoreInfoModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
 
     }
+
     /**
      * 获取APP更新信息
+     *
      * @param buildcode 本地版本号
      */
     public void getCanUpdata(String buildcode) {
         OkGo.post(Commons.API + Commons.UPDATA)
-                .params("buildcode",buildcode)
+                .params("buildcode", buildcode)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -113,8 +124,8 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.UPDATA
                                     , mGson.fromJson(s, AppUpdataModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -129,7 +140,7 @@ public class CommonRequestUtils {
      */
     public void doAttentionStore(String storeID) {
         OkGo.post(Commons.API + Commons.ATTENTION_STORE)
-                .params("shopid",storeID)
+                .params("shopid", storeID)
 
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
@@ -137,8 +148,8 @@ public class CommonRequestUtils {
                         Logger.i(s);
                         try {
                             Logger.i(mGson.fromJson(s, ResponseModel.class).toString());
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -151,7 +162,7 @@ public class CommonRequestUtils {
      */
     public void doUnAttentionStore(String storeID) {
         OkGo.post(Commons.API + Commons.UNATTENTION_STORE)
-                .params("shopid",storeID)
+                .params("shopid", storeID)
 
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
@@ -162,8 +173,8 @@ public class CommonRequestUtils {
                                     , Commons.UNATTENTION_STORE
                                     , mGson.fromJson(s, ResponseModel.class)));
                             Logger.i(mGson.fromJson(s, ResponseModel.class).toString());
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -456,6 +467,35 @@ public class CommonRequestUtils {
                                     , mGson.fromJson(s, BaseResponseModel.class)));
                         }catch (Exception e){
                             onError(null,response,e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场加入购物车
+     *
+     * @param userid          用户id
+     * @param shopid          店铺id
+     * @param goodsstandardid 规格id
+     * @param count           数量
+     */
+    public void addRedPacketCar(String userid, String shopid, String goodsstandardid, String count) {
+        OkGo.post(Commons.API + Commons.ADDREDPACKETCAR)
+                .params("userid", userid)
+                .params("shopid", shopid)
+                .params("goodsstandardid", goodsstandardid)
+                .params("count", count)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ADDREDPACKETCAR
+                                    , mGson.fromJson(s, BaseResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
@@ -1428,8 +1468,9 @@ public class CommonRequestUtils {
 
 
     /**
-     *  优惠券列表
-     * @param couponlogids  可用优惠券ids
+     * 优惠券列表
+     *
+     * @param couponlogids 可用优惠券ids
      */
     public void getCanUseCoupon(String couponlogids) {
         OkGo.post(Commons.API + Commons.CANUSECOUPON)
@@ -1469,7 +1510,7 @@ public class CommonRequestUtils {
     }
 
     /**
-     *  获取分享商品信息
+     * 获取分享商品信息
      */
     public void getGoodsShareInfo(String goodsid) {
         OkGo.post(Commons.API+ Commons.SHARE_GOODS_INFO)
@@ -1482,10 +1523,260 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.SHARE_GOODS_INFO
                                     , mGson.fromJson(s, GoodsShareInfoModel.class)));
-                        }catch (Exception e){
-                            onError(null,response,e);
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场自营商品分类
+     */
+    public void getShowClassifyCode() {
+        OkGo.post(Commons.API + Commons.SHOWCLASSIFYCODE)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWCLASSIFYCODE
+                                    , mGson.fromJson(s, ShowClassifyCodeModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场分类查询自营产品
+     */
+    public void showClassifyCodeDetail(int page, int size, String itemcode) {
+        OkGo.post(Commons.API + Commons.SHOWCLASSIFYCODEDETAIL)
+                .params("page", page)
+                .params("size", size)
+                .params("itemcode", itemcode)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SHOWCLASSIFYCODEDETAIL
+                                    , mGson.fromJson(s, ShowClassifyCodeDetailModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场商品加入购物车
+     */
+    public void addRedPacketCar(Long userid, long shopid, long goodsstandardid, int count) {
+        OkGo.post(Commons.API + Commons.ADDREDPACKETCAR)
+                .params("userid", userid)
+                .params("shopid", shopid)
+                .params("goodsstandardid", goodsstandardid)
+                .params("count", count)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ADDREDPACKETCAR
+                                    , mGson.fromJson(s, AddRedPacketCarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场购物车列表
+     */
+    public void showRedPacketCar(String userid) {
+        OkGo.post(Commons.API + Commons.REDPACKETCAR)
+                .params("userid", userid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.REDPACKETCAR
+                                    , mGson.fromJson(s, ShopCartModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 删除红包专场购物车商品
+     */
+    public void delRedPacketCar(String carids) {
+        OkGo.post(Commons.API + Commons.DELREDPACKETCAR)
+                .params("carids", carids)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.DELREDPACKETCAR
+                                    , mGson.fromJson(s, BaseResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 编辑红包专场购物车点击列表完成
+     */
+    public void updateRedPacketCar(String caridandcounts) {
+        OkGo.post(Commons.API + Commons.UPDATEREDPACKETCAR)
+                .params("caridandcounts", caridandcounts)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.UPDATEREDPACKETCAR
+                                    , mGson.fromJson(s, UpdateRedPacketCarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场消费记录
+     */
+    public void expenseCalendar(String userid) {
+        OkGo.post(Commons.API + Commons.EXPENSECALENDAR)
+                .params("userid", userid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.EXPENSECALENDAR
+                                    , mGson.fromJson(s, ExpenseCalendarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场订单结算
+     */
+    public void settleAccounts(String carids, String userid) {
+        OkGo.post(Commons.API + Commons.SETTLEACCOUNTS)
+                .params("carids", carids)
+                .params("userid", userid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SETTLEACCOUNTS
+                                    , mGson.fromJson(s, ResultModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场支付宝支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getRedAliPayOrder(String type, String total, String orderbill) {
+        OkGo.post(Commons.PAY + Commons.ALIPAYVIPORDER)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ALIPAYVIPORDER
+                                    , mGson.fromJson(s, AlipayModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场微信支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getRedWxPayOrder(String type, String total, String orderbill) {
+
+        OkGo.post(Commons.PAY + Commons.WXPAYVIPORDER)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.WXPAYVIPORDER
+                                    , mGson.fromJson(s, WxpayModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
                         }
                     }
                 });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

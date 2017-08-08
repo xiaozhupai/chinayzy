@@ -45,10 +45,8 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     private MagicIndicator magic_indicator;
-    private PullableListView pull_listview;
-    private PullToRefreshLayout pullrefresh;
-    private String [] titles=new String[]{"商品","店铺","博文"};
-    private int type=0;   //0  店铺收藏 1博文收藏 2商品
+    private String[] titles = new String[]{"商品", "店铺", "博文"};
+    private int type = 0;   //0  店铺收藏 1博文收藏 2商品
     public ViewPager v_pager;
 
     @Override
@@ -80,12 +78,13 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods_keep, container, false);
         magic_indicator = (MagicIndicator) view.findViewById(R.id.magic_indicator);
-        v_pager= (ViewPager) view.findViewById(R.id.v_pager);
-        List<BaseFragment> fragments=new ArrayList<>();
-        fragments.add(new ListFragment(new GoodsKeepAdaphter(getActivity(),null)));
-        fragments.add(new ListFragment(new ShopKeepAdaphter(getActivity(),null)));
-         fragments.add(new ListFragment(new ArticleAdaphter(getActivity(),null)));
-        v_pager.setAdapter(new PagerAdaphter(getChildFragmentManager(),fragments));
+        v_pager = (ViewPager) view.findViewById(R.id.v_pager);
+        List<BaseFragment> fragments = new ArrayList<>();
+        fragments.add(new ListFragment(new GoodsKeepAdaphter(getActivity(), null)));
+        fragments.add(new ListFragment(new ShopKeepAdaphter(getActivity(), null)));
+        fragments.add(new ListFragment(new ArticleAdaphter(getActivity(), null)));
+        v_pager.setAdapter(new PagerAdaphter(getChildFragmentManager(), fragments));
+
         final CommonNavigator commonNavigator = new CommonNavigator(getActivity());
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -106,7 +105,7 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {  //标题点击事件
-                        type=index;
+                        type = index;
                         v_pager.setCurrentItem(index);
                     }
                 });
@@ -131,10 +130,9 @@ public class ContentKeepFragment extends BaseFragment<ContentKeepPresenter> {
 ////                return UIUtil.dip2px(getActivity(), 1);
 ////            }
 ////        });
-        ViewPagerHelper.bind(magic_indicator,v_pager);
+        ViewPagerHelper.bind(magic_indicator, v_pager);
+
         return view;
-
-
     }
 
     @Override
