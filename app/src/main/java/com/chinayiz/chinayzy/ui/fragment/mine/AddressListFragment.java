@@ -59,13 +59,15 @@ public class AddressListFragment extends BaseFragment<AddressListPresenter> impl
     public void onInitActionBar(final BaseActivity activity) {
         activity.mTvActionBarTitle.setText("收货地址");
         activity.mCbActionBarEdit.setVisibility(View.GONE);
-        activity.mIvBackButton.setOnClickListener(new View.OnClickListener() {
+
+        /*activity.mIvBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,ADDRESS_BACK,""));
+                EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,ADDRESS_BACK,""));  //在resultPresenter接收
                 activity.onBackPressed();
             }
-        });
+        });*/
+
     }
 
     @Override

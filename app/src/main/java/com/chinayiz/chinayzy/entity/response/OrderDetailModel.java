@@ -77,6 +77,9 @@ public class OrderDetailModel extends BaseResponseModel {
         private int orderid;
         private String receivingtime;
         private List<OmessagesBean> omessages;
+        private String type;
+        private String vippoint;
+
         public String getCouponprice() {
             return couponprice;
         }
@@ -375,6 +378,22 @@ public class OrderDetailModel extends BaseResponseModel {
             public void setIscomment(String iscomment) {
                 this.iscomment = iscomment;
             }
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getVippoint() {
+            return vippoint;
+        }
+
+        public void setVippoint(String vippoint) {
+            this.vippoint = vippoint;
         }
     }
 }

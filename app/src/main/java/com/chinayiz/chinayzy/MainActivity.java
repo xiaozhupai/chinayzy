@@ -22,6 +22,7 @@ import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.MainPresenter;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.ui.fragment.WebPowerFragment;
 import com.chinayiz.chinayzy.utils.NetworkUtils;
 import com.orhanobut.logger.Logger;
@@ -154,7 +155,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             return;
         }
         if ("5".equals(mModel.getData().get(position).getType())) {
-            Skip.toNewGoodsDetail(this, mModel.getData().get(position).getDetaillink());
+            Skip.toNewGoodsDetail(this, mModel.getData().get(position).getDetaillink(), GoodsMainFragment.COMMON);
         }
     }
 

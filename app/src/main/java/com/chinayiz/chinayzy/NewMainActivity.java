@@ -116,7 +116,7 @@ public class NewMainActivity extends BaseActivity<NewMainPresenter> implements
         mFragments.add(FindFragment.getInstance());
         mActivityFragment=ActivityFragment.getInstance();
         mFragments.add(mActivityFragment);
-       mShopCartFragment= ShopCartFragment.getInstance();
+       mShopCartFragment= ShopCartFragment.getInstance(1);
         mFragments.add(mShopCartFragment);
         mFragments.add(MineFragment.getInstance());
         initActionBar();

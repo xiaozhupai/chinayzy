@@ -83,7 +83,6 @@ public class NewClassifyFragment extends BaseFragment<NewClassifyPresenter> impl
         Logger.i("选择的条目="+dataBean.getTypecode());
         Net.getNet().getGoosSet("1","30","1",dataBean.getTypecode());
 //        mPresenter.getClassDatas(dataBean.getTypecode());
-
     }
 
 

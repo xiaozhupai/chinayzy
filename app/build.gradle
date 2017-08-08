@@ -15,7 +15,7 @@ android {
         applicationId "com.chinayiz.chinayzy"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode  15
+        versionCode 16
         versionName "2.6.0"
         multiDexEnabled true
         ndk {
@@ -73,9 +73,7 @@ dependencies {
     compile files('libs/okgo-2.1.4.jar')
     compile files('libs/okhttp-3.8.0.jar')
     //上下拉刷新SmartRefresh
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-8'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-8'//If you use the special Header
+    //If you use the special Header
     // 多dex配置
 
     //注释掉原有bugly的仓库
@@ -83,11 +81,14 @@ dependencies {
     //    compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
 
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    compile files('libs/LinkedME-Android-Deep-Linking-SDK-V1.0.10.jar')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-8'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-8'
     compile 'com.jude:utils:1.2.1'
     compile 'com.orhanobut:logger:1.15'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.bigkoo:convenientbanner:2.0.5'
-    compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
     compile 'com.android.support:support-v4:25.2.0'
     compile 'com.android.support:design:25.2.0'
@@ -104,8 +105,6 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.sunfusheng:marqueeview:1.2.0'
     compile 'com.github.iwgang:countdownview:2.1.6'
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-6'
-    compile files('libs/LinkedME-Android-Deep-Linking-SDK-V1.0.10.jar')
 }
 // 依赖插件脚本
 apply from: 'tinker-support.gradle'

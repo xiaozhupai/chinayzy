@@ -538,14 +538,15 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="23dp"
-                                        android:src="@mipmap/icon_mine_server" />
+                                        android:src="@mipmap/icon_mine_redpacket"
+                                        />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="25dp"
                                         android:layout_marginTop="13dp"
-                                        android:text="消息中心"
+                                        android:text="红包专场"
                                         android:textColor="#505050"
                                         android:textSize="11sp" />
                                 </LinearLayout>
@@ -562,6 +563,7 @@
                                     android:orientation="vertical">
 
                                     <ImageView
+                                        android:id="@+id/imageView3"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="23dp"

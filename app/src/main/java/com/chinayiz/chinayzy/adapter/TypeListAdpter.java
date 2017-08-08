@@ -80,7 +80,7 @@ public class TypeListAdpter extends BaseAdapter {
                     buttonView.setBackgroundResource(R.mipmap.btn_classify_pre);
                     buttonView.setTextColor(Color.rgb(255,57,81));
                 }else {
-                    if (pos!=position){
+                        if (pos!=position){
                         buttonView.setBackgroundResource(R.mipmap.btn_classify);
                         buttonView.setTextColor(Color.rgb(40,43,41));
                     }

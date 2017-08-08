@@ -18,6 +18,7 @@ import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.User.UserNet;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.ui.fragment.ListFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.MessageDialog;
@@ -60,7 +61,7 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
     @Override
     public void onItemClick(int position) {
         GoodsCollectModel.DataBean bean = (GoodsCollectModel.DataBean) lists.get(position);
-        Skip.toNewGoodsDetail(context, bean.getGoodsid() + "");
+        Skip.toNewGoodsDetail(context, bean.getGoodsid() + "", GoodsMainFragment.COMMON);
     }
 
     @Override
@@ -102,7 +103,7 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
         UserNet.getNet().getshowGoodsCollect(pageindex + "", "10");
     }
 
-    @Override
+  /*  @Override
     public int getViewTypeCount() {
         return 2;
     }
@@ -110,7 +111,7 @@ public class GoodsKeepAdaphter extends BaseInectAdaphter implements EventBusCall
     @Override
     public int getItemViewType(int position) {
         return position % 2;
-    }
+    }*/
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)

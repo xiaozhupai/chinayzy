@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.utils.AppUtil;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.util.LinkProperties;
@@ -72,7 +73,7 @@ public class StartActivity extends Activity {
         switch (first) {
             case "1": {
                 if (canToGoods) {
-                    Skip.toNewGoodsDetail(StartActivity.this,goodsId);
+                    Skip.toNewGoodsDetail(StartActivity.this,goodsId, GoodsMainFragment.COMMON);
                 }else {
                     Intent intent = new Intent(this, NewMainActivity.class);
                     startActivity(intent);

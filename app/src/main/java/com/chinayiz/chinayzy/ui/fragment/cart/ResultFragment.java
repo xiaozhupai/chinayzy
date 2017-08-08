@@ -36,6 +36,12 @@ import java.util.List;
  */
 @SuppressLint("ValidFragment")
 public class ResultFragment extends BaseFragment<ResultPresenter> implements View.OnClickListener{
+
+    //红包商品订单结算
+    public static final int REDPACKET = 0;
+    //普通订单结算
+    public static final int COMMON = 1;
+    public int resultType=COMMON;
     public ListView lv_result;
     public TextView tv_result_price,tv_no_address;
     public TextView tv_result_submit;
@@ -60,11 +66,21 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
     public TextView tv_coupon_num;
 
 
+    public ResultFragment() {
+    }
+
+    public ResultFragment(int type) {
+        this.resultType = type;
+    }
+
+    public static ResultFragment getInstance(int type) {
+        return new ResultFragment(type);
+    }
+
     @Override
     public void onInintData(Bundle bundle) {
         this.params=bundle.getString("params");
-
-
+        this.resultType=bundle.getInt("type",COMMON);
     }
 
     @Override
@@ -85,6 +101,7 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
 
     }
 
+
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_result, null);
@@ -93,6 +110,8 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         tv_result_submit = (TextView) view.findViewById(R.id.tv_result_submit);
         tv_result_submit.setOnClickListener(this);
         result_list = (RelativeLayout) view.findViewById(R.id.result_list);
+
+        //收货地址
         View head = View.inflate(getActivity(), R.layout.result_head, null);
         tv_address_name= (TextView) head.findViewById(R.id.tv_address_name);
         tv_address_phone= (TextView) head.findViewById(R.id.tv_address_phone);
@@ -105,6 +124,8 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
                 mActivity.addFragment(new AddressListFragment());
             }
         });
+
+        //支付方式
         View foot = View.inflate(getActivity(), R.layout.result_foot, null);
         tv_pay_way= (TextView) foot.findViewById(R.id.tv_pay_way);
         tv_goods_total = (TextView) foot.findViewById(R.id.tv_goods_total);
@@ -121,6 +142,10 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         rl_coupon= (RelativeLayout) foot.findViewById(R.id.rl_coupon);
         tv_coupon_num= (TextView) foot.findViewById(R.id.tv_coupon_num);
 
+        if (resultType==REDPACKET){
+            rl_coupon.setVisibility(View.GONE);
+            cb_check.setVisibility(View.INVISIBLE);
+        }
         rl_coupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,8 +251,10 @@ public class ResultFragment extends BaseFragment<ResultPresenter> implements Vie
         super.onResume();
         if (mPresenter.status==1){    //支付成功
             mPresenter.success();
-        }else if (mPresenter.status==2){   //支付失败
-            mPresenter.fail();
+        }else if (mPresenter.status==2){
+            //支付失败
+            BaseActivity.showToast(getActivity(), "订单支付失败");
+            mActivity.onBackPressed();
         }
     }
 }

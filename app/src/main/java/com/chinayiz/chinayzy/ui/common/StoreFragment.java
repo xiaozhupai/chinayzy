@@ -204,7 +204,7 @@ public class StoreFragment extends BaseFragment<StorePresenter> implements View.
      * 点击店铺商品
      */
     public void onItemClick(View view, String goodsID) {
-        Skip.toNewGoodsDetail(getActivity(),goodsID);
+        Skip.toNewGoodsDetail(getActivity(),goodsID, GoodsMainFragment.COMMON);
     }
     @Override
     protected void onInvisible() {

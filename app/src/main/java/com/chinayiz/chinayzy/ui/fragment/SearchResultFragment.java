@@ -24,6 +24,8 @@ import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
 import com.chinayiz.chinayzy.presenter.SearchResultPresenter;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
+import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.widget.SearchPopuwindow;
 import com.orhanobut.logger.Logger;
@@ -82,7 +84,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
                 @Override
                 public void onClick(View view) {
                     if (UserSeeion.isLogin(getActivity())) {
-                        Skip.toShopCart(getActivity());
+                        Skip.toShopCart(getActivity(), ShopCartFragment.COMMON);
                     }
                 }
             });
@@ -251,7 +253,7 @@ public class SearchResultFragment extends BaseFragment<SearchResultPresenter> im
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Logger.i("点击每一个商品");
         SearchFarmModel.DataBean bean=mPresenter.data.get(i);
-        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
+        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"", GoodsMainFragment.COMMON);
     }
 
 

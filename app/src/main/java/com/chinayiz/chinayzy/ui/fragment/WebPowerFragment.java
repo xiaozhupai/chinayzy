@@ -50,6 +50,7 @@ import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.net.callback.EventBusCallback;
 import com.chinayiz.chinayzy.presenter.CommonPresenter;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.utils.JavaUntil;
 import com.chinayiz.chinayzy.views.GlideLoader;
 import com.chinayiz.chinayzy.views.PickView.TimePickerView;
@@ -452,7 +453,7 @@ public class WebPowerFragment extends BaseFragment<CommonPresenter> implements E
     @JavascriptInterface
     public void toGoodsDetail(String goodsid) {
         Logger.i("商品详情页H5");
-        Skip.toNewGoodsDetail(getActivity(), goodsid);
+        Skip.toNewGoodsDetail(getActivity(), goodsid, GoodsMainFragment.COMMON);
     }
 
     @JavascriptInterface

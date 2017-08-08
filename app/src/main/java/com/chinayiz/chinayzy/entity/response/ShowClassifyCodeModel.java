@@ -37,7 +37,7 @@ public class ShowClassifyCodeModel extends BaseResponseModel {
 
         private String itemname;
         private String itemcode;
-        private String typepic;
+        private String pic;
 
         public String getItemname() {
             return itemname;
@@ -55,12 +55,12 @@ public class ShowClassifyCodeModel extends BaseResponseModel {
             this.itemcode = itemcode;
         }
 
-        public String getTypepic() {
-            return typepic;
+        public String getPic() {
+            return pic;
         }
 
-        public void setTypepic(String typepic) {
-            this.typepic = typepic;
+        public void setPic(String pic) {
+            this.pic = pic;
         }
 
         @Override
@@ -68,7 +68,7 @@ public class ShowClassifyCodeModel extends BaseResponseModel {
             return "DataBean{" +
                     "itemname='" + itemname + '\'' +
                     ", itemcode='" + itemcode + '\'' +
-                    ", typepic='" + typepic + '\'' +
+                    ", typepic='" + pic + '\'' +
                     '}';
         }
     }

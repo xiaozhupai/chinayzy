@@ -60,22 +60,7 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
 
     private void initView(View view) {
         mLvOrder = (PullableListView) view.findViewById(R.id.lv_order);
-//        mPullrefresh = (PullToRefreshLayout) view.findViewById(R.id.pullrefresh);
         mSmartRefresh = (SmartRefreshLayout) view.findViewById(R.id.pullrefresh);
-
-        /* mPullrefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-               Logger.i("准备刷新");
-                mPullrefresh=pullToRefreshLayout;
-                EventBus.getDefault().post(new EventMessage(BaseMessage.INFORM_EVENT,GET_DATA,orderType));
-            }
-            @Override
-            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.loadmoreFinish(0);
-            }
-        });*/
-
         mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -95,9 +80,6 @@ public class OrderFragment extends BaseFragment<FrgOrderPresenter> {
         mNullOrder=view.findViewById(R.id.view_nullOrder);
     }
     public void setOrderListModel(OrderListModel orderListModel) {
-        /*if (mPullrefresh!=null) {
-            mPullrefresh.refreshFinish(PullToRefreshLayout.SUCCEED);
-        }*/
         if (mSmartRefresh!=null) {
             mSmartRefresh.finishRefresh();
         }

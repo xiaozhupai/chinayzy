@@ -8,7 +8,7 @@ import com.chinayiz.chinayzy.APP;
  */
 
 public class Commons {
-    public static final boolean isDebug =APP.APP_DBG;
+    public static final boolean isDebug =/*APP.APP_DBG*/true;
     /**
      * 主机地址
      */
@@ -176,6 +176,7 @@ public class Commons {
      * 购物车
      */
     public static final String SHOPCART = "/farm/showShoppingCar";
+
     /**
      * 删除购物车商品
      */
@@ -242,7 +243,7 @@ public class Commons {
     /**
      * 结算购物车选中的订单，预览订单
      */
-    public static final String PREVIEWORDER = "/centre/previewOrder1";
+    public static final String PREVIEWORDER = "/centre/previewOrder2";
     /**
      * 活动预览订单
      */
@@ -550,15 +551,15 @@ public class Commons {
     /**
      * 红包专场分类查询自营产品
      */
-    public static final String SHOWCLASSIFYCODEDETAIL = "/redPacket/showClassifyCode";
+    public static final String SHOWCLASSIFYCODEDETAIL = "/redPacket/showClassifyCodeDetail";
     /**
      * 红包专场商品加入购物车
      */
     public static final String ADDREDPACKETCAR = "/redPacket/addRedPacketCar";
     /**
-     * 红包专场商品加入购物车
+     * 红包购物车列表
      */
-    public static final String SHOWREDPACKETCAR = "/edPacket/showRedPacketCar";
+    public static final String REDPACKETCAR = "/redPacket/showRedPacketCar";
     /**
      * 删除红包专场购物车商品
      */
@@ -567,5 +568,30 @@ public class Commons {
      * 编辑红包专场购物车点击列表完成
      */
     public static final String UPDATEREDPACKETCAR = "/redPacket/updateRedPacketCar";
+    /**
+     * 红包专场消费记录
+     */
+    public static final String EXPENSECALENDAR = "/redPacket/expenseCalendar";
+    /**
+     * 红包专场消费记录
+     */
+    public static final String SETTLEACCOUNTS = "/redPacket/settleAccounts";
+    /**
+     *红包专场支付宝支付
+     */
+    public static final String ALIPAYVIPORDER = "/pay/aliPayVipOrder";
+    /**
+     * 红包专场微信支付
+     */
+    public static final String WXPAYVIPORDER = "/pay/wxPayVipOrder";
+
+    /**
+     * 红包专场分类pic
+     */
+    public static final String PIC = "pic";
+    /**
+     * 红包专场分类itemcode
+     */
+    public static final String ITEMCODE = "itemcode";
 
 }

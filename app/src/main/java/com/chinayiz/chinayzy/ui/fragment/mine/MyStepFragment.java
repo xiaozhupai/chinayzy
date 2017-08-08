@@ -20,6 +20,7 @@ import com.chinayiz.chinayzy.base.BaseActivity;
 import com.chinayiz.chinayzy.base.BaseFragment;
 import com.chinayiz.chinayzy.entity.response.MyStepModel;
 import com.chinayiz.chinayzy.presenter.MyStepPresenter;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.views.pullable.PullToRefreshLayout;
 import com.chinayiz.chinayzy.views.pullable.PullableListView;
 import com.orhanobut.logger.Logger;
@@ -108,7 +109,7 @@ public class MyStepFragment extends BaseFragment<MyStepPresenter> implements Ada
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
            MyStepModel.DataBean.FootmarklistBean bean= (MyStepModel.DataBean.FootmarklistBean) adapterView.getItemAtPosition(i);
-        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"");
+        Skip.toNewGoodsDetail(getActivity(),bean.getGoodsid()+"", GoodsMainFragment.COMMON);
         Logger.i("点击每一个商品");
     }
 

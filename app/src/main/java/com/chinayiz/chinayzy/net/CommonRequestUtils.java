@@ -20,6 +20,7 @@ import com.chinayiz.chinayzy.entity.response.CouponModel;
 import com.chinayiz.chinayzy.entity.response.DealListModel;
 import com.chinayiz.chinayzy.entity.response.DefaultAddressModel;
 import com.chinayiz.chinayzy.entity.response.DelRedPacketCarModel;
+import com.chinayiz.chinayzy.entity.response.ExpenseCalendarModel;
 import com.chinayiz.chinayzy.entity.response.GoodStandardModel;
 import com.chinayiz.chinayzy.entity.response.GoodsGroupModel;
 import com.chinayiz.chinayzy.entity.response.GoodsShareInfoModel;
@@ -38,7 +39,9 @@ import com.chinayiz.chinayzy.entity.response.PayModel;
 import com.chinayiz.chinayzy.entity.response.RecommendCodeModel;
 import com.chinayiz.chinayzy.entity.response.RelatedGoodsModel;
 import com.chinayiz.chinayzy.entity.response.ResultModel;
+import com.chinayiz.chinayzy.entity.response.ResultRedModel;
 import com.chinayiz.chinayzy.entity.response.SearchFarmModel;
+import com.chinayiz.chinayzy.entity.response.SettleAccountsModel;
 import com.chinayiz.chinayzy.entity.response.ShareCrowdModel;
 import com.chinayiz.chinayzy.entity.response.ShopCartModel;
 import com.chinayiz.chinayzy.entity.response.ShoppingCarCountModel;
@@ -418,8 +421,6 @@ public class CommonRequestUtils {
                         }
                     }
                 });
-
-
     }
 
     /**
@@ -472,6 +473,35 @@ public class CommonRequestUtils {
     }
 
     /**
+     * 红包专场加入购物车
+     *
+     * @param userid          用户id
+     * @param shopid          店铺id
+     * @param goodsstandardid 规格id
+     * @param count           数量
+     */
+    public void addRedPacketCar(String userid, String shopid, String goodsstandardid, String count) {
+        OkGo.post(Commons.API + Commons.ADDREDPACKETCAR)
+                .params("userid", userid)
+                .params("shopid", shopid)
+                .params("goodsstandardid", goodsstandardid)
+                .params("count", count)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ADDREDPACKETCAR
+                                    , mGson.fromJson(s, BaseResponseModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
      * 删除购物车商品
      *
      * @param carids 购物车唯一标识符，用逗号隔开
@@ -495,6 +525,7 @@ public class CommonRequestUtils {
 
     }
 
+
     /**
      * 编辑购物车完成
      *
@@ -516,8 +547,6 @@ public class CommonRequestUtils {
                         }
                     }
                 });
-
-
     }
 
 
@@ -1597,16 +1626,16 @@ public class CommonRequestUtils {
     /**
      * 红包专场购物车列表
      */
-    public void showRedPacketCar() {
-        OkGo.post(Commons.API + Commons.SHOWREDPACKETCAR)
+    public void showRedPacketCar(String userid) {
+        OkGo.post(Commons.API + Commons.REDPACKETCAR)
+                .params("userid", userid)
                 .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Logger.i(s);
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
-                                    , Commons.SHOWREDPACKETCAR
-                                    , mGson.fromJson(s, ShowRedPacketCarmodel.class)));
+                                    , Commons.REDPACKETCAR
+                                    , mGson.fromJson(s, ShopCartModel.class)));
                         } catch (Exception e) {
                             onError(null, response, e);
                         }
@@ -1627,13 +1656,14 @@ public class CommonRequestUtils {
                         try {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.DELREDPACKETCAR
-                                    , mGson.fromJson(s, DelRedPacketCarModel.class)));
+                                    , mGson.fromJson(s, BaseResponseModel.class)));
                         } catch (Exception e) {
                             onError(null, response, e);
                         }
                     }
                 });
     }
+
     /**
      * 编辑红包专场购物车点击列表完成
      */
@@ -1648,6 +1678,104 @@ public class CommonRequestUtils {
                             EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
                                     , Commons.UPDATEREDPACKETCAR
                                     , mGson.fromJson(s, UpdateRedPacketCarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场消费记录
+     */
+    public void expenseCalendar(String userid) {
+        OkGo.post(Commons.API + Commons.EXPENSECALENDAR)
+                .params("userid", userid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.EXPENSECALENDAR
+                                    , mGson.fromJson(s, ExpenseCalendarModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场订单结算
+     */
+    public void settleAccounts(String carids, String userid) {
+        OkGo.post(Commons.API + Commons.SETTLEACCOUNTS)
+                .params("carids", carids)
+                .params("userid", userid)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.SETTLEACCOUNTS
+                                    , mGson.fromJson(s, ResultModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场支付宝支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getRedAliPayOrder(String type, String total, String orderbill) {
+        OkGo.post(Commons.PAY + Commons.ALIPAYVIPORDER)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.ALIPAYVIPORDER
+                                    , mGson.fromJson(s, AlipayModel.class)));
+                        } catch (Exception e) {
+                            onError(null, response, e);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 红包专场微信支付
+     *
+     * @param type      类型 1充值2购物
+     * @param total     支付总价	如果是购物的话，支付总价=商品总价+运费-抵扣积分
+     * @param orderbill 订单内容json		json格式，购物的时候传入
+     */
+    public void getRedWxPayOrder(String type, String total, String orderbill) {
+
+        OkGo.post(Commons.PAY + Commons.WXPAYVIPORDER)
+                .params("type", type)
+                .params("total", total)
+                .params("orderbill", orderbill)
+                .execute(new com.chinayiz.chinayzy.utils.StrCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Logger.i(s);
+                        try {
+                            EventBus.getDefault().post(new EventMessage(EventMessage.NET_EVENT
+                                    , Commons.WXPAYVIPORDER
+                                    , mGson.fromJson(s, WxpayModel.class)));
                         } catch (Exception e) {
                             onError(null, response, e);
                         }

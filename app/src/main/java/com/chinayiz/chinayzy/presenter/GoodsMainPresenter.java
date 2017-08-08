@@ -60,10 +60,12 @@ public class GoodsMainPresenter extends BasePresenter<GoodsMainFragment> {
                 mView.onCheckedChanged(null, R.id.rb_tabComments);
                 break;
             }
-            case Commons.SHOPPINGCARTCOUNT:
+            case Commons.SHOPPINGCARTCOUNT: //购物车小红点数量
                 ShoppingCarCountModel model5= (ShoppingCarCountModel) message.getData();
-                count= model5.getData();
-                mView.getCount(count);
+                if (mView.goodsType==mView.COMMON){
+                    count= model5.getData();
+                    mView.getCount(count);
+                }
                 break;
         }
     }
@@ -73,7 +75,7 @@ public class GoodsMainPresenter extends BasePresenter<GoodsMainFragment> {
         switch (message.getDataType()) {
             case GoodsDetailGridAdpter.CLICK_GOODS: {
                 String goodsID = message.getData().toString();
-                Skip.toNewGoodsDetail(mView.getActivity(), goodsID);
+                Skip.toNewGoodsDetail(mView.getActivity(), goodsID, GoodsMainFragment.COMMON);
                 break;
             }
         }

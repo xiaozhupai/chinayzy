@@ -29,32 +29,32 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-/** 发现列表
+/**
+ * 发现列表
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
 public class FindListFragment extends BaseFragment<FindListPresenter> implements AdapterView.OnItemClickListener {
     public PullableGridView gd_find_list;
-//    public PullToRefreshLayout pullToRefreshLayout;
     public SmartRefreshLayout smartRefreshLayout;
-    public static final String DATA_TYPE="DATA_TYPE";
-    public static final String TO_FINDDETAIL="TO_FINDDETAIL";
+    public static final String DATA_TYPE = "DATA_TYPE";
+    public static final String TO_FINDDETAIL = "TO_FINDDETAIL";
     public String type;
     public PullableGridView lv_list;
     public BaseInectAdaphter adaphter;
-    public FindListFragment(String type, BaseInectAdaphter adaphter){
-        this.type=type;
-        this.adaphter=adaphter;
+
+    public FindListFragment(String type, BaseInectAdaphter adaphter) {
+        this.type = type;
+        this.adaphter = adaphter;
     }
 
 
     @Override
     protected void onVisible() {
-        if (isInit){
-
-          getData();
+        if (isInit) {
+            getData();
         }
-        isInit=false;
+        isInit = false;
     }
 
     @Override
@@ -71,47 +71,30 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=initView(inflater,container,savedInstanceState);
+        View view = initView(inflater, container, savedInstanceState);
 
-        ViewGroup parent= (ViewGroup) view.getParent();
-        if (parent!=null){
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null) {
             parent.removeView(view);
             Logger.i("FindListFragment onCreateView");
         }
         return view;
     }
 
-    public void getData(){
-       adaphter.onGetData(1);
+    public void getData() {
+        adaphter.onGetData(1);
     }
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_find_list,container,false);
-        lv_list= (PullableGridView) view.findViewById(R.id.lv_list);
-
-//        pullToRefreshLayout= (PullToRefreshLayout) view.findViewById(R.id.refresh_view);
-
-        smartRefreshLayout= (SmartRefreshLayout) view.findViewById(R.id.refresh_view);
-        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
-//        smartRefreshLayout.setEnableLoadmore(false);
+        View view = inflater.inflate(R.layout.fragment_find_list, container, false);
+        lv_list = (PullableGridView) view.findViewById(R.id.lv_list);
+        smartRefreshLayout = (SmartRefreshLayout) view.findViewById(R.id.refresh_view);
+//        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+//        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         adaphter.setRefreshLayout(smartRefreshLayout);
-
         lv_list.setAdapter(adaphter);
         lv_list.setOnItemClickListener(this);
-        /*pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                getData();
-                adaphter.onRefresh();
-            }
-
-            @Override
-            public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
-                adaphter.LoadMore();
-            }
-        });*/
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -141,8 +124,8 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      List <FindListModel.DataBean> lists=adaphter.getData();
-      FindListModel.DataBean dataBean=lists.get(position);
-        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT,TO_FINDDETAIL,dataBean));
+        List<FindListModel.DataBean> lists = adaphter.getData();
+        FindListModel.DataBean dataBean = lists.get(position);
+        EventBus.getDefault().post(new EventMessage(EventMessage.INFORM_EVENT, TO_FINDDETAIL, dataBean));
     }
 }

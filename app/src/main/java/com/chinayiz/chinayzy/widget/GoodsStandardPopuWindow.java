@@ -47,7 +47,7 @@ public class GoodsStandardPopuWindow extends DialogUtils.XDialog  implements Vie
         this.lists=lists;
         tagList.clear();
         for (GoodStandardModel.DataBean data:lists){
-            Tag tag=new Tag();
+                Tag tag=new Tag();
             tag.setData(data);
             tag.setTitle(data.getStandardname()+data.getStandardvalue());
             if (bean.getGoodsstandardid()==data.getGoodsstandardid()){

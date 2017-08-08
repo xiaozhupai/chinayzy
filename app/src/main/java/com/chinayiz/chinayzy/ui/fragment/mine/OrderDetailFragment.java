@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.chinayiz.chinayzy.entity.response.OrderDetailModel;
 import com.chinayiz.chinayzy.entity.response.OrderListModel;
 import com.chinayiz.chinayzy.net.Commons;
 import com.chinayiz.chinayzy.presenter.OrderDetailPresenter;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.chinayiz.chinayzy.views.GlideRoundTransform;
 
 import org.greenrobot.eventbus.EventBus;
@@ -85,6 +87,8 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
         mViewHolder.tv_orderMyone = (TextView) fooderView.findViewById(R.id.tv_orderMyone);
         mViewHolder.tv_orderSpay = (TextView) fooderView.findViewById(R.id.tv_orderSpay);
         mViewHolder.tv_createDate = (TextView) fooderView.findViewById(R.id.tv_createDate);
+        mViewHolder.tv_point = (TextView) fooderView.findViewById(R.id.tv_point);
+
 
         mViewHolder.btn_copyId.setOnClickListener(this);
         mViewHolder.btn_order1.setOnClickListener(this);
@@ -142,7 +146,16 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
         mAdapter.setOrderClicListener(this);
 
         mViewHolder.tv_yunfei.setText("￥\t " + model.getData().getCarriage());
-        mViewHolder.tv_sumGolds.setText("\t"+model.getData().getPoint());
+        //根据返回类型判断是普通订单还是红包订单
+        if (model.getData().getType().equals("1")){
+            // 1 普通订单
+            mViewHolder.tv_sumGolds.setText("\t"+model.getData().getPoint());
+        }else if (model.getData().getType().equals("2")){
+            // 2 红包订单
+            mViewHolder.tv_point.setText("红包余额抵扣：");
+            mViewHolder.tv_sumGolds.setText("\t"+model.getData().getVippoint());
+        }
+
         mViewHolder.tv_orderNum.setText("共" + mGoodsList.size() + "件商品   总计：");
         mViewHolder.tv_orderMyone.setText("\t" + model.getData().getTotalmoney());
         if (model.getData().getCouponprice()==null||model.getData().getCouponprice().equals("0")){
@@ -277,7 +290,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
 
     @Override
     public void onClicOrder(String goodsId) {
-      Skip.toNewGoodsDetail(getActivity(),goodsId);
+      Skip.toNewGoodsDetail(getActivity(),goodsId, GoodsMainFragment.COMMON);
     }
 
     public class ViewHolder {
@@ -301,6 +314,7 @@ public class OrderDetailFragment extends BaseFragment<OrderDetailPresenter>
         public TextView tv_createDate;
         public Button btn_order1;
         public Button btn_order2;
+        public TextView tv_point;
 
     }
 

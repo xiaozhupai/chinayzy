@@ -38,6 +38,8 @@ import com.chinayiz.chinayzy.ui.fragment.mine.MyStepFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.OrderDetailFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.OrderFrameworkFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.PersonFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.RedpacketFragment;
+import com.chinayiz.chinayzy.ui.fragment.mine.RedpacketRecordFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SettingFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.SuggestFragment;
 import com.chinayiz.chinayzy.ui.fragment.mine.TrueNameFragment;
@@ -111,9 +113,12 @@ public class Skip {
      *
      * @param context
      */
-    public static void toShopCart(Context context) {
+    public static void toShopCart(Context context,int type) {
         Intent intent = new Intent(context, CommonActivity.class);
         intent.putExtra(CLASS, ShopCartFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("cartType", type);
+        intent.putExtras(bundle);
         skip(context, intent);
     }
 
@@ -123,11 +128,12 @@ public class Skip {
      * @param context
      * @param params
      */
-    public static void toResult(Context context, String params) {
+    public static void toResult(Context context, String params,int type) {
         Intent intent = new Intent(context, CommonActivity.class);
         intent.putExtra(CLASS, ResultFragment.class);
         Bundle bundle = new Bundle();
         bundle.putString("params", params);
+        bundle.putInt("type",type);
         intent.putExtras(bundle);
         skip(context, intent);
     }
@@ -190,11 +196,12 @@ public class Skip {
      * @param context
      * @param goodId  订单编号
      */
-    public static void toNewGoodsDetail(Context context, String goodId) {
+    public static void toNewGoodsDetail(Context context, String goodId,int goodType) {
         Intent intent = new Intent(context, CommonActivity.class);
         intent.putExtra(CLASS, GoodsMainFragment.class);
         Bundle bundle = new Bundle();
         bundle.putString("goodsID", goodId);
+        bundle.putInt("goodType",goodType);
         intent.putExtras(bundle);
         skip(context, intent);
     }
@@ -344,6 +351,24 @@ public class Skip {
         intent.putExtras(bundle);
         skip(context, intent);
     }
+
+    /**
+     * 红包消费记录
+     */
+    public static void toRedpacketRecord(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, RedpacketRecordFragment.class);
+        skip(context, intent);
+    }
+    /**
+     * 红包专场
+     */
+    public static void toRedpacket(Context context) {
+        Intent intent = new Intent(context, CommonActivity.class);
+        intent.putExtra(CLASS, RedpacketFragment.class);
+        skip(context, intent);
+    }
+
     /**
      * 生态农业三级菜单商品
      */

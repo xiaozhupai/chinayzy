@@ -78,7 +78,6 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
                     delete();
                 }
                 break;
-
         }
     }
 
@@ -90,6 +89,42 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
         }
     }
 
+    @Override
+    public void onResult(List<MyStepModel.DataBean> lists) {
+        if (page > 1) {  //上拉加载
+            AddData(lists);
+        } else {  //下拉刷新
+            setData(lists);
+        }
+        int count = 0;
+        //  所有分类中item的总和是ListVIew  Item的总个数
+        for (MyStepModel.DataBean groups : lists) {
+            count += groups.getFootmarklist().size();
+        }
+
+        if (count < 10) {
+
+            mSmartRefresh.setEnableLoadmore(false);
+        } else {
+
+            mSmartRefresh.setEnableLoadmore(true);
+        }
+
+        mSmartRefresh.finishRefresh();
+        mSmartRefresh.finishLoadmore();
+
+
+        MyStepFragment listFragment = null;
+        if (fragment instanceof MyStepFragment) {
+            listFragment = (MyStepFragment) fragment;
+        }
+        if (lists.size() == 0) {
+            listFragment.ll_none.setVisibility(View.VISIBLE);
+            onNone(listFragment);
+        } else {
+            listFragment.ll_none.setVisibility(View.GONE);
+        }
+    }
     @Override
     public int getCount() {
         int count = 0;
@@ -272,43 +307,6 @@ public class MyStepAdaphter extends BaseInectAdaphter<MyStepModel.DataBean> impl
     public void onNone(MyStepFragment fragment) {
         fragment.iv_none.setImageResource(R.mipmap.img_none_award);
         fragment.tv_none.setText("您还没有以查看的商品");
-    }
-
-    @Override
-    public void onResult(List<MyStepModel.DataBean> lists) {
-        if (page > 1) {  //上拉加载
-            AddData(lists);
-        } else {  //下拉刷新
-            setData(lists);
-        }
-        int count = 0;
-        //  所有分类中item的总和是ListVIew  Item的总个数
-        for (MyStepModel.DataBean groups : lists) {
-            count += groups.getFootmarklist().size();
-        }
-
-        if (count < 10) {
-
-            mSmartRefresh.setEnableLoadmore(false);
-        } else {
-
-            mSmartRefresh.setEnableLoadmore(true);
-        }
-
-        mSmartRefresh.finishRefresh();
-        mSmartRefresh.finishLoadmore();
-
-
-        MyStepFragment listFragment = null;
-        if (fragment instanceof MyStepFragment) {
-            listFragment = (MyStepFragment) fragment;
-        }
-        if (lists.size() == 0) {
-            listFragment.ll_none.setVisibility(View.VISIBLE);
-            onNone(listFragment);
-        } else {
-            listFragment.ll_none.setVisibility(View.GONE);
-        }
     }
 
     public static class ViewHeadHolder {

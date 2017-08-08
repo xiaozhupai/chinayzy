@@ -29,6 +29,7 @@ import com.chinayiz.chinayzy.entity.response.HomeThemesModel;
 import com.chinayiz.chinayzy.entity.response.NY_BannerModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.net.Commons;
+import com.chinayiz.chinayzy.ui.common.GoodsMainFragment;
 import com.orhanobut.logger.Logger;
 import com.sunfusheng.marqueeview.MarqueeView;
 
@@ -419,7 +420,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                 return;
             }
             if ("5".equals(mModel.getData().get(position).getType())) {
-                Skip.toNewGoodsDetail(mFragment.getActivity(), mModel.getData().get(position).getDetaillink());
+                Skip.toNewGoodsDetail(mFragment.getActivity(), mModel.getData().get(position).getDetaillink(), GoodsMainFragment.COMMON);
             }
         }
     }
@@ -588,7 +589,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
                     }
                 }
             } else {
-                Skip.toNewGoodsDetail(mFragment.getActivity(), goodsId);
+                Skip.toNewGoodsDetail(mFragment.getActivity(), goodsId, GoodsMainFragment.COMMON);
             }
         }
     }
@@ -798,7 +799,7 @@ public class MainHomeRecylAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClick(View v) {
-            Skip.toNewGoodsDetail(mContext, v.getTag(R.id.tag_click).toString());
+            Skip.toNewGoodsDetail(mContext, v.getTag(R.id.tag_click).toString(), GoodsMainFragment.COMMON);
         }
     }
 

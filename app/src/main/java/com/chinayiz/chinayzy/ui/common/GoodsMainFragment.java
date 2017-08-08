@@ -28,6 +28,7 @@ import com.chinayiz.chinayzy.database.UserSeeion;
 import com.chinayiz.chinayzy.entity.response.GoodsDetailModel;
 import com.chinayiz.chinayzy.net.CommonRequestUtils;
 import com.chinayiz.chinayzy.presenter.GoodsMainPresenter;
+import com.chinayiz.chinayzy.ui.fragment.cart.ShopCartFragment;
 import com.chinayiz.chinayzy.views.BadgeView;
 import com.chinayiz.chinayzy.views.goodsDetail.ScrollViewContainer;
 import com.chinayiz.chinayzy.widget.GoodsStandard2;
@@ -35,7 +36,6 @@ import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 /**
@@ -47,6 +47,12 @@ import java.util.List;
 public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implements View.OnClickListener
         , CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener
         , ViewPager.OnPageChangeListener, ScrollViewContainer.PageChangeListener {
+
+    //红包商品详情
+    public static final int REDPACKET = 0;
+    //普通商品详情
+    public static final int COMMON = 1;
+    public int goodsType = COMMON;
     public ViewHolder mViewHolder;
     public NyMainPagerAdapter mPagerAdapter;
     private GoodsStandard2 mGoodsStandard2;
@@ -72,6 +78,17 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         CommonRequestUtils.getRequestUtils().getShoppingCarCount();
         initViews(mView);
         return mView;
+    }
+
+    public GoodsMainFragment() {
+    }
+
+    public GoodsMainFragment(int type) {
+        this.goodsType = type;
+    }
+
+    public static GoodsMainFragment getInstance(int type) {
+        return new GoodsMainFragment(type);
     }
 
     private void initViews(View view) {
@@ -110,7 +127,6 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
         mViewHolder.tv_addCart.setOnClickListener(this);
         mPresenter.mRequestUtils = CommonRequestUtils.getRequestUtils();
 
-
         v_view = view.findViewById(R.id.v_view);
         remind(v_view);
     }
@@ -141,7 +157,13 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
             case R.id.tv_cart://购物车
                 Logger.i("购物车");
                 if (UserSeeion.isLogin(getActivity())) {
-                    Skip.toShopCart(getActivity());
+                    if (goodsType == COMMON) {
+                        //普通购物车
+                        Skip.toShopCart(getActivity(), ShopCartFragment.COMMON);
+                    } else if (goodsType == REDPACKET) {
+                        //红包购物车
+                        Skip.toShopCart(getActivity(), ShopCartFragment.REDPACKET);
+                    }
                 } else {
                     BaseActivity.showToast(getActivity(), "您还未登录");
                 }
@@ -150,7 +172,11 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
                 Logger.i("点击添加购物车");
                 if (goodsStandard2 == null) {
                     if (mPresenter.model == null) return;
-                    goodsStandard2 = new GoodsStandard2(getActivity(), mPresenter.model.getData().getGoodsstandardid(), mPresenter.model.getData().getShopid(), mPresenter.model.getData().getGoodsid());
+                    if (goodsType == COMMON){
+                        goodsStandard2 = new GoodsStandard2(getActivity(), mPresenter.model.getData().getGoodsstandardid(), mPresenter.model.getData().getShopid(), mPresenter.model.getData().getGoodsid(),COMMON);
+                    }else if (goodsType == REDPACKET){
+                        goodsStandard2 = new GoodsStandard2(getActivity(), mPresenter.model.getData().getGoodsstandardid(), mPresenter.model.getData().getShopid(), mPresenter.model.getData().getGoodsid(),REDPACKET);
+                    }
                 }
                 goodsStandard2.show();
                 break;
@@ -264,6 +290,7 @@ public class GoodsMainFragment extends BaseFragment<GoodsMainPresenter> implemen
     @Override
     public void onInintData(Bundle bundle) {
         goodsID = bundle.getString("goodsID", "-1");
+        goodsType = bundle.getInt("goodType", COMMON);
     }
 
     @Override
